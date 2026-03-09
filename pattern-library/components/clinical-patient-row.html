@@ -1,0 +1,58 @@
+<!--
+  @component-meta
+  name: Patient Row
+  category: Healthcare-Specific
+  file: clinical-patient-row.html
+  classes: patient-row, table-row-muted, cell-primary
+  when-to-use: Table-view representation of patient records in roster lists and search results.
+  preline-required: no
+  notes: Use table-row-muted for inactive or discharged patients. First column uses cell-primary for emphasis.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Patient Row</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Table-view representation of patient records in roster lists and search results.
+  </p>
+
+  <!-- @component: clinical-patient-row -->
+  <div class="data-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>MRN</th>
+          <th>Program</th>
+          <th>Risk</th>
+          <th>Last Visit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="patient-row">
+          <td class="cell-primary">Maria Santos</td>
+          <td>PT-2024-0847</td>
+          <td><span class="badge badge-primary badge-sm">Diabetes Mgmt</span></td>
+          <td><span class="badge badge-error badge-sm">High</span></td>
+          <td>Feb 14, 2026</td>
+        </tr>
+        <tr class="patient-row">
+          <td class="cell-primary">James Whitfield</td>
+          <td>PT-2024-1203</td>
+          <td><span class="badge badge-primary badge-sm">CHF Program</span></td>
+          <td><span class="badge badge-warning badge-sm">Medium</span></td>
+          <td>Feb 10, 2026</td>
+        </tr>
+        <tr class="patient-row table-row-muted">
+          <td class="cell-primary">Dorothy Chen</td>
+          <td>PT-2023-0412</td>
+          <td><span class="badge badge-neutral badge-sm">Discharged</span></td>
+          <td><span class="badge badge-neutral badge-sm">N/A</span></td>
+          <td>Dec 3, 2025</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: AI Insight Badge
+  category: Primitives — Badges & Status
+  file: badge-ai-insight.html
+  classes: ai-insight-badge, ai-insight-callout, ai-insight-callout-icon
+  when-to-use: Marks AI-generated content anywhere it appears. The inline badge goes next to data values or headers. The callout block is for longer AI-generated explanations or summaries.
+  do-not-use-when: Content is not AI-generated. Never use violet for non-AI content.
+  preline-required: no
+  notes: Violet color only — do not change the color. Both the inline badge and callout block variant are shown. The bolt icon is the standard AI indicator across the app.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">AI Insight Badge</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Marks AI-generated content. Inline badge and callout block variants.
+  </p>
+
+  <!-- Inline Badge -->
+  <div class="mb-6">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Inline Badge</h4>
+      <!-- @component: ai-insight-badge -->
+      <span class="ai-insight-badge">
+        <i class="fa-solid fa-bolt"></i> AI Insight
+      </span>
+      <!-- /component -->
+  </div>
+
+  <!-- Callout Block -->
+  <div class="mb-6">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Callout Block</h4>
+      <!-- @component: ai-insight-callout -->
+      <div class="ai-insight-callout">
+        <i class="fa-solid fa-bolt ai-insight-callout-icon"></i>
+        <div>
+          <strong>AI Summary:</strong> Patient shows improved HbA1c trends over the past 3 months.
+          Medication adherence has increased from 65% to 89% since the last care plan update.
+        </div>
+      </div>
+      <!-- /component -->
+  </div>
+</section>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+<style>
+        /* Layout */
+        .invoice-layout {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+        }
+        .invoice-list {
+            width: 17rem;
+            flex-shrink: 0;
+            border-right: 1px solid var(--color-gray-200);
+            min-height: calc(100vh - 12rem);
+        }
+        .invoice-panels {
+            flex: 1;
+            min-width: 0;
+            padding: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .invoice-layout { flex-direction: column; }
+            .invoice-list { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid var(--color-gray-200); }
+            .invoice-panels { padding: 1rem; }
+        }
+
+        /* CSS-only radio selection */
+        .invoice-radio {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+        .invoice-panel { display: none; }
+
+        #inv-001567:checked ~ .invoice-panels #panel-001567,
+        #inv-001489:checked ~ .invoice-panels #panel-001489,
+        #inv-001401:checked ~ .invoice-panels #panel-001401 {
+            display: block;
+        }
+
+        #inv-001567:checked ~ .invoice-list label[for="inv-001567"],
+        #inv-001489:checked ~ .invoice-list label[for="inv-001489"],
+        #inv-001401:checked ~ .invoice-list label[for="inv-001401"] {
+            background-color: var(--color-primary-50);
+            border-left: 3px solid var(--color-primary-500);
+        }
+
+        /* List items */
+        .invoice-list-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--color-gray-100);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            transition: background-color 0.1s;
+        }
+        .invoice-list-item:hover { background-color: var(--color-gray-50); }
+        .invoice-list-partner {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--color-gray-900);
+        }
+        .invoice-list-meta {
+            font-size: 0.75rem;
+            color: var(--color-gray-500);
+        }
+        .invoice-list-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.375rem;
+        }
+        .invoice-list-amount {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--color-gray-900);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Panel header */
+        .invoice-meta {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+        .invoice-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-gray-900);
+            margin-bottom: 0.25rem;
+        }
+        .invoice-dates {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .invoice-date-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+        .invoice-date-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-gray-400);
+        }
+        .invoice-date-value {
+            font-size: 0.8125rem;
+            color: var(--color-gray-700);
+            font-variant-numeric: tabular-nums;
+        }
+        .invoice-date-value.overdue {
+            color: var(--color-error-600);
+            font-weight: 600;
+        }
+
+        /* Totals footer */
+        .invoice-totals {
+            border-top: 2px solid var(--color-gray-200);
+        }
+        .invoice-total-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+        .invoice-total-row:last-child { border-bottom: none; }
+        .invoice-total-row.subtotal-row { color: var(--color-gray-600); }
+        .invoice-total-row.grand-total {
+            font-weight: 700;
+            font-size: 1rem;
+            background-color: var(--color-gray-50);
+            border-top: 1px solid var(--color-gray-200);
+            color: var(--color-gray-900);
+        }
+        .invoice-total-label { color: var(--color-gray-600); }
+        .invoice-total-amount { font-variant-numeric: tabular-nums; font-weight: 600; }
+        .invoice-total-row.grand-total .invoice-total-amount {
+            font-size: 1.125rem;
+            color: var(--color-gray-900);
+        }
+    </style>
+
+<body class="bg-gray-50 dark:bg-neutral-900">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <load src="/src/partials/kitchen-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 pb-20">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1>Finance</h1>
+                <p class="text-sm text-gray-500 mt-1">Cena's expected cost ledger. Use this to reconcile against received vendor invoices.</p>
+            </div>
+        </div>
+
+        <!-- Invoice Layout -->
+        <div class="card overflow-hidden">
+            <div class="invoice-layout">
+                <!-- Radio inputs (must be first children for CSS sibling combinator) -->
+                <input type="radio" name="invoice-select" id="inv-001567" class="invoice-radio" checked>
+                <input type="radio" name="invoice-select" id="inv-001489" class="invoice-radio">
+                <input type="radio" name="invoice-select" id="inv-001401" class="invoice-radio">
+
+                <!-- Invoice List -->
+                <div class="invoice-list">
+                    <label class="invoice-list-item" for="inv-001567">
+                        <span class="invoice-list-partner">Fire by Forge</span>
+                        <span class="invoice-list-meta">Feb 10, 2026 &middot; #001567</span>
+                        <div class="invoice-list-footer">
+                            <span class="invoice-list-amount">$269.00</span>
+                            <span class="badge badge-pill badge-error badge-sm">Overdue</span>
+                        </div>
+                    </label>
+                    <label class="invoice-list-item" for="inv-001489">
+                        <span class="invoice-list-partner">Fire by Forge</span>
+                        <span class="invoice-list-meta">Jan 27, 2026 &middot; #001489</span>
+                        <div class="invoice-list-footer">
+                            <span class="invoice-list-amount">$241.50</span>
+                            <span class="badge badge-pill badge-success badge-sm">Paid</span>
+                        </div>
+                    </label>
+                    <label class="invoice-list-item" for="inv-001401">
+                        <span class="invoice-list-partner">Fire by Forge</span>
+                        <span class="invoice-list-meta">Jan 13, 2026 &middot; #001401</span>
+                        <div class="invoice-list-footer">
+                            <span class="invoice-list-amount">$198.75</span>
+                            <span class="badge badge-pill badge-success badge-sm">Paid</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Invoice Detail Panels -->
+                <div class="invoice-panels">
+
+                    <!-- Panel: Invoice #001567 -->
+                    <div id="panel-001567" class="invoice-panel">
+                        <div class="invoice-meta">
+                            <div>
+                                <div class="invoice-title">Fire by Forge — Invoice #001567</div>
+                                <div class="invoice-dates">
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Order Date</span>
+                                        <span class="invoice-date-value">Feb 10, 2026</span>
+                                    </div>
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Invoice Date</span>
+                                        <span class="invoice-date-value">Feb 17, 2026</span>
+                                    </div>
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Payment Due</span>
+                                        <span class="invoice-date-value overdue">Feb 17, 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="badge badge-pill badge-error badge-sm">Overdue</span>
+                        </div>
+
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col" class="text-center">Qty</th>
+                                        <th scope="col" class="text-end">Unit Price</th>
+                                        <th scope="col" class="text-end">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cell-primary">Mushroom Spinach Lasagna</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-end">$6.00</td>
+                                        <td class="cell-numeric">$12.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Pasta with Meatballs</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-end">$7.00</td>
+                                        <td class="cell-numeric">$14.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Pork Pernil with Rice and Beans Rice Bowl</td>
+                                        <td class="text-center">5</td>
+                                        <td class="text-end">$7.00</td>
+                                        <td class="cell-numeric">$35.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">BBQ Pork Rice Bowl</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-end">$7.00</td>
+                                        <td class="cell-numeric">$14.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Butternut Squash Bisque</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-end">$5.00</td>
+                                        <td class="cell-numeric">$5.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Beef Tips — mashed potatoes, seasonal veg</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-end">$8.00</td>
+                                        <td class="cell-numeric">$24.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Pork Tenderloin — farro salad, seasonal veg</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-end">$8.00</td>
+                                        <td class="cell-numeric">$24.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Fruit Bowl</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-end">$5.00</td>
+                                        <td class="cell-numeric">$5.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Apple Pie Spice Overnight Oats</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-end">$3.00</td>
+                                        <td class="cell-numeric">$3.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Berry Almond Crunch Yogurt Parfait</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-end">$4.00</td>
+                                        <td class="cell-numeric">$4.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Roast Beef and Cheddar Sandwich</td>
+                                        <td class="text-center">7</td>
+                                        <td class="text-end">$4.00</td>
+                                        <td class="cell-numeric">$28.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Roasted Butternut Veggie Wrap Sandwich</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-end">$4.00</td>
+                                        <td class="cell-numeric">$4.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Greek Salad with Chicken</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-end">$6.00</td>
+                                        <td class="cell-numeric">$12.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Bruschetta Pasta Salad</td>
+                                        <td class="text-center">2</td>
+                                        <td class="text-end">$5.00</td>
+                                        <td class="cell-numeric">$10.00</td>
+                                    </tr>
+                                    <tr class="section-header">
+                                        <td colspan="4" class="invoice-section-label">Fees</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Delivery Fee</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-end">$75.00</td>
+                                        <td class="cell-numeric">$75.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="invoice-totals">
+                                <div class="invoice-total-row subtotal-row">
+                                    <span class="invoice-total-label">Subtotal</span>
+                                    <span class="invoice-total-amount">$269.00</span>
+                                </div>
+                                <div class="invoice-total-row subtotal-row">
+                                    <span class="invoice-total-label">Tax</span>
+                                    <span class="invoice-total-amount">$0.00</span>
+                                </div>
+                                <div class="invoice-total-row grand-total">
+                                    <span>Amount Due</span>
+                                    <span class="invoice-total-amount">$269.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel: Invoice #001489 -->
+                    <div id="panel-001489" class="invoice-panel">
+                        <div class="invoice-meta">
+                            <div>
+                                <div class="invoice-title">Fire by Forge — Invoice #001489</div>
+                                <div class="invoice-dates">
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Order Date</span>
+                                        <span class="invoice-date-value">Jan 27, 2026</span>
+                                    </div>
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Invoice Date</span>
+                                        <span class="invoice-date-value">Feb 3, 2026</span>
+                                    </div>
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Payment Due</span>
+                                        <span class="invoice-date-value">Feb 3, 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="badge badge-pill badge-success badge-sm">Paid</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-4">Full line items not yet entered.</p>
+                        <div class="mt-6 border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="invoice-total-row grand-total">
+                                <span>Amount Due</span>
+                                <span class="invoice-total-amount">$241.50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel: Invoice #001401 -->
+                    <div id="panel-001401" class="invoice-panel">
+                        <div class="invoice-meta">
+                            <div>
+                                <div class="invoice-title">Fire by Forge — Invoice #001401</div>
+                                <div class="invoice-dates">
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Order Date</span>
+                                        <span class="invoice-date-value">Jan 13, 2026</span>
+                                    </div>
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Invoice Date</span>
+                                        <span class="invoice-date-value">Jan 20, 2026</span>
+                                    </div>
+                                    <div class="invoice-date-item">
+                                        <span class="invoice-date-label">Payment Due</span>
+                                        <span class="invoice-date-value">Jan 20, 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="badge badge-pill badge-success badge-sm">Paid</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-4">Full line items not yet entered.</p>
+                        <div class="mt-6 border border-gray-200 rounded-xl overflow-hidden">
+                            <div class="invoice-total-row grand-total">
+                                <span>Amount Due</span>
+                                <span class="invoice-total-amount">$198.75</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <load src="/src/partials/scripts.html" />
+</body>
+
+</html>

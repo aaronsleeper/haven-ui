@@ -1,0 +1,59 @@
+<!--
+  @component-meta
+  name: Alert Category Card
+  category: Healthcare-Specific
+  file: clinical-alert-category.html
+  classes: alert-category-card, alert-category-label
+  when-to-use: Dashboard summary showing alert counts grouped by clinical category (Clinical, Social, Delivery, Safety).
+  preline-required: no
+  notes: Set --alert-accent via inline style to control the left border color per category.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Alert Category Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Dashboard summary showing alert counts grouped by clinical category.
+  </p>
+
+  <!-- @component: clinical-alert-category -->
+  <div class="grid-2">
+    <!-- Clinical -->
+    <div class="alert-category-card" style="--alert-accent: var(--color-error-500)">
+      <span class="alert-category-label">
+        <i class="fa-solid fa-heart-pulse me-1.5"></i> Clinical
+      </span>
+      <span class="stat-value">3</span>
+      <span class="text-sm text-gray-500 dark:text-neutral-400">3 open alerts</span>
+    </div>
+
+    <!-- Social -->
+    <div class="alert-category-card" style="--alert-accent: var(--color-warning-500)">
+      <span class="alert-category-label">
+        <i class="fa-solid fa-people-group me-1.5"></i> Social
+      </span>
+      <span class="stat-value">1</span>
+      <span class="text-sm text-gray-500 dark:text-neutral-400">1 open alert</span>
+    </div>
+
+    <!-- Delivery -->
+    <div class="alert-category-card" style="--alert-accent: var(--color-info-500)">
+      <span class="alert-category-label">
+        <i class="fa-solid fa-truck me-1.5"></i> Delivery
+      </span>
+      <span class="stat-value">2</span>
+      <span class="text-sm text-gray-500 dark:text-neutral-400">2 open alerts</span>
+    </div>
+
+    <!-- Safety -->
+    <div class="alert-category-card" style="--alert-accent: var(--color-violet-500)">
+      <span class="alert-category-label">
+        <i class="fa-solid fa-shield-halved me-1.5"></i> Safety
+      </span>
+      <span class="stat-value">0</span>
+      <span class="text-sm text-gray-500 dark:text-neutral-400">0 open alerts</span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,32 @@
+<!--
+  @component-meta
+  name: Select
+  category: Primitives — Forms
+  file: form-select.html
+  classes: select-haven
+  when-to-use: Choosing from a finite list of options. Use .select-haven class for the Haven-styled version with custom chevron.
+  preline-required: no
+  notes: Global select styling applies automatically. The .select-haven class adds the custom chevron and overrides native appearance.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Select</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Dropdown select with custom chevron styling.
+  </p>
+
+    <!-- @component: form-select -->
+    <div>
+      <label for="pl-select-program">Program Type</label>
+      <select id="pl-select-program" class="select-haven">
+        <option selected disabled>Select a program</option>
+        <option>Diabetes Management</option>
+        <option>HTN & Cardiac</option>
+        <option>Food Insecurity Support</option>
+        <option>Post-Discharge Nutrition</option>
+      </select>
+    </div>
+    <!-- /component -->
+</section>

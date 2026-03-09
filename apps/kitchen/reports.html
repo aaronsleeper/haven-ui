@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50 dark:bg-neutral-900">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <load src="/src/partials/kitchen-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 pb-20">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1>Reports</h1>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="border-b border-gray-200 dark:border-neutral-700 mb-6">
+            <nav class="tab-nav" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+                <button type="button" class="tab-nav-item active" id="tabs-order-history" aria-selected="true"
+                    data-hs-tab="#tab-content-order-history" aria-controls="tab-content-order-history" role="tab">
+                    Order History
+                </button>
+                <button type="button" class="tab-nav-item" id="tabs-feedback" aria-selected="false"
+                    data-hs-tab="#tab-content-feedback" aria-controls="tab-content-feedback" role="tab">
+                    Patient Feedback
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab Content: Order History -->
+        <div id="tab-content-order-history" role="tabpanel" aria-labelledby="tabs-order-history">
+
+            <p class="text-sm text-gray-500 mb-4">Total orders placed per meal over the last 8 weeks.</p>
+
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Meal</th>
+                            <th scope="col" class="text-center">W1<br><span class="font-normal normal-case">Dec
+                                    18</span></th>
+                            <th scope="col" class="text-center">W2<br><span class="font-normal normal-case">Dec
+                                    25</span></th>
+                            <th scope="col" class="text-center">W3<br><span class="font-normal normal-case">Jan 1</span>
+                            </th>
+                            <th scope="col" class="text-center">W4<br><span class="font-normal normal-case">Jan 8</span>
+                            </th>
+                            <th scope="col" class="text-center">W5<br><span class="font-normal normal-case">Jan
+                                    15</span></th>
+                            <th scope="col" class="text-center">W6<br><span class="font-normal normal-case">Jan
+                                    22</span></th>
+                            <th scope="col" class="text-center">W7<br><span class="font-normal normal-case">Jan
+                                    29</span></th>
+                            <th scope="col" class="text-center">W8<br><span class="font-normal normal-case">Feb 5</span>
+                            </th>
+                            <th scope="col" class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="cell-primary meal-label-hot">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Arroz con Pollo
+                            </td>
+                            <td class="text-center">14</td>
+                            <td class="text-center">12</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">13</td>
+                            <td class="text-center">16</td>
+                            <td class="text-center">14</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">18</td>
+                            <td class="text-end font-semibold text-gray-800">117</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-primary meal-label-hot">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Grilled Chicken Plate
+                            </td>
+                            <td class="text-center">11</td>
+                            <td class="text-center">13</td>
+                            <td class="text-center">12</td>
+                            <td class="text-center">14</td>
+                            <td class="text-center">12</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">13</td>
+                            <td class="text-center">14</td>
+                            <td class="text-end font-semibold text-gray-800">104</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-primary meal-label-hot">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Beef Picadillo
+                            </td>
+                            <td class="text-center">8</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">11</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">12</td>
+                            <td class="text-center">11</td>
+                            <td class="text-end font-semibold text-gray-800">80</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-primary meal-label-cold">
+                                <i class="fa-solid fa-snowflake meal-type-icon"></i>Black Bean Soup
+                            </td>
+                            <td class="text-center">13</td>
+                            <td class="text-center">14</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">13</td>
+                            <td class="text-center">16</td>
+                            <td class="text-center">14</td>
+                            <td class="text-center">15</td>
+                            <td class="text-center">16</td>
+                            <td class="text-end font-semibold text-gray-800">116</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-primary meal-label-cold">
+                                <i class="fa-solid fa-snowflake meal-type-icon"></i>Flan de Coco
+                            </td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">8</td>
+                            <td class="text-center">11</td>
+                            <td class="text-center">9</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">12</td>
+                            <td class="text-center">11</td>
+                            <td class="text-center">10</td>
+                            <td class="text-end font-semibold text-gray-800">81</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab Content: Patient Feedback -->
+        <div id="tab-content-feedback" class="hidden" role="tabpanel" aria-labelledby="tabs-feedback">
+
+            <p class="text-sm text-gray-500 mb-4">Feedback submitted by patients and care teams. Where possible,
+                feedback is linked to a specific meal.</p>
+
+            <div class="space-y-3">
+                <!-- Feedback item - linked to meal -->
+                <div class="card">
+                    <div class="card-body !py-3 !px-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 dark:text-neutral-200">"The Arroz con Pollo was
+                                    excellent. My mother said it reminded her of home cooking."</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-xs text-gray-400">Feb 10, 2026</span>
+                                    <span class="text-xs text-gray-400">via Care Coordinator</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-sm badge-pill meal-label-hot whitespace-nowrap">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Arroz con Pollo
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback item - linked to meal -->
+                <div class="card">
+                    <div class="card-body !py-3 !px-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 dark:text-neutral-200">"Patient mentioned the Black Bean
+                                    Soup was too salty this week. Has been fine in previous weeks."</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-xs text-gray-400">Feb 8, 2026</span>
+                                    <span class="text-xs text-gray-400">via Patient Portal</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-sm badge-pill meal-label-cold whitespace-nowrap">
+                                <i class="fa-solid fa-snowflake meal-type-icon"></i>Black Bean Soup
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback item - NOT linked to meal -->
+                <div class="card">
+                    <div class="card-body !py-3 !px-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 dark:text-neutral-200">"Overall the meals this week were
+                                    great. The portions felt right and everything arrived fresh."</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-xs text-gray-400">Feb 7, 2026</span>
+                                    <span class="text-xs text-gray-400">via Care Coordinator</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-400 italic whitespace-nowrap">General feedback</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback item - linked to meal -->
+                <div class="card">
+                    <div class="card-body !py-3 !px-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 dark:text-neutral-200">"Can we get more variety in the
+                                    cold options? My patient has been getting the same two cold meals for weeks."</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-xs text-gray-400">Feb 5, 2026</span>
+                                    <span class="text-xs text-gray-400">via Care Coordinator</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-400 italic whitespace-nowrap">General feedback</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback item - linked to meal -->
+                <div class="card">
+                    <div class="card-body !py-3 !px-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 dark:text-neutral-200">"The Grilled Chicken Plate
+                                    low-sodium version was bland. Patient barely ate it. Can we add more herbs/spices
+                                    that aren't salt-based?"</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-xs text-gray-400">Feb 3, 2026</span>
+                                    <span class="text-xs text-gray-400">via Patient Portal</span>
+                                </div>
+                            </div>
+                            <span class="badge badge-sm badge-pill meal-label-hot whitespace-nowrap">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Grilled Chicken Plate
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback item - NOT linked -->
+                <div class="card">
+                    <div class="card-body !py-3 !px-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 dark:text-neutral-200">"Delivery was late on Tuesday.
+                                    Food was still warm but patient was anxious about it not arriving."</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-xs text-gray-400">Jan 29, 2026</span>
+                                    <span class="text-xs text-gray-400">via Care Coordinator</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-400 italic whitespace-nowrap">General feedback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination hint -->
+            <div class="text-center mt-6">
+                <button type="button" class="btn btn-outline btn-sm">
+                    Load more feedback
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <load src="/src/partials/scripts.html" />
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!--
+  @component-meta
+  name: Spacing & Layout Tokens
+  category: Foundations
+  file: foundations-spacing.html
+  classes: (none — reference-only)
+  when-to-use: Reference this page for spacing scale, border radius, and shadow tokens. Haven uses Tailwind v4 default spacing with a 0.25rem base unit.
+  do-not-use-when: N/A
+  preline-required: no
+  notes: Spacing scalar is 0.25rem (defined in spacing.css). All standard Tailwind spacing utilities work. Shadows and radii use Tailwind defaults.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section id="spacing">
+
+  <h2>Spacing & Layout Tokens</h2>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Haven uses the Tailwind v4 spacing scale with a 0.25rem base unit.
+  </p>
+
+  <!-- @component: reference-only -->
+
+  <!-- Spacing Scale -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Spacing Scale</h3>
+    <div class="card card-body space-y-2">
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">1 (4px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 1rem;"></div>
+        <span class="text-xs text-gray-400">0.25rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">2 (8px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 2rem;"></div>
+        <span class="text-xs text-gray-400">0.5rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">3 (12px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 3rem;"></div>
+        <span class="text-xs text-gray-400">0.75rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">4 (16px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 4rem;"></div>
+        <span class="text-xs text-gray-400">1rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">6 (24px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 6rem;"></div>
+        <span class="text-xs text-gray-400">1.5rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">8 (32px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 8rem;"></div>
+        <span class="text-xs text-gray-400">2rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">12 (48px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 12rem;"></div>
+        <span class="text-xs text-gray-400">3rem</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <code class="text-xs font-mono text-gray-500 w-20 shrink-0 text-right">16 (64px)</code>
+        <div class="h-4 bg-primary-400 rounded" style="width: 16rem;"></div>
+        <span class="text-xs text-gray-400">4rem</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Border Radius -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Border Radius</h3>
+    <div class="flex flex-wrap gap-6">
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded-none"></div>
+        <p class="text-xs text-gray-500 mt-2">none</p>
+      </div>
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded-sm"></div>
+        <p class="text-xs text-gray-500 mt-2">sm</p>
+      </div>
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded"></div>
+        <p class="text-xs text-gray-500 mt-2">default</p>
+      </div>
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded-md"></div>
+        <p class="text-xs text-gray-500 mt-2">md</p>
+      </div>
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded-lg"></div>
+        <p class="text-xs text-gray-500 mt-2">lg</p>
+      </div>
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded-xl"></div>
+        <p class="text-xs text-gray-500 mt-2">xl</p>
+      </div>
+      <div class="text-center">
+        <div class="size-16 bg-primary-100 border-2 border-primary-300 rounded-full"></div>
+        <p class="text-xs text-gray-500 mt-2">full</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shadows -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Shadows</h3>
+    <div class="flex flex-wrap gap-6">
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow-2xs dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow-2xs</p>
+      </div>
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow-xs dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow-xs</p>
+      </div>
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow-sm dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow-sm</p>
+      </div>
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow</p>
+      </div>
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow-md dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow-md</p>
+      </div>
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow-lg dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow-lg</p>
+      </div>
+      <div class="text-center">
+        <div class="size-20 bg-white rounded-xl shadow-xl dark:bg-neutral-800"></div>
+        <p class="text-xs text-gray-500 mt-2">shadow-xl</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- /component -->
+
+</section>

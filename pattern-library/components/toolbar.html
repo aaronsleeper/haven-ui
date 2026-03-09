@@ -1,0 +1,42 @@
+<!--
+  @component-meta
+  name: Toolbar
+  category: Toolbar & Search
+  file: toolbar.html
+  classes: toolbar, toolbar-search, filter-pill, search-input, search-input-icon
+  when-to-use: Above data tables — combines search, filters, and primary action.
+  preline-required: no
+  notes: .toolbar stacks to column on mobile. .search-input handles icon positioning; input gets 2rem left padding automatically via CSS.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Toolbar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Horizontal bar combining search, filter pills, and a primary action. Stacks to column on mobile.
+  </p>
+
+  <!-- @component: toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-search">
+      <div class="search-input">
+        <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+        <input type="search" placeholder="Search patients...">
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 flex-wrap">
+      <button type="button" class="filter-pill active">All</button>
+      <button type="button" class="filter-pill">Active</button>
+      <button type="button" class="filter-pill">Flagged</button>
+      <button type="button" class="filter-pill">Inactive</button>
+    </div>
+
+    <button type="button" class="btn-primary btn-sm">
+      <i class="fa-solid fa-plus"></i>
+      Add Patient
+    </button>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,48 @@
+<!--
+  @component-meta
+  name: Modal
+  category: Overlays
+  file: overlay-modal.html
+  classes: modal-panel
+  when-to-use: Confirmation dialogs and data entry forms that require focus.
+  preline-required: yes — hs-overlay
+  notes: Use .modal-panel for transition. Backdrop uses .hs-overlay-backdrop which is styled globally.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Modal</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Confirmation dialogs and data entry forms that require focus. Uses Preline hs-overlay.
+  </p>
+
+  <!-- @component: overlay-modal -->
+  <button type="button" class="btn-primary" data-hs-overlay="#hs-confirm-modal">
+    Open Confirm Dialog
+  </button>
+
+  <div id="hs-confirm-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-modal-label">
+    <div class="modal-panel">
+      <div class="card">
+        <div class="card-header flex items-center justify-between">
+          <h3 id="hs-confirm-modal-label" class="card-title text-lg">Confirm Action</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#hs-confirm-modal">
+            <span class="sr-only">Close</span>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <p class="text-sm text-gray-600 dark:text-neutral-400">
+            Are you sure you want to proceed? This action will update the patient record and cannot be undone.
+          </p>
+        </div>
+        <div class="card-footer flex justify-end gap-3">
+          <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-modal">Cancel</button>
+          <button type="button" class="btn-primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,28 @@
+<!--
+  @component-meta
+  name: ROI Calculator
+  category: Healthcare-Specific
+  file: clinical-roi-calculator.html
+  classes: roi-calculator, roi-formula, roi-result, roi-result-label
+  when-to-use: Program value estimation showing a formula, calculated result, and descriptive label.
+  preline-required: no
+  notes: The formula block uses monospace text. The result value is styled in success-green to emphasize positive ROI.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">ROI Calculator</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Program value estimation showing a formula, calculated result, and descriptive label.
+  </p>
+
+  <!-- @component: clinical-roi-calculator -->
+  <div class="roi-calculator" style="max-width: 28rem;">
+    <div class="roi-formula">Enrolled Patients × Avg Savings per Patient</div>
+    <div class="roi-formula" style="margin-top: 0.25rem;">142 × $1,240 =</div>
+    <div class="roi-result">$176,080</div>
+    <div class="roi-result-label">Estimated annual cost savings</div>
+  </div>
+  <!-- /component -->
+</section>

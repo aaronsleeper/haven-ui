@@ -1,0 +1,58 @@
+<!--
+  @component-meta
+  name: Fieldset
+  category: Primitives — Forms
+  file: form-fieldset.html
+  classes: (global fieldset styling), (global legend styling)
+  when-to-use: Grouping related fields within a form. Always use a legend. Use nested fieldset for sub-groups.
+  preline-required: no
+  notes: Global fieldset styling applies border, padding, and rounded corners automatically. Nested fieldsets get a lighter background. Legend styling is also automatic.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Fieldset</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Group related fields. Nested fieldsets get a lighter background.
+  </p>
+
+    <!-- @component: form-fieldset-main -->
+    <fieldset>
+      <legend>Patient Information</legend>
+      <div>
+        <label for="pl-fs-name">Full Name</label>
+        <input type="text" id="pl-fs-name" placeholder="First and last name">
+      </div>
+      <div>
+        <label for="pl-fs-dob">Date of Birth</label>
+        <input type="date" id="pl-fs-dob">
+      </div>
+    </fieldset>
+    <!-- /component -->
+
+    <!-- @component: form-fieldset-nested -->
+    <fieldset>
+      <legend>Enrollment Details</legend>
+      <div>
+        <label for="pl-fs-program">Program</label>
+        <select id="pl-fs-program" class="select-haven">
+          <option selected disabled>Select program</option>
+          <option>Diabetes Management</option>
+          <option>HTN & Cardiac</option>
+        </select>
+      </div>
+      <fieldset>
+        <legend>Emergency Contact</legend>
+        <div>
+          <label for="pl-fs-ec-name">Contact Name</label>
+          <input type="text" id="pl-fs-ec-name" placeholder="Contact full name">
+        </div>
+        <div>
+          <label for="pl-fs-ec-phone">Phone</label>
+          <input type="tel" id="pl-fs-ec-phone" placeholder="(555) 123-4567">
+        </div>
+      </fieldset>
+    </fieldset>
+    <!-- /component -->
+</section>

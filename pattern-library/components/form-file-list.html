@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: File List Input
+  category: Primitives — Forms
+  file: form-file-list.html
+  classes: file-list, file-list-item, file-list-input, file-list-action, file-list-add, file-list-heading, file-list-description
+  when-to-use: Repeatable file or URL inputs where the user can add/remove rows. Common in kitchen partner document uploads.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">File List Input</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Repeatable input rows with add/remove actions.
+  </p>
+
+    <!-- @component: form-file-list -->
+    <div class="file-list">
+      <p class="file-list-heading">Supporting Documents</p>
+      <p class="file-list-description">Upload links to partner certification documents or food safety reports.</p>
+
+      <div class="file-list-item">
+        <input type="url" class="file-list-input" placeholder="https://example.com/document.pdf" value="https://docs.example.com/food-safety-cert.pdf">
+        <button type="button" class="file-list-action" aria-label="Remove">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="file-list-item">
+        <input type="url" class="file-list-input" placeholder="https://example.com/document.pdf">
+        <button type="button" class="file-list-action" aria-label="Remove">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <button type="button" class="file-list-add">
+        <i class="fa-solid fa-plus"></i>
+        Add another document
+      </button>
+    </div>
+    <!-- /component -->
+</section>

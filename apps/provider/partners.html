@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <load src="/src/partials/providers-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="lg:ps-64 min-w-0">
+        <div class="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 id="partner-page-title">Fresh Bites Delivery Co.</h1>
+            </div>
+            <!-- End Page Header -->
+
+            <!-- Partner Detail -->
+            <div id="partner-detail" class="space-y-6">
+
+                    <!-- ========================================
+                         Fresh Bites Detail (default visible)
+                         ======================================== -->
+                    <div id="detail-fresh-bites" class="space-y-6">
+                        <!-- Header + Contact Info -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-start justify-between">
+                                    <h2 class="text-xl font-semibold text-gray-900">Fresh Bites Delivery Co.</h2>
+                                    <span class="badge badge-success shrink-0">Active</span>
+                                </div>
+                                <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500 mt-3">
+                                    <span><i class="fa-solid fa-location-dot me-1"></i>2847 E Olympic Blvd, Los Angeles, CA 90023</span>
+                                    <span><i class="fa-solid fa-phone me-1"></i><a href="tel:+12135550101" class="text-link">(213) 555-0101</a></span>
+                                    <span><i class="fa-solid fa-envelope me-1"></i><a href="mailto:ops@freshbites.example.com" class="text-link">ops@freshbites.example.com</a></span>
+                                </div>
+                                <div class="text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-map me-1"></i>Service area: East LA, Boyle Heights, El Sereno
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Primary Performance Metrics -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="performance-metric-card">
+                                <div class="performance-metric-label">Fulfillment Fidelity</div>
+                                <div class="performance-metric-value">96.8%</div>
+                                <div class="performance-metric-detail">48 / 50 orders matched prescription</div>
+                            </div>
+                            <div class="performance-metric-card">
+                                <div class="performance-metric-label">Delivery Success Rate</div>
+                                <div class="performance-metric-value">98.4%</div>
+                                <div class="performance-metric-detail">63 / 64 deliveries completed</div>
+                            </div>
+                        </div>
+
+                        <!-- Secondary Performance Stats -->
+                        <div class="performance-stats-row mt-3">
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Quality Index</div>
+                                <div class="performance-stat-compact-value">91/100</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Composite score</div>
+                            </div>
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Meal Accuracy</div>
+                                <div class="performance-stat-compact-value">94.2%</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Protein / sodium / allergen</div>
+                            </div>
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Local Sourcing</div>
+                                <div class="performance-stat-compact-value">67%</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Regional ingredients</div>
+                            </div>
+                        </div>
+
+                        <!-- Alert Log -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Alert Log</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <!-- Filter pills -->
+                                <div class="flex items-center gap-2 mb-3 flex-wrap px-4 pt-3">
+                                    <button class="filter-pill active">All</button>
+                                    <button class="filter-pill">Delivery</button>
+                                    <button class="filter-pill">Quality</button>
+                                    <button class="filter-pill">Fulfillment</button>
+                                    <span class="text-xs text-gray-400 ms-1" title="Partner alert categories differ from patient alert categories">
+                                        <i class="fa-regular fa-circle-question"></i>
+                                    </span>
+                                </div>
+                                <!-- Alert rows (unresolved first) -->
+                                <div class="partner-alert-row px-4">
+                                    <span class="text-xs text-gray-400 w-20 shrink-0">Jan 12</span>
+                                    <span class="badge badge-error badge-pill shrink-0">Quality</span>
+                                    <span class="text-sm text-gray-700 flex-1">Allergen flag — shellfish in meal KP004</span>
+                                    <span class="text-xs text-gray-400 shrink-0">KP004</span>
+                                    <span class="badge badge-error badge-sm shrink-0">Unresolved</span>
+                                </div>
+                                <div class="partner-alert-row px-4">
+                                    <span class="text-xs text-gray-400 w-20 shrink-0">Jan 18</span>
+                                    <span class="badge badge-info badge-pill shrink-0">Delivery</span>
+                                    <span class="text-sm text-gray-700 flex-1">Delivery failure — recipient not home</span>
+                                    <span class="text-xs text-gray-400 shrink-0">MG002</span>
+                                    <span class="badge badge-success badge-sm shrink-0">Resolved</span>
+                                </div>
+                                <div class="partner-alert-row px-4">
+                                    <span class="text-xs text-gray-400 w-20 shrink-0">Dec 28</span>
+                                    <span class="badge badge-warning badge-pill shrink-0">Fulfillment</span>
+                                    <span class="text-sm text-gray-700 flex-1">Meal substitution without prior approval</span>
+                                    <span class="text-xs text-gray-400 shrink-0">TR001</span>
+                                    <span class="badge badge-success badge-sm shrink-0">Resolved</span>
+                                </div>
+                                <!-- Empty state (hidden) -->
+                                <div class="empty-state py-6 hidden">
+                                    <i class="fa-solid fa-circle-check text-success-500 mb-2"></i>
+                                    <p class="text-sm text-gray-400">No alerts on record</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Fresh Bites Detail -->
+
+
+                    <!-- ========================================
+                         Nourish LA Detail (hidden by default)
+                         ======================================== -->
+                    <div id="detail-nourish-la" class="space-y-6 hidden">
+                        <!-- Header + Contact Info -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-start justify-between">
+                                    <h2 class="text-xl font-semibold text-gray-900">Nourish LA Kitchen</h2>
+                                    <span class="badge badge-success shrink-0">Active</span>
+                                </div>
+                                <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500 mt-3">
+                                    <span><i class="fa-solid fa-location-dot me-1"></i>1125 W Manchester Ave, Los Angeles, CA 90044</span>
+                                    <span><i class="fa-solid fa-phone me-1"></i><a href="tel:+13105550188" class="text-link">(310) 555-0188</a></span>
+                                    <span><i class="fa-solid fa-envelope me-1"></i><a href="mailto:hello@nourishla.example.com" class="text-link">hello@nourishla.example.com</a></span>
+                                </div>
+                                <div class="text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-map me-1"></i>Service area: South LA, Inglewood, Hawthorne
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Primary Metrics -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="performance-metric-card">
+                                <div class="performance-metric-label">Fulfillment Fidelity</div>
+                                <div class="performance-metric-value">93.1%</div>
+                                <div class="performance-metric-detail">46 / 50 orders matched prescription</div>
+                            </div>
+                            <div class="performance-metric-card">
+                                <div class="performance-metric-label">Delivery Success Rate</div>
+                                <div class="performance-metric-value">97.2%</div>
+                                <div class="performance-metric-detail">70 / 72 deliveries completed</div>
+                            </div>
+                        </div>
+                        <!-- Secondary Stats -->
+                        <div class="performance-stats-row mt-3">
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Quality Index</div>
+                                <div class="performance-stat-compact-value">88/100</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Composite score</div>
+                            </div>
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Meal Accuracy</div>
+                                <div class="performance-stat-compact-value">91.8%</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Protein / sodium / allergen</div>
+                            </div>
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Local Sourcing</div>
+                                <div class="performance-stat-compact-value">71%</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Regional ingredients</div>
+                            </div>
+                        </div>
+                        <!-- Alert log -->
+                        <div class="card">
+                            <div class="card-header"><h3 class="card-title">Alert Log</h3></div>
+                            <div class="card-body">
+                                <div class="empty-state py-6">
+                                    <i class="fa-solid fa-circle-check text-success-500 mb-2 text-2xl"></i>
+                                    <p class="text-sm text-gray-400">No alerts on record</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Nourish LA Detail -->
+
+
+                    <!-- ========================================
+                         Community Cooks Detail (hidden by default)
+                         ======================================== -->
+                    <div id="detail-community-cooks" class="space-y-6 hidden">
+                        <!-- Header + Contact Info -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="flex items-start justify-between">
+                                    <h2 class="text-xl font-semibold text-gray-900">Community Cooks Collective</h2>
+                                    <span class="badge badge-success shrink-0">Active</span>
+                                </div>
+                                <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500 mt-3">
+                                    <span><i class="fa-solid fa-location-dot me-1"></i>3412 W 8th St, Los Angeles, CA 90005</span>
+                                    <span><i class="fa-solid fa-phone me-1"></i><a href="tel:+13235550212" class="text-link">(323) 555-0212</a></span>
+                                    <span><i class="fa-solid fa-envelope me-1"></i><a href="mailto:kitchen@communitycooks.example.com" class="text-link">kitchen@communitycooks.example.com</a></span>
+                                </div>
+                                <div class="text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-map me-1"></i>Service area: Mid-City, Koreatown, Westlake
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Primary Metrics -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="performance-metric-card">
+                                <div class="performance-metric-label">Fulfillment Fidelity</div>
+                                <div class="performance-metric-value">88.5%</div>
+                                <div class="performance-metric-detail">44 / 50 orders matched prescription</div>
+                            </div>
+                            <div class="performance-metric-card">
+                                <div class="performance-metric-label">Delivery Success Rate</div>
+                                <div class="performance-metric-value">94.6%</div>
+                                <div class="performance-metric-detail">53 / 56 deliveries completed</div>
+                            </div>
+                        </div>
+                        <!-- Secondary Stats -->
+                        <div class="performance-stats-row mt-3">
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Quality Index</div>
+                                <div class="performance-stat-compact-value">84/100</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Composite score</div>
+                            </div>
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Meal Accuracy</div>
+                                <div class="performance-stat-compact-value">87.3%</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Protein / sodium / allergen</div>
+                            </div>
+                            <div class="performance-stat-compact">
+                                <div class="performance-stat-compact-label text-gray-700">Local Sourcing</div>
+                                <div class="performance-stat-compact-value">58%</div>
+                                <div class="performance-stat-compact-detail text-gray-700">Regional ingredients</div>
+                            </div>
+                        </div>
+                        <!-- Alert log (2 unresolved) -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Alert Log</h3>
+                                <span class="badge badge-error">2 Unresolved</span>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="partner-alert-row px-4">
+                                    <span class="text-xs text-gray-400 w-20 shrink-0">Feb 2</span>
+                                    <span class="badge badge-error badge-pill shrink-0">Quality</span>
+                                    <span class="text-sm text-gray-700 flex-1">Sodium content exceeded limit — meal batch CC-0214</span>
+                                    <span class="text-xs text-gray-400 shrink-0">RK007</span>
+                                    <span class="badge badge-error badge-sm shrink-0">Unresolved</span>
+                                </div>
+                                <div class="partner-alert-row px-4">
+                                    <span class="text-xs text-gray-400 w-20 shrink-0">Jan 30</span>
+                                    <span class="badge badge-warning badge-pill shrink-0">Fulfillment</span>
+                                    <span class="text-sm text-gray-700 flex-1">Late delivery — 4 hours past window</span>
+                                    <span class="text-xs text-gray-400 shrink-0">DW003</span>
+                                    <span class="badge badge-error badge-sm shrink-0">Unresolved</span>
+                                </div>
+                                <div class="partner-alert-row px-4">
+                                    <span class="text-xs text-gray-400 w-20 shrink-0">Jan 14</span>
+                                    <span class="badge badge-info badge-pill shrink-0">Delivery</span>
+                                    <span class="text-sm text-gray-700 flex-1">Delivery rescheduled — weather delay</span>
+                                    <span class="text-xs text-gray-400 shrink-0">AM009</span>
+                                    <span class="badge badge-success badge-sm shrink-0">Resolved</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Community Cooks Detail -->
+
+            </div>
+            <!-- End Partner Detail -->
+
+        </div>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Scripts -->
+    <load src="/src/partials/scripts.html" />
+
+    <!-- Partner selection -->
+    <script>
+        var partnerNames = {
+            'fresh-bites': 'Fresh Bites Delivery Co.',
+            'nourish-la': 'Nourish LA Kitchen',
+            'community-cooks': 'Community Cooks Collective'
+        };
+
+        function selectPartner(partnerId) {
+            // Show/hide detail panels
+            ['fresh-bites', 'nourish-la', 'community-cooks'].forEach(function(id) {
+                var detail = document.getElementById('detail-' + id);
+                if (id === partnerId) {
+                    detail.classList.remove('hidden');
+                } else {
+                    detail.classList.add('hidden');
+                }
+            });
+
+            // Update page title
+            var pageTitle = document.getElementById('partner-page-title');
+            if (pageTitle && partnerNames[partnerId]) {
+                pageTitle.textContent = partnerNames[partnerId];
+            }
+
+            // Update sidebar subnav active states
+            var container = document.getElementById('accordion-partners-child');
+            if (container) {
+                container.querySelectorAll('.sidebar-subnav-item').forEach(function(el) {
+                    el.classList.remove('active');
+                });
+                var subnavEl = document.getElementById('subnav-' + partnerId);
+                if (subnavEl) subnavEl.classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

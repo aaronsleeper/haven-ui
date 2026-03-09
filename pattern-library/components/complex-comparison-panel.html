@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: Comparison Panel
+  category: Complex / App-Specific
+  file: complex-comparison-panel.html
+  classes: comparison-panel, comparison-column, comparison-intro, comparison-column-header, comparison-meal-title, comparison-meal-details, comparison-meta, comparison-actions
+  when-to-use: Side-by-side comparison for duplicate resolution or A/B meal selection.
+  preline-required: no
+  notes: The panel uses a 2-column grid. Actions span the full width below both columns.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Comparison Panel</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Side-by-side comparison for duplicate resolution or A/B meal selection.
+  </p>
+
+  <!-- @component: comparison-panel -->
+  <div class="comparison-panel">
+    <p class="comparison-intro">Two similar meals were found. Choose which to keep or dismiss both.</p>
+
+    <div class="comparison-column">
+      <div class="comparison-column-header">Option A — Original</div>
+      <div class="comparison-meal-title">Grilled Chicken Breast</div>
+      <div class="comparison-meal-details">6 oz grilled chicken, steamed broccoli, brown rice</div>
+      <div class="comparison-meta">Added Jan 12, 2026 by Kitchen Staff</div>
+    </div>
+
+    <div class="comparison-column">
+      <div class="comparison-column-header">Option B — Duplicate</div>
+      <div class="comparison-meal-title">Grilled Chicken Plate</div>
+      <div class="comparison-meal-details">6 oz grilled chicken, steamed vegetables, wild rice</div>
+      <div class="comparison-meta">Added Jan 14, 2026 by Nutrition AI</div>
+    </div>
+
+    <div class="comparison-actions">
+      <button class="btn-outline">Dismiss</button>
+      <button class="btn-primary">Keep Left</button>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

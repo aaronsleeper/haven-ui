@@ -1,0 +1,33 @@
+<!--
+  @component-meta
+  name: Patient Card
+  category: Healthcare-Specific
+  file: clinical-patient-card.html
+  classes: patient-card
+  when-to-use: Card-view representation of a patient record in roster lists and search results.
+  preline-required: no
+  notes: Combines patient-card with badge primitives and trend badges for a complete patient summary.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Patient Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Card-view representation of a patient record in roster lists and search results.
+  </p>
+
+  <!-- @component: clinical-patient-card -->
+  <div class="patient-card" style="max-width: 28rem;">
+    <div>
+      <span class="text-base font-bold text-gray-900 dark:text-white">Maria Santos</span>
+      <span class="text-sm text-gray-500 dark:text-neutral-400 ml-2">MRN: PT-2024-0847</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="badge badge-primary">Diabetes Management</span>
+      <span class="badge badge-error">High Risk</span>
+      <span class="trend-worsening"><i class="fa-solid fa-arrow-down"></i> Worsening</span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

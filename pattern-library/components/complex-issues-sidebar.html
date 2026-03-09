@@ -1,0 +1,66 @@
+<!--
+  @component-meta
+  name: Issues Sidebar
+  category: Complex / App-Specific
+  file: complex-issues-sidebar.html
+  classes: issues-sidebar, issues-sidebar-header, issues-sidebar-title, issue-item, issue-item-icon, issue-item-content, issue-item-description, issue-item-action, issue-item-resolved
+  when-to-use: Persistent sidebar panel for tracking and resolving data-entry issues.
+  preline-required: no
+  notes: Resolved items get the issue-item-resolved class which strikes through text and hides the action link.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Issues Sidebar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Persistent sidebar panel for tracking and resolving data-entry issues.
+  </p>
+
+  <!-- @component: issues-sidebar -->
+  <div class="card card-body issues-sidebar" style="max-width: 320px;">
+    <div class="issues-sidebar-header">
+      <span class="issues-sidebar-title">
+        <i class="fa-solid fa-circle-exclamation text-warning-500"></i>
+        Issues
+      </span>
+      <span class="badge badge-warning badge-sm">2 open</span>
+    </div>
+
+    <div class="flex flex-col">
+      <!-- Open issue 1 -->
+      <div class="issue-item">
+        <span class="issue-item-icon text-warning-500">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </span>
+        <div class="issue-item-content">
+          <div class="issue-item-description">Calorie count exceeds daily limit</div>
+          <div class="issue-item-action">Click to resolve</div>
+        </div>
+      </div>
+
+      <!-- Open issue 2 -->
+      <div class="issue-item">
+        <span class="issue-item-icon text-warning-500">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </span>
+        <div class="issue-item-content">
+          <div class="issue-item-description">Missing allergen information</div>
+          <div class="issue-item-action">Click to resolve</div>
+        </div>
+      </div>
+
+      <!-- Resolved issue -->
+      <div class="issue-item issue-item-resolved">
+        <span class="issue-item-icon text-success-500">
+          <i class="fa-solid fa-circle-check"></i>
+        </span>
+        <div class="issue-item-content">
+          <div class="issue-item-description">Portion size confirmed</div>
+          <div class="issue-item-action">Click to resolve</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

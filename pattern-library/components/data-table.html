@@ -1,0 +1,131 @@
+<!--
+  @component-meta
+  name: Data Table
+  category: Data Display
+  file: data-table.html
+  classes: data-table, cell-primary, cell-numeric, section-header, detail-row, table-row-muted, text-link, text-link-danger, badge, badge-success, badge-warning, badge-error, badge-pill
+  when-to-use: Primary table component for displaying structured data. Sticky first column, sortable headers, section grouping rows, detail (accordion) rows, muted rows.
+  preline-required: no
+  notes: The .data-table wrapper provides horizontal scroll, rounded border, and sticky first column. Use cell-primary for the name/title column. Use cell-numeric for right-aligned number columns.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Data Table</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Primary tabular data component with sticky first column, sortable headers, and row actions.
+  </p>
+
+    <!-- @component: data-table -->
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th data-sortable>Patient</th>
+            <th>MRN</th>
+            <th>Program</th>
+            <th>Status</th>
+            <th data-sortable>Enrollment Date</th>
+            <th data-sortable>Last HbA1c</th>
+            <th data-sortable>Adherence %</th>
+            <th data-sortable>Last Visit</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cell-primary">Maria Santos</td>
+            <td class="cell-numeric">PT-2024-0847</td>
+            <td>Diabetes Mgmt</td>
+            <td><span class="badge badge-success badge-pill">Active</span></td>
+            <td>Jan 3, 2026</td>
+            <td class="cell-numeric">7.2%</td>
+            <td class="cell-numeric">94%</td>
+            <td>Feb 12, 2026</td>
+            <td class="text-end">
+              <a href="#" class="text-link">View</a>
+              <span class="mx-1 text-gray-300">|</span>
+              <a href="#" class="text-link-danger">Remove</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-primary">James Thompson</td>
+            <td class="cell-numeric">PT-2024-1203</td>
+            <td>HTN &amp; Cardiac</td>
+            <td><span class="badge badge-warning badge-pill">Pending</span></td>
+            <td>Jan 15, 2026</td>
+            <td class="cell-numeric">8.1%</td>
+            <td class="cell-numeric">61%</td>
+            <td>Jan 28, 2026</td>
+            <td class="text-end">
+              <a href="#" class="text-link">View</a>
+              <span class="mx-1 text-gray-300">|</span>
+              <a href="#" class="text-link-danger">Remove</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-primary">Sofia Perez</td>
+            <td class="cell-numeric">PT-2023-0392</td>
+            <td>Food Insecurity</td>
+            <td><span class="badge badge-success badge-pill">Active</span></td>
+            <td>Mar 8, 2025</td>
+            <td class="cell-numeric">6.8%</td>
+            <td class="cell-numeric">88%</td>
+            <td>Feb 18, 2026</td>
+            <td class="text-end">
+              <a href="#" class="text-link">View</a>
+              <span class="mx-1 text-gray-300">|</span>
+              <a href="#" class="text-link-danger">Remove</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-primary">David Chen</td>
+            <td class="cell-numeric">PT-2025-0044</td>
+            <td>Diabetes Mgmt</td>
+            <td><span class="badge badge-success badge-pill">Active</span></td>
+            <td>Dec 1, 2025</td>
+            <td class="cell-numeric">9.4%</td>
+            <td class="cell-numeric">72%</td>
+            <td>Feb 5, 2026</td>
+            <td class="text-end">
+              <a href="#" class="text-link">View</a>
+              <span class="mx-1 text-gray-300">|</span>
+              <a href="#" class="text-link-danger">Remove</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-primary">Amara Okafor</td>
+            <td class="cell-numeric">PT-2024-0719</td>
+            <td>Renal Diet</td>
+            <td><span class="badge badge-success badge-pill">Active</span></td>
+            <td>Sep 22, 2024</td>
+            <td class="cell-numeric">7.8%</td>
+            <td class="cell-numeric">85%</td>
+            <td>Feb 10, 2026</td>
+            <td class="text-end">
+              <a href="#" class="text-link">View</a>
+              <span class="mx-1 text-gray-300">|</span>
+              <a href="#" class="text-link-danger">Remove</a>
+            </td>
+          </tr>
+          <tr class="table-row-muted">
+            <td class="cell-primary">Robert Kim</td>
+            <td class="cell-numeric">PT-2023-1847</td>
+            <td>Diabetes Mgmt</td>
+            <td><span class="badge badge-error badge-pill">Inactive</span></td>
+            <td>Jun 14, 2023</td>
+            <td class="cell-numeric">&mdash;</td>
+            <td class="cell-numeric">&mdash;</td>
+            <td>Dec 15, 2025</td>
+            <td class="text-end">
+              <a href="#" class="text-link">View</a>
+              <span class="mx-1 text-gray-300">|</span>
+              <a href="#" class="text-link-danger">Remove</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /component -->
+</section>

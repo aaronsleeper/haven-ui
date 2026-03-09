@@ -1,0 +1,57 @@
+<!--
+  @component-meta
+  name: AI Field Indicators
+  category: Healthcare-Specific
+  file: clinical-ai-field.html
+  classes: ai-field, ai-field-icon, ai-field-label, ai-field-confirmed, ai-field-confirmed-icon, ai-field-confirmed-label, ai-field-zero-callout
+  when-to-use: Visual indicators for fields populated by an AI agent, showing pending, confirmed, and zero-value warning states.
+  preline-required: no
+  notes: Wrap the field element in .ai-field (pending) or .ai-field-confirmed (accepted). Use .ai-field-zero-callout for values defaulted to zero.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">AI Field Indicators</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Visual indicators for fields populated by an AI agent, showing pending, confirmed, and zero-value warning states.
+  </p>
+
+  <!-- @component: clinical-ai-field -->
+  <div class="card">
+    <div class="card-body">
+      <div class="grid-2">
+        <!-- Pending state -->
+        <div>
+          <label>Suggested Calorie Target</label>
+          <div class="ai-field">
+            <div class="flex items-center gap-2 mb-1">
+              <i class="fa-solid fa-bolt ai-field-icon"></i>
+              <span class="ai-field-label">Suggested</span>
+            </div>
+            <input type="number" value="1800">
+          </div>
+        </div>
+
+        <!-- Confirmed state -->
+        <div>
+          <label>Protein Target</label>
+          <div class="ai-field-confirmed">
+            <div class="flex items-center gap-2 mb-1">
+              <i class="fa-solid fa-circle-check ai-field-confirmed-icon"></i>
+              <span class="ai-field-confirmed-label">Confirmed by provider</span>
+            </div>
+            <input type="number" value="65">
+          </div>
+        </div>
+      </div>
+
+      <!-- Zero callout -->
+      <div class="ai-field-zero-callout">
+        <i class="fa-solid fa-triangle-exclamation text-warning-500 me-2"></i>
+        Value defaulted to 0 — please verify
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

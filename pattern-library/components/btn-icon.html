@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: Button: Icon
+  category: Primitives — Buttons
+  file: btn-icon.html
+  classes: btn-icon, btn-icon-primary
+  when-to-use: Icon-only actions in toolbars, table action columns, and compact UIs where label text would crowd the layout. Always include an aria-label.
+  do-not-use-when: The action is unclear without a text label — use a labeled button instead.
+  preline-required: no
+  notes: btn-icon is neutral gray. btn-icon-primary is teal filled. Both are 32px square (size-8). Always provide aria-label for accessibility.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Icon</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Icon-only action buttons. Neutral and primary variants.
+  </p>
+
+    <!-- @component: btn-icon -->
+    <button type="button" class="btn-icon" aria-label="More options">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+    <!-- /component -->
+
+    <button type="button" class="btn-icon" aria-label="Search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    <button type="button" class="btn-icon" aria-label="Edit">
+      <i class="fa-solid fa-pen"></i>
+    </button>
+
+    <!-- @component: btn-icon-primary -->
+    <button type="button" class="btn-icon-primary" aria-label="Settings">
+      <i class="fa-solid fa-gear"></i>
+    </button>
+    <!-- /component -->
+
+    <button type="button" class="btn-icon-primary" aria-label="Add">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+</section>

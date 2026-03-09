@@ -1,0 +1,73 @@
+<!--
+  @component-meta
+  name: Badge
+  category: Primitives — Badges & Status
+  file: badge.html
+  classes: badge, badge-primary, badge-secondary, badge-neutral, badge-success, badge-warning, badge-error, badge-info, badge-pill, badge-sm
+  when-to-use: Inline labels for categories, types, counts, and status indicators. Use in tables, cards, and headers.
+  do-not-use-when: You need a full inline message — use an alert instead. Do not use badges for actions — use buttons.
+  preline-required: no
+  notes: |
+    Color guidance for agents:
+    - badge-success: Active, enrolled, connected, resolved
+    - badge-warning: Pending, approaching threshold, needs review
+    - badge-error: Critical, flagged, overdue, attention required
+    - badge-info: Informational, delivery-related, neutral highlight
+    - badge-neutral: Inactive, historical, archived, disabled
+    - badge-primary: Default brand emphasis, general categorization
+    Combine with badge-pill for rounded-full shape. Combine with badge-sm for compact table use.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Badge</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    All color variants, pill shape, and compact size.
+  </p>
+
+  <!-- Color Variants -->
+  <div class="mb-6">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Color Variants</h4>
+      <!-- @component: badge-colors -->
+      <span class="badge badge-primary">Primary</span>
+      <span class="badge badge-secondary">Secondary</span>
+      <span class="badge badge-neutral">Neutral</span>
+      <span class="badge badge-success">Success</span>
+      <span class="badge badge-warning">Warning</span>
+      <span class="badge badge-error">Error</span>
+      <span class="badge badge-info">Info</span>
+      <!-- /component -->
+  </div>
+
+  <!-- With Icons -->
+  <div class="mb-6">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">With Icons</h4>
+      <!-- @component: badge-with-icon -->
+      <span class="badge badge-success"><i class="fa-solid fa-circle-check fa-xs"></i> Connected</span>
+      <span class="badge badge-warning"><i class="fa-solid fa-clock fa-xs"></i> Pending</span>
+      <span class="badge badge-error"><i class="fa-solid fa-triangle-exclamation fa-xs"></i> Attention</span>
+      <!-- /component -->
+  </div>
+
+  <!-- Pill Shape -->
+  <div class="mb-6">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Pill Shape</h4>
+      <!-- @component: badge-pill -->
+      <span class="badge badge-success badge-pill">Active</span>
+      <span class="badge badge-warning badge-pill">Pending</span>
+      <span class="badge badge-error badge-pill">Flagged</span>
+      <span class="badge badge-neutral badge-pill">Inactive</span>
+      <!-- /component -->
+  </div>
+
+  <!-- Compact Size -->
+  <div class="mb-6">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Compact (badge-sm)</h4>
+      <!-- @component: badge-sm -->
+      <span class="badge badge-primary badge-sm">Primary</span>
+      <span class="badge badge-success badge-sm">Active</span>
+      <span class="badge badge-error badge-sm badge-pill">Critical</span>
+      <!-- /component -->
+  </div>
+</section>

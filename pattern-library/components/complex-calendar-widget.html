@@ -1,0 +1,38 @@
+<!--
+  @component-meta
+  name: Calendar Widget
+  category: Complex / App-Specific
+  file: complex-calendar-widget.html
+  classes: calendar-widget, calendar-month, calendar-day
+  when-to-use: Compact date indicators for schedules, timelines, and delivery dates.
+  preline-required: no
+  notes: Each widget shows a colored month header and large day number.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Calendar Widget</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Compact date indicators for schedules, timelines, and delivery dates.
+  </p>
+
+  <!-- @component: calendar-widget -->
+  <div class="flex items-center gap-4">
+    <div class="calendar-widget">
+      <div class="calendar-month">Jan</div>
+      <div class="calendar-day">14</div>
+    </div>
+
+    <div class="calendar-widget">
+      <div class="calendar-month">Feb</div>
+      <div class="calendar-day">03</div>
+    </div>
+
+    <div class="calendar-widget">
+      <div class="calendar-month">Mar</div>
+      <div class="calendar-day">22</div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

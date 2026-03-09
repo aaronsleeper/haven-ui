@@ -1,0 +1,34 @@
+<!--
+  @component-meta
+  name: Grid Helpers
+  category: Layout
+  file: layout-grid.html
+  classes: grid-2
+  when-to-use: .grid-2 for two-column field or card layouts that stack on mobile.
+  preline-required: no
+  notes: 3-column layouts use grid-2 md:grid-cols-3 as a one-off until a semantic class is added.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Grid Helpers</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Two-column responsive grid. Stacks to single column on mobile.
+  </p>
+
+    <!-- @component: layout-grid-2 -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-body">
+          <p class="text-gray-500 dark:text-neutral-400">Column 1</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="text-gray-500 dark:text-neutral-400">Column 2</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

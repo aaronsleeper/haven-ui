@@ -1,0 +1,92 @@
+<!-- Prompt Input Component -->
+<div class="max-w-4xl mx-auto w-full">
+    <!-- Input Container -->
+    <div
+        class="prompt-input-container relative z-10 flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700">
+
+        <!-- Textarea -->
+        <div class="p-2">
+            <label for="prompt-textarea" class="sr-only">Ask me anything...</label>
+            <textarea id="prompt-textarea"
+                class="prompt-textarea p-3 block w-full border-transparent rounded-lg text-sm focus:border-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+                placeholder="Ask anything..." rows="3"></textarea>
+        </div>
+
+        <!-- Toolbar -->
+        <div
+            class="prompt-toolbar p-2 flex justify-between items-center border-t border-gray-100 dark:border-neutral-800">
+
+            <!-- Left Tools -->
+            <div class="flex items-center gap-x-1">
+                <button type="button" class="btn-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </button>
+                <button type="button" class="btn-icon">
+                    <i class="fa-solid fa-paperclip"></i>
+                </button>
+            </div>
+            <!-- End Left Tools -->
+
+            <!-- Right Tools -->
+            <div class="flex items-center gap-x-2">
+
+                <!-- Model Selector Dropdown -->
+                <div class="hs-dropdown relative inline-flex">
+                    <button id="hs-dropdown-model" type="button" class="hs-dropdown-toggle dropdown-btn">
+                        GPT-4o
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </button>
+
+                    <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[150px] bg-white shadow-md rounded-lg p-2 dark:bg-neutral-800 dark:border dark:border-neutral-700"
+                        aria-labelledby="hs-dropdown-model">
+                        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                            href="#">
+                            GPT-4o
+                        </a>
+                        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                            href="#">
+                            Claude 3.5 Sonnet
+                        </a>
+                        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                            href="#">
+                            Gemini 1.5 Pro
+                        </a>
+                    </div>
+                </div>
+                <!-- End Model Selector -->
+
+                <!-- Submit Button -->
+                <button type="button" class="btn-icon-primary">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+
+            </div>
+            <!-- End Right Tools -->
+
+        </div>
+        <!-- End Toolbar -->
+    </div>
+    <!-- End Input Container -->
+
+    <!-- Categories -->
+    <div class="mt-4 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <button type="button" class="category-chip">
+            <i class="fa-solid fa-heart-pulse mr-1"></i> Health
+        </button>
+        <button type="button" class="category-chip">
+            <i class="fa-solid fa-graduation-cap mr-1"></i> Learn
+        </button>
+        <button type="button" class="category-chip">
+            <i class="fa-solid fa-code mr-1"></i> Code
+        </button>
+        <button type="button" class="category-chip">
+            <i class="fa-solid fa-flask mr-1"></i> Science
+        </button>
+        <button type="button" class="category-chip">
+            <i class="fa-solid fa-language mr-1"></i> Translate
+        </button>
+    </div>
+    <!-- End Categories -->
+
+</div>
+<!-- End Prompt Input Component -->

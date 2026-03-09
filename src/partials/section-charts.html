@@ -1,0 +1,208 @@
+<section id="charts" class="mb-12">
+    <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Charts</h2>
+    <p class="text-gray-500 mb-8 dark:text-neutral-400">Chart components using Chart.js with Haven defaults. Initialize
+        using the Haven config helpers &mdash; never raw Chart.js config.</p>
+
+    <!-- Sparklines -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Sparklines</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+
+            <!-- HbA1c Trend -->
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">HbA1c Trend</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-xl font-bold text-gray-800 dark:text-neutral-100">7.8%</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i></span>
+                    </div>
+                    <div class="chart-canvas-wrapper chart-sparkline mt-2">
+                        <canvas id="sparkline-hba1c"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BP Systolic -->
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">BP Systolic</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-xl font-bold text-gray-800 dark:text-neutral-100">148</span>
+                        <span class="trend-worsening"><i class="fa-solid fa-arrow-trend-up fa-xs"></i></span>
+                    </div>
+                    <div class="chart-canvas-wrapper chart-sparkline mt-2">
+                        <canvas id="sparkline-bp"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meal Adherence -->
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">Meal Adherence</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-xl font-bold text-gray-800 dark:text-neutral-100">82%</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-up fa-xs"></i></span>
+                    </div>
+                    <div class="chart-canvas-wrapper chart-sparkline mt-2">
+                        <canvas id="sparkline-adherence"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight -->
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">Weight</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-xl font-bold text-gray-800 dark:text-neutral-100">187 lb</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i></span>
+                    </div>
+                    <div class="chart-canvas-wrapper chart-sparkline mt-2">
+                        <canvas id="sparkline-weight"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Line Chart with Zone Bands -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Line Chart with Zone Bands</h3>
+        <div class="card">
+            <div class="card-header flex items-center justify-between">
+                <div>
+                    <h3 class="card-title">HbA1c Trend</h3>
+                    <p class="card-subtitle">12-month cohort average</p>
+                </div>
+                <span class="badge badge-success badge-pill">Improving</span>
+            </div>
+            <div class="card-body">
+                <div class="chart-canvas-wrapper chart-line">
+                    <canvas id="chart-hba1c-line"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Horizontal Bar Chart -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Horizontal Bar Chart</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Visit Completion Rate</h3>
+                <p class="card-subtitle">By visit type · Current program cohort</p>
+            </div>
+            <div class="card-body">
+                <div class="chart-canvas-wrapper chart-bar">
+                    <canvas id="chart-completion"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grouped Bar Chart -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Grouped Bar Chart</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Engagement by Language</h3>
+                <p class="card-subtitle">Session attendance vs. meal adherence</p>
+            </div>
+            <div class="card-body">
+                <div class="chart-canvas-wrapper chart-bar">
+                    <canvas id="chart-grouped"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Reference Block -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Usage Reference</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Haven Chart Helpers</h3>
+            </div>
+            <div class="card-body">
+                <pre class="example-code-block">// Sparkline
+havenSparkline('canvas-id', [data], HAVEN.primary[500]);
+
+// Line chart with zones
+havenLineChart('canvas-id', { labels, datasets, referenceValue, zones });
+
+// Bar chart (vertical or horizontal)
+havenBarChart('canvas-id', { labels, datasets, horizontal: true });
+
+// Color opacity -- ALWAYS use .replace(), never hex suffix:
+HAVEN.primary[500].replace(/, 1\)$/, ', 0.08)')  // correct
+HAVEN.primary[500] + '15'                          // wrong</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js (loaded here for demo section) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.1.0/chartjs-plugin-annotation.min.js"></script>
+    <script src="/partials/haven-chart-config.js"></script>
+
+    <script>
+        // Sparklines
+        havenSparkline('sparkline-hba1c', [8.9, 8.6, 8.4, 8.1, 7.9, 7.8], HAVEN.primary[500]);
+        havenSparkline('sparkline-bp', [135, 138, 142, 145, 148, 148], HAVEN.danger[500]);
+        havenSparkline('sparkline-adherence', [62, 68, 71, 75, 79, 82], HAVEN.success[500]);
+        havenSparkline('sparkline-weight', [193, 191, 190, 189, 188, 187], HAVEN.primary[400]);
+
+        // Line chart with zone bands
+        havenLineChart('chart-hba1c-line', {
+            labels: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+            datasets: [{
+                label: 'Cohort Avg HbA1c',
+                data: [9.4, 9.2, 9.0, 8.8, 8.6, 8.4, 8.2, 8.1, 7.9, 7.8, 7.8, 7.8],
+                borderColor: HAVEN.primary[500],
+                backgroundColor: HAVEN.primary[500].replace(/, 1\)$/, ', 0.08)'),
+                fill: true,
+            }],
+            referenceValue: 8.0,
+            zones: [
+                { max: 8.0, color: HAVEN.success[500], label: 'Ideal (<8%)' },
+                { min: 8.0, max: 9.0, color: HAVEN.warning[500], label: 'Acceptable (8-9%)' },
+                { min: 9.0, color: HAVEN.danger[500], label: 'Poor (>9%)' },
+            ]
+        });
+
+        // Horizontal bar chart
+        havenBarChart('chart-completion', {
+            labels: ['RDN Visits', 'BHN Sessions', 'Lab Draws', 'Coordinator Check-ins'],
+            datasets: [{
+                label: 'Completion Rate',
+                data: [78, 82, 68, 91],
+                backgroundColor: [
+                    HAVEN.primary[500].replace(/, 1\)$/, ', 0.8)'),
+                    HAVEN.primary[500].replace(/, 1\)$/, ', 0.8)'),
+                    HAVEN.warning[500].replace(/, 1\)$/, ', 0.8)'),
+                    HAVEN.success[500].replace(/, 1\)$/, ', 0.8)'),
+                ],
+            }],
+            horizontal: true,
+        });
+
+        // Grouped bar chart
+        havenBarChart('chart-grouped', {
+            labels: ['English', 'Spanish', 'Mandarin', 'Vietnamese', 'Other'],
+            datasets: [
+                {
+                    label: 'Session Attendance',
+                    data: [82, 74, 68, 71, 65],
+                    backgroundColor: HAVEN.primary[500].replace(/, 1\)$/, ', 0.8)'),
+                },
+                {
+                    label: 'Meal Adherence',
+                    data: [79, 81, 72, 68, 70],
+                    backgroundColor: HAVEN.violet[500].replace(/, 1\)$/, ', 0.8)'),
+                }
+            ],
+        });
+    </script>
+</section>

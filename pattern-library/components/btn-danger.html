@@ -1,0 +1,29 @@
+<!--
+  @component-meta
+  name: Button: Danger
+  category: Primitives — Buttons
+  file: btn-danger.html
+  classes: btn-danger
+  when-to-use: Destructive actions only (delete a record, remove a patient, revoke access). Always pair with a confirmation step (modal or inline confirm).
+  do-not-use-when: You want a warning style — use .alert-warning instead. For lighter destructive inline actions, use btn-danger-outline.
+  preline-required: no
+  notes: Transparent background with red border and text. Hover fills with subtle red.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Danger</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Destructive actions that require confirmation.
+  </p>
+
+    <!-- @component: btn-danger -->
+    <button type="button" class="btn-danger">
+      <i class="fa-solid fa-trash-can"></i>
+      Delete Record
+    </button>
+    <!-- /component -->
+
+    <button type="button" class="btn-danger" disabled>Disabled</button>
+</section>

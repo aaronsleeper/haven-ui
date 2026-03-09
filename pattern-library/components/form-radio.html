@@ -1,0 +1,55 @@
+<!--
+  @component-meta
+  name: Radio
+  category: Primitives — Forms
+  file: form-radio.html
+  classes: radio-label
+  when-to-use: Mutually exclusive choice from a small set (2-5 options).
+  preline-required: no
+  notes: Global radio styling applies automatically. The .radio-label class adds a bordered card wrapper for card-style radios.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Radio</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Mutually exclusive choices. Use for 2-5 options.
+  </p>
+
+    <!-- @component: form-radio-simple -->
+    <div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">Simple Radios</p>
+      <div class="space-y-2">
+        <div class="flex items-center">
+          <input type="radio" name="pl-radio-simple" id="pl-radio-hot" checked>
+          <label for="pl-radio-hot" class="text-sm text-gray-500 ms-3 dark:text-neutral-400 mb-0">Hot meal</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" name="pl-radio-simple" id="pl-radio-cold">
+          <label for="pl-radio-cold" class="text-sm text-gray-500 ms-3 dark:text-neutral-400 mb-0">Cold meal</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" name="pl-radio-simple" id="pl-radio-shelf">
+          <label for="pl-radio-shelf" class="text-sm text-gray-500 ms-3 dark:text-neutral-400 mb-0">Shelf-stable</label>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: form-radio-card -->
+    <div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">Card Radios</p>
+      <div class="grid sm:grid-cols-2 gap-2">
+        <label for="pl-radio-card-1" class="radio-label">
+          <input type="radio" name="pl-radio-card" id="pl-radio-card-1" checked>
+          <span>Individual plan</span>
+        </label>
+        <label for="pl-radio-card-2" class="radio-label">
+          <input type="radio" name="pl-radio-card" id="pl-radio-card-2">
+          <span>Family plan</span>
+        </label>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

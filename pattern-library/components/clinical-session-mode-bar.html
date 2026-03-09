@@ -1,0 +1,32 @@
+<!--
+  @component-meta
+  name: Session Mode Bar
+  category: Healthcare-Specific
+  file: clinical-session-mode-bar.html
+  classes: session-mode-bar
+  when-to-use: Persistent bar indicating an active patient session, shown at the top of the viewport during charting.
+  preline-required: no
+  notes: Uses btn-danger-outline for the End Session action. Sticky positioned below the main nav bar.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Session Mode Bar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Persistent bar indicating an active patient session, shown at the top of the viewport during charting.
+  </p>
+
+  <!-- @component: clinical-session-mode-bar -->
+  <div class="session-mode-bar">
+    <div class="flex items-center gap-2 text-sm text-primary-700">
+      <i class="fa-solid fa-circle-play"></i>
+      <span class="font-medium">Active Session — Maria Santos</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-sm text-gray-500">Elapsed: 12 min</span>
+      <button type="button" class="btn-danger-outline">End Session</button>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,55 @@
+<!--
+  @component-meta
+  name: Tab Nav
+  category: Navigation
+  file: nav-tabs.html
+  classes: tab-nav, tab-nav-item
+  when-to-use: Switching between content sections on a single page. Maximum 5-6 tabs before considering a sidebar nav instead.
+  do-not-use-when: The options are mutually exclusive choices (use segmented control) or top-level app sections (use sidebar).
+  preline-required: yes
+  notes: Tab switching uses Preline data-hs-tab. The .active class is toggled by Preline JS. Do NOT use hs-tab-active: variant classes — use the .tab-nav-item semantic class instead.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Tab Nav</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    In-page tabbed sections with underline style.
+  </p>
+
+    <!-- @component: nav-tabs -->
+    <nav class="tab-nav border-b border-gray-200 dark:border-neutral-700" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+      <button type="button" class="tab-nav-item active"
+        id="pl-tab-overview" aria-selected="true"
+        data-hs-tab="#pl-tab-panel-overview" aria-controls="pl-tab-panel-overview"
+        role="tab">
+        Overview
+      </button>
+      <button type="button" class="tab-nav-item"
+        id="pl-tab-meals" aria-selected="false"
+        data-hs-tab="#pl-tab-panel-meals" aria-controls="pl-tab-panel-meals"
+        role="tab">
+        Meal Plan
+      </button>
+      <button type="button" class="tab-nav-item"
+        id="pl-tab-clinical" aria-selected="false"
+        data-hs-tab="#pl-tab-panel-clinical" aria-controls="pl-tab-panel-clinical"
+        role="tab">
+        Clinical Data
+      </button>
+    </nav>
+
+    <div class="mt-3">
+      <div id="pl-tab-panel-overview" role="tabpanel" aria-labelledby="pl-tab-overview">
+        <p class="text-sm text-gray-500 dark:text-neutral-400">Overview content appears here. This is the default active tab panel.</p>
+      </div>
+      <div id="pl-tab-panel-meals" class="hidden" role="tabpanel" aria-labelledby="pl-tab-meals">
+        <p class="text-sm text-gray-500 dark:text-neutral-400">Meal plan content appears here when the second tab is selected.</p>
+      </div>
+      <div id="pl-tab-panel-clinical" class="hidden" role="tabpanel" aria-labelledby="pl-tab-clinical">
+        <p class="text-sm text-gray-500 dark:text-neutral-400">Clinical data content appears here when the third tab is selected.</p>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

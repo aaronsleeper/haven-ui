@@ -1,0 +1,35 @@
+<!--
+  @component-meta
+  name: Button: Dark Mode Toggle
+  category: Primitives — Buttons
+  file: btn-dark-mode-toggle.html
+  classes: pl-theme-toggle, pl-theme-toggle-track, pl-theme-toggle-thumb, pl-theme-icon-moon, pl-theme-icon-sun, pl-theme-toggle-label
+  when-to-use: Dark mode toggle in app headers and the pattern library nav. Use one per page.
+  do-not-use-when: N/A
+  preline-required: no
+  notes: Pill-switch design with embedded moon/sun icons. The toggle button must have id="dark-mode-toggle" for the JS handler in main.js to bind to it. CSS-only icon and thumb animation via :is(.dark) selectors.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Dark Mode Toggle</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Pill-switch theme toggle with embedded moon/sun icons. CSS-only animation.
+  </p>
+
+    <!-- @component: btn-dark-mode-toggle -->
+    <button id="dark-mode-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"
+      class="pl-theme-toggle">
+      <span class="pl-theme-toggle-track">
+        <i class="fa-solid fa-moon pl-theme-icon-moon"></i>
+        <i class="fa-solid fa-sun pl-theme-icon-sun"></i>
+        <span class="pl-theme-toggle-thumb"></span>
+      </span>
+      <span class="pl-theme-toggle-label">
+        <span class="pl-theme-label-light">Light mode</span>
+        <span class="pl-theme-label-dark">Dark mode</span>
+      </span>
+    </button>
+    <!-- /component -->
+</section>

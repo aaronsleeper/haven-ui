@@ -1,0 +1,62 @@
+<!-- Kitchen Partner Portal - Sidebar Navigation
+     Copy this block into each kitchen page.
+     Set the `active` class on the nav item matching the current page.
+     When Angular integration happens, this becomes a shared component. -->
+
+<div id="application-sidebar" class="app-sidebar hs-overlay">
+    <div class="app-sidebar-header">
+        <a href="meal-list.html" aria-label="Cena Health">
+            <img src="../../assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-8">
+        </a>
+    </div>
+
+    <nav class="app-sidebar-nav">
+        <ul class="sidebar-nav-list" id="sidebar-nav-list">
+            <li>
+                <a class="sidebar-nav-item" href="meal-list.html">
+                    <i class="fa-solid fa-utensils w-4 text-center"></i>
+                    Meals
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-nav-item" href="orders.html">
+                    <i class="fa-solid fa-clipboard-list w-4 text-center"></i>
+                    Orders
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-nav-item" href="reports.html">
+                    <i class="fa-solid fa-chart-bar w-4 text-center"></i>
+                    Reports
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-nav-item" href="finance.html">
+                    <i class="fa-solid fa-file-invoice-dollar w-4 text-center"></i>
+                    Finance
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-nav-item" href="settings.html">
+                    <i class="fa-solid fa-gear w-4 text-center"></i>
+                    Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script>
+    (function () {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.sidebar-nav-item');
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+
+            const href = link.getAttribute('href');
+            if (href && href !== '#' && currentPath.includes(href.replace('.html', ''))) {
+                link.classList.add('active');
+            }
+        });
+    })();
+</script>

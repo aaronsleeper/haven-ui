@@ -1,0 +1,26 @@
+<!--
+  @component-meta
+  name: Severity Badge
+  category: Primitives — Badges & Status
+  file: badge-severity.html
+  classes: severity-badge, severity-high, severity-medium, severity-low
+  when-to-use: High/medium/low severity indicators in alert tables, clinical alert lists, and risk assessments.
+  do-not-use-when: You need a general status label — use badge with the appropriate color instead.
+  preline-required: no
+  notes: severity-high uses error colors, severity-medium uses warning, severity-low uses neutral gray. These are more compact than standard badges.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Severity Badge</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Compact severity indicators for clinical and alert contexts.
+  </p>
+
+    <!-- @component: severity-badges -->
+    <span class="severity-badge severity-high">High</span>
+    <span class="severity-badge severity-medium">Medium</span>
+    <span class="severity-badge severity-low">Low</span>
+    <!-- /component -->
+</section>

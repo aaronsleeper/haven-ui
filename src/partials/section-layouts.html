@@ -1,0 +1,263 @@
+<section id="layouts" class="mb-12">
+    <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Layouts & Data</h2>
+    <p class="text-gray-500 mb-8 dark:text-neutral-400">Core structural components: cards, tables, headers, and data containers.</p>
+
+    <!-- 1. Page Header -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Page Header</h3>
+        <div class="space-y-6">
+            <!-- Variant 1: Title + action buttons -->
+            <div class="p-4 bg-gray-50 rounded-xl dark:bg-neutral-800">
+                <div class="page-header">
+                    <h1>Page Title</h1>
+                    <div class="flex gap-2">
+                        <button class="btn-outline btn-sm"><i class="fa-solid fa-filter me-1.5"></i> Filter</button>
+                        <button class="btn-primary btn-sm"><i class="fa-solid fa-plus me-1.5"></i> Add New</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Variant 2: Breadcrumb + title -->
+            <div class="p-4 bg-gray-50 rounded-xl dark:bg-neutral-800">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="#">Home</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <a href="#">Patients</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">Maria Santos</span>
+                </nav>
+                <div class="page-header">
+                    <h1>Patient Detail</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Cards -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Cards</h3>
+        <div class="grid sm:grid-cols-2 gap-6">
+            <!-- Basic card -->
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Card Title</p>
+                    <p class="text-gray-500 dark:text-neutral-400">Card body content goes here.</p>
+                </div>
+            </div>
+            <!-- Card with header -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Card with Header</h3>
+                    <p class="card-subtitle">Optional subtitle text</p>
+                </div>
+                <div class="card-body">
+                    <p class="text-gray-500 dark:text-neutral-400">Body content.</p>
+                </div>
+            </div>
+            <!-- Card with header + footer -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Card with Footer</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-gray-500 dark:text-neutral-400">Body content.</p>
+                </div>
+                <div class="card-footer flex justify-end gap-2">
+                    <button class="btn-outline btn-sm">Cancel</button>
+                    <button class="btn-primary btn-sm">Save</button>
+                </div>
+            </div>
+            <!-- Empty state card -->
+            <div class="card">
+                <div class="empty-state">
+                    <div class="empty-state-icon"><i class="fa-regular fa-folder-open"></i></div>
+                    <h3>No results found</h3>
+                    <p>Try adjusting your filters or adding new items.</p>
+                    <button class="btn-primary btn-sm">Add Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Stat Cards -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Stat Cards</h3>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">Active Patients</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">45</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">Alerts Open</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">12</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">Meal Adherence</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">82%</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +5%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-neutral-400">Avg HbA1c</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">7.8%</span>
+                        <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;0.3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Data Table -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Data Table</h3>
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Program</th>
+                        <th>Status</th>
+                        <th>Last Visit</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="cell-primary">Maria Santos</td>
+                        <td>Diabetes & Food</td>
+                        <td><span class="badge badge-success badge-pill">Active</span></td>
+                        <td>Feb 12, 2026</td>
+                        <td class="text-end">
+                            <a href="#" class="text-link">View</a>
+                            <span class="mx-1 text-gray-300">|</span>
+                            <a href="#" class="text-link-danger">Remove</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cell-primary">James Thompson</td>
+                        <td>HTN Management</td>
+                        <td><span class="badge badge-warning badge-pill">Pending</span></td>
+                        <td>Jan 28, 2026</td>
+                        <td class="text-end">
+                            <a href="#" class="text-link">View</a>
+                            <span class="mx-1 text-gray-300">|</span>
+                            <a href="#" class="text-link-danger">Remove</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cell-primary">Sofia Perez</td>
+                        <td>Food Insecurity</td>
+                        <td><span class="badge badge-error badge-pill">Inactive</span></td>
+                        <td>Dec 15, 2025</td>
+                        <td class="text-end">
+                            <a href="#" class="text-link">View</a>
+                            <span class="mx-1 text-gray-300">|</span>
+                            <a href="#" class="text-link-danger">Remove</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 5. Toolbar -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Toolbar</h3>
+        <div class="toolbar">
+            <div class="toolbar-search relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none"></i>
+                <input type="text" placeholder="Search patients..." class="toolbar-search-input">
+            </div>
+            <div class="flex gap-2">
+                <button class="btn-outline btn-sm"><i class="fa-solid fa-filter me-1.5"></i> Filter</button>
+                <button class="btn-primary btn-sm"><i class="fa-solid fa-plus me-1.5"></i> Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Filter Pills -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Filter Pills</h3>
+        <div class="flex flex-wrap gap-2">
+            <button class="filter-pill active">All</button>
+            <button class="filter-pill">Active</button>
+            <button class="filter-pill">Pending</button>
+            <button class="filter-pill">Inactive</button>
+            <button class="filter-pill">High Risk</button>
+        </div>
+    </div>
+
+    <!-- 7. Pagination -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Pagination</h3>
+        <div class="card">
+            <div class="pagination">
+                <span class="pagination-info">Showing 1&ndash;10 of 45 results</span>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" disabled><i class="fa-solid fa-chevron-left fa-xs"></i></button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn"><i class="fa-solid fa-chevron-right fa-xs"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Skeleton Loaders -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Skeleton Loaders</h3>
+        <div class="card">
+            <div class="card-body space-y-3">
+                <div class="skeleton skeleton-text w-1/3"></div>
+                <div class="skeleton skeleton-text w-full"></div>
+                <div class="skeleton skeleton-text w-5/6"></div>
+                <div class="skeleton skeleton-text w-2/3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. Badges (comprehensive reference) -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Badges</h3>
+        <div class="space-y-3">
+            <!-- Row 1: Solid variants -->
+            <div class="flex flex-wrap gap-2">
+                <span class="badge badge-primary">Primary</span>
+                <span class="badge badge-success">Success</span>
+                <span class="badge badge-warning">Warning</span>
+                <span class="badge badge-error">Error</span>
+                <span class="badge badge-info">Info</span>
+                <span class="badge badge-neutral">Neutral</span>
+            </div>
+            <!-- Row 2: Pill variants -->
+            <div class="flex flex-wrap gap-2">
+                <span class="badge badge-primary badge-pill">Primary</span>
+                <span class="badge badge-success badge-pill">Success</span>
+                <span class="badge badge-warning badge-pill">Warning</span>
+                <span class="badge badge-error badge-pill">Error</span>
+                <span class="badge badge-info badge-pill">Info</span>
+                <span class="badge badge-neutral badge-pill">Neutral</span>
+            </div>
+            <!-- Row 3: Size variants -->
+            <div class="flex flex-wrap gap-2 items-center">
+                <span class="badge badge-success">Default size</span>
+                <span class="badge badge-success badge-sm">Small</span>
+            </div>
+        </div>
+    </div>
+</section>

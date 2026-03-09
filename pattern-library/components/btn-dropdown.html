@@ -1,0 +1,33 @@
+<!--
+  @component-meta
+  name: Button: Dropdown / Model Selector
+  category: Primitives — Buttons
+  file: btn-dropdown.html
+  classes: btn-model-selector, dropdown-btn
+  when-to-use: Dropdown trigger buttons in toolbars and context menus. Use with Preline hs-dropdown. This is the button only — see Overlays > Dropdown for the full dropdown component.
+  do-not-use-when: The trigger is an icon-only button — use btn-icon instead.
+  preline-required: yes
+  notes: btn-model-selector and dropdown-btn are aliases (same styles). Both have a bordered appearance with chevron indicator.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Dropdown Trigger</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Bordered button for dropdown triggers. Pair with Preline <code class="text-xs font-mono">hs-dropdown</code>.
+  </p>
+
+    <!-- @component: btn-dropdown -->
+    <button type="button" class="dropdown-btn">
+      Options
+      <i class="fa-solid fa-chevron-down text-[10px]"></i>
+    </button>
+    <!-- /component -->
+
+    <button type="button" class="btn-model-selector">
+      <i class="fa-solid fa-robot"></i>
+      GPT-4
+      <i class="fa-solid fa-chevron-down text-[10px]"></i>
+    </button>
+</section>

@@ -1,0 +1,33 @@
+<!--
+  @component-meta
+  name: Prompt Input
+  category: Complex / App-Specific
+  file: complex-prompt-input.html
+  classes: prompt-input-container, prompt-textarea, prompt-toolbar, category-chip
+  when-to-use: AI prompt entry with category chips and a send button.
+  preline-required: no
+  notes: The send button sits flush-right inside the toolbar row.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Prompt Input</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    AI prompt entry with category chips and a send button.
+  </p>
+
+  <!-- @component: prompt-input -->
+  <div class="prompt-input-container">
+    <textarea class="prompt-textarea" rows="3" placeholder="Ask a clinical question..."></textarea>
+    <div class="prompt-toolbar flex items-center gap-2 px-3 py-2">
+      <button class="category-chip active">Nutrition</button>
+      <button class="category-chip">Medications</button>
+      <button class="category-chip">Lab Results</button>
+      <button class="btn-icon-primary ml-auto" aria-label="Send">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,51 @@
+<!--
+  @component-meta
+  name: Medication Row
+  category: Healthcare-Specific
+  file: clinical-medication-row.html
+  classes: medication-row
+  when-to-use: Medication list entries in patient detail views showing drug name, dosage, and frequency.
+  preline-required: no
+  notes: Wrap rows in a .card for proper containment. Each row includes an icon, medication details, frequency badge, and action link.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Medication Row</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Medication list entries in patient detail views showing drug name, dosage, and frequency.
+  </p>
+
+  <!-- @component: clinical-medication-row -->
+  <div class="card">
+    <div class="medication-row">
+      <i class="fa-solid fa-pills text-primary-400 shrink-0 mt-0.5"></i>
+      <div class="flex-1 min-w-0">
+        <span class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Metformin</span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400 ml-2">500 mg</span>
+      </div>
+      <span class="badge badge-neutral badge-sm">Twice daily</span>
+      <a href="#" class="text-link">View details</a>
+    </div>
+    <div class="medication-row">
+      <i class="fa-solid fa-pills text-primary-400 shrink-0 mt-0.5"></i>
+      <div class="flex-1 min-w-0">
+        <span class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Lisinopril</span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400 ml-2">10 mg</span>
+      </div>
+      <span class="badge badge-neutral badge-sm">Once daily</span>
+      <a href="#" class="text-link">View details</a>
+    </div>
+    <div class="medication-row">
+      <i class="fa-solid fa-pills text-primary-400 shrink-0 mt-0.5"></i>
+      <div class="flex-1 min-w-0">
+        <span class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Atorvastatin</span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400 ml-2">20 mg</span>
+      </div>
+      <span class="badge badge-neutral badge-sm">Once daily</span>
+      <a href="#" class="text-link">View details</a>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

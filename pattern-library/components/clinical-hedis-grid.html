@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: HEDIS Grid
+  category: Healthcare-Specific
+  file: clinical-hedis-grid.html
+  classes: hedis-grid, hedis-stat, hedis-stat-label, hedis-stat-value, hedis-stat-detail
+  when-to-use: Quality measure dashboard showing HEDIS performance metrics in a compact grid layout.
+  preline-required: no
+  notes: Each hedis-stat card contains a label, primary value, and supporting detail text.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">HEDIS Grid</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Quality measure dashboard showing HEDIS performance metrics in a compact grid layout.
+  </p>
+
+  <!-- @component: clinical-hedis-grid -->
+  <div class="hedis-grid">
+    <div class="hedis-stat">
+      <div class="hedis-stat-label">HbA1c Control</div>
+      <div class="hedis-stat-value">72%</div>
+      <div class="hedis-stat-detail">Patients with HbA1c &lt; 8.0%</div>
+    </div>
+    <div class="hedis-stat">
+      <div class="hedis-stat-label">Blood Pressure</div>
+      <div class="hedis-stat-value">68%</div>
+      <div class="hedis-stat-detail">Controlled BP &lt; 140/90 mmHg</div>
+    </div>
+    <div class="hedis-stat">
+      <div class="hedis-stat-label">Colorectal Screening</div>
+      <div class="hedis-stat-value">54%</div>
+      <div class="hedis-stat-detail">Ages 45–75 screened within guidelines</div>
+    </div>
+    <div class="hedis-stat">
+      <div class="hedis-stat-label">Medication Adherence</div>
+      <div class="hedis-stat-value">81%</div>
+      <div class="hedis-stat-detail">PDC &ge; 80% for diabetes medications</div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

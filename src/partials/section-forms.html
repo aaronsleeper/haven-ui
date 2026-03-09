@@ -1,0 +1,202 @@
+<section id="forms" class="mb-12">
+    <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Forms</h2>
+    <p class="text-gray-500 mb-8 dark:text-neutral-400">Form inputs, selection controls, and validation states.</p>
+
+    <!-- Text Inputs -->
+    <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Text Inputs</h3>
+        <div class="max-w-lg space-y-5">
+            <!-- Default -->
+            <div>
+                <label for="input-default" class="block text-sm font-medium mb-2 dark:text-white">Default Input</label>
+                <input type="text" id="input-default"
+                    class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    placeholder="Enter text">
+            </div>
+            <!-- Error -->
+            <div>
+                <label for="input-error" class="block text-sm font-medium mb-2 dark:text-white">Error Input</label>
+                <input type="email" id="input-error"
+                    class="py-2.5 sm:py-3 px-4 block w-full border-error-500 rounded-lg text-sm focus:border-error-500 focus:ring-error-500 dark:bg-neutral-900 dark:border-error-500 dark:text-neutral-400"
+                    value="invalid@" aria-invalid="true" aria-describedby="input-error-helper">
+                <p id="input-error-helper"
+                    class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" x2="12" y1="8" y2="12" />
+                        <line x1="12" x2="12.01" y1="16" y2="16" />
+                    </svg>
+                    Please enter a valid email address.
+                </p>
+            </div>
+            <!-- Success -->
+            <div>
+                <label for="input-success" class="block text-sm font-medium mb-2 dark:text-white">Success Input</label>
+                <input type="email" id="input-success"
+                    class="py-2.5 sm:py-3 px-4 block w-full border-success-500 rounded-lg text-sm focus:border-success-500 focus:ring-success-500 dark:bg-neutral-900 dark:border-success-500 dark:text-neutral-400"
+                    value="valid@example.com" aria-describedby="input-success-helper">
+                <p id="input-success-helper"
+                    class="text-sm text-success-600 mt-1.5 flex items-center gap-1 dark:text-success-400">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    Email is valid.
+                </p>
+            </div>
+            <!-- Disabled -->
+            <div>
+                <label for="input-disabled" class="block text-sm font-medium mb-2 dark:text-white">Disabled
+                    Input</label>
+                <input type="text" id="input-disabled"
+                    class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400"
+                    placeholder="Disabled" disabled>
+            </div>
+        </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Textarea</h3>
+        <div class="max-w-lg">
+            <label for="textarea-default" class="block text-sm font-medium mb-2 dark:text-white">Description</label>
+            <textarea id="textarea-default"
+                class="py-2 sm:py-2.5 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                rows="4" placeholder="Write your message here..."></textarea>
+        </div>
+    </div>
+
+    <!-- Select -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Select</h3>
+        <div class="max-w-lg">
+            <label for="select-default" class="block text-sm font-medium mb-2 dark:text-white">Choose an option</label>
+            <select id="select-default"
+                class="py-2.5 sm:py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600">
+                <option selected>Select one</option>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Checkboxes -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Checkboxes</h3>
+        <div class="space-y-3">
+            <div class="flex">
+                <input type="checkbox"
+                    class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-primary-600 focus:ring-primary-500 checked:border-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-primary-500 dark:checked:border-primary-500 dark:focus:ring-offset-gray-800"
+                    id="hs-default-checkbox">
+                <label for="hs-default-checkbox" class="text-sm text-gray-500 ms-3 dark:text-neutral-400">Default
+                    checkbox</label>
+            </div>
+            <div class="flex">
+                <input type="checkbox"
+                    class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-primary-600 focus:ring-primary-500 checked:border-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-primary-500 dark:checked:border-primary-500 dark:focus:ring-offset-gray-800"
+                    id="hs-checked-checkbox" checked>
+                <label for="hs-checked-checkbox" class="text-sm text-gray-500 ms-3 dark:text-neutral-400">Checked
+                    checkbox</label>
+            </div>
+            <div class="flex opacity-40">
+                <input type="checkbox"
+                    class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-primary-600 focus:ring-primary-500 checked:border-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-primary-500 dark:checked:border-primary-500 dark:focus:ring-offset-gray-800"
+                    id="hs-disabled-checkbox" checked disabled>
+                <label for="hs-disabled-checkbox" class="text-sm text-gray-500 ms-3 dark:text-neutral-400">Disabled
+                    checked
+                    checkbox</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Radio Buttons -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Radio Buttons</h3>
+        <div class="grid sm:grid-cols-2 gap-2">
+            <label for="hs-radio-in-form"
+                class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                <input type="radio" name="hs-radio-in-form"
+                    class="shrink-0 mt-0.5 border-gray-200 rounded-full text-primary-600 focus:ring-primary-500 checked:border-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-primary-500 dark:checked:border-primary-500 dark:focus:ring-offset-gray-800"
+                    id="hs-radio-in-form">
+                <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400">Default radio</span>
+            </label>
+            <label for="hs-radio-checked-in-form"
+                class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                <input type="radio" name="hs-radio-in-form"
+                    class="shrink-0 mt-0.5 border-gray-200 rounded-full text-primary-600 focus:ring-primary-500 checked:border-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-primary-500 dark:checked:border-primary-500 dark:focus:ring-offset-gray-800"
+                    id="hs-radio-checked-in-form" checked>
+                <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400">Checked radio</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Toggle Switch -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Toggle Switches</h3>
+        <div class="space-y-4">
+            <div class="flex items-center gap-x-3">
+                <label for="hs-default-switch" class="relative inline-block w-11 h-6 cursor-pointer">
+                    <input type="checkbox" id="hs-default-switch" class="peer sr-only">
+                    <span
+                        class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary-600 dark:bg-neutral-700 dark:peer-checked:bg-primary-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                    <span
+                        class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
+                </label>
+                <label for="hs-default-switch" class="text-sm text-gray-500 dark:text-neutral-400">Default
+                    toggle</label>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <label for="hs-checked-switch" class="relative inline-block w-11 h-6 cursor-pointer">
+                    <input type="checkbox" id="hs-checked-switch" class="peer sr-only" checked>
+                    <span
+                        class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary-600 dark:bg-neutral-700 dark:peer-checked:bg-primary-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                    <span
+                        class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
+                </label>
+                <label for="hs-checked-switch" class="text-sm text-gray-500 dark:text-neutral-400">Checked
+                    toggle</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Input -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">File Input</h3>
+        <div class="max-w-lg">
+            <label for="file-input" class="sr-only">Choose file</label>
+            <input type="file" name="file-input" id="file-input" class="block w-full border border-gray-200 shadow-xs rounded-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400
+            file:bg-gray-50 file:border-0
+            file:me-4
+            file:py-3 file:px-4
+            dark:file:bg-neutral-700 dark:file:text-neutral-400">
+        </div>
+    </div>
+
+    <!-- Input Group -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Input Group</h3>
+        <div class="max-w-lg space-y-4">
+            <div class="flex rounded-lg shadow-xs">
+                <span
+                    class="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-50 text-sm text-gray-500 dark:bg-neutral-700 dark:border-neutral-700 dark:text-neutral-400">http://</span>
+                <input type="text"
+                    class="py-3 px-4 block w-full border-gray-200 shadow-xs rounded-e-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400"
+                    placeholder="www.example.com">
+            </div>
+            <div class="flex rounded-lg shadow-xs">
+                <input type="text"
+                    class="py-3 px-4 block w-full border-gray-200 shadow-xs rounded-s-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400"
+                    placeholder="Search">
+                <button type="button"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-primary-600 text-white hover:bg-primary-700 focus:outline-hidden focus:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,47 @@
+<!--
+  @component-meta
+  name: Dropdown
+  category: Overlays
+  file: overlay-dropdown.html
+  classes: dropdown-btn, dropdown-menu, dropdown-item
+  when-to-use: Action menus in table rows, toolbars, and page headers.
+  preline-required: yes — hs-dropdown
+  notes: Use .dropdown-btn for the trigger. Always include data-hs-dropdown-placement if not default.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Dropdown</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Action menus for table rows, toolbars, and page headers. Uses Preline hs-dropdown.
+  </p>
+
+  <!-- @component: overlay-dropdown -->
+  <div class="hs-dropdown relative inline-flex">
+    <button id="hs-dropdown-actions" type="button" class="hs-dropdown-toggle dropdown-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Actions">
+      Actions
+      <i class="fa-solid fa-chevron-down text-xs"></i>
+    </button>
+
+    <div class="hs-dropdown-menu dropdown-menu" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-actions">
+      <a class="dropdown-item" href="#" role="menuitem">
+        <i class="fa-solid fa-pen-to-square"></i>
+        Edit Record
+      </a>
+      <a class="dropdown-item" href="#" role="menuitem">
+        <i class="fa-solid fa-file-export"></i>
+        Export PDF
+      </a>
+      <a class="dropdown-item" href="#" role="menuitem">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        View History
+      </a>
+      <a class="dropdown-item" href="#" role="menuitem">
+        <i class="fa-solid fa-trash-can text-error-500"></i>
+        <span class="text-error-600">Delete</span>
+      </a>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

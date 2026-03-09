@@ -1,0 +1,47 @@
+<!--
+  @component-meta
+  name: Partner List Item
+  category: Complex / App-Specific
+  file: complex-partner-list-item.html
+  classes: partner-list-item
+  when-to-use: Selectable list rows for kitchen partners with name, location, and status.
+  preline-required: no
+  notes: The active state adds a left accent border and tinted background.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Partner List Item</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Selectable list rows for kitchen partners with name, location, and status.
+  </p>
+
+  <!-- @component: partner-list-item -->
+  <div class="card">
+    <div class="partner-list-item">
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Fresh Start Kitchen</div>
+        <div class="text-xs text-gray-500 dark:text-neutral-400">Portland, OR</div>
+      </div>
+      <span class="badge badge-success badge-sm">Active</span>
+    </div>
+
+    <div class="partner-list-item active">
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Sunrise Meals Co.</div>
+        <div class="text-xs text-gray-500 dark:text-neutral-400">Seattle, WA</div>
+      </div>
+      <span class="badge badge-success badge-sm">Active</span>
+    </div>
+
+    <div class="partner-list-item">
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Nourish Hub</div>
+        <div class="text-xs text-gray-500 dark:text-neutral-400">Austin, TX</div>
+      </div>
+      <span class="badge badge-warning badge-sm">On Hold</span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

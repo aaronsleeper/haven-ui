@@ -1,0 +1,116 @@
+<!--
+  @component-meta
+  name: Typography
+  category: Foundations
+  file: foundations-typography.html
+  classes: prose-section
+  when-to-use: Reference this page for heading scale, font families, and the prose-section pattern. Use prose-section to constrain text-heavy content to a readable line length.
+  do-not-use-when: N/A
+  preline-required: no
+  notes: Headings use Lora (serif). Body text uses Inter (sans). Code uses JetBrains Mono. Font sizes defined as CSS custom properties in typography.css.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section id="typography">
+
+  <h2>Typography</h2>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Haven uses a three-font system: Lora for headings, Inter for body, JetBrains Mono for code.
+  </p>
+
+  <!-- Heading Scale -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Heading Scale</h3>
+    <div class="card card-body space-y-4">
+      <h1>Heading 1 <span class="text-sm font-normal text-gray-400">~2.49rem / Lora Bold</span></h1>
+      <h2>Heading 2 <span class="text-sm font-normal text-gray-400">~2.07rem / Lora Bold</span></h2>
+      <h3>Heading 3 <span class="text-sm font-normal text-gray-400">~1.73rem / Lora Bold</span></h3>
+      <h4>Heading 4 <span class="text-sm font-normal text-gray-400">~1.44rem / Lora Bold</span></h4>
+      <h5>Heading 5 <span class="text-sm font-normal text-gray-400">~1.20rem / Lora Bold</span></h5>
+      <h6>Heading 6 <span class="text-sm font-normal text-gray-400">1rem / Lora Bold</span></h6>
+    </div>
+  </div>
+
+  <!-- Font Families -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Font Families</h3>
+    <div class="card card-body space-y-6">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Inter (Sans) — Body text, labels, UI elements</p>
+        <p class="text-lg font-sans text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Lora (Serif) — Headings</p>
+        <p class="text-lg font-serif text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">JetBrains Mono — Code, monospace</p>
+        <p class="text-lg font-mono text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Font Size Scale -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Font Size Variables</h3>
+    <div class="card card-body space-y-3">
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-xs</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-xs)">0.69rem / 11.11px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-sm</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-sm)">0.83rem / 13.33px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-base</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-base)">1rem / 16px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-lg</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-lg)">1.2rem / 19.2px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-xl</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-xl)">1.44rem / 23.04px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-2xl</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-2xl)">1.73rem / 27.65px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-3xl</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-3xl)">2.07rem / 33.18px</span>
+      </div>
+      <div class="flex items-baseline gap-4">
+        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-4xl</code>
+        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-4xl)">2.49rem / 39.81px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prose Section -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Prose Section</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Use <code class="text-xs font-mono">.prose-section</code> to constrain text content to a readable max width of 72ch.
+    </p>
+
+    <!-- @component: prose-section -->
+    <div class="prose-section">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum,
+        nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
+        congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut facilisis. Cras imperdiet nunc nec
+        lorem pretium, et dictum risus aliquet.
+      </p>
+      <p>
+        Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis. Aenean
+        posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

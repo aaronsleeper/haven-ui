@@ -1,0 +1,82 @@
+<!--
+  @component-meta
+  name: App Sidebar
+  category: Navigation
+  file: nav-sidebar.html
+  classes: app-sidebar, app-sidebar-header, app-sidebar-brand, app-sidebar-nav, sidebar-nav-list, sidebar-nav-item, sidebar-nav-section, sidebar-subnav-list, sidebar-subnav-item, hs-accordion-toggle, accordion-chevron-up, accordion-chevron-down, btn-dark-mode-toggle, theme-icon-moon, theme-icon-sun
+  when-to-use: Primary navigation for any Haven app. One per app, rendered once in the layout shell.
+  preline-required: yes
+  notes: In production, the sidebar uses .app-sidebar which is fixed-position. This demo shows it static for pattern library display. Preline hs-accordion is required for expandable sub-nav sections.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">App Sidebar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Primary app navigation. Shown static at natural width.
+  </p>
+
+  <!-- @component: nav-sidebar -->
+  <div class="max-w-[16rem] border border-gray-200 rounded-xl overflow-hidden dark:border-neutral-700">
+    <!-- Header -->
+    <div class="app-sidebar-header pt-5">
+      <span class="app-sidebar-brand">Haven</span>
+      <p class="text-xs text-gray-500 dark:text-neutral-400 mt-1">Care Platform</p>
+    </div>
+
+    <!-- Nav -->
+    <nav class="hs-accordion-group app-sidebar-nav" data-hs-accordion-always-open>
+      <ul class="sidebar-nav-list">
+        <!-- Section label -->
+        <li><span class="sidebar-nav-section">Main</span></li>
+
+        <!-- Active item -->
+        <li>
+          <a href="#" class="sidebar-nav-item active">
+            <i class="fa-solid fa-house fa-fw"></i> Dashboard
+          </a>
+        </li>
+
+        <!-- Regular items -->
+        <li>
+          <a href="#" class="sidebar-nav-item">
+            <i class="fa-solid fa-users fa-fw"></i> Patients
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-nav-item">
+            <i class="fa-solid fa-triangle-exclamation fa-fw"></i> Alerts
+          </a>
+        </li>
+
+        <!-- Accordion item -->
+        <li class="hs-accordion" id="pl-nav-programs-accordion">
+          <button type="button"
+            class="hs-accordion-toggle sidebar-nav-item w-full text-start flex items-center gap-x-3.5">
+            <i class="fa-solid fa-clipboard-list fa-fw"></i>
+            <span class="flex-1">Programs</span>
+            <i class="accordion-chevron-up ms-auto fa-solid fa-chevron-down text-xs"></i>
+            <i class="accordion-chevron-down ms-auto fa-solid fa-chevron-right text-xs"></i>
+          </button>
+          <div id="pl-nav-programs-accordion-child"
+            class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300">
+            <ul class="sidebar-subnav-list">
+              <li><a href="#" class="sidebar-subnav-item">Diabetes Management</a></li>
+              <li><a href="#" class="sidebar-subnav-item active">HTN & Cardiac</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Footer with dark mode toggle -->
+        <li class="pt-6">
+          <button type="button" class="btn-dark-mode-toggle" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon theme-icon-moon"></i>
+            <i class="fa-solid fa-sun theme-icon-sun"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- /component -->
+</section>

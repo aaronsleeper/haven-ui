@@ -1,0 +1,33 @@
+<!--
+  @component-meta
+  name: Trend Badge
+  category: Primitives — Badges & Status
+  file: badge-trend.html
+  classes: trend-badge, trend-up, trend-improving, trend-down, trend-worsening, trend-flat
+  when-to-use: Up/down/flat trend indicators on metric cards, dashboard KPIs, and patient summary rows.
+  do-not-use-when: The metric has no meaningful trend direction.
+  preline-required: no
+  notes: |
+    trend-up and trend-improving are aliases (identical styles, green).
+    trend-down and trend-worsening are aliases (identical styles, red).
+    trend-flat is neutral gray.
+    In healthcare contexts prefer the semantic names (improving/worsening).
+    Include a FontAwesome arrow icon inside the span.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Trend Badge</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Directional trend indicators with healthcare semantic aliases.
+  </p>
+
+    <!-- @component: trend-badges -->
+    <span class="trend-up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+    <span class="trend-improving"><i class="fa-solid fa-arrow-up"></i> Improving</span>
+    <span class="trend-down"><i class="fa-solid fa-arrow-down"></i> 8%</span>
+    <span class="trend-worsening"><i class="fa-solid fa-arrow-down"></i> Worsening</span>
+    <span class="trend-flat"><i class="fa-solid fa-minus"></i> Flat</span>
+    <!-- /component -->
+</section>

@@ -1,3 +1,63 @@
-<header class="px-6 py-4 border-b border-gray-200">
-  <a href="/" class="text-lg font-semibold text-gray-800">Haven UI</a>
+<header>
+    <nav id="main-nav" aria-label="Main navigation"
+        class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 dark:bg-neutral-800/95 dark:border-neutral-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo / Theme Name -->
+                <div class="flex items-center gap-3">
+                    <span class="text-xl font-bold text-primary-600 dark:text-primary-400">Haven</span>
+                    <span class="text-xs text-gray-400 dark:text-neutral-500">Theme Demo</span>
+                </div>
+
+                <!-- Jump Links (scrollable on mobile) -->
+                <div class="flex items-center gap-1 overflow-x-auto">
+                    <a href="#design-tokens"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Tokens</a>
+                    <a href="#buttons"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Buttons</a>
+                    <a href="#forms"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Forms</a>
+                    <a href="#navigation"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Navigation</a>
+                    <a href="#feedback"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Feedback</a>
+                    <a href="#data-display"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Data</a>
+                    <a href="#overlays"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Overlays</a>
+                    <a href="#layouts"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Layouts</a>
+                    <a href="#clinical"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Clinical</a>
+                    <a href="#charts"
+                        class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 dark:hover:bg-neutral-700">Charts</a>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <button id="dark-mode-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"
+                    class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-primary-500 dark:text-neutral-400 dark:hover:bg-neutral-700">
+                    <!-- Sun icon (shown in dark mode) -->
+                    <svg class="hidden dark:block size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <!-- Moon icon (shown in light mode) -->
+                    <svg class="block dark:hidden size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
 </header>

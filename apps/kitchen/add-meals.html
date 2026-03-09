@@ -1,0 +1,534 @@
+<!-- Add Meals - Kitchen Partner Portal - See: design/features/recipe-management-wireframes/add-meals.md -->
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50 dark:bg-neutral-900">
+
+    <!-- App Shell -->
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <load src="/src/partials/kitchen-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 pb-20">
+
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb mb-4" aria-label="Breadcrumb">
+            <a href="meal-list.html">Meals</a>
+            <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
+            <span class="breadcrumb-current" aria-current="page">Add Meals</span>
+        </nav>
+        <!-- End Breadcrumb -->
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1>Add Meals</h1>
+            </div>
+            <!-- No action button in this phase -->
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Phase 1: Input - visible on initial page load. Hidden after agent processes recipes. -->
+        <!-- Instruction Card -->
+        <div class="card">
+            <div class="card-body space-y-4">
+                <div>
+                    <h2 class="instruction-title">Paste or type your meals</h2>
+                    <p class="instruction-text">Include as much detail as you can:
+                        meal name, ingredients, portion size, nutrition facts if you have them. You can add multiple
+                        meals at once.</p>
+                </div>
+
+                <!-- Collapsible Example -->
+                <div class="hs-accordion" id="example-accordion">
+                    <button class="hs-accordion-toggle accordion-toggle group" aria-controls="example-collapse"
+                        aria-expanded="false">
+                        <i
+                            class="hs-accordion-active:rotate-180 fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        Show example
+                    </button>
+                    <div id="example-collapse"
+                        class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                        aria-labelledby="example-accordion" role="region">
+                        <div class="example-code-block">
+                            Arroz con Pollo
+                            Chicken with rice, peppers, onions, and sofrito
+                            Serves 1, about 420 calories
+                            Ingredients: chicken thigh, rice, bell peppers, onions, garlic, sofrito, olive oil,
+                            cumin, salt
+
+                            Black Bean Soup (vegetarian)
+                            Hearty black bean soup with cilantro and lime
+                            250 calories per serving, low sodium</div>
+                    </div>
+                </div>
+                <!-- End Collapsible Example -->
+
+                <!-- Recipe input using prompt-input-container pattern -->
+                <div class="prompt-input-container mt-4">
+                    <textarea class="prompt-textarea" style="min-height: 200px;"
+                        placeholder="Start typing or paste your meals here..."></textarea>
+                    <div class="flex items-center justify-end p-3 pt-0">
+                        <button type="button" class="btn-icon-primary" id="btn-process">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </button>
+                        <!-- Note: Button disabled state handled by JS based on input value -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Instruction Card -->
+
+        <!-- Future: File upload drop zone for PDF, image, spreadsheet input. Not rendered in MVP. -->
+
+        <!-- ============================================================
+             PHASE BOUNDARY
+             In production: Phase 1 hides when Phase 2 activates.
+             For development preview: both phases shown simultaneously.
+             ============================================================ -->
+        <div class="border-t-2 border-dashed border-gray-300 my-8"></div>
+
+        <!-- Phase 2: Review - visible after agent processes meals. Hidden on initial page load. -->
+        <div id="review-phase" class="">
+            <div class="flex flex-col lg:flex-row gap-6 mt-6">
+
+                <!-- Main content (left, ~2/3 width) -->
+                <div class="flex-1 min-w-0 space-y-4" id="review-main">
+
+                    <!-- Prompt bar -->
+                    <div class="prompt-input-container">
+                        <textarea class="prompt-textarea" style="min-height: 64px;"
+                            placeholder="Ask the assistant to make changes...&#10;e.g., 'Add diabetic-friendly tag to all chicken meals'"></textarea>
+                        <div class="flex items-center justify-end p-3 pt-0">
+                            <button type="button" class="btn-icon-primary">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                            <!-- Note: Button disabled state handled by JS based on input value -->
+                        </div>
+                    </div>
+
+                    <!-- Recipe cards go here -->
+                    <div id="recipe-cards" class="space-y-4">
+                        <!-- Recipe Card 1: Arroz con Pollo (has issues, has agent-suggested fields) -->
+                        <div class="card" id="card-arroz">
+
+                            <div class="card-header">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <h3 class="card-title">Arroz con Pollo</h3>
+                                            <p class="card-subtitle">Chicken with rice, peppers, and sofrito</p>
+                                        </div>
+                                        <!-- Hot/Cold Toggle -->
+                                        <div class="inline-flex rounded-full border border-gray-200 dark:border-neutral-700"
+                                            role="group">
+                                            <button type="button" class="meal-type-toggle meal-type-toggle-hot active"
+                                                aria-pressed="true" onclick="toggleMealType(this)">
+                                                <i class="fa-solid fa-fire text-xs"></i> Hot
+                                            </button>
+                                            <button type="button" class="meal-type-toggle meal-type-toggle-cold"
+                                                aria-pressed="false" onclick="toggleMealType(this)">
+                                                <i class="fa-solid fa-snowflake text-xs"></i> Cold
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="badge badge-warning badge-pill">2 issues</span>
+                                        <button type="button" class="btn-icon"><i
+                                                class="fa-solid fa-chevron-up"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="card-body">
+
+                                <!-- Nutrition Facts -->
+                                <fieldset>
+                                    <legend>Nutrition Facts</legend>
+                                    <div class="nutrition-list">
+                                        <!-- Calories - user provided -->
+                                        <div class="nutrition-list-row">
+                                            <span class="nutrition-list-label">Calories</span>
+                                            <div class="nutrition-list-value">
+                                                <input type="number" class="nutrition-input" value="420">
+                                                <span class="text-sm text-gray-500">kcal</span>
+                                            </div>
+                                        </div>
+                                        <!-- Carbs - agent suggested, needs confirmation -->
+                                        <div class="nutrition-list-row ai-field">
+                                            <span class="nutrition-list-label">Carbs</span>
+                                            <div class="nutrition-list-value">
+                                                <i class="fa-solid fa-bolt ai-field-icon"></i>
+                                                <span class="ai-field-label">Suggested</span>
+                                                <input type="number" class="nutrition-input" value="42">
+                                                <span class="text-sm text-gray-500">g</span>
+                                                <button type="button" class="btn-outline btn-xs">Confirm</button>
+                                            </div>
+                                        </div>
+                                        <!-- Sugar - user provided -->
+                                        <div class="nutrition-list-row">
+                                            <span class="nutrition-list-label">Sugar</span>
+                                            <div class="nutrition-list-value">
+                                                <input type="number" class="nutrition-input" value="8">
+                                                <span class="text-sm text-gray-500">g</span>
+                                            </div>
+                                        </div>
+                                        <!-- Sodium - defaulted to zero -->
+                                        <div class="nutrition-list-row ai-field">
+                                            <span class="nutrition-list-label">Sodium</span>
+                                            <div class="nutrition-list-value">
+                                                <i class="fa-solid fa-bolt ai-field-icon"></i>
+                                                <span class="ai-field-label">Suggested</span>
+                                                <input type="number" class="nutrition-input" value="0">
+                                                <span class="text-sm text-gray-500">mg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Zero-value callout for Sodium -->
+                                    <div class="ai-field-zero-callout">
+                                        <p class="mb-2">No sodium value was provided. We've set this to 0 mg. Is that
+                                            correct?</p>
+                                        <button type="button" class="btn-outline btn-xs">Confirm</button>
+                                    </div>
+                                    <!-- Optional fields (visible) -->
+                                    <div class="nutrition-list mt-2">
+                                        <div class="nutrition-list-row">
+                                            <span class="nutrition-list-label">Total Fat</span>
+                                            <div class="nutrition-list-value">
+                                                <input type="number" class="nutrition-input" value="12">
+                                                <span class="text-sm text-gray-500">g</span>
+                                                <i class="fa-solid fa-circle-check ai-field-confirmed-icon"></i>
+                                                <span class="ai-field-confirmed-label">Confirmed</span>
+                                            </div>
+                                        </div>
+                                        <div class="nutrition-list-row ai-field">
+                                            <span class="nutrition-list-label">Protein</span>
+                                            <div class="nutrition-list-value">
+                                                <i class="fa-solid fa-bolt ai-field-icon"></i>
+                                                <span class="ai-field-label">Suggested</span>
+                                                <input type="number" class="nutrition-input" value="28">
+                                                <span class="text-sm text-gray-500">g</span>
+                                                <button type="button" class="btn-outline btn-xs">Confirm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <!-- Tags -->
+                                <fieldset>
+                                    <legend>Tags</legend>
+                                    <div class="tag-group">
+                                        <span class="tag-group-label">Diet:</span>
+                                        <span class="badge badge-info badge-pill badge-removable">
+                                            <i class="fa-solid fa-bolt ai-field-icon"></i>
+                                            General Wellness
+                                            <button type="button">&times;</button>
+                                        </span>
+                                        <button type="button" class="btn-icon"><i
+                                                class="fa-solid fa-plus text-xs"></i></button>
+                                    </div>
+                                    <div class="tag-group">
+                                        <span class="tag-group-label">Allergens:</span>
+                                        <span class="badge badge-warning badge-pill badge-removable">
+                                            Dairy
+                                            <button type="button">&times;</button>
+                                        </span>
+                                        <button type="button" class="btn-icon"><i
+                                                class="fa-solid fa-plus text-xs"></i></button>
+                                    </div>
+                                    <div class="tag-group">
+                                        <span class="tag-group-label">Spice Level:</span>
+                                        <span class="badge badge-secondary badge-pill">Mild</span>
+                                        <button type="button" class="btn-icon"><i
+                                                class="fa-solid fa-plus text-xs"></i></button>
+                                    </div>
+                                    <div class="tag-group">
+                                        <span class="tag-group-label">Special Requests:</span>
+                                        <button type="button" class="btn-icon"><i
+                                                class="fa-solid fa-plus text-xs"></i></button>
+                                    </div>
+                                </fieldset>
+
+                                <!-- Duplicate Comparison Panel -->
+                                <div class="comparison-panel">
+                                    <p class="comparison-intro">This meal looks similar to one
+                                        you already have. What would you like to do?</p>
+                                    <div class="comparison-column">
+                                        <div class="comparison-column-header">New Meal</div>
+                                        <p class="comparison-meal-title">Arroz con Pollo</p>
+                                        <p class="comparison-meal-details">420 kcal, 42g carbs, 0mg sodium</p>
+                                        <p class="comparison-meta">Added today, Feb 12, 2026</p>
+                                        <button type="button" class="btn-outline btn-sm mt-3 w-full">Keep</button>
+                                    </div>
+                                    <div class="comparison-column">
+                                        <div class="comparison-column-header">Existing Meal</div>
+                                        <p class="comparison-meal-title">Chicken Rice Bowl</p>
+                                        <p class="comparison-meal-details">400 kcal, 38g carbs, 580mg sodium</p>
+                                        <p class="comparison-meta">Added Jan 15, 2026</p>
+                                        <button type="button" class="btn-outline btn-sm mt-3 w-full">Keep</button>
+                                    </div>
+                                    <div class="comparison-actions">
+                                        <button type="button" class="btn-outline btn-sm">Keep both</button>
+                                        <button type="button" class="btn-primary btn-sm">Merge</button>
+                                        <span class="text-xs text-gray-500">Combine the best of both into one
+                                            meal</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Card Footer -->
+                            <div class="card-footer">
+                                <div class="flex items-center justify-between">
+                                    <a href="#issues-sidebar-container"
+                                        class="text-link inline-flex items-center gap-1.5">
+                                        <i class="fa-solid fa-triangle-exclamation text-warning-500"></i>
+                                        2 issues
+                                    </a>
+                                    <button type="button" class="btn-danger btn-sm">Remove Meal</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recipe Card 2: Black Bean Soup (Cold default) -->
+                        <div class="card" id="card-black-bean">
+                            <div class="card-header">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <h3 class="card-title">Black Bean Soup</h3>
+                                            <p class="card-subtitle">Hearty black bean soup with cilantro and lime</p>
+                                        </div>
+                                        <!-- Hot/Cold Toggle -->
+                                        <div class="inline-flex rounded-full border border-gray-200 dark:border-neutral-700"
+                                            role="group">
+                                            <button type="button" class="meal-type-toggle meal-type-toggle-hot"
+                                                aria-pressed="false" onclick="toggleMealType(this)">
+                                                <i class="fa-solid fa-fire text-xs"></i> Hot
+                                            </button>
+                                            <button type="button" class="meal-type-toggle meal-type-toggle-cold active"
+                                                aria-pressed="true" onclick="toggleMealType(this)">
+                                                <i class="fa-solid fa-snowflake text-xs"></i> Cold
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <!-- No issues for this meal -->
+                                        <button type="button" class="btn-icon"><i
+                                                class="fa-solid fa-chevron-up"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <fieldset>
+                                    <legend>Nutrition Facts</legend>
+                                    <div class="nutrition-list">
+                                        <div class="nutrition-list-row">
+                                            <span class="nutrition-list-label">Calories</span>
+                                            <div class="nutrition-list-value">
+                                                <input type="number" class="nutrition-input" value="250">
+                                                <span class="text-sm text-gray-500">kcal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="card-footer">
+                                <div class="flex items-center justify-between">
+                                    <span></span>
+                                    <button type="button" class="btn-danger btn-sm">Remove Meal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Issues sidebar (right, ~1/3 width) -->
+                <div class="w-full lg:w-80 lg:shrink-0" id="issues-sidebar-container">
+                    <div class="issues-sidebar">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="issues-sidebar-header">
+                                    <div class="issues-sidebar-title">
+                                        <i class="fa-solid fa-triangle-exclamation text-warning-600"></i>
+                                        3 Issues
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1 mt-3">
+                                    <!-- Issue 1: Duplicate -->
+                                    <div class="issue-item">
+                                        <i
+                                            class="fa-solid fa-circle-exclamation text-xs text-warning-500 issue-item-icon"></i>
+                                        <div class="issue-item-content">
+                                            <p class="issue-item-description">Arroz con Pollo looks similar to your
+                                                existing Chicken Rice Bowl</p>
+                                            <p class="issue-item-action">Compare and choose which version to keep</p>
+                                            <a href="#card-arroz" class="text-link text-xs mt-1 inline-block">Go to
+                                                issue</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Issue 2: Resolved -->
+                                    <div class="issue-item issue-item-resolved">
+                                        <i
+                                            class="fa-solid fa-circle-check text-xs text-success-500 issue-item-icon"></i>
+                                        <div class="issue-item-content">
+                                            <p class="issue-item-description">Black Bean Soup confirmed as new meal
+                                            </p>
+                                            <p class="issue-item-action">Resolved</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Issue 3: Missing nutrition -->
+                                    <div class="issue-item">
+                                        <i
+                                            class="fa-solid fa-circle-exclamation text-xs text-warning-500 issue-item-icon"></i>
+                                        <div class="issue-item-content">
+                                            <p class="issue-item-description">Arroz con Pollo has 2 nutrition fields to
+                                                review</p>
+                                            <p class="issue-item-action">Confirm or edit the suggested values</p>
+                                            <a href="#card-arroz" class="text-link text-xs mt-1 inline-block">Go to
+                                                issue</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- End Content -->
+
+    <!-- Sticky Footer (Hidden Initially) -->
+    <!-- Sticky footer: visible during Phase 2. In production, shown with Phase 2. -->
+    <div id="save-bar" class="sticky-footer lg:ps-64">
+        <div class="container">
+            <div class="sticky-footer-inner">
+                <div class="sticky-footer-info">
+                    <span>2 meals ready</span>
+                    <span class="badge badge-warning badge-pill">2 issues</span>
+                    <span class="badge badge-info badge-pill">2 to confirm</span>
+                </div>
+                <div class="sticky-footer-actions">
+                    <button type="button" class="btn-outline">Discard All</button>
+                    <button type="button" class="btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                        Save Meals
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Sticky Footer -->
+
+    <!-- Save Warning Modal -->
+    <div id="modal-save-warning"
+        class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+        <div
+            class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center justify-center">
+            <div class="card pointer-events-auto flex flex-col shadow-sm rounded-xl">
+                <div class="card-body p-4 sm:p-7">
+                    <div class="text-center">
+                        <h3 class="block text-xl font-bold text-gray-800 dark:text-white">Some items need attention</h3>
+                        <div class="mt-4 text-start">
+                            <ul class="list-disc list-inside space-y-1 text-gray-600 dark:text-neutral-400 mb-4">
+                                <li>2 issues haven't been resolved</li>
+                                <li>1 agent-populated field hasn't been confirmed</li>
+                            </ul>
+                            <p class="text-gray-600 dark:text-neutral-400">You can save now and address these later from
+                                your meal list.</p>
+                        </div>
+                        <div class="mt-6 flex justify-center gap-x-4">
+                            <button type="button" class="btn-outline" data-hs-overlay="#modal-save-warning">
+                                Go Back
+                            </button>
+                            <button type="button" class="btn-primary" data-hs-overlay="#modal-save-confirm">
+                                Save Anyway
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Confirmation Modal -->
+    <div id="modal-save-confirm"
+        class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+        <div
+            class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center justify-center">
+            <div class="card pointer-events-auto flex flex-col shadow-sm rounded-xl">
+                <div class="card-body p-4 sm:p-7">
+                    <div class="text-center">
+                        <h3 class="block text-xl font-bold text-gray-800 dark:text-white">Add 2 meals to your menu?
+                        </h3>
+                        <div class="mt-4 text-start max-h-60 overflow-y-auto">
+                            <ul class="space-y-3">
+                                <li
+                                    class="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+                                    <span class="font-medium text-gray-800 dark:text-neutral-200">Arroz con Pollo</span>
+                                    <span class="badge badge-warning badge-pill">1 issue</span>
+                                </li>
+                                <li
+                                    class="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-neutral-800">
+                                    <span class="font-medium text-gray-800 dark:text-neutral-200">Black Bean Soup</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 flex justify-center gap-x-4">
+                            <button type="button" class="btn-outline" data-hs-overlay="#modal-save-confirm">
+                                Cancel
+                            </button>
+                            <button type="button" class="btn-primary">
+                                Confirm & Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function toggleMealType(button) {
+            const group = button.parentElement;
+            group.querySelectorAll('.meal-type-toggle').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            button.classList.add('active');
+            button.setAttribute('aria-pressed', 'true');
+        }
+    </script>
+    <load src="/src/partials/scripts.html" />
+</body>
+
+</html>

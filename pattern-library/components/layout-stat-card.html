@@ -1,0 +1,52 @@
+<!--
+  @component-meta
+  name: Stat Card
+  category: Layout
+  file: layout-stat-card.html
+  classes: card, card-stat, stat-label, stat-value, trend-up, trend-down
+  when-to-use: Dashboard metrics. Single number with label and optional trend badge. Use 2-4 in a row. Never use pie charts for this data.
+  do-not-use-when: You need to show a sparkline chart alongside the number — add a chart-sparkline inside the card-body instead.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Stat Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Dashboard metrics with label, value, and trend indicator.
+  </p>
+
+    <!-- @component: layout-stat-cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="card">
+        <div class="card-stat">
+          <p class="stat-label">Patients Enrolled</p>
+          <p class="stat-value">128</p>
+          <span class="trend-up"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +12 this month</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-stat">
+          <p class="stat-label">Open Alerts</p>
+          <p class="stat-value">7</p>
+          <span class="trend-down"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;3 from last week</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-stat">
+          <p class="stat-label">Meal Adherence</p>
+          <p class="stat-value">89%</p>
+          <span class="trend-up"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +4% this month</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-stat">
+          <p class="stat-label">Avg HbA1c</p>
+          <p class="stat-value">8.1%</p>
+          <span class="trend-down"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +0.2 from baseline</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

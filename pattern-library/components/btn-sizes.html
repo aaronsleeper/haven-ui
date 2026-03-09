@@ -1,0 +1,30 @@
+<!--
+  @component-meta
+  name: Button: Sizes
+  category: Primitives — Buttons
+  file: btn-sizes.html
+  classes: btn-sm, btn-xs
+  when-to-use: Default size for most contexts. Use btn-sm in dense layouts and card footers. Use btn-xs in table rows and badge-adjacent actions.
+  do-not-use-when: N/A — size modifiers combine with any button variant.
+  preline-required: no
+  notes: btn-sm and btn-xs are modifier classes — combine with btn-primary, btn-outline, etc. Do not use alone.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Sizes</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Size variants. All shown with <code class="text-xs font-mono">.btn-primary</code> for visual comparison.
+  </p>
+
+    <!-- @component: btn-sizes -->
+    <button type="button" class="btn-primary btn-xs">XS Button</button>
+    <button type="button" class="btn-primary btn-sm">SM Button</button>
+    <button type="button" class="btn-primary">Default Button</button>
+    <!-- /component -->
+
+    <button type="button" class="btn-outline btn-xs">XS Outline</button>
+    <button type="button" class="btn-outline btn-sm">SM Outline</button>
+    <button type="button" class="btn-outline">Default Outline</button>
+</section>

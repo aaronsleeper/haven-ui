@@ -1,0 +1,48 @@
+<!--
+  @component-meta
+  name: Table Section Divider
+  category: Data Display
+  file: data-table-section-divider.html
+  classes: table-section-divider, data-table
+  when-to-use: Visual separator row between groups in a table (e.g., resolved vs unresolved, active vs discharged).
+  preline-required: no
+  notes: The divider row uses a full-width colspan td. Place it between row groups to visually separate categories.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Table Section Divider</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Visual separator row for grouping table rows.
+  </p>
+
+    <!-- @component: data-table-section-divider -->
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cell-primary">Missed delivery — Maria Santos</td>
+            <td><span class="badge badge-warning badge-pill">Open</span></td>
+            <td>Feb 18, 2026</td>
+          </tr>
+          <tr class="table-section-divider">
+            <td colspan="3">Resolved</td>
+          </tr>
+          <tr class="table-row-muted">
+            <td class="cell-primary">Dietary change — James Thompson</td>
+            <td><span class="badge badge-neutral badge-pill">Closed</span></td>
+            <td>Feb 10, 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /component -->
+</section>

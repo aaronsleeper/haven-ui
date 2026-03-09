@@ -1,0 +1,300 @@
+<section id="clinical" class="mb-12">
+    <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Clinical Components</h2>
+    <p class="text-gray-500 mb-8 dark:text-neutral-400">Healthcare-specific components built for Cena Health's provider and kitchen interfaces.</p>
+
+    <!-- 1. Clinical Metric Cards -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Clinical Metric Cards</h3>
+        <div class="grid sm:grid-cols-3 gap-4">
+            <div class="clinical-metric-card">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">HbA1c</span>
+                    <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;0.4</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 dark:text-neutral-100 mt-1">7.8%</div>
+                <div class="text-xs text-gray-500 mt-0.5">Target: &lt;8.0% &middot; Last: 8.2%</div>
+            </div>
+
+            <div class="clinical-metric-card metric-card-flagged">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Blood Pressure</span>
+                    <span class="trend-worsening"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +8</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 dark:text-neutral-100 mt-1">148/94</div>
+                <div class="text-xs text-gray-500 mt-0.5">Target: &lt;140/90 &middot; Flagged</div>
+            </div>
+
+            <div class="clinical-metric-card">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Weight</span>
+                    <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;2.1 lbs</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-800 dark:text-neutral-100 mt-1">187 lbs</div>
+                <div class="text-xs text-gray-500 mt-0.5">BMI 29.4 &middot; Down from 189.1</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Trend Badges -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Trend Badges</h3>
+        <div class="flex flex-wrap items-center gap-4">
+            <span class="trend-improving"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +12%</span>
+            <span class="trend-improving"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;0.4 HbA1c</span>
+            <span class="trend-worsening"><i class="fa-solid fa-arrow-trend-up fa-xs"></i> +8 BP</span>
+            <span class="trend-worsening"><i class="fa-solid fa-arrow-trend-down fa-xs"></i> &minus;15% adherence</span>
+        </div>
+        <p class="text-sm text-gray-500 mt-2 dark:text-neutral-400">Up arrows are not always worsening &mdash; context determines which class to apply.</p>
+    </div>
+
+    <!-- 3. Sentiment Badges -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Sentiment Badges</h3>
+        <div class="flex flex-wrap gap-2">
+            <span class="sentiment-badge sentiment-satisfied"><i class="fa-regular fa-face-smile me-1"></i> Satisfied</span>
+            <span class="sentiment-badge sentiment-neutral"><i class="fa-regular fa-face-meh me-1"></i> Neutral</span>
+            <span class="sentiment-badge sentiment-dissatisfied"><i class="fa-regular fa-face-frown me-1"></i> Dissatisfied</span>
+        </div>
+    </div>
+
+    <!-- 4. SDoH Badges -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">SDoH Badges</h3>
+        <div class="flex flex-wrap gap-2">
+            <span class="sdoh-badge">Z59.1</span>
+            <span class="sdoh-badge">Z59.4</span>
+            <div class="hs-tooltip inline-block">
+                <span class="sdoh-badge hs-tooltip-toggle">Z60.2</span>
+                <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                    Problems related to living alone
+                </div>
+            </div>
+            <span class="sdoh-badge">Z56.0</span>
+        </div>
+        <p class="text-sm text-gray-500 mt-2 dark:text-neutral-400">Hover the Z60.2 badge for tooltip example.</p>
+    </div>
+
+    <!-- 5. Pipeline Bar -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Pipeline Bar</h3>
+        <div>
+            <div class="flex justify-between text-xs text-gray-500 mb-1 dark:text-neutral-400">
+                <span>Referred</span><span>In Review</span><span>Activated</span><span>Active</span>
+            </div>
+            <div class="pipeline-bar">
+                <div class="pipeline-segment bg-gray-300" style="flex: 65">65</div>
+                <div class="pipeline-segment bg-primary-300" style="flex: 52">52</div>
+                <div class="pipeline-segment bg-primary-500" style="flex: 48">48</div>
+                <div class="pipeline-segment bg-primary-700" style="flex: 45">45</div>
+            </div>
+            <p class="text-xs text-gray-400 mt-1 dark:text-neutral-500">Enrollment funnel &middot; 45 currently active of 65 referred</p>
+        </div>
+    </div>
+
+    <!-- 6. Section Nav -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Section Nav</h3>
+        <div class="section-nav p-2 rounded-lg">
+            <div class="flex gap-1 flex-wrap">
+                <a href="#" class="section-nav-item active">Overview</a>
+                <a href="#" class="section-nav-item">Clinical</a>
+                <a href="#" class="section-nav-item">Engagement</a>
+                <a href="#" class="section-nav-item">Equity</a>
+                <a href="#" class="section-nav-item">Financial</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Stratification Bar -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Stratification Bar</h3>
+        <div class="stratification-bar">
+            <span class="stratification-bar-label">Stratify by:</span>
+            <button class="stratification-bar-item active">None</button>
+            <button class="stratification-bar-item">Language</button>
+            <button class="stratification-bar-item">Ethnicity</button>
+            <button class="stratification-bar-item">SDoH Burden</button>
+            <button class="stratification-bar-item">Gender</button>
+        </div>
+    </div>
+
+    <!-- 8. AI Insight -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">AI Insight</h3>
+        <div class="space-y-3">
+            <div>
+                <span class="ai-insight-badge"><i class="fa-solid fa-bolt me-1"></i> AI Insight</span>
+            </div>
+            <div class="ai-insight-callout">
+                <i class="fa-solid fa-bolt ai-insight-callout-icon"></i>
+                <div>Patients who completed 3+ RDN sessions show 40% greater HbA1c improvement compared to those with fewer visits. Consider prioritizing session scheduling for recently enrolled patients.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. HEDIS Grid -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">HEDIS Grid</h3>
+        <div class="hedis-grid">
+            <div class="hedis-stat">
+                <div class="hedis-stat-label">Eye Exam</div>
+                <div class="hedis-stat-value">16%</div>
+                <div class="hedis-stat-detail">8 of 50 &middot; Target 60%</div>
+            </div>
+            <div class="hedis-stat">
+                <div class="hedis-stat-label">Nephropathy Screen</div>
+                <div class="hedis-stat-value">64%</div>
+                <div class="hedis-stat-detail">32 of 50 &middot; On track</div>
+            </div>
+            <div class="hedis-stat">
+                <div class="hedis-stat-label">Statin Adherence</div>
+                <div class="hedis-stat-value">72%</div>
+                <div class="hedis-stat-detail">36 of 50 &middot; Target 80%</div>
+            </div>
+            <div class="hedis-stat">
+                <div class="hedis-stat-label">HbA1c Testing</div>
+                <div class="hedis-stat-value">88%</div>
+                <div class="hedis-stat-detail">44 of 50 &middot; Met</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. Patient Timeline -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Patient Timeline</h3>
+        <div class="timeline-list">
+            <div class="timeline-event">
+                <div class="timeline-left">
+                    <div class="timeline-icon-circle timeline-icon-circle-clinical">
+                        <i class="fa-solid fa-stethoscope fa-xs"></i>
+                    </div>
+                    <div class="timeline-connector"></div>
+                </div>
+                <div class="timeline-event-body">
+                    <div class="timeline-event-header">
+                        <span class="font-medium text-sm text-gray-800 dark:text-neutral-200">RDN Visit</span>
+                        <span class="badge badge-success badge-sm badge-pill">Completed</span>
+                    </div>
+                    <div class="timeline-event-preview">Dietary assessment &middot; Mediterranean plan updated</div>
+                    <div class="timeline-event-actor">Feb 12, 2026 &middot; Dr. Chen</div>
+                </div>
+            </div>
+
+            <div class="timeline-event">
+                <div class="timeline-left">
+                    <div class="timeline-icon-circle timeline-icon-circle-alert">
+                        <i class="fa-solid fa-triangle-exclamation fa-xs"></i>
+                    </div>
+                    <div class="timeline-connector"></div>
+                </div>
+                <div class="timeline-event-body">
+                    <div class="timeline-event-header">
+                        <span class="font-medium text-sm text-gray-800 dark:text-neutral-200">Clinical Alert</span>
+                        <span class="badge badge-warning badge-sm badge-pill">Open</span>
+                    </div>
+                    <div class="timeline-event-preview">BP elevated: 148/94 at last reading</div>
+                    <div class="timeline-event-actor">Feb 10, 2026 &middot; Auto-generated</div>
+                </div>
+            </div>
+
+            <div class="timeline-event">
+                <div class="timeline-left">
+                    <div class="timeline-icon-circle timeline-icon-circle-delivery">
+                        <i class="fa-solid fa-truck fa-xs"></i>
+                    </div>
+                </div>
+                <div class="timeline-event-body">
+                    <div class="timeline-event-header">
+                        <span class="font-medium text-sm text-gray-800 dark:text-neutral-200">Meal Delivery</span>
+                        <span class="badge badge-success badge-sm badge-pill">Delivered</span>
+                    </div>
+                    <div class="timeline-event-preview">Week of Feb 9 &middot; 7 of 7 meals delivered</div>
+                    <div class="timeline-event-actor">Feb 9, 2026 &middot; Fresh Bites</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. Alert Category Card -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Alert Category Cards</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+            <div class="alert-category-card" style="--alert-accent: var(--color-error-500)">
+                <span class="alert-category-label"><i class="fa-solid fa-stethoscope me-1.5"></i> Clinical</span>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">3</span>
+                    <span class="text-sm text-gray-500">open</span>
+                </div>
+            </div>
+            <div class="alert-category-card" style="--alert-accent: var(--color-warning-500)">
+                <span class="alert-category-label"><i class="fa-solid fa-people-group me-1.5"></i> Social</span>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">1</span>
+                    <span class="text-sm text-gray-500">open</span>
+                </div>
+            </div>
+            <div class="alert-category-card" style="--alert-accent: var(--color-info-500)">
+                <span class="alert-category-label"><i class="fa-solid fa-truck me-1.5"></i> Delivery</span>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">0</span>
+                    <span class="text-sm text-gray-500">open</span>
+                </div>
+            </div>
+            <div class="alert-category-card" style="--alert-accent: var(--color-error-700)">
+                <span class="alert-category-label"><i class="fa-solid fa-shield-halved me-1.5"></i> Safety</span>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-gray-800 dark:text-neutral-100">1</span>
+                    <span class="text-sm text-gray-500">open</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. Medication Row -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Medication Rows</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Medications</h3>
+            </div>
+            <div>
+                <div class="medication-row">
+                    <div class="flex-1">
+                        <div class="font-medium text-sm text-gray-800 dark:text-neutral-200">Metformin 1000mg</div>
+                        <div class="text-xs text-gray-500">Twice daily &middot; Diabetes management</div>
+                    </div>
+                    <span class="badge badge-success badge-pill badge-sm">Active</span>
+                </div>
+                <div class="medication-row">
+                    <div class="flex-1">
+                        <div class="font-medium text-sm text-gray-800 dark:text-neutral-200">Lisinopril 10mg</div>
+                        <div class="text-xs text-gray-500">Once daily &middot; Blood pressure</div>
+                    </div>
+                    <span class="badge badge-success badge-pill badge-sm">Active</span>
+                </div>
+                <div class="medication-row">
+                    <div class="flex-1">
+                        <div class="font-medium text-sm text-gray-800 dark:text-neutral-200">Atorvastatin 40mg</div>
+                        <div class="text-xs text-gray-500">Once daily at bedtime &middot; Cholesterol</div>
+                    </div>
+                    <span class="badge badge-neutral badge-pill badge-sm">Review</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. Meal Type Indicators -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Meal Type Indicators</h3>
+        <div class="space-y-2">
+            <div class="font-medium text-sm meal-label-hot">
+                <i class="fa-solid fa-fire-flame-curved meal-type-icon"></i>
+                Grilled Salmon with Roasted Vegetables
+            </div>
+            <div class="font-medium text-sm meal-label-cold">
+                <i class="fa-solid fa-snowflake meal-type-icon"></i>
+                Mediterranean Grain Bowl
+            </div>
+        </div>
+    </div>
+</section>

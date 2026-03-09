@@ -1,0 +1,27 @@
+<!--
+  @component-meta
+  name: Section Nav
+  category: Navigation
+  file: nav-section.html
+  classes: section-nav, section-nav-item
+  when-to-use: Long single-page views with multiple sections (patient profile, partner detail). Lets users jump to sections without leaving the page.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Section Nav</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    In-page jump navigation for long scrollable views.
+  </p>
+
+    <!-- @component: nav-section -->
+    <nav class="section-nav flex gap-1 p-2">
+      <a href="#overview" class="section-nav-item active">Overview</a>
+      <a href="#clinical" class="section-nav-item">Clinical</a>
+      <a href="#meals" class="section-nav-item">Meals</a>
+      <a href="#alerts" class="section-nav-item">Alerts</a>
+    </nav>
+    <!-- /component -->
+</section>

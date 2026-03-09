@@ -1,0 +1,47 @@
+<!--
+  @component-meta
+  name: Chat Bubbles
+  category: Complex / App-Specific
+  file: complex-chat.html
+  classes: chat-bubble-user, chat-bubble-ai, chat-avatar-ai
+  when-to-use: AI chat interface with alternating user and assistant messages.
+  preline-required: no
+  notes: User bubbles align right, AI bubbles align left with an avatar circle.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Bubbles</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    AI chat interface with alternating user and assistant messages.
+  </p>
+
+  <!-- @component: chat-bubbles -->
+  <div class="card card-body">
+    <div class="flex flex-col gap-4">
+      <!-- User message -->
+      <div class="flex justify-end">
+        <div class="chat-bubble-user">
+          <p class="text-sm">What are the dietary restrictions for this patient?</p>
+        </div>
+      </div>
+
+      <!-- AI message -->
+      <div class="flex items-start gap-2">
+        <div class="chat-avatar-ai">H</div>
+        <div class="chat-bubble-ai">
+          <p class="text-sm">Based on the patient's chart, they have a low-sodium diet order with no added salt. They are also lactose intolerant and should avoid dairy products.</p>
+        </div>
+      </div>
+
+      <!-- User message -->
+      <div class="flex justify-end">
+        <div class="chat-bubble-user">
+          <p class="text-sm">Are there any recent changes to their meal plan?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

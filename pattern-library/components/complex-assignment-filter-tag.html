@@ -1,0 +1,30 @@
+<!--
+  @component-meta
+  name: Assignment Filter Tag
+  category: Complex / App-Specific
+  file: complex-assignment-filter-tag.html
+  classes: assignment-filter-tag, assignment-filter-count
+  when-to-use: Pill-shaped filter buttons for toggling assignment views (All, Unassigned, Assigned to Me).
+  preline-required: no
+  notes: Active state inverts colors. Count badge adapts to active/inactive state automatically.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Assignment Filter Tag</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Pill-shaped filter buttons for toggling assignment views.
+  </p>
+
+  <!-- @component: assignment-filter-tag -->
+  <div class="flex items-center gap-2">
+    <button class="assignment-filter-tag">All</button>
+    <button class="assignment-filter-tag active">
+      Unassigned
+      <span class="assignment-filter-count">12</span>
+    </button>
+    <button class="assignment-filter-tag">Assigned to Me</button>
+  </div>
+  <!-- /component -->
+</section>

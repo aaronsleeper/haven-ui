@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: Partner Alert Row
+  category: Complex / App-Specific
+  file: complex-partner-alert-row.html
+  classes: partner-alert-row
+  when-to-use: Alert entries for a partner detail view showing severity, description, category, and time.
+  preline-required: no
+  notes: Icon color conveys severity. Pair with badge for category tagging.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Partner Alert Row</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Alert entries for a partner detail view showing severity, description, category, and time.
+  </p>
+
+  <!-- @component: partner-alert-row -->
+  <div class="card card-body">
+    <div class="partner-alert-row">
+      <i class="fa-solid fa-triangle-exclamation text-error-500 shrink-0"></i>
+      <span class="flex-1 text-sm text-gray-700 dark:text-neutral-300">Delivery temperature below threshold for 3 consecutive orders</span>
+      <span class="badge badge-error badge-sm">Safety</span>
+      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">2 hrs ago</span>
+    </div>
+
+    <div class="partner-alert-row">
+      <i class="fa-solid fa-clock text-warning-500 shrink-0"></i>
+      <span class="flex-1 text-sm text-gray-700 dark:text-neutral-300">Average delivery time exceeds SLA target by 15 min</span>
+      <span class="badge badge-warning badge-sm">Delivery</span>
+      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">5 hrs ago</span>
+    </div>
+
+    <div class="partner-alert-row">
+      <i class="fa-solid fa-circle-info text-info-500 shrink-0"></i>
+      <span class="flex-1 text-sm text-gray-700 dark:text-neutral-300">New menu items pending nutritional review</span>
+      <span class="badge badge-info badge-sm">Clinical</span>
+      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">1 day ago</span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

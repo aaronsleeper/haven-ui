@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <load src="/src/partials/providers-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="lg:ps-64 min-w-0">
+        <div class="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Program Reference</h1>
+        </div>
+        <!-- End Page Header -->
+
+
+        <!-- Sections -->
+        <div class="space-y-8">
+
+            <!-- ========================================
+                 Section 1: Population & Eligibility
+                 ======================================== -->
+            <section id="section-population" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Population &amp; Eligibility</h2>
+                </div>
+                <div class="card-body space-y-6">
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Clinical Criteria</h3>
+                        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                            <li>HbA1c &ge; 7.5% (lab within 90 days)</li>
+                            <li>Type 2 Diabetes diagnosis (ICD-10: E11.x)</li>
+                            <li>BMI &ge; 25.0</li>
+                            <li>At least one SDoH risk factor (Z codes)</li>
+                            <li>English or Spanish speaking</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Target Demographics</h3>
+                        <p class="text-sm text-gray-600">
+                            Adults 18&ndash;75 residing in LA County. Program prioritizes underserved communities
+                            with food insecurity, housing instability, or limited transportation access.
+                            Bilingual (English/Spanish) care coordination available for all patients.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Referral Pathways</h3>
+                        <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                            <li>Primary care physician referral via Epic (auto-sync)</li>
+                            <li>Endocrinology referral with lab confirmation</li>
+                            <li>Community health worker outreach (walk-in eligible)</li>
+                            <li>Emergency department follow-up protocol</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Tracked SDoH Codes</h3>
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Label</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-neutral badge-pill font-mono">Z59.1</span></td>
+                                        <td class="font-medium text-sm">Housing Instability</td>
+                                        <td class="text-gray-500 text-sm">Inadequate housing, frequent moves, or unstable living situation</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-neutral badge-pill font-mono">Z59.4</span></td>
+                                        <td class="font-medium text-sm">Food Insecurity</td>
+                                        <td class="text-gray-500 text-sm">Lack of consistent access to adequate nutrition</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning badge-pill font-mono">Z60.2</span></td>
+                                        <td class="font-medium text-sm">Social Isolation</td>
+                                        <td class="text-gray-500 text-sm">Lives alone with limited social contact or support network</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-neutral badge-pill font-mono">Z59.0</span></td>
+                                        <td class="font-medium text-sm">Homelessness</td>
+                                        <td class="text-gray-500 text-sm">No fixed address or residing in temporary shelter</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-neutral badge-pill font-mono">Z56.0</span></td>
+                                        <td class="font-medium text-sm">Unemployment</td>
+                                        <td class="text-gray-500 text-sm">Currently unemployed and seeking work</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 1 -->
+
+
+            <!-- ========================================
+                 Section 2: Services
+                 ======================================== -->
+            <section id="section-services" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Services</h2>
+                </div>
+                <div class="card-body space-y-6">
+
+                    <!-- Clinical Services -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Clinical Services</h3>
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr><th>Service</th><th>Frequency</th><th>Billing Code</th><th>Notes</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-medium text-sm">RDN Visit</td>
+                                        <td class="text-sm">Monthly (first 3 months), then quarterly</td>
+                                        <td class="font-mono text-sm text-gray-600">97802, 97803</td>
+                                        <td class="text-gray-500 text-sm">45&ndash;60 min initial, 30 min follow-up</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-sm">BHN Session</td>
+                                        <td class="text-sm">As needed, min quarterly</td>
+                                        <td class="font-mono text-sm text-gray-600">90837, 90834</td>
+                                        <td class="text-gray-500 text-sm">Triggered by HADS score &ge; 8</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-sm">Lab Draw</td>
+                                        <td class="text-sm">Quarterly (HbA1c, lipid panel)</td>
+                                        <td class="font-mono text-sm text-gray-600">83036, 80061</td>
+                                        <td class="text-gray-500 text-sm">Quest Diagnostics preferred</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-sm">Care Coordinator Check-in</td>
+                                        <td class="text-sm">Bi-weekly</td>
+                                        <td class="font-mono text-sm text-gray-600">&mdash;</td>
+                                        <td class="text-gray-500 text-sm">Phone or in-person, no billing code</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Food Delivery Schedule -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Food Delivery Schedule</h3>
+                        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                            <li>Frequency: Weekly (7 meals per delivery)</li>
+                            <li>Meal types: Hot meals (default), cold meals on request</li>
+                            <li>Order change cutoff: Wednesday 11:59 PM for following week</li>
+                            <li>Missed delivery protocol: Automatic alert + reschedule within 48 hours</li>
+                        </ul>
+                    </div>
+
+                    <!-- Kitchen Partners -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Kitchen Partners</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="p-3 bg-gray-50 rounded-lg text-sm">
+                                <div class="font-medium text-gray-900 mb-1">Fresh Bites Delivery Co.</div>
+                                <div class="text-gray-500"><a href="tel:+12135550101" class="text-link">(213) 555-0101</a></div>
+                                <div class="text-gray-400 text-xs mt-1">East LA, Boyle Heights</div>
+                            </div>
+                            <div class="p-3 bg-gray-50 rounded-lg text-sm">
+                                <div class="font-medium text-gray-900 mb-1">Nourish LA Kitchen</div>
+                                <div class="text-gray-500"><a href="tel:+13105550188" class="text-link">(310) 555-0188</a></div>
+                                <div class="text-gray-400 text-xs mt-1">South LA, Inglewood</div>
+                            </div>
+                            <div class="p-3 bg-gray-50 rounded-lg text-sm">
+                                <div class="font-medium text-gray-900 mb-1">Community Cooks Collective</div>
+                                <div class="text-gray-500"><a href="tel:+13235550212" class="text-link">(323) 555-0212</a></div>
+                                <div class="text-gray-400 text-xs mt-1">Mid-City, Koreatown</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 2 -->
+
+
+            <!-- ========================================
+                 Section 3: Measurement Priorities
+                 ======================================== -->
+            <section id="section-measurement" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Measurement Priorities</h2>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-2 gap-8">
+
+                        <!-- Clinical Targets -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">Key Clinical Targets</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                                    <span class="text-gray-500">HbA1c goal</span>
+                                    <span class="font-medium text-gray-900">&lt; 8.0%</span>
+                                </div>
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                                    <span class="text-gray-500">BP target</span>
+                                    <span class="font-medium text-gray-900">&lt; 140/90 mmHg</span>
+                                </div>
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                                    <span class="text-gray-500">Weight change (6 months)</span>
+                                    <span class="font-medium text-gray-900">&ge; 5% reduction</span>
+                                </div>
+                                <div class="flex justify-between text-sm pb-2">
+                                    <span class="text-gray-500">Dietary diversity score</span>
+                                    <span class="font-medium text-gray-900">&ge; 6 (0&ndash;9 scale)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operational Tracking -->
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">Operational Tracking</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                                    <span class="text-gray-500">Meal adherence</span>
+                                    <span class="font-medium text-gray-900">&ge; 80% accepted</span>
+                                </div>
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-2">
+                                    <span class="text-gray-500">Session attendance</span>
+                                    <span class="font-medium text-gray-900">&ge; 75% visits kept</span>
+                                </div>
+                                <div class="flex justify-between text-sm pb-2">
+                                    <span class="text-gray-500">Alert resolution SLA</span>
+                                    <span class="font-medium text-gray-900">High &le; 24h &middot; Medium &le; 72h</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-gray-100 text-sm text-gray-500 flex items-center gap-1">
+                        <i class="fa-solid fa-calendar-days text-gray-400"></i>
+                        <span>Quarterly reports due: March 31 &middot; June 30 &middot; September 30 &middot; December 31</span>
+                    </div>
+                </div>
+            </section>
+            <!-- End Section 3 -->
+
+
+            <!-- ========================================
+                 Section 4: Integration & Access
+                 ======================================== -->
+            <section id="section-integration" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Integration &amp; Access</h2>
+                </div>
+                <div class="card-body space-y-6">
+
+                    <!-- EHR Integration -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">EHR Integration</h3>
+                        <div class="space-y-0">
+                            <div class="flex items-center justify-between py-2 border-b border-gray-100 text-sm">
+                                <span class="text-gray-600">Epic connection</span>
+                                <span>
+                                    <i class="fa-solid fa-circle text-success-500 me-1.5 text-xs"></i>
+                                    <span class="text-success-700 font-medium">Connected</span>
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-100 text-sm">
+                                <span class="text-gray-600">Last sync</span>
+                                <span class="text-gray-900">Today at 6:14 AM</span>
+                            </div>
+                        </div>
+                        <div class="data-table mt-3">
+                            <table>
+                                <thead>
+                                    <tr><th>Data Type</th><th class="text-end">Records Synced</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-sm">SDoH codes</td>
+                                        <td class="text-sm text-end font-medium">147</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm">Lab results</td>
+                                        <td class="text-sm text-end font-medium">891</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm">Vital signs</td>
+                                        <td class="text-sm text-end font-medium">2,304</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+            <!-- End Section 4 -->
+
+
+            <!-- ========================================
+                 Section 5: Alert Resolution Metrics
+                 ======================================== -->
+            <section id="section-alert-metrics" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Alert Resolution Metrics</h2>
+                    <select class="select-haven">
+                        <option>All Categories</option>
+                        <option>Clinical</option>
+                        <option>Social</option>
+                        <option>Delivery</option>
+                        <option>Safety</option>
+                    </select>
+                </div>
+                <div class="card-body space-y-6">
+
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xs font-medium text-gray-500">Period:</span>
+                        <button class="filter-pill active">This Month</button>
+                        <button class="filter-pill">Last Quarter</button>
+                        <button class="filter-pill">All Time</button>
+                    </div>
+
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th class="text-end">Avg Hrs to Resolve</th>
+                                    <th class="text-end">Outstanding</th>
+                                    <th class="text-end">Resolved This Month</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-error badge-pill">Clinical</span></td>
+                                    <td class="text-end text-sm">18.4h</td>
+                                    <td class="text-end text-sm font-medium">5</td>
+                                    <td class="text-end text-sm">12</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-warning badge-pill">Social</span></td>
+                                    <td class="text-end text-sm sla-warning">31.2h
+                                        <div class="hs-tooltip inline-block">
+                                            <span class="hs-tooltip-toggle cursor-pointer">
+                                                <i class="fa-solid fa-triangle-exclamation text-warning-500 ms-1 text-xs"></i>
+                                            </span>
+                                            <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 invisible absolute z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm" role="tooltip">
+                                                Exceeds 24h target for High-severity alerts
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="text-end text-sm font-medium">4</td>
+                                    <td class="text-end text-sm">8</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-info badge-pill">Delivery</span></td>
+                                    <td class="text-end text-sm">6.8h</td>
+                                    <td class="text-end text-sm font-medium">2</td>
+                                    <td class="text-end text-sm">22</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-error badge-pill">Safety</span></td>
+                                    <td class="text-end text-sm">4.1h</td>
+                                    <td class="text-end text-sm font-medium">1</td>
+                                    <td class="text-end text-sm">3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">
+                        <i class="fa-solid fa-circle-info me-1"></i>
+                        Target SLA: High severity &le; 24h &middot; Medium severity &le; 72h
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Outstanding vs. Resolved (this month)</div>
+                            <div class="text-lg font-semibold text-gray-900">12 outstanding &middot; 45 resolved</div>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Patients with current HbA1c on file</div>
+                            <div class="text-lg font-semibold text-gray-900">78% <span class="text-sm font-normal text-gray-500">(39/50 patients)</span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 5 -->
+
+
+            <!-- ========================================
+                 Section 6: Team & Access
+                 ======================================== -->
+            <section id="section-team" class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Team &amp; Access</h2>
+                </div>
+                <div class="card-body space-y-6">
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Cena Health Team Contacts</h3>
+                        <div class="data-table">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cell-primary">Dr. Sarah Chen</td>
+                                        <td>RDN Lead</td>
+                                        <td><a href="mailto:s.chen@cenahealth.com" class="text-link">s.chen@cenahealth.com</a></td>
+                                        <td><a href="tel:+13105550158" class="text-link">(310) 555-0158</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Marcus Webb</td>
+                                        <td>BHN Lead</td>
+                                        <td><a href="mailto:m.webb@cenahealth.com" class="text-link">m.webb@cenahealth.com</a></td>
+                                        <td><a href="tel:+13105550782" class="text-link">(310) 555-0782</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Maria Santos</td>
+                                        <td>Care Coordinator Lead</td>
+                                        <td><a href="mailto:m.santos@cenahealth.com" class="text-link">m.santos@cenahealth.com</a></td>
+                                        <td><a href="tel:+13105550110" class="text-link">(310) 555-0110</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">Partner Access Levels</h3>
+                        <div class="data-table">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Partner</th>
+                                        <th>Access Level</th>
+                                        <th>Data Visible</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cell-primary">Fresh Bites Delivery Co.</td>
+                                        <td><span class="badge badge-neutral">Delivery Only</span></td>
+                                        <td>Delivery schedule, address</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Nourish LA Kitchen</td>
+                                        <td><span class="badge badge-neutral">Delivery Only</span></td>
+                                        <td>Delivery schedule, address</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cell-primary">Community Cooks Collective</td>
+                                        <td><span class="badge badge-neutral">Delivery Only</span></td>
+                                        <td>Delivery schedule, address</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 6 -->
+
+        </div>
+        <!-- End Sections -->
+
+        </div>
+    </div>
+    <!-- End Main Content -->
+
+    <load src="/src/partials/scripts.html" />
+
+    <!-- Scroll-spy for sidebar sub-nav -->
+    <script>
+    (function () {
+      const sections = [
+        { id: 'section-population',    navId: 'subnav-population' },
+        { id: 'section-services',      navId: 'subnav-services' },
+        { id: 'section-measurement',   navId: 'subnav-measurement' },
+        { id: 'section-integration',   navId: 'subnav-integration' },
+        { id: 'section-alert-metrics', navId: 'subnav-alert-metrics' },
+        { id: 'section-team',          navId: 'subnav-team' },
+      ];
+
+      function updateSubnav() {
+        const scrollY = window.scrollY + 220;
+        let current = sections[0].navId;
+        sections.forEach(({ id, navId }) => {
+          const el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollY) current = navId;
+        });
+        const container = document.getElementById('accordion-program-child');
+        if (!container) return;
+        container.querySelectorAll('.sidebar-subnav-item').forEach(el => el.classList.remove('active'));
+        const activeEl = document.getElementById(current);
+        if (activeEl) activeEl.classList.add('active');
+      }
+
+      window.addEventListener('scroll', updateSubnav, { passive: true });
+    })();
+    </script>
+
+</body>
+
+</html>

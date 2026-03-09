@@ -1,0 +1,27 @@
+<!--
+  @component-meta
+  name: Button: Danger Outline
+  category: Primitives — Buttons
+  file: btn-danger-outline.html
+  classes: btn-danger-outline
+  when-to-use: Lighter destructive action where btn-danger feels too heavy. Common in inline table row actions (e.g., "Remove" link in a row).
+  do-not-use-when: The destructive action is the primary action on a page — use btn-danger for stronger emphasis.
+  preline-required: no
+  notes: Uses btn-sm sizing by default in its CSS definition. Smaller footprint than btn-danger.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Danger Outline</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Lighter destructive action for inline contexts.
+  </p>
+
+    <!-- @component: btn-danger-outline -->
+    <button type="button" class="btn-danger-outline">
+      <i class="fa-solid fa-xmark"></i>
+      Remove
+    </button>
+    <!-- /component -->
+</section>

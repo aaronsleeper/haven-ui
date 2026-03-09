@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: Assignment Select
+  category: Complex / App-Specific
+  file: complex-assignment-select.html
+  classes: assignment-select, assignment-modified
+  when-to-use: Dropdown for assigning items to staff members, with a modified state for unsaved changes.
+  preline-required: no
+  notes: assignment-modified applies when the value has been changed but not yet saved.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Assignment Select</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Dropdown for assigning items to staff members, with a modified state for unsaved changes.
+  </p>
+
+  <!-- @component: assignment-select -->
+  <div class="flex flex-col gap-4" style="max-width: 320px;">
+    <label>
+      Normal
+      <select class="assignment-select">
+        <option>Unassigned</option>
+        <option selected>Maria Lopez</option>
+        <option>James Chen</option>
+      </select>
+    </label>
+
+    <label>
+      Modified (unsaved)
+      <select class="assignment-select assignment-modified">
+        <option>Unassigned</option>
+        <option>Maria Lopez</option>
+        <option selected>James Chen</option>
+      </select>
+    </label>
+  </div>
+  <p class="text-xs text-gray-400 dark:text-neutral-500 mt-3">
+    The <code>.assignment-modified</code> class applies when the value has been changed but not yet saved.
+  </p>
+  <!-- /component -->
+</section>

@@ -1,0 +1,83 @@
+<section id="navigation" class="mb-12">
+    <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Navigation</h2>
+    <p class="text-gray-500 mb-8 dark:text-neutral-400">Navigation components including tabs, breadcrumbs, and
+        pagination.</p>
+
+    <!-- Tabs -->
+    <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Tabs</h3>
+        <nav class="flex gap-x-1" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+            <button type="button"
+                class="hs-tab-active:bg-primary-600 hs-tab-active:text-white py-2 px-3 inline-flex items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-primary-600 focus:outline-hidden focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-primary-400 active"
+                id="tabs-color-item-1" aria-selected="true" data-hs-tab="#tabs-color-1" aria-controls="tabs-color-1"
+                role="tab">Tab 1</button>
+            <button type="button"
+                class="hs-tab-active:bg-primary-600 hs-tab-active:text-white py-2 px-3 inline-flex items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-primary-600 focus:outline-hidden focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-primary-400"
+                id="tabs-color-item-2" aria-selected="false" data-hs-tab="#tabs-color-2" aria-controls="tabs-color-2"
+                role="tab">Tab 2</button>
+            <button type="button"
+                class="hs-tab-active:bg-primary-600 hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-primary-600 focus:outline-hidden focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-primary-400"
+                id="tabs-color-item-3" aria-selected="false" data-hs-tab="#tabs-color-3" aria-controls="tabs-color-3"
+                role="tab">Tab 3</button>
+        </nav>
+        <div class="mt-3">
+            <div id="tabs-color-1" role="tabpanel" aria-labelledby="tabs-color-item-1">
+                <p class="text-gray-500 dark:text-neutral-400">Content for Tab 1. This is the first tab's associated
+                    content.</p>
+            </div>
+            <div id="tabs-color-2" class="hidden" role="tabpanel" aria-labelledby="tabs-color-item-2">
+                <p class="text-gray-500 dark:text-neutral-400">Content for Tab 2. This is the second tab's associated
+                    content.</p>
+            </div>
+            <div id="tabs-color-3" class="hidden" role="tabpanel" aria-labelledby="tabs-color-item-3">
+                <p class="text-gray-500 dark:text-neutral-400">Content for Tab 3. This is the third tab's associated
+                    content.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumbs -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Breadcrumbs</h3>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="#">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="#">Components</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Navigation</span>
+        </nav>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Pagination</h3>
+        <nav class="pagination" aria-label="Pagination">
+            <div class="pagination-info">Showing 1&ndash;10 of 30</div>
+            <div class="pagination-controls">
+                <button class="pagination-btn" aria-label="Previous"><i class="fa-solid fa-chevron-left fa-xs"></i></button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn" aria-label="Next"><i class="fa-solid fa-chevron-right fa-xs"></i></button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Sidebar Navigation (Static Demo) -->
+    <div class="mb-10">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700 dark:text-neutral-300">Sidebar Navigation</h3>
+        <div class="max-w-xs border border-gray-200 rounded-xl overflow-hidden dark:border-neutral-700">
+            <div class="app-sidebar-header pt-4">
+                <span class="app-sidebar-brand">Haven</span>
+            </div>
+            <nav class="app-sidebar-nav pt-0">
+                <ul class="sidebar-nav-list">
+                    <li><a href="#" class="sidebar-nav-item active"><i class="fa-solid fa-house fa-fw"></i> Dashboard</a></li>
+                    <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-users fa-fw"></i> Patients</a></li>
+                    <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-triangle-exclamation fa-fw"></i> Alerts</a></li>
+                    <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-chart-line fa-fw"></i> Reports</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>

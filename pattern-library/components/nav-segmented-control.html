@@ -1,0 +1,39 @@
+<!--
+  @component-meta
+  name: Segmented Control
+  category: Navigation
+  file: nav-segmented-control.html
+  classes: segmented-control, segmented-control-btn, view-toggle, view-toggle-btn
+  when-to-use: Toggling between two or three mutually exclusive views (List / Card, Day / Week / Month). Use in toolbars and card headers.
+  do-not-use-when: There are more than 4 options (use tabs or filter pills).
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Segmented Control</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Mutually exclusive toggle for 2-3 view options.
+  </p>
+
+    <!-- @component: nav-segmented-control -->
+    <div>
+      <p class="text-xs text-gray-400 dark:text-neutral-500 mb-2">.segmented-control</p>
+      <div class="segmented-control">
+        <button class="segmented-control-btn active">Day</button>
+        <button class="segmented-control-btn">Week</button>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: nav-view-toggle -->
+    <div>
+      <p class="text-xs text-gray-400 dark:text-neutral-500 mb-2">.view-toggle (alias with icons)</p>
+      <div class="view-toggle">
+        <button class="view-toggle-btn active"><i class="fa-solid fa-list"></i></button>
+        <button class="view-toggle-btn"><i class="fa-solid fa-grip"></i></button>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

@@ -1,0 +1,36 @@
+<!--
+  @component-meta
+  name: Tag Group
+  category: Complex / App-Specific
+  file: complex-tag-group.html
+  classes: tag-group, tag-group-label, badge-removable
+  when-to-use: Labeled rows of pill badges with optional remove buttons for categorized tags.
+  preline-required: no
+  notes: Uses badge, badge-pill, and badge-primary from the badge system. badge-removable adds a close button.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Tag Group</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Labeled rows of pill badges with optional remove buttons for categorized tags.
+  </p>
+
+  <!-- @component: tag-group -->
+  <div class="card card-body">
+    <div class="tag-group">
+      <span class="tag-group-label">Allergens</span>
+      <span class="badge badge-pill badge-primary badge-removable">Dairy <button aria-label="Remove"><i class="fa-solid fa-xmark"></i></button></span>
+      <span class="badge badge-pill badge-primary">Gluten</span>
+      <span class="badge badge-pill badge-primary">Shellfish</span>
+    </div>
+
+    <div class="tag-group">
+      <span class="tag-group-label">Diet Orders</span>
+      <span class="badge badge-pill badge-primary">Low Sodium</span>
+      <span class="badge badge-pill badge-primary badge-removable">Diabetic <button aria-label="Remove"><i class="fa-solid fa-xmark"></i></button></span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

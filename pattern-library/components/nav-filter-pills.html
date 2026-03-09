@@ -1,0 +1,29 @@
+<!--
+  @component-meta
+  name: Filter Pills
+  category: Navigation
+  file: nav-filter-pills.html
+  classes: filter-pill
+  when-to-use: Filtering a list by a single category at a time. Common above patient lists, alert lists, meal lists.
+  do-not-use-when: Multiple simultaneous filters are needed (use toolbar with checkboxes instead).
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Filter Pills</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Horizontal filter row. One active at a time.
+  </p>
+
+    <!-- @component: nav-filter-pills -->
+    <div class="flex flex-wrap gap-2">
+      <button class="filter-pill active">All</button>
+      <button class="filter-pill">Active</button>
+      <button class="filter-pill">Pending</button>
+      <button class="filter-pill">Discharged</button>
+      <button class="filter-pill">High Risk</button>
+    </div>
+    <!-- /component -->
+</section>

@@ -1,0 +1,30 @@
+<!--
+  @component-meta
+  name: Empty State
+  category: Data Display
+  file: data-empty-state.html
+  classes: empty-state, empty-state-icon, btn-primary, btn-sm
+  when-to-use: Zero-data placeholder with icon, message, and optional CTA. Place inside a card.
+  preline-required: no
+  notes: Match the empty state message to the page context (patients, meals, alerts, etc.). Always include a CTA button when the user can take action to populate the empty state.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Empty State</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Zero-data placeholder with icon, message, and optional CTA. Place inside a card.
+  </p>
+
+    <!-- @component: data-empty-state -->
+    <div class="card">
+      <div class="empty-state">
+        <div class="empty-state-icon"><i class="fa-regular fa-folder-open"></i></div>
+        <h3>No patients found</h3>
+        <p>Try adjusting your filters or enroll a new patient to get started.</p>
+        <button class="btn-primary btn-sm"><i class="fa-solid fa-plus me-1.5"></i> Enroll Patient</button>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

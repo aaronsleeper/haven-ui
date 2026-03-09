@@ -1,0 +1,52 @@
+<!--
+  @component-meta
+  name: Text Input
+  category: Primitives — Forms
+  file: form-input-text.html
+  classes: (global input styling), required
+  when-to-use: Any text data entry field. Covers text, email, date, time, number, tel, url, search types.
+  do-not-use-when: The field needs a prefix/suffix unit (use nutrition-input-group) or file selection (use form-file-list).
+  preline-required: no
+  notes: Global input styling is applied automatically by components.css element selectors. Do not add utility classes to the input element itself.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Text Input</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Standard text inputs with label. Global styling handles border, padding, focus, and disabled states automatically.
+  </p>
+
+    <!-- @component: form-input-default -->
+    <div>
+      <label for="pl-input-default">Patient Name</label>
+      <input type="text" id="pl-input-default" placeholder="Enter patient name">
+    </div>
+    <!-- /component -->
+
+    <!-- @component: form-input-error -->
+    <div>
+      <label for="pl-input-error">Email Address</label>
+      <input type="email" id="pl-input-error" value="invalid@" aria-invalid="true" aria-describedby="pl-input-error-msg" style="border-color: var(--color-error-500);">
+      <p id="pl-input-error-msg" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Please enter a valid email address.
+      </p>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: form-input-disabled -->
+    <div>
+      <label for="pl-input-disabled">Referring Provider</label>
+      <input type="text" id="pl-input-disabled" placeholder="Auto-populated" disabled>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: form-input-date -->
+    <div>
+      <label for="pl-input-date">Date of Birth</label>
+      <input type="date" id="pl-input-date">
+    </div>
+    <!-- /component -->
+</section>

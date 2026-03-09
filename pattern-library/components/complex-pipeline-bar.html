@@ -1,0 +1,35 @@
+<!--
+  @component-meta
+  name: Pipeline Bar
+  category: Complex / App-Specific
+  file: complex-pipeline-bar.html
+  classes: pipeline-bar, pipeline-segment
+  when-to-use: Horizontal funnel visualization showing proportional stages of a pipeline.
+  preline-required: no
+  notes: Segment widths use inline style flex values. Background colors use CSS custom properties.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Pipeline Bar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Horizontal funnel visualization showing proportional stages of a pipeline.
+  </p>
+
+  <!-- @component: pipeline-bar -->
+  <div class="pipeline-bar">
+    <div class="pipeline-segment" style="flex: 100; background-color: var(--color-primary-500);">Referred</div>
+    <div class="pipeline-segment" style="flex: 78; background-color: var(--color-info-500);">Screened</div>
+    <div class="pipeline-segment" style="flex: 52; background-color: var(--color-warning-500);">Enrolled</div>
+    <div class="pipeline-segment" style="flex: 31; background-color: var(--color-success-500);">Active</div>
+  </div>
+
+  <div class="flex items-center gap-6 mt-3 text-xs text-gray-500 dark:text-neutral-400">
+    <span><i class="fa-solid fa-square text-primary-500 me-1"></i> Referred — 248</span>
+    <span><i class="fa-solid fa-square text-info-500 me-1"></i> Screened — 194</span>
+    <span><i class="fa-solid fa-square text-warning-500 me-1"></i> Enrolled — 128</span>
+    <span><i class="fa-solid fa-square text-success-500 me-1"></i> Active — 76</span>
+  </div>
+  <!-- /component -->
+</section>

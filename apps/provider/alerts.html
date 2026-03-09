@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+<style>
+        /* Override base button:hover dark fill for inline assign links */
+        button.assign-btn,
+        button.assign-btn:hover {
+            background-color: transparent;
+            border: none;
+        }
+        button.assign-btn:hover {
+            color: var(--color-primary-800);
+        }
+    </style>
+
+<body class="bg-gray-50">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <load src="/src/partials/providers-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="lg:ps-64 min-w-0">
+        <div class="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="flex items-center gap-3">
+                    <h1 class="page-title">Alerts</h1>
+                    <span class="badge badge-error text-sm px-3 py-1">12 Unresolved</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="btn-outline btn-sm gap-x-1.5">
+                        <i class="fa-solid fa-file-csv"></i>
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+            <!-- End Page Header -->
+
+
+            <!-- ========================================
+                 Tab Navigation
+                 ======================================== -->
+            <nav class="tab-nav" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+                <button type="button" class="tab-nav-item active" id="tabs-list" aria-selected="true"
+                    data-hs-tab="#tab-list" aria-controls="tab-list" role="tab">
+                    <i class="fa-solid fa-list"></i> List View
+                </button>
+                <button type="button" class="tab-nav-item" id="tabs-map" aria-selected="false"
+                    data-hs-tab="#tab-map" aria-controls="tab-map" role="tab">
+                    <i class="fa-solid fa-map-location-dot"></i> Map View
+                </button>
+            </nav>
+            <!-- End Tab Navigation -->
+
+
+            <!-- ========================================
+                 Filter Bar
+                 ======================================== -->
+            <div class="toolbar mt-4 mb-6">
+                <!-- Category pills -->
+                <div class="flex gap-2">
+                    <button class="filter-pill active">All</button>
+                    <button class="filter-pill">Clinical (5)</button>
+                    <button class="filter-pill">Social (4)</button>
+                    <button class="filter-pill">Delivery (2)</button>
+                    <button class="filter-pill">Safety (1)</button>
+                </div>
+
+                <select class="select-haven">
+                    <option selected>Unresolved</option>
+                    <option>Resolved</option>
+                    <option>All</option>
+                </select>
+
+                <select class="select-haven">
+                    <option value="all" selected>All Time</option>
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d">Last 30 Days</option>
+                    <option value="90d">Last 90 Days</option>
+                </select>
+
+                <div class="search-input">
+                    <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+                    <input type="text" placeholder="Search patient...">
+                </div>
+
+                <a href="#" class="text-link text-sm">Clear filters</a>
+            </div>
+            <!-- End Filter Bar -->
+
+
+            <!-- ========================================
+                 Tab 1: List View
+                 ======================================== -->
+            <div id="tab-list" role="tabpanel" aria-labelledby="tabs-list">
+
+                <!-- Alert Table -->
+                <div class="data-table">
+                    <table>
+                        <caption class="sr-only">Unresolved alerts</caption>
+                        <thead>
+                            <tr>
+                                <th class="px-3 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider w-16">SEV</th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">Patient <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i></th>
+                                <th>Category</th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">Alert Type <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i></th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">Created <i class="fa-solid fa-sort-up ms-1 text-gray-400 text-xs"></i></th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">Assigned To <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i></th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 1. Torres, James — Safety — Fall Risk Flagged -->
+                            <tr>
+                                <td><span class="severity-badge severity-high">HIGH</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Torres, James</a>
+                                </td>
+                                <td><span class="badge badge-error"><i class="fa-solid fa-shield-halved me-1"></i>Safety</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Fall Risk Flagged</span></td>
+                                <td><span class="text-sm text-gray-500">2h ago</span></td>
+                                <td><span class="text-sm text-gray-600">Dr. Chen</span></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="safety"
+                                            data-alert-severity="high"
+                                            data-alert-patient="Torres, James"
+                                            data-alert-type="Fall Risk Flagged">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 2. Kim, Rosa — Clinical — HbA1c >9.0 -->
+                            <tr>
+                                <td><span class="severity-badge severity-high">HIGH</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Kim, Rosa</a>
+                                </td>
+                                <td><span class="badge badge-error"><i class="fa-solid fa-heart-pulse me-1"></i>Clinical</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">HbA1c &gt;9.0</span></td>
+                                <td><span class="text-sm text-gray-500">3h ago</span></td>
+                                <td><button class="text-link text-sm assign-btn"><i class="fa-solid fa-plus text-xs me-1"></i>Assign</button></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="clinical"
+                                            data-alert-severity="high"
+                                            data-alert-patient="Kim, Rosa"
+                                            data-alert-type="HbA1c >9.0">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 3. Davis, Tanya — Clinical — BP Reading 158/94 -->
+                            <tr>
+                                <td><span class="severity-badge severity-high">HIGH</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Davis, Tanya</a>
+                                </td>
+                                <td><span class="badge badge-error"><i class="fa-solid fa-heart-pulse me-1"></i>Clinical</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">BP Reading 158/94</span></td>
+                                <td><span class="text-sm text-gray-500">5h ago</span></td>
+                                <td><span class="text-sm text-gray-600">Dr. Patel</span></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="clinical"
+                                            data-alert-severity="high"
+                                            data-alert-patient="Davis, Tanya"
+                                            data-alert-type="BP Reading 158/94">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 4. Ramirez, Maria — Clinical — Missed Lab Draw -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Ramirez, Maria</a>
+                                </td>
+                                <td><span class="badge badge-error"><i class="fa-solid fa-heart-pulse me-1"></i>Clinical</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Missed Lab Draw</span></td>
+                                <td><span class="text-sm text-gray-500">1d ago</span></td>
+                                <td><button class="text-link text-sm assign-btn"><i class="fa-solid fa-plus text-xs me-1"></i>Assign</button></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="clinical"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Ramirez, Maria"
+                                            data-alert-type="Missed Lab Draw">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 5. Lopez, Ana — Delivery — Delivery Failure -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Lopez, Ana</a>
+                                </td>
+                                <td><span class="badge badge-info"><i class="fa-solid fa-truck me-1"></i>Delivery</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Delivery Failure</span></td>
+                                <td><span class="text-sm text-gray-500">4h ago</span></td>
+                                <td><span class="text-sm text-gray-600">Maria S.</span></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="delivery"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Lopez, Ana"
+                                            data-alert-type="Delivery Failure">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 6. Torres, James — Clinical — Dietary Non-Adherence -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Torres, James</a>
+                                </td>
+                                <td><span class="badge badge-error"><i class="fa-solid fa-heart-pulse me-1"></i>Clinical</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Dietary Non-Adherence</span></td>
+                                <td><span class="text-sm text-gray-500">6h ago</span></td>
+                                <td><span class="text-sm text-gray-600">Dr. Chen</span></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="clinical"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Torres, James"
+                                            data-alert-type="Dietary Non-Adherence">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 7. Patel, Sofia — Social — Food Insecurity Screen -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Patel, Sofia</a>
+                                </td>
+                                <td><span class="badge badge-warning"><i class="fa-solid fa-people-group me-1"></i>Social</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Food Insecurity Screen</span></td>
+                                <td><span class="text-sm text-gray-500">1d ago</span></td>
+                                <td><button class="text-link text-sm assign-btn"><i class="fa-solid fa-plus text-xs me-1"></i>Assign</button></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="social"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Patel, Sofia"
+                                            data-alert-type="Food Insecurity Screen">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 8. Nguyen, Kevin — Delivery — Missed Delivery Window -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Nguyen, Kevin</a>
+                                </td>
+                                <td><span class="badge badge-info"><i class="fa-solid fa-truck me-1"></i>Delivery</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Missed Delivery Window</span></td>
+                                <td><span class="text-sm text-gray-500">2d ago</span></td>
+                                <td><span class="text-sm text-gray-600">Maria S.</span></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="delivery"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Nguyen, Kevin"
+                                            data-alert-type="Missed Delivery Window">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 9. Davis, Tanya — Social — Transportation Barrier -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Davis, Tanya</a>
+                                </td>
+                                <td><span class="badge badge-warning"><i class="fa-solid fa-people-group me-1"></i>Social</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Transportation Barrier</span></td>
+                                <td><span class="text-sm text-gray-500">3d ago</span></td>
+                                <td><button class="text-link text-sm assign-btn"><i class="fa-solid fa-plus text-xs me-1"></i>Assign</button></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="social"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Davis, Tanya"
+                                            data-alert-type="Transportation Barrier">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 10. Thompson, Marcus — Social — Housing Instability -->
+                            <tr>
+                                <td><span class="severity-badge severity-medium">MED</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Thompson, Marcus</a>
+                                </td>
+                                <td><span class="badge badge-warning"><i class="fa-solid fa-people-group me-1"></i>Social</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Housing Instability</span></td>
+                                <td><span class="text-sm text-gray-500">4d ago</span></td>
+                                <td><button class="text-link text-sm assign-btn"><i class="fa-solid fa-plus text-xs me-1"></i>Assign</button></td>
+                                <td><span class="badge badge-error">Unresolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <button class="btn-sm btn-outline"
+                                            data-hs-overlay="#resolve-modal"
+                                            data-alert-category="social"
+                                            data-alert-severity="medium"
+                                            data-alert-patient="Thompson, Marcus"
+                                            data-alert-type="Housing Instability">Resolve</button>
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="table-section-divider">
+                                <td colspan="8">Resolved</td>
+                            </tr>
+
+                            <!-- 11. Perez, Carmen — Delivery — Delivery Rescheduled (Resolved) -->
+                            <tr class="table-row-muted">
+                                <td><span class="severity-badge severity-low">LOW</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Perez, Carmen</a>
+                                </td>
+                                <td><span class="badge badge-info"><i class="fa-solid fa-truck me-1"></i>Delivery</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Delivery Rescheduled</span></td>
+                                <td><span class="text-sm text-gray-500">5d ago</span></td>
+                                <td><span class="text-sm text-gray-600">Maria S.</span></td>
+                                <td><span class="badge badge-neutral">Resolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 12. Lee, David — Clinical — Eligibility Follow-up (Resolved) -->
+                            <tr class="table-row-muted">
+                                <td><span class="severity-badge severity-low">LOW</span></td>
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600">Lee, David</a>
+                                </td>
+                                <td><span class="badge badge-error"><i class="fa-solid fa-heart-pulse me-1"></i>Clinical</span></td>
+                                <td><span class="text-sm font-medium text-gray-900">Eligibility Follow-up</span></td>
+                                <td><span class="text-sm text-gray-500">6d ago</span></td>
+                                <td><span class="text-sm text-gray-600">Dr. Patel</span></td>
+                                <td><span class="badge badge-neutral">Resolved</span></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="patients/detail.html" class="btn-icon" title="View patient">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Alert Table -->
+
+            </div>
+            <!-- End Tab 1: List View -->
+
+
+            <!-- ========================================
+                 Tab 2: Map View
+                 ======================================== -->
+            <div id="tab-map" class="hidden" role="tabpanel" aria-labelledby="tabs-map">
+                <div class="flex flex-col items-center justify-center py-16 text-center">
+                    <i class="fa-solid fa-map text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500 font-medium">Geographic view coming soon</p>
+                    <p class="text-sm text-gray-400 mt-1">Map view is planned for Q2 2026</p>
+                </div>
+            </div>
+            <!-- End Tab 2: Map View -->
+
+
+            <!-- ========================================
+                 Resolve Modal
+                 ======================================== -->
+            <div id="resolve-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none">
+                <div class="modal-panel">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg pointer-events-auto">
+
+                        <!-- Modal Header -->
+                        <div class="flex justify-between items-center py-3 px-4 border-b border-gray-200">
+                            <h3 class="flex items-center gap-2 font-semibold text-gray-900">
+                                Resolve Alert
+                                <span class="badge badge-error badge-sm" id="modal-severity-badge">HIGH</span>
+                            </h3>
+                            <button class="btn-icon" data-hs-overlay="#resolve-modal">
+                                <i class="fa-solid fa-xmark text-gray-500"></i>
+                            </button>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="p-4 space-y-4">
+
+                            <!-- Alert summary (read-only) -->
+                            <!-- Apply border-l-4 border-error-400 for HIGH severity alerts only -->
+                            <div id="modal-alert-summary" class="p-3 bg-gray-50 rounded-lg text-sm border-l-4 border-error-400">
+                                <p class="font-semibold text-gray-800" id="modal-alert-patient">Torres, James</p>
+                                <p class="text-gray-500 text-xs" id="modal-alert-type">Fall Risk Flagged &middot; Safety &middot; High severity &middot; Created 2h ago</p>
+                            </div>
+
+                            <!-- Resolution type -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Resolution Type</label>
+                                <select class="select-haven">
+                                    <option value="">Select resolution type...</option>
+                                    <option value="addressed">Addressed</option>
+                                    <option value="no-action">No Action Needed</option>
+                                    <option value="escalated">Escalated</option>
+                                    <option value="duplicate">Duplicate</option>
+                                </select>
+                            </div>
+
+                            <!-- Resolution note -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Resolution Notes</label>
+                                <textarea rows="3" placeholder="Add resolution notes (required for Addressed and Escalated)..."></textarea>
+                            </div>
+
+                            <!-- Delivery extras -->
+                            <div class="p-3 bg-info-50 rounded-lg border border-info-200 text-sm hidden" data-show-for="delivery">
+                                <div class="font-medium text-gray-800 mb-2">
+                                    <i class="fa-solid fa-truck me-1.5 text-info-600"></i>Vendor Contact
+                                </div>
+                                <div class="text-gray-600">Fresh Bites Delivery Co.</div>
+                                <div class="text-gray-600"><a href="tel:+13105550182" class="text-link">(310) 555-0182</a></div>
+                                <div class="flex gap-2 mt-3">
+                                    <button class="btn-sm btn-outline">
+                                        <i class="fa-solid fa-phone me-1"></i>Call Vendor
+                                    </button>
+                                    <button class="btn-sm btn-outline">Log Issue</button>
+                                    <button class="btn-sm btn-outline">Reschedule</button>
+                                </div>
+                            </div>
+
+                            <!-- Social extras -->
+                            <div class="p-3 bg-warning-50 rounded-lg border border-warning-200 text-sm hidden" data-show-for="social">
+                                <div class="font-medium text-gray-800 mb-2">
+                                    <i class="fa-solid fa-people-group me-1.5 text-warning-600"></i>Suggested Resources
+                                </div>
+                                <div class="text-gray-600">LA Regional Food Bank — <a href="tel:+12135550144" class="text-link">(213) 555-0144</a></div>
+                                <div class="text-gray-600">211 LA (Social Services Hotline)</div>
+                                <div class="mt-3">
+                                    <button class="btn-sm btn-outline">
+                                        <i class="fa-solid fa-message me-1"></i>Share Resource with Patient
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="flex justify-end gap-3 py-3 px-4 border-t border-gray-200">
+                            <button class="btn-outline" data-hs-overlay="#resolve-modal">Cancel</button>
+                            <button id="btn-confirm-resolution" class="btn-primary opacity-50 cursor-not-allowed" disabled>
+                                <span id="btn-confirm-label">Confirm Resolution</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Resolve Modal -->
+
+
+        </div>
+    </div>
+    <!-- End Main Content -->
+
+    <load src="/src/partials/scripts.html" />
+
+    <!-- Resolve Modal: category-aware display -->
+    <script>
+    document.querySelectorAll('[data-hs-overlay="#resolve-modal"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.alertCategory || '';
+            const severity = btn.dataset.alertSeverity || '';
+            const patient = btn.dataset.alertPatient || '';
+            const alertType = btn.dataset.alertType || '';
+
+            // Update summary text
+            const summaryPatient = document.getElementById('modal-alert-patient');
+            const summaryType = document.getElementById('modal-alert-type');
+            if (summaryPatient) summaryPatient.textContent = patient;
+            if (summaryType) summaryType.textContent = alertType;
+
+            // Severity badge
+            const badge = document.getElementById('modal-severity-badge');
+            if (badge) {
+                badge.textContent = severity === 'high' ? 'HIGH' : 'MED';
+                badge.className = 'badge badge-sm ' + (severity === 'high' ? 'badge-error' : 'badge-warning');
+            }
+
+            // Summary block border
+            const summaryBlock = document.getElementById('modal-alert-summary');
+            if (summaryBlock) {
+                summaryBlock.classList.toggle('border-l-4', severity === 'high');
+                summaryBlock.classList.toggle('border-error-400', severity === 'high');
+            }
+
+            // Conditional sections
+            document.querySelectorAll('[data-show-for]').forEach(section => {
+                section.classList.toggle('hidden', section.dataset.showFor !== category);
+            });
+
+            // Reset form state
+            const sel = document.querySelector('#resolve-modal select');
+            const txt = document.querySelector('#resolve-modal textarea');
+            if (sel) sel.value = '';
+            if (txt) txt.value = '';
+            updateConfirmState();
+        });
+    });
+    </script>
+
+    <!-- Resolve Modal: notes-required validation -->
+    <script>
+    const resTypeSelect = document.querySelector('#resolve-modal select');
+    const resNotesTextarea = document.querySelector('#resolve-modal textarea');
+    const confirmBtn = document.getElementById('btn-confirm-resolution');
+    const confirmLabel = document.getElementById('btn-confirm-label');
+
+    const requiresNotes = ['addressed', 'escalated'];
+
+    const contextLabels = {
+        '': 'Confirm Resolution',
+        'addressed': 'Mark Resolved',
+        'no-action': 'Dismiss Alert',
+        'escalated': 'Escalate & Close',
+        'duplicate': 'Remove Duplicate',
+    };
+
+    function updateConfirmState() {
+        if (!confirmBtn || !resTypeSelect || !resNotesTextarea) return;
+        const type = resTypeSelect.value;
+        const hasNotes = resNotesTextarea.value.trim().length > 0;
+        const needsNotes = requiresNotes.includes(type);
+        const isValid = type !== '' && (!needsNotes || hasNotes);
+
+        confirmBtn.disabled = !isValid;
+        confirmBtn.classList.toggle('opacity-50', !isValid);
+        confirmBtn.classList.toggle('cursor-not-allowed', !isValid);
+
+        if (confirmLabel) {
+            confirmLabel.textContent = contextLabels[type] || 'Confirm Resolution';
+        }
+    }
+
+    if (resTypeSelect) resTypeSelect.addEventListener('change', updateConfirmState);
+    if (resNotesTextarea) resNotesTextarea.addEventListener('input', updateConfirmState);
+    updateConfirmState();
+    </script>
+
+</body>
+
+</html>

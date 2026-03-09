@@ -1,0 +1,34 @@
+<!--
+  @component-meta
+  name: Prose Section
+  category: Layout
+  file: layout-prose-section.html
+  classes: prose-section
+  when-to-use: Any text-heavy content block within a wider layout — patient instructions, program descriptions, care plan notes. Constrains line length to 72ch for readability.
+  do-not-use-when: The content is a data table, form, or UI component (prose-section is for reading text only).
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Prose Section</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Constrains text to a readable line length (72ch). Compare the text width against the wider card.
+  </p>
+
+    <!-- @component: layout-prose-section -->
+    <div class="prose-section">
+      <h3>Program Description</h3>
+      <p class="text-sm text-gray-600 dark:text-neutral-400 mb-3">
+        The Diabetes Management Program provides medically tailored meals designed for patients with Type 2 diabetes. Each meal is developed in collaboration with registered dietitians and meets ADA nutritional guidelines for carbohydrate-controlled diets.
+      </p>
+      <p class="text-sm text-gray-600 dark:text-neutral-400 mb-3">
+        Enrolled patients receive 14 meals per week delivered to their home. Meal plans are adjusted monthly based on clinical data including HbA1c trends, weight changes, and patient-reported dietary preferences.
+      </p>
+      <p class="text-sm text-gray-600 dark:text-neutral-400">
+        Care coordinators review adherence data weekly and escalate any missed-meal patterns to the clinical team for follow-up within 48 hours.
+      </p>
+    </div>
+    <!-- /component -->
+</section>

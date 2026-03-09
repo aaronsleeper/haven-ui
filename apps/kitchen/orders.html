@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50 dark:bg-neutral-900">
+
+    <!-- App Shell -->
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <load src="/src/partials/kitchen-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 pb-20">
+
+        <!-- Page Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Orders</h1>
+
+            <!-- Week Selector -->
+            <div class="inline-flex items-center gap-2">
+                <button type="button" class="btn-icon" aria-label="Previous week">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span class="text-sm font-medium text-gray-700 dark:text-neutral-300 min-w-[10rem] text-center">
+                    Week of Feb. 12
+                </span>
+                <button type="button" class="btn-icon" aria-label="Next week" disabled>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="flex flex-wrap gap-3 mb-6">
+            <div class="card !py-2 !px-4">
+                <span class="inline-flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-list text-sm text-gray-400"></i>
+                    <span class="text-lg font-bold text-gray-800 leading-none dark:text-white">18</span>
+                    <span class="text-xs text-gray-500 leading-none">orders</span>
+                </span>
+            </div>
+            <div class="card !py-2 !px-4">
+                <span class="inline-flex items-center gap-2">
+                    <i class="fa-solid fa-temperature-high text-sm text-orange-500"></i>
+                    <span class="text-lg font-bold text-gray-800 leading-none dark:text-white">54</span>
+                    <span class="text-xs text-gray-500 leading-none">hot meals</span>
+                </span>
+            </div>
+            <div class="card !py-2 !px-4">
+                <span class="inline-flex items-center gap-2">
+                    <i class="fa-solid fa-snowflake text-sm text-blue-500"></i>
+                    <span class="text-lg font-bold text-gray-800 leading-none dark:text-white">36</span>
+                    <span class="text-xs text-gray-500 leading-none">cold meals</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Dietary Requirements -->
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+            <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Dietary:</span>
+            <span class="badge badge-warning badge-pill">4 Low Sodium</span>
+            <span class="badge badge-warning badge-pill">1 Dairy-Free</span>
+        </div>
+
+        <!-- Info Banner -->
+        <div
+            class="flex items-start gap-3 p-3 mb-4 bg-blue-50 border border-blue-200 rounded-lg dark:bg-blue-900/20 dark:border-blue-800">
+            <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
+            <div class="text-sm text-blue-800 dark:text-blue-300">
+                <p class="font-medium">Review auto-assigned meals</p>
+                <p class="text-blue-600 dark:text-blue-400 mt-0.5">The system has assigned meals based on patient
+                    care plans. Review and adjust as needed before the order cutoff.</p>
+            </div>
+        </div>
+
+        <!-- Action Bar: Filters + Print Buttons -->
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs text-gray-500 font-medium uppercase tracking-wider">Filter:</span>
+                <button type="button" class="assignment-filter-tag active" data-filter="all">
+                    All Patients <span class="assignment-filter-count">18</span>
+                </button>
+                <button type="button" class="assignment-filter-tag" data-filter="none">
+                    No Restrictions <span class="assignment-filter-count">13</span>
+                </button>
+                <button type="button" class="assignment-filter-tag" data-filter="low-sodium">
+                    Low Sodium <span class="assignment-filter-count">3</span>
+                </button>
+                <button type="button" class="assignment-filter-tag" data-filter="dairy-free">
+                    Dairy-Free <span class="assignment-filter-count">1</span>
+                </button>
+                <button type="button" class="assignment-filter-tag" data-filter="gluten-free">
+                    Gluten-Free <span class="assignment-filter-count">1</span>
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">
+                    <i class="fa-solid fa-print me-2"></i>Print Production Summary
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">
+                    <i class="fa-solid fa-print me-2"></i>Print Packing Slips
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Notice -->
+        <div class="meal-grid-mobile-notice">
+            <i class="fa-solid fa-display me-2"></i>
+            This view is designed for use on a larger screen.
+        </div>
+
+        <!-- Meal Assignment Grid -->
+        <load src="/src/partials/kitchen-meal-assignment-grid.html" />
+
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.assignment-filter-tag');
+            const rows = document.querySelectorAll('tbody tr[data-restriction]');
+
+            // Filter Function
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filter = button.getAttribute('data-filter');
+
+                    rows.forEach(row => {
+                        const restriction = row.getAttribute('data-restriction');
+                        if (filter === 'all' || filter === restriction) {
+                            row.classList.remove('hidden');
+                        } else {
+                            row.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <load src="/src/partials/scripts.html" />
+</body>
+
+</html>

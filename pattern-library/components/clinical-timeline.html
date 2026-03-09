@@ -1,0 +1,90 @@
+<!--
+  @component-meta
+  name: Patient Timeline
+  category: Healthcare-Specific
+  file: clinical-timeline.html
+  classes: timeline-list, timeline-event, timeline-left, timeline-icon-circle, timeline-connector, timeline-event-body, timeline-event-header, timeline-event-preview, timeline-event-actor
+  when-to-use: Vertical timeline of patient events on detail pages showing enrollment, clinical, delivery, and alert milestones.
+  preline-required: no
+  notes: The last event should omit the timeline-connector. Use timeline-icon-circle-[variant] for color coding.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Patient Timeline</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Vertical timeline of patient events on detail pages showing enrollment, clinical, delivery, and alert milestones.
+  </p>
+
+  <!-- @component: clinical-timeline -->
+  <div class="timeline-list">
+    <!-- Enrollment -->
+    <div class="timeline-event">
+      <div class="timeline-left">
+        <div class="timeline-icon-circle timeline-icon-circle-enrollment">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <div class="timeline-connector"></div>
+      </div>
+      <div class="timeline-event-body">
+        <div class="timeline-event-header">
+          <span class="badge badge-neutral badge-sm">Enrollment</span>
+          <span class="timeline-event-actor">Care Coordinator Lisa Park</span>
+        </div>
+        <p class="timeline-event-preview">Patient enrolled in Diabetes Management program — referred by Dr. Chen</p>
+      </div>
+    </div>
+
+    <!-- Clinical -->
+    <div class="timeline-event">
+      <div class="timeline-left">
+        <div class="timeline-icon-circle timeline-icon-circle-clinical">
+          <i class="fa-solid fa-stethoscope"></i>
+        </div>
+        <div class="timeline-connector"></div>
+      </div>
+      <div class="timeline-event-body">
+        <div class="timeline-event-header">
+          <span class="badge badge-neutral badge-sm">Clinical</span>
+          <span class="timeline-event-actor">Dr. Michael Chen</span>
+        </div>
+        <p class="timeline-event-preview">Lab result received — HbA1c at 7.4%, down from 8.1% at enrollment</p>
+      </div>
+    </div>
+
+    <!-- Delivery -->
+    <div class="timeline-event">
+      <div class="timeline-left">
+        <div class="timeline-icon-circle timeline-icon-circle-delivery">
+          <i class="fa-solid fa-truck"></i>
+        </div>
+        <div class="timeline-connector"></div>
+      </div>
+      <div class="timeline-event-body">
+        <div class="timeline-event-header">
+          <span class="badge badge-neutral badge-sm">Delivery</span>
+          <span class="timeline-event-actor">NourishCare Kitchen</span>
+        </div>
+        <p class="timeline-event-preview">14 meals delivered for week of Feb 10 — all diabetic-friendly menu</p>
+      </div>
+    </div>
+
+    <!-- Alert (last — no connector) -->
+    <div class="timeline-event">
+      <div class="timeline-left">
+        <div class="timeline-icon-circle timeline-icon-circle-alert">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+      </div>
+      <div class="timeline-event-body">
+        <div class="timeline-event-header">
+          <span class="badge badge-neutral badge-sm">Alert</span>
+          <span class="timeline-event-actor">System</span>
+        </div>
+        <p class="timeline-event-preview">Missed delivery window — patient not home for scheduled drop-off</p>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

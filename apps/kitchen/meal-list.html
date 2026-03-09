@@ -1,0 +1,449 @@
+<!-- Meal List - Kitchen Partner Portal - See: design/features/recipe-management-wireframes/recipe-list.md -->
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50 dark:bg-neutral-900">
+
+    <!-- App Shell -->
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <load src="/src/partials/kitchen-sidebar.html" />
+    <!-- End Sidebar -->
+    <!-- End Sidebar -->
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1>Meals</h1>
+            </div>
+            <div>
+                <a href="add-meals.html" class="btn-primary">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Meals
+                </a>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Weekly Summary Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+            <!-- Week of Feb. 12 -->
+            <div class="card" id="summary-week-1">
+                <div class="card-body !py-3 !px-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm font-semibold text-gray-700 dark:text-neutral-300">Week of Feb.
+                                12</span>
+                            <span class="inline-flex items-center gap-1 text-sm">
+                                <i class="fa-solid fa-fire text-orange-500 text-xs"></i>
+                                <span class="font-medium text-gray-800 dark:text-white">3</span>
+                                <span class="text-gray-500 text-xs">hot</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-sm">
+                                <i class="fa-solid fa-snowflake text-blue-500 text-xs"></i>
+                                <span class="font-medium text-gray-800 dark:text-white">1</span>
+                                <span class="text-gray-500 text-xs">cold</span>
+                            </span>
+                        </div>
+                        <button type="button"
+                            class="text-xs text-primary-600 hover:text-primary-700 font-medium dark:text-primary-400"
+                            onclick="toggleWeekFilter(this, 'week-1')" data-default-label="Show active only"
+                            data-active-label="Show all meals">
+                            Show active only
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Week of Feb. 19 -->
+            <div class="card" id="summary-week-2">
+                <div class="card-body !py-3 !px-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm font-semibold text-gray-700 dark:text-neutral-300">Week of Feb.
+                                19</span>
+                            <span class="inline-flex items-center gap-1 text-sm">
+                                <i class="fa-solid fa-fire text-orange-500 text-xs"></i>
+                                <span class="font-medium text-gray-800 dark:text-white">3</span>
+                                <span class="text-gray-500 text-xs">hot</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-sm">
+                                <i class="fa-solid fa-snowflake text-blue-500 text-xs"></i>
+                                <span class="font-medium text-gray-800 dark:text-white">1</span>
+                                <span class="text-gray-500 text-xs">cold</span>
+                            </span>
+                        </div>
+                        <button type="button"
+                            class="text-xs text-primary-600 hover:text-primary-700 font-medium dark:text-primary-400"
+                            onclick="toggleWeekFilter(this, 'week-2')" data-default-label="Show active only"
+                            data-active-label="Show all meals">
+                            Show active only
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Weekly Summary Cards -->
+
+        <div class="toolbar">
+            <div class="toolbar-search">
+                <div class="relative">
+                    <input type="text" class="toolbar-search-input" placeholder="Search meals...">
+                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
+                        <i class="fa-solid fa-search text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="hs-dropdown relative inline-flex">
+                <button id="hs-dropdown-filter" type="button"
+                    class="hs-dropdown-toggle btn-outline inline-flex justify-between items-center gap-x-2">
+                    <span>All Statuses</span>
+                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="hs-dropdown-filter">
+                    <a class="dropdown-item" href="#">All Statuses</a>
+                    <a class="dropdown-item" href="#">Active</a>
+                    <a class="dropdown-item" href="#">Draft</a>
+                    <a class="dropdown-item" href="#">Issues</a>
+                </div>
+            </div>
+        </div>
+        <!-- End Toolbar -->
+
+        <!-- Meal Table (Populated State) -->
+        <div class="data-table">
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col" class="text-center">
+                                <div class="flex flex-col items-center gap-1.5">
+                                    <div class="calendar-widget">
+                                        <div class="calendar-month">
+                                            Feb</div>
+                                        <div class="calendar-day">
+                                            12</div>
+                                    </div>
+                                    <input type="checkbox" checked class="schedule-checkbox"
+                                        aria-label="Toggle all meals for week of Feb. 12">
+                                </div>
+                            </th>
+                            <th scope="col" class="text-center">
+                                <div class="flex flex-col items-center gap-1.5">
+                                    <div class="calendar-widget">
+                                        <div class="calendar-month">
+                                            Feb</div>
+                                        <div class="calendar-day">
+                                            19</div>
+                                    </div>
+                                    <input type="checkbox" checked class="schedule-checkbox"
+                                        aria-label="Toggle all meals for week of Feb. 19">
+                                </div>
+                            </th>
+                            <th scope="col" class="text-end">Calories</th>
+                            <th scope="col">Tags</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td class="cell-primary meal-label-hot">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Arroz con Pollo
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Arroz con Pollo - week of Feb. 12">
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Arroz con Pollo - week of Feb. 19">
+                            </td>
+                            <td class="text-end">420 kcal</td>
+                            <td>
+                                <div class="tag-container">
+                                    <span class="badge badge-info badge-pill badge-sm">Diabetic-Friendly</span>
+                                    <span class="badge badge-warning badge-pill badge-sm">Dairy</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-success badge-pill badge-sm">Active</span>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr>
+                            <td class="cell-primary meal-label-cold">
+                                <i class="fa-solid fa-snowflake meal-type-icon"></i>Black Bean Soup
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Black Bean Soup - week of Feb. 12">
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Black Bean Soup - week of Feb. 19">
+                            </td>
+                            <td class="text-end">280 kcal</td>
+                            <td>
+                                <div class="tag-container">
+                                    <span class="badge badge-info badge-pill badge-sm">Heart-Healthy</span>
+                                    <span class="badge badge-info badge-pill badge-sm">Vegan</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-success badge-pill badge-sm">Active</span>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr>
+                            <td class="cell-primary meal-label-hot">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Grilled Chicken Plate
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Grilled Chicken Plate - week of Feb. 12">
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Grilled Chicken Plate - week of Feb. 19">
+                            </td>
+                            <td class="text-end">385 kcal</td>
+                            <td>
+                                <div class="tag-container">
+                                    <span class="badge badge-info badge-pill badge-sm">General Wellness</span>
+                                    <span class="badge badge-warning badge-pill badge-sm">Gluten</span>
+                                    <span class="text-xs text-gray-500 self-center">+1 more</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-warning badge-pill badge-sm">Draft</span>
+                            </td>
+                        </tr>
+                        <!-- Row 4 -->
+                        <tr>
+                            <td class="cell-primary meal-label-cold">
+                                <i class="fa-solid fa-snowflake meal-type-icon"></i>Flan de Coco
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" class="schedule-checkbox"
+                                    aria-label="Flan de Coco - week of Feb. 12">
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" class="schedule-checkbox"
+                                    aria-label="Flan de Coco - week of Feb. 19">
+                            </td>
+                            <td class="text-end">310 kcal</td>
+                            <td>
+                                <div class="tag-container">
+                                    <span class="badge badge-info badge-pill badge-sm">Vegetarian</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-error badge-pill badge-sm">Issues</span>
+                            </td>
+                        </tr>
+                        <!-- Row 5 -->
+                        <tr>
+                            <td class="cell-primary meal-label-hot">
+                                <i class="fa-solid fa-fire meal-type-icon"></i>Beef Picadillo
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Beef Picadillo - week of Feb. 12">
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" checked class="schedule-checkbox"
+                                    aria-label="Beef Picadillo - week of Feb. 19">
+                            </td>
+                            <td class="text-end">450 kcal</td>
+                            <td>
+                                <div class="tag-container">
+                                    <span class="badge badge-info badge-pill badge-sm">General Wellness</span>
+                                    <span class="badge badge-warning badge-pill badge-sm">Soy</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-success badge-pill badge-sm">Active</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination border-t border-gray-200 dark:border-neutral-700">
+                <div class="pagination-info">
+                    Showing <span class="font-semibold text-gray-900 dark:text-white">1-5</span> of <span
+                        class="font-semibold text-gray-900 dark:text-white">5</span>
+                </div>
+                <div class="pagination-controls">
+                    <button type="button" class="pagination-btn" disabled>
+                        <span class="sr-only">Previous</span>
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button type="button" class="pagination-btn active">1</button>
+                    <button type="button" class="pagination-btn" disabled>
+                        <span class="sr-only">Next</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <!-- End Meal Table -->
+
+        <!-- Empty State (Hidden for MVP) -->
+        <div id="empty-state-view" class="card hidden mt-6">
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <h2>No meals yet</h2>
+                <p>Add your available meals so patients can start ordering. You can paste or type meals and we'll help
+                    organize them.</p>
+                <button type="button" class="btn-primary">
+                    Add Your First Meals
+                </button>
+            </div>
+        </div>
+
+        <!-- Error State (Hidden for MVP) -->
+        <div id="error-state-view" class="alert alert-error hidden mt-6">
+            <div class="alert-icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-semibold">Error</h3>
+                <p>We couldn't load your meals. Please try again.</p>
+            </div>
+            <button type="button" class="btn-outline text-xs py-1 px-2 h-auto">Retry</button>
+        </div>
+
+        <!-- Loading State (Hidden for MVP) -->
+        <div id="loading-state-view" class="data-table hidden mt-6">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                <thead>
+                    <tr>
+                        <th class="w-1/3">Name</th>
+                        <th>Calories</th>
+                        <th>Tags</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                    <tr>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-3/4"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-12 ms-auto"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-1/2"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-16"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-8 ms-auto"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-2/3"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-12 ms-auto"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-1/3"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-16"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-8 ms-auto"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-3/4"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-12 ms-auto"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-1/2"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-16"></div>
+                        </td>
+                        <td class="p-4">
+                            <div class="skeleton skeleton-text w-8 ms-auto"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!-- End Content -->
+
+    <load src="/src/partials/scripts.html" />
+    <script>
+        function toggleWeekFilter(button, weekId) {
+            const table = document.querySelector('.data-table tbody');
+            const rows = table.querySelectorAll('tr');
+            const isFiltering = button.textContent.trim() === button.dataset.defaultLabel;
+
+            // Determine which checkbox column to check (week-1 = column index 1, week-2 = column index 2)
+            const colIndex = weekId === 'week-1' ? 1 : 2;
+
+            if (isFiltering) {
+                // Hide rows where the checkbox in the relevant column is unchecked
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length > colIndex) {
+                        const checkbox = cells[colIndex].querySelector('.schedule-checkbox');
+                        if (checkbox && !checkbox.checked) {
+                            row.style.display = 'none';
+                        }
+                    }
+                });
+                button.textContent = button.dataset.activeLabel;
+                // Highlight the active card
+                document.getElementById('summary-' + weekId).classList.add('ring-1', 'ring-primary-300');
+            } else {
+                // Show all rows
+                rows.forEach(row => {
+                    row.style.display = '';
+                });
+                button.textContent = button.dataset.defaultLabel;
+                // Remove highlight
+                document.getElementById('summary-' + weekId).classList.remove('ring-1', 'ring-primary-300');
+            }
+        }
+    </script>
+</body>
+
+</html>

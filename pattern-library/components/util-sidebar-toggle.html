@@ -1,0 +1,33 @@
+<!--
+  @component-meta
+  name: Sidebar Toggle Bar
+  category: Utilities / Misc
+  file: util-sidebar-toggle.html
+  classes: sidebar-toggle-bar, sidebar-toggle-btn
+  when-to-use: Mobile-only sticky bar that triggers the app sidebar overlay.
+  preline-required: yes — data-hs-overlay triggers .app-sidebar
+  notes: This bar is mobile-only (hidden at lg+ via the class definition). Shown statically in this demo. In production, the button uses data-hs-overlay to open .app-sidebar.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Sidebar Toggle Bar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Mobile-only sticky bar containing a toggle button. Uses <code class="text-sm font-mono">data-hs-overlay</code> to trigger <code class="text-sm font-mono">.app-sidebar</code>.
+    Shown statically here for reference.
+  </p>
+
+  <!-- @component: sidebar-toggle-bar -->
+  <div class="card card-body">
+    <div class="sidebar-toggle-bar" style="position: static;">
+      <div class="py-2">
+        <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar" aria-controls="application-sidebar" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars me-2"></i>
+          <span class="text-sm">Menu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

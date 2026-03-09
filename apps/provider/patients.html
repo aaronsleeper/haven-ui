@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <load src="/src/partials/providers-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="lg:ps-64 min-w-0">
+        <div class="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Patients</h1>
+                <div class="flex items-center gap-2">
+                    <button class="btn-outline btn-sm gap-x-1.5">
+                        <i class="fa-solid fa-file-csv"></i>
+                        Export CSV
+                    </button>
+                    <button class="btn-primary opacity-50 cursor-not-allowed" disabled title="Coming soon">
+                        <i class="fa-solid fa-plus me-2"></i>Add Patient
+                    </button>
+                </div>
+            </div>
+            <!-- End Page Header -->
+
+
+            <!-- ========================================
+                 Zone 1: Filter Bar
+                 ======================================== -->
+            <div class="toolbar">
+                <div class="search-input">
+                    <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+                    <input type="text" placeholder="Search by name or MRN">
+                </div>
+                <select class="select-haven">
+                    <option>All Risk Levels</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+                <select class="select-haven">
+                    <option>All Statuses</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                    <option>Pending</option>
+                </select>
+                <select class="select-haven" title="Assignment filter">
+                    <option value="" disabled selected>Assignment</option>
+                    <option value="">All Patients</option>
+                    <option value="mine">My Patients</option>
+                </select>
+                <select class="select-haven">
+                    <option>Any Time</option>
+                    <option>This Week</option>
+                    <option>This Month</option>
+                    <option>Overdue</option>
+                </select>
+                <a href="#" class="text-link text-sm">Clear filters</a>
+            </div>
+            <!-- End Zone 1 -->
+
+
+            <!-- ========================================
+                 Zone 2: View Controls Row
+                 ======================================== -->
+            <div class="flex items-center justify-between mt-4 mb-2">
+                <div class="view-toggle">
+                    <button class="view-toggle-btn active" data-view="table">
+                        <i class="fa-solid fa-table-list me-1.5"></i>Table
+                    </button>
+                    <button class="view-toggle-btn" data-view="cards">
+                        <i class="fa-solid fa-grip me-1.5"></i>Cards
+                    </button>
+                </div>
+                <span class="text-sm text-gray-500">Showing 12 patients</span>
+            </div>
+            <!-- End Zone 2 -->
+
+
+            <!-- ========================================
+                 Zone 3A: Table View
+                 ======================================== -->
+            <div id="view-table">
+                <div class="data-table">
+                    <table>
+                        <caption class="sr-only">Patient panel</caption>
+                        <thead>
+                            <tr>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">
+                                    Name <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i>
+                                </th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">
+                                    MRN <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i>
+                                </th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">
+                                    Status <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i>
+                                </th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100" aria-sort="descending">
+                                    Risk <i class="fa-solid fa-sort-down ms-1 text-gray-400 text-xs"></i>
+                                </th>
+                                <th>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle cursor-pointer">
+                                            ALERTS <i class="fa-solid fa-circle-question text-gray-400 text-xs ms-1"></i>
+                                        </span>
+                                        <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 invisible absolute z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm" role="tooltip">
+                                            C = Clinical &middot; D = Delivery &middot; S = Social &middot; A = Safety
+                                        </span>
+                                    </div>
+                                </th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">
+                                    Last Visit <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i>
+                                </th>
+                                <th class="cursor-pointer select-none hover:bg-gray-100">
+                                    Since Visit <i class="fa-solid fa-sort ms-1 text-gray-400 text-xs"></i>
+                                </th>
+                                <th class="w-10"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- HIGH RISK -->
+
+                            <!-- 1. Ramirez, Maria (HIGH) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Ramirez, Maria</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10042</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-error">High</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            High risk: HbA1c &gt;9.0 or missed 2+ visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-error badge-pill">C 2</span>
+                                        <span class="badge badge-info badge-pill">D 1</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 15</span></td>
+                                <td><span class="text-sm text-gray-600">4d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 2. Torres, James (HIGH) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Torres, James</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10051</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-error">High</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            High risk: HbA1c &gt;9.0 or missed 2+ visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-error badge-pill">C 1</span>
+                                        <span class="badge badge-warning badge-pill">S 1</span>
+                                        <span class="badge badge-error badge-pill"><i class="fa-solid fa-triangle-exclamation me-1"></i>1</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 18</span></td>
+                                <td><span class="text-sm text-gray-600">1d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 3. Kim, Rosa (HIGH) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Kim, Rosa</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10083</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-error">High</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            High risk: HbA1c &gt;9.0 or missed 2+ visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-error badge-pill">C 3</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 21</span></td>
+                                <td><span class="text-sm text-gray-600">Yesterday</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 4. Davis, Tanya (HIGH) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Davis, Tanya</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10018</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-error">High</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            High risk: HbA1c &gt;9.0 or missed 2+ visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-error badge-pill">C 2</span>
+                                        <span class="badge badge-warning badge-pill">S 1</span>
+                                        <span class="badge badge-error badge-pill"><i class="fa-solid fa-triangle-exclamation me-1"></i>1</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 16</span></td>
+                                <td><span class="text-sm text-gray-600">3d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- MEDIUM RISK -->
+
+                            <!-- 5. Patel, Sofia (MEDIUM) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Patel, Sofia</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10038</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-warning">Medium</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Medium risk: HbA1c 8.0–9.0 or missed 1 visit
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-warning badge-pill">S 2</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 20</span></td>
+                                <td><span class="text-sm text-gray-600">Today</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 6. Lopez, Ana (MEDIUM) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Lopez, Ana</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10029</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-warning">Medium</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Medium risk: HbA1c 8.0–9.0 or missed 1 visit
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-error badge-pill">C 1</span>
+                                        <span class="badge badge-info badge-pill">D 2</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-warning-600">Dec 28</span></td>
+                                <td><span class="text-sm text-gray-600">22d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 7. Nguyen, Kevin (MEDIUM) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Nguyen, Kevin</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10092</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-warning">Medium</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Medium risk: HbA1c 8.0–9.0 or missed 1 visit
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-error badge-pill">C 1</span>
+                                        <span class="badge badge-info badge-pill">D 1</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 14</span></td>
+                                <td><span class="text-sm text-gray-600">5d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 8. Perez, Carmen (MEDIUM) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Perez, Carmen</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10044</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-warning">Medium</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Medium risk: HbA1c 8.0–9.0 or missed 1 visit
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-info badge-pill">D 1</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 17</span></td>
+                                <td><span class="text-sm text-gray-600">2d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- LOW RISK -->
+
+                            <!-- 9. Thompson, Marcus (LOW) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Thompson, Marcus</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10055</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-success">Low</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Low risk: HbA1c &lt;8.0, no missed visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="badge badge-warning badge-pill">S 1</span>
+                                    </div>
+                                </td>
+                                <td><span class="text-sm text-gray-600">Jan 19</span></td>
+                                <td><span class="text-sm text-gray-600">1d ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 10. Brown, Elias (LOW) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Brown, Elias</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10071</span></td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-success">Low</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Low risk: HbA1c &lt;8.0, no missed visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="text-gray-300 text-sm">&mdash;</span></td>
+                                <td><span class="text-sm text-gray-600">Jan 22</span></td>
+                                <td><span class="text-sm text-gray-600">Today</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- PENDING / INACTIVE -->
+
+                            <!-- 11. Lee, David (PENDING) -->
+                            <tr class="patient-row cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Lee, David</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10067</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-success">Low</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Low risk: HbA1c &lt;8.0, no missed visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="text-gray-300 text-sm">&mdash;</span></td>
+                                <td><span class="text-sm text-gray-300">&mdash;</span></td>
+                                <td><span class="text-sm text-gray-300">&mdash;</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                            <!-- 12. Vasquez, Nina (INACTIVE) -->
+                            <tr class="patient-row table-row-muted cursor-pointer" onclick="window.location='patients/detail.html'">
+                                <td>
+                                    <a href="patients/detail.html" class="font-medium text-gray-900 hover:text-primary-600"
+                                       onclick="event.stopPropagation()">Vasquez, Nina</a>
+                                </td>
+                                <td><span class="text-sm text-gray-500">MRN-10036</span></td>
+                                <td><span class="badge badge-neutral">Inactive</span></td>
+                                <td>
+                                    <div class="hs-tooltip inline-block">
+                                        <span class="hs-tooltip-toggle badge badge-success">Low</span>
+                                        <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                            Low risk: HbA1c &lt;8.0, no missed visits
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="text-gray-300 text-sm">&mdash;</span></td>
+                                <td><span class="text-sm text-warning-600">Nov 5</span></td>
+                                <td><span class="text-sm text-gray-600">3mo ago</span></td>
+                                <td class="px-4 py-3 text-gray-400">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- End Zone 3A -->
+
+
+            <!-- ========================================
+                 Zone 3B: Card View
+                 ======================================== -->
+            <div id="view-cards" class="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <!-- 1. Ramirez, Maria -->
+                    <a href="patients/detail.html" class="patient-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900">Maria Ramirez</div>
+                                <div class="text-xs text-gray-400">MRN-10042</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="badge badge-success">Active</span>
+                                <div class="hs-tooltip inline-block">
+                                    <span class="hs-tooltip-toggle badge badge-error">High</span>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        High risk: HbA1c &gt;9.0 or missed 2+ visits
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                            <i class="fa-solid fa-face-smile text-success-500" aria-label="Sentiment: Satisfied"></i>
+                            Satisfied
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="badge badge-error badge-pill">C 2</span>
+                            <span class="badge badge-info badge-pill">D 1</span>
+                        </div>
+                        <div class="flex items-end justify-between mt-auto">
+                            <span class="text-xs text-gray-400">Last visit: Jan 15</span>
+                            <div class="chart-canvas-wrapper" style="width: 80px; height: 32px;">
+                                <canvas id="card-sparkline-ramirez"></canvas>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 2. Torres, James -->
+                    <a href="patients/detail.html" class="patient-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900">James Torres</div>
+                                <div class="text-xs text-gray-400">MRN-10051</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="badge badge-success">Active</span>
+                                <div class="hs-tooltip inline-block">
+                                    <span class="hs-tooltip-toggle badge badge-error">High</span>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        High risk: HbA1c &gt;9.0 or missed 2+ visits
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                            <i class="fa-solid fa-face-meh text-warning-500" aria-label="Sentiment: Neutral"></i>
+                            Neutral
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="badge badge-error badge-pill">C 1</span>
+                            <span class="badge badge-warning badge-pill">S 1</span>
+                            <span class="badge badge-error badge-pill"><i class="fa-solid fa-triangle-exclamation me-1"></i>1</span>
+                        </div>
+                        <div class="flex items-end justify-between mt-auto">
+                            <span class="text-xs text-gray-400">Last visit: Jan 18</span>
+                            <div class="chart-canvas-wrapper" style="width: 80px; height: 32px;">
+                                <canvas id="card-sparkline-torres"></canvas>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 3. Patel, Sofia -->
+                    <a href="patients/detail.html" class="patient-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900">Sofia Patel</div>
+                                <div class="text-xs text-gray-400">MRN-10038</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="badge badge-success">Active</span>
+                                <div class="hs-tooltip inline-block">
+                                    <span class="hs-tooltip-toggle badge badge-warning">Medium</span>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        Medium risk: HbA1c 8.0–9.0 or missed 1 visit
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                            <i class="fa-solid fa-face-smile text-success-500" aria-label="Sentiment: Satisfied"></i>
+                            Satisfied
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="badge badge-warning badge-pill">S 2</span>
+                        </div>
+                        <div class="flex items-end justify-between mt-auto">
+                            <span class="text-xs text-gray-400">Last visit: Jan 20</span>
+                            <div class="chart-canvas-wrapper" style="width: 80px; height: 32px;">
+                                <canvas id="card-sparkline-patel"></canvas>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 4. Lee, David -->
+                    <a href="patients/detail.html" class="patient-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900">David Lee</div>
+                                <div class="text-xs text-gray-400">MRN-10067</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="badge badge-warning">Pending</span>
+                                <div class="hs-tooltip inline-block">
+                                    <span class="hs-tooltip-toggle badge badge-success">Low</span>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        Low risk: HbA1c &lt;8.0, no missed visits
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                            <i class="fa-solid fa-face-smile text-success-500" aria-label="Sentiment: Satisfied"></i>
+                            Satisfied
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="text-gray-300 text-sm">&mdash;</span>
+                        </div>
+                        <div class="flex items-end justify-between mt-auto">
+                            <span class="text-xs text-gray-400">Last visit: &mdash;</span>
+                            <div class="chart-canvas-wrapper" style="width: 80px; height: 32px;">
+                                <canvas id="card-sparkline-lee"></canvas>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Additional patient cards follow same pattern -->
+
+                    <!-- 5. Lopez, Ana (placeholder) -->
+                    <a href="patients/detail.html" class="patient-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900">Ana Lopez</div>
+                                <div class="text-xs text-gray-400">MRN-10029</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="badge badge-success">Active</span>
+                                <span class="badge badge-warning">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                            <i class="fa-solid fa-face-meh text-warning-500" aria-label="Sentiment: Neutral"></i>
+                            Neutral
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="badge badge-error badge-pill">C 1</span>
+                            <span class="badge badge-info badge-pill">D 2</span>
+                        </div>
+                        <div class="flex items-end justify-between mt-auto">
+                            <span class="text-xs text-gray-400">Last visit: Dec 28</span>
+                        </div>
+                    </a>
+
+                    <!-- 6. Kim, Rosa (placeholder) -->
+                    <a href="patients/detail.html" class="patient-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900">Rosa Kim</div>
+                                <div class="text-xs text-gray-400">MRN-10083</div>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="badge badge-success">Active</span>
+                                <span class="badge badge-error">High</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+                            <i class="fa-solid fa-face-frown text-error-500" aria-label="Sentiment: Dissatisfied"></i>
+                            Dissatisfied
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="badge badge-error badge-pill">C 3</span>
+                        </div>
+                        <div class="flex items-end justify-between mt-auto">
+                            <span class="text-xs text-gray-400">Last visit: Jan 21</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+            <!-- End Zone 3B -->
+
+
+            <!-- ========================================
+                 Zone 4: Empty State (hidden)
+                 ======================================== -->
+            <div id="empty-state" class="hidden">
+                <div class="empty-state">
+                    <i class="fa-solid fa-users text-4xl text-gray-300 mb-3"></i>
+                    <h3 class="empty-state-title">No patients found</h3>
+                    <p class="empty-state-body">Try adjusting your search or filters.</p>
+                    <button class="btn-outline mt-4">Clear filters</button>
+                </div>
+            </div>
+            <!-- End Zone 4 -->
+
+        </div>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Scripts -->
+    <load src="/src/partials/scripts.html" />
+    <load src="/src/partials/scripts-charts.html" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // View toggle
+            document.querySelectorAll('.view-toggle-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-toggle-btn').forEach(function(b) {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    var view = this.dataset.view;
+                    document.getElementById('view-table').classList.toggle('hidden', view !== 'table');
+                    document.getElementById('view-cards').classList.toggle('hidden', view !== 'cards');
+                });
+            });
+
+            // Card view sparklines
+            havenSparkline('card-sparkline-ramirez', [9.2, 9.0, 8.8, 8.5, 8.2, 8.0], HAVEN.success[500]);
+            havenSparkline('card-sparkline-torres',  [8.1, 8.3, 8.5, 8.6, 8.8, 9.1], HAVEN.danger[500]);
+            havenSparkline('card-sparkline-patel',   [8.4, 8.3, 8.2, 8.1, 8.0, 7.9], HAVEN.success[500]);
+            havenSparkline('card-sparkline-lee',     [8.0, 8.1, 7.9, 8.0, 7.8, 7.7], HAVEN.success[500]);
+
+        });
+    </script>
+
+</body>
+
+</html>

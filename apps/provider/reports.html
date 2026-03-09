@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<load src="/src/partials/head.html" />
+
+<body class="bg-gray-50">
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <div class="sidebar-toggle-bar">
+        <div class="flex items-center py-4">
+            <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar"
+                aria-controls="application-sidebar" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3">
+        </div>
+    </div>
+    <!-- End Sidebar Toggle -->
+
+    <!-- Sidebar -->
+    <load src="/src/partials/providers-sidebar.html" />
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="lg:ps-64 min-w-0">
+        <div class="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Program Reports</h1>
+            <div class="flex items-center gap-2">
+                <div class="relative inline-flex rounded-lg shadow-sm" id="export-split-btn">
+                    <button id="btn-export" type="button" class="btn-outline btn-sm gap-x-1.5 rounded-e-none border-e-0">
+                        <i class="fa-solid fa-file-csv"></i>
+                        <span id="btn-export-label">Export Clinical CSV</span>
+                    </button>
+                    <button id="btn-export-dropdown" type="button" class="btn-outline btn-sm rounded-s-none px-2" aria-haspopup="menu" aria-expanded="false">
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                        <span class="sr-only">Export options</span>
+                    </button>
+                    <div id="export-dropdown-menu" class="absolute right-0 top-full w-56 hidden z-30 bg-white shadow-md rounded-lg mt-1 border border-gray-200" role="menu" aria-orientation="vertical">
+                        <div class="p-1 space-y-0.5">
+                            <button type="button" class="flex items-center gap-x-2 w-full py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" data-tab="clinical">
+                                <i class="fa-solid fa-file-csv text-gray-400 w-4 text-center"></i>
+                                Export Clinical CSV
+                            </button>
+                            <button type="button" class="flex items-center gap-x-2 w-full py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" data-tab="engagement">
+                                <i class="fa-solid fa-file-csv text-gray-400 w-4 text-center"></i>
+                                Export Engagement CSV
+                            </button>
+                            <button type="button" class="flex items-center gap-x-2 w-full py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" data-tab="equity">
+                                <i class="fa-solid fa-file-csv text-gray-400 w-4 text-center"></i>
+                                Export Health Equity CSV
+                            </button>
+                            <button type="button" class="flex items-center gap-x-2 w-full py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" data-tab="financial">
+                                <i class="fa-solid fa-file-csv text-gray-400 w-4 text-center"></i>
+                                Export Financial CSV
+                            </button>
+                            <button type="button" class="flex items-center gap-x-2 w-full py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100" data-tab="community">
+                                <i class="fa-solid fa-file-csv text-gray-400 w-4 text-center"></i>
+                                Export Community CSV
+                            </button>
+                            <div class="border-t border-gray-200 my-1"></div>
+                            <button type="button" class="flex items-center gap-x-2 w-full py-2 px-3 rounded-lg text-sm font-medium text-gray-800 hover:bg-gray-100" data-tab="all">
+                                <i class="fa-solid fa-file-zipper text-gray-400 w-4 text-center"></i>
+                                Export All Tabs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Page-level Stratification -->
+        <div class="flex items-center gap-3 py-3 border-b border-gray-100 mb-0 flex-wrap">
+            <span class="stratification-bar-label">Stratify by:</span>
+            <button class="stratification-bar-item active">None</button>
+            <button class="stratification-bar-item">Language</button>
+            <button class="stratification-bar-item">Ethnicity</button>
+            <button class="stratification-bar-item">SDoH Burden</button>
+            <button class="stratification-bar-item">Gender</button>
+            <span class="text-xs text-gray-400 ms-2">Applies to all charts on this page</span>
+        </div>
+
+        <!-- Sections -->
+        <div class="space-y-8">
+
+            <!-- ========================================
+                 Section 1: Clinical Outcomes
+                 ======================================== -->
+            <section id="section-clinical" class="space-y-4">
+                <h2 class="section-heading">Clinical Outcomes</h2>
+
+                <!-- HbA1c Improvement -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">HbA1c Improvement</h3>
+                    </div>
+                    <div class="card-body space-y-4">
+                        <!-- Stats row -->
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Mean Reduction</div>
+                                <div class="text-3xl font-bold text-success-700">&minus;1.2%</div>
+                                <div class="text-xs text-gray-400 mt-1">Cohort average</div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Achieving &lt; 8%</div>
+                                <div class="text-3xl font-bold text-gray-900">24%</div>
+                                <div class="text-xs text-gray-400 mt-1">12 / 50 patients</div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Achieving &lt; 9%</div>
+                                <div class="text-3xl font-bold text-gray-900">76%</div>
+                                <div class="text-xs text-gray-400 mt-1">38 / 50 patients</div>
+                            </div>
+                        </div>
+                        <!-- Chart placeholder -->
+                        <div class="chart-canvas-wrapper chart-line">
+                            <canvas id="chart-hba1c"></canvas>
+                        </div>
+                        <!-- AI Insight callout -->
+                        <div class="ai-insight-callout">
+                            <i class="fa-solid fa-bolt ai-insight-callout-icon"></i>
+                            <div>
+                                <span class="ai-insight-badge mb-1"><i class="fa-solid fa-bolt"></i> AI Insight</span>
+                                <p class="text-sm"><strong>HbA1c improvements are 23% higher among Spanish-speaking participants,</strong> correlating with bilingual care coordinator assignment and culturally adapted meal planning.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BP Control -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Blood Pressure Control</h3>
+                    </div>
+                    <div class="card-body space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Controlled (&lt; 140/90)</div>
+                                <div class="text-3xl font-bold text-gray-900">68%</div>
+                                <div class="text-xs text-gray-400 mt-1">34 / 50 patients</div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg Systolic / Diastolic</div>
+                                <div class="text-3xl font-bold text-gray-900">132/82</div>
+                                <div class="text-xs text-gray-400 mt-1">mmHg, cohort mean</div>
+                            </div>
+                        </div>
+                        <!-- Chart placeholder -->
+                        <div class="chart-canvas-wrapper chart-line">
+                            <canvas id="chart-bp"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HEDIS Metrics -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">HEDIS Quality Metrics</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="hedis-grid">
+                            <div class="hedis-stat">
+                                <div class="hedis-stat-label">Eye Exam Completion</div>
+                                <div class="hedis-stat-value">16%</div>
+                                <div class="hedis-stat-detail">8 / 50 patients &middot; Target: 60%</div>
+                            </div>
+                            <div class="hedis-stat">
+                                <div class="hedis-stat-label">Nephropathy Screening</div>
+                                <div class="hedis-stat-value">64%</div>
+                                <div class="hedis-stat-detail">32 / 50 patients &middot; Target: 80%</div>
+                            </div>
+                            <div class="hedis-stat">
+                                <div class="hedis-stat-label">Statin Adherence</div>
+                                <div class="hedis-stat-value">72%</div>
+                                <div class="hedis-stat-detail">36 / 50 patients &middot; Target: 75%</div>
+                            </div>
+                            <div class="hedis-stat">
+                                <div class="hedis-stat-label">HbA1c Testing (annual)</div>
+                                <div class="hedis-stat-value">88%</div>
+                                <div class="hedis-stat-detail">44 / 50 patients &middot; Target: 90%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avoidable Utilization -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Avoidable Utilization</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">ER Visit Reduction</div>
+                                <div class="text-2xl font-bold text-success-700">33%</div>
+                                <div class="text-xs text-gray-500 mt-1">15 baseline &rarr; 10 current</div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-xl">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Estimated Cost Savings</div>
+                                <div class="text-2xl font-bold text-success-700">$22,500</div>
+                                <div class="text-xs text-gray-500 mt-1">15 avoided visits &times; $1,500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <!-- End Section 1 -->
+
+
+            <!-- ========================================
+                 Section 2: Engagement & Adherence
+                 ======================================== -->
+            <section id="section-engagement" class="space-y-4">
+                <h2 class="section-heading">Engagement &amp; Adherence</h2>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <!-- Enrollment Pipeline -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Active Enrollment</h3></div>
+                        <div class="card-body">
+                            <!-- Stat block -->
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <span class="text-4xl font-bold text-gray-900">45</span>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wide">enrolled</p>
+                                    <p class="text-sm text-gray-400">of 50 slots</p>
+                                </div>
+                                <div class="text-sm font-medium text-success-600">38 of 45 currently active</div>
+                            </div>
+
+                            <!-- Pipeline bar -->
+                            <div class="pipeline-bar" role="img" aria-label="Patient pipeline: 65 referred, 52 in eligibility review, 48 activated, 45 active">
+                                <div class="hs-tooltip flex" style="flex: 65; min-width: 3rem;">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-900 rounded-s-lg w-full">
+                                        Referred <span class="opacity-75 ms-1">65</span>
+                                    </div>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        Referred: 65 patients &middot; starting stage
+                                    </div>
+                                </div>
+                                <div class="hs-tooltip flex" style="flex: 52; min-width: 3rem;">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-700 w-full">
+                                        Eligibility <span class="opacity-75 ms-1">52</span>
+                                    </div>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        Eligibility Review: 52 patients &middot; 20% dropout
+                                    </div>
+                                </div>
+                                <div class="hs-tooltip flex" style="flex: 48; min-width: 3rem;">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-500 w-full">
+                                        Activated <span class="opacity-75 ms-1">48</span>
+                                    </div>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        Activated: 48 patients &middot; 8% dropout
+                                    </div>
+                                </div>
+                                <div class="hs-tooltip flex" style="flex: 45; min-width: 3rem;">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-300 rounded-e-lg w-full">
+                                        Active <span class="opacity-75 ms-1">45</span>
+                                    </div>
+                                    <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs" role="tooltip">
+                                        Active: 45 patients &middot; 6% dropout
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Legend -->
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-900"></span>
+                                    <span class="text-xs text-gray-500">Referred</span>
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-700"></span>
+                                    <span class="text-xs text-gray-500">Eligibility Review</span>
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-500"></span>
+                                    <span class="text-xs text-gray-500">Activated</span>
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-300"></span>
+                                    <span class="text-xs text-gray-500">Active</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meal Adherence -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Meal Adherence</h3></div>
+                        <div class="card-body">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="p-3 bg-gray-50 rounded-xl">
+                                    <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">&gt; 80% adherent</div>
+                                    <div class="text-2xl font-bold text-gray-900">74%</div>
+                                    <div class="text-xs text-gray-400 mt-1">37 / 50 patients</div>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-xl">
+                                    <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg adherence rate</div>
+                                    <div class="text-2xl font-bold text-gray-900">82%</div>
+                                    <div class="text-xs text-gray-400 mt-1">Cohort average</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Session Attendance -->
+                    <div class="p-4 bg-gray-50 rounded-xl text-center">
+                        <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg Sessions per Patient</div>
+                        <div class="text-3xl font-bold text-gray-900">3.6</div>
+                        <div class="text-sm text-gray-500 mt-2">RDN: 142 total &middot; BHN: 38 total</div>
+                    </div>
+
+                    <!-- Completion Rate -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Visit Completion Rate</h3></div>
+                        <div class="card-body">
+                            <!-- Chart placeholder -->
+                            <div class="chart-canvas-wrapper chart-bar">
+                                <canvas id="chart-completion"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 2 -->
+
+
+            <!-- ========================================
+                 Section 3: Health Equity
+                 ======================================== -->
+            <section id="section-equity" class="space-y-4">
+                <h2 class="section-heading">Health Equity</h2>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Engagement by Demographic</h3>
+                        </div>
+                        <div class="card-body space-y-3">
+                            <div class="chart-canvas-wrapper chart-bar">
+                                <canvas id="chart-engagement-demo"></canvas>
+                            </div>
+                            <div class="ai-insight-callout">
+                                <i class="fa-solid fa-bolt ai-insight-callout-icon"></i>
+                                <div>
+                                    <span class="ai-insight-badge mb-1"><i class="fa-solid fa-bolt"></i> AI Insight</span>
+                                    <p class="text-sm"><strong>Spanish-speaking patients show 18% higher session attendance than English-speaking patients,</strong> suggesting the bilingual care coordination model is effective.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Outcome Disparities</h3>
+                        </div>
+                        <div class="card-body space-y-3">
+                            <div class="chart-canvas-wrapper chart-bar">
+                                <canvas id="chart-outcomes-demo"></canvas>
+                            </div>
+                            <div class="ai-insight-callout">
+                                <i class="fa-solid fa-bolt ai-insight-callout-icon"></i>
+                                <div>
+                                    <span class="ai-insight-badge mb-1"><i class="fa-solid fa-bolt"></i> AI Insight</span>
+                                    <p class="text-sm"><strong>Patients with 3+ SDoH risk factors show 31% lower HbA1c improvement,</strong> indicating that clinical interventions alone are insufficient without concurrent social support.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 3 -->
+
+
+            <!-- ========================================
+                 Section 4: Financial Impact
+                 ======================================== -->
+            <section id="section-financial" class="space-y-4">
+                <h2 class="section-heading">Financial Impact</h2>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                    <!-- Cost vs Savings chart placeholder -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Program Cost vs. Estimated Savings</h3></div>
+                        <div class="card-body">
+                            <div class="chart-canvas-wrapper chart-bar">
+                                <canvas id="chart-cost-savings"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billed Volume + Cost Per Beneficiary -->
+                    <div class="space-y-4">
+                        <div class="card">
+                            <div class="card-header"><h3 class="card-title">Billed Service Volume</h3></div>
+                            <div class="card-body">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="p-3 bg-gray-50 rounded-xl">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Sessions Billed</div>
+                                        <div class="text-2xl font-bold text-gray-900">180</div>
+                                        <div class="text-xs text-gray-400 mt-1">RDN + BHN combined</div>
+                                    </div>
+                                    <div class="p-3 bg-gray-50 rounded-xl">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Revenue Generated</div>
+                                        <div class="text-2xl font-bold text-gray-900">$54,000</div>
+                                        <div class="text-xs text-gray-400 mt-1">180 sessions &times; $300 avg</div>
+                                        <p class="text-sm text-gray-500 mt-0.5">vs. $<span>47,200</span> prior quarter <span class="trend-improving text-xs">&uarr;14.4%</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"><h3 class="card-title">Cost per Beneficiary</h3></div>
+                            <div class="card-body">
+                                <div class="text-3xl font-bold text-gray-900">$1,480</div>
+                                <div class="text-xs text-gray-500 mt-1">$74,000 total cost / 50 enrolled</div>
+                                <p class="text-sm text-gray-500 mt-0.5">vs. $<span>1,620</span> prior quarter <span class="trend-improving text-xs">&darr;8.6%</span></p>
+                                <p class="text-xs text-gray-400 mt-0.5">Program target: &le; $1,600</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ROI Calculator -->
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title">ROI Calculator <span class="badge badge-warning badge-sm ms-2">Estimated</span></h3></div>
+                    <div class="card-body">
+                        <div class="roi-calculator">
+                            <div class="roi-formula">
+                                (5 avoided ER visits &times; $1,500) + (2 avoided hospitalizations &times; $12,000) &minus; $74,000 program cost
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-3">
+                                <div class="roi-result">$23,500</div>
+                                <div class="text-sm text-success-600 font-medium">net savings</div>
+                            </div>
+                            <div class="roi-result-label">Break-even reached at month 8 of 12</div>
+                            <p class="text-xs text-gray-400 mt-3">
+                                * ER visit count and cost-per-visit are program estimates based on population averages, not verified claims data.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <!-- End Section 4 -->
+
+
+            <!-- ========================================
+                 Section 5: Community Impact
+                 ======================================== -->
+            <section id="section-community" class="space-y-4">
+                <h2 class="section-heading">Community Impact</h2>
+
+                <div class="grid grid-cols-3 gap-4">
+
+                    <!-- Local Food Procurement -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Local Food Procurement</h3></div>
+                        <div class="card-body space-y-3">
+                            <div>
+                                <div class="text-3xl font-bold text-gray-900">86%</div>
+                                <div class="text-xs text-gray-500 mt-1">Spend with regional vendors</div>
+                            </div>
+                            <div class="text-sm font-medium text-gray-900">$63,640 of $74,000</div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-1">
+                                    <span class="text-gray-600">Fresh Bites Delivery Co.</span>
+                                    <span class="font-medium">$28,400</span>
+                                </div>
+                                <div class="flex justify-between text-sm border-b border-gray-100 pb-1">
+                                    <span class="text-gray-600">Nourish LA Kitchen</span>
+                                    <span class="font-medium">$22,100</span>
+                                </div>
+                                <div class="flex justify-between text-sm pb-1">
+                                    <span class="text-gray-600">Community Cooks Collective</span>
+                                    <span class="font-medium">$13,140</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Household Spillover -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Household Spillover</h3></div>
+                        <div class="card-body space-y-3">
+                            <p class="text-sm text-gray-600">
+                                Survey data (n=32) indicates program meals influenced eating habits
+                                of household members beyond the enrolled patient in 68% of cases.
+                            </p>
+                            <div class="space-y-2">
+                                <blockquote class="text-sm text-gray-600 italic border-l-2 border-primary-300 pl-3">
+                                    "My grandchildren started eating vegetables because of the meals we receive."
+                                </blockquote>
+                                <blockquote class="text-sm text-gray-600 italic border-l-2 border-primary-300 pl-3">
+                                    "My husband lost 8 pounds eating the same food as me."
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produce Voucher Redemption -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">Produce Voucher Redemption</h3></div>
+                        <div class="card-body space-y-3">
+                            <div>
+                                <div class="text-3xl font-bold text-gray-900">79.2%</div>
+                                <div class="text-xs text-gray-500 mt-1">19 / 24 vouchers redeemed</div>
+                            </div>
+                            <div class="text-sm font-medium text-gray-900">$475 of $600 redeemed</div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Redemption Locations</div>
+                                <div class="text-sm text-gray-600">Grand Central Market</div>
+                                <div class="text-sm text-gray-600">Vallarta Supermarkets (3 locations)</div>
+                                <div class="text-sm text-gray-600">Northgate González Market</div>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-2">
+                                Data source: voucher codes scanned at partner retailers via POS integration
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <!-- End Section 5 -->
+
+        </div>
+        <!-- End Sections -->
+
+        </div>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Stratification toggle -->
+    <script>
+    document.querySelectorAll('.stratification-bar-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.stratification-bar-item').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+    </script>
+
+    <load src="/src/partials/scripts.html" />
+    <!-- Export split-button dropdown toggle -->
+    <script>
+    (function () {
+        var toggle = document.getElementById('btn-export-dropdown');
+        var menu = document.getElementById('export-dropdown-menu');
+        if (!toggle || !menu) return;
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var isOpen = !menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', isOpen);
+            toggle.setAttribute('aria-expanded', String(!isOpen));
+        });
+        document.addEventListener('click', function () {
+            menu.classList.add('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+        });
+        menu.addEventListener('click', function (e) { e.stopPropagation(); });
+    })();
+    </script>
+    <load src="/src/partials/scripts-charts.html" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // -----------------------------------------------
+            // 1. HbA1c Trend — line chart with zone bands
+            // -----------------------------------------------
+            havenLineChart('chart-hba1c', {
+                labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                yMin: 5.5,
+                yMax: 11,
+                referenceValue: 8.0,
+                zones: [
+                    { min: 5.5, max: 8.0, color: HAVEN.success[500], label: '< 8% Ideal' },
+                    { min: 8.0, max: 9.0, color: HAVEN.warning[500], label: '8–9% Acceptable' },
+                    { min: 9.0, max: 11,  color: HAVEN.danger[500],  label: '> 9% Poor' },
+                ],
+                datasets: [
+                    {
+                        label: 'Cohort Avg HbA1c',
+                        data: [9.4, 9.1, 8.8, 8.5, 8.2, 8.0, 7.9, 7.8],
+                        borderColor: HAVEN.primary[500],
+                        backgroundColor: HAVEN.primary[500].replace(/, 1\)$/, ', 0.1)'),
+                        fill: true,
+                    },
+                ],
+            });
+
+            // -----------------------------------------------
+            // 2. BP Trend — dual line chart
+            // -----------------------------------------------
+            havenLineChart('chart-bp', {
+                labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                yMin: 60,
+                yMax: 160,
+                referenceValue: 140,
+                datasets: [
+                    {
+                        label: 'Avg Systolic',
+                        data: [148, 145, 141, 138, 135, 133, 132, 131],
+                        borderColor: HAVEN.danger[500],
+                        fill: false,
+                    },
+                    {
+                        label: 'Avg Diastolic',
+                        data: [92, 90, 88, 86, 84, 83, 82, 82],
+                        borderColor: HAVEN.info[500],
+                        fill: false,
+                    },
+                ],
+            });
+
+            // -----------------------------------------------
+            // 3. Visit Completion Rate — horizontal bar
+            // -----------------------------------------------
+            havenBarChart('chart-completion', {
+                labels: ['RDN Visits', 'BHN Sessions', 'Lab Draws', 'Coordinator Check-ins'],
+                horizontal: true,
+                datasets: [
+                    {
+                        label: 'Completion %',
+                        data: [78, 82, 68, 91],
+                        backgroundColor: [
+                            HAVEN.primary[400],
+                            HAVEN.primary[500],
+                            HAVEN.warning[500],
+                            HAVEN.success[500],
+                        ],
+                    },
+                ],
+            });
+
+            // -----------------------------------------------
+            // 4. Engagement by Demographic — grouped bar
+            // -----------------------------------------------
+            havenBarChart('chart-engagement-demo', {
+                labels: ['English', 'Spanish', 'Hispanic', 'Black/AA', 'White', 'Other'],
+                datasets: [
+                    {
+                        label: 'Meal Adherence %',
+                        data: [78, 89, 85, 76, 80, 74],
+                        backgroundColor: HAVEN.primary[400],
+                    },
+                    {
+                        label: 'Session Attendance %',
+                        data: [71, 84, 80, 69, 75, 70],
+                        backgroundColor: HAVEN.info[500],
+                    },
+                ],
+            });
+
+            // -----------------------------------------------
+            // 5. Outcome Disparities — grouped bar
+            // -----------------------------------------------
+            havenBarChart('chart-outcomes-demo', {
+                labels: ['0–1 SDoH', '2 SDoH', '3+ SDoH', 'English', 'Spanish'],
+                datasets: [
+                    {
+                        label: 'HbA1c Reduction',
+                        data: [1.6, 1.2, 0.9, 1.1, 1.4],
+                        backgroundColor: HAVEN.success[500],
+                    },
+                    {
+                        label: 'BP Reduction (systolic)',
+                        data: [14, 11, 8, 10, 13],
+                        backgroundColor: HAVEN.primary[500],
+                    },
+                ],
+            });
+
+            // -----------------------------------------------
+            // 6. Program Cost vs. Savings — side-by-side bar
+            // -----------------------------------------------
+            havenBarChart('chart-cost-savings', {
+                labels: ['Program Cost', 'Est. Savings'],
+                datasets: [
+                    {
+                        label: 'Amount ($)',
+                        data: [74000, 97500],
+                        backgroundColor: [HAVEN.sand[300], HAVEN.success[500]],
+                    },
+                ],
+            });
+
+        });
+    </script>
+
+    <!-- Scroll-spy for sidebar sub-nav -->
+    <script>
+    (function () {
+      var sections = [
+        { id: 'section-clinical',    navId: 'subnav-clinical' },
+        { id: 'section-engagement',  navId: 'subnav-engagement' },
+        { id: 'section-equity',      navId: 'subnav-equity' },
+        { id: 'section-financial',   navId: 'subnav-financial' },
+        { id: 'section-community',   navId: 'subnav-community' },
+      ];
+
+      function updateSubnav() {
+        var scrollY = window.scrollY + 220;
+        var current = sections[0].navId;
+        sections.forEach(function (s) {
+          var el = document.getElementById(s.id);
+          if (el && el.offsetTop <= scrollY) current = s.navId;
+        });
+        var container = document.getElementById('accordion-reports-child');
+        if (!container) return;
+        container.querySelectorAll('.sidebar-subnav-item').forEach(function (el) {
+          el.classList.remove('active');
+        });
+        var activeEl = document.getElementById(current);
+        if (activeEl) activeEl.classList.add('active');
+      }
+
+      window.addEventListener('scroll', updateSubnav, { passive: true });
+    })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!--
+  @component-meta
+  name: Search Input
+  category: Toolbar & Search
+  file: toolbar-search.html
+  classes: search-input, search-input-icon
+  when-to-use: Icon-prefixed search field. Use standalone or inside .toolbar.
+  preline-required: no
+  notes: Always wrap the input and icon together in .search-input. The CSS handles left padding automatically.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Search Input</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Icon-prefixed search field. Composable — use standalone or inside <code>.toolbar</code>.
+  </p>
+
+  <!-- @component: toolbar-search -->
+  <div class="search-input" style="max-width: 24rem;">
+    <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+    <input type="search" placeholder="Search...">
+  </div>
+  <!-- /component -->
+</section>

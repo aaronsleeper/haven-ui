@@ -1,0 +1,164 @@
+<div id="application-sidebar"
+    class="peer hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 [.hs-overlay-minified_&]:w-20 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-800 dark:border-neutral-700">
+
+    <!-- Sidebar Header with Toggle -->
+    <div class="px-6 flex justify-between items-center mb-6">
+        <a class="flex-none text-xl font-semibold dark:text-white [.hs-overlay-minified_&]:hidden" href="#"
+            aria-label="Brand">Haven</a>
+
+        <!-- Sidebar Toggle -->
+        <div class="hidden lg:block">
+            <button type="button"
+                class="group flex justify-center items-center gap-x-3 size-8 text-sm text-gray-500 rounded-lg hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700"
+                data-hs-overlay-minify="#application-sidebar">
+
+                <!-- Expanded State Icon (Left Arrow) -->
+                <span class="block [.hs-overlay-minified_&]:hidden">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </span>
+
+                <!-- Collapsed State Icon (Right Arrow) -->
+                <span class="hidden [.hs-overlay-minified_&]:block">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </span>
+
+                <span class="sr-only">Toggle Sidebar</span>
+            </button>
+        </div>
+        <!-- End Sidebar Toggle -->
+    </div>
+    <!-- End Sidebar Header -->
+
+    <nav class="hs-accordion-group p-4 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
+        <ul class="space-y-1.5 list-none m-0 p-0">
+            <li>
+                <a class="sidebar-nav-item active bg-gray-100 dark:bg-neutral-700" href="#">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="hs-accordion" id="users-accordion">
+                <button type="button"
+                    class="hs-accordion-toggle sidebar-nav-item w-full text-start flex items-center gap-x-3.5">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden flex-1">Users</span>
+
+                    <i
+                        class="accordion-chevron-up ms-auto fa-solid fa-chevron-up text-sm [.hs-overlay-minified_&]:hidden"></i>
+                    <i
+                        class="accordion-chevron-down ms-auto fa-solid fa-chevron-down text-sm [.hs-overlay-minified_&]:hidden"></i>
+                </button>
+
+                <div id="users-accordion-child"
+                    class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300">
+                    <ul class="pt-2 ps-2 list-none">
+                        <li>
+                            <a class="sidebar-nav-item" href="#">
+                                <span class="[.hs-overlay-minified_&]:hidden">Team Members</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-nav-item" href="#">
+                                <span class="[.hs-overlay-minified_&]:hidden">Permissions</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="hs-accordion" id="account-accordion">
+                <button type="button"
+                    class="hs-accordion-toggle sidebar-nav-item w-full text-start flex items-center gap-x-3.5">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden flex-1">Account</span>
+
+                    <i
+                        class="accordion-chevron-up ms-auto fa-solid fa-chevron-up text-sm [.hs-overlay-minified_&]:hidden"></i>
+                    <i
+                        class="accordion-chevron-down ms-auto fa-solid fa-chevron-down text-sm [.hs-overlay-minified_&]:hidden"></i>
+                </button>
+
+                <div id="account-accordion-child"
+                    class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300">
+                    <ul class="pt-2 ps-2 list-none">
+                        <li>
+                            <a class="sidebar-nav-item" href="#">
+                                <span class="[.hs-overlay-minified_&]:hidden">Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-nav-item" href="#">
+                                <span class="[.hs-overlay-minified_&]:hidden">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="hs-accordion" id="projects-accordion">
+                <button type="button"
+                    class="hs-accordion-toggle sidebar-nav-item w-full text-start flex items-center gap-x-3.5">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden flex-1">Projects</span>
+
+                    <i
+                        class="accordion-chevron-up ms-auto fa-solid fa-chevron-up text-sm [.hs-overlay-minified_&]:hidden"></i>
+                    <i
+                        class="accordion-chevron-down ms-auto fa-solid fa-chevron-down text-sm [.hs-overlay-minified_&]:hidden"></i>
+                </button>
+
+                <div id="projects-accordion-child"
+                    class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300">
+                    <ul class="pt-2 ps-2 list-none">
+                        <li>
+                            <a class="sidebar-nav-item" href="#">
+                                <span class="[.hs-overlay-minified_&]:hidden">Overview</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sidebar-nav-item" href="#">
+                                <span class="[.hs-overlay-minified_&]:hidden">Planning</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a class="sidebar-nav-item" href="#">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden">Calendar</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="sidebar-nav-item" href="#">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden">Documentation</span>
+                </a>
+            </li>
+
+            <li class="pt-5 pb-2">
+                <span class="sidebar-nav-section [.hs-overlay-minified_&]:hidden">
+                    Recent Items
+                </span>
+            </li>
+
+            <li>
+                <a class="sidebar-nav-item" href="#">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden">Quarterly Report</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="sidebar-nav-item" href="#">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span class="[.hs-overlay-minified_&]:hidden">Budget 2026</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- End Sidebar -->

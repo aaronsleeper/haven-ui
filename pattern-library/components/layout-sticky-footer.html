@@ -1,0 +1,35 @@
+<!--
+  @component-meta
+  name: Sticky Footer
+  category: Layout
+  file: layout-sticky-footer.html
+  classes: sticky-footer, sticky-footer-inner, sticky-footer-info, sticky-footer-actions
+  when-to-use: Form pages where the save/submit actions must remain visible during scroll. Referral intake, meal plan editing, kitchen menu setup.
+  preline-required: no
+  notes: z-index is 50 and will overlap page content. In production, sticky-footer is position:fixed to the bottom of the viewport. This demo shows it static for pattern library display.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Sticky Footer</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Persistent action bar fixed to bottom of viewport. Shown here static.
+  </p>
+
+    <!-- @component: layout-sticky-footer -->
+    <!-- Note: In production, .sticky-footer is position:fixed at the bottom. Shown static here. -->
+    <div class="bg-white border-t border-gray-200 shadow-lg dark:bg-neutral-900 dark:border-neutral-700" style="position: relative;">
+      <div class="sticky-footer-inner">
+        <div class="sticky-footer-info">
+          <i class="fa-solid fa-circle-info text-gray-400"></i>
+          3 unsaved changes
+        </div>
+        <div class="sticky-footer-actions">
+          <button class="btn-outline btn-sm">Cancel</button>
+          <button class="btn-primary btn-sm">Save Changes</button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

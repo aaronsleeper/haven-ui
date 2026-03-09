@@ -1,0 +1,43 @@
+<!--
+  @component-meta
+  name: Meal Type Indicators
+  category: Complex / App-Specific
+  file: complex-meal-type.html
+  classes: meal-label-hot, meal-label-cold, meal-type-icon, meal-type-toggle, meal-type-toggle-hot, meal-type-toggle-cold
+  when-to-use: Visual indicators and toggle buttons for hot vs cold meal classification.
+  preline-required: no
+  notes: Labels color the meal name text. Toggle buttons go inside a bordered container with rounded ends.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Meal Type Indicators</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Visual indicators and toggle buttons for hot vs cold meal classification.
+  </p>
+
+  <!-- @component: meal-type -->
+  <div class="flex flex-col gap-6">
+    <!-- Meal labels -->
+    <div class="flex items-center gap-6">
+      <span class="meal-label-hot">
+        <i class="fa-solid fa-fire meal-type-icon"></i>Grilled Chicken Breast
+      </span>
+      <span class="meal-label-cold">
+        <i class="fa-solid fa-snowflake meal-type-icon"></i>Garden Salad
+      </span>
+    </div>
+
+    <!-- Toggle button group -->
+    <div class="inline-flex rounded-full border border-gray-200 dark:border-neutral-700 overflow-hidden">
+      <button class="meal-type-toggle meal-type-toggle-hot active">
+        <i class="fa-solid fa-fire me-1"></i> Hot
+      </button>
+      <button class="meal-type-toggle meal-type-toggle-cold">
+        <i class="fa-solid fa-snowflake me-1"></i> Cold
+      </button>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,37 @@
+<!--
+  @component-meta
+  name: Accordion Toggle
+  category: Utilities / Misc
+  file: util-accordion-toggle.html
+  classes: accordion-toggle, example-code-block, accordion-chevron-down, accordion-chevron-up
+  when-to-use: Inline expand/collapse button to show or hide example code or secondary content.
+  preline-required: yes — hs-accordion
+  notes: Requires Preline hs-accordion. The chevron classes handle icon swap automatically when the accordion is active.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Accordion Toggle</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Inline expand/collapse button with example code block. Uses Preline <code class="text-sm font-mono">hs-accordion</code> for toggle behavior.
+  </p>
+
+  <!-- @component: accordion-toggle -->
+  <div class="card card-body">
+    <div class="hs-accordion" id="demo-accordion">
+      <button class="hs-accordion-toggle accordion-toggle" aria-expanded="false" aria-controls="demo-accordion-body">
+        <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
+        <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+        Show example HTML
+      </button>
+      <div id="demo-accordion-body" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="demo-accordion">
+        <code class="example-code-block">&lt;div class="card card-body"&gt;
+  &lt;h3 class="card-title"&gt;Card Title&lt;/h3&gt;
+  &lt;p&gt;Card content goes here.&lt;/p&gt;
+&lt;/div&gt;</code>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

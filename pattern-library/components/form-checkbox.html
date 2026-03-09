@@ -1,0 +1,95 @@
+<!--
+  @component-meta
+  name: Checkbox
+  category: Primitives — Forms
+  file: form-checkbox.html
+  classes: checkbox-label, schedule-checkbox
+  when-to-use: Binary on/off choices, multi-select from a list.
+  preline-required: no
+  notes: Global checkbox styling applies automatically. The .checkbox-label class adds a bordered card wrapper. The .schedule-checkbox class is for weekly availability grids.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Checkbox</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Binary on/off choices and multi-select options.
+  </p>
+
+    <!-- @component: form-checkbox-simple -->
+    <div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">Simple Checkboxes</p>
+      <div class="space-y-2">
+        <div class="flex items-center">
+          <input type="checkbox" id="pl-cb-dietary" checked>
+          <label for="pl-cb-dietary" class="text-sm text-gray-500 ms-3 dark:text-neutral-400 mb-0">Has dietary restrictions</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="pl-cb-caregiver">
+          <label for="pl-cb-caregiver" class="text-sm text-gray-500 ms-3 dark:text-neutral-400 mb-0">Caregiver present at home</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="pl-cb-transport">
+          <label for="pl-cb-transport" class="text-sm text-gray-500 ms-3 dark:text-neutral-400 mb-0">Needs transportation assistance</label>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: form-checkbox-card -->
+    <div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">Card Checkboxes</p>
+      <div class="space-y-2">
+        <label for="pl-cb-card-1" class="checkbox-label">
+          <input type="checkbox" id="pl-cb-card-1" checked>
+          <span>Medically tailored meals</span>
+        </label>
+        <label for="pl-cb-card-2" class="checkbox-label">
+          <input type="checkbox" id="pl-cb-card-2">
+          <span>Grocery delivery</span>
+        </label>
+        <label for="pl-cb-card-3" class="checkbox-label">
+          <input type="checkbox" id="pl-cb-card-3">
+          <span>Nutrition counseling</span>
+        </label>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: form-checkbox-schedule -->
+    <div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">Weekly Schedule Grid</p>
+      <div class="grid grid-cols-7 gap-3 text-center text-xs text-gray-500 dark:text-neutral-400">
+        <div>
+          <span class="block mb-1">Mon</span>
+          <input type="checkbox" class="schedule-checkbox" checked>
+        </div>
+        <div>
+          <span class="block mb-1">Tue</span>
+          <input type="checkbox" class="schedule-checkbox" checked>
+        </div>
+        <div>
+          <span class="block mb-1">Wed</span>
+          <input type="checkbox" class="schedule-checkbox">
+        </div>
+        <div>
+          <span class="block mb-1">Thu</span>
+          <input type="checkbox" class="schedule-checkbox" checked>
+        </div>
+        <div>
+          <span class="block mb-1">Fri</span>
+          <input type="checkbox" class="schedule-checkbox" checked>
+        </div>
+        <div>
+          <span class="block mb-1">Sat</span>
+          <input type="checkbox" class="schedule-checkbox">
+        </div>
+        <div>
+          <span class="block mb-1">Sun</span>
+          <input type="checkbox" class="schedule-checkbox">
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

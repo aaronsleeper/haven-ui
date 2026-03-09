@@ -1,0 +1,64 @@
+<!--
+  @component-meta
+  name: Card
+  category: Layout
+  file: layout-card.html
+  classes: card, card-header, card-title, card-subtitle, card-body, card-footer
+  when-to-use: Primary container for any bounded section of content. Default choice before reaching for anything else.
+  do-not-use-when: Content is a data table with its own .data-table wrapper (though a card can wrap a data-table).
+  preline-required: no
+  notes: card-title-in-body variant uses negative-margin border styling to pull the divider flush with card edges.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Primary content container. Multiple variants for different content structures.
+  </p>
+
+    <!-- @component: layout-card-basic -->
+    <div class="card">
+      <div class="card-body">
+        <p class="text-gray-500 dark:text-neutral-400">Basic card with body content only. Use for simple content blocks.</p>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: layout-card-header -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Enrollment Summary</h3>
+        <p class="card-subtitle">Last updated Feb 2026</p>
+      </div>
+      <div class="card-body">
+        <p class="text-gray-500 dark:text-neutral-400">Card body content goes here.</p>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: layout-card-footer -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Edit Patient</h3>
+      </div>
+      <div class="card-body">
+        <p class="text-gray-500 dark:text-neutral-400">Form fields or content here.</p>
+      </div>
+      <div class="card-footer flex justify-end gap-2">
+        <button class="btn-outline btn-sm">Cancel</button>
+        <button class="btn-primary btn-sm">Save</button>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: layout-card-title-in-body -->
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Care Plan</h3>
+        <p class="text-gray-500 dark:text-neutral-400">When no dedicated header is needed but a title is required, place card-title directly inside card-body. The bottom border stretches to the card edges via negative margins.</p>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

@@ -1,0 +1,883 @@
+<!-- @component: kitchen-meal-assignment-grid
+     @description: Meal quantity assignment grid for kitchen orders page.
+     Rows = patients, columns = weekly menu meals, cells = numeric steppers.
+     Columns are dynamically generated in Angular from the weekly meal list.
+     Column order: Patient (sticky) | Modifications (sticky) | Totals (sticky) | meal columns (scrollable).
+     Classes: .data-table .data-table-sticky-cols .meal-col-header .meal-qty-cell
+              .meal-mod-cell .meal-mod-tags .meal-mod-overflow .meal-totals-cell
+     States: .meal-qty-cell--active (qty > 0), .meal-qty-cell--conflict (dietary mismatch)
+-->
+<div class="data-table data-table-sticky-cols">
+    <div class="overflow-x-auto">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 10rem;">Patient</th>
+                    <th scope="col" style="width: 8rem;">Modifications</th>
+                    <th scope="col" style="width: 6rem;">Totals</th>
+                    <!-- Hot meals -->
+                    <th scope="col" class="meal-col-header" data-meal-id="arroz-con-pollo" data-temp="hot">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Arroz con Pollo</span>
+                            <span class="meal-col-name-expanded">Arroz con Pollo</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--hot">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                    <span class="meal-col-total">5</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="arroz-con-pollo-ls" data-temp="hot">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Arroz con Pollo (Low Sodium)</span>
+                            <span class="meal-col-name-expanded">Arroz con Pollo (Low Sodium)</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--hot">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                    <span class="meal-col-total">2</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="grilled-chicken" data-temp="hot">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Grilled Chicken Plate</span>
+                            <span class="meal-col-name-expanded">Grilled Chicken Plate</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--hot">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                    <span class="meal-col-total">6</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="grilled-chicken-df" data-temp="hot">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Grilled Chicken Plate (Dairy-Free)</span>
+                            <span class="meal-col-name-expanded">Grilled Chicken Plate (Dairy-Free)</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--hot">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                    <span class="meal-col-total">1</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="beef-picadillo" data-temp="hot">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Beef Picadillo</span>
+                            <span class="meal-col-name-expanded">Beef Picadillo</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--hot">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                    <span class="meal-col-total">6</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="beef-picadillo-ls" data-temp="hot">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Beef Picadillo (Low Sodium)</span>
+                            <span class="meal-col-name-expanded">Beef Picadillo (Low Sodium)</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--hot">
+                                    <i class="fa-solid fa-temperature-high"></i>
+                                    <span class="meal-col-total">1</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <!-- Cold meals -->
+                    <th scope="col" class="meal-col-header" data-meal-id="black-bean-soup" data-temp="cold">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Black Bean Soup (LS/DF)</span>
+                            <span class="meal-col-name-expanded">
+                                Black Bean Soup
+                                <span class="flex flex-wrap gap-1 mt-1">
+                                    <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                                    <span class="badge badge-warning badge-pill badge-sm">Dairy-Free</span>
+                                </span>
+                            </span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--cold">
+                                    <i class="fa-solid fa-snowflake"></i>
+                                    <span class="meal-col-total">7</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="flan-de-coco" data-temp="cold">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Flan de Coco</span>
+                            <span class="meal-col-name-expanded">Flan de Coco</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--cold">
+                                    <i class="fa-solid fa-snowflake"></i>
+                                    <span class="meal-col-total">6</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                    <th scope="col" class="meal-col-header" data-meal-id="flan-de-coco-ls" data-temp="cold">
+                        <div class="meal-col-header-inner">
+                            <span class="meal-col-name">Flan de Coco (Low Sodium)</span>
+                            <span class="meal-col-name-expanded">Flan de Coco (Low Sodium)</span>
+                            <span class="meal-col-meta">
+                                <span class="meal-temp-tag meal-temp-tag--cold">
+                                    <i class="fa-solid fa-snowflake"></i>
+                                    <span class="meal-col-total">1</span>
+                                </span>
+                            </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- Garcia, M. — Low Sodium -->
+                <tr data-restriction="low-sodium">
+                    <td class="cell-primary">Garcia, M.</td>
+                    <td class="meal-mod-cell">
+                        <div class="meal-mod-tags">
+                            <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                        </div>
+                        <div class="meal-mod-overflow">
+                            <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                        </div>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 1 (CONFLICT — non-LS for LS patient) -->
+                    <td class="meal-qty-cell meal-qty-cell--conflict" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Martinez, C. — Low Sodium -->
+                <tr data-restriction="low-sodium">
+                    <td class="cell-primary">Martinez, C.</td>
+                    <td class="meal-mod-cell">
+                        <div class="meal-mod-tags">
+                            <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                        </div>
+                        <div class="meal-mod-overflow">
+                            <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                        </div>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Chen, L. — Dairy-Free, Low Sodium -->
+                <tr data-restriction="dairy-free">
+                    <td class="cell-primary">Chen, L.</td>
+                    <td class="meal-mod-cell">
+                        <div class="meal-mod-tags">
+                            <span class="badge badge-warning badge-pill badge-sm">Dairy-Free</span>
+                            <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                        </div>
+                        <div class="meal-mod-overflow">
+                            <span class="badge badge-warning badge-pill badge-sm">Dairy-Free</span>
+                            <span class="badge badge-warning badge-pill badge-sm">Low Sodium</span>
+                        </div>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Harris, N. — Gluten-Free -->
+                <tr data-restriction="gluten-free">
+                    <td class="cell-primary">Harris, N.</td>
+                    <td class="meal-mod-cell">
+                        <div class="meal-mod-tags">
+                            <span class="badge badge-warning badge-pill badge-sm">Gluten-Free</span>
+                        </div>
+                        <div class="meal-mod-overflow">
+                            <span class="badge badge-warning badge-pill badge-sm">Gluten-Free</span>
+                        </div>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Rodriguez, A. — No restrictions -->
+                <tr data-restriction="none">
+                    <td class="cell-primary">Rodriguez, A.</td>
+                    <td class="meal-mod-cell">
+                        <span class="text-gray-400 text-xs">&mdash;</span>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Thompson, J. — No restrictions -->
+                <tr data-restriction="none">
+                    <td class="cell-primary">Thompson, J.</td>
+                    <td class="meal-mod-cell">
+                        <span class="text-gray-400 text-xs">&mdash;</span>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Williams, R. — No restrictions -->
+                <tr data-restriction="none">
+                    <td class="cell-primary">Williams, R.</td>
+                    <td class="meal-mod-cell">
+                        <span class="text-gray-400 text-xs">&mdash;</span>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 3
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 2
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 1 -->
+                    <td class="meal-qty-cell meal-qty-cell--active" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="1" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Johnson, D. — No restrictions (all zeros) -->
+                <tr data-restriction="none">
+                    <td class="cell-primary">Johnson, D.</td>
+                    <td class="meal-mod-cell">
+                        <span class="text-gray-400 text-xs">&mdash;</span>
+                    </td>
+                    <td class="meal-totals-cell">
+                        <div class="flex flex-col gap-1">
+                            <span class="meal-temp-tag meal-temp-tag--hot">
+                                <i class="fa-solid fa-temperature-high"></i> 0
+                            </span>
+                            <span class="meal-temp-tag meal-temp-tag--cold">
+                                <i class="fa-solid fa-snowflake"></i> 0
+                            </span>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- arroz-con-pollo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="arroz-con-pollo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- grilled-chicken-df: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="grilled-chicken-df">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- beef-picadillo-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="beef-picadillo-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- black-bean-soup: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="black-bean-soup">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                    <!-- flan-de-coco-ls: 0 -->
+                    <td class="meal-qty-cell" data-meal-id="flan-de-coco-ls">
+                        <div class="meal-qty-input-group">
+                            <button class="meal-qty-btn meal-qty-decrement" type="button" aria-label="Decrease" tabindex="-1"><i class="fa-solid fa-minus"></i></button>
+                            <input class="meal-qty-input" type="number" min="0" value="0" aria-label="Quantity">
+                            <button class="meal-qty-btn meal-qty-increment" type="button" aria-label="Increase" tabindex="-1"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

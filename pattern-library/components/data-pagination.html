@@ -1,0 +1,36 @@
+<!--
+  @component-meta
+  name: Pagination
+  category: Data Display
+  file: data-pagination.html
+  classes: pagination, pagination-info, pagination-controls, pagination-btn
+  when-to-use: Page controls for data tables and lists.
+  preline-required: no
+  notes: The .pagination-btn.active class highlights the current page. Disabled buttons use the disabled attribute.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Pagination</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Page controls for data tables and lists.
+  </p>
+
+    <!-- @component: data-pagination -->
+    <div class="card">
+      <nav class="pagination" aria-label="Pagination">
+        <span class="pagination-info">Showing 1&ndash;10 of 128 results</span>
+        <div class="pagination-controls">
+          <button class="pagination-btn" disabled aria-label="Previous"><i class="fa-solid fa-chevron-left fa-xs"></i></button>
+          <button class="pagination-btn active">1</button>
+          <button class="pagination-btn">2</button>
+          <button class="pagination-btn">3</button>
+          <button class="pagination-btn">...</button>
+          <button class="pagination-btn">13</button>
+          <button class="pagination-btn" aria-label="Next"><i class="fa-solid fa-chevron-right fa-xs"></i></button>
+        </div>
+      </nav>
+    </div>
+    <!-- /component -->
+</section>

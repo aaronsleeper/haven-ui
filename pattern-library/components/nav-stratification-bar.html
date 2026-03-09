@@ -1,0 +1,28 @@
+<!--
+  @component-meta
+  name: Stratification Bar
+  category: Navigation
+  file: nav-stratification-bar.html
+  classes: stratification-bar, stratification-bar-label, stratification-bar-item
+  when-to-use: Filtering a cohort by risk stratification, program, or measure category. Used on population-level dashboards and program pages.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Stratification Bar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Labeled horizontal filter for cohort stratification.
+  </p>
+
+    <!-- @component: nav-stratification-bar -->
+    <div class="stratification-bar">
+      <span class="stratification-bar-label">Risk Level:</span>
+      <button class="stratification-bar-item active">All</button>
+      <button class="stratification-bar-item">High Risk</button>
+      <button class="stratification-bar-item">Moderate</button>
+      <button class="stratification-bar-item">Low Risk</button>
+    </div>
+    <!-- /component -->
+</section>

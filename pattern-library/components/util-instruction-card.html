@@ -1,0 +1,32 @@
+<!--
+  @component-meta
+  name: Instruction Card
+  category: Utilities / Misc
+  file: util-instruction-card.html
+  classes: instruction-title, instruction-text
+  when-to-use: Onboarding-style callouts or contextual help inside a card body.
+  preline-required: no
+  notes: Pair instruction-title + instruction-text inside a card for step-by-step guidance.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Instruction Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Title + text pairs for onboarding-style callouts inside a card.
+  </p>
+
+  <!-- @component: instruction-card -->
+  <div class="card card-body">
+    <div>
+      <p class="instruction-title">Step 1 — Add your meals</p>
+      <p class="instruction-text">Upload your meal catalog or enter items manually. Each meal needs a name, category, and at least one serving size.</p>
+    </div>
+    <div>
+      <p class="instruction-title">Step 2 — Set delivery zones</p>
+      <p class="instruction-text">Define the geographic areas you serve. Delivery zones determine which patients can receive which meals based on their address.</p>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

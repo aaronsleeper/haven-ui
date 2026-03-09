@@ -1,0 +1,43 @@
+<!--
+  @component-meta
+  name: Page Header
+  category: Layout
+  file: layout-page-header.html
+  classes: page-header, breadcrumb, breadcrumb-separator, breadcrumb-current
+  when-to-use: Top of every app page. Title on the left, primary actions on the right.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Page Header</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Page title left, primary actions right. Use at the top of every page.
+  </p>
+
+    <!-- @component: layout-page-header-actions -->
+    <div class="page-header">
+      <h1>Patients</h1>
+      <div class="flex gap-2">
+        <button class="btn-outline btn-sm"><i class="fa-solid fa-filter me-1.5"></i> Filter</button>
+        <button class="btn-primary btn-sm"><i class="fa-solid fa-plus me-1.5"></i> Add Patient</button>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: layout-page-header-breadcrumb -->
+    <div>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#">Dashboard</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="#">Patients</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Maria Santos</span>
+      </nav>
+      <div class="page-header">
+        <h1>Patient Detail</h1>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

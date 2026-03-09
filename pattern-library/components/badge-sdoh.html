@@ -1,0 +1,43 @@
+<!--
+  @component-meta
+  name: SDOH Badge
+  category: Primitives — Badges & Status
+  file: badge-sdoh.html
+  classes: sdoh-badge
+  when-to-use: Social determinants of health codes on patient cards, detail pages, and alert tables. Always wrap in a Preline tooltip to show the full description.
+  do-not-use-when: You are displaying a general status code — use badge-neutral instead.
+  preline-required: yes
+  notes: SDOH badges display ICD-10 Z-codes. They MUST always be wrapped in a Preline hs-tooltip so users can see the full description on hover. Monospace font for the code.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">SDOH Badge</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Social determinants of health codes. Always wrapped in a Preline tooltip.
+  </p>
+
+    <!-- @component: sdoh-badge -->
+    <div class="hs-tooltip inline-block">
+      <span class="sdoh-badge hs-tooltip-toggle">Z59.1</span>
+      <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1.5 px-2.5 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-sm dark:bg-neutral-700" role="tooltip">
+        Housing instability: inadequate housing
+      </div>
+    </div>
+    <!-- /component -->
+
+    <div class="hs-tooltip inline-block">
+      <span class="sdoh-badge hs-tooltip-toggle">Z59.4</span>
+      <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1.5 px-2.5 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-sm dark:bg-neutral-700" role="tooltip">
+        Lack of adequate food and safe drinking water
+      </div>
+    </div>
+
+    <div class="hs-tooltip inline-block">
+      <span class="sdoh-badge hs-tooltip-toggle">Z60.2</span>
+      <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1.5 px-2.5 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-sm dark:bg-neutral-700" role="tooltip">
+        Problems related to living alone
+      </div>
+    </div>
+</section>

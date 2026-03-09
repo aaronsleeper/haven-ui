@@ -1,0 +1,45 @@
+<!--
+  @component-meta
+  name: Alert Summary Row
+  category: Healthcare-Specific
+  file: clinical-alert-summary-row.html
+  classes: alert-summary-row, severity-badge, severity-high, severity-medium, severity-low
+  when-to-use: Compact alert list entries in patient detail or dashboard panels showing severity, description, and timestamp.
+  preline-required: no
+  notes: Wrap rows in a .card for proper containment. Use severity-high, severity-medium, or severity-low on the severity-badge.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Alert Summary Row</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Compact alert list entries in patient detail or dashboard panels showing severity, description, and timestamp.
+  </p>
+
+  <!-- @component: clinical-alert-summary-row -->
+  <div class="card">
+    <div class="alert-summary-row">
+      <div class="flex items-center gap-2">
+        <span class="severity-badge severity-high">High</span>
+        <span class="text-sm text-gray-700 dark:text-neutral-300">Blood pressure exceeds 160/100 threshold</span>
+      </div>
+      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">Feb 18, 2026</span>
+    </div>
+    <div class="alert-summary-row">
+      <div class="flex items-center gap-2">
+        <span class="severity-badge severity-medium">Medium</span>
+        <span class="text-sm text-gray-700 dark:text-neutral-300">Missed medication refill — Metformin due 5 days ago</span>
+      </div>
+      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">Feb 16, 2026</span>
+    </div>
+    <div class="alert-summary-row">
+      <div class="flex items-center gap-2">
+        <span class="severity-badge severity-low">Low</span>
+        <span class="text-sm text-gray-700 dark:text-neutral-300">Annual wellness visit overdue by 2 weeks</span>
+      </div>
+      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">Feb 10, 2026</span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

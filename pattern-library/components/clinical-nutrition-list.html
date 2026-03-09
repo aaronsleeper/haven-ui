@@ -1,0 +1,69 @@
+<!--
+  @component-meta
+  name: Nutrition List
+  category: Healthcare-Specific
+  file: clinical-nutrition-list.html
+  classes: nutrition-list, nutrition-list-row, nutrition-list-label, nutrition-list-value, nutrition-input-group, nutrition-input, nutrition-unit
+  when-to-use: Nutrition-label style input list for meal planning and dietary target configuration.
+  preline-required: no
+  notes: Each row contains a label and an inline number input with a unit suffix. Styled to look like a nutrition facts panel.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Nutrition List</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Nutrition-label style input list for meal planning and dietary target configuration.
+  </p>
+
+  <!-- @component: clinical-nutrition-list -->
+  <div class="nutrition-list" style="max-width: 24rem;">
+    <div class="nutrition-list-row">
+      <span class="nutrition-list-label">Calories</span>
+      <span class="nutrition-list-value">
+        <span class="nutrition-input-group">
+          <input type="number" class="nutrition-input" value="1800">
+          <span class="nutrition-unit">kcal</span>
+        </span>
+      </span>
+    </div>
+    <div class="nutrition-list-row">
+      <span class="nutrition-list-label">Protein</span>
+      <span class="nutrition-list-value">
+        <span class="nutrition-input-group">
+          <input type="number" class="nutrition-input" value="65">
+          <span class="nutrition-unit">g</span>
+        </span>
+      </span>
+    </div>
+    <div class="nutrition-list-row">
+      <span class="nutrition-list-label">Carbohydrates</span>
+      <span class="nutrition-list-value">
+        <span class="nutrition-input-group">
+          <input type="number" class="nutrition-input" value="220">
+          <span class="nutrition-unit">g</span>
+        </span>
+      </span>
+    </div>
+    <div class="nutrition-list-row">
+      <span class="nutrition-list-label">Fat</span>
+      <span class="nutrition-list-value">
+        <span class="nutrition-input-group">
+          <input type="number" class="nutrition-input" value="55">
+          <span class="nutrition-unit">g</span>
+        </span>
+      </span>
+    </div>
+    <div class="nutrition-list-row">
+      <span class="nutrition-list-label">Sodium</span>
+      <span class="nutrition-list-value">
+        <span class="nutrition-input-group">
+          <input type="number" class="nutrition-input" value="1500">
+          <span class="nutrition-unit">mg</span>
+        </span>
+      </span>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

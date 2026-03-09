@@ -1,0 +1,54 @@
+<!--
+  @component-meta
+  name: SLA Warning
+  category: Healthcare-Specific
+  file: clinical-sla-warning.html
+  classes: sla-warning, data-table
+  when-to-use: Alert resolution tables where cells exceeding SLA targets are highlighted with a warning style.
+  preline-required: no
+  notes: Apply .sla-warning to the specific td cell that exceeds the target, not to the entire row.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">SLA Warning</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Highlights resolution time cells that exceed SLA targets in alert performance tables.
+  </p>
+
+  <!-- @component: clinical-sla-warning -->
+  <div class="data-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Alert Type</th>
+          <th>Count</th>
+          <th>Avg Resolution Time</th>
+          <th>Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-primary">Clinical — Blood Pressure</td>
+          <td>12</td>
+          <td>1.8 hrs</td>
+          <td>4 hrs</td>
+        </tr>
+        <tr>
+          <td class="cell-primary">Delivery — Missed Window</td>
+          <td>7</td>
+          <td class="sla-warning">26.4 hrs</td>
+          <td>24 hrs</td>
+        </tr>
+        <tr>
+          <td class="cell-primary">Social — Food Insecurity</td>
+          <td>3</td>
+          <td>6.2 hrs</td>
+          <td>12 hrs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- /component -->
+</section>

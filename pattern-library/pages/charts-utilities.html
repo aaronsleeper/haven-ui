@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body class="bg-gray-50 dark:bg-neutral-900">
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-16">
+
+      <div class="page-header">
+        <h1>Charts &amp; Utilities</h1>
+      </div>
+
+      <load src="../components/chart-containers.html" />
+      <load src="../components/util-accordion-toggle.html" />
+      <load src="../components/util-instruction-card.html" />
+      <load src="../components/util-tag-container.html" />
+      <load src="../components/util-sidebar-toggle.html" />
+
+    </main>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="../../partials/haven-chart-config.js"></script>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>

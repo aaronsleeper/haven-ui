@@ -1,0 +1,26 @@
+<!--
+  @component-meta
+  name: Textarea
+  category: Primitives — Forms
+  file: form-textarea.html
+  classes: (global textarea styling)
+  when-to-use: Multi-line text. Notes fields, descriptions, care plan text.
+  preline-required: no
+  notes: Global textarea styling applies automatically. Do not add utility classes to the textarea element.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Textarea</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Multi-line text input for notes, descriptions, and free-text fields.
+  </p>
+
+    <!-- @component: form-textarea -->
+    <div>
+      <label for="pl-textarea">Care Plan Notes</label>
+      <textarea id="pl-textarea" rows="4" placeholder="Enter care plan notes, dietary restrictions, or special instructions..."></textarea>
+    </div>
+    <!-- /component -->
+</section>

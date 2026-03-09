@@ -1,0 +1,48 @@
+<!--
+  @component-meta
+  name: KV Table
+  category: Data Display
+  file: data-table-kv.html
+  classes: kv-table
+  when-to-use: Read-only detail display for patient profiles, partner records, and other entity detail views. Key/value pair list as a two-column definition table.
+  preline-required: no
+  notes: Usage: <table class="kv-table"><tr><td>Label</td><td>Value</td></tr></table>. First column is the label (semibold, gray), second column is the value.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Key-Value Table</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Read-only detail display for patient profiles, partner records, and other entity detail views.
+  </p>
+
+    <!-- @component: data-table-kv -->
+    <table class="kv-table">
+      <tr>
+        <td>Full Name</td>
+        <td>Maria Santos</td>
+      </tr>
+      <tr>
+        <td>Date of Birth</td>
+        <td>March 14, 1958</td>
+      </tr>
+      <tr>
+        <td>MRN</td>
+        <td>PT-2024-0847</td>
+      </tr>
+      <tr>
+        <td>Program</td>
+        <td>Diabetes Management</td>
+      </tr>
+      <tr>
+        <td>Enrollment Date</td>
+        <td>January 3, 2026</td>
+      </tr>
+      <tr>
+        <td>Primary Provider</td>
+        <td>Dr. Chen, Internal Medicine</td>
+      </tr>
+    </table>
+    <!-- /component -->
+</section>

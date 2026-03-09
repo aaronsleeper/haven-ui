@@ -1,0 +1,45 @@
+<!--
+  @component-meta
+  name: Clinical Metric Card
+  category: Healthcare-Specific
+  file: clinical-metric-card.html
+  classes: clinical-metric-card, metric-card-flagged, metric-value-danger, trend-improving, trend-worsening, trend-flat, chart-sparkline
+  when-to-use: Dashboard metric tiles for clinical KPIs like lab values, vitals, and patient outcomes.
+  preline-required: no
+  notes: Use metric-card-flagged and metric-value-danger together when a value is outside the normal range.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Clinical Metric Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Dashboard metric tiles for clinical KPIs like lab values, vitals, and patient outcomes.
+  </p>
+
+  <!-- @component: clinical-metric-card -->
+  <div class="grid-2">
+    <!-- Normal metric -->
+    <div class="clinical-metric-card">
+      <span class="stat-label">HbA1c</span>
+      <span class="stat-value">7.4%</span>
+      <span class="trend-improving"><i class="fa-solid fa-arrow-up"></i> Improving</span>
+    </div>
+
+    <!-- Flagged metric -->
+    <div class="clinical-metric-card metric-card-flagged">
+      <span class="stat-label">Blood Pressure</span>
+      <span class="metric-value-danger stat-value">162/98</span>
+      <span class="trend-worsening"><i class="fa-solid fa-arrow-down"></i> Worsening</span>
+    </div>
+
+    <!-- Metric with sparkline placeholder -->
+    <div class="clinical-metric-card">
+      <span class="stat-label">Weight</span>
+      <span class="stat-value">184 lbs</span>
+      <span class="trend-flat"><i class="fa-solid fa-minus"></i> Flat</span>
+      <div class="chart-sparkline"></div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

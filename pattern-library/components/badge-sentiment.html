@@ -1,0 +1,26 @@
+<!--
+  @component-meta
+  name: Sentiment Badge
+  category: Primitives — Badges & Status
+  file: badge-sentiment.html
+  classes: sentiment-badge, sentiment-satisfied, sentiment-neutral, sentiment-dissatisfied
+  when-to-use: Patient satisfaction states in patient cards, detail pages, and survey result tables.
+  do-not-use-when: You need a general status — use standard badge colors instead.
+  preline-required: no
+  notes: sentiment-satisfied uses success (green), sentiment-neutral uses sand, sentiment-dissatisfied uses warning (amber). Include an emoji or icon to reinforce the meaning.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Sentiment Badge</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Patient satisfaction indicators.
+  </p>
+
+    <!-- @component: sentiment-badges -->
+    <span class="sentiment-badge sentiment-satisfied"><i class="fa-solid fa-face-smile"></i> Satisfied</span>
+    <span class="sentiment-badge sentiment-neutral"><i class="fa-solid fa-face-meh"></i> Neutral</span>
+    <span class="sentiment-badge sentiment-dissatisfied"><i class="fa-solid fa-face-frown"></i> Dissatisfied</span>
+    <!-- /component -->
+</section>

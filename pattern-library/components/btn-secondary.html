@@ -1,0 +1,28 @@
+<!--
+  @component-meta
+  name: Button: Secondary
+  category: Primitives — Buttons
+  file: btn-secondary.html
+  classes: btn-secondary
+  when-to-use: Supporting action alongside a primary button (e.g., "Save Draft" next to "Publish"). Also used for standalone neutral-emphasis actions.
+  do-not-use-when: The action is the single most important one — use btn-primary. For cancel/dismiss actions, use btn-outline.
+  preline-required: no
+  notes: Secondary uses the sand/secondary color scale.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Secondary</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Supporting actions alongside a primary button.
+  </p>
+
+    <!-- @component: btn-secondary -->
+    <button type="button" class="btn-secondary">
+      Save Draft
+    </button>
+    <!-- /component -->
+
+    <button type="button" class="btn-secondary" disabled>Disabled</button>
+</section>

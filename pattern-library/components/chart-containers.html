@@ -1,0 +1,99 @@
+<!--
+  @component-meta
+  name: Chart Containers
+  category: Chart Containers
+  file: chart-containers.html
+  classes: chart-canvas-wrapper, chart-sparkline, chart-line, chart-bar
+  when-to-use: Wrap Chart.js canvases to enforce consistent sizing across chart types.
+  preline-required: no
+  notes: Scripts ARE required — each demo initializes a live Chart.js chart. Requires Chart.js CDN and haven-chart-config.js loaded before this component.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chart Containers</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+    Sizing classes for Chart.js canvases. All extend <code class="text-sm font-mono">.chart-canvas-wrapper</code> as the base wrapper.
+  </p>
+
+  <!-- chart-canvas-wrapper (base) -->
+  <div class="card card-body mb-6">
+    <h4 class="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">.chart-canvas-wrapper</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-3">
+      Base wrapper class — all chart sizing classes extend this. Sets relative positioning, full width, and overflow hidden.
+    </p>
+    <!-- @component: chart-canvas-wrapper -->
+    <div class="chart-canvas-wrapper" style="height: 60px; border: 1px dashed var(--color-gray-300); display: flex; align-items: center; justify-content: center;">
+      <span class="text-xs text-gray-400">chart-canvas-wrapper (base — no fixed height)</span>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- chart-sparkline -->
+  <div class="card card-body mb-6">
+    <h4 class="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">.chart-sparkline</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-3">
+      Compact 40px-tall sparkline. No axes, no labels, no legend.
+    </p>
+    <!-- @component: chart-sparkline -->
+    <div class="chart-sparkline">
+      <canvas id="demo-sparkline"></canvas>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- chart-line -->
+  <div class="card card-body mb-6">
+    <h4 class="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">.chart-line</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-3">
+      Standard line chart at 240px height. Axes, grid lines, and tooltips visible.
+    </p>
+    <!-- @component: chart-line -->
+    <div class="chart-line">
+      <canvas id="demo-line-chart"></canvas>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- chart-bar -->
+  <div class="card card-body mb-6">
+    <h4 class="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">.chart-bar</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-3">
+      Bar chart at 200px height.
+    </p>
+    <!-- @component: chart-bar -->
+    <div class="chart-bar">
+      <canvas id="demo-bar-chart"></canvas>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Sparkline — 6 data points of monthly enrollment
+      havenSparkline('demo-sparkline', [245, 312, 278, 356, 329, 387], HAVEN.primary[500]);
+
+      // Line chart — 6 months, one dataset
+      havenLineChart('demo-line-chart', {
+        labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+        datasets: [{
+          label: 'Patient Enrollment',
+          data: [258, 295, 312, 278, 345, 389],
+          borderColor: HAVEN.primary[500],
+          backgroundColor: HAVEN.primary[50],
+        }],
+      });
+
+      // Bar chart — 6 months
+      havenBarChart('demo-bar-chart', {
+        labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+        datasets: [{
+          label: 'Monthly Enrollment',
+          data: [234, 287, 265, 310, 348, 372],
+          backgroundColor: HAVEN.primary[500],
+        }],
+      });
+    });
+  </script>
+</section>

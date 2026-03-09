@@ -1,0 +1,49 @@
+<!--
+  @component-meta
+  name: Performance Metric Card
+  category: Complex / App-Specific
+  file: complex-performance-metric-card.html
+  classes: performance-metric-card, performance-metric-label, performance-metric-value, performance-metric-detail, performance-stats-row, performance-stat-compact, performance-stat-compact-label, performance-stat-compact-value, performance-stat-compact-detail
+  when-to-use: Partner performance KPIs in both standard and compact row layouts.
+  preline-required: no
+  notes: Use performance-metric-card for primary metrics and performance-stats-row for secondary compact stats.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Performance Metric Card</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Partner performance KPIs in both standard and compact row layouts.
+  </p>
+
+  <!-- @component: performance-metric-card -->
+  <div class="flex flex-col gap-6">
+    <!-- Standard metric card -->
+    <div class="performance-metric-card" style="max-width: 280px;">
+      <div class="performance-metric-label">Avg Resolution Time</div>
+      <div class="performance-metric-value">4.2 hrs</div>
+      <div class="performance-metric-detail">Target: 6 hrs</div>
+    </div>
+
+    <!-- Compact stats row -->
+    <div class="performance-stats-row">
+      <div class="performance-stat-compact">
+        <div class="performance-stat-compact-label">On-Time Rate</div>
+        <div class="performance-stat-compact-value">94%</div>
+        <div class="performance-stat-compact-detail">Last 30 days</div>
+      </div>
+      <div class="performance-stat-compact">
+        <div class="performance-stat-compact-label">Satisfaction</div>
+        <div class="performance-stat-compact-value">4.6 / 5</div>
+        <div class="performance-stat-compact-detail">128 reviews</div>
+      </div>
+      <div class="performance-stat-compact">
+        <div class="performance-stat-compact-label">Compliance</div>
+        <div class="performance-stat-compact-value">98%</div>
+        <div class="performance-stat-compact-detail">No violations</div>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

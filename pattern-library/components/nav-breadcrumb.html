@@ -1,0 +1,28 @@
+<!--
+  @component-meta
+  name: Breadcrumb
+  category: Navigation
+  file: nav-breadcrumb.html
+  classes: breadcrumb, breadcrumb-separator, breadcrumb-current
+  when-to-use: Detail pages reached by drilling into a list (patient detail, meal detail). Not needed on top-level pages.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Breadcrumb</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Hierarchical location indicator for detail pages.
+  </p>
+
+    <!-- @component: nav-breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#">Dashboard</a>
+      <span class="breadcrumb-separator">/</span>
+      <a href="#">Patients</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Maria Santos</span>
+    </nav>
+    <!-- /component -->
+</section>

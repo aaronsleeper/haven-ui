@@ -1,0 +1,33 @@
+<!--
+  @component-meta
+  name: Button: Outline
+  category: Primitives — Buttons
+  file: btn-outline.html
+  classes: btn-outline
+  when-to-use: Cancel, back, or low-emphasis actions. Common in modal footers as the "Cancel" option alongside a primary "Confirm" button.
+  do-not-use-when: The action is destructive — use btn-danger or btn-danger-outline instead.
+  preline-required: no
+  notes: Transparent background with gray border. Hover fills with subtle gray.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Outline</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Low-emphasis actions, cancel buttons, tertiary actions.
+  </p>
+
+    <!-- @component: btn-outline -->
+    <button type="button" class="btn-outline">
+      Cancel
+    </button>
+    <!-- /component -->
+
+    <button type="button" class="btn-outline">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back
+    </button>
+
+    <button type="button" class="btn-outline" disabled>Disabled</button>
+</section>

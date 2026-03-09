@@ -1,0 +1,48 @@
+<!--
+  @component-meta
+  name: Alert
+  category: Primitives — Alerts
+  file: alert.html
+  classes: alert, alert-icon, alert-success, alert-warning, alert-error, alert-info
+  when-to-use: Inline feedback messages after form submissions, API responses, or page-level notices. Place at the top of the content area or directly above the relevant section.
+  do-not-use-when: You need a persistent status indicator — use a badge instead. Do not use for toast/snackbar notifications (those are ephemeral overlays).
+  preline-required: no
+  notes: Each variant includes an icon (alert-icon), bold title, and message text. Icons should match the variant: circle-check for success, triangle-exclamation for warning, circle-xmark for error, circle-info for info.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Alerts</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    Inline feedback messages. Use for transient status, not persistent state.
+  </p>
+
+    <!-- @component: alert-success -->
+    <div class="alert alert-success" role="alert">
+      <i class="fa-solid fa-circle-check alert-icon"></i>
+      <div><span class="font-medium">Success!</span> Your changes have been saved.</div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: alert-warning -->
+    <div class="alert alert-warning" role="alert">
+      <i class="fa-solid fa-triangle-exclamation alert-icon"></i>
+      <div><span class="font-medium">Warning!</span> Please check your input before proceeding.</div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: alert-error -->
+    <div class="alert alert-error" role="alert">
+      <i class="fa-solid fa-circle-xmark alert-icon"></i>
+      <div><span class="font-medium">Error!</span> Something went wrong. Please try again.</div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: alert-info -->
+    <div class="alert alert-info" role="alert">
+      <i class="fa-solid fa-circle-info alert-icon"></i>
+      <div><span class="font-medium">Info.</span> A new software update is available.</div>
+    </div>
+    <!-- /component -->
+</section>

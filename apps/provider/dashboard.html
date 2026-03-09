@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<load src="/src/partials/head.html" />
+
+    <body class="bg-gray-50">
+        <!-- Sidebar Toggle (Mobile) -->
+        <div class="sidebar-toggle-bar">
+            <div class="flex items-center py-4">
+                <button type="button" class="sidebar-toggle-btn" data-hs-overlay="#application-sidebar" aria-controls="application-sidebar" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="h-6 ms-3" />
+            </div>
+        </div>
+        <!-- End Sidebar Toggle -->
+
+        <!-- Sidebar -->
+        <load src="/src/partials/providers-sidebar.html" />
+        <!-- End Sidebar -->
+
+        <!-- Main Content -->
+        <div class="lg:ps-64 min-w-0">
+            <div class="max-w-screen-2xl mx-auto px-6 py-8 space-y-6">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>Health Equity through Community Nutrition</h1>
+                    <span class="text-sm text-gray-500">Monday, February 23</span>
+                </div>
+                <!-- End Page Header -->
+
+                <!-- ========================================
+                 Zone 1: Critical Alerts Panel
+                 ======================================== -->
+                <h2 class="section-title flex items-center gap-3">Critical Alerts <span class="badge badge-error text-sm">12 unresolved</span></h2>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Clinical -->
+                    <a
+                        href="alerts.html?category=clinical"
+                        class="alert-category-card hover:shadow-md transition-shadow"
+                        style="--alert-accent: var(--color-error-500)"
+                        aria-label="Clinical alerts: 5 unresolved"
+                    >
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse text-error-500"></i>
+                            <span class="alert-category-label">Clinical</span>
+                        </div>
+                        <span class="text-3xl font-bold text-gray-900">5</span>
+                        <span class="text-xs text-gray-400">3 high &middot; 2 medium</span>
+                    </a>
+
+                    <!-- Social -->
+                    <a
+                        href="alerts.html?category=social"
+                        class="alert-category-card hover:shadow-md transition-shadow"
+                        style="--alert-accent: var(--color-warning-500)"
+                        aria-label="Social alerts: 4 unresolved"
+                    >
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-people-group text-warning-500"></i>
+                            <span class="alert-category-label">Social</span>
+                        </div>
+                        <span class="text-3xl font-bold text-gray-900">4</span>
+                        <span class="text-xs text-gray-400">1 high &middot; 3 medium</span>
+                    </a>
+
+                    <!-- Delivery -->
+                    <a
+                        href="alerts.html?category=delivery"
+                        class="alert-category-card hover:shadow-md transition-shadow"
+                        style="--alert-accent: var(--color-info-500)"
+                        aria-label="Delivery alerts: 2 unresolved"
+                    >
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-truck text-info-500"></i>
+                            <span class="alert-category-label">Delivery</span>
+                        </div>
+                        <span class="text-3xl font-bold text-gray-900">2</span>
+                        <span class="text-xs text-gray-400">0 high &middot; 2 medium</span>
+                    </a>
+
+                    <!-- Safety -->
+                    <a
+                        href="alerts.html?category=safety"
+                        class="alert-category-card hover:shadow-md transition-shadow"
+                        style="--alert-accent: var(--color-error-600)"
+                        aria-label="Safety alerts: 1 unresolved"
+                    >
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-error-600"></i>
+                            <span class="alert-category-label">Safety</span>
+                        </div>
+                        <span class="text-3xl font-bold text-gray-900">1</span>
+                        <span class="text-xs text-gray-400">1 high &middot; 0 medium</span>
+                    </a>
+                </div>
+                <!-- End Zone 1 -->
+
+                <!-- ========================================
+                 Zone 2: Clinical Outcomes
+                 ======================================== -->
+                <h2 class="section-title">Clinical Outcomes</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <!-- HbA1c Improvement -->
+                    <a href="reports.html#hba1c" class="clinical-metric-card" aria-label="HbA1c Improvement: minus 1.2 percent, 0.3 percent better this quarter">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">HbA1c Improvement</span>
+                        <span class="text-3xl font-bold text-gray-900">&minus;1.2%</span>
+                        <span class="trend-improving">
+                            <i class="fa-solid fa-arrow-down"></i>
+                            0.3% better this quarter
+                        </span>
+                        <div class="chart-canvas-wrapper chart-sparkline">
+                            <canvas id="sparkline-hba1c"></canvas>
+                        </div>
+                        <span class="text-xs text-gray-400 mt-1 block">6-month trend</span>
+                    </a>
+
+                    <!-- BP Control Rate -->
+                    <a href="reports.html#bp-control" class="clinical-metric-card" aria-label="BP Control Rate: 74 percent, up 6 percent this quarter">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">BP Control Rate</span>
+                        <span class="text-3xl font-bold text-gray-900">74%</span>
+                        <span class="trend-improving">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            +6% this quarter
+                        </span>
+                        <div class="chart-canvas-wrapper chart-sparkline">
+                            <canvas id="sparkline-bp"></canvas>
+                        </div>
+                        <span class="text-xs text-gray-400 mt-1 block">6-month trend</span>
+                    </a>
+
+                    <!-- ER Visit Reduction -->
+                    <a href="reports.html#er-visits" class="clinical-metric-card" aria-label="ER Visit Reduction: minus 28 percent vs baseline">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">ER Visit Reduction</span>
+                        <span class="text-3xl font-bold text-gray-900">&minus;28%</span>
+                        <span class="trend-improving">
+                            <i class="fa-solid fa-arrow-down"></i>
+                            vs. baseline
+                        </span>
+                        <div class="chart-canvas-wrapper chart-sparkline">
+                            <canvas id="sparkline-er"></canvas>
+                        </div>
+                        <span class="text-xs text-gray-400 mt-1 block">6-month trend</span>
+                    </a>
+                </div>
+                <!-- End Zone 2 -->
+
+                <!-- ========================================
+                 Zone 3: Program Overview
+                 ======================================== -->
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <!-- Card A: Program Enrollment -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Program Enrollment</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Stat block -->
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <span class="text-4xl font-bold text-gray-900">45</span>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wide">enrolled</p>
+                                    <p class="text-sm text-gray-400">of 50 slots</p>
+                                </div>
+                                <div class="text-sm font-medium text-success-600">38 of 45 currently active</div>
+                            </div>
+
+                            <!-- Pipeline bar -->
+                            <div class="pipeline-bar" role="img" aria-label="Patient pipeline: 65 referred, 52 in eligibility review, 48 activated, 45 active">
+                                <div class="hs-tooltip flex" style="flex: 65; min-width: 3rem">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-900 rounded-s-lg w-full">Referred <span class="opacity-75 ms-1">65</span></div>
+                                    <div
+                                        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs"
+                                        role="tooltip"
+                                    >
+                                        Referred: 65 patients &middot; starting stage
+                                    </div>
+                                </div>
+                                <div class="hs-tooltip flex" style="flex: 52; min-width: 3rem">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-700 w-full">Eligibility <span class="opacity-75 ms-1">52</span></div>
+                                    <div
+                                        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs"
+                                        role="tooltip"
+                                    >
+                                        Eligibility Review: 52 patients &middot; 20% dropout
+                                    </div>
+                                </div>
+                                <div class="hs-tooltip flex" style="flex: 48; min-width: 3rem">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-500 w-full">Activated <span class="opacity-75 ms-1">48</span></div>
+                                    <div
+                                        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs"
+                                        role="tooltip"
+                                    >
+                                        Activated: 48 patients &middot; 8% dropout
+                                    </div>
+                                </div>
+                                <div class="hs-tooltip flex" style="flex: 45; min-width: 3rem">
+                                    <div class="hs-tooltip-toggle pipeline-segment bg-primary-300 rounded-e-lg w-full">Active <span class="opacity-75 ms-1">45</span></div>
+                                    <div
+                                        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-lg shadow-2xs"
+                                        role="tooltip"
+                                    >
+                                        Active: 45 patients &middot; 6% dropout
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Legend -->
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-900"></span>
+                                    <span class="text-xs text-gray-500">Referred</span>
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-700"></span>
+                                    <span class="text-xs text-gray-500">Eligibility Review</span>
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-500"></span>
+                                    <span class="text-xs text-gray-500">Activated</span>
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2.5 rounded-full bg-primary-300"></span>
+                                    <span class="text-xs text-gray-500">Active</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card A -->
+
+                    <!-- Card B: Program Health -->
+                    <div class="card">
+                        <div class="card-header flex items-center justify-between">
+                            <h3 class="card-title">Program Health</h3>
+                            <span class="badge badge-success">On Track</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                                <span class="flex items-center gap-2 text-sm text-gray-600">
+                                    <i class="fa-solid fa-vial w-4 text-center text-gray-400"></i>
+                                    Baseline labs complete
+                                </span>
+                                <span class="text-sm font-medium text-success-600">88%</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                                <span class="flex items-center gap-2 text-sm text-gray-600">
+                                    <i class="fa-solid fa-link w-4 text-center text-success-500"></i>
+                                    Epic sync
+                                </span>
+                                <span class="text-sm font-medium text-success-600 flex items-center gap-1"> <i class="fa-solid fa-circle text-[8px]"></i> Connected </span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="flex items-center gap-2 text-sm text-gray-600">
+                                    <i class="fa-solid fa-calendar-check w-4 text-center text-gray-400"></i>
+                                    Next report
+                                </span>
+                                <span class="badge badge-warning">March 31</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Card B -->
+                </div>
+                <!-- End Zone 3 -->
+
+                <!-- ========================================
+                 Zone 4: Partner Performance
+                 ======================================== -->
+                <div class="card">
+                    <div class="card-header flex items-center justify-between">
+                        <h3 class="card-title">Partner Performance</h3>
+                        <a href="partners.html" class="text-link text-sm">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                            <!-- Fulfillment Fidelity -->
+                            <div>
+                                <span class="text-xs uppercase tracking-wide text-gray-500 mb-1 block">Fulfillment Fidelity</span>
+                                <span class="text-2xl font-bold text-gray-900">96.8%</span>
+                                <p class="text-xs text-success-600">Target: 95%</p>
+                            </div>
+
+                            <!-- Delivery Success -->
+                            <div>
+                                <span class="text-xs uppercase tracking-wide text-gray-500 mb-1 block">Delivery Success</span>
+                                <span class="text-2xl font-bold text-gray-900">98.4%</span>
+                                <p class="text-xs text-success-600">Target: 95%</p>
+                            </div>
+
+                            <!-- Quality Index -->
+                            <div>
+                                <span class="text-xs uppercase tracking-wide text-gray-500 mb-1 block">Quality Index</span>
+                                <span class="text-2xl font-bold text-gray-900">91/100</span>
+                                <p class="text-xs text-gray-400">This month</p>
+                            </div>
+
+                            <!-- Active Issues -->
+                            <div>
+                                <span class="text-xs uppercase tracking-wide text-gray-500 mb-1 block">Active Issues</span>
+                                <span class="text-2xl font-bold text-gray-900"><a href="alerts.html?category=delivery" class="hover:text-primary-600">2</a></span>
+                                <p><span class="badge badge-warning">2 open</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Zone 4 -->
+
+                <!-- ========================================
+                 Zone 5: Recent Activity Feed
+                 ======================================== -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Activity</h3>
+                    </div>
+                    <div class="card-body !p-0">
+                        <!-- Row 1 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">MR</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Maria R.</a>
+                            <span class="badge badge-pill badge-info">Delivery</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">7 meals delivered</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">2h ago</span>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">JT</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">James T.</a>
+                            <span class="badge badge-pill badge-error">Clinical</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">HbA1c lab result received</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">3h ago</span>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">SP</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Sofia P.</a>
+                            <span class="badge badge-pill badge-warning">Social</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">Food insecurity screen flagged</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">4h ago</span>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">DL</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">David L.</a>
+                            <span class="badge badge-pill badge-primary">Program</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">Activated in program</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">5h ago</span>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">AL</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Ana L.</a>
+                            <span class="badge badge-pill badge-info">Delivery</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">Missed delivery — rescheduled</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">6h ago</span>
+                        </div>
+
+                        <!-- Row 6 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">RK</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Rosa K.</a>
+                            <span class="badge badge-pill badge-error">Clinical</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">BP reading: 158/94</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">7h ago</span>
+                        </div>
+
+                        <!-- Row 7 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">MT</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Marcus T.</a>
+                            <span class="badge badge-pill badge-warning">Social</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">Transportation barrier noted</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">9h ago</span>
+                        </div>
+
+                        <!-- Row 8 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">CP</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Carmen P.</a>
+                            <span class="badge badge-pill badge-info">Delivery</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">7 meals delivered</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">10h ago</span>
+                        </div>
+
+                        <!-- Row 9 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">EB</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Elias B.</a>
+                            <span class="badge badge-pill badge-primary">Program</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">Eligibility review complete</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">12h ago</span>
+                        </div>
+
+                        <!-- Row 10 -->
+                        <div class="activity-feed-row">
+                            <span class="size-8 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">NV</span>
+                            <a class="text-sm font-medium text-gray-800 hover:text-primary-600 max-w-[8rem] truncate">Nina V.</a>
+                            <span class="badge badge-pill badge-error">Clinical</span>
+                            <span class="text-sm text-gray-500 flex-1 truncate">Dietary recall submitted</span>
+                            <span class="text-xs text-gray-400 whitespace-nowrap">1d ago</span>
+                        </div>
+                    </div>
+                    <div class="card-footer flex justify-end">
+                        <a href="alerts.html" class="text-link text-sm">View all activity <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <!-- End Zone 5 -->
+            </div>
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Scripts -->
+        <load src="/src/partials/scripts.html" />
+        <load src="/src/partials/scripts-charts.html" />
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                havenSparkline('sparkline-hba1c', [8.4, 8.2, 8.0, 7.8, 7.5, 7.2], HAVEN.success[500]);
+                havenSparkline('sparkline-bp', [62, 65, 66, 70, 72, 74], HAVEN.success[500]);
+                havenSparkline('sparkline-er', [0, -5, -10, -18, -24, -28], HAVEN.primary[500]);
+            });
+        </script>
+    </body>
+</html>
