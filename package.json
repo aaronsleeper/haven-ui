@@ -1,0 +1,20 @@
+{
+  "name": "haven-ui",
+  "version": "1.0.0",
+  "description": "Haven Design System — Cena Health UI",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "glob": "^13.0.6",
+    "preline": "^4.1.2",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "vite": "^6.0.0",
+    "vite-plugin-html-inject": "^1.1.2"
+  }
+}

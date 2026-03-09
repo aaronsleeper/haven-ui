@@ -1,0 +1,2824 @@
+/* ===================================
+   PAGE LAYOUT
+   =================================== */
+
+body {
+    @apply font-sans bg-gray-50 text-gray-900;
+    @apply dark:bg-neutral-900 dark:text-neutral-100;
+    position: relative;
+}
+
+/* Ambient gradient blobs - fixed to viewport bottom */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -120px;
+    border-radius: 582px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Blob 1: coral/salmon - left-center */
+body::before {
+    width: 500px;
+    height: 400px;
+    left: 10%;
+    background: var(--color-orange-100);
+    opacity: 0.8;
+    filter: blur(210px);
+}
+
+/* Blob 2: peach/amber - right-center */
+body::after {
+    width: 500px;
+    height: 400px;
+    right: 10%;
+    background: var(--color-amber-50);
+    opacity: 0.6;
+    filter: blur(210px);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-bold text-gray-900 dark:text-white;
+}
+
+h1 {
+    @apply text-3xl mb-6;
+}
+
+h2 {
+    @apply text-2xl mb-4;
+}
+
+h3 {
+    @apply text-xl mb-3;
+}
+
+section {
+    @apply mb-8;
+}
+
+/* Form layout helpers */
+form > div {
+    @apply mb-4;
+}
+
+/* ===================================
+   SIDEBAR TOGGLE
+   =================================== */
+
+.sidebar-toggle-bar {
+    @apply sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+}
+
+.sidebar-toggle-btn {
+    @apply text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300;
+    @apply dark:text-gray-400 dark:hover:text-gray-300;
+}
+
+/* ===================================
+   FIELDSETS
+   =================================== */
+
+/* Main fieldset - used for form sections */
+fieldset {
+    @apply space-y-3 p-6 border border-gray-200 rounded-lg;
+    @apply dark:border-neutral-700;
+}
+
+/* Nested fieldset - used for sub-sections */
+fieldset fieldset {
+    @apply p-4 bg-gray-50 dark:bg-neutral-800;
+}
+
+/* Fieldset legend */
+legend {
+    @apply text-lg font-semibold text-gray-800 px-2;
+    @apply dark:text-white;
+    margin-bottom: 0.25rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Nested fieldset legend (smaller) */
+fieldset fieldset legend {
+    @apply text-sm font-medium;
+}
+
+/* ===================================
+   FORM ELEMENTS
+   =================================== */
+
+/* Base input styling - applies to all text-like inputs */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='date'],
+input[type='time'],
+input[type='number'],
+input[type='tel'],
+input[type='url'],
+input[type='search'],
+select,
+textarea {
+    @apply py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500;
+}
+
+/* Select specific padding + custom chevron (mirrors .select-haven) */
+select {
+    @apply pe-9;
+    appearance: none;
+    padding-inline-end: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem 1rem;
+}
+
+/* Focus states */
+input:focus,
+select:focus,
+textarea:focus {
+    @apply focus:border-primary-500 focus:ring-primary-500 dark:focus:ring-neutral-600;
+}
+
+/* Disabled states */
+input:disabled,
+select:disabled,
+textarea:disabled {
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+}
+
+/* Base label styling */
+label {
+    @apply block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200;
+}
+
+/* ===================================
+   RADIO BUTTONS
+   =================================== */
+
+/* Radio button input */
+input[type='radio'] {
+    @apply shrink-0 mt-0.5 border-gray-200 rounded-full text-primary-600;
+    @apply focus:ring-primary-500;
+    @apply checked:border-primary-500;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply dark:checked:bg-primary-500 dark:checked:border-primary-500;
+    @apply dark:focus:ring-offset-neutral-800;
+}
+
+/* Radio button with label wrapper */
+.radio-label {
+    @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
+    @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+.radio-label span {
+    @apply text-sm text-gray-500 ms-3 dark:text-neutral-400;
+}
+
+/* ===================================
+   CHECKBOXES
+   =================================== */
+
+/* Checkbox input */
+input[type='checkbox'] {
+    @apply shrink-0 mt-0.5 border-gray-200 rounded text-primary-600;
+    @apply focus:ring-primary-500;
+    @apply checked:border-primary-500;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply dark:checked:bg-primary-500 dark:checked:border-primary-500;
+    @apply dark:focus:ring-offset-neutral-800;
+}
+
+/* Checkbox with label wrapper */
+.checkbox-label {
+    @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
+    @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+.checkbox-label span {
+    @apply text-sm text-gray-500 ms-3 dark:text-neutral-400;
+}
+
+/* Schedule checkbox - themed checkbox for weekly meal availability */
+.schedule-checkbox {
+    @apply size-4 rounded border-gray-300 cursor-pointer;
+    accent-color: var(--color-primary-600);
+}
+
+.schedule-checkbox:focus {
+    outline: 2px solid var(--color-primary-300);
+    outline-offset: 2px;
+}
+
+/* ===================================
+   BUTTONS
+   =================================== */
+
+/* Default button styles - apply to ALL buttons */
+button,
+[type='button'],
+[type='submit'],
+[type='reset'] {
+    @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg border border-transparent;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:focus:ring-offset-neutral-800;
+    cursor: pointer;
+}
+
+/* Primary Button Variant */
+.btn-primary {
+    @apply py-3 px-4 bg-primary-600 text-white hover:bg-primary-700;
+}
+
+/* Variant classes can override defaults */
+.btn-secondary {
+    @apply py-3 px-4 bg-secondary-100 text-secondary-700 hover:bg-secondary-200 focus:ring-secondary-500;
+}
+
+.btn-outline {
+    @apply py-3 px-4 justify-center bg-transparent border-gray-300 text-gray-700;
+    @apply hover:bg-gray-50;
+    @apply dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800;
+}
+
+.btn-danger {
+    @apply py-3 px-4 bg-transparent border-error-300 text-error-600;
+    @apply hover:bg-error-50 hover:border-error-400;
+    @apply dark:border-error-700 dark:text-error-400 dark:hover:bg-error-900;
+}
+
+/* Button size variants */
+.btn-sm {
+    @apply py-2 px-3 text-xs gap-x-1.5;
+}
+
+.btn-xs {
+    @apply py-1 px-2 text-xs gap-x-1;
+}
+
+/* ===================================
+   BADGES
+   =================================== */
+
+/* Base badge styles */
+.badge {
+    @apply inline-flex items-center text-xs font-bold uppercase tracking-wider px-2 py-1 rounded whitespace-nowrap;
+    font-family: var(--font-sans);
+}
+
+/* Badge color variants */
+.badge-primary {
+    @apply text-primary-600 bg-primary-50 border border-primary-200;
+    @apply dark:bg-primary-900/20 dark:border-primary-800 dark:text-primary-400;
+}
+
+.badge-secondary {
+    @apply text-secondary-600 bg-secondary-50 border border-secondary-200;
+    @apply dark:bg-secondary-900/20 dark:border-secondary-800 dark:text-secondary-400;
+}
+
+.badge-neutral {
+    @apply bg-gray-100 text-gray-600 border border-gray-300;
+    @apply dark:bg-neutral-700 dark:text-neutral-300 dark:border-neutral-600;
+}
+
+.badge-success {
+    @apply text-success-600 bg-success-50 border border-success-200;
+    @apply dark:bg-success-900/20 dark:border-success-800 dark:text-success-400;
+}
+
+.badge-warning {
+    @apply text-warning-600 bg-warning-50 border border-warning-200;
+    @apply dark:bg-warning-900/20 dark:border-warning-800 dark:text-warning-400;
+}
+
+.badge-error {
+    @apply text-error-600 bg-error-50 border border-error-200;
+    @apply dark:bg-error-900/20 dark:border-error-800 dark:text-error-400;
+}
+
+.badge-info {
+    @apply text-info-600 bg-info-50 border border-info-200;
+    @apply dark:bg-info-900/20 dark:border-info-800 dark:text-info-400;
+}
+
+/* Pill-shaped badge variant (for tags, status in tables) */
+.badge-pill {
+    @apply rounded-full;
+}
+
+/* Compact badge for use in tables and dense layouts */
+.badge-sm {
+    @apply text-[10px] px-1.5 py-0.5 font-semibold;
+}
+
+/* ===================================
+   LAYOUT
+   =================================== */
+
+/* Card component */
+.card {
+    @apply flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
+}
+
+.card-header {
+    @apply px-4 py-3 md:px-5 md:py-4 border-b border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+.card-header > h1,
+.card-header > h2,
+.card-header > h3 {
+    @apply mb-0;
+}
+
+.card-title {
+    @apply text-2xl font-semibold text-gray-800 mb-0;
+    @apply dark:text-neutral-200;
+}
+
+.card-subtitle {
+    @apply text-sm text-gray-500 mt-0.5;
+    @apply dark:text-neutral-400;
+}
+
+.card-body {
+    @apply p-4 md:p-5;
+}
+
+/* Card-title divider: when card-title lives inside card-body (no dedicated header),
+   pull the bottom border flush to the card edges via negative margins. */
+.card-body > .card-title {
+    @apply border-b border-gray-200 pb-3;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    @apply dark:border-neutral-700;
+}
+
+@media (min-width: 768px) {
+    .card-body > .card-title {
+        margin-inline: -1.25rem;
+        padding-inline: 1.25rem;
+    }
+}
+
+.card-footer {
+    @apply px-4 py-3 md:px-5 md:py-4 border-t border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+/* Stat card variant — compact uniform padding for dashboard metric cards */
+.card-stat {
+    @apply p-5;
+    min-height: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stat-label {
+    @apply text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-neutral-500;
+}
+
+.stat-value {
+    @apply text-3xl font-bold text-gray-900 dark:text-neutral-100 leading-none;
+}
+
+/* Space between sibling fieldsets and other block elements inside card body */
+.card-body > * + * {
+    @apply mt-4;
+}
+
+/* Container */
+.container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* ===================================
+   LAYOUT HELPERS
+   =================================== */
+
+/* Two-column grid (stacks on mobile) */
+.grid-2 {
+    @apply grid sm:grid-cols-2 gap-4;
+}
+
+/* Form field spacing */
+.form-section {
+    @apply space-y-4;
+}
+
+/* Required field indicator */
+.required::after {
+    content: '*';
+    @apply text-error-500 ml-1;
+}
+
+/* ===================================
+   SECTION TITLE
+   =================================== */
+
+.section-title {
+    @apply text-lg font-semibold text-gray-800 dark:text-neutral-200;
+}
+
+/* ===================================
+   PAGE HEADER
+   =================================== */
+
+/* Page header - flex row with title left, actions right */
+.page-header {
+    @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6;
+}
+
+.page-header h1 {
+    @apply mb-0;
+}
+
+/* ===================================
+   BREADCRUMBS
+   =================================== */
+
+/* Breadcrumb navigation */
+.breadcrumb {
+    @apply flex items-center text-sm mb-4;
+}
+
+.breadcrumb a {
+    @apply text-gray-500 hover:text-primary-600;
+    @apply dark:text-neutral-400 dark:hover:text-primary-400;
+}
+
+.breadcrumb-separator {
+    @apply mx-2 text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+.breadcrumb-current {
+    @apply text-gray-800 font-medium;
+    @apply dark:text-neutral-200;
+}
+
+/* ===================================
+   DATA TABLES
+   =================================== */
+
+/* Table container - bordered, rounded wrapper with horizontal scroll */
+.data-table {
+    @apply border border-gray-200 rounded-xl;
+    overflow-x: auto;
+    overflow-y: hidden;
+    @apply dark:border-neutral-700;
+}
+
+.data-table table {
+    @apply min-w-full;
+    table-layout: auto;
+    @apply dark:divide-neutral-700;
+}
+
+.data-table th,
+.data-table td {
+    white-space: nowrap;
+}
+
+/* Meal column headers allow wrapping for compact display */
+.data-table th.meal-col-header {
+    white-space: normal;
+}
+
+.data-table thead {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-700;
+}
+
+.data-table th {
+    @apply px-4 py-3 text-start text-xs font-medium text-gray-500 tracking-wide;
+    @apply dark:text-neutral-400;
+    overflow: visible;
+}
+
+/* Right-align numeric columns */
+.data-table th.text-end,
+.data-table td.text-end {
+    @apply text-end;
+}
+
+/* Center-align (for checkboxes, toggles) */
+.data-table th.text-center,
+.data-table td.text-center {
+    @apply text-center;
+}
+
+.data-table td {
+    @apply px-4 py-3 text-sm text-gray-600;
+    @apply dark:text-neutral-400;
+}
+
+/* Primary cell (e.g. name column) - bolder text */
+.data-table td.cell-primary {
+    @apply font-semibold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+/* Numeric cell - tabular figures for vertical alignment across rows */
+.data-table td.cell-numeric {
+    font-variant-numeric: tabular-nums;
+    @apply text-end;
+}
+
+.data-table tbody tr {
+    @apply bg-white border-b border-gray-100;
+    @apply hover:bg-gray-50;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700;
+}
+
+.data-table tbody tr:last-child {
+    @apply border-b-0;
+}
+
+/* Section header rows (e.g., "Hot Meals" group divider) */
+.data-table tbody tr.section-header {
+    @apply bg-gray-50 hover:bg-gray-50;
+    @apply dark:bg-neutral-800/50;
+}
+
+.data-table tbody tr.section-header td {
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-500 py-2;
+}
+
+/* Sortable column header */
+.data-table th[data-sortable] {
+    @apply cursor-pointer select-none;
+}
+
+.data-table th[data-sortable]:hover {
+    @apply text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+/* Accordion detail row (expanded order detail, etc.) */
+.data-table tbody tr.detail-row td {
+    @apply bg-gray-50 p-4;
+    @apply dark:bg-neutral-800/50;
+}
+
+/* Sticky first column - default for all data tables */
+.data-table th:first-child,
+.data-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    @apply bg-white;
+    @apply dark:bg-neutral-800;
+}
+
+.data-table thead th:first-child {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-700;
+    z-index: 11;
+}
+
+/* Hover: match the row hover colour on the sticky first column */
+.data-table tbody tr:hover td:first-child {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-700;
+}
+
+/* Subtle shadow to indicate the column is pinned */
+.data-table th:first-child::after,
+.data-table td:first-child::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -4px;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.04), transparent);
+    pointer-events: none;
+}
+
+/* Legacy alias - kept for backwards compatibility */
+.data-table-sticky-col th:first-child,
+.data-table-sticky-col td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+}
+
+/* ===================================
+   FILE LIST INPUT COMPONENT
+   =================================== */
+
+.file-list {
+    @apply space-y-3;
+}
+
+.file-list-item {
+    @apply flex items-center gap-2;
+}
+
+.file-list-input {
+    @apply flex-1 py-2 px-3 text-sm border-gray-200 rounded-lg bg-gray-50;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-200;
+    @apply focus:border-blue-500 focus:ring-blue-500 focus:bg-white dark:focus:bg-neutral-800;
+}
+
+.file-list-action {
+    @apply flex items-center justify-center size-9 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg border border-gray-200 bg-white transition-colors cursor-pointer;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:border-neutral-700;
+}
+
+.file-list-add {
+    @apply inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 mt-2 px-1 cursor-pointer;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-200;
+}
+
+.file-list-heading {
+    @apply text-sm font-semibold text-gray-900 mb-1;
+    @apply dark:text-white;
+}
+
+.file-list-description {
+    @apply text-xs text-gray-500 mb-3;
+    @apply dark:text-neutral-400;
+}
+
+/* ===================================
+   EMPTY STATES
+   =================================== */
+
+/* Empty state - centered content card for zero-data pages */
+.empty-state {
+    @apply flex flex-col items-center justify-center text-center p-8 md:p-12;
+}
+
+.empty-state .empty-state-icon {
+    @apply text-5xl text-gray-300 mb-4;
+    @apply dark:text-neutral-600;
+}
+
+.empty-state h2,
+.empty-state h3 {
+    @apply text-lg font-semibold text-gray-800 mb-2;
+    @apply dark:text-neutral-200;
+}
+
+.empty-state p {
+    @apply text-sm text-gray-500 mb-6 max-w-sm;
+    @apply dark:text-neutral-400;
+}
+
+/* ===================================
+   INSTRUCTION CARD
+   =================================== */
+
+.instruction-title {
+    @apply text-lg font-medium text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.instruction-text {
+    @apply text-sm text-gray-600 mt-1;
+    @apply dark:text-neutral-400;
+}
+
+/* ===================================
+   ACCORDION
+   =================================== */
+
+.accordion-toggle {
+    @apply inline-flex items-center gap-x-2 py-2 text-sm font-medium text-gray-600 hover:text-gray-800;
+    @apply focus:outline-none focus:text-gray-800;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-200;
+}
+
+.example-code-block {
+    @apply mt-2 bg-gray-50 rounded-lg p-4 font-mono text-sm block whitespace-pre-line;
+    @apply dark:bg-neutral-800 dark:text-neutral-300;
+}
+
+/* ===================================
+   ALERTS
+   =================================== */
+
+/* Base alert */
+.alert {
+    @apply flex items-start gap-3 text-sm rounded-lg p-4;
+}
+
+.alert-icon {
+    @apply shrink-0 size-4 mt-0.5;
+}
+
+.alert-success {
+    @apply bg-success-50 border border-success-200 text-success-800;
+    @apply dark:bg-success-900/20 dark:border-success-800 dark:text-success-400;
+}
+
+.alert-warning {
+    @apply bg-warning-50 border border-warning-200 text-warning-800;
+    @apply dark:bg-warning-900/20 dark:border-warning-800 dark:text-warning-400;
+}
+
+.alert-error {
+    @apply bg-error-50 border border-error-200 text-error-800;
+    @apply dark:bg-error-900/20 dark:border-error-800 dark:text-error-400;
+}
+
+.alert-info {
+    @apply bg-info-50 border border-info-200 text-info-800;
+    @apply dark:bg-info-900/20 dark:border-info-800 dark:text-info-400;
+}
+
+/* ===================================
+   TEXT LINKS
+   =================================== */
+
+/* Text link - used for inline actions (table actions, etc.) */
+.text-link {
+    @apply text-sm font-medium text-primary-600 hover:text-primary-800;
+    @apply focus:outline-none focus:text-primary-800;
+    @apply dark:text-primary-400 dark:hover:text-primary-300 dark:focus:text-primary-300;
+}
+
+.text-link-danger {
+    @apply text-sm font-medium text-error-600 hover:text-error-800;
+    @apply focus:outline-none focus:text-error-800;
+    @apply dark:text-error-400 dark:hover:text-error-300 dark:focus:text-error-300;
+}
+
+/* ===================================
+   SKELETON LOADERS
+   =================================== */
+
+/* Skeleton loading placeholder */
+.skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+    @apply dark:bg-neutral-700;
+}
+
+.skeleton-text {
+    @apply h-4 rounded;
+}
+
+.skeleton-text-sm {
+    @apply h-3 rounded;
+}
+
+/* ===================================
+   PAGINATION
+   =================================== */
+
+/* Pagination container */
+.pagination {
+    @apply flex items-center justify-between px-6 py-3;
+}
+
+.pagination-info {
+    @apply text-sm text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.pagination-controls {
+    @apply flex items-center gap-1;
+}
+
+.pagination-btn {
+    @apply inline-flex items-center justify-center size-8 text-sm rounded-lg;
+    @apply text-gray-500 hover:bg-gray-100;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-700;
+}
+
+.pagination-btn.active {
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+    @apply dark:bg-primary-500;
+}
+
+/* ===================================
+   TOOLBAR
+   =================================== */
+
+/* Toolbar - horizontal bar for search, filters, actions above content */
+.toolbar {
+    @apply flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-4;
+}
+
+.toolbar select {
+    @apply sm:w-auto;
+}
+
+.toolbar-search {
+    @apply flex-1;
+}
+
+/* Search input with leading icon needs extra left padding.
+   Uses !important because global input[type="text"] rule sets px-4. */
+.toolbar-search input {
+    padding-inline-start: 2rem !important;
+}
+
+/* ===================================
+   FILTER PILLS
+   =================================== */
+
+.filter-pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm;
+    @apply bg-white border border-gray-200 text-gray-600;
+    @apply hover:bg-gray-50 cursor-pointer transition-colors;
+}
+
+.filter-pill.active {
+    @apply bg-primary-50 border-primary-300 text-primary-700 font-medium;
+}
+
+/* ===================================
+   PROMPT INPUT
+   =================================== */
+
+.prompt-input-container {
+    @apply border border-gray-200 rounded-xl bg-white overflow-hidden;
+    @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+.prompt-textarea {
+    @apply w-full p-4 border-0 bg-transparent text-sm resize-none;
+    @apply placeholder-gray-400 text-gray-900;
+    @apply focus:ring-0 focus:outline-none;
+    @apply dark:text-neutral-200 dark:placeholder-neutral-500;
+}
+
+/* ===================================
+   STICKY FOOTER
+   =================================== */
+
+/* Sticky footer - persistent action bar at bottom of viewport */
+.sticky-footer {
+    @apply fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 shadow-lg z-50;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+.sticky-footer-inner {
+    @apply flex flex-col sm:flex-row items-center justify-between gap-3 p-4;
+}
+
+.sticky-footer-info {
+    @apply flex flex-wrap items-center gap-2 text-sm text-gray-600;
+    @apply dark:text-neutral-400;
+}
+
+.sticky-footer-actions {
+    @apply flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto;
+}
+
+/* ===================================
+   AI FIELD INDICATORS
+   =================================== */
+
+/* Agent-populated field - track-changes style indicator for AI-generated values */
+
+/* Row wrapper for a field that was populated by the AI agent, pending confirmation */
+.ai-field {
+    @apply bg-primary-50 rounded px-2 py-1;
+    @apply dark:bg-primary-900/20;
+}
+
+/* When ai-field is used on a nutrition-list-row, suppress its own rounding
+   because the parent .nutrition-list handles rounding via overflow-hidden */
+.nutrition-list-row.ai-field {
+    @apply rounded-none;
+}
+
+/* The sparkle icon shown next to agent-populated values */
+.ai-field-icon {
+    @apply text-primary-400 text-xs;
+    @apply dark:text-primary-500;
+}
+
+/* Field after user has confirmed the agent value */
+.ai-field-confirmed {
+    @apply bg-transparent px-2 py-1;
+}
+
+.ai-field-confirmed-icon {
+    @apply text-success-500 text-xs;
+}
+
+/* Text label for agent-populated field status */
+.ai-field-label {
+    @apply text-xs text-primary-500;
+    @apply dark:text-primary-400;
+}
+
+.ai-field-confirmed-label {
+    @apply text-xs text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+/* Callout for fields defaulted to zero - more prominent warning */
+.ai-field-zero-callout {
+    @apply bg-warning-50 border border-warning-200 rounded p-2 text-sm mt-1;
+    @apply dark:bg-warning-900/20 dark:border-warning-800;
+}
+
+/* ===================================
+   NUTRITION LIST
+   =================================== */
+
+/* Nutrition-label style list with striped rows */
+.nutrition-list {
+    @apply border border-gray-200 rounded-md overflow-hidden;
+    @apply dark:border-neutral-700;
+}
+
+.nutrition-list-row {
+    @apply flex items-center justify-between py-2.5 px-3 text-sm;
+    @apply border-b border-gray-100 last:border-b-0;
+    @apply dark:border-neutral-700;
+}
+
+.nutrition-list-row:nth-child(even) {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-800/50;
+}
+
+.nutrition-list-label {
+    @apply font-medium text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+.nutrition-list-value {
+    @apply flex items-center gap-2 text-gray-900;
+    @apply dark:text-neutral-200;
+}
+
+/* Borderless number input that looks like plain text until focused */
+/* Inline number input styled with subtle background, no border */
+/* Borderless number input with subtle tan background */
+/* Uses input[type] prefix to beat the global input selector specificity */
+/* Nutrition input with inline unit suffix */
+/* Container wraps the input + unit label into a single visual element */
+.nutrition-input-group {
+    @apply inline-flex items-center rounded relative;
+    background-color: color-mix(in srgb, var(--color-secondary-200) 40%, transparent);
+    mix-blend-mode: multiply;
+}
+
+.nutrition-input-group:hover {
+    outline: 1px solid var(--color-gray-300);
+    outline-offset: -1px;
+}
+
+.nutrition-input-group:focus-within {
+    background-color: white;
+    mix-blend-mode: normal;
+    outline: none;
+    box-shadow: 0 0 0 1px var(--color-primary-400);
+}
+
+/* The number input inside the group */
+input[type='number'].nutrition-input {
+    @apply w-[4ch] text-right text-sm text-gray-900 bg-transparent;
+    padding: 0.25rem 0 0.25rem 0.375rem !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    -moz-appearance: textfield;
+}
+
+input[type='number'].nutrition-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Unit suffix label inside the group */
+.nutrition-unit {
+    @apply text-xs text-gray-400 pe-1.5 ps-0.5 select-none pointer-events-none;
+    @apply dark:text-neutral-500;
+}
+
+/* Hide number input spinners */
+input[type='number'].nutrition-input::-webkit-outer-spin-button,
+input[type='number'].nutrition-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ===================================
+   ISSUES SIDEBAR
+   =================================== */
+
+/* Persistent right-side panel for issue tracking */
+.issues-sidebar {
+    @apply sticky top-6 max-h-[calc(100vh-8rem)] overflow-y-auto;
+}
+
+.issues-sidebar-header {
+    @apply flex items-center justify-between mb-3;
+}
+
+.issues-sidebar-title {
+    @apply flex items-center gap-2 font-semibold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+/* Individual issue item - clickable card-like row */
+.issue-item {
+    @apply flex items-start gap-2 py-2 px-3 -mx-3 rounded-md cursor-pointer transition-colors;
+    @apply hover:bg-gray-50;
+    @apply dark:hover:bg-neutral-800;
+}
+
+.issue-item-icon {
+    @apply shrink-0 mt-0.5;
+}
+
+.issue-item-content {
+    @apply flex-1 min-w-0;
+}
+
+.issue-item-description {
+    @apply text-sm text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+.issue-item-action {
+    @apply text-xs text-gray-500 mt-0.5;
+    @apply dark:text-neutral-400;
+}
+
+.issue-item-resolved .issue-item-description {
+    @apply text-gray-400 line-through;
+    @apply dark:text-neutral-500;
+}
+
+.issue-item-resolved .issue-item-action {
+    @apply hidden;
+}
+
+/* All-resolved success state */
+.issues-sidebar-resolved {
+    @apply flex items-center gap-2 p-3 text-sm text-success-600;
+    @apply dark:text-success-400;
+}
+
+/* ===================================
+   TAG GROUPS
+   =================================== */
+
+/* Tag group - inline row: label + pill badges + add button */
+.tag-group {
+    @apply flex flex-wrap items-center gap-2 py-2 border-b border-gray-100 last:border-b-0;
+    @apply dark:border-neutral-700;
+}
+
+.tag-group-label {
+    @apply text-xs uppercase tracking-wide text-gray-500 font-medium min-w-[7rem];
+    @apply dark:text-neutral-400;
+}
+
+/* Removable badge - badge with an X close button */
+.badge-removable {
+    @apply inline-flex items-center gap-x-1;
+}
+
+.badge-removable button {
+    @apply p-0 border-none bg-transparent text-current opacity-60;
+    background-color: transparent !important;
+}
+
+.badge-removable button:hover {
+    @apply opacity-100;
+    background-color: transparent !important;
+}
+
+/* ===================================
+   MEAL TYPE INDICATORS
+   Used on meal name cells to indicate hot vs cold meal type.
+   Icon + colored text applied to the meal name itself.
+   =================================== */
+
+.meal-label-hot {
+    @apply text-orange-700;
+    @apply dark:text-orange-400;
+}
+
+.meal-label-hot .meal-type-icon {
+    @apply text-orange-500 me-1.5;
+    @apply dark:text-orange-400;
+}
+
+.meal-label-cold {
+    @apply text-blue-700;
+    @apply dark:text-cyan-400;
+}
+
+.meal-label-cold .meal-type-icon {
+    @apply text-blue-500 me-1.5;
+    @apply dark:text-cyan-400;
+}
+
+/* Hot/Cold toggle button group */
+.meal-type-toggle {
+    @apply px-2.5 py-1 text-xs font-medium text-gray-400 cursor-pointer transition-colors;
+    @apply dark:text-neutral-500;
+    background: transparent;
+}
+
+.meal-type-toggle:first-child {
+    @apply rounded-s-full ps-3;
+}
+
+.meal-type-toggle:last-child {
+    @apply rounded-e-full pe-3;
+}
+
+.meal-type-toggle-hot.active {
+    @apply text-orange-700 bg-orange-50;
+    @apply dark:text-orange-400 dark:bg-orange-900/20;
+}
+
+.meal-type-toggle-cold.active {
+    @apply text-blue-700 bg-blue-50;
+    @apply dark:text-cyan-400 dark:bg-cyan-900/20;
+}
+
+/* ===================================
+   COMPARISON PANEL
+   =================================== */
+
+/* Side-by-side comparison layout for duplicate resolution */
+.comparison-panel {
+    @apply grid sm:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+}
+
+.comparison-column {
+    @apply bg-white rounded-md p-4;
+    @apply dark:bg-neutral-900;
+}
+
+.comparison-intro {
+    @apply text-sm text-gray-600 col-span-full mb-1;
+    @apply dark:text-neutral-400;
+}
+
+.comparison-meal-title {
+    @apply font-semibold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.comparison-meal-details {
+    @apply text-sm text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.comparison-meta {
+    @apply text-xs text-gray-400 mt-2;
+    @apply dark:text-neutral-500;
+}
+
+.comparison-column-header {
+    @apply text-xs uppercase tracking-wide text-gray-500 font-medium mb-3;
+    @apply dark:text-neutral-400;
+}
+
+.comparison-actions {
+    @apply flex flex-wrap items-center gap-3 pt-4 col-span-full;
+}
+
+/* ===================================
+   SIDEBAR NAVIGATION
+   =================================== */
+
+/* Sidebar container - replaces utility class soup on #application-sidebar */
+.app-sidebar {
+    @apply fixed top-0 start-0 bottom-0 z-[60] w-64;
+    @apply border-e border-gray-100 pt-7 pb-10 overflow-y-auto;
+    @apply dark:bg-neutral-900 dark:border-neutral-800;
+    /* Mobile: off-screen left. lg+: always visible. Preline .open slides it in on mobile. */
+    @apply -translate-x-full transition-all duration-300 transform lg:translate-x-0 lg:end-auto lg:bottom-0;
+    background-color: color-mix(in srgb, var(--sidebar) 42%, transparent);
+}
+
+/* When Preline opens the sidebar overlay on mobile, slide it into view */
+.app-sidebar.open {
+    @apply translate-x-0;
+}
+
+/* Scrollbar styling */
+.app-sidebar::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.app-sidebar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gray-300 dark:bg-neutral-500;
+}
+
+.app-sidebar::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-neutral-700;
+}
+
+.app-sidebar-header {
+    @apply px-6 mb-6;
+}
+
+.app-sidebar-brand {
+    @apply flex-none text-xl font-semibold text-gray-900;
+    @apply dark:text-white;
+}
+
+.app-sidebar-nav {
+    @apply p-6 w-full flex flex-col flex-wrap;
+}
+
+.sidebar-nav-list {
+    @apply space-y-0 list-none m-0 p-0;
+}
+
+.sidebar-nav-item.disabled {
+    @apply opacity-50 pointer-events-none;
+}
+
+.sidebar-nav-item {
+    @apply flex items-center gap-x-3.5 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100;
+    @apply dark:text-gray-400 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
+    min-height: 3.15em; /* ~44px at 14px (text-sm), scales with font-size */
+    padding-block: 0.575em;
+}
+
+.sidebar-nav-item:focus-visible {
+    @apply outline-none ring-2 ring-gray-300 dark:ring-neutral-600;
+}
+
+.sidebar-nav-item.active,
+.sidebar-nav-item[aria-current='page'] {
+    @apply bg-gray-100 text-gray-900;
+    @apply dark:bg-neutral-700 dark:text-white;
+}
+
+.sidebar-nav-section {
+    @apply block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-2.5 mt-5;
+    @apply dark:text-neutral-500;
+}
+
+/* No top margin on the very first section label */
+.sidebar-nav-list li:first-child .sidebar-nav-section {
+    @apply mt-0;
+}
+
+/* Accordion toggles are inline text buttons, not action buttons.
+   Strip heavy hover/focus styling inherited from global button rules or Preline. */
+.hs-accordion-toggle {
+    @apply bg-transparent border-transparent rounded-md px-2 py-1;
+    @apply hover:bg-gray-100 hover:text-gray-900;
+    @apply focus:ring-0 focus:ring-offset-0;
+    @apply focus-visible:ring-1 focus-visible:ring-primary-300 focus-visible:ring-offset-0;
+    @apply dark:hover:bg-neutral-800 dark:hover:text-neutral-200;
+    background-color: transparent !important;
+}
+
+.hs-accordion-toggle:hover {
+    background-color: var(--color-gray-100) !important;
+}
+
+/* Accordion Active State */
+.hs-accordion.active > .hs-accordion-toggle {
+    @apply text-primary-600 hover:bg-transparent;
+
+    @apply dark:text-primary-400 dark:hover:bg-transparent;
+}
+
+/* Accordion Chevron Toggling */
+/* Accordion Chevron Toggling - Robust Method */
+.accordion-chevron-up {
+    display: none !important;
+    opacity: 0.6;
+}
+
+.accordion-chevron-down {
+    display: block !important;
+    opacity: 0.6;
+}
+
+.hs-accordion.active .accordion-chevron-up {
+    display: block !important;
+}
+
+.hs-accordion.active .accordion-chevron-down {
+    display: none !important;
+}
+
+/* Theme Toggle Icons - Robust Method */
+/* Default (Light Mode): Show Moon, Hide Sun */
+.theme-icon-moon {
+    display: block !important;
+}
+
+.theme-icon-sun {
+    display: none !important;
+}
+
+/* Dark Mode: Hide Moon, Show Sun */
+:is(.dark .theme-icon-moon) {
+    display: none !important;
+}
+
+:is(.dark .theme-icon-sun) {
+    display: block !important;
+}
+
+/* ===================================
+   PROMPT INPUT COMPONENT
+   =================================== */
+
+.prompt-input-container {
+    @apply shadow-xs transition-shadow duration-200;
+    overflow: hidden;
+}
+
+.prompt-input-container:focus-within {
+    @apply ring-2 ring-primary-500/20 border-primary-500;
+    @apply dark:border-primary-500 dark:ring-primary-500/20;
+}
+
+.prompt-textarea {
+    @apply resize-none overflow-hidden max-h-[300px] outline-none;
+    field-sizing: content;
+    /* Modern auto-resize */
+}
+
+/* Remove default textarea border when inside prompt container */
+/* Remove default textarea border/ring when inside prompt container.
+   Uses !important because global textarea rule has competing specificity. */
+.prompt-input-container textarea {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+}
+
+.prompt-input-container textarea:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    --tw-ring-shadow: none !important;
+}
+
+.prompt-toolbar {
+    @apply rounded-b-xl;
+}
+
+.category-chip {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors whitespace-nowrap border border-transparent;
+    @apply dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:border-neutral-700;
+    @apply focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600;
+}
+
+.category-chip.active {
+    @apply bg-primary-100 text-primary-800 border-primary-200;
+    @apply dark:bg-primary-900/30 dark:text-primary-300 dark:border-primary-800;
+}
+
+/* ===================================
+   CHAT INTERFACE
+   =================================== */
+
+.chat-bubble-user {
+    @apply bg-primary-600 text-white p-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm;
+    color: #ffffff !important;
+}
+
+.chat-bubble-user * {
+    color: #ffffff !important;
+}
+
+.chat-bubble-ai {
+    @apply bg-white border border-gray-200 p-4 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-gray-200;
+}
+
+.chat-avatar-ai {
+    @apply flex-shrink-0 size-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold text-xs;
+    @apply dark:bg-primary-900/30 dark:text-primary-400;
+}
+
+/* ===================================
+   BUTTONS & CONTROLS
+   =================================== */
+
+.btn-icon {
+    /* Icon button base */
+    @apply p-0 bg-transparent text-gray-500 border-transparent;
+
+    /* Icon button specific styles */
+    @apply inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg transition-colors;
+    @apply hover:bg-gray-100;
+    @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-gray-200;
+    @apply dark:text-neutral-500 dark:hover:bg-neutral-800 dark:focus:ring-neutral-700;
+}
+
+.btn-icon-primary {
+    /* Primary icon button */
+    @apply p-0 border-transparent;
+
+    /* Styles */
+    @apply inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg text-white bg-primary-600 transition-colors;
+    @apply hover:bg-primary-700;
+    @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
+}
+
+.btn-dark-mode-toggle,
+.dark-mode-toggle {
+    @apply p-2 rounded-full bg-transparent text-gray-600 transition-colors border-none;
+    @apply hover:bg-gray-200;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-700;
+}
+
+/* ===================================
+   PATTERN LIBRARY THEME TOGGLE
+   Pill switch with embedded icon. Light mode: moon left, thumb right.
+   Dark mode: thumb left, sun right.
+   =================================== */
+
+.pl-theme-toggle {
+    @apply flex items-center gap-2.5 w-full cursor-pointer border-none bg-transparent py-2 px-2.5;
+    @apply focus:outline-none focus-visible:outline-none;
+}
+
+/* The pill track */
+.pl-theme-toggle-track {
+    @apply relative inline-flex items-center w-[52px] h-[28px] rounded-full shrink-0 transition-colors duration-200 cursor-pointer;
+    @apply bg-gray-200 dark:bg-primary-500;
+    padding: 3px;
+}
+
+.pl-theme-toggle:hover {
+    @apply bg-gray-100 rounded-lg;
+    @apply dark:hover:bg-neutral-700;
+}
+
+.pl-theme-toggle:focus-visible .pl-theme-toggle-track {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: 9999px;
+}
+
+/* The sliding thumb */
+.pl-theme-toggle-thumb {
+    @apply absolute w-[22px] h-[22px] rounded-full bg-white shadow-sm transition-transform duration-200;
+    left: 3px;
+    top: 3px;
+}
+
+/* In dark mode, slide the thumb to the right */
+:is(.dark) .pl-theme-toggle-thumb {
+    transform: translateX(24px);
+}
+
+/* Sun icon — visible in light mode (right side of track, opposite thumb) */
+.pl-theme-icon-sun {
+    @apply absolute text-[15px] text-gray-500;
+    right: 5px;
+    z-index: 1;
+    display: block !important;
+}
+
+:is(.dark) .pl-theme-icon-sun {
+    display: none !important;
+}
+
+/* Moon icon — hidden in light mode, visible in dark mode (left side of track, opposite thumb) */
+.pl-theme-icon-moon {
+    @apply absolute text-[15px] text-white;
+    left: 5px;
+    z-index: 1;
+    display: none !important;
+}
+
+:is(.dark) .pl-theme-icon-moon {
+    display: block !important;
+}
+
+/* Label text */
+.pl-theme-toggle-label {
+    @apply text-sm text-gray-600 dark:text-neutral-400;
+}
+
+.pl-theme-label-dark {
+    @apply hidden;
+}
+
+:is(.dark) .pl-theme-label-light {
+    @apply hidden;
+}
+
+:is(.dark) .pl-theme-label-dark {
+    @apply block;
+}
+
+.btn-model-selector,
+.dropdown-btn {
+    /* Reset base button styles */
+    @apply py-2 px-3 bg-white text-gray-800 border-gray-200;
+
+    /* Selector styles */
+    @apply inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border shadow-sm transition-colors;
+    @apply hover:bg-gray-50;
+    @apply focus:outline-none focus:bg-gray-50;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700;
+}
+
+/* ===================================
+   DROPDOWNS
+   =================================== */
+
+.dropdown-menu {
+    transition-property: opacity, margin;
+    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2;
+    @apply dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700;
+}
+
+.hs-dropdown.open > .dropdown-menu,
+.hs-dropdown.hs-dropdown-open > .dropdown-menu {
+    opacity: 1;
+    display: block;
+}
+
+.dropdown-item {
+    @apply flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700;
+}
+
+/* ===================================
+   CALENDAR WIDGET
+   =================================== */
+
+.calendar-widget {
+    @apply inline-flex flex-col items-center w-10 rounded overflow-hidden border border-gray-300 leading-none;
+}
+
+.calendar-month {
+    @apply w-full bg-primary-600 text-white text-[9px] font-bold uppercase tracking-wider text-center py-0.5;
+}
+
+.calendar-day {
+    @apply w-full bg-white text-gray-800 text-sm font-semibold text-center py-0.5;
+}
+
+/* ===================================
+   TAG CONTAINER
+   =================================== */
+
+.tag-container {
+    @apply flex flex-wrap gap-1;
+}
+
+/* ===================================
+   SEARCH INPUT
+   Wrapper + input pattern: wrap an <input type="search"> inside a
+   <div class="search-input"> that also contains a FontAwesome icon.
+   The icon is positioned via the wrapper; the input gets left-padding.
+   =================================== */
+
+.search-input {
+    @apply relative flex-1;
+}
+
+/* Icon element inside .search-input (e.g. <i class="fa-solid fa-magnifying-glass search-input-icon">) */
+.search-input-icon {
+    @apply absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none;
+    @apply dark:text-neutral-500;
+}
+
+/* The input inside .search-input — tighter gap so icon + text feel like one unit */
+.search-input input {
+    padding-inline-start: 2rem !important;
+}
+
+/* Legacy alias */
+.toolbar-search-input {
+    @apply block w-full shadow-sm rounded-md border-gray-200 focus:border-primary-500 focus:ring-primary-500;
+    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400;
+    padding-inline-start: 2rem;
+}
+
+/* ===================================
+   HAVEN SELECT
+   Custom-styled select element that overrides OS-native appearance.
+   Uses an SVG chevron via background-image.
+   =================================== */
+
+.select-haven {
+    @apply block w-full py-2.5 sm:py-3 px-4 text-sm rounded-lg;
+    @apply border-gray-200 bg-white text-gray-900;
+    @apply focus:border-primary-500 focus:ring-primary-500;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
+    @apply dark:focus:ring-neutral-600;
+    appearance: none;
+    padding-inline-end: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem 1rem;
+}
+
+/* ===================================
+   TAB NAVIGATION
+   =================================== */
+
+/* Tab nav container */
+.tab-nav {
+    @apply flex gap-x-1;
+}
+
+/* Individual tab button */
+.tab-nav-item {
+    @apply py-3 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap;
+    @apply border-b-2 border-transparent;
+    @apply text-gray-500;
+    @apply hover:text-primary-600 hover:border-gray-300;
+    @apply focus:outline-none focus:text-primary-600;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:text-neutral-400 dark:hover:text-primary-400;
+    background: transparent !important;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+/* Active tab state -- override Preline's default bg */
+.tab-nav-item.active,
+.tab-nav-item[aria-selected='true'] {
+    @apply font-semibold text-primary-600 border-primary-600;
+    @apply dark:text-primary-400 dark:border-primary-400;
+    background: transparent !important;
+}
+
+/* ===================================
+   MODAL / OVERLAY PANEL
+   Replaces Preline's hs-overlay-open: variant
+   which requires a Tailwind plugin not in v4.
+   =================================== */
+
+.modal-panel {
+    @apply mt-0 opacity-0 transition-all ease-out;
+    @apply sm:max-w-lg sm:w-full m-3 sm:mx-auto;
+}
+
+.hs-overlay.open .modal-panel {
+    @apply mt-7 opacity-100 duration-500;
+}
+
+/* Modal backdrop — semi-transparent with blur instead of fully opaque.
+   Preline dynamically creates .hs-overlay-backdrop for modal overlays. */
+.hs-overlay-backdrop {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* ===================================
+   ASSIGNMENT SELECT
+   =================================== */
+
+.assignment-select {
+    @apply block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
+    @apply py-2 px-3;
+    @apply focus:border-blue-500 focus:ring-blue-500;
+}
+
+.assignment-select.assignment-modified {
+    @apply border-orange-200 bg-orange-50 text-orange-800 dark:bg-orange-900/20 dark:border-orange-800 dark:text-orange-300;
+}
+
+/* ===================================
+   FILTER TAGS
+   =================================== */
+
+.assignment-filter-tag {
+    @apply inline-flex items-center gap-x-2 py-1.5 px-3 rounded-full text-sm font-medium border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700;
+}
+
+.assignment-filter-tag.active {
+    @apply border-blue-600 bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700 dark:border-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600;
+}
+
+.assignment-filter-count {
+    @apply inline-flex items-center justify-center size-5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-neutral-700 dark:text-neutral-400;
+}
+
+.assignment-filter-tag.active .assignment-filter-count {
+    @apply bg-white/20 text-white;
+}
+
+/* ===================================
+   MEAL ASSIGNMENT GRID
+   Kitchen orders page. Rows = patients, columns = weekly menu meals.
+   =================================== */
+
+/* Three-column sticky: Patient (left: 0, 10rem) + Modifications (left: 10rem, 8rem) + Totals (left: 18rem, 6rem) */
+
+/* Column 1 — Patient: solid background to prevent gap on scroll */
+.data-table-sticky-cols th:nth-child(1),
+.data-table-sticky-cols td:nth-child(1) {
+    background-color: var(--color-white);
+}
+
+.dark .data-table-sticky-cols th:nth-child(1),
+.dark .data-table-sticky-cols td:nth-child(1) {
+    background-color: var(--color-neutral-800);
+}
+
+/* Column 2 — Modifications */
+.data-table-sticky-cols th:nth-child(2),
+.data-table-sticky-cols td:nth-child(2) {
+    position: sticky;
+    left: 10rem;
+    z-index: 10;
+    background-color: var(--color-white);
+    border-right: 1px solid var(--color-gray-200);
+}
+
+.dark .data-table-sticky-cols th:nth-child(2),
+.dark .data-table-sticky-cols td:nth-child(2) {
+    background-color: var(--color-neutral-800);
+}
+
+/* Column 3 — Totals */
+.data-table-sticky-cols th:nth-child(3),
+.data-table-sticky-cols td:nth-child(3) {
+    position: sticky;
+    left: 18rem;
+    z-index: 10;
+    background-color: var(--color-white);
+}
+
+.dark .data-table-sticky-cols th:nth-child(3),
+.dark .data-table-sticky-cols td:nth-child(3) {
+    background-color: var(--color-neutral-800);
+}
+
+/* Sticky header row — higher z-index for all three */
+.data-table-sticky-cols thead th:nth-child(1),
+.data-table-sticky-cols thead th:nth-child(2),
+.data-table-sticky-cols thead th:nth-child(3) {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-700;
+    z-index: 11;
+}
+
+/* Hover state for sticky columns */
+.data-table-sticky-cols tbody tr:hover td:nth-child(1),
+.data-table-sticky-cols tbody tr:hover td:nth-child(2),
+.data-table-sticky-cols tbody tr:hover td:nth-child(3) {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-700;
+}
+
+/* Hard border + shadow on third sticky column (Totals) — marks fixed/scroll boundary */
+.data-table-sticky-cols th:nth-child(3),
+.data-table-sticky-cols td:nth-child(3) {
+    border-right: 2px solid var(--color-gray-300) !important;
+}
+
+.data-table-sticky-cols th:nth-child(3)::after,
+.data-table-sticky-cols td:nth-child(3)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -6px;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+    pointer-events: none;
+}
+
+/* Remove shadow from first column */
+.data-table-sticky-cols th:nth-child(1)::after,
+.data-table-sticky-cols td:nth-child(1)::after {
+    display: none;
+}
+
+/* Shadow separator on second sticky column (Modifications) */
+.data-table-sticky-cols th:nth-child(2)::after,
+.data-table-sticky-cols td:nth-child(2)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -4px;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.04), transparent);
+    pointer-events: none;
+}
+
+/* Modifications cell */
+.meal-mod-cell {
+    position: relative;
+    @apply py-2 px-2 align-middle;
+}
+
+.meal-mod-tags {
+    @apply flex flex-nowrap gap-1;
+    overflow: hidden;
+}
+
+.meal-mod-overflow {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 20;
+    min-width: 10rem;
+    max-width: 16rem;
+    display: none;
+    @apply bg-white border border-gray-200 rounded-md p-2;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    border-top: 2px solid var(--color-primary-400);
+    border-radius: 0 0 0.375rem 0.375rem;
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.12);
+}
+
+.meal-mod-overflow {
+    @apply flex-wrap gap-1;
+}
+
+.meal-mod-cell:hover .meal-mod-overflow {
+    display: flex;
+}
+
+/* Raise stacking context above neighboring sticky rows so the overflow popup isn't clipped */
+.data-table-sticky-cols td.meal-mod-cell:hover {
+    z-index: 15;
+}
+
+/* Totals cell */
+.meal-totals-cell {
+    @apply align-middle;
+    padding: 0.75rem 0.5rem;
+}
+
+/* Meal column header */
+.meal-col-header {
+    width: 5rem;
+    overflow: visible;
+    @apply align-bottom;
+}
+
+.meal-col-header-inner {
+    position: relative;
+}
+
+/* Truncated meal name — up to 3 lines */
+.meal-col-name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    word-break: break-word;
+    hyphens: none;
+    @apply text-xs leading-snug;
+}
+
+/* Expanded name overlay on hover — drops below the header into the table body area.
+   Positioned top: 100% to avoid being clipped by .data-table's overflow-y: hidden. */
+.meal-col-name-expanded {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 12rem;
+    z-index: 50;
+    word-break: break-word;
+    hyphens: none;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-top: 2px solid var(--color-primary-400);
+    border-radius: 0 0 0.375rem 0.375rem;
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.12);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-gray-800);
+}
+
+.dark .meal-col-name-expanded {
+    background-color: var(--color-neutral-800);
+    border-color: var(--color-neutral-700);
+    border-top-color: var(--color-primary-500);
+    color: var(--color-neutral-200);
+}
+
+.meal-col-header:hover .meal-col-name-expanded {
+    display: block;
+}
+
+/* Last column: flip tooltip to right-align so it doesn't overflow the table */
+.meal-col-header:last-child .meal-col-name-expanded {
+    left: auto;
+    right: 0;
+}
+
+/* Meal column meta (temp icon + total) */
+.meal-col-meta {
+    @apply flex items-center gap-1 mt-1 text-xs text-gray-500;
+}
+
+.meal-col-total {
+    font-variant-numeric: tabular-nums;
+    @apply font-semibold;
+}
+
+.meal-temp-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    width: fit-content;
+}
+
+.meal-temp-tag--hot {
+    background-color: var(--color-orange-100);
+    color: var(--color-orange-700);
+}
+
+.meal-temp-tag--cold {
+    background-color: var(--color-blue-100);
+    color: var(--color-blue-700);
+}
+
+/* Meal quantity cell — spreadsheet style.
+   The input IS the cell. No badge, no display toggling.
+   State (active/zero/conflict) expressed via td background.
+   Steppers flank the input, visible only on focus. */
+
+.meal-qty-cell {
+    padding: 0 !important;
+    vertical-align: middle;
+    position: relative;
+    transition: outline-color 0.1s;
+}
+
+/* Zero: muted */
+.meal-qty-cell:not(.meal-qty-cell--active):not(.meal-qty-cell--conflict) {
+    opacity: 0.45;
+}
+
+/* Active: subtle sand tint */
+.meal-qty-cell--active {
+    opacity: 1;
+    background-color: color-mix(in srgb, var(--color-secondary-200) 35%, transparent);
+}
+
+/* Conflict: error tint */
+.meal-qty-cell--conflict {
+    opacity: 1;
+    background-color: var(--color-error-50);
+}
+
+/* Focus ring on the td */
+.meal-qty-cell:focus-within {
+    outline: 2px solid var(--color-primary-400);
+    outline-offset: -2px;
+    opacity: 1;
+    z-index: 1;
+}
+
+.meal-qty-input-group {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+}
+
+/* The input fills the cell */
+.meal-qty-input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0.5rem 0 !important;
+    color: inherit;
+}
+
+/* Suppress browser number spinners */
+.meal-qty-input::-webkit-outer-spin-button,
+.meal-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.meal-qty-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Stepper buttons: hidden at rest */
+.meal-qty-btn {
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1.5rem;
+    width: 1.5rem;
+    padding: 0;
+    margin: 0;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    cursor: pointer;
+    color: var(--color-gray-400);
+    font-size: 0.6875rem;
+    align-self: stretch;
+    min-height: 0;
+}
+
+.meal-qty-btn:hover {
+    color: var(--color-gray-700) !important;
+    background: transparent !important;
+}
+
+/* Show steppers on focus */
+.meal-qty-cell:focus-within .meal-qty-btn {
+    display: flex !important;
+}
+
+.meal-qty-cell:focus-within .meal-qty-btn.meal-qty-decrement {
+    border-right: 1px solid var(--color-gray-200) !important;
+}
+
+.meal-qty-cell:focus-within .meal-qty-btn.meal-qty-increment {
+    border-left: 1px solid var(--color-gray-200) !important;
+}
+
+/* Mobile notice for grid */
+.meal-grid-mobile-notice {
+    @apply flex items-center p-3 mb-4;
+    @apply bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-600;
+    @apply lg:hidden;
+}
+
+/* ===================================
+   PIPELINE BAR
+   =================================== */
+
+.pipeline-bar {
+    @apply flex w-full rounded-lg overflow-hidden;
+    height: 2.5rem;
+}
+
+.pipeline-segment {
+    @apply flex items-center justify-center px-2 overflow-hidden whitespace-nowrap;
+    @apply text-xs text-white font-medium;
+    min-width: 3rem;
+}
+
+/* ===================================
+   ALERT CATEGORY CARD
+   =================================== */
+
+/* Alert category tag icons — required HTML structure:
+   Each .alert-category-label must contain an <i> tag with the correct FA6 icon.
+
+   Clinical : <i class="fa-solid fa-heart-pulse me-1.5"></i>
+   Social   : <i class="fa-solid fa-people-group me-1.5"></i>
+   Delivery : <i class="fa-solid fa-truck me-1.5"></i>
+   Safety   : <i class="fa-solid fa-shield-halved me-1.5"></i>
+
+   Example:
+   <div class="alert-category-card" style="--alert-accent: var(--color-error-500)">
+       <span class="alert-category-label">
+           <i class="fa-solid fa-heart-pulse me-1.5"></i> Clinical
+       </span>
+       ...
+   </div>
+
+   Do NOT use CSS content: to inject FA icons — FontAwesome requires <i> elements.
+*/
+
+.alert-category-card {
+    @apply flex flex-col gap-1 p-4 bg-white rounded-xl;
+    @apply border-t border-r border-b border-gray-200;
+    @apply border-l-4;
+    border-left-color: var(--alert-accent, var(--color-gray-200));
+    @apply hover:bg-gray-50 transition-colors cursor-pointer;
+    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
+}
+
+.alert-category-label {
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-wider text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+/* ===================================
+   CLINICAL METRIC CARD
+   =================================== */
+
+.clinical-metric-card {
+    @apply flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-xl cursor-pointer;
+    @apply hover:bg-gray-50 transition-colors;
+    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
+}
+
+.metric-card-flagged {
+    @apply border-l-4 border-error-500;
+}
+
+/* ===================================
+   TREND BADGES
+   .trend-up / .trend-down / .trend-flat are the canonical classes.
+   .trend-improving / .trend-worsening are semantic aliases used in healthcare contexts.
+   Both sets produce identical output.
+   =================================== */
+
+.trend-badge {
+    @apply inline-flex items-center gap-1 text-xs font-medium;
+}
+
+.trend-up,
+.trend-improving {
+    @apply inline-flex items-center gap-1 text-xs font-medium text-success-600;
+    @apply dark:text-success-400;
+}
+
+.trend-down,
+.trend-worsening {
+    @apply inline-flex items-center gap-1 text-xs font-medium text-error-600;
+    @apply dark:text-error-400;
+}
+
+.trend-flat {
+    @apply inline-flex items-center gap-1 text-xs font-medium text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+/* ===================================
+   ACTIVITY FEED
+   =================================== */
+
+.activity-feed-row {
+    @apply flex items-center gap-3 px-4 py-3;
+    @apply border-b border-gray-100 last:border-b-0;
+    @apply hover:bg-gray-50 transition-colors;
+    @apply dark:border-neutral-700 dark:hover:bg-neutral-800;
+}
+
+/* ===================================
+   CHART CONTAINERS
+   =================================== */
+
+.chart-canvas-wrapper {
+    @apply relative w-full overflow-hidden;
+}
+
+.chart-sparkline {
+    @apply relative;
+    height: 40px;
+    min-height: 40px;
+}
+
+.chart-line {
+    height: 240px;
+}
+
+.chart-bar {
+    height: 200px;
+}
+
+/* ===================================
+   SEGMENTED CONTROL / VIEW TOGGLE
+   Groups two or more options in a single bordered container.
+   Outer corners rounded, inner corners squared off.
+   =================================== */
+
+.segmented-control,
+.view-toggle {
+    @apply inline-flex rounded-lg border border-gray-200 overflow-hidden;
+    @apply dark:border-neutral-700;
+}
+
+.segmented-control-btn,
+.view-toggle-btn {
+    @apply px-3 py-1.5 text-sm text-gray-600 bg-white transition-colors cursor-pointer;
+    @apply hover:bg-gray-50;
+    @apply focus:outline-none focus:z-10 focus:ring-2 focus:ring-inset focus:ring-primary-500;
+    @apply dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700;
+    /* Square all corners — the container handles outer rounding via overflow-hidden */
+    border-radius: 0;
+    /* Separator between adjacent buttons */
+    border-right: 1px solid var(--color-gray-200);
+}
+
+.segmented-control-btn:last-child,
+.view-toggle-btn:last-child {
+    border-right: none;
+}
+
+:is(.dark) .segmented-control-btn,
+:is(.dark) .view-toggle-btn {
+    border-right-color: var(--color-neutral-700);
+}
+
+.segmented-control-btn.active,
+.view-toggle-btn.active {
+    @apply bg-primary-50 text-primary-700 font-medium;
+    @apply dark:bg-primary-900/20 dark:text-primary-400;
+}
+
+/* ===================================
+   PATIENT CARD (card view)
+   =================================== */
+
+.patient-card {
+    @apply flex flex-col gap-3 p-4 bg-white rounded-xl cursor-pointer;
+    @apply border-t border-r border-b border-l border-gray-200;
+    @apply hover:bg-gray-50 transition-colors;
+    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
+}
+
+/* ===================================
+   PATIENT ROW (table view)
+   =================================== */
+
+.patient-row {
+    @apply cursor-pointer;
+}
+
+/* ===================================
+   SENTIMENT BADGE
+   =================================== */
+
+.sentiment-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+}
+
+.sentiment-satisfied {
+    @apply bg-success-50 text-success-700;
+}
+
+.sentiment-neutral {
+    @apply bg-sand-100 text-sand-600;
+}
+
+.sentiment-dissatisfied {
+    @apply bg-warning-50 text-warning-700;
+}
+
+/* ===================================
+   SDOH BADGE
+   =================================== */
+
+.sdoh-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-mono;
+    @apply bg-gray-100 text-gray-600 border border-gray-200;
+    @apply cursor-default;
+}
+
+/* ===================================
+   SESSION MODE BAR
+   =================================== */
+
+.session-mode-bar {
+    @apply flex items-center justify-between px-6 py-2.5;
+    @apply bg-primary-50 border-b border-primary-200;
+    @apply sticky z-20;
+    top: 85px;
+}
+
+/* ===================================
+   MEDICATION ROW
+   =================================== */
+
+.medication-row {
+    @apply flex items-start gap-3 px-4 py-3;
+    @apply border-b border-gray-100 last:border-b-0;
+    @apply hover:bg-gray-50 transition-colors cursor-pointer;
+}
+
+/* ===================================
+   ALERT SUMMARY ROW
+   =================================== */
+
+.alert-summary-row {
+    @apply flex items-center justify-between gap-2 px-4 py-2.5;
+    @apply border-b border-gray-100 last:border-b-0;
+}
+
+/* ===================================
+   SECTION NAV (in-page jump nav)
+   =================================== */
+
+.section-nav {
+    @apply bg-white border-b border-gray-100;
+}
+
+.section-nav-item {
+    @apply px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap;
+    @apply text-gray-500 hover:text-gray-900 hover:bg-gray-100;
+    @apply transition-colors no-underline;
+}
+
+.section-nav-item.active {
+    @apply text-primary-700 bg-primary-50;
+}
+
+/* ===================================
+   STRATIFICATION BAR
+   =================================== */
+
+.stratification-bar {
+    @apply flex items-center gap-2 flex-wrap;
+}
+
+.stratification-bar-label {
+    @apply text-xs font-medium text-gray-500 shrink-0;
+}
+
+.stratification-bar-item {
+    @apply px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap;
+    @apply bg-white text-gray-600 border-gray-200;
+    @apply hover:bg-gray-50 transition-colors cursor-pointer;
+}
+
+.stratification-bar-item.active {
+    @apply bg-primary-50 text-primary-700 border-primary-200;
+}
+
+/* ===================================
+   AI INSIGHT
+   =================================== */
+
+.ai-insight-badge {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium;
+    @apply bg-violet-50 text-violet-700 border border-violet-200;
+}
+
+.ai-insight-callout {
+    @apply flex gap-2.5 p-3 rounded-lg text-sm;
+    @apply bg-violet-50 border border-violet-200 text-violet-800;
+}
+
+.ai-insight-callout-icon {
+    @apply text-violet-500 shrink-0 mt-0.5;
+}
+
+/* ===================================
+   HEDIS GRID
+   =================================== */
+
+.hedis-grid {
+    @apply grid grid-cols-2 gap-3;
+}
+
+.hedis-stat {
+    @apply p-4 bg-gray-50 rounded-xl border border-gray-200;
+}
+
+.hedis-stat-label {
+    @apply text-xs font-medium text-gray-500 uppercase tracking-wide mb-1;
+}
+
+.hedis-stat-value {
+    @apply text-xl font-bold text-gray-900;
+}
+
+.hedis-stat-detail {
+    @apply text-xs text-gray-500 mt-0.5;
+}
+
+/* ===================================
+   ROI CALCULATOR
+   =================================== */
+
+.roi-calculator {
+    @apply p-4 bg-gray-50 rounded-xl border border-gray-200;
+}
+
+.roi-formula {
+    @apply text-sm text-gray-600 font-mono leading-relaxed;
+}
+
+.roi-result {
+    @apply text-2xl font-bold text-success-700 mt-3;
+}
+
+.roi-result-label {
+    @apply text-xs text-gray-500 mt-0.5;
+}
+
+/* ===================================
+   PATIENT TIMELINE
+   =================================== */
+
+.timeline-list {
+    @apply relative;
+}
+
+.timeline-event {
+    @apply relative flex gap-4 pb-6;
+}
+
+.timeline-event:last-child {
+    @apply pb-0;
+}
+
+.timeline-left {
+    @apply flex flex-col items-center shrink-0 w-8;
+}
+
+.timeline-connector {
+    @apply w-px flex-1 bg-gray-200 mt-1;
+}
+
+.timeline-event:last-child .timeline-connector {
+    @apply hidden;
+}
+
+.timeline-icon-circle {
+    @apply w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm;
+}
+
+.timeline-icon-circle-enrollment {
+    @apply bg-primary-100 text-primary-600;
+}
+
+.timeline-icon-circle-clinical {
+    @apply bg-violet-100 text-violet-600;
+}
+
+.timeline-icon-circle-delivery {
+    @apply bg-info-100 text-info-600;
+}
+
+.timeline-icon-circle-alert {
+    @apply bg-warning-100 text-warning-600;
+}
+
+.timeline-icon-circle-encounter {
+    @apply bg-primary-100 text-primary-600;
+}
+
+.timeline-icon-circle-careplan {
+    @apply bg-gray-100 text-gray-500;
+}
+
+.timeline-event-body {
+    @apply flex-1 min-w-0;
+}
+
+.timeline-event-header {
+    @apply flex items-center gap-2 flex-wrap mb-1;
+}
+
+.timeline-event-preview {
+    @apply text-sm text-gray-600 truncate;
+}
+
+.timeline-event-detail {
+    @apply mt-2 text-sm text-gray-600 space-y-1;
+}
+
+.timeline-event-actor {
+    @apply text-xs text-gray-400;
+}
+
+/* ===================================
+   PARTNER LIST
+   =================================== */
+
+.partner-list-item {
+    @apply flex items-center gap-3 px-4 py-3 cursor-pointer;
+    @apply border-b border-gray-100 last:border-b-0;
+    @apply hover:bg-gray-50 transition-colors;
+}
+
+.partner-list-item.active {
+    @apply bg-primary-50 border-l-4 border-l-primary-500;
+}
+
+/* ===================================
+   PERFORMANCE METRIC CARD
+   =================================== */
+
+.performance-metric-card {
+    @apply p-4 bg-gray-50 rounded-xl border border-gray-200;
+}
+
+.performance-metric-label {
+    @apply text-xs font-medium text-gray-500 uppercase tracking-wide mb-1;
+}
+
+.performance-metric-value {
+    @apply text-2xl font-bold text-gray-900;
+}
+
+.performance-metric-detail {
+    @apply text-xs text-gray-500 mt-0.5;
+}
+
+/* ===================================
+   PARTNER ALERT ROW
+   =================================== */
+
+.partner-alert-row {
+    @apply flex items-center gap-3 py-3 border-b border-gray-100 last:border-b-0;
+}
+
+/* ===================================
+   DANGER OUTLINE BUTTON
+   =================================== */
+
+.btn-danger-outline {
+    @apply py-2 px-3 gap-x-1.5 bg-transparent border border-error-300 text-error-600;
+    @apply hover:bg-error-50 hover:border-error-400;
+    @apply focus:ring-error-500;
+    @apply dark:border-error-700 dark:text-error-400 dark:hover:bg-error-900/20;
+}
+
+/* ===================================
+   SEVERITY BADGE
+   Replaces colored dot pattern in alert tables.
+   =================================== */
+
+.severity-badge {
+    @apply inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider whitespace-nowrap;
+}
+
+.severity-high {
+    @apply bg-error-100 text-error-700;
+    @apply dark:bg-error-900/30 dark:text-error-400;
+}
+
+.severity-medium {
+    @apply bg-warning-100 text-warning-700;
+    @apply dark:bg-warning-900/30 dark:text-warning-400;
+}
+
+.severity-low {
+    @apply bg-gray-100 text-gray-500;
+    @apply dark:bg-neutral-700 dark:text-neutral-400;
+}
+
+/* ===================================
+   MUTED TABLE ROW
+   For inactive patients, resolved alerts, etc.
+   =================================== */
+
+.table-row-muted {
+    @apply opacity-55;
+}
+
+.table-row-muted:hover {
+    @apply opacity-70;
+}
+
+/* ===================================
+   METRIC VALUE DANGER
+   Applied to primary metric numbers when the metric is flagged.
+   =================================== */
+
+.metric-value-danger {
+    @apply text-error-600 font-bold;
+    @apply dark:text-error-400;
+}
+
+/* Child trend indicators inside a danger metric card should use a neutral color
+   so green "improving" badges don't contradict the danger flag. */
+.metric-value-danger .trend-up,
+.metric-value-danger .trend-improving,
+.metric-value-danger .trend-badge {
+    color: inherit;
+}
+
+/* ===================================
+   SLA WARNING
+   Applied to rows in alert resolution tables where avg time exceeds target.
+   =================================== */
+
+.sla-warning {
+    @apply text-warning-700 font-medium;
+    @apply dark:text-warning-400;
+}
+
+/* ===================================
+   TABLE SECTION DIVIDER
+   Visual separator row between groups in a table (e.g., resolved vs unresolved).
+   =================================== */
+
+.table-section-divider td {
+    @apply px-4 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider;
+    @apply bg-gray-50 border-t-2 border-gray-200;
+    @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-500;
+}
+
+/* ===================================
+   SECONDARY PERFORMANCE STATS
+   Compact stat row for non-primary partner metrics.
+   =================================== */
+
+.performance-stats-row {
+    @apply grid grid-cols-3 gap-3;
+}
+
+.performance-stat-compact {
+    @apply p-3 bg-gray-50 rounded-lg border border-gray-100;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+}
+
+.performance-stat-compact-label {
+    @apply text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-0.5;
+    @apply dark:text-neutral-500;
+}
+
+.performance-stat-compact-value {
+    @apply text-base font-bold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.performance-stat-compact-detail {
+    @apply text-[10px] text-gray-400 mt-0.5;
+    @apply dark:text-neutral-500;
+}
+
+/* ===================================
+   PROGRAM SUB-NAV
+   Indented sub-items in sidebar accordion for Program page sections.
+   =================================== */
+
+.sidebar-subnav-list {
+    @apply space-y-0.5 mt-1 ms-4 border-s border-gray-200 list-none;
+    @apply dark:border-neutral-700;
+    border-width: 0 0 0 3px;
+}
+
+.sidebar-subnav-item {
+    @apply flex items-center gap-x-2.5 pe-2 text-[13px] text-gray-600 rounded-e-lg;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-200;
+    @apply cursor-pointer transition-colors no-underline;
+    background: transparent !important;
+    border-left: 3px solid transparent;
+    margin-left: -3px;
+    padding-left: 1.55em; /* ~20px at 13px, scales with font-size */
+    min-height: 2.75em; /* ~36px at 13px, scales with font-size */
+    padding-block: 0.45em;
+}
+
+.sidebar-subnav-item:hover {
+    @apply bg-gray-100 text-gray-900 font-semibold;
+    border-left-color: var(--color-gray-400);
+}
+
+.sidebar-subnav-item.active {
+    @apply bg-primary-50 text-primary-700 font-medium;
+    @apply dark:bg-primary-900/20 dark:text-primary-400;
+    background-color: var(--color-primary-50) !important;
+    border-left-color: var(--color-primary-500);
+}
+
+/* Section heading for content areas outside cards. */
+.section-heading {
+    @apply text-xl font-semibold text-gray-900 dark:text-neutral-100;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+
+/* Constrains text-heavy content to a readable line length.
+   Use on prose/article sections within full-width page layouts. */
+.prose-section {
+    @apply block;
+    max-inline-size: 72ch;
+}
+
+/* Key/value pair table — consistent label+value list used on patient detail,
+   partner detail, and anywhere a two-column definition list appears.
+   Usage: <table class="kv-table"><tr><td>Label</td><td>Value</td></tr></table> */
+.kv-table {
+    @apply block w-full;
+}
+
+.kv-table tr {
+    @apply border-b border-gray-100 dark:border-neutral-800;
+}
+
+.kv-table tr:last-child {
+    @apply border-b-0;
+}
+
+.kv-table td:first-child {
+    @apply py-2 pr-4 font-semibold text-gray-500 dark:text-neutral-400 text-sm;
+}
+
+.kv-table td:last-child {
+    @apply py-2 text-gray-900 dark:text-neutral-100 text-sm;
+}
+
+/* ===================================
+   STEPPED FORM LAYOUT
+   =================================== */
+
+/* Flex wrapper: vertical nav + content pane */
+.form-layout {
+    @apply flex gap-0;
+    min-height: 28rem;
+}
+
+/* Vertical step navigation */
+.step-nav {
+    @apply flex flex-col gap-1 py-5 pr-5 pl-3 border-r border-gray-200 shrink-0;
+    @apply dark:border-neutral-700;
+    min-width: 13rem;
+}
+
+/* Individual step button */
+.step-nav-item {
+    @apply flex items-center gap-2.5 py-2.5 px-4 rounded-lg font-medium text-gray-500
+           bg-transparent border-none cursor-pointer text-left whitespace-nowrap transition-colors;
+    font-size: 0.8rem;
+}
+
+.step-nav-item:hover {
+    @apply bg-gray-50 text-gray-700;
+    @apply dark:bg-neutral-800 dark:text-neutral-300;
+}
+
+.step-nav-item.active,
+.step-nav-item[aria-selected="true"],
+.step-nav-item.hs-tab-active {
+    @apply bg-teal-50 text-teal-700 font-semibold;
+    @apply dark:bg-teal-950 dark:text-teal-300;
+}
+
+/* Numbered circle inside step button */
+.step-num {
+    @apply inline-flex items-center justify-center w-6 h-6 rounded-full font-bold bg-gray-200 text-gray-600 shrink-0;
+    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    font-size: 0.7rem;
+}
+
+.step-nav-item.active .step-num,
+.step-nav-item[aria-selected="true"] .step-num,
+.step-nav-item.hs-tab-active .step-num {
+    @apply bg-teal-600 text-white;
+}
+
+/* Content pane beside the step nav */
+.form-content {
+    @apply flex-1 p-5 min-w-0;
+}
+
+/* Prev / Next navigation row inside each tab */
+.form-nav {
+    @apply flex justify-between mt-8 pt-5 border-t border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+/* Stack horizontally on small screens */
+@media (max-width: 640px) {
+    .form-layout {
+        @apply flex-col;
+        min-height: 0;
+    }
+
+    .step-nav {
+        @apply flex-row overflow-x-auto border-r-0 border-b border-gray-200 p-3;
+        @apply dark:border-neutral-700;
+        min-width: 0;
+    }
+
+    .step-nav-item {
+        @apply whitespace-nowrap py-2 px-3;
+        font-size: 0.75rem;
+    }
+
+    .form-content {
+        @apply p-4;
+    }
+}

@@ -1,0 +1,82 @@
+/* Default Variables */
+:root {
+    /* Spacing */
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+
+    /* Radius */
+    --radius-3: 0.5rem;
+
+    /* Typography */
+    --font-size-2: 0.925rem; /* ~15px */
+
+    /* Colors */
+    --color-surface: #ffffff;
+    --color-panel-solid: #ffffff;
+
+    --accent-9: var(--color-primary-600);
+    --accent-10: var(--color-primary-700);
+    --accent-a6: var(--color-primary-300);
+
+    --gray-6: var(--color-gray-300);
+    --gray-12: var(--color-gray-900);
+
+    /* Shadows */
+    --shadow-3: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea {
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
+    border: 1px solid var(--gray-6);
+    border-radius: var(--radius-3);
+    font-size: var(--font-size-2);
+    background-color: var(--color-surface);
+    color: var(--gray-12);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent-9);
+    outline: 2px solid var(--accent-a6);
+    outline-offset: 2px;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+button,
+[type="button"],
+[type="submit"] {
+    padding-block: var(--space-2);
+    padding-inline: var(--space-4);
+    border: none;
+    border-radius: var(--radius-3);
+    font-size: var(--font-size-2);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button:hover,
+[type="button"]:hover,
+[type="submit"]:hover {
+    background-color: var(--accent-10);
+}
