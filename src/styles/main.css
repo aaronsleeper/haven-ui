@@ -3,6 +3,7 @@
 @import "./tokens/typography.css";
 @import "./tokens/spacing.css";
 @import "./tokens/defaults.css";
+@import "../../node_modules/preline/css/themes/theme.css";
 @import "./haven.css";
 @import "./tokens/components.css";
-@import "../../node_modules/preline/css/themes/theme.css";
+@import "./print.css";

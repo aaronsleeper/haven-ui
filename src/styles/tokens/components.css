@@ -125,10 +125,14 @@ input[type='time'],
 input[type='number'],
 input[type='tel'],
 input[type='url'],
-input[type='search'],
 select,
 textarea {
     @apply py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500;
+}
+
+/* Search input - left padding accommodates the icon overlay */
+input[type='search'] {
+    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500;
 }
 
 /* Select specific padding + custom chevron (mirrors .select-haven) */
@@ -228,16 +232,21 @@ input[type='checkbox'] {
    BUTTONS
    =================================== */
 
-/* Default button styles - apply to ALL buttons */
+/* Default button styles - apply to ALL buttons and <a> button variants */
 button,
 [type='button'],
 [type='submit'],
-[type='reset'] {
+[type='reset'],
+a.btn-primary,
+a.btn-secondary,
+a.btn-outline,
+a.btn-danger {
     @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg border border-transparent;
     @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:focus:ring-offset-neutral-800;
     cursor: pointer;
+    text-decoration: none;
 }
 
 /* Primary Button Variant */
@@ -324,7 +333,7 @@ button,
 
 /* Compact badge for use in tables and dense layouts */
 .badge-sm {
-    @apply text-[10px] px-1.5 py-0.5 font-semibold;
+    @apply text-[10px] px-1.5 py-0.5 font-bold;
 }
 
 /* ===================================
@@ -812,6 +821,38 @@ button,
 }
 
 /* ===================================
+   DROPDOWNS
+   Haven semantic wrappers for hs-dropdown-menu / hs-dropdown-item.
+   These MUST use the hs-* class names so Preline's JS can detect them.
+   =================================== */
+
+.hs-dropdown-menu {
+    @apply min-w-40 bg-white border border-gray-200 shadow-md rounded-lg p-1 mt-1 z-10;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    /* Hidden by default; Preline adds 'block' when open, 'hidden' (display:none) when closed */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.15s ease, margin 0.15s ease;
+}
+
+/* Preline v4 removes 'hidden' and adds 'block' when open */
+.hs-dropdown-menu.block {
+    display: block;
+    opacity: 1;
+}
+
+.hs-dropdown-item {
+    @apply flex items-center gap-x-3 py-1.5 px-3 rounded-md text-sm text-gray-700 cursor-pointer;
+    @apply hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800;
+    text-decoration: none;
+}
+
+.hs-dropdown-item.active {
+    @apply bg-primary-50 text-primary-700 font-medium;
+    @apply dark:bg-primary-900/20 dark:text-primary-400;
+}
+
+/* ===================================
    TOOLBAR
    =================================== */
 
@@ -829,9 +870,10 @@ button,
 }
 
 /* Search input with leading icon needs extra left padding.
-   Uses !important because global input[type="text"] rule sets px-4. */
-.toolbar-search input {
-    padding-inline-start: 2rem !important;
+   !important required to beat the input[type='text'] px-4 shorthand. */
+.toolbar-search input,
+.toolbar-search-input {
+    @apply !ps-10;
 }
 
 /* ===================================

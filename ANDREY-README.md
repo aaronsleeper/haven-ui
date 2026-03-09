@@ -167,6 +167,37 @@ For a styled Haven select (custom chevron, no OS-native appearance):
 
 ---
 
+## Dropdowns
+
+Preline UI handles dropdown behavior. Required class names (exact spelling matters -- Preline's autoInit scans for these):
+
+```html
+<div class="hs-dropdown relative inline-flex">
+  <button type="button" class="hs-dropdown-toggle btn-outline"
+    id="hs-dropdown-filter"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-label="Filter">
+    All Statuses <i class="fa-solid fa-chevron-down text-xs"></i>
+  </button>
+  <div class="hs-dropdown-menu" role="menu" aria-labelledby="hs-dropdown-filter">
+    <a class="hs-dropdown-item" href="#">All Statuses</a>
+    <a class="hs-dropdown-item" href="#">Active</a>
+    <a class="hs-dropdown-item" href="#">Draft</a>
+    <a class="hs-dropdown-item" href="#">Issues</a>
+  </div>
+</div>
+```
+
+**Preline v4 note:** The menu's open/closed state is driven by `display: none` (default) and `display: block` (open). Preline removes the `block` class and adds `hidden` on close. Do not add any additional Tailwind visibility utilities to the menu element -- Haven's `components.css` handles this entirely.
+
+**Active item:**
+```html
+<a class="hs-dropdown-item active" href="#">All Statuses</a>
+```
+
+---
+
 ## JavaScript Requirements
 
 - **Preline UI** is required for: sidebar overlay, dropdowns, modals, accordions, tooltips

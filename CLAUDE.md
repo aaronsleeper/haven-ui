@@ -130,9 +130,43 @@ HTML files use clean semantic class names.
 
 Before creating or editing any file:
 
-1. Check `src/styles/tokens/components.css` for existing classes
-2. Check `src/partials/` for existing partials
-3. Only then write or modify files
+1. Read `pattern-library/COMPONENT-INDEX.md` — this is the ground truth for every existing component and its semantic classes
+2. Check `src/styles/tokens/components.css` for any class not yet indexed
+3. Check `src/partials/` for existing partials
+4. Only then write or modify files
+
+### Pattern-Library-First Rule
+
+This is mandatory. No exceptions.
+
+**Copy, don't generate.** If a component exists in `pattern-library/components/`, copy its HTML directly into the app page. Do not rewrite it from memory or regenerate it.
+
+**Pattern library before app.** If a component you need does not exist in the index:
+1. Create `pattern-library/components/[category]-[name].html` with a `@component-meta` header
+2. Add the semantic classes to `src/styles/tokens/components.css`
+3. Add a row to `pattern-library/COMPONENT-INDEX.md`
+4. Then and only then use it in an app page
+
+**What goes in the pattern library:**
+- Any new semantic class added to `components.css`
+- Any component with interactive behavior (accordion, modal, dropdown, tabs)
+- Any new partial added to `src/partials/`
+- Any chart pattern or data visualization variant
+- Any form pattern (input group, validation state, etc.)
+- Any reusable visual unit that will appear in more than one app
+
+**What stays app-only:**
+- Page layout (grid, columns, sidebar composition)
+- Composition of existing components into a screen
+- Data-driven content wired to dummy data
+- App-specific partials that are tightly coupled to one persona's workflow
+
+**Task scope declaration.** Every task prompt must declare its scope before building:
+- Pattern library only (new component; no app work in this task)
+- App only (composing existing patterns; no new components)
+- Both (pattern first, then app — run as two sequential prompts)
+
+See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 
 ---
 
@@ -171,11 +205,36 @@ Before creating or editing any file:
 ### Preline UI
 
 - Used for interactive behavior (dropdowns, accordions, modals, overlays)
-- Always copy the exact Preline HTML structure from the docs — do not invent Preline JS API calls
+- Preline JS is loaded via `src/scripts/main.js` (`import 'preline'`) as a Vite module — never add a CDN script tag for Preline
 - Use Preline's `data-hs-*` attributes for JS behavior
 - Apply Haven semantic classes instead of Preline's utility-heavy markup patterns
 - A single accordion does not need `hs-accordion-group` wrapper
 - Apply `.hs-accordion-toggle` to toggle buttons to neutralize Preline's hover background
+
+**CRITICAL — Dropdown markup (Preline v4 behavior differs from docs):**
+
+Preline v4 uses FloatingUI for positioning. When a dropdown opens, it removes `hidden` from the menu, adds `block`, and applies `position: fixed` inline. It does NOT add `hs-dropdown-open` to the wrapper. The `hs-dropdown-open:*` Tailwind variants shown in Preline docs are inert in our setup.
+
+Use this exact pattern — no extras:
+```html
+<div class="hs-dropdown relative inline-flex">
+  <button type="button" class="hs-dropdown-toggle btn-outline">
+    Label <i class="fa-solid fa-chevron-down text-xs"></i>
+  </button>
+  <div class="hs-dropdown-menu" role="menu">
+    <a class="hs-dropdown-item" href="#">Option</a>
+  </div>
+</div>
+```
+
+Do NOT add `transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden` to the menu -- these are inert/harmful. Visibility is controlled entirely by `components.css`:
+
+```css
+.hs-dropdown-menu          { display: none; opacity: 0; }   /* hidden by default */
+.hs-dropdown-menu.block    { display: block; opacity: 1; }  /* Preline adds 'block' when open */
+```
+
+The `display: none` default is required to prevent the menu from occupying layout space before Preline initializes. Without it, the menu renders as an invisible ghost box on page load.
 
 ### Icons
 
@@ -221,8 +280,7 @@ Before creating or editing any file:
 <!-- FontAwesome Pro (local) -->
 <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
 
-<!-- Preline JS (for interactive components) -->
-<script src="https://cdn.jsdelivr.net/npm/preline@2.6.0/dist/preline.min.js"></script>
+<!-- Preline JS is loaded via Vite module (src/scripts/main.js) — do NOT add a CDN script tag -->
 
 <!-- Chart.js v4 (only on pages with charts) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -260,6 +318,9 @@ After completing any build task:
 - [ ] Layout holds at ~768px width
 - [ ] No files edited in `dist/`
 - [ ] Any new dummy data schema deltas documented in `src/data/_schema-notes.md`
+- [ ] Any new component has a file in `pattern-library/components/` with `@component-meta`
+- [ ] `pattern-library/COMPONENT-INDEX.md` updated if a new component was added
+- [ ] `ANDREY-README.md` updated if component HTML or class names changed
 
 ---
 
@@ -302,3 +363,33 @@ update `ANDREY-README.md` in the same task. Do not leave it stale.
 - **Tailwind:** https://tailwindcss.com/docs
 - **Preline:** https://preline.co/docs/index.html
 - **Chart.js:** https://www.chartjs.org/docs/latest/
+
+---
+
+## UX Design & Build Workflow
+
+A full design-to-build pipeline lives in `.project-docs/agent-workflow/`.
+Read `.project-docs/agent-workflow/README.md` for an overview.
+
+**When to use it:** Any time Aaron describes a new feature, screen, or application
+to design and build. Also for redesigns of existing screens.
+
+**Pipeline:**
+ux-architect → ux-wireframe → ux-design-review (pre-build) → haven-mapper →
+dev-tasker → [build] → ux-design-review (post-build) → debrief-capture
+
+**To invoke a skill:** Read the skill file from
+`.project-docs/agent-workflow/skills/[skill-name].md`, follow its instructions,
+produce its specified outputs.
+
+**Design artifacts live in:** `apps/[persona]/design/`
+
+**Gates:** Pause and present a structured summary to Aaron after:
+1. ux-architect completes (Gate 1: scope + IA)
+2. ux-wireframe + ux-design-review pre-build complete (Gate 2: wireframes + copy)
+3. dev-tasker completes (Gate 3: build plan)
+
+**Constraints Lookup (mandatory before writing any build prompt):**
+Read `.project-docs/decisions-log.md`. Extract every entry with a
+"Rule to follow in future prompts" line. Apply relevant rules to each prompt
+under a "Known Constraints" heading.

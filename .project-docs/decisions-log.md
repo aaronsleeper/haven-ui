@@ -264,6 +264,74 @@ Size (`py-*`, `px-*`, `gap-*`) and color (`bg-*`, `text-*`) must live on variant
 
 ---
 
+## Decision: Preline theme.css Must Be Imported Before haven.css
+**Date:** 2026-03-09
+**Context:** After migrating to haven-ui, all primary colors rendered as blue despite `haven.css` correctly mapping `--primary-*` to teal. The computed styles panel showed `--primary-50` through `--primary-950` all resolving to `--color-blue-*`.
+
+**Root Cause:** `preline/css/themes/theme.css` was imported after `haven.css` in `main.css`. Preline's theme sets its own `--primary-*` variables to blue. Since CSS cascade is source-order dependent, Preline's values overwrote Haven's overrides.
+
+**Fix:** Move the Preline theme import to before `haven.css` in `main.css`:
+```css
+/* Correct order */
+@import "../../node_modules/preline/css/themes/theme.css"; /* sets Preline defaults */
+@import "./haven.css";                                     /* overrides with Haven palette */
+@import "./tokens/components.css";
+```
+
+**Rule:** Preline's theme.css must always come before haven.css. Haven's `:root` overrides only work if they appear after Preline's defaults in the compiled output.
+
+**Outcome:** ✅ Fixed. Primary color correctly resolves to teal.
+
+---
+
+## Decision: Preline v4 Dropdown Open State Uses 'block' Class, Not 'hs-dropdown-open'
+**Date:** 2026-03-09
+**Context:** Dropdown on `meal-list.html` was registering with Preline JS and toggling correctly, but the menu remained invisible (opacity: 0) after opening.
+
+**Root Cause:** Preline v4 uses FloatingUI for menu positioning. When a dropdown opens, it:
+1. Removes the `hidden` class from the menu
+2. Adds the `block` class to the menu
+3. Applies `position: fixed` + transform via FloatingUI for positioning
+4. Does NOT add `hs-dropdown-open` class to the wrapper element
+
+The Tailwind variant `hs-dropdown-open:opacity-100` (used in Preline's own example markup) only fires if a parent has the literal class `hs-dropdown-open`. Since Preline v4 never adds that class, the variant is dead code in our setup.
+
+**Decision:** Drive dropdown visibility with explicit CSS targeting `.hs-dropdown-menu.block`:
+```css
+.hs-dropdown-menu {
+    opacity: 0;
+    transition: opacity 0.15s ease, margin 0.15s ease;
+}
+.hs-dropdown-menu.block {
+    opacity: 1;
+}
+```
+
+HTML should use clean class names with NO Tailwind transition utilities:
+```html
+<!-- Correct -->
+<div class="hs-dropdown-menu" role="menu">
+
+<!-- Wrong - these classes are inert in Preline v4 -->
+<div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden">
+```
+
+**Also confirmed:** The menu must use `hs-dropdown-menu` (not `dropdown-menu`). Preline's autoInit scans for `.hs-dropdown` wrappers and expects to find `.hs-dropdown-menu` inside them.
+
+**Rationale:** Targets the actual class Preline sets, not the one its docs imply. Verified by MutationObserver tracing the exact class mutations during open/close.
+
+**Rule for future prompts:** Any Haven dropdown must use these exact class names:
+- Wrapper: `hs-dropdown`
+- Toggle: `hs-dropdown-toggle`
+- Menu: `hs-dropdown-menu` (no additional Tailwind utilities)
+- Items: `hs-dropdown-item`
+
+Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire. Visibility is handled by `components.css`.
+
+**Outcome:** ✅ Dropdown opens and closes correctly with opacity transition.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]

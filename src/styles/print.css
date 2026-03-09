@@ -1,0 +1,86 @@
+/* Print Styles */
+@media print {
+
+    /* Hide navigation and non-printable elements */
+    .app-sidebar,
+    .sidebar-toggle-bar,
+    .breadcrumb,
+    .navbar,
+    .page-header button,
+    .btn,
+    .btn-primary,
+    .btn-outline,
+    .btn-icon,
+    .hs-tab-nav,
+    /* Hide tabs navigation */
+    .toolbar,
+    .pagination,
+    footer {
+        display: none !important;
+    }
+
+    /* Reset layout for full width */
+    body {
+        background-color: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .w-full.lg\:ps-72 {
+        padding-left: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Card adjustments */
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+        break-inside: avoid;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Typography adjustments */
+    body,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    table {
+        color: #000 !important;
+    }
+
+    /* Force background colors for graphics (badges, etc) */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Ensure tables print well */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+
+    th,
+    td {
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    /* Ensure all accordion content is visible when printing */
+    .hs-accordion-content {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Page breaks */
+    .page-break {
+        page-break-before: always;
+    }
+}

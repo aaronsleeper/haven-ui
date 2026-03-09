@@ -6,7 +6,11 @@ Repo scaffolded and build pipeline verified. Token files migrated from haven-tai
 `components.css` copied (76KB, full content). FontAwesome Pro v7.1.0 vendor files in place.
 `npm install` complete. Dev server confirmed at localhost:5173.
 
-No app pages ported yet. Pattern library is an empty scaffold.
+Pattern library scaffold populated with 80+ component files across all categories.
+`COMPONENT-INDEX.md` created — ground truth for all existing components and their classes.
+Pattern-Library-First workflow established in CLAUDE.md and task-template.md.
+
+App pages migration in progress (see active `next-task.md`).
 
 ## Active Work
 

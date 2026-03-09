@@ -12,6 +12,53 @@
 
 ---
 
+## Pattern: Preline v4 Dropdown Markup
+**Tags:** #preline #dropdown #components
+**Success Rate:** ✅ Verified 2026-03-09
+**Last Used:** 2026-03-09
+
+**Context:** Preline v4 uses FloatingUI internally. Its dropdown open/close behavior differs from docs and from v2/v3. The `hs-dropdown-open:*` Tailwind variants shown in Preline's own HTML examples are dead code in our setup because Preline never adds `hs-dropdown-open` to the wrapper element. Instead it adds `block` to the menu.
+
+**Always use this markup — nothing more, nothing less:**
+```html
+<div class="hs-dropdown relative inline-flex">
+  <button type="button" class="hs-dropdown-toggle btn-outline">
+    Label <i class="fa-solid fa-chevron-down text-xs"></i>
+  </button>
+  <div class="hs-dropdown-menu" role="menu">
+    <a class="hs-dropdown-item" href="#">Option 1</a>
+    <a class="hs-dropdown-item" href="#">Option 2</a>
+  </div>
+</div>
+```
+
+**Required CSS (already in components.css — do not remove):**
+```css
+.hs-dropdown-menu {
+    /* base styles via @apply */
+    opacity: 0;
+    transition: opacity 0.15s ease, margin 0.15s ease;
+}
+.hs-dropdown-menu.block {
+    opacity: 1; /* Preline adds 'block' when open */
+}
+```
+
+**Hallucination triggers to avoid:**
+- Do NOT add `transition-[opacity,margin]` to the menu div
+- Do NOT add `hs-dropdown-open:opacity-100` to the menu div
+- Do NOT add `opacity-0` to the menu div
+- Do NOT add `hidden` to the menu div
+- Do NOT add a CDN `<script>` tag for Preline (it's loaded via `src/scripts/main.js`)
+
+**Diagnosis pattern if dropdown appears registered but not visible:**
+1. Check `window.$hsDropdownCollection.length` — if 0, Preline didn't find `hs-dropdown`
+2. Check menu has `hs-dropdown-menu` class (not `dropdown-menu`)
+3. After clicking toggle, check if menu has `block` class and `position: fixed` style
+4. If `block` is present but menu invisible, something is overriding `opacity: 1` — check for lingering `opacity-0` utility class on the menu element
+
+---
+
 ## Pattern: Semantic Defaults Implementation
 **Tags:** #defaults #semantic-classes #core-pattern
 **Success Rate:** ✅ High

@@ -1,230 +1,108 @@
-# Task: Migrate existing pages from haven repo into haven-ui
+# Task: Set up agent-based UX workflow
 _Generated: 2026-03-09_
-_Context: All app pages and pattern library pages were built in the old haven repo at
-/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/. haven-ui has the correct structure
-and build pipeline but no pages yet. This task copies all existing pages into haven-ui
-and updates them to use haven-ui's partial and asset conventions._
+_App: cross-app_
+_Context: The agent-workflow folder at `.project-docs/agent-workflow/` contains a complete
+UX design-to-build pipeline (6 skill files + workflow doc + README). This task integrates
+it into the active haven-ui workflow: updates the task-template, adds the workflow to
+CLAUDE.md awareness, and verifies everything is readable and correctly pathed._
 
 ---
 
-## Prompt 1: Audit source files
+## Scope Classification
 
-Before copying anything, list the following directories and report their contents:
-
-Source (old repo):
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pages/kitchen/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pages/providers/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pages/providers/patients/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pattern-library/pages/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pattern-library/partials/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pattern-library/components/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/`
-
-Destination (haven-ui):
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/apps/kitchen/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/apps/provider/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/pattern-library/`
-- `/Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/`
-
-Report the full file list for each. Do not copy anything yet.
+- [x] Cross-app infrastructure — no new components, no app pages
 
 ---
 
-## Prompt 2: Copy app pages
+## Prompt 1: Read and verify the workflow files
 
-Run these copy commands from the terminal:
+Read the following files in full and confirm each exists and is non-empty:
 
-```bash
-# Kitchen pages
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pages/kitchen/*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/apps/kitchen/
+- `.project-docs/agent-workflow/README.md`
+- `.project-docs/agent-workflow/ux-workflow.md`
+- `.project-docs/agent-workflow/skills/ux-architect.md`
+- `.project-docs/agent-workflow/skills/ux-wireframe.md`
+- `.project-docs/agent-workflow/skills/ux-design-review.md`
+- `.project-docs/agent-workflow/skills/haven-mapper.md`
+- `.project-docs/agent-workflow/skills/dev-tasker.md`
+- `.project-docs/agent-workflow/skills/debrief-capture.md`
 
-# Provider pages (flat files)
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pages/providers/*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/apps/provider/
-
-# Provider patients subfolder
-mkdir -p /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/apps/provider/patients/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pages/providers/patients/*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/apps/provider/patients/
-```
-
-Confirm each copy succeeded by listing the destination directories.
+Report: file name, approximate line count, and first heading for each.
+Do not summarize content — just confirm they exist and are readable.
 
 ---
 
-## Prompt 3: Copy pattern library
+## Prompt 2: Update task-template.md
 
-Run these copy commands:
+Read `.project-docs/prompts/task-template.md` in full.
 
-```bash
-# Pattern library pages
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pattern-library/pages/*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/pattern-library/pages/
+Then replace its entire contents with the updated version below. This adds three
+things the old template was missing: the Constraints Lookup step, mandatory dark mode
+verification, and the Completion Report.
 
-# Pattern library partials
-mkdir -p /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/pattern-library/partials/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pattern-library/partials/*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/pattern-library/partials/
+Write this exact content to `.project-docs/prompts/task-template.md`:
 
-# Pattern library components
-mkdir -p /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/pattern-library/components/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/pattern-library/components/*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/pattern-library/components/
-```
-
-Confirm each copy succeeded by listing the destination directories.
+```markdown
+# Task: [Short descriptive title]
+_Generated: YYYY-MM-DD_
+_App: [provider | kitchen | patient | care-coordinator | pattern-library | cross-app]_
 
 ---
 
-## Prompt 4: Copy remaining partials
+## Scope Classification
 
-The haven-ui `src/partials/` already has `head.html`, `scripts.html`, and `scripts-charts.html`
-written for the new repo. Do NOT overwrite those three files.
+Answer these before writing any code or touching any file.
 
-Copy everything else from the old partials directory:
+**Work type (check one):**
+- [ ] Pattern library only — new component or variant; no app work in this task
+- [ ] App only — composing existing patterns into a page; no new components
+- [ ] Both — pattern library first, then app usage (run as two sequential prompts)
 
-```bash
-# List what's in the source so we can copy selectively
-ls /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/
-```
+**If pattern library work:**
+List every new semantic class that will be added to `components.css`:
+- `.class-name` — what it does
 
-Then copy each file that is NOT `head.html` or `scripts.html`:
+**If app work:**
+List every pattern library component being used (verify each exists in `COMPONENT-INDEX.md`):
+- `[component-file].html` — how it's used on this page
 
-```bash
-# Copy sidebar and other partials (not head.html, not scripts.html)
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/kitchen-sidebar.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/providers-sidebar.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/kitchen-meal-assignment-grid.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/prompt-input.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/footer.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/header.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-```
-
-Copy the section-*.html partials (used by the pattern library):
-```bash
-cp /Users/aaronsleeper/Desktop/Vaults/Lab/haven/theme/partials/section-*.html \
-   /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/
-```
-
-Confirm by listing `/Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/src/partials/`.
+**If a component you need is NOT in the index:**
+Stop. Add it to the pattern library in a prior prompt before continuing.
 
 ---
 
-## Prompt 5: Update asset references in app pages
+## Pre-Build Audit
 
-The old pages reference assets with relative paths (`../../styles/main.css`,
-`../../partials/`) and use FontAwesome Free CDN. haven-ui uses absolute paths
-and FA Pro local.
+Before writing any HTML or CSS, the agent must:
 
-For every `.html` file in `apps/kitchen/`, `apps/provider/`, and `apps/provider/patients/`:
+1. Read `pattern-library/COMPONENT-INDEX.md` and confirm every component needed exists
+2. Read the relevant sections of `src/styles/tokens/components.css` to confirm class names
+3. Check `src/partials/` for any reusable partials relevant to this task
+4. Read `.project-docs/decisions-log.md` and extract every entry that has a
+   **"Rule to follow in future prompts"** line — list them here before proceeding
+5. For each rule extracted in step 4, note whether it applies to this task.
+   Embed applicable rules in the relevant prompt below under a "Known Constraints" heading.
+6. List any component gaps found (missing components, missing classes)
 
-**Replace these patterns (use sed or equivalent):**
-
-```bash
-# Working directory for these commands:
-cd /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui
-
-# 1. Remove old stylesheet link (main.css or haven-theme)
-# 2. Remove FA Free CDN link
-# 3. Remove old script tags for preline/main.js
-# These are all replaced by the <load> partial approach below.
-```
-
-For each app page file, open it and make these changes manually or via script:
-
-**Remove** any line containing:
-- `../../styles/main.css`
-- `../../styles/haven-theme`
-- `font-awesome/6` (FA Free CDN)
-- `src/main.js`
-- `preline.min.js` (standalone script tag — the partial handles this)
-
-**Replace** the entire `<head>` content (everything between `<head>` and `</head>`) with:
-```html
-  <load src="/src/partials/head.html" />
-```
-
-**Note:** Set the page `<title>` by adding it after the load tag:
-```html
-  <load src="/src/partials/head.html" />
-  <title>Page Title — Haven UI</title>
-```
-
-**Replace** any `<load src="../../partials/` with `<load src="/src/partials/`
-
-**Replace** any `<load src="../partials/` (from providers subfolder) with `<load src="/src/partials/`
-
-**Before closing `</body>`**, ensure this line exists (add if missing):
-```html
-  <load src="/src/partials/scripts.html" />
-```
-
-Report every file changed and what was changed.
+If component gaps exist, resolve them in the pattern library before touching app files.
 
 ---
 
-## Prompt 6: Update asset references in pattern library pages
+## Prompt 1: [First discrete step]
 
-For every `.html` file in `pattern-library/pages/`:
+[Instructions for the first atomic task.]
 
-**Replace** any `<load src="../partials/pl-head.html" />` -- check if `pl-head.html`
-exists in `pattern-library/partials/`. If it does, leave pattern library internal
-`<load>` references as-is (they use their own partial structure). Only update
-references that point outside the pattern-library directory.
-
-If pattern library pages reference `../../styles/` or the FA Free CDN directly
-(i.e. they are NOT using `<load>` tags), apply the same head replacement as
-Prompt 5.
-
-Report what you find and what was changed.
+### Known Constraints
+[Rules from decisions-log.md that apply to this specific prompt. Leave blank if none apply.]
 
 ---
 
-## Prompt 7: Spot-check finance.html
+## Prompt 2: [Second discrete step]
 
-Open `apps/kitchen/finance.html` and report:
+[Instructions for the next step. Reference specific files and class names.]
 
-1. What is in the `<head>` block? (Are the old stylesheet/CDN references gone?)
-2. Does it have `<load src="/src/partials/head.html" />`?
-3. Does it have `<load src="/src/partials/scripts.html" />` before `</body>`?
-4. Are there any remaining `../../` path references?
-5. Are there any `<style>` blocks in the file? (Note: these exist in the old version
-   and will need to be migrated to `components.css` in a future task -- do NOT
-   remove them now, just report them.)
-
----
-
-## Prompt 8: Start dev server and verify
-
-Run `npm run dev` from `/Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui/`.
-
-If it starts successfully, report:
-- Any build errors or warnings
-- Confirmation that the server is running
-
-If there are errors, report the full error message. Do not attempt to fix errors
-without reporting them first.
-
----
-
-## Prompt 9: Commit
-
-Once the dev server starts without errors, run:
-
-```bash
-cd /Users/aaronsleeper/Desktop/Vaults/Lab/haven-ui
-git add -A
-git commit -m "Migrate app pages and pattern library from haven repo"
-```
-
-Report the commit hash.
+### Known Constraints
+[Rules from decisions-log.md that apply to this specific prompt. Leave blank if none apply.]
 
 ---
 
@@ -232,30 +110,170 @@ Report the commit hash.
 
 After all prompts complete, confirm:
 
-- [ ] `apps/kitchen/` contains: add-meals.html, delivery-status.html, finance.html, meal-list.html, orders.html, reports.html, settings.html
-- [ ] `apps/provider/` contains dashboard, patients, alerts, program, reports, partners pages
-- [ ] `apps/provider/patients/` contains detail.html
-- [ ] `pattern-library/pages/` contains 14 pages
-- [ ] No `../../styles/` references remain in any app page
-- [ ] No FA Free CDN references remain in any app page
-- [ ] Dev server starts without errors at http://localhost:5173
+- [ ] Verified at `http://localhost:5173/[path/to/page.html]`
+- [ ] All new classes are in `components.css` with `@apply` definitions
+- [ ] Any new class using only raw CSS properties has `@apply block;` as its first line
+- [ ] No utility chains in HTML (layout-only utilities are OK)
+- [ ] No `style="..."` attributes (except data-driven flex on pipeline segments)
+- [ ] No `<script>` blocks in HTML files
+- [ ] All JS in `src/scripts/`
+- [ ] Dark mode variants present for all color, bg, border, and text on any new or modified component class (yes / no / not applicable)
+- [ ] Pattern library component file created with `@component-meta` header (if new component was added)
+- [ ] `COMPONENT-INDEX.md` updated (if new component was added)
+- [ ] `ANDREY-README.md` updated if component HTML structure or class names changed (yes / no / not applicable)
+- [ ] `src/data/_schema-notes.md` updated if dummy data deviates from Firebase schema (yes / no / not applicable)
+- [ ] Committed
+
+---
+
+## Completion Report
+
+After verification passes and before running the git commit, output this report:
+
+```
+## Completion Report — [Task Title]
+
+- New semantic classes added to components.css: [list, or "none"]
+- Existing classes modified: [list, or "none"]
+- Pattern library files created or updated: [list, or "none"]
+- Judgment calls (anything not explicitly specified in the prompt): [list, or "none"]
+- Dark mode added: [yes / no / not applicable]
+- ANDREY-README.md updated: [yes / no / not applicable]
+- Schema delta logged: [yes / no / not applicable]
+- Items deferred or incomplete: [list, or "none"]
+```
 
 ---
 
 ## Final Step: View the Result
 
-Output the following to Aaron:
+After completing the Completion Report, run:
+
+```bash
+git add -A
+git commit -m "[brief description of what was built]"
+```
+
+Then output:
 
 ---
-**Migration complete. View your pages:**
-- Kitchen finance: http://localhost:5173/apps/kitchen/finance.html
-- Provider dashboard: http://localhost:5173/apps/provider/dashboard.html
-- Pattern library: http://localhost:5173/pattern-library/pages/index.html
-- Root index: http://localhost:5173/
+**View your result:**
+- If `npm run dev` is already running: http://localhost:5173/[path/to/file.html]
+- If not running: open a terminal in the repo root, run `npm run dev`, then visit the URL above
+---
+```
 
-If `npm run dev` is not running, start it from the repo root first.
+Confirm the write succeeded by reading back the first 20 lines of the updated file.
 
-**Note:** Some app pages may have inline `<style>` blocks that were not migrated to
-`components.css`. These will render correctly for now. They are flagged for a
-follow-up cleanup task.
+---
+
+## Prompt 3: Add workflow awareness to CLAUDE.md
+
+Read `CLAUDE.md` in full.
+
+Find the `## .project-docs/` section or the section that describes project documentation
+files. If no such section exists, find the last section in the file.
+
+Append the following block. Do NOT modify any existing content — only add this:
+
+```markdown
+---
+
+## UX Design & Build Workflow
+
+A full design-to-build pipeline lives in `.project-docs/agent-workflow/`.
+Read `.project-docs/agent-workflow/README.md` for an overview.
+
+**When to use it:** Any time Aaron describes a new feature, screen, or application
+to design and build. Also for redesigns of existing screens.
+
+**Pipeline:**
+ux-architect → ux-wireframe → ux-design-review (pre-build) → haven-mapper →
+dev-tasker → [build] → ux-design-review (post-build) → debrief-capture
+
+**To invoke a skill:** Read the skill file from
+`.project-docs/agent-workflow/skills/[skill-name].md`, follow its instructions,
+produce its specified outputs.
+
+**Design artifacts live in:** `apps/[persona]/design/`
+
+**Gates:** Pause and present a structured summary to Aaron after:
+1. ux-architect completes (Gate 1: scope + IA)
+2. ux-wireframe + ux-design-review pre-build complete (Gate 2: wireframes + copy)
+3. dev-tasker completes (Gate 3: build plan)
+
+**Constraints Lookup (mandatory before writing any build prompt):**
+Read `.project-docs/decisions-log.md`. Extract every entry with a
+"Rule to follow in future prompts" line. Apply relevant rules to each prompt
+under a "Known Constraints" heading.
+```
+
+Confirm the addition by reading back the last 40 lines of `CLAUDE.md`.
+
+---
+
+## Prompt 4: Smoke test — verify workflow is invocable
+
+Read `.project-docs/agent-workflow/ux-workflow.md` and answer these questions:
+
+1. What are the three gate checkpoint names and what triggers each?
+2. What file does ux-architect produce as its primary output, and where does it go?
+3. What two files does haven-mapper read as its component inventory source of truth?
+4. What is the Constraints Lookup step in dev-tasker, and when does it run?
+5. What does debrief-capture produce, and where does it go?
+
+Answer from the file content only. This confirms the workflow is readable and
+self-consistent from the agent's perspective.
+
+---
+
+## Verification
+
+- [ ] All 8 workflow files confirmed readable in Prompt 1
+- [ ] `task-template.md` updated with Constraints Lookup, dark mode check, and Completion Report
+- [ ] `CLAUDE.md` has the workflow awareness block appended
+- [ ] Smoke test answers in Prompt 4 are consistent with actual file content
+- [ ] No existing `CLAUDE.md` content was modified (only appended)
+- [ ] No files in `src/`, `apps/`, or `pattern-library/` were touched
+
+---
+
+## Completion Report
+
+```
+## Completion Report — Agent Workflow Setup
+
+- New semantic classes added to components.css: none
+- Existing classes modified: none
+- Pattern library files created or updated: none
+- Judgment calls: [list any]
+- Dark mode added: not applicable
+- ANDREY-README.md updated: not applicable
+- Schema delta logged: not applicable
+- Items deferred or incomplete: [list any, or "none"]
+```
+
+---
+
+## Final Step
+
+Run:
+```bash
+git add -A
+git commit -m "Add agent-based UX workflow to .project-docs"
+```
+
+Then output:
+
+---
+**Workflow setup complete.**
+
+The UX design-to-build pipeline is ready to use. To start a new feature:
+1. Describe the feature to your planning agent (this Claude project)
+2. It will run through ux-architect → wireframes → review → component mapping → build prompts
+3. Build prompts land in `.project-docs/prompts/next-task.md` as usual
+4. Run `/build` in Claude Code to execute
+
+Skills are in `.project-docs/agent-workflow/skills/`.
+Workflow doc: `.project-docs/agent-workflow/ux-workflow.md`
 ---
