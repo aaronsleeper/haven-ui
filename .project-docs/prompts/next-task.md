@@ -1,279 +1,167 @@
-# Task: Set up agent-based UX workflow
-_Generated: 2026-03-09_
+# Task: Fix shared header + add missing app index stubs
+_Generated: 2026-03-10_
 _App: cross-app_
-_Context: The agent-workflow folder at `.project-docs/agent-workflow/` contains a complete
-UX design-to-build pipeline (6 skill files + workflow doc + README). This task integrates
-it into the active haven-ui workflow: updates the task-template, adds the workflow to
-CLAUDE.md awareness, and verifies everything is readable and correctly pathed._
 
 ---
 
 ## Scope Classification
 
-- [x] Cross-app infrastructure — no new components, no app pages
-
----
-
-## Prompt 1: Read and verify the workflow files
-
-Read the following files in full and confirm each exists and is non-empty:
-
-- `.project-docs/agent-workflow/README.md`
-- `.project-docs/agent-workflow/ux-workflow.md`
-- `.project-docs/agent-workflow/skills/ux-architect.md`
-- `.project-docs/agent-workflow/skills/ux-wireframe.md`
-- `.project-docs/agent-workflow/skills/ux-design-review.md`
-- `.project-docs/agent-workflow/skills/haven-mapper.md`
-- `.project-docs/agent-workflow/skills/dev-tasker.md`
-- `.project-docs/agent-workflow/skills/debrief-capture.md`
-
-Report: file name, approximate line count, and first heading for each.
-Do not summarize content — just confirm they exist and are readable.
-
----
-
-## Prompt 2: Update task-template.md
-
-Read `.project-docs/prompts/task-template.md` in full.
-
-Then replace its entire contents with the updated version below. This adds three
-things the old template was missing: the Constraints Lookup step, mandatory dark mode
-verification, and the Completion Report.
-
-Write this exact content to `.project-docs/prompts/task-template.md`:
-
-```markdown
-# Task: [Short descriptive title]
-_Generated: YYYY-MM-DD_
-_App: [provider | kitchen | patient | care-coordinator | pattern-library | cross-app]_
-
----
-
-## Scope Classification
-
-Answer these before writing any code or touching any file.
-
-**Work type (check one):**
-- [ ] Pattern library only — new component or variant; no app work in this task
-- [ ] App only — composing existing patterns into a page; no new components
-- [ ] Both — pattern library first, then app usage (run as two sequential prompts)
-
-**If pattern library work:**
-List every new semantic class that will be added to `components.css`:
-- `.class-name` — what it does
-
-**If app work:**
-List every pattern library component being used (verify each exists in `COMPONENT-INDEX.md`):
-- `[component-file].html` — how it's used on this page
-
-**If a component you need is NOT in the index:**
-Stop. Add it to the pattern library in a prior prompt before continuing.
+- [x] Cross-app infrastructure — no new components; three HTML files edited/created
 
 ---
 
 ## Pre-Build Audit
 
-Before writing any HTML or CSS, the agent must:
+Before writing anything:
 
-1. Read `pattern-library/COMPONENT-INDEX.md` and confirm every component needed exists
-2. Read the relevant sections of `src/styles/tokens/components.css` to confirm class names
-3. Check `src/partials/` for any reusable partials relevant to this task
-4. Read `.project-docs/decisions-log.md` and extract every entry that has a
-   **"Rule to follow in future prompts"** line — list them here before proceeding
-5. For each rule extracted in step 4, note whether it applies to this task.
-   Embed applicable rules in the relevant prompt below under a "Known Constraints" heading.
-6. List any component gaps found (missing components, missing classes)
+1. Read `src/partials/header.html` in full — this is the file being replaced
+2. Read `apps/provider/index.html` to confirm the `<load src="src/partials/header.html" />` usage pattern
+3. Read `src/partials/scripts.html` to confirm the scripts partial path
+4. Confirm `apps/patient/` and `apps/care-coordinator/` directories exist but are empty
 
-If component gaps exist, resolve them in the pattern library before touching app files.
+No new semantic classes are needed. No `components.css` changes. No pattern library changes.
 
 ---
 
-## Prompt 1: [First discrete step]
+## Prompt 1: Replace `src/partials/header.html`
 
-[Instructions for the first atomic task.]
+The current `src/partials/header.html` is a leftover theme demo header. It has a nav bar
+with section jump links (`#buttons`, `#forms`, etc.) that have no targets in the apps.
+Replace it entirely with a minimal Haven branding header.
+
+Write this exact content to `src/partials/header.html`:
+
+```html
+<header>
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 dark:bg-neutral-800/95 dark:border-neutral-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="text-xl font-bold text-primary-600 dark:text-primary-400 no-underline">Haven</a>
+        <div class="flex items-center gap-4">
+          <a href="/apps/" class="text-sm font-medium text-gray-600 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 no-underline">Apps</a>
+          <a href="/pattern-library/" class="text-sm font-medium text-gray-600 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 no-underline">Pattern Library</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+```
+
+Confirm by reading back the file after writing.
 
 ### Known Constraints
-[Rules from decisions-log.md that apply to this specific prompt. Leave blank if none apply.]
+- No utility chains in HTML for component styling. These are layout/nav-specific one-off utilities on a shared partial, which is acceptable per CLAUDE.md.
+- No `<script>` blocks in HTML files.
 
 ---
 
-## Prompt 2: [Second discrete step]
+## Prompt 2: Create `apps/patient/index.html`
 
-[Instructions for the next step. Reference specific files and class names.]
+The `apps/patient/` directory exists but is empty. Create `apps/patient/index.html`
+as a minimal coming-soon stub that matches the structure of the other app index pages.
 
-### Known Constraints
-[Rules from decisions-log.md that apply to this specific prompt. Leave blank if none apply.]
+Write this exact content to `apps/patient/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+<load src="src/partials/head.html" />
+<body>
+  <load src="src/partials/header.html" />
+  <main class="container py-8">
+    <h1>Patient App</h1>
+    <p class="mt-2">Patient-facing mobile experience.</p>
+    <p class="mt-4 text-gray-500">Coming soon.</p>
+    <div class="mt-6">
+      <a href="/apps/" class="btn-outline">Back to Apps</a>
+    </div>
+  </main>
+  <load src="src/partials/scripts.html" />
+</body>
+</html>
+```
+
+Confirm by reading back the file after writing.
+
+---
+
+## Prompt 3: Create `apps/care-coordinator/index.html`
+
+The `apps/care-coordinator/` directory exists but is empty. Create
+`apps/care-coordinator/index.html` as a minimal coming-soon stub.
+
+Write this exact content to `apps/care-coordinator/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+<load src="src/partials/head.html" />
+<body>
+  <load src="src/partials/header.html" />
+  <main class="container py-8">
+    <h1>Care Coordinator</h1>
+    <p class="mt-2">Care team coordination interface.</p>
+    <p class="mt-4 text-gray-500">Coming soon.</p>
+    <div class="mt-6">
+      <a href="/apps/" class="btn-outline">Back to Apps</a>
+    </div>
+  </main>
+  <load src="src/partials/scripts.html" />
+</body>
+</html>
+```
+
+Confirm by reading back the file after writing.
 
 ---
 
 ## Verification
 
-After all prompts complete, confirm:
-
-- [ ] Verified at `http://localhost:5173/[path/to/page.html]`
-- [ ] All new classes are in `components.css` with `@apply` definitions
-- [ ] Any new class using only raw CSS properties has `@apply block;` as its first line
-- [ ] No utility chains in HTML (layout-only utilities are OK)
-- [ ] No `style="..."` attributes (except data-driven flex on pipeline segments)
+- [ ] Verified at `http://localhost:5173/` — header shows "Haven" with Apps + Pattern Library links
+- [ ] Verified at `http://localhost:5173/apps/provider/` — same clean header, no section jump links
+- [ ] Verified at `http://localhost:5173/apps/patient/` — renders coming soon stub
+- [ ] Verified at `http://localhost:5173/apps/care-coordinator/` — renders coming soon stub
+- [ ] Verified at `http://localhost:5173/pattern-library/` — still works (uses its own pl-nav, unaffected)
+- [ ] No utility chains added for component styling
+- [ ] No `style="..."` attributes
 - [ ] No `<script>` blocks in HTML files
-- [ ] All JS in `src/scripts/`
-- [ ] Dark mode variants present for all color, bg, border, and text on any new or modified component class (yes / no / not applicable)
-- [ ] Pattern library component file created with `@component-meta` header (if new component was added)
-- [ ] `COMPONENT-INDEX.md` updated (if new component was added)
-- [ ] `ANDREY-README.md` updated if component HTML structure or class names changed (yes / no / not applicable)
-- [ ] `src/data/_schema-notes.md` updated if dummy data deviates from Firebase schema (yes / no / not applicable)
-- [ ] Committed
+- [ ] No `components.css` changes
+- [ ] No pattern library files changed
 
 ---
 
 ## Completion Report
 
-After verification passes and before running the git commit, output this report:
+After verification passes, output:
 
 ```
-## Completion Report — [Task Title]
-
-- New semantic classes added to components.css: [list, or "none"]
-- Existing classes modified: [list, or "none"]
-- Pattern library files created or updated: [list, or "none"]
-- Judgment calls (anything not explicitly specified in the prompt): [list, or "none"]
-- Dark mode added: [yes / no / not applicable]
-- ANDREY-README.md updated: [yes / no / not applicable]
-- Schema delta logged: [yes / no / not applicable]
-- Items deferred or incomplete: [list, or "none"]
-```
-
----
-
-## Final Step: View the Result
-
-After completing the Completion Report, run:
-
-```bash
-git add -A
-git commit -m "[brief description of what was built]"
-```
-
-Then output:
-
----
-**View your result:**
-- If `npm run dev` is already running: http://localhost:5173/[path/to/file.html]
-- If not running: open a terminal in the repo root, run `npm run dev`, then visit the URL above
----
-```
-
-Confirm the write succeeded by reading back the first 20 lines of the updated file.
-
----
-
-## Prompt 3: Add workflow awareness to CLAUDE.md
-
-Read `CLAUDE.md` in full.
-
-Find the `## .project-docs/` section or the section that describes project documentation
-files. If no such section exists, find the last section in the file.
-
-Append the following block. Do NOT modify any existing content — only add this:
-
-```markdown
----
-
-## UX Design & Build Workflow
-
-A full design-to-build pipeline lives in `.project-docs/agent-workflow/`.
-Read `.project-docs/agent-workflow/README.md` for an overview.
-
-**When to use it:** Any time Aaron describes a new feature, screen, or application
-to design and build. Also for redesigns of existing screens.
-
-**Pipeline:**
-ux-architect → ux-wireframe → ux-design-review (pre-build) → haven-mapper →
-dev-tasker → [build] → ux-design-review (post-build) → debrief-capture
-
-**To invoke a skill:** Read the skill file from
-`.project-docs/agent-workflow/skills/[skill-name].md`, follow its instructions,
-produce its specified outputs.
-
-**Design artifacts live in:** `apps/[persona]/design/`
-
-**Gates:** Pause and present a structured summary to Aaron after:
-1. ux-architect completes (Gate 1: scope + IA)
-2. ux-wireframe + ux-design-review pre-build complete (Gate 2: wireframes + copy)
-3. dev-tasker completes (Gate 3: build plan)
-
-**Constraints Lookup (mandatory before writing any build prompt):**
-Read `.project-docs/decisions-log.md`. Extract every entry with a
-"Rule to follow in future prompts" line. Apply relevant rules to each prompt
-under a "Known Constraints" heading.
-```
-
-Confirm the addition by reading back the last 40 lines of `CLAUDE.md`.
-
----
-
-## Prompt 4: Smoke test — verify workflow is invocable
-
-Read `.project-docs/agent-workflow/ux-workflow.md` and answer these questions:
-
-1. What are the three gate checkpoint names and what triggers each?
-2. What file does ux-architect produce as its primary output, and where does it go?
-3. What two files does haven-mapper read as its component inventory source of truth?
-4. What is the Constraints Lookup step in dev-tasker, and when does it run?
-5. What does debrief-capture produce, and where does it go?
-
-Answer from the file content only. This confirms the workflow is readable and
-self-consistent from the agent's perspective.
-
----
-
-## Verification
-
-- [ ] All 8 workflow files confirmed readable in Prompt 1
-- [ ] `task-template.md` updated with Constraints Lookup, dark mode check, and Completion Report
-- [ ] `CLAUDE.md` has the workflow awareness block appended
-- [ ] Smoke test answers in Prompt 4 are consistent with actual file content
-- [ ] No existing `CLAUDE.md` content was modified (only appended)
-- [ ] No files in `src/`, `apps/`, or `pattern-library/` were touched
-
----
-
-## Completion Report
-
-```
-## Completion Report — Agent Workflow Setup
+## Completion Report — Fix shared header + add missing app index stubs
 
 - New semantic classes added to components.css: none
 - Existing classes modified: none
 - Pattern library files created or updated: none
-- Judgment calls: [list any]
-- Dark mode added: not applicable
+- Files modified: src/partials/header.html
+- Files created: apps/patient/index.html, apps/care-coordinator/index.html
+- Judgment calls: none
+- Dark mode: existing dark: variants used inline on nav partial (layout partial, acceptable)
 - ANDREY-README.md updated: not applicable
 - Schema delta logged: not applicable
-- Items deferred or incomplete: [list any, or "none"]
+- Items deferred or incomplete: none
 ```
 
 ---
 
 ## Final Step
 
-Run:
 ```bash
 git add -A
-git commit -m "Add agent-based UX workflow to .project-docs"
+git commit -m "Replace theme demo header with minimal Haven nav; add patient + care-coordinator stubs"
 ```
 
 Then output:
 
 ---
-**Workflow setup complete.**
-
-The UX design-to-build pipeline is ready to use. To start a new feature:
-1. Describe the feature to your planning agent (this Claude project)
-2. It will run through ux-architect → wireframes → review → component mapping → build prompts
-3. Build prompts land in `.project-docs/prompts/next-task.md` as usual
-4. Run `/build` in Claude Code to execute
-
-Skills are in `.project-docs/agent-workflow/skills/`.
-Workflow doc: `.project-docs/agent-workflow/ux-workflow.md`
+**View your result:**
+- If `npm run dev` is already running: http://localhost:5173/
+- If not running: open a terminal in the repo root, run `npm run dev`, then visit http://localhost:5173/
 ---
