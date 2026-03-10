@@ -408,8 +408,9 @@ a.btn-danger {
     @apply text-3xl font-bold text-gray-900 dark:text-neutral-100 leading-none;
 }
 
-/* Space between sibling fieldsets and other block elements inside card body */
-.card-body > * + * {
+/* Space between sibling fieldsets and other block elements inside card body.
+   Excludes feed/list row patterns that manage their own spacing via borders. */
+.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row) {
     @apply mt-4;
 }
 
@@ -2227,8 +2228,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .activity-feed-row {
     @apply flex items-center gap-3 px-4 py-3;
     @apply border-b border-gray-100 last:border-b-0;
-    @apply hover:bg-gray-50 transition-colors;
-    @apply dark:border-neutral-700 dark:hover:bg-neutral-800;
+    @apply hover:bg-gray-50 hover:border-gray-50 transition-colors;
+    @apply dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:border-neutral-800;
 }
 
 /* ===================================
