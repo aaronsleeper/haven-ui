@@ -20,14 +20,14 @@
       if (text !== undefined) el.textContent = text;
     });
 
-    // Update toggle aria-label to name the language you WILL switch to
-    var toggle = document.getElementById('lang-toggle');
-    if (toggle) {
-      toggle.setAttribute(
-        'aria-label',
-        lang === 'en' ? 'Switch to Spanish' : 'Switch to English'
-      );
-    }
+    // Update active state on dropdown items
+    document.querySelectorAll('[data-lang]').forEach(function (item) {
+      if (item.dataset.lang === lang) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
 
     // Persist choice
     try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
@@ -38,14 +38,12 @@
     try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
     applyLanguage(saved || DEFAULT_LANG);
 
-    var toggle = document.getElementById('lang-toggle');
-    if (toggle) {
-      toggle.addEventListener('click', function () {
-        var current;
-        try { current = localStorage.getItem(LANG_KEY); } catch (e) {}
-        applyLanguage((current || DEFAULT_LANG) === 'en' ? 'es' : 'en');
+    // Listen for clicks on dropdown language items
+    document.querySelectorAll('[data-lang]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        applyLanguage(item.dataset.lang);
       });
-    }
+    });
   }
 
   if (document.readyState === 'loading') {

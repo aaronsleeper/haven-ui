@@ -2984,6 +2984,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .meal-card {
   @apply flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
   @apply dark:bg-neutral-900 dark:border-neutral-700;
+  @apply hover:bg-gray-50 transition-colors;
+  background-color: white !important; /* suppress button hover inheritance */
+}
+
+.meal-card:hover {
+  background-color: var(--color-gray-50) !important;
 }
 
 .meal-card-img {

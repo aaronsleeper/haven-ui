@@ -12,17 +12,35 @@
 <body class="mobile-app">
   <div class="mobile-shell pb-[128px]">
 
-    <!-- i18n bar (copied from partial) -->
+    <!-- i18n bar -->
     <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
-      <button
-        class="mobile-i18n-toggle"
-        id="lang-toggle"
-        type="button"
-        aria-label="Switch to Spanish"
-      >
-        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
-        <i class="fa-solid fa-globe"></i>
-      </button>
+      <div class="hs-dropdown relative">
+        <button
+          id="lang-dropdown-btn"
+          type="button"
+          class="mobile-i18n-toggle"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label="Select language"
+        >
+          <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+          <i class="fa-solid fa-globe"></i>
+        </button>
+
+        <div
+          class="hs-dropdown-menu"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="lang-dropdown-btn"
+        >
+          <button type="button" class="hs-dropdown-item" data-lang="en">
+            <i class="fa-solid fa-globe text-xs"></i> English
+          </button>
+          <button type="button" class="hs-dropdown-item" data-lang="es">
+            <i class="fa-solid fa-globe text-xs"></i> Español
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Header zone -->
