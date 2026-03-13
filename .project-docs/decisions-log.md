@@ -360,6 +360,20 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+## Decision: State-Submitted Hides .mobile-shell, Not main
+**Date:** March 2026
+**Context:** The feedback screen spec called for hiding `main` and `#feedback-footer` when `state=submitted`. The page has no `<main>` element -- it uses `.mobile-shell` as the top-level content wrapper, with the sticky footer inside it.
+
+**Decision:** `.state-submitted .mobile-shell { display: none; }` hides the entire form + footer in one rule. `.state-submitted .feedback-confirmation { display: flex; }` shows the confirmation.
+
+**Rationale:** Targeting the actual DOM structure beats patching around a missing `<main>`. Both the form content and the sticky footer are children of `.mobile-shell`, so one rule handles both.
+
+**Rule:** In patient app screens, `.mobile-shell` is the content root. Any show/hide state that would target `main` should target `.mobile-shell` instead.
+
+**Outcome:** ✅ Applied. Submitted state works correctly.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]

@@ -24,7 +24,7 @@ Patient app MVP build in progress -- onboarding screens complete, main app scree
 | Meals | `apps/patient/meals/index.html` | ✅ |
 | Deliveries | `apps/patient/deliveries/index.html` | ✅ |
 | Messages | `apps/patient/care-team/messages.html` | ✅ |
-| Meal Feedback | `apps/patient/care-team/feedback.html` | ⏳ |
+| Meal Feedback | `apps/patient/care-team/feedback.html` | ✅ |
 | Profile | `apps/patient/profile/index.html` | ⏳ |
 | App Index | `apps/patient/index.html` | ⏳ |
 

@@ -1,4 +1,4 @@
-# Task: Patient Meal Feedback Screen (CARE-02)
+# Task: Patient Profile Screen (PAT-PROFILE-01)
 _Generated: 2026-03-12_
 _App: patient_
 
@@ -6,361 +6,321 @@ _App: patient_
 
 ## Scope Classification
 
-**Work type:** App only — composing existing patterns; no new components.
+**Work type:** App page + CSS additions.
 
 **Patterns being used (all verified in components.css):**
 - `mobile-shell`, `mobile-app` — body/wrapper
-- `mobile-i18n-bar`, `mobile-i18n-toggle` — language bar partial
-- `mobile-bottom-nav`, `mobile-bottom-nav-tab` — nav partial
-- `feedback-rating-fieldset`, `feedback-rating-card` — overall rating row (3 cards)
-- `hs-accordion`, `hs-accordion-toggle`, `hs-accordion-content` — per-meal accordion
-- `sticky-footer`, `sticky-footer-inner`, `sticky-footer-actions` — submit footer
-- `btn-primary`, `btn-outline`, `btn-icon` — buttons
-- `text-link` — skip link
+- `mobile-i18n-bar`, `mobile-i18n-toggle` — language bar
+- `mobile-bottom-nav`, `mobile-bottom-nav-tab` — bottom nav
+- `pref-row`, `pref-row-indicator`, `pref-row-indicator--circle`, `pref-row-indicator--square`, `pref-row-label` — editable preference controls
+- `pref-image-card`, `pref-image-card-img-wrap`, `pref-image-card-check`, `pref-image-card-label` — cuisine image selectors
+- `card`, `card-body` — section grouping
+- `sticky-footer`, `sticky-footer-inner`, `sticky-footer-actions` — save footer
+- `btn-primary` — save button
+- `alert`, `alert-error` — error state
 
-**No new semantic classes needed.** Flag any gap found during audit before writing HTML.
+**New semantic classes needed:** `profile-section-heading`, `profile-field-row`, `profile-field-label`, `profile-field-value`, `profile-danger-row`
+
+Flag any gap found during audit before writing HTML.
 
 ---
 
 ## Pre-Build Audit
 
-Before writing any HTML:
+Before writing any HTML or CSS:
 
-1. Read `src/styles/tokens/components.css` — confirm all class names above exist. Note the exact `@apply` values for `feedback-rating-card` and `hs-accordion-toggle`.
-2. Read `src/partials/patient-i18n-bar.html` and `src/partials/patient-bottom-nav.html` — copy verbatim.
-3. Read `apps/patient/meals/index.html` — reference for head, shell, script loading pattern.
-4. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List and flag applicable ones.
-
----
-
-## Prompt 1: Build `apps/patient/care-team/feedback.html`
-
-### File to create
-`apps/patient/care-team/feedback.html`
-
-### Shell setup
-- `<body class="mobile-app">` + `<div class="mobile-shell pb-[128px]">`
-- Copy i18n bar verbatim from partial
-- Copy bottom nav verbatim from partial, set "Care Team" tab active (third tab)
-- Title: `"Meal Feedback — Cena Health"`
-
-### Page structure (top to bottom)
-
-**1. Header zone** — `<div class="px-4 pt-20 pb-2">`
-- Back button: `<a href="/apps/patient/care-team/messages.html" class="btn-icon mb-2" aria-label="Back"><i class="fa-solid fa-chevron-left"></i></a>`
-- `<h1 style="font-family: var(--font-serif);">` — "How were your meals?"
-- `<p class="text-sm text-gray-500 mt-1">` — "Delivery on Thursday, March 19"
-
-**2. Section 1 — Overall rating** — `<div class="px-4 mt-6">`
-
-```html
-<fieldset class="feedback-rating-fieldset">
-  <legend class="text-sm font-semibold text-gray-900 mb-3">
-    <span data-i18n-en="Overall, how were your meals this week?" data-i18n-es="En general, ¿cómo estuvieron tus comidas esta semana?">Overall, how were your meals this week?</span>
-  </legend>
-  <div class="grid grid-cols-3 gap-2">
-
-    <label class="feedback-rating-card">
-      <input type="radio" name="overall-rating" value="good" class="sr-only">
-      <i class="fa-solid fa-face-smile" aria-hidden="true"></i>
-      <span data-i18n-en="Good" data-i18n-es="Buenas">Good</span>
-    </label>
-
-    <label class="feedback-rating-card">
-      <input type="radio" name="overall-rating" value="okay" class="sr-only">
-      <i class="fa-solid fa-face-meh" aria-hidden="true"></i>
-      <span data-i18n-en="Okay" data-i18n-es="Regulares">Okay</span>
-    </label>
-
-    <label class="feedback-rating-card">
-      <input type="radio" name="overall-rating" value="not-good" class="sr-only" id="rating-not-good">
-      <i class="fa-solid fa-face-frown" aria-hidden="true"></i>
-      <span data-i18n-en="Not good" data-i18n-es="No tan buenas">Not good</span>
-    </label>
-
-  </div>
-</fieldset>
-```
-
-**3. Section 1b — Issue type** — conditional, hidden by default, shown when "Not good" is selected
-
-```html
-<div class="px-4 mt-4 feedback-issue-section" style="display:none;">
-  <fieldset class="border-0 p-0">
-    <legend class="text-sm font-semibold text-gray-900 mb-3">
-      <span data-i18n-en="What went wrong?" data-i18n-es="¿Qué salió mal?">What went wrong?</span>
-    </legend>
-    <div class="space-y-2">
-      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="not-delivered">
-        <span data-i18n-en="Meals didn't arrive" data-i18n-es="Las comidas no llegaron">Meals didn't arrive</span>
-      </button>
-      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="wrong-meals">
-        <span data-i18n-en="Wrong meals" data-i18n-es="Comidas incorrectas">Wrong meals</span>
-      </button>
-      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="poor-quality">
-        <span data-i18n-en="Poor quality or damaged" data-i18n-es="Mala calidad o dañadas">Poor quality or damaged</span>
-      </button>
-      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="wrong-amount">
-        <span data-i18n-en="Too much or too little food" data-i18n-es="Demasiada o poca comida">Too much or too little food</span>
-      </button>
-      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="other">
-        <span data-i18n-en="Something else" data-i18n-es="Otra cosa">Something else</span>
-      </button>
-    </div>
-  </fieldset>
-</div>
-```
-
-**4. Section 2 — Per-meal ratings** — `<div class="px-4 mt-6">`
-
-Use Preline accordion. The toggle label is "Rate individual meals". Each accordion item contains a meal name and three icon buttons (thumbs up, neutral, thumbs down). Only one accordion item open at a time is not required — default is all collapsed.
-
-```html
-<div class="hs-accordion-group">
-  <div class="hs-accordion border border-gray-200 rounded-xl overflow-hidden" id="accordion-meals">
-    <button class="hs-accordion-toggle w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900" aria-expanded="false" aria-controls="accordion-meals-content">
-      <span data-i18n-en="Rate individual meals" data-i18n-es="Calificar comidas individuales">Rate individual meals</span>
-      <i class="fa-solid fa-chevron-down accordion-chevron-down text-gray-400 text-xs" aria-hidden="true"></i>
-      <i class="fa-solid fa-chevron-up accordion-chevron-up text-gray-400 text-xs" aria-hidden="true"></i>
-    </button>
-    <div id="accordion-meals-content" class="hs-accordion-content hidden" role="region">
-      <div class="divide-y divide-gray-100">
-
-        <!-- One row per meal -->
-        <div class="flex items-center justify-between px-4 py-3 gap-3">
-          <span class="text-sm text-gray-700 flex-1">Chicken Verde Rice Bowl</span>
-          <div class="flex gap-2 shrink-0">
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between px-4 py-3 gap-3">
-          <span class="text-sm text-gray-700 flex-1">Black Bean Tacos</span>
-          <div class="flex gap-2 shrink-0">
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between px-4 py-3 gap-3">
-          <span class="text-sm text-gray-700 flex-1">Lemon Herb Salmon</span>
-          <div class="flex gap-2 shrink-0">
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between px-4 py-3 gap-3">
-          <span class="text-sm text-gray-700 flex-1">Turkey Sofrito Bowl</span>
-          <div class="flex gap-2 shrink-0">
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between px-4 py-3 gap-3">
-          <span class="text-sm text-gray-700 flex-1">Veggie Stir-Fry</span>
-          <div class="flex gap-2 shrink-0">
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
-            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-**5. Section 3 — Free text** — `<div class="px-4 mt-6">`
-
-```html
-<fieldset class="border-0 p-0">
-  <legend class="text-sm font-semibold text-gray-900 mb-2">
-    <span data-i18n-en="Anything else? (optional)" data-i18n-es="¿Algo más? (opcional)">Anything else? (optional)</span>
-  </legend>
-  <textarea
-    rows="3"
-    class="w-full"
-    placeholder="Tell us more..."
-    aria-label="Additional feedback"
-  ></textarea>
-  <p class="text-xs text-gray-400 mt-1">
-    <span data-i18n-en="Your care team will read this." data-i18n-es="Tu equipo de cuidado leerá esto.">Your care team will read this.</span>
-  </p>
-</fieldset>
-```
-
-**6. Error message** — hidden by default, `<div class="px-4 mt-4">`
-```html
-<div class="alert alert-error hidden" id="feedback-error" role="alert">
-  <span data-i18n-en="Couldn't send your feedback. Try again?" data-i18n-es="No pudimos enviar tus comentarios. ¿Intentar de nuevo?">Couldn't send your feedback. Try again?</span>
-</div>
-```
-
-**7. Confirmation state** — hidden by default, shown on submit or `?state=submitted`
-
-Place this as a sibling to `<main>`, hidden by default:
-```html
-<div class="feedback-confirmation hidden px-4 pt-32 flex flex-col items-center text-center">
-  <i class="fa-solid fa-circle-check text-success-500 text-5xl mb-4" aria-hidden="true"></i>
-  <h2 class="text-xl font-semibold mb-2" style="font-family: var(--font-serif);">
-    <span data-i18n-en="Thanks for your feedback." data-i18n-es="Gracias por tus comentarios.">Thanks for your feedback.</span>
-  </h2>
-  <p class="text-sm text-gray-500 mb-6">
-    <span data-i18n-en="We shared this with your care team." data-i18n-es="Lo compartimos con tu equipo de cuidado.">We shared this with your care team.</span>
-  </p>
-  <a href="/apps/patient/meals/index.html" class="btn-outline">
-    <span data-i18n-en="Done" data-i18n-es="Listo">Done</span>
-  </a>
-</div>
-```
-
-**8. Sticky footer** — place before `</div><!-- /.mobile-shell -->`
-```html
-<div class="sticky-footer" id="feedback-footer">
-  <div class="sticky-footer-inner">
-    <div class="sticky-footer-actions">
-      <a href="/apps/patient/meals/index.html" class="text-link text-sm text-gray-400 mr-auto">
-        <span data-i18n-en="Skip for now" data-i18n-es="Omitir por ahora">Skip for now</span>
-      </a>
-      <button class="btn-primary" id="btn-submit-feedback">
-        <span data-i18n-en="Submit feedback" data-i18n-es="Enviar comentarios">Submit feedback</span>
-      </button>
-    </div>
-  </div>
-</div>
-```
-
-### State variant CSS
-
-Add under `/* Feedback screen state variants */` in `components.css`:
-
-```css
-/* Feedback screen state variants */
-.state-submitted main { @apply block; display: none; }
-.state-submitted #feedback-footer { @apply block; display: none; }
-.state-submitted .feedback-confirmation { @apply flex; }
-```
-
-### Scripts
-- `<script src="/src/scripts/components/i18n.js"></script>`
-- `<script src="/src/scripts/components/feedback.js"></script>`
-- `<script src="/src/scripts/main.js" type="module"></script>` — last
-
-### Known Constraints
-- **Never `@apply` a semantic class inside another semantic class.**
-- **No `<script>` blocks in HTML.**
-- **Raw CSS rules in `components.css` must start with `@apply block;`** if they contain no other `@apply`.
-- **`hs-accordion` open state:** Preline v4 adds the `.block` class to `.hs-accordion-content` when open — do not use `hs-dropdown-open:*` variants. Drive chevron visibility via `.hs-accordion.active` class (confirmed in decisions-log).
+1. Read `src/styles/tokens/components.css` — confirm all class names in Scope Classification exist. If any are missing, stop and report which ones.
+2. Read `apps/patient/onboarding/preferences.html` in full — copy pref-row and pref-image-card markup verbatim; do not paraphrase or reconstruct from memory.
+3. Read `apps/patient/care-team/messages.html` — copy the bottom nav block verbatim.
+4. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List which apply to this task.
 
 ---
 
-## Prompt 2: Build `src/scripts/components/feedback.js`
+## Prompt 1: Add new semantic classes to `src/styles/tokens/components.css`
 
-### State management
-
-```js
-document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('state') === 'submitted') {
-    document.body.classList.add('state-submitted');
-  }
-});
-```
-
-### Issue section toggle
-
-Show `.feedback-issue-section` when "Not good" radio is selected; hide it otherwise:
-
-```js
-document.querySelectorAll('input[name="overall-rating"]').forEach(input => {
-  input.addEventListener('change', () => {
-    const issueSection = document.querySelector('.feedback-issue-section');
-    if (!issueSection) return;
-    issueSection.style.display = input.value === 'not-good' ? '' : 'none';
-  });
-});
-```
-
-### Issue type button selection
-
-```js
-document.querySelectorAll('.issue-type-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.issue-type-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-```
-
-### Per-meal rating selection
-
-Each meal row has three `.meal-rating-btn` buttons. Selecting one highlights it; the others in the same row deselect.
-
-```js
-document.querySelectorAll('.meal-rating-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const row = btn.closest('.flex');
-    row.querySelectorAll('.meal-rating-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-```
-
-Add to `components.css` under the feedback state variants comment:
+Append the following section at the end of the file, after all existing rules. Each class uses `@apply` — no raw-CSS-only rules without a no-op `@apply block;`.
 
 ```css
-.meal-rating-btn.active {
-  @apply text-primary-600 bg-primary-50;
+/* ============================================================
+   PROFILE SCREEN
+   ============================================================ */
+
+/* Section heading rendered above each grouped card */
+.profile-section-heading {
+    @apply block text-xs font-semibold uppercase tracking-wide text-gray-400 px-1 mb-2 mt-6;
+}
+
+/* Read-only display row for personal info fields */
+.profile-field-row {
+    @apply flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0;
+    @apply dark:border-neutral-800;
+}
+
+.profile-field-label {
+    @apply text-sm text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.profile-field-value {
+    @apply text-sm font-medium text-gray-900 text-right;
+    @apply dark:text-white;
+}
+
+/* Destructive action row (e.g. sign out) */
+.profile-danger-row {
+    @apply flex items-center justify-between py-3 cursor-pointer;
+    @apply hover:bg-red-50 dark:hover:bg-red-950/30;
+    @apply rounded-lg px-2 -mx-2;
 }
 ```
 
-### Submit
+Do NOT modify any existing rules. Only append this section.
 
-```js
-document.getElementById('btn-submit-feedback')?.addEventListener('click', () => {
-  document.body.classList.add('state-submitted');
-  history.replaceState(null, '', '?state=submitted');
-  window.scrollTo(0, 0);
-});
+---
+
+## Prompt 2: Create `apps/patient/profile/index.html`
+
+Create the `profile/` directory if it does not exist.
+
+### Shell setup
+- `<body class="mobile-app">` with `<div class="mobile-shell pb-32">`
+- i18n bar: copy verbatim from `messages.html`
+- Bottom nav: copy verbatim from `messages.html`, set Profile tab active (fourth tab, `fa-circle-user`). Remove active class and aria-current from Care Team tab.
+- Title: `"Profile — Cena Health"`
+
+### Head block
+Match `messages.html` exactly — same stylesheet and FontAwesome links, no other changes.
+
+### Page structure
+
+All content inside `<main class="px-4 pt-20 pb-8">`.
+
+**Header**
+```html
+<div class="flex items-center gap-4 mb-2">
+  <div class="w-14 h-14 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
+    <i class="fa-solid fa-circle-user text-primary-500 text-3xl" aria-hidden="true"></i>
+  </div>
+  <div>
+    <h1 class="text-lg font-semibold text-gray-900" style="font-family: var(--font-serif);">
+      <span data-i18n-en="Maria Gonzalez" data-i18n-es="Maria Gonzalez">Maria Gonzalez</span>
+    </h1>
+    <p class="text-sm text-gray-500">
+      <span data-i18n-en="Patient since January 2026" data-i18n-es="Paciente desde enero de 2026">Patient since January 2026</span>
+    </p>
+  </div>
+</div>
+```
+
+**Section 1 — Personal info** (read-only)
+```html
+<p class="profile-section-heading">
+  <span data-i18n-en="Personal Info" data-i18n-es="Información personal">Personal Info</span>
+</p>
+<div class="card">
+  <div class="card-body">
+    <div class="profile-field-row">
+      <span class="profile-field-label" data-i18n-en="Name" data-i18n-es="Nombre">Name</span>
+      <span class="profile-field-value">Maria Gonzalez</span>
+    </div>
+    <div class="profile-field-row">
+      <span class="profile-field-label" data-i18n-en="Date of birth" data-i18n-es="Fecha de nacimiento">Date of birth</span>
+      <span class="profile-field-value">March 4, 1968</span>
+    </div>
+    <div class="profile-field-row">
+      <span class="profile-field-label" data-i18n-en="Phone" data-i18n-es="Teléfono">Phone</span>
+      <span class="profile-field-value">(619) 555-0142</span>
+    </div>
+    <div class="profile-field-row">
+      <span class="profile-field-label" data-i18n-en="Address" data-i18n-es="Dirección">Address</span>
+      <span class="profile-field-value">1847 Euclid Ave, San Diego, CA</span>
+    </div>
+  </div>
+</div>
+```
+
+**Section 2 — Dietary preferences** (editable)
+
+Copy the food flavor `<fieldset>` verbatim from `apps/patient/onboarding/preferences.html` (the one with 4 `pref-image-card` labels + "No preference" pref-row). Pre-check `latin-american` and `mediterranean` inputs.
+
+Wrap in:
+```html
+<p class="profile-section-heading">
+  <span data-i18n-en="Dietary Preferences" data-i18n-es="Preferencias alimentarias">Dietary Preferences</span>
+</p>
+<div class="card">
+  <div class="card-body">
+    <!-- verbatim food flavor fieldset from preferences.html -->
+  </div>
+</div>
+```
+
+**Section 3 — Communication** (editable)
+
+Copy the language, contact method, and best times `<fieldset>` blocks verbatim from `preferences.html`. Pre-set:
+- Language: Spanish (`es`) selected
+- Contact method: Text message (`text`) selected
+- Best times: Afternoon (`afternoon`) selected
+
+Wrap in:
+```html
+<p class="profile-section-heading">
+  <span data-i18n-en="Communication" data-i18n-es="Comunicación">Communication</span>
+</p>
+<div class="card">
+  <div class="card-body">
+    <!-- verbatim language fieldset -->
+    <!-- verbatim contact method fieldset -->
+    <!-- verbatim best times fieldset -->
+  </div>
+</div>
+```
+
+**Section 4 — Notifications** (editable)
+```html
+<p class="profile-section-heading">
+  <span data-i18n-en="Notifications" data-i18n-es="Notificaciones">Notifications</span>
+</p>
+<div class="card">
+  <div class="card-body">
+    <fieldset class="border-0 p-0">
+      <legend class="sr-only" data-i18n-en="Notification preferences" data-i18n-es="Preferencias de notificación">Notification preferences</legend>
+      <div class="space-y-2">
+        <label class="pref-row">
+          <input type="checkbox" name="notif" value="delivery" checked class="sr-only">
+          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+          <span class="pref-row-label" data-i18n-en="Delivery reminders" data-i18n-es="Recordatorios de entrega">Delivery reminders</span>
+        </label>
+        <label class="pref-row">
+          <input type="checkbox" name="notif" value="messages" checked class="sr-only">
+          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+          <span class="pref-row-label" data-i18n-en="New messages from care team" data-i18n-es="Nuevos mensajes de tu equipo">New messages from care team</span>
+        </label>
+        <label class="pref-row">
+          <input type="checkbox" name="notif" value="feedback" class="sr-only">
+          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+          <span class="pref-row-label" data-i18n-en="Meal feedback reminders" data-i18n-es="Recordatorios de comentarios">Meal feedback reminders</span>
+        </label>
+        <label class="pref-row">
+          <input type="checkbox" name="notif" value="plan-updates" checked class="sr-only">
+          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+          <span class="pref-row-label" data-i18n-en="Meal plan updates" data-i18n-es="Actualizaciones del plan de comidas">Meal plan updates</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+</div>
+```
+
+**Section 5 — Account**
+```html
+<p class="profile-section-heading">
+  <span data-i18n-en="Account" data-i18n-es="Cuenta">Account</span>
+</p>
+<div class="card">
+  <div class="card-body">
+    <div class="profile-danger-row" role="button" tabindex="0" aria-label="Sign out">
+      <span class="text-sm font-medium text-red-600" data-i18n-en="Sign out" data-i18n-es="Cerrar sesión">Sign out</span>
+      <i class="fa-solid fa-right-from-bracket text-red-400" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>
+```
+
+**Sticky footer — Save changes**
+```html
+<div class="sticky-footer">
+  <div class="sticky-footer-inner">
+    <div class="sticky-footer-actions">
+      <button class="btn-primary w-full" id="btn-save-profile"
+        data-saved-label="Saved!"
+        data-i18n-data-saved-label-en="Saved!"
+        data-i18n-data-saved-label-es="¡Guardado!">
+        <span data-i18n-en="Save changes" data-i18n-es="Guardar cambios">Save changes</span>
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+Place the sticky footer inside `.mobile-shell`, after the closing `</main>` tag.
+
+### Scripts (in order)
+```html
+<script src="/src/scripts/components/i18n.js"></script>
+<script src="/src/scripts/components/pref-image-cards.js"></script>
+<script src="/src/scripts/components/profile.js"></script>
+<script src="/src/scripts/main.js" type="module"></script>
 ```
 
 ### Known Constraints
-- No Preline dependencies needed in this file -- accordion is handled by `main.js`.
-- `btn-outline.active` class already exists in `components.css` (added in MEALS-02). Use it for issue type buttons.
+- No `<script>` blocks in HTML.
+- Never `@apply` a semantic class inside another semantic class.
+- Any raw-CSS-only rule in `components.css` must begin with `@apply block;`.
+- `card-body > * + *` has a spacing rule — `profile-field-row` elements are separated by `border-b`, not margin. If unexpected vertical gaps appear between field rows, add `profile-field-row` to the `:not()` exclusion list in the `card-body > * + *` rule.
+
+---
+
+## Prompt 3: Create `src/scripts/components/profile.js`
+
+```js
+/**
+ * Profile screen interactions
+ * - Save button: 2-second "Saved!" confirmation, then restore
+ * - Sign out: redirect to onboarding welcome
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Save changes
+  const saveBtn = document.getElementById('btn-save-profile');
+  saveBtn?.addEventListener('click', () => {
+    const originalHTML = saveBtn.innerHTML;
+    const savedLabel = saveBtn.getAttribute('data-saved-label') || 'Saved!';
+    saveBtn.textContent = savedLabel;
+    saveBtn.disabled = true;
+    setTimeout(() => {
+      saveBtn.innerHTML = originalHTML;
+      saveBtn.disabled = false;
+    }, 2000);
+  });
+
+  // Sign out — click and keyboard
+  const signOutBtn = document.querySelector('[aria-label="Sign out"]');
+  signOutBtn?.addEventListener('click', () => {
+    window.location.href = '/apps/patient/onboarding/welcome.html';
+  });
+  signOutBtn?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.location.href = '/apps/patient/onboarding/welcome.html';
+    }
+  });
+});
+```
 
 ---
 
 ## Verification
 
-After both prompts complete, verify at `http://localhost:5173/apps/patient/care-team/feedback.html`:
+Verify at `http://localhost:5173/apps/patient/profile/index.html`:
 
-- [ ] Default state: form visible, confirmation hidden, footer visible
-- [ ] `?state=submitted`: form hidden, footer hidden, confirmation state visible
-- [ ] Three rating cards render in a row with icons and labels
-- [ ] Selecting "Not good" reveals the issue type section
-- [ ] Selecting "Good" or "Okay" hides the issue type section
-- [ ] Issue type buttons highlight on selection with `.active` state
-- [ ] Per-meal accordion is collapsed by default
-- [ ] Expanding accordion reveals 5 meal rows
-- [ ] Tapping a meal rating button highlights it; siblings in the row deselect
-- [ ] Free text textarea renders with placeholder and helper text
-- [ ] "Submit feedback" button transitions to confirmed state and updates URL
-- [ ] Bottom nav renders with Care Team tab active
-- [ ] i18n toggle works on all strings
-- [ ] No utility class chains on component elements
+- [ ] Page loads without console errors
+- [ ] Header: avatar circle + name + "Patient since" subtitle render correctly
+- [ ] Personal info section: 4 field rows (Name, DOB, Phone, Address) with label/value layout
+- [ ] Dietary preferences: 4 cuisine image cards; Latin American and Mediterranean pre-checked (teal overlay visible)
+- [ ] "No preference" pref-row present below image cards
+- [ ] Communication section: Language (Spanish pre-selected), Contact method (Text pre-selected), Best times (Afternoon pre-selected)
+- [ ] Notifications section: Delivery, Messages, Plan updates pre-checked; Feedback reminder unchecked
+- [ ] Account section: Sign out row renders in red with right-bracket icon
+- [ ] Clicking Sign out navigates to `/apps/patient/onboarding/welcome.html`
+- [ ] Save button: clicking shows "Saved!" for ~2 seconds, then restores original label
+- [ ] Sticky footer visible and does not overlap bottom nav
+- [ ] Bottom nav: Profile tab active; no other tab marked active
+- [ ] i18n toggle switches all `data-i18n-en/es` strings
+- [ ] pref-image-cards mutual exclusivity works (checking "No preference" unchecks images and vice versa)
+- [ ] No utility class chains on component elements (only semantic classes + layout utilities)
 - [ ] No `<script>` blocks in HTML
-- [ ] `src/scripts/components/feedback.js` exists
-- [ ] New CSS rules under `/* Feedback screen state variants */` in `components.css`
-- [ ] Dark mode: not applicable
-- [ ] ANDREY-README.md: not applicable
+- [ ] `src/scripts/components/profile.js` exists
 
 ---
 
@@ -369,13 +329,13 @@ After both prompts complete, verify at `http://localhost:5173/apps/patient/care-
 After verification passes, output:
 
 ```
-## Completion Report — Patient Meal Feedback Screen (CARE-02)
+## Completion Report — Patient Profile Screen (PAT-PROFILE-01)
 
-- New semantic classes added to components.css: [list, or "none"]
+- New semantic classes added to components.css: [list]
 - Existing classes modified: [list, or "none"]
 - Pattern library files created or updated: [list, or "none"]
 - Judgment calls: [list, or "none"]
-- Dark mode added: not applicable
+- Dark mode added: yes — profile-field-row, profile-field-label, profile-field-value, profile-danger-row
 - ANDREY-README.md updated: not applicable
 - Schema delta logged: not applicable
 - Items deferred or incomplete: [list, or "none"]
@@ -387,13 +347,12 @@ After verification passes, output:
 
 ```bash
 git add -A
-git commit -m "feat(patient): add meal feedback screen (CARE-02) with accordion and submit flow"
+git commit -m "feat(patient): add profile screen (PAT-PROFILE-01) with editable preferences and save flow"
 ```
 
 Then output:
 
 ---
 **View your result:**
-- Default: http://localhost:5173/apps/patient/care-team/feedback.html
-- Submitted: http://localhost:5173/apps/patient/care-team/feedback.html?state=submitted
+- http://localhost:5173/apps/patient/profile/index.html
 ---

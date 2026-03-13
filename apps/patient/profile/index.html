@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-32">
+
+    <!-- i18n bar (copied from partial) -->
+    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+      <button
+        class="mobile-i18n-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to Spanish"
+      >
+        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+        <i class="fa-solid fa-globe"></i>
+      </button>
+    </div>
+
+    <!-- Screen content -->
+    <main class="px-4 pt-20 pb-8">
+
+      <!-- Header -->
+      <div class="flex items-center gap-4 mb-2">
+        <div class="w-14 h-14 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-circle-user text-primary-500 text-3xl" aria-hidden="true"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-semibold text-gray-900" style="font-family: var(--font-serif);">
+            <span data-i18n-en="Maria Gonzalez" data-i18n-es="Maria Gonzalez">Maria Gonzalez</span>
+          </h1>
+          <p class="text-sm text-gray-500">
+            <span data-i18n-en="Patient since January 2026" data-i18n-es="Paciente desde enero de 2026">Patient since January 2026</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 1: Personal Info (read-only) -->
+      <p class="profile-section-heading">
+        <span data-i18n-en="Personal Info" data-i18n-es="Información personal">Personal Info</span>
+      </p>
+      <div class="card">
+        <div class="card-body">
+          <div class="profile-field-row">
+            <span class="profile-field-label" data-i18n-en="Name" data-i18n-es="Nombre">Name</span>
+            <span class="profile-field-value">Maria Gonzalez</span>
+          </div>
+          <div class="profile-field-row">
+            <span class="profile-field-label" data-i18n-en="Date of birth" data-i18n-es="Fecha de nacimiento">Date of birth</span>
+            <span class="profile-field-value">March 4, 1968</span>
+          </div>
+          <div class="profile-field-row">
+            <span class="profile-field-label" data-i18n-en="Phone" data-i18n-es="Teléfono">Phone</span>
+            <span class="profile-field-value">(619) 555-0142</span>
+          </div>
+          <div class="profile-field-row">
+            <span class="profile-field-label" data-i18n-en="Address" data-i18n-es="Dirección">Address</span>
+            <span class="profile-field-value">1847 Euclid Ave, San Diego, CA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Dietary Preferences (editable) -->
+      <p class="profile-section-heading">
+        <span data-i18n-en="Dietary Preferences" data-i18n-es="Preferencias alimentarias">Dietary Preferences</span>
+      </p>
+      <div class="card">
+        <div class="card-body">
+          <fieldset class="border-0 p-0">
+            <legend class="text-sm font-semibold text-gray-900 mb-1">
+              <span data-i18n-en="What flavors do you enjoy?" data-i18n-es="¿Qué sabores te gustan?">What flavors do you enjoy?</span>
+            </legend>
+            <p class="text-xs text-gray-500 mb-3">
+              <span data-i18n-en="Pick as many as you like. We'll rotate your meals to match." data-i18n-es="Elige los que quieras. Rotaremos tus comidas según tus preferencias.">Pick as many as you like. We'll rotate your meals to match.</span>
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="pref-image-card">
+                <input type="checkbox" name="food-pref" value="latin-american" checked class="sr-only">
+                <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
+                  <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=400&fit=crop&q=80" alt="Latin American cuisine">
+                  <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+                </div>
+                <span class="pref-image-card-label">
+                  <span data-i18n-en="Latin American" data-i18n-es="Latinoamericana">Latin American</span>
+                </span>
+              </label>
+              <label class="pref-image-card">
+                <input type="checkbox" name="food-pref" value="soul-food" class="sr-only">
+                <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
+                  <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400&h=400&fit=crop&q=80" alt="Soul food cuisine">
+                  <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+                </div>
+                <span class="pref-image-card-label">
+                  <span data-i18n-en="Soul Food" data-i18n-es="Comida Sureña">Soul Food</span>
+                </span>
+              </label>
+              <label class="pref-image-card">
+                <input type="checkbox" name="food-pref" value="mediterranean" checked class="sr-only">
+                <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
+                  <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=400&fit=crop&q=80" alt="Mediterranean cuisine">
+                  <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+                </div>
+                <span class="pref-image-card-label">
+                  <span data-i18n-en="Mediterranean" data-i18n-es="Mediterránea">Mediterranean</span>
+                </span>
+              </label>
+              <label class="pref-image-card">
+                <input type="checkbox" name="food-pref" value="asian" class="sr-only">
+                <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
+                  <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&h=400&fit=crop&q=80" alt="Asian cuisine">
+                  <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+                </div>
+                <span class="pref-image-card-label">
+                  <span data-i18n-en="Asian" data-i18n-es="Asiática">Asian</span>
+                </span>
+              </label>
+            </div>
+            <!-- No preference — inline row matching image card visual style -->
+            <div class="mt-3">
+              <label class="pref-row">
+                <input type="checkbox" name="food-pref" value="no-preference" id="pref-none" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label">
+                  <span data-i18n-en="No preference" data-i18n-es="Sin preferencia">No preference</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- Section 3: Communication (editable) -->
+      <p class="profile-section-heading">
+        <span data-i18n-en="Communication" data-i18n-es="Comunicación">Communication</span>
+      </p>
+      <div class="card">
+        <div class="card-body">
+          <!-- Language preference -->
+          <fieldset class="border-0 p-0 mb-6">
+            <legend class="text-sm font-semibold text-gray-900 mb-3">
+              <span data-i18n-en="What language do you prefer?" data-i18n-es="¿Qué idioma prefieres?">What language do you prefer?</span>
+            </legend>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="pref-row">
+                <input type="radio" name="language" value="en" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+                <span class="pref-row-label">English</span>
+              </label>
+              <label class="pref-row">
+                <input type="radio" name="language" value="es" checked class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+                <span class="pref-row-label">Español</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Contact method -->
+          <fieldset class="border-0 p-0 mb-6">
+            <legend class="text-sm font-semibold text-gray-900 mb-1">
+              <span data-i18n-en="How should we reach you?" data-i18n-es="¿Cómo debemos comunicarnos contigo?">How should we reach you?</span>
+            </legend>
+            <p class="text-xs text-gray-500 mb-3">
+              <span data-i18n-en="Preferred contact method" data-i18n-es="Método de contacto preferido">Preferred contact method</span>
+            </p>
+            <div class="space-y-2">
+              <label class="pref-row">
+                <input type="radio" name="contact-method" value="phone" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Phone call" data-i18n-es="Llamada telefónica">Phone call</span>
+              </label>
+              <label class="pref-row">
+                <input type="radio" name="contact-method" value="text" checked class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Text message" data-i18n-es="Mensaje de texto">Text message</span>
+              </label>
+              <label class="pref-row">
+                <input type="radio" name="contact-method" value="app" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="App notifications only" data-i18n-es="Solo notificaciones de la app">App notifications only</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Best times -->
+          <fieldset class="border-0 p-0">
+            <legend class="text-sm font-semibold text-gray-900 mb-3">
+              <span data-i18n-en="Best times to reach you" data-i18n-es="Mejores horarios para contactarte">Best times to reach you</span>
+            </legend>
+            <div class="space-y-2">
+              <label class="pref-row">
+                <input type="checkbox" name="best-times" value="morning" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Morning (8am–12pm)" data-i18n-es="Mañana (8am–12pm)">Morning (8am–12pm)</span>
+              </label>
+              <label class="pref-row">
+                <input type="checkbox" name="best-times" value="afternoon" checked class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Afternoon (12pm–5pm)" data-i18n-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</span>
+              </label>
+              <label class="pref-row">
+                <input type="checkbox" name="best-times" value="evening" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Evening (5pm–8pm)" data-i18n-es="Noche (5pm–8pm)">Evening (5pm–8pm)</span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- Section 4: Notifications (editable) -->
+      <p class="profile-section-heading">
+        <span data-i18n-en="Notifications" data-i18n-es="Notificaciones">Notifications</span>
+      </p>
+      <div class="card">
+        <div class="card-body">
+          <fieldset class="border-0 p-0">
+            <legend class="sr-only" data-i18n-en="Notification preferences" data-i18n-es="Preferencias de notificación">Notification preferences</legend>
+            <div class="space-y-2">
+              <label class="pref-row">
+                <input type="checkbox" name="notif" value="delivery" checked class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Delivery reminders" data-i18n-es="Recordatorios de entrega">Delivery reminders</span>
+              </label>
+              <label class="pref-row">
+                <input type="checkbox" name="notif" value="messages" checked class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="New messages from care team" data-i18n-es="Nuevos mensajes de tu equipo">New messages from care team</span>
+              </label>
+              <label class="pref-row">
+                <input type="checkbox" name="notif" value="feedback" class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Meal feedback reminders" data-i18n-es="Recordatorios de comentarios">Meal feedback reminders</span>
+              </label>
+              <label class="pref-row">
+                <input type="checkbox" name="notif" value="plan-updates" checked class="sr-only">
+                <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+                <span class="pref-row-label" data-i18n-en="Meal plan updates" data-i18n-es="Actualizaciones del plan de comidas">Meal plan updates</span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- Section 5: Account -->
+      <p class="profile-section-heading">
+        <span data-i18n-en="Account" data-i18n-es="Cuenta">Account</span>
+      </p>
+      <div class="card">
+        <div class="card-body">
+          <div class="profile-danger-row" role="button" tabindex="0" aria-label="Sign out">
+            <span class="text-sm font-medium text-red-600" data-i18n-en="Sign out" data-i18n-es="Cerrar sesión">Sign out</span>
+            <i class="fa-solid fa-right-from-bracket text-red-400" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Sticky footer — Save changes -->
+    <div class="sticky-footer">
+      <div class="sticky-footer-inner">
+        <div class="sticky-footer-actions">
+          <button class="btn-primary w-full" id="btn-save-profile"
+            data-saved-label="Saved!"
+            data-i18n-data-saved-label-en="Saved!"
+            data-i18n-data-saved-label-es="¡Guardado!">
+            <span data-i18n-en="Save changes" data-i18n-es="Guardar cambios">Save changes</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav — Profile tab active -->
+    <nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+      <a href="/apps/patient/meals/index.html"
+         class="mobile-bottom-nav-tab"
+         aria-label="Meals">
+        <i class="fa-solid fa-bowl-food"></i>
+        <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
+      </a>
+
+      <a href="/apps/patient/deliveries/index.html"
+         class="mobile-bottom-nav-tab"
+         aria-label="Delivery">
+        <i class="fa-solid fa-truck"></i>
+        <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+      </a>
+
+      <a href="/apps/patient/care-team/messages.html"
+         class="mobile-bottom-nav-tab"
+         aria-label="Care Team">
+        <span class="relative inline-flex">
+          <i class="fa-solid fa-comments"></i>
+          <span class="mobile-bottom-nav-badge">2</span>
+        </span>
+        <span data-i18n-en="Care Team" data-i18n-es="Mi Equipo">Care Team</span>
+      </a>
+
+      <a href="/apps/patient/profile/index.html"
+         class="mobile-bottom-nav-tab active"
+         aria-current="page"
+         aria-label="Profile">
+        <i class="fa-solid fa-circle-user"></i>
+        <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
+      </a>
+
+    </nav>
+
+  </div><!-- /.mobile-shell -->
+
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Preference image card mutual exclusivity -->
+  <script src="/src/scripts/components/pref-image-cards.js"></script>
+  <!-- Profile interactions -->
+  <script src="/src/scripts/components/profile.js"></script>
+  <!-- Preline autoInit (must be last) -->
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>
