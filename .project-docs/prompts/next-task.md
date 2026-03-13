@@ -1,4 +1,4 @@
-# Task: Patient Meals — Language Dropdown + Swap Sheet Hover (PAT-MEALS-03)
+# Task: Patient Meals Confirmed Page — Swap Button Affordance, Alert Padding, Image Inset Border (PAT-MEALS-04)
 
 _Generated: 2026-03-13_
 _App: patient_
@@ -7,121 +7,175 @@ _App: patient_
 
 ## Scope Classification
 
-**Work type:** App only — no new component classes. Two targeted CSS changes to existing classes, plus HTML restructuring and a JS update within the meals page.
+**Work type:** Both — one new CSS modifier for `.meal-card-img`, targeted changes to `.meal-card-swap` to repromote it to a visible button, and an HTML tweak to the alert wrapper.
 
 **Existing classes being modified:**
-- `.meal-card` — add hover state
-- `.mobile-i18n-bar` — markup structure change (button → hs-dropdown)
-- `.mobile-i18n-toggle` — role changes to dropdown trigger; existing CSS stays as-is
+- `.meal-card-swap` — repromote from text-link to visible outline button with icon
+- `.meal-card-img` — add `::after` pseudo-element for inset image border
+
+**New classes added:**
+- None. The swap button will use existing `.btn-outline .btn-sm` classes applied via HTML. The image overlay is a `::after` rule added to the existing `.meal-card-img` block.
 
 **Files touched:**
-- `src/styles/tokens/components.css` — 1 change
-- `apps/patient/meals/index.html` — i18n bar + no other changes needed
+- `src/styles/tokens/components.css` — two targeted edits
+- `apps/patient/meals/index.html` — swap button HTML updated on all 5 meal cards + the detail sheet
 
 ---
 
 ## Pre-Build Audit
 
 Before writing any code, the agent must:
-1. Re-read the `.meal-card` block in `src/styles/tokens/components.css`
-2. Re-read the `.hs-dropdown-menu` and `.hs-dropdown-item` blocks in `components.css`
-3. Re-read the i18n bar section of `apps/patient/meals/index.html`
-4. Re-read `src/scripts/components/i18n.js` to understand how the lang toggle currently works
+1. Read the `.meal-card-swap`, `.meal-card-img`, `.meal-card`, `.btn-outline`, `.btn-sm` blocks in `src/styles/tokens/components.css` — confirm exact current content
+2. Read `apps/patient/meals/index.html` — confirm current swap button markup on all 5 meal cards and inside `#sheet-detail`
+3. Count how many `.meal-card-swap` buttons exist (should be 5 meal list + 1 in detail sheet = 6 total)
 
 ---
 
-## Fix 1 — Swap sheet item hover (CSS only)
+## Fix 1 — Swap button: text-link → outline button with icon
 
-**Problem:** `.meal-card` used as `<button>` elements in the swap sheet inherit the global `button` hover rule which applies a primary-colored background fill. This makes the hover state on swap options illegible — it turns them teal/primary instead of a subtle gray.
+**Problem:** `.meal-card-swap` renders as a bare text link. It has no border, no background, and no icon. On a confirmed meals screen it is the only interactive action per card, but it reads like secondary metadata. Users scanning the list do not identify it as tappable.
 
-**Root cause:** Global `button` selector in `components.css` has no explicit hover color, but browser default + some Preline interaction creates the visible teal fill. `.meal-card` has no hover override of its own.
+**Solution:** Update `.meal-card-swap` in `components.css` to inherit from the existing `.btn-outline .btn-sm` pattern, and add a shuffle icon in HTML on every instance.
 
-**Fix in `src/styles/tokens/components.css`:**
+### CSS change in `src/styles/tokens/components.css`
 
-Add two lines to the `.meal-card` block — a `hover:bg-gray-50` to match the system's standard list-item hover pattern, and explicit background resets to suppress the inherited button behavior:
+Replace the current `.meal-card-swap` block:
 
 ```css
-.meal-card {
-  @apply flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
-  @apply hover:bg-gray-50 transition-colors;
-  background-color: white !important; /* suppress button hover inheritance */
-}
-
-.meal-card:hover {
-  background-color: var(--color-gray-50) !important;
+.meal-card-swap {
+  @apply text-sm text-primary-600 font-medium text-left mt-1;
+  @apply hover:text-primary-700 dark:text-primary-400;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer;
+  box-shadow: none !important;
 }
 ```
 
-This matches the hover behavior of `.activity-feed-row`, `.partner-list-item`, and `.alert-category-card` — the system standard for interactive list rows.
+With:
+
+```css
+.meal-card-swap {
+  @apply inline-flex items-center gap-x-1.5 py-1.5 px-3 text-xs font-medium mt-1.5;
+  @apply bg-transparent border border-gray-300 text-gray-700 rounded-lg;
+  @apply hover:bg-gray-50;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  @apply dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800;
+  cursor: pointer;
+}
+```
+
+This is semantically equivalent to `.btn-outline.btn-sm` but scoped to `.meal-card-swap` so it can carry its own adjustments (smaller padding, mt-1.5 for card spacing) without fighting the base button reset.
+
+### HTML change in `apps/patient/meals/index.html`
+
+On every `.meal-card-swap` button (5 in the meal list, 1 inside `#sheet-detail`), add a shuffle icon before the label text:
+
+```html
+<button class="meal-card-swap" ...>
+  <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+  <span data-i18n-en="Swap meal" data-i18n-es="Cambiar comida">Swap meal</span>
+</button>
+```
+
+The agent must update all 6 instances. The `aria-label` on the button already describes the action — no additional ARIA needed on the icon.
+
+For the detail sheet button (`#sheet-detail`), the current markup is `.btn-outline w-full`. Update it to also include the icon:
+
+```html
+<button class="btn-outline w-full mt-4" data-open-swap>
+  <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+  <span data-i18n-en="Swap this meal" data-i18n-es="Cambiar esta comida">Swap this meal</span>
+</button>
+```
 
 ---
 
-## Fix 2 — Language toggle → hs-dropdown (HTML only)
+## Fix 2 — Alert padding: align with adjacent card content
 
-**Problem:** The current i18n toggle is a plain `<button>` that cycles between English/Spanish. It has an odd hover pill appearance (inherited button ring + hover bg). It also won't scale to 3+ languages.
+**Problem:** The `.alert.alert-success` and `.alert.alert-warning` banners use `mx-4 mb-4` positioning inside `.mobile-shell`. The internal `p-4` padding means the alert icon + text start 16px from the alert's left edge, which is 16px (mx-4) + 16px (p-4) = 32px from the shell edge. The `.meal-card` elements below also use `px-4` at the list wrapper level and then have `p-3` internal padding, making their content start at a different visual indent. The alert reads as floating outside the card grid's column.
 
-**Decision:** Convert to `.hs-dropdown` with `.hs-dropdown-menu` + `.hs-dropdown-item` entries. Preline handles open/close. The existing `.hs-dropdown-menu` and `.hs-dropdown-item` semantic classes are already in `components.css` — no new CSS needed.
+**Fix:** The simplest fix that keeps HTML clean is to tighten the alert's horizontal position so its left text edge visually aligns with card text. Since the cards use `p-3` (12px) internal padding after a `px-4` (16px) outer, the card text starts at ~28px. The alert at `mx-4 p-4` has its icon at 32px. The gap is small but perceptible.
 
-**Fix in `apps/patient/meals/index.html`:**
+Update the HTML alert wrappers (both `.banner-unconfirmed` and `.banner-confirmed`) to use `px-3` instead of the default `p-4` on internal spacing. The cleanest approach without altering `.alert` globally is to add a modifier class.
 
-Replace the entire `<div class="mobile-i18n-bar">` block with:
+**Add to `src/styles/tokens/components.css`** (append to the ALERTS section):
+
+```css
+/* Tighter horizontal padding for alerts used inside .mobile-shell card lists */
+.alert-inset {
+  @apply px-3;
+}
+```
+
+**Update `apps/patient/meals/index.html`** — add `alert-inset` to both alert divs:
 
 ```html
-<!-- i18n bar -->
-<div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
-  <div class="hs-dropdown relative">
-    <button
-      id="lang-dropdown-btn"
-      type="button"
-      class="mobile-i18n-toggle"
-      aria-haspopup="menu"
-      aria-expanded="false"
-      aria-label="Select language"
-    >
-      <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
-      <i class="fa-solid fa-globe"></i>
-    </button>
+<div class="alert alert-warning alert-inset rounded-xl mx-4 mb-4 banner-unconfirmed" role="alert">
+  ...
+</div>
 
-    <div
-      class="hs-dropdown-menu"
-      role="menu"
-      aria-orientation="vertical"
-      aria-labelledby="lang-dropdown-btn"
-    >
-      <button type="button" class="hs-dropdown-item" data-lang="en">
-        <i class="fa-solid fa-globe text-xs"></i> English
-      </button>
-      <button type="button" class="hs-dropdown-item" data-lang="es">
-        <i class="fa-solid fa-globe text-xs"></i> Español
-      </button>
-    </div>
-  </div>
+<div class="alert alert-success alert-inset rounded-xl mx-4 mb-4 banner-confirmed" role="alert">
+  ...
 </div>
 ```
 
-**Update `src/scripts/components/i18n.js`:**
+---
 
-The existing i18n script likely listens to `#lang-toggle` click. The agent must:
-1. Read the current `i18n.js` in full
-2. Update it to listen for clicks on `[data-lang]` buttons inside the dropdown instead of the toggle button itself
-3. On click of a `[data-lang]` item: set the active language, update all `[data-i18n-en]` / `[data-i18n-es]` elements, update the `#lang-label` span text, and close the dropdown (remove `.open` from `.hs-dropdown` or call `HSDropdown.close()`)
-4. Mark the active language item with `.active` class on the `.hs-dropdown-item`
+## Fix 3 — Image inset border: contrast aid for light-background photos
 
-The dropdown closes automatically via Preline on outside click. The agent should not re-implement that behavior.
+**Problem:** Some food photos have a light background that bleeds into the white card surface, making images appear borderless and undefined.
+
+**Solution:** Add a `::after` pseudo-element to `.meal-card-img` that overlays a 1px dark border at low opacity with `mix-blend-mode: multiply`. This is invisible on dark images (multiply with near-black is no-op on dark pixels) and provides a subtle definition line on light images.
+
+**Add to the `.meal-card-img` block in `src/styles/tokens/components.css`:**
+
+Current `.meal-card-img` block:
+
+```css
+.meal-card-img {
+  @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-stone-100;
+}
+```
+
+Replace with:
+
+```css
+.meal-card-img {
+  @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-stone-100;
+  position: relative;
+}
+
+.meal-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+```
+
+The `border-radius: inherit` ensures the overlay respects the `rounded-lg` applied by Tailwind. `position: relative` on the parent is needed for `inset: 0` to work correctly.
+
+Note: `.meal-card-img` already has `overflow-hidden` which clips the image, but the `::after` must be positioned inside the element (not on the img tag) to avoid the clip cutting the border. The structure is correct as written.
 
 ---
 
 ## Verification Checklist
 
-- [ ] Swap sheet options: hover shows `bg-gray-50`, no teal/primary fill
-- [ ] Swap sheet options: border and text remain legible on hover
-- [ ] Language toggle: renders as text + globe icon with no visible pill/ring at rest
-- [ ] Language toggle: clicking opens a dropdown with English and Español options
-- [ ] Selecting English or Español: updates all `data-i18n-*` text on the page
-- [ ] Active language item in dropdown shows `.active` styling (primary bg/text)
-- [ ] Dropdown closes on outside click (Preline behavior — no custom code needed)
-- [ ] No new semantic classes added without paired HTML
+- [ ] Verified at `http://localhost:5173/apps/patient/meals/index.html?state=confirmed`
+- [ ] Swap button on each meal card renders as a bordered outline button with shuffle icon
+- [ ] Swap button label still translates to Spanish when language is toggled
+- [ ] Alert icon + text left edge visually aligns with card content below
+- [ ] Food images show a subtle 1px inset border on light-background photos
+- [ ] Dark-background images are not visibly affected by the inset border
+- [ ] No utility chains in HTML (layout utilities OK)
+- [ ] No inline `style=` attributes added
+- [ ] `.alert-inset` added to `components.css` with dark mode variants if needed
+- [ ] Both state variants (unconfirmed and confirmed) tested at `?state=confirmed` and without the param
 
 ---
 
@@ -129,5 +183,5 @@ The dropdown closes automatically via Preline on outside click. The agent should
 
 ```bash
 git add -A
-git commit -m "fix(patient/meals): swap sheet hover, language dropdown"
+git commit -m "fix(patient/meals): swap affordance, alert alignment, image inset border"
 ```

@@ -867,6 +867,11 @@ a.btn-danger {
     @apply dark:bg-info-900/20 dark:border-info-800 dark:text-info-400;
 }
 
+/* Tighter horizontal padding for alerts used inside .mobile-shell card lists */
+.alert-inset {
+    @apply px-3;
+}
+
 /* ===================================
    TEXT LINKS
    =================================== */
@@ -2994,6 +2999,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .meal-card-img {
   @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-stone-100;
+  position: relative;
+}
+
+.meal-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .meal-card-body {
@@ -3015,13 +3031,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-card-swap {
-  @apply text-sm text-primary-600 font-medium text-left mt-1;
-  @apply hover:text-primary-700 dark:text-primary-400;
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
+  @apply inline-flex items-center gap-x-1.5 py-1.5 px-3 text-xs font-medium mt-1.5;
+  @apply bg-transparent border border-gray-300 text-gray-700 rounded-lg;
+  @apply hover:bg-gray-50;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  @apply dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800;
   cursor: pointer;
-  box-shadow: none !important;
 }
 
 /* Hide swap button after a meal has been swapped */
