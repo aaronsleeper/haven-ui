@@ -368,7 +368,7 @@ a.btn-danger {
 
 /* Primary Button Variant */
 .btn-primary {
-    @apply py-3 px-4 bg-primary-600 text-white hover:bg-primary-700;
+    @apply py-3 px-4 justify-center bg-primary-600 text-white hover:bg-primary-700;
 }
 
 /* Variant classes can override defaults */
@@ -527,7 +527,7 @@ a.btn-danger {
 
 /* Space between sibling fieldsets and other block elements inside card body.
    Excludes feed/list row patterns that manage their own spacing via borders. */
-.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row) {
+.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview) {
     @apply mt-4;
 }
 
@@ -884,6 +884,20 @@ a.btn-danger {
     @apply dark:bg-info-900/20 dark:border-info-800 dark:text-info-400;
 }
 
+/* Action button inside .alert-warning — matches warning surface colors.
+   Use instead of .btn-primary when the button lives inside a warning alert. */
+.alert-warning-btn {
+    @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg;
+    @apply py-1.5 px-3 shrink-0;
+    @apply bg-warning-700 text-white border border-transparent;
+    @apply hover:bg-warning-800;
+    @apply focus:outline-none focus:ring-2 focus:ring-warning-500 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:bg-warning-600 dark:hover:bg-warning-700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 /* Tighter horizontal padding for alerts used inside .mobile-shell card lists */
 .alert-inset {
     padding-inline: 0.75rem !important;
@@ -1060,10 +1074,15 @@ a.btn-danger {
    STICKY FOOTER
    =================================== */
 
-/* Sticky footer - persistent action bar at bottom of viewport */
+/* Sticky footer — sits above .mobile-bottom-nav (64px tall).
+   On non-mobile pages (no bottom nav), bottom: 64px leaves a gap;
+   those pages don't use .sticky-footer so this is fine. */
 .sticky-footer {
-    @apply fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 shadow-lg z-50;
+    @apply fixed left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-30;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
+    bottom: 64px; /* clear the 64px mobile-bottom-nav */
+    max-width: 430px;
+    margin-inline: auto;
 }
 
 .sticky-footer-inner {
@@ -3481,6 +3500,26 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dashboard-meal-chip-img {
     @apply w-24 h-24 rounded-xl object-cover bg-stone-100;
+    display: block;
+    position: relative;
+}
+
+.dashboard-meal-chip-img-wrap {
+    @apply w-24 h-24 rounded-xl overflow-hidden bg-stone-100 relative shrink-0;
+}
+
+.dashboard-meal-chip-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.dashboard-meal-chip-img-wrap img {
+    @apply w-full h-full object-cover;
 }
 
 .dashboard-meal-chip-day {
@@ -3497,25 +3536,35 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Care team message preview row */
 .dashboard-message-preview {
-    @apply flex items-start gap-3 py-1;
+    @apply flex items-start gap-3 py-3;
+    @apply border-b border-gray-100 last:border-b-0;
+    @apply dark:border-neutral-800;
 }
 
 .dashboard-message-preview-avatar {
     @apply w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center shrink-0 text-primary-600 text-xs font-bold;
+    margin-top: 1px; /* optical alignment with first line of text */
 }
 
 .dashboard-message-preview-body {
     @apply flex-1 min-w-0;
 }
 
+.dashboard-message-preview-header {
+    @apply flex items-baseline justify-between gap-2 mb-0.5;
+}
+
 .dashboard-message-preview-sender {
-    @apply text-sm font-semibold text-gray-900;
+    @apply text-sm font-semibold text-gray-900 truncate;
+    @apply dark:text-neutral-100;
+}
+
+.dashboard-message-preview-time {
+    @apply text-xs text-gray-400 shrink-0;
+    @apply dark:text-neutral-500;
 }
 
 .dashboard-message-preview-text {
     @apply text-sm text-gray-500 truncate;
-}
-
-.dashboard-message-preview-time {
-    @apply text-xs text-gray-400 shrink-0 mt-0.5;
+    @apply dark:text-neutral-400;
 }

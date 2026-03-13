@@ -491,6 +491,61 @@ JS: `src/scripts/components/pref-image-cards.js` enforces mutual exclusivity bet
 
 ---
 
+## Patient App: Dashboard Message Preview (updated structure)
+
+Care team message rows on the patient dashboard. Sender name and timestamp now share one baseline row via a `.dashboard-message-preview-header` wrapper.
+
+```html
+<div class="dashboard-message-preview">
+  <div class="dashboard-message-preview-avatar" aria-hidden="true">MC</div>
+  <div class="dashboard-message-preview-body">
+    <div class="dashboard-message-preview-header">
+      <p class="dashboard-message-preview-sender">Maria Chen, RD</p>
+      <span class="dashboard-message-preview-time">2:14 PM</span>
+    </div>
+    <p class="dashboard-message-preview-text">I've set up your meal plan for next week.</p>
+  </div>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `dashboard-message-preview` | `<div>` | Row wrapper — adds `border-b` between rows |
+| `dashboard-message-preview-avatar` | `<div>` | Initials circle |
+| `dashboard-message-preview-body` | `<div>` | Text column |
+| `dashboard-message-preview-header` | `<div>` | **New** — flex row for sender + time on one baseline |
+| `dashboard-message-preview-sender` | `<p>` | Sender name |
+| `dashboard-message-preview-time` | `<span>` | Timestamp (moved inside `-header`) |
+| `dashboard-message-preview-text` | `<p>` | Message preview text |
+
+## Patient App: Dashboard Meal Chip Image Wrapper
+
+Meal chip images now use a wrapper div for the `::after` inset border.
+
+```html
+<div class="dashboard-meal-chip">
+  <div class="dashboard-meal-chip-img-wrap">
+    <img src="..." alt="Meal name" loading="lazy">
+  </div>
+  <span class="dashboard-meal-chip-day">Mon</span>
+  <span class="dashboard-meal-chip-name">Chicken Verde Rice Bowl</span>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `dashboard-meal-chip-img-wrap` | `<div>` | **New** — wrapper with `::after` inset border |
+
+## Patient App: Alert Warning Button
+
+New `.alert-warning-btn` class for action buttons inside warning alerts (amber, not teal).
+
+```html
+<a href="..." class="alert-warning-btn">Confirm</a>
+```
+
+---
+
 ## Questions / Updates
 
 If component HTML or class names change, the agent will update this file as part of the same task.
