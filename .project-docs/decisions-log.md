@@ -429,12 +429,14 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
-## Decision: --color-gray-* variables do not exist in this project's token system
+## Decision: Use sand token scale for neutral colors in raw CSS blocks
 **Date:** March 2026
-**Context:** Attempted to use `color: var(--color-gray-400)` in raw CSS inside `components.css`. The property resolved to nothing and icons rendered invisible.
-**Root Cause:** The project's `colors.css` defines custom color scales (sand, stone, primary, etc.) inside a Tailwind v4 `@theme {}` block, but does NOT define a `gray` scale as CSS custom properties. Tailwind's `@apply text-gray-400` works because it inlines the value at build time. But `var(--color-gray-400)` at runtime fails silently because the variable is never emitted to `:root`.
-**Rule:** In `components.css`, never use `var(--color-gray-*)` in raw CSS blocks. Use `@apply text-gray-400` etc., OR hardcode the equivalent hex value with a comment: `color: #9ca3af; /* gray-400 */`.
-**Outcome:** Fixed by replacing var() references with hardcoded hex values.
+**Context:** Attempted to use `color: var(--color-gray-400)` in raw CSS inside `components.css`. Icons rendered invisible initially (due to a separate FA stylesheet path bug), leading to a false conclusion that `--color-gray-*` tokens don't exist.
+**Correction:** `--color-gray-*` IS aliased to `--color-sand-*` in `colors.css`. Both resolve correctly at runtime. The earlier fix to hardcoded hex was unnecessary.
+**Root Cause of Invisible Icons:** The meals page linked `all.min.css` (nonexistent) instead of `all.css` for FontAwesome. This silently failed and no icons loaded at all, making it appear CSS color values were broken.
+**Rule:** For neutral colors in raw CSS blocks in `components.css`, prefer `var(--color-sand-*)` directly (it's the canonical scale). `var(--color-gray-*)` also works but sand is more explicit. Avoid hardcoded hex values.
+**FA Stylesheet Rule:** Always link `/src/vendor/fontawesome/css/all.css` -- not `all.min.css`, which does not exist in this project.
+**Outcome:** Fixed. Swap button now uses `var(--color-sand-400)` / `var(--color-sand-700)` / `var(--color-sand-100)`.
 
 ---
 

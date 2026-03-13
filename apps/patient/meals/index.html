@@ -7,42 +7,12 @@
   <!-- Vite will process this in dev mode -->
   <link rel="stylesheet" href="/src/styles/main.css">
   <!-- FontAwesome Pro v7.1.0 -->
-  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
 </head>
 <body class="mobile-app">
   <div class="mobile-shell pb-[128px]">
 
-    <!-- i18n bar -->
-    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
-      <div class="hs-dropdown relative">
-        <button
-          id="lang-dropdown-btn"
-          type="button"
-          class="mobile-i18n-toggle"
-          aria-haspopup="menu"
-          aria-expanded="false"
-          aria-label="Select language"
-        >
-          <i class="fa-solid fa-globe text-gray-400" aria-hidden="true"></i>
-          <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
-          <i class="fa-solid fa-chevron-down text-gray-400" style="font-size:10px" aria-hidden="true"></i>
-        </button>
-
-        <div
-          class="hs-dropdown-menu"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="lang-dropdown-btn"
-        >
-          <button type="button" class="hs-dropdown-item" data-lang="en">
-            <i class="fa-solid fa-globe text-xs"></i> English
-          </button>
-          <button type="button" class="hs-dropdown-item" data-lang="es">
-            <i class="fa-solid fa-globe text-xs"></i> Español
-          </button>
-        </div>
-      </div>
-    </div>
+    <load src="src/partials/patient-i18n-bar.html" />
 
     <!-- Header zone -->
     <div class="px-4 pt-20 pb-2">
@@ -59,13 +29,13 @@
 
     <!-- Status banner — unconfirmed -->
     <div class="alert alert-warning alert-inset rounded-xl mx-4 mb-4 banner-unconfirmed" role="alert">
-      <i class="fa-solid fa-clock-rotate-left mr-2" aria-hidden="true"></i>
+      <i class="fa-solid fa-clock-rotate-left alert-icon" aria-hidden="true"></i>
       <span data-i18n-en="Please confirm your meals by Thursday at 5pm." data-i18n-es="Por favor confirma tus comidas antes del jueves a las 5pm.">Please confirm your meals by Thursday at 5pm.</span>
     </div>
 
     <!-- Status banner — confirmed -->
     <div class="alert alert-success alert-inset rounded-xl mx-4 mb-4 banner-confirmed" role="alert">
-      <i class="fa-solid fa-circle-check mr-2" aria-hidden="true"></i>
+      <i class="fa-solid fa-circle-check alert-icon" aria-hidden="true"></i>
       <span data-i18n-en="Your meals are confirmed. Delivery on Thursday, March 19." data-i18n-es="Tus comidas están confirmadas. Entrega el jueves 19 de marzo.">Your meals are confirmed. Delivery on Thursday, March 19.</span>
     </div>
 
@@ -230,49 +200,7 @@
 
   </div><!-- /.mobile-shell -->
 
-  <!-- Bottom nav (copied from partial) -->
-  <nav class="mobile-bottom-nav" aria-label="Main navigation">
-
-    <a href="/apps/patient/index.html"
-       class="mobile-bottom-nav-tab"
-       aria-label="Home">
-      <i class="fa-solid fa-house"></i>
-      <span data-i18n-en="Home" data-i18n-es="Inicio">Home</span>
-    </a>
-
-    <a href="/apps/patient/meals/index.html"
-       class="mobile-bottom-nav-tab active"
-       aria-current="page"
-       aria-label="Meals">
-      <i class="fa-solid fa-bowl-food"></i>
-      <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
-    </a>
-
-    <a href="/apps/patient/deliveries/index.html"
-       class="mobile-bottom-nav-tab"
-       aria-label="Delivery">
-      <i class="fa-solid fa-truck"></i>
-      <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
-    </a>
-
-    <a href="/apps/patient/care-team/messages.html"
-       class="mobile-bottom-nav-tab"
-       aria-label="Care Team">
-      <span class="relative inline-flex">
-        <i class="fa-solid fa-comments"></i>
-        <span class="mobile-bottom-nav-badge">2</span>
-      </span>
-      <span data-i18n-en="Team" data-i18n-es="Equipo">Team</span>
-    </a>
-
-    <a href="/apps/patient/profile/index.html"
-       class="mobile-bottom-nav-tab"
-       aria-label="Profile">
-      <i class="fa-solid fa-circle-user"></i>
-      <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
-    </a>
-
-  </nav>
+  <load src="src/partials/patient-bottom-nav.html" />
 
   <!-- Sheet: Meal Detail -->
   <div id="sheet-detail" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="sheet-detail-label">
@@ -366,6 +294,8 @@
 
   <!-- i18n script -->
   <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Patient nav active state -->
+  <script src="/src/scripts/components/patient-nav-active.js"></script>
   <!-- Meals state management -->
   <script src="/src/scripts/components/meals.js"></script>
   <!-- Preline autoInit (must be last) -->

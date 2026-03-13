@@ -7,23 +7,12 @@
   <!-- Vite will process this in dev mode -->
   <link rel="stylesheet" href="/src/styles/main.css">
   <!-- FontAwesome Pro v7.1.0 -->
-  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
 </head>
 <body class="mobile-app">
   <div class="mobile-shell pb-32">
 
-    <!-- i18n bar (copied from partial) -->
-    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
-      <button
-        class="mobile-i18n-toggle"
-        id="lang-toggle"
-        type="button"
-        aria-label="Switch to Spanish"
-      >
-        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
-        <i class="fa-solid fa-globe"></i>
-      </button>
-    </div>
+    <load src="src/partials/patient-i18n-bar.html" />
 
     <!-- Screen content -->
     <main class="px-4 pt-20 pb-8">
@@ -278,54 +267,14 @@
       </div>
     </div>
 
-    <!-- Bottom nav — Profile tab active -->
-    <nav class="mobile-bottom-nav" aria-label="Main navigation">
-
-      <a href="/apps/patient/index.html"
-         class="mobile-bottom-nav-tab"
-         aria-label="Home">
-        <i class="fa-solid fa-house"></i>
-        <span data-i18n-en="Home" data-i18n-es="Inicio">Home</span>
-      </a>
-
-      <a href="/apps/patient/meals/index.html"
-         class="mobile-bottom-nav-tab"
-         aria-label="Meals">
-        <i class="fa-solid fa-bowl-food"></i>
-        <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
-      </a>
-
-      <a href="/apps/patient/deliveries/index.html"
-         class="mobile-bottom-nav-tab"
-         aria-label="Delivery">
-        <i class="fa-solid fa-truck"></i>
-        <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
-      </a>
-
-      <a href="/apps/patient/care-team/messages.html"
-         class="mobile-bottom-nav-tab"
-         aria-label="Care Team">
-        <span class="relative inline-flex">
-          <i class="fa-solid fa-comments"></i>
-          <span class="mobile-bottom-nav-badge">2</span>
-        </span>
-        <span data-i18n-en="Team" data-i18n-es="Equipo">Team</span>
-      </a>
-
-      <a href="/apps/patient/profile/index.html"
-         class="mobile-bottom-nav-tab active"
-         aria-current="page"
-         aria-label="Profile">
-        <i class="fa-solid fa-circle-user"></i>
-        <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
-      </a>
-
-    </nav>
+    <load src="src/partials/patient-bottom-nav.html" />
 
   </div><!-- /.mobile-shell -->
 
   <!-- i18n script -->
   <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Patient nav active state -->
+  <script src="/src/scripts/components/patient-nav-active.js"></script>
   <!-- Preference image card mutual exclusivity -->
   <script src="/src/scripts/components/pref-image-cards.js"></script>
   <!-- Profile interactions -->
