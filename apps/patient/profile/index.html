@@ -23,10 +23,10 @@
           <i class="fa-solid fa-circle-user text-primary-500 text-3xl" aria-hidden="true"></i>
         </div>
         <div>
-          <h1 class="text-lg font-semibold text-gray-900" style="font-family: var(--font-serif);">
+          <h1 class="text-lg font-semibold text-gray-900 mb-0" style="font-family: var(--font-serif); line-height: 1.2;">
             <span data-i18n-en="Maria Gonzalez" data-i18n-es="Maria Gonzalez">Maria Gonzalez</span>
           </h1>
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-gray-500" style="margin-top: 2px;">
             <span data-i18n-en="Patient since January 2026" data-i18n-es="Paciente desde enero de 2026">Patient since January 2026</span>
           </p>
         </div>
@@ -244,9 +244,30 @@
       </p>
       <div class="card">
         <div class="card-body">
+          <div class="profile-field-row">
+            <span class="profile-field-label" data-i18n-en="App version" data-i18n-es="Versión de la app">App version</span>
+            <span class="profile-field-value text-gray-400">1.0.0</span>
+          </div>
+          <div class="profile-field-row">
+            <a href="#" class="profile-field-label hover:text-primary-600" data-i18n-en="Privacy policy" data-i18n-es="Política de privacidad">Privacy policy</a>
+            <i class="fa-solid fa-arrow-up-right-from-square text-gray-300 text-xs" aria-hidden="true"></i>
+          </div>
+          <div class="profile-field-row">
+            <a href="#" class="profile-field-label hover:text-primary-600" data-i18n-en="Terms of use" data-i18n-es="Términos de uso">Terms of use</a>
+            <i class="fa-solid fa-arrow-up-right-from-square text-gray-300 text-xs" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-body">
           <div class="profile-danger-row" role="button" tabindex="0" aria-label="Sign out">
             <span class="text-sm font-medium text-red-600" data-i18n-en="Sign out" data-i18n-es="Cerrar sesión">Sign out</span>
             <i class="fa-solid fa-right-from-bracket text-red-400" aria-hidden="true"></i>
+          </div>
+          <div class="profile-danger-row" role="button" tabindex="0" aria-label="Delete my data">
+            <span class="text-sm font-medium text-red-600" data-i18n-en="Delete my data" data-i18n-es="Eliminar mis datos">Delete my data</span>
+            <i class="fa-solid fa-trash text-red-400" aria-hidden="true"></i>
           </div>
         </div>
       </div>

@@ -27,12 +27,12 @@
       </div>
 
       <!-- Confirm meals callout -->
-      <div class="alert alert-warning rounded-xl mt-4 dashboard-confirm-callout" role="alert">
-        <div class="flex items-center justify-between w-full gap-3">
-          <div class="flex items-center gap-2 min-w-0">
-            <i class="fa-solid fa-clock-rotate-left shrink-0" aria-hidden="true"></i>
-            <span class="text-sm" data-i18n-en="Confirm your meals by Thursday at 5pm" data-i18n-es="Confirma tus comidas antes del jueves a las 5pm">Confirm your meals by Thursday at 5pm</span>
-          </div>
+      <div class="alert alert-warning alert-stripe rounded-xl mt-4 dashboard-confirm-callout" role="alert">
+        <div class="alert-stripe-icon" aria-hidden="true">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </div>
+        <div class="alert-stripe-body flex items-center justify-between gap-3">
+          <span class="text-sm" data-i18n-en="Confirm your meals by Thursday at 5pm" data-i18n-es="Confirma tus comidas antes del jueves a las 5pm">Confirm your meals by Thursday at 5pm</span>
           <a href="/apps/patient/meals/index.html" class="alert-warning-btn shrink-0">
             <span data-i18n-en="Confirm" data-i18n-es="Confirmar">Confirm</span>
           </a>
@@ -44,17 +44,13 @@
         <h2 data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</h2>
         <a href="/apps/patient/deliveries/index.html" data-i18n-en="Details" data-i18n-es="Detalles">Details</a>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="flex items-center gap-3">
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-50 shrink-0">
-              <i class="fa-solid fa-bowl-food text-primary-500 text-base" aria-hidden="true"></i>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-semibold text-gray-900" data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</p>
-              <p class="text-xs text-gray-400 mt-0.5" data-i18n-en="Arriving Thursday, March 19 · 11am–1pm" data-i18n-es="Llegando el jueves 19 de marzo · 11am–1pm">Arriving Thursday, March 19 · 11am–1pm</p>
-            </div>
-          </div>
+      <div class="card card-icon-stripe-layout">
+        <div class="card-icon-stripe">
+          <i class="fa-solid fa-bowl-food text-primary-500 text-base" aria-hidden="true"></i>
+        </div>
+        <div class="card-icon-stripe-body">
+          <p class="text-sm font-semibold text-gray-900" data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</p>
+          <p class="text-xs text-gray-400" data-i18n-en="Arriving Thursday, March 19 · 11am–1pm" data-i18n-es="Llegando el jueves 19 de marzo · 11am–1pm">Arriving Thursday, March 19 · 11am–1pm</p>
         </div>
       </div>
 
@@ -67,7 +63,7 @@
 
         <div class="dashboard-meal-chip">
           <div class="dashboard-meal-chip-img-wrap">
-            <img src="https://images.unsplash.com/photo-1512058454903-4d8b520e7e8b?w=200&h=200&fit=crop&q=80"
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop&q=80"
                  alt="Chicken Verde Rice Bowl" loading="lazy">
           </div>
           <span class="dashboard-meal-chip-day" data-i18n-en="Mon" data-i18n-es="Lun">Mon</span>
@@ -76,7 +72,7 @@
 
         <div class="dashboard-meal-chip">
           <div class="dashboard-meal-chip-img-wrap">
-            <img src="https://images.unsplash.com/photo-1565299507177-b3b0a4b9b5d5?w=200&h=200&fit=crop&q=80"
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&h=200&fit=crop&q=80"
                  alt="Black Bean Tacos" loading="lazy">
           </div>
           <span class="dashboard-meal-chip-day" data-i18n-en="Tue" data-i18n-es="Mar">Tue</span>
@@ -118,10 +114,9 @@
         <a href="/apps/patient/care-team/messages.html" data-i18n-en="Open" data-i18n-es="Abrir">Open</a>
       </div>
       <div class="card">
-        <div class="card-body">
+        <div class="card-body-sm">
 
           <div class="dashboard-message-preview">
-            <div class="dashboard-message-preview-avatar" aria-hidden="true">MC</div>
             <div class="dashboard-message-preview-body">
               <div class="dashboard-message-preview-header">
                 <p class="dashboard-message-preview-sender">Maria Chen, RD</p>
@@ -129,10 +124,10 @@
               </div>
               <p class="dashboard-message-preview-text" data-i18n-en="I've set up your meal plan for next week." data-i18n-es="He preparado tu plan de comidas para la semana.">I've set up your meal plan for next week.</p>
             </div>
+            <i class="fa-solid fa-chevron-right dashboard-message-preview-chevron" aria-hidden="true"></i>
           </div>
 
           <div class="dashboard-message-preview">
-            <div class="dashboard-message-preview-avatar" aria-hidden="true">JR</div>
             <div class="dashboard-message-preview-body">
               <div class="dashboard-message-preview-header">
                 <p class="dashboard-message-preview-sender">James Rivera</p>
@@ -140,6 +135,7 @@
               </div>
               <p class="dashboard-message-preview-text" data-i18n-en="Your delivery window is Thursday 11am–1pm." data-i18n-es="Tu ventana de entrega es el jueves 11am–1pm.">Your delivery window is Thursday 11am–1pm.</p>
             </div>
+            <i class="fa-solid fa-chevron-right dashboard-message-preview-chevron" aria-hidden="true"></i>
           </div>
 
         </div>

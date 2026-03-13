@@ -751,6 +751,66 @@ For large tap-target selection controls on mobile -- where both radio and checkb
 
 ---
 
+## Pattern: Alert-Contextual Button Classes (`alert-{variant}-btn`)
+**Tags:** #components #alerts #buttons #patient
+**Success Rate:** ✅ First-pass correct
+**Last Used:** 2026-03-13
+
+**Context:** An action button inside a colored alert surface (e.g., a Confirm CTA inside `.alert-warning`) should not use `.btn-primary` (teal). The color mismatch breaks the alert's visual coherence.
+
+**Rule:** Create `alert-{variant}-btn` companion classes when a button needs to live inside a colored alert. The button should use the variant's darker tone for contrast against the surface.
+
+**Pattern for warning:**
+```css
+.alert-warning-btn {
+    @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg;
+    @apply py-1.5 px-3 shrink-0;
+    @apply bg-warning-700 text-white border border-transparent;
+    @apply hover:bg-warning-800;
+    @apply focus:outline-none focus:ring-2 focus:ring-warning-500 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:bg-warning-600 dark:hover:bg-warning-700;
+    cursor: pointer;
+    text-decoration: none;
+}
+```
+
+**HTML usage:**
+```html
+<div class="alert alert-warning rounded-xl" role="alert">
+  <div class="flex items-center justify-between w-full gap-3">
+    <span class="text-sm">Message text</span>
+    <a href="..." class="alert-warning-btn shrink-0">Action</a>
+  </div>
+</div>
+```
+
+**Follow this same pattern** to create `alert-error-btn`, `alert-success-btn`, `alert-info-btn` if/when needed.
+
+---
+
+## Anti-Pattern: `alert-banner` on Contained (Non-Full-Bleed) Alerts
+**Tags:** #alerts #mobile #patient #css
+**Last Encountered:** 2026-03-13
+
+**What went wrong:** `.alert-banner` was applied to a card-width warning callout on the patient dashboard. `alert-banner` sets `rounded-none` and removes horizontal borders — correct for edge-to-edge banners, wrong for contained elements.
+
+**Rule:**
+- `.alert-banner` is for alerts that span the full viewport/shell width with no horizontal margins, and no rounded corners (e.g., the full-bleed status banner on `meals/index.html`)
+- For alerts that sit inside a padded content area with a card-like appearance, use `.alert .alert-{variant} rounded-xl` only — no `alert-banner`
+
+**Correct for contained alerts:**
+```html
+<div class="alert alert-warning rounded-xl" role="alert">...
+```
+
+**Correct for full-bleed banners:**
+```html
+<div class="alert alert-warning alert-banner" role="alert">...
+```
+
+---
+
 ## Anti-Pattern: Skipping Verification on Modification Prompts
 **Tags:** #verification #workflow
 

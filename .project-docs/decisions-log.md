@@ -440,6 +440,26 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+## Decision: `.dashboard-message-preview` Added to card-body Spacing Exclusion List
+**Date:** March 2026
+**Context:** Dashboard care team card has two `.dashboard-message-preview` rows as direct children of `.card-body`. The rows use `py-3` + `border-b` for separation, not margin. The `card-body > * + *` rule would add `mt-4` between them, fighting the border separator pattern.
+**Decision:** Added `.dashboard-message-preview` to the `:not()` exclusion list on the `card-body > * + *` rule.
+**Rule:** The exclusion list applies to any component that: (a) is a direct child of `.card-body`, and (b) uses `border-b` or explicit padding for row separation. Current exclusions: `.activity-feed-row`, `.medication-row`, `.partner-list-item`, `.alert-summary-row`, `.profile-field-row`, `.dashboard-message-preview`. Add new row-pattern components to this list at creation time, not after the fact.
+**Note:** The task prompt incorrectly stated that `.dashboard-message-preview` rows were NOT direct `.card-body` children. The agent caught this, applied the exclusion correctly, and flagged it in the completion report.
+**Outcome:** ✅ No unwanted margin between message preview rows.
+
+---
+
+## Decision: `.alert-warning-btn` — Alert-Contextual Button Variant
+**Date:** March 2026
+**Context:** The dashboard confirm callout used `.btn-primary` (teal) inside a `.alert-warning` (amber) surface. Color mismatch broke visual coherence of the alert.
+**Decision:** Added `.alert-warning-btn` to `components.css` — a warning-surface button using `bg-warning-700 text-white`. Pattern extended the existing alert semantic system to cover interior interactive elements.
+**Rationale:** Alert variants already own their surface color (bg, border, text). Buttons that live inside alerts should conform to that surface's color language, not override it with the global primary color.
+**Rule:** When an actionable button lives inside a colored alert surface (`.alert-warning`, `.alert-error`, `.alert-success`, `.alert-info`), use or create a matching `alert-{variant}-btn` class rather than defaulting to `.btn-primary`.
+**Outcome:** ✅ Confirm button is now amber/brown, consistent with warning surface.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]
