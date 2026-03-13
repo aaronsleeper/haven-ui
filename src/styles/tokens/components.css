@@ -3187,6 +3187,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   @apply text-primary-700 dark:text-primary-300;
 }
 
+/* Feedback screen state variants */
+.state-submitted .mobile-shell { @apply block; display: none; }
+.state-submitted .feedback-confirmation { @apply flex; }
+
+.meal-rating-btn.active {
+  @apply text-primary-600 bg-primary-50;
+}
+
 /* ===================================
    PATIENT APP — PREFERENCE IMAGE CARD
    =================================== */

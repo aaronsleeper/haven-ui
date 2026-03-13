@@ -1,4 +1,4 @@
-# Task: Patient Messages Screen (CARE-01)
+# Task: Patient Meal Feedback Screen (CARE-02)
 _Generated: 2026-03-12_
 _App: patient_
 
@@ -9,16 +9,14 @@ _App: patient_
 **Work type:** App only — composing existing patterns; no new components.
 
 **Patterns being used (all verified in components.css):**
-- `mobile-shell`, `mobile-app` — body/wrapper (special layout: full-height flex column)
+- `mobile-shell`, `mobile-app` — body/wrapper
 - `mobile-i18n-bar`, `mobile-i18n-toggle` — language bar partial
-- `mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge` — nav partial
-- `message-bubble-out`, `message-bubble-in` — chat bubbles
-- `message-sender-label` — sender name above first bubble in group
-- `message-date-sep` — date separator between day groups
-- `message-timestamp` — timestamp below bubble
-- `message-new-pill` — floating "New message" pill
-- `empty-state`, `empty-state-icon` — fallback
-- `btn-icon`, `btn-icon-primary` — attach and send buttons
+- `mobile-bottom-nav`, `mobile-bottom-nav-tab` — nav partial
+- `feedback-rating-fieldset`, `feedback-rating-card` — overall rating row (3 cards)
+- `hs-accordion`, `hs-accordion-toggle`, `hs-accordion-content` — per-meal accordion
+- `sticky-footer`, `sticky-footer-inner`, `sticky-footer-actions` — submit footer
+- `btn-primary`, `btn-outline`, `btn-icon` — buttons
+- `text-link` — skip link
 
 **No new semantic classes needed.** Flag any gap found during audit before writing HTML.
 
@@ -28,267 +26,340 @@ _App: patient_
 
 Before writing any HTML:
 
-1. Read `src/styles/tokens/components.css` — confirm all class names above exist. Note exact `@apply` values for `message-bubble-out`, `message-bubble-in`, and `message-new-pill`.
+1. Read `src/styles/tokens/components.css` — confirm all class names above exist. Note the exact `@apply` values for `feedback-rating-card` and `hs-accordion-toggle`.
 2. Read `src/partials/patient-i18n-bar.html` and `src/partials/patient-bottom-nav.html` — copy verbatim.
 3. Read `apps/patient/meals/index.html` — reference for head, shell, script loading pattern.
-4. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List and flag applicable ones before proceeding.
+4. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List and flag applicable ones.
 
 ---
 
-## Prompt 1: Build `apps/patient/care-team/messages.html`
+## Prompt 1: Build `apps/patient/care-team/feedback.html`
 
 ### File to create
-`apps/patient/care-team/messages.html`
+`apps/patient/care-team/feedback.html`
 
-First, create the directory if it doesn't exist: `apps/patient/care-team/`
+### Shell setup
+- `<body class="mobile-app">` + `<div class="mobile-shell pb-[128px]">`
+- Copy i18n bar verbatim from partial
+- Copy bottom nav verbatim from partial, set "Care Team" tab active (third tab)
+- Title: `"Meal Feedback — Cena Health"`
 
-### Shell setup — special full-height layout
+### Page structure (top to bottom)
 
-This screen uses a different shell layout than other screens. The body must fill the viewport height with the thread scrolling in the middle.
+**1. Header zone** — `<div class="px-4 pt-20 pb-2">`
+- Back button: `<a href="/apps/patient/care-team/messages.html" class="btn-icon mb-2" aria-label="Back"><i class="fa-solid fa-chevron-left"></i></a>`
+- `<h1 style="font-family: var(--font-serif);">` — "How were your meals?"
+- `<p class="text-sm text-gray-500 mt-1">` — "Delivery on Thursday, March 19"
+
+**2. Section 1 — Overall rating** — `<div class="px-4 mt-6">`
 
 ```html
-<body class="mobile-app">
-  <div class="mobile-shell" style="display: flex; flex-direction: column; height: 100dvh; padding-bottom: 0;">
+<fieldset class="feedback-rating-fieldset">
+  <legend class="text-sm font-semibold text-gray-900 mb-3">
+    <span data-i18n-en="Overall, how were your meals this week?" data-i18n-es="En general, ¿cómo estuvieron tus comidas esta semana?">Overall, how were your meals this week?</span>
+  </legend>
+  <div class="grid grid-cols-3 gap-2">
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="good" class="sr-only">
+      <i class="fa-solid fa-face-smile" aria-hidden="true"></i>
+      <span data-i18n-en="Good" data-i18n-es="Buenas">Good</span>
+    </label>
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="okay" class="sr-only">
+      <i class="fa-solid fa-face-meh" aria-hidden="true"></i>
+      <span data-i18n-en="Okay" data-i18n-es="Regulares">Okay</span>
+    </label>
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="not-good" class="sr-only" id="rating-not-good">
+      <i class="fa-solid fa-face-frown" aria-hidden="true"></i>
+      <span data-i18n-en="Not good" data-i18n-es="No tan buenas">Not good</span>
+    </label>
+
+  </div>
+</fieldset>
 ```
 
-The `.mobile-shell` normally has `pb-[64px]` or similar — override it here to `padding-bottom: 0` via inline style since this screen manages its own spacing. The bottom nav sits inside the flex column at the bottom.
+**3. Section 1b — Issue type** — conditional, hidden by default, shown when "Not good" is selected
 
-Title: `"Messages — Cena Health"`
-
-### Page structure
-
-**1. i18n bar** — copy verbatim from partial (fixed top)
-
-**2. Header zone** — `<div class="px-4 pt-20 pb-3 shrink-0 border-b border-gray-100">`
-- `<h1 class="text-xl" style="font-family: var(--font-serif);">` — "Your Care Team"
-- `<p class="text-sm text-gray-500 mt-0.5">` — "Your dietitian and coordinator"
-
-**3. Thread area** — `<div class="flex-1 overflow-y-auto px-4 py-4" id="thread-area">`
-
-This div fills the remaining height between header and compose bar. Build a static hardcoded thread with the following messages in order:
-
----
-
-**Date separator:**
 ```html
-<div class="message-date-sep">Yesterday</div>
-```
-
-**Incoming group — Maria Chen RD:**
-```html
-<div class="mb-4">
-  <p class="message-sender-label">Maria Chen, RD</p>
-  <div class="flex flex-col items-start gap-1">
-    <div class="message-bubble-in">
-      Hi! I've set up your meal plan for next week. You'll see 5 meals — let me know if anything doesn't look right.
+<div class="px-4 mt-4 feedback-issue-section" style="display:none;">
+  <fieldset class="border-0 p-0">
+    <legend class="text-sm font-semibold text-gray-900 mb-3">
+      <span data-i18n-en="What went wrong?" data-i18n-es="¿Qué salió mal?">What went wrong?</span>
+    </legend>
+    <div class="space-y-2">
+      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="not-delivered">
+        <span data-i18n-en="Meals didn't arrive" data-i18n-es="Las comidas no llegaron">Meals didn't arrive</span>
+      </button>
+      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="wrong-meals">
+        <span data-i18n-en="Wrong meals" data-i18n-es="Comidas incorrectas">Wrong meals</span>
+      </button>
+      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="poor-quality">
+        <span data-i18n-en="Poor quality or damaged" data-i18n-es="Mala calidad o dañadas">Poor quality or damaged</span>
+      </button>
+      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="wrong-amount">
+        <span data-i18n-en="Too much or too little food" data-i18n-es="Demasiada o poca comida">Too much or too little food</span>
+      </button>
+      <button type="button" class="btn-outline w-full issue-type-btn" data-issue="other">
+        <span data-i18n-en="Something else" data-i18n-es="Otra cosa">Something else</span>
+      </button>
     </div>
-    <span class="message-timestamp">2:14 PM</span>
+  </fieldset>
+</div>
+```
+
+**4. Section 2 — Per-meal ratings** — `<div class="px-4 mt-6">`
+
+Use Preline accordion. The toggle label is "Rate individual meals". Each accordion item contains a meal name and three icon buttons (thumbs up, neutral, thumbs down). Only one accordion item open at a time is not required — default is all collapsed.
+
+```html
+<div class="hs-accordion-group">
+  <div class="hs-accordion border border-gray-200 rounded-xl overflow-hidden" id="accordion-meals">
+    <button class="hs-accordion-toggle w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900" aria-expanded="false" aria-controls="accordion-meals-content">
+      <span data-i18n-en="Rate individual meals" data-i18n-es="Calificar comidas individuales">Rate individual meals</span>
+      <i class="fa-solid fa-chevron-down accordion-chevron-down text-gray-400 text-xs" aria-hidden="true"></i>
+      <i class="fa-solid fa-chevron-up accordion-chevron-up text-gray-400 text-xs" aria-hidden="true"></i>
+    </button>
+    <div id="accordion-meals-content" class="hs-accordion-content hidden" role="region">
+      <div class="divide-y divide-gray-100">
+
+        <!-- One row per meal -->
+        <div class="flex items-center justify-between px-4 py-3 gap-3">
+          <span class="text-sm text-gray-700 flex-1">Chicken Verde Rice Bowl</span>
+          <div class="flex gap-2 shrink-0">
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-4 py-3 gap-3">
+          <span class="text-sm text-gray-700 flex-1">Black Bean Tacos</span>
+          <div class="flex gap-2 shrink-0">
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-4 py-3 gap-3">
+          <span class="text-sm text-gray-700 flex-1">Lemon Herb Salmon</span>
+          <div class="flex gap-2 shrink-0">
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-4 py-3 gap-3">
+          <span class="text-sm text-gray-700 flex-1">Turkey Sofrito Bowl</span>
+          <div class="flex gap-2 shrink-0">
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-4 py-3 gap-3">
+          <span class="text-sm text-gray-700 flex-1">Veggie Stir-Fry</span>
+          <div class="flex gap-2 shrink-0">
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="good" aria-label="Good"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="okay" aria-label="Okay"><i class="fa-solid fa-face-meh"></i></button>
+            <button type="button" class="btn-icon meal-rating-btn" data-rating="bad" aria-label="Not good"><i class="fa-solid fa-thumbs-down"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>
 ```
 
-**Outgoing group — patient:**
+**5. Section 3 — Free text** — `<div class="px-4 mt-6">`
+
 ```html
-<div class="mb-4 flex flex-col items-end">
-  <div class="flex flex-col items-end gap-1">
-    <div class="message-bubble-out">
-      Thanks! The salmon looks great. Can I swap the Wednesday meal?
-    </div>
-    <span class="message-timestamp text-right">2:31 PM</span>
-  </div>
-</div>
-```
-
-**Incoming group — Maria Chen RD:**
-```html
-<div class="mb-4">
-  <p class="message-sender-label">Maria Chen, RD</p>
-  <div class="flex flex-col items-start gap-1">
-    <div class="message-bubble-in">
-      Of course! You can swap it directly in the Meals tab — just tap "Swap meal" on Wednesday's card.
-    </div>
-    <span class="message-timestamp">2:45 PM</span>
-  </div>
-</div>
-```
-
----
-
-**Date separator:**
-```html
-<div class="message-date-sep">Today</div>
-```
-
-**Incoming group — James Rivera:**
-```html
-<div class="mb-4">
-  <p class="message-sender-label">James Rivera</p>
-  <div class="flex flex-col items-start gap-1">
-    <div class="message-bubble-in">
-      Good morning! Just a reminder that your delivery window is Thursday between 11am and 1pm.
-    </div>
-    <span class="message-timestamp">8:02 AM</span>
-  </div>
-</div>
-```
-
-**Outgoing group — patient:**
-```html
-<div class="mb-4 flex flex-col items-end">
-  <div class="flex flex-col items-end gap-1">
-    <div class="message-bubble-out">
-      Got it, thank you!
-    </div>
-    <span class="message-timestamp text-right">8:17 AM</span>
-  </div>
-</div>
-```
-
----
-
-**4. New message pill** — place inside `#thread-area`, at the bottom of the thread content (static, always visible for prototype):
-```html
-<div class="message-new-pill" role="status" aria-live="polite">
-  <i class="fa-solid fa-arrow-down text-xs" aria-hidden="true"></i>
-  <span data-i18n-en="New message" data-i18n-es="Nuevo mensaje">New message</span>
-</div>
-```
-
-**5. Compose bar** — `<div class="shrink-0 border-t border-gray-100 bg-white px-3 py-3" style="padding-bottom: max(12px, env(safe-area-inset-bottom));">`
-
-Layout:
-```html
-<div class="flex items-end gap-2">
-  <button class="btn-icon shrink-0" aria-label="Attach image" type="button">
-    <i class="fa-solid fa-image" aria-hidden="true"></i>
-  </button>
+<fieldset class="border-0 p-0">
+  <legend class="text-sm font-semibold text-gray-900 mb-2">
+    <span data-i18n-en="Anything else? (optional)" data-i18n-es="¿Algo más? (opcional)">Anything else? (optional)</span>
+  </legend>
   <textarea
-    id="compose-input"
-    class="flex-1 resize-none rounded-xl border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
-    rows="1"
-    placeholder="Message your care team..."
-    aria-label="Message your care team"
-    style="max-height: 96px; overflow-y: auto;"
+    rows="3"
+    class="w-full"
+    placeholder="Tell us more..."
+    aria-label="Additional feedback"
   ></textarea>
-  <button class="btn-icon-primary shrink-0" id="btn-send" aria-label="Send message" type="button" disabled>
-    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-  </button>
+  <p class="text-xs text-gray-400 mt-1">
+    <span data-i18n-en="Your care team will read this." data-i18n-es="Tu equipo de cuidado leerá esto.">Your care team will read this.</span>
+  </p>
+</fieldset>
+```
+
+**6. Error message** — hidden by default, `<div class="px-4 mt-4">`
+```html
+<div class="alert alert-error hidden" id="feedback-error" role="alert">
+  <span data-i18n-en="Couldn't send your feedback. Try again?" data-i18n-es="No pudimos enviar tus comentarios. ¿Intentar de nuevo?">Couldn't send your feedback. Try again?</span>
 </div>
 ```
 
-**6. Bottom nav** — copy verbatim from partial, set "Care Team" tab active (third tab). Add unread badge to the Care Team tab icon with `mobile-bottom-nav-badge`.
+**7. Confirmation state** — hidden by default, shown on submit or `?state=submitted`
 
-Place the bottom nav as the last child inside `.mobile-shell`, after the compose bar. It must be `shrink-0`.
+Place this as a sibling to `<main>`, hidden by default:
+```html
+<div class="feedback-confirmation hidden px-4 pt-32 flex flex-col items-center text-center">
+  <i class="fa-solid fa-circle-check text-success-500 text-5xl mb-4" aria-hidden="true"></i>
+  <h2 class="text-xl font-semibold mb-2" style="font-family: var(--font-serif);">
+    <span data-i18n-en="Thanks for your feedback." data-i18n-es="Gracias por tus comentarios.">Thanks for your feedback.</span>
+  </h2>
+  <p class="text-sm text-gray-500 mb-6">
+    <span data-i18n-en="We shared this with your care team." data-i18n-es="Lo compartimos con tu equipo de cuidado.">We shared this with your care team.</span>
+  </p>
+  <a href="/apps/patient/meals/index.html" class="btn-outline">
+    <span data-i18n-en="Done" data-i18n-es="Listo">Done</span>
+  </a>
+</div>
+```
 
-### i18n on thread content
-Thread messages are dummy data -- do NOT add `data-i18n-*` attributes to message bubble text. Only the compose placeholder and new message pill need i18n attributes (already specified above).
+**8. Sticky footer** — place before `</div><!-- /.mobile-shell -->`
+```html
+<div class="sticky-footer" id="feedback-footer">
+  <div class="sticky-footer-inner">
+    <div class="sticky-footer-actions">
+      <a href="/apps/patient/meals/index.html" class="text-link text-sm text-gray-400 mr-auto">
+        <span data-i18n-en="Skip for now" data-i18n-es="Omitir por ahora">Skip for now</span>
+      </a>
+      <button class="btn-primary" id="btn-submit-feedback">
+        <span data-i18n-en="Submit feedback" data-i18n-es="Enviar comentarios">Submit feedback</span>
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+### State variant CSS
+
+Add under `/* Feedback screen state variants */` in `components.css`:
+
+```css
+/* Feedback screen state variants */
+.state-submitted main { @apply block; display: none; }
+.state-submitted #feedback-footer { @apply block; display: none; }
+.state-submitted .feedback-confirmation { @apply flex; }
+```
 
 ### Scripts
 - `<script src="/src/scripts/components/i18n.js"></script>`
-- `<script src="/src/scripts/components/messages-compose.js"></script>`
+- `<script src="/src/scripts/components/feedback.js"></script>`
 - `<script src="/src/scripts/main.js" type="module"></script>` — last
 
 ### Known Constraints
+- **Never `@apply` a semantic class inside another semantic class.**
 - **No `<script>` blocks in HTML.**
-- **Semantic classes only** on component elements. The compose textarea uses layout utilities (`flex-1`, `resize-none`, `rounded-xl`) directly -- this is acceptable as a one-off form element in the page template.
-- **`env(safe-area-inset-bottom)`** on compose bar padding -- required for iOS home indicator clearance.
-- **`100dvh`** on `.mobile-shell` -- use `dvh` not `vh` to handle mobile browser chrome correctly.
+- **Raw CSS rules in `components.css` must start with `@apply block;`** if they contain no other `@apply`.
+- **`hs-accordion` open state:** Preline v4 adds the `.block` class to `.hs-accordion-content` when open — do not use `hs-dropdown-open:*` variants. Drive chevron visibility via `.hs-accordion.active` class (confirmed in decisions-log).
 
 ---
 
-## Prompt 2: Build `src/scripts/components/messages-compose.js`
+## Prompt 2: Build `src/scripts/components/feedback.js`
 
-Create `src/scripts/components/messages-compose.js`.
-
-### Auto-grow textarea
+### State management
 
 ```js
 document.addEventListener('DOMContentLoaded', () => {
-  const textarea = document.getElementById('compose-input');
-  const btnSend = document.getElementById('btn-send');
-
-  if (!textarea || !btnSend) return;
-
-  function updateSendButton() {
-    btnSend.disabled = textarea.value.trim().length === 0;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('state') === 'submitted') {
+    document.body.classList.add('state-submitted');
   }
+});
+```
 
-  function autoGrow() {
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.min(textarea.scrollHeight, 96) + 'px';
-    updateSendButton();
-  }
+### Issue section toggle
 
-  textarea.addEventListener('input', autoGrow);
+Show `.feedback-issue-section` when "Not good" radio is selected; hide it otherwise:
 
-  // Send: append bubble to thread, clear compose
-  btnSend.addEventListener('click', () => {
-    const text = textarea.value.trim();
-    if (!text) return;
-
-    const threadArea = document.getElementById('thread-area');
-    const bubble = document.createElement('div');
-    bubble.className = 'mb-4 flex flex-col items-end';
-    bubble.innerHTML = `
-      <div class="flex flex-col items-end gap-1">
-        <div class="message-bubble-out">${text}</div>
-        <span class="message-timestamp text-right">Just now</span>
-      </div>
-    `;
-
-    // Insert before the new-message pill if it exists, otherwise append
-    const pill = threadArea.querySelector('.message-new-pill');
-    if (pill) {
-      threadArea.insertBefore(bubble, pill);
-    } else {
-      threadArea.appendChild(bubble);
-    }
-
-    textarea.value = '';
-    textarea.style.height = 'auto';
-    updateSendButton();
-    threadArea.scrollTop = threadArea.scrollHeight;
-  });
-
-  // Also send on Enter (not Shift+Enter)
-  textarea.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      if (!btnSend.disabled) btnSend.click();
-    }
+```js
+document.querySelectorAll('input[name="overall-rating"]').forEach(input => {
+  input.addEventListener('change', () => {
+    const issueSection = document.querySelector('.feedback-issue-section');
+    if (!issueSection) return;
+    issueSection.style.display = input.value === 'not-good' ? '' : 'none';
   });
 });
 ```
 
+### Issue type button selection
+
+```js
+document.querySelectorAll('.issue-type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.issue-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+```
+
+### Per-meal rating selection
+
+Each meal row has three `.meal-rating-btn` buttons. Selecting one highlights it; the others in the same row deselect.
+
+```js
+document.querySelectorAll('.meal-rating-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const row = btn.closest('.flex');
+    row.querySelectorAll('.meal-rating-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+```
+
+Add to `components.css` under the feedback state variants comment:
+
+```css
+.meal-rating-btn.active {
+  @apply text-primary-600 bg-primary-50;
+}
+```
+
+### Submit
+
+```js
+document.getElementById('btn-submit-feedback')?.addEventListener('click', () => {
+  document.body.classList.add('state-submitted');
+  history.replaceState(null, '', '?state=submitted');
+  window.scrollTo(0, 0);
+});
+```
+
 ### Known Constraints
-- No Preline dependencies on this screen.
-- Inserted bubble HTML uses semantic classes (`message-bubble-out`, `message-timestamp`) -- not utility chains.
+- No Preline dependencies needed in this file -- accordion is handled by `main.js`.
+- `btn-outline.active` class already exists in `components.css` (added in MEALS-02). Use it for issue type buttons.
 
 ---
 
 ## Verification
 
-After both prompts complete, verify at `http://localhost:5173/apps/patient/care-team/messages.html`:
+After both prompts complete, verify at `http://localhost:5173/apps/patient/care-team/feedback.html`:
 
-- [ ] Page fills full viewport height -- no scrollbar on body, only thread area scrolls
-- [ ] Header is fixed below i18n bar, does not scroll with thread
-- [ ] Thread renders all messages in correct order with correct alignment (outgoing right, incoming left)
-- [ ] Sender labels appear above first bubble of each group
-- [ ] Date separators ("Yesterday", "Today") render between groups
-- [ ] Timestamps render below each bubble
-- [ ] "New message" pill is visible above compose bar
-- [ ] Compose textarea starts at 1 row, grows up to ~4 rows as text is entered
-- [ ] Send button disabled when textarea is empty, enabled when text is present
-- [ ] Sending a message appends it to the thread and clears the compose area
-- [ ] Enter key sends (Shift+Enter does not)
-- [ ] Bottom nav renders with Care Team tab active and unread badge visible
-- [ ] i18n toggle works on pill and placeholder
-- [ ] Compose bar clears iOS home indicator via `env(safe-area-inset-bottom)`
-- [ ] No utility class chains on `message-bubble-*` or `message-sender-label` elements
+- [ ] Default state: form visible, confirmation hidden, footer visible
+- [ ] `?state=submitted`: form hidden, footer hidden, confirmation state visible
+- [ ] Three rating cards render in a row with icons and labels
+- [ ] Selecting "Not good" reveals the issue type section
+- [ ] Selecting "Good" or "Okay" hides the issue type section
+- [ ] Issue type buttons highlight on selection with `.active` state
+- [ ] Per-meal accordion is collapsed by default
+- [ ] Expanding accordion reveals 5 meal rows
+- [ ] Tapping a meal rating button highlights it; siblings in the row deselect
+- [ ] Free text textarea renders with placeholder and helper text
+- [ ] "Submit feedback" button transitions to confirmed state and updates URL
+- [ ] Bottom nav renders with Care Team tab active
+- [ ] i18n toggle works on all strings
+- [ ] No utility class chains on component elements
 - [ ] No `<script>` blocks in HTML
-- [ ] `src/scripts/components/messages-compose.js` exists
+- [ ] `src/scripts/components/feedback.js` exists
+- [ ] New CSS rules under `/* Feedback screen state variants */` in `components.css`
 - [ ] Dark mode: not applicable
-- [ ] No new pattern library files needed
 - [ ] ANDREY-README.md: not applicable
 
 ---
@@ -298,7 +369,7 @@ After both prompts complete, verify at `http://localhost:5173/apps/patient/care-
 After verification passes, output:
 
 ```
-## Completion Report — Patient Messages Screen (CARE-01)
+## Completion Report — Patient Meal Feedback Screen (CARE-02)
 
 - New semantic classes added to components.css: [list, or "none"]
 - Existing classes modified: [list, or "none"]
@@ -316,12 +387,13 @@ After verification passes, output:
 
 ```bash
 git add -A
-git commit -m "feat(patient): add messages screen (CARE-01) with auto-grow compose"
+git commit -m "feat(patient): add meal feedback screen (CARE-02) with accordion and submit flow"
 ```
 
 Then output:
 
 ---
 **View your result:**
-- http://localhost:5173/apps/patient/care-team/messages.html
+- Default: http://localhost:5173/apps/patient/care-team/feedback.html
+- Submitted: http://localhost:5173/apps/patient/care-team/feedback.html?state=submitted
 ---
