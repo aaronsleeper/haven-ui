@@ -88,9 +88,9 @@ form > div {
    =================================== */
 
 /* Applied to <body> on all patient app screens.
-   Disables desktop ambient blobs, sets white bg. */
+   Disables desktop ambient blobs, sets warm tan bg. */
 .mobile-app {
-  @apply bg-white;
+  background-color: var(--color-sand-50);
   @apply dark:bg-neutral-900;
 }
 
@@ -101,7 +101,8 @@ form > div {
 
 /* Inner centering wrapper — constrains content to mobile width */
 .mobile-shell {
-  @apply block w-full max-w-[430px] mx-auto min-h-dvh bg-white relative;
+  @apply block w-full max-w-[430px] mx-auto min-h-dvh relative;
+  background-color: var(--color-sand-50);
   @apply dark:bg-neutral-900;
 }
 
@@ -220,6 +221,15 @@ legend {
     margin-bottom: 0.25rem;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+/* Fieldset inside a card-body — strip double border/padding since card already provides the container */
+.card-body > fieldset,
+.card-body-sm > fieldset {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
 }
 
 /* Nested fieldset legend (smaller) */
