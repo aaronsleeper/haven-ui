@@ -418,6 +418,26 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+## Decision: Swap Action Moved to Trailing Icon Button in Right Gutter
+**Date:** March 2026
+**Context:** The swap button lived inside `.meal-card-body`, below the nutrition tags. It was the only interactive action per card on the confirmed state, but felt buried -- spatially subordinate to content rather than adjacent to it. Users scanning a column of cards didn't identify it as an action.
+**Decision:** Moved swap button outside `.meal-card-body` into a third flex column on `.meal-card`. Icon-only (`fa-shuffle`), 36px square, vertically centered. Text label removed. `aria-label` retained for accessibility.
+**Rationale:** Trailing icon in the right gutter creates clear spatial adjacency -- it acts on that row, not something inside it. Card body reads as pure information. Pattern is common in iOS Reminders, Google Keep. No new CSS class needed beyond restyling `.meal-card-swap`.
+**Trade-offs:** Icon-only loses the text label "Swap meal". Mitigated by `aria-label` and the shuffle icon being conventionally understood for this action. The detail sheet still has a full labeled button as a fallback.
+**Rule:** For list-row actions that affect the entire row (swap, edit, delete), place the affordance in the right gutter as a trailing icon button, not inside the row's content body.
+**Outcome:** ✅ Built and verified.
+
+---
+
+## Decision: --color-gray-* variables do not exist in this project's token system
+**Date:** March 2026
+**Context:** Attempted to use `color: var(--color-gray-400)` in raw CSS inside `components.css`. The property resolved to nothing and icons rendered invisible.
+**Root Cause:** The project's `colors.css` defines custom color scales (sand, stone, primary, etc.) inside a Tailwind v4 `@theme {}` block, but does NOT define a `gray` scale as CSS custom properties. Tailwind's `@apply text-gray-400` works because it inlines the value at build time. But `var(--color-gray-400)` at runtime fails silently because the variable is never emitted to `:root`.
+**Rule:** In `components.css`, never use `var(--color-gray-*)` in raw CSS blocks. Use `@apply text-gray-400` etc., OR hardcode the equivalent hex value with a comment: `color: #9ca3af; /* gray-400 */`.
+**Outcome:** Fixed by replacing var() references with hardcoded hex values.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]

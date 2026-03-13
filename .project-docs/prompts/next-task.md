@@ -1,128 +1,127 @@
-# Task: Patient Meals — Swap Trailing Icon Button (PAT-MEALS-05)
+# Task: PAT-MEALS-05 Bug Fixes
 
 _Generated: 2026-03-13_
 _App: patient_
 
----
-
-## Scope Classification
-
-**Work type:** App only — restructure swap action from inline card content to trailing icon button. No new component classes. Modifies `.meal-card-swap` CSS and `.meal-card` HTML structure only.
-
-**Existing classes being modified:**
-- `.meal-card-swap` — restyle as a compact trailing icon button
-- `.meal-card` — restructure flex layout to place swap icon in right gutter
-
-**Files touched:**
-- `src/styles/tokens/components.css` — `.meal-card-swap` block
-- `apps/patient/meals/index.html` — all 5 meal card instances (not the detail sheet)
-
----
+## Scope: SMALL — CSS edits only + one HTML markup fix
 
 ## Pre-Build Audit
 
-Before writing any code, the agent must:
-1. Read the `.meal-card`, `.meal-card-body`, `.meal-card-swap`, `.meal-card-img`, `.btn-icon` blocks in `src/styles/tokens/components.css` — confirm exact current content of each
-2. Read `apps/patient/meals/index.html` — confirm exact current HTML structure of one meal card in full
-3. Note the current flex structure: `.meal-card` > `.meal-card-img` + `.meal-card-body` (which contains day, name, tags, swap button)
+Read before touching anything:
+
+- `src/styles/tokens/components.css` — find `.meal-card-swap`, `.alert-inset`, `.mobile-i18n-toggle`
+- `apps/patient/meals/index.html` — confirm swap button structure and i18n toggle markup
 
 ---
 
-## Restructure — Swap as trailing icon button
+## Problem 1: Swap icon not visible
 
-**Design intent:** Move the swap action out of `.meal-card-body` and into a dedicated right-gutter column. The card reads as three columns: `[image] [day + name + tags] [swap icon]`. The swap icon is vertically centered in the card, spatially adjacent to the item it acts on, and visually distinct from the card's content.
+**Root cause:** `.meal-card-swap` uses `color: var(--color-gray-400)` but `--color-gray-400` is NOT defined in this project's token system (`colors.css` has no gray scale). The variable resolves to nothing; the icon is invisible.
 
-### New card structure (HTML)
+**Fix in `src/styles/tokens/components.css`:**
 
-The outer `.meal-card` is already `display: flex; align-items: start`. Change it to `items-center` to vertically center the three columns, then restructure each card as:
-
-```html
-<div class="meal-card">
-  <div class="meal-card-img">...</div>
-  <div class="meal-card-body">
-    <p class="meal-card-day">...</p>
-    <p class="meal-card-name">...</p>
-    <div class="meal-card-tags">...</div>
-    <!-- swap button REMOVED from here -->
-  </div>
-  <button class="meal-card-swap"
-          aria-label="Swap [Meal Name]"
-          data-open-swap
-          data-meal="[day]">
-    <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
-  </button>
-</div>
-```
-
-The agent must apply this structure to all 5 meal cards in the meal list. The `aria-label` must retain the meal-specific name (e.g., `aria-label="Swap Chicken Verde Rice Bowl"`) since there is no visible text label.
-
-**Do not restructure the swap button inside `#sheet-detail`.** That button is `.btn-outline w-full` and should remain as-is.
-
-### CSS changes in `src/styles/tokens/components.css`
-
-**1. Update `.meal-card`** — change `items-start` to `items-center`:
-
-The current block uses `@apply flex items-start gap-3 ...`. Change to `items-center`:
-
-```css
-.meal-card {
-  @apply flex items-center gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
-  @apply hover:bg-gray-50 transition-colors;
-  background-color: white !important;
-}
-
-.meal-card:hover {
-  background-color: var(--color-gray-50) !important;
-}
-```
-
-**2. Replace `.meal-card-swap`** — restyle as a compact icon-only button in the right gutter:
+Find and replace the entire `.meal-card-swap` block (and its hover/focus) with:
 
 ```css
 .meal-card-swap {
-  @apply flex-shrink-0 flex items-center justify-center;
-  @apply size-9 rounded-lg text-gray-400;
-  @apply hover:text-gray-600 hover:bg-gray-100;
-  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
-  @apply dark:text-neutral-500 dark:hover:text-neutral-300 dark:hover:bg-neutral-800;
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 0.5rem;
+	color: #9ca3af; /* gray-400 hardcoded — --color-gray-* not defined in token system */
+	background: transparent !important;
+	border: none !important;
+	cursor: pointer;
+	font-size: 0.875rem;
+}
+
+.meal-card-swap:hover {
+	color: #4b5563; /* gray-600 */
+	background-color: #f3f4f6 !important; /* gray-100 */
+}
+
+.meal-card-swap:focus {
+	outline: 2px solid var(--color-primary-500);
+	outline-offset: 2px;
 }
 ```
 
-This is visually equivalent to `.btn-icon` but scoped to `.meal-card-swap` so it stays decoupled from any future `.btn-icon` changes and carries its own `flex-shrink-0` to prevent the gutter from collapsing.
-
-**3. Update `.meal-card-body`** — add `flex-1 min-w-0` to ensure it takes remaining space between image and swap icon:
-
-The current block already has `@apply flex flex-col gap-1 flex-1 min-w-0`. Confirm this is present — no change needed if it is.
-
-### Icon sizing
-
-The shuffle icon inside `.meal-card-swap` should be `text-base` (16px). Do not add a size class to the `<i>` — let it inherit from the button's default font size. The button is `size-9` (36px square) which gives adequate tap target on mobile.
-
 ---
 
-## Verification Checklist
+## Problem 2: Alert padding still too wide
 
-- [ ] Verified at `http://localhost:5173/apps/patient/meals/index.html?state=confirmed`
-- [ ] Each meal card shows: image | day/name/tags | shuffle icon (right gutter)
-- [ ] Shuffle icon is vertically centered with the card content
-- [ ] Shuffle icon has adequate tap target (min 36px square)
-- [ ] Clicking the shuffle icon opens the swap sheet (same behavior as before)
-- [ ] `aria-label` on each swap button retains the meal-specific name
-- [ ] `.meal-card-body` has no swap button inside it on any of the 5 cards
-- [ ] Detail sheet swap button (`#sheet-detail`) is unchanged
-- [ ] Unconfirmed state also renders correctly (visit without `?state=confirmed`)
-- [ ] No utility chains added to HTML
-- [ ] No inline `style=` attributes added
+**Root cause:** `@apply px-3` loses to `p-4`'s `padding` shorthand in cascade.
 
----
+**Fix in `src/styles/tokens/components.css`:**
 
-## Commit
+Find `.alert-inset` and replace with:
 
-```bash
-git add -A
-git commit -m "refactor(patient/meals): swap action to trailing icon button"
+```css
+.alert-inset {
+	padding-inline: 0.75rem !important;
+}
 ```
+
+---
+
+## Problem 3: Language toggle renders as green pill
+
+**Root cause:** The global `button` rule applies `border border-transparent` + focus ring, overriding `.mobile-i18n-toggle`'s intended bare-text appearance.
+
+**Fix A — in `src/styles/tokens/components.css`:**
+
+Find `.mobile-i18n-toggle` and replace with:
+
+```css
+.mobile-i18n-toggle {
+	@apply inline-flex items-center gap-1.5 text-xs font-medium text-gray-600;
+	@apply hover:text-gray-900 dark:text-neutral-400 dark:hover:text-neutral-200;
+	@apply focus:outline-none;
+	text-decoration: none;
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	cursor: pointer;
+}
+```
+
+**Fix B — in `apps/patient/meals/index.html`:**
+
+Inside the `#lang-dropdown-btn` button, set the children to this exact order (globe → label → chevron):
+
+```html
+<i
+	class="fa-solid fa-globe text-gray-400"
+	aria-hidden="true"
+></i>
+<span
+	id="lang-label"
+	data-i18n-en="English"
+	data-i18n-es="Español"
+	>English</span
+>
+<i
+	class="fa-solid fa-chevron-down text-gray-400"
+	style="font-size:10px"
+	aria-hidden="true"
+></i>
+```
+
+---
+
+## Verification
+
+Check at `http://localhost:5173/apps/patient/meals/index.html?state=confirmed`:
+
+1. Each meal card shows a small shuffle icon in the right gutter (gray, ~14px)
+2. The confirmed alert has tighter horizontal padding matching the card inset
+3. The language toggle reads "English" as plain text with globe icon + small chevron — no green background, no pill shape
+
+## Do NOT change
+
+- Sheet swap button (`.btn-outline w-full`) inside `#sheet-swap` — leave as-is
+- Any meal card HTML structure other than the i18n toggle
