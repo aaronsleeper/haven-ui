@@ -1,0 +1,18 @@
+<!--
+@component-meta
+name: Mobile Shell
+category: Layout
+classes: mobile-app, mobile-shell
+preline: false
+description: Base layout wrapper for patient app screens. Applied as class on body + inner div. Constrains to 430px, disables desktop ambient blobs, sets white background.
+-->
+
+<!-- Usage: Add mobile-app to <body>, wrap all content in mobile-shell -->
+<body class="mobile-app bg-gray-100">
+  <div class="mobile-shell">
+    <!-- Patient app content here -->
+    <div class="px-4 py-6">
+      <p class="text-sm text-gray-500">Mobile shell — max 430px, centered</p>
+    </div>
+  </div>
+</body>

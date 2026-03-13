@@ -214,6 +214,54 @@ Any deviations from the Firebase schema are logged in `src/data/_schema-notes.md
 
 ---
 
+## Patient App: i18n (Language Toggle)
+
+The patient app supports bilingual text (English/Spanish) via `data-i18n-*` attributes.
+
+### How It Works
+
+Any element with both `data-i18n-en` and `data-i18n-es` attributes will have its `textContent` swapped when the user toggles language:
+
+```html
+<span data-i18n-en="Meals Today" data-i18n-es="Comidas Hoy">Meals Today</span>
+```
+
+- Default language is English (`en`)
+- Language choice persists in `localStorage` under key `cena-lang`
+- The `<html lang>` attribute updates on toggle
+- JS module: `src/scripts/components/i18n.js` (include once per page)
+
+### i18n Bar Partial
+
+Include `src/partials/patient-i18n-bar.html` at the top of `<body>` on all patient screens. It renders a fixed 40px bar with a language toggle button.
+
+### Mobile Shell
+
+Patient app screens use a mobile-first layout:
+
+```html
+<body class="mobile-app">
+  <!-- i18n bar partial here -->
+  <div class="mobile-shell">
+    <!-- page content -->
+  </div>
+</body>
+```
+
+- `mobile-app` on `<body>`: white background, disables desktop ambient blobs
+- `mobile-shell` on inner wrapper: constrains to 430px, centers horizontally
+
+### Semantic Classes
+
+| Class | Element | Purpose |
+|---|---|---|
+| `mobile-app` | `<body>` | White bg, disable ambient blobs |
+| `mobile-shell` | `<div>` | 430px max-width centered wrapper |
+| `mobile-i18n-bar` | `<div>` | Fixed top bar (40px height) |
+| `mobile-i18n-toggle` | `<button>` | Language toggle button |
+
+---
+
 ## Questions / Updates
 
 If component HTML or class names change, the agent will update this file as part of the same task.

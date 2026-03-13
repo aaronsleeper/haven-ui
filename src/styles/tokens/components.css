@@ -84,6 +84,53 @@ form > div {
 }
 
 /* ===================================
+   MOBILE APP SHELL (Patient App)
+   =================================== */
+
+/* Applied to <body> on all patient app screens.
+   Disables desktop ambient blobs, sets white bg. */
+.mobile-app {
+  @apply bg-white;
+  @apply dark:bg-neutral-900;
+}
+
+.mobile-app::before,
+.mobile-app::after {
+  display: none !important;
+}
+
+/* Inner centering wrapper — constrains content to mobile width */
+.mobile-shell {
+  @apply block w-full max-w-[430px] mx-auto min-h-dvh bg-white relative;
+  @apply dark:bg-neutral-900;
+}
+
+/* ===================================
+   MOBILE i18n BAR (Patient App)
+   =================================== */
+
+/* Fixed top bar containing the language toggle.
+   Present on all patient app screens. */
+.mobile-i18n-bar {
+  @apply fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 bg-white border-b border-gray-100;
+  height: 40px;
+  max-width: 430px;
+  margin-inline: auto;
+  @apply dark:bg-neutral-900 dark:border-neutral-800;
+}
+
+/* Language toggle button inside the i18n bar */
+.mobile-i18n-toggle {
+  @apply inline-flex items-center gap-1 text-xs text-gray-500;
+  @apply hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ===================================
    FIELDSETS
    =================================== */
 

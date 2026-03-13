@@ -1,0 +1,187 @@
+<svg width="1400" height="2400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1400" height="2400" fill="#ffffff"/>
+
+  <!-- Main Container Border -->
+  <rect x="20" y="20" width="1360" height="2360" fill="none" stroke="#333" stroke-width="2"/>
+
+  <!-- Header -->
+  <rect x="20" y="20" width="1010" height="60" fill="none" stroke="#333" stroke-width="1"/>
+  <text x="40" y="55" font-family="Arial" font-size="24" font-weight="bold">Care Plan</text>
+
+  <!-- Ava Chat Pane (Right Side) -->
+  <rect x="1030" y="20" width="350" height="2360" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="1050" y="55" font-family="Arial" font-size="18" font-weight="bold">Ava Chat</text>
+  <line x1="1030" y1="80" x2="1380" y2="80" stroke="#999" stroke-width="1"/>
+
+  <!-- Ava Greeting -->
+  <rect x="1050" y="100" width="310" height="120" fill="#f5f5f5" stroke="#ccc" stroke-width="1" rx="5"/>
+  <text x="1060" y="125" font-family="Arial" font-size="13" fill="#555">
+    <tspan x="1060" dy="0">"Great work! You've completed</tspan>
+    <tspan x="1060" dy="18">3 of 5 goals this month. Your</tspan>
+    <tspan x="1060" dy="18">nutrition adherence is up 25%."</tspan>
+  </text>
+
+  <!-- Chat Input -->
+  <rect x="1050" y="2300" width="310" height="40" fill="none" stroke="#999" stroke-width="1" rx="3"/>
+  <text x="1060" y="2325" font-family="Arial" font-size="12" fill="#999">Type a message...</text>
+
+  <!-- Audit Log Indicator -->
+  <rect x="1050" y="240" width="310" height="30" fill="#e8f4f8" stroke="#999" stroke-width="1" rx="3"/>
+  <text x="1060" y="262" font-family="Arial" font-size="11" fill="#666">▼ Audit log</text>
+
+  <!-- Main Content Area -->
+  <g id="main-content">
+
+    <!-- Care Plan Summary Section -->
+    <rect x="40" y="100" width="970" height="180" fill="#f9f9f9" stroke="#999" stroke-width="1" rx="5"/>
+    <text x="60" y="130" font-family="Arial" font-size="16" font-weight="bold">SUMMARY</text>
+
+    <text x="60" y="160" font-family="Arial" font-size="13">
+      <tspan x="60" dy="0">Phase: Active Treatment (Week 8/12)</tspan>
+      <tspan x="60" dy="22">Providers: RDN Lopez, BHN Chen, PCP Dr. Martinez, Care Coordinator Williams</tspan>
+      <tspan x="60" dy="22">Last Updated: Dec 10 by RDN Lopez</tspan>
+      <tspan x="60" dy="22">Primary Conditions: Type 2 Diabetes, Hypertension, Food Insecurity</tspan>
+    </text>
+
+    <!-- Active Goals Section -->
+    <text x="40" y="320" font-family="Arial" font-size="16" font-weight="bold">ACTIVE GOALS (3/5 Complete)</text>
+
+    <!-- Overall Progress Bar -->
+    <rect x="40" y="330" width="970" height="20" fill="#e0e0e0" stroke="#999" stroke-width="1" rx="3"/>
+    <rect x="40" y="330" width="582" height="20" fill="#4caf50" stroke="none" rx="3"/>
+    <text x="450" y="345" font-family="Arial" font-size="12" fill="#fff" font-weight="bold">Progress: 60%</text>
+
+    <!-- Goal Card 1 -->
+    <rect x="60" y="370" width="930" height="100" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="395" font-family="Arial" font-size="14" font-weight="bold">✓ Reduce HbA1c to below 7%</text>
+    <text x="80" y="420" font-family="Arial" font-size="12" fill="#666">Set by: RDN Lopez | Due: Dec 15</text>
+    <text x="80" y="440" font-family="Arial" font-size="12" fill="#2e7d32">Current: 6.8% (Target: &lt;7%)</text>
+    <rect x="80" y="450" width="120" height="12" fill="#e0e0e0" stroke="none" rx="2"/>
+    <rect x="80" y="450" width="96" height="12" fill="#4caf50" stroke="none" rx="2"/>
+
+    <!-- Goal Card 2 -->
+    <rect x="60" y="490" width="930" height="100" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="515" font-family="Arial" font-size="14" font-weight="bold">Log meals 5x/week</text>
+    <text x="80" y="540" font-family="Arial" font-size="12" fill="#666">Set by: You | Due: Dec 31</text>
+    <text x="80" y="560" font-family="Arial" font-size="12">Progress: 4/5 this week</text>
+    <rect x="80" y="570" width="100" height="12" fill="#e0e0e0" stroke="none" rx="2"/>
+    <rect x="80" y="570" width="80" height="12" fill="#2196f3" stroke="none" rx="2"/>
+
+    <!-- Goal Card 3 -->
+    <rect x="60" y="610" width="930" height="100" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="635" font-family="Arial" font-size="14" font-weight="bold">Achieve BP &lt;140/90</text>
+    <text x="80" y="660" font-family="Arial" font-size="12" fill="#666">Set by: PCP Dr. Martinez | Due: Mar 15</text>
+    <text x="80" y="680" font-family="Arial" font-size="12" fill="#f57c00">Current: 148/92 (Target: &lt;140/90)</text>
+    <rect x="80" y="690" width="120" height="12" fill="#e0e0e0" stroke="none" rx="2"/>
+    <rect x="80" y="690" width="72" height="12" fill="#ff9800" stroke="none" rx="2"/>
+
+    <!-- Treatment Recommendations Section -->
+    <text x="40" y="750" font-family="Arial" font-size="16" font-weight="bold">TREATMENT RECOMMENDATIONS</text>
+
+    <!-- Nutrition Recommendations -->
+    <rect x="60" y="770" width="930" height="140" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="800" font-family="Arial" font-size="14" font-weight="bold">🍎 Nutrition (RDN Lopez)</text>
+    <text x="100" y="830" font-family="Arial" font-size="12">
+      <tspan x="100" dy="0">• 45-50g carbs per meal</tspan>
+      <tspan x="100" dy="20">• Mediterranean diet pattern</tspan>
+      <tspan x="100" dy="20">• Limit added sugars &lt;25g/day</tspan>
+      <tspan x="100" dy="20">• 3+ servings vegetables daily</tspan>
+    </text>
+
+    <!-- Behavioral Health Recommendations -->
+    <rect x="60" y="930" width="930" height="120" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="960" font-family="Arial" font-size="14" font-weight="bold">🧠 Behavioral Health (BHN Chen)</text>
+    <text x="100" y="990" font-family="Arial" font-size="12">
+      <tspan x="100" dy="0">• Practice mindful eating</tspan>
+      <tspan x="100" dy="20">• Stress management techniques</tspan>
+      <tspan x="100" dy="20">• Establish consistent sleep routine (7-8 hours)</tspan>
+    </text>
+
+    <!-- Medical Management -->
+    <rect x="60" y="1070" width="930" height="120" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="1100" font-family="Arial" font-size="14" font-weight="bold">💊 Medical Management (PCP Dr. Martinez)</text>
+    <text x="100" y="1130" font-family="Arial" font-size="12">
+      <tspan x="100" dy="0">• Metformin 1000mg BID</tspan>
+      <tspan x="100" dy="20">• Lisinopril 10mg daily</tspan>
+      <tspan x="100" dy="20">• Monthly check-ins scheduled</tspan>
+    </text>
+
+    <!-- Upcoming Appointments Section -->
+    <text x="40" y="1230" font-family="Arial" font-size="16" font-weight="bold">UPCOMING APPOINTMENTS</text>
+
+    <!-- Appointment Card 1 -->
+    <rect x="60" y="1250" width="450" height="80" fill="#f0f8ff" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="1275" font-family="Arial" font-size="13" font-weight="bold">RDN Lopez - Monthly Follow-up</text>
+    <text x="80" y="1295" font-family="Arial" font-size="12">Feb 15, 2026 at 2:00 PM</text>
+    <text x="80" y="1315" font-family="Arial" font-size="11" fill="#666">Virtual Visit</text>
+
+    <!-- Appointment Card 2 -->
+    <rect x="540" y="1250" width="450" height="80" fill="#f0f8ff" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="560" y="1275" font-family="Arial" font-size="13" font-weight="bold">BHN Chen - Weekly Session</text>
+    <text x="560" y="1295" font-family="Arial" font-size="12">Thu, Jan 30 at 2:00 PM</text>
+    <text x="560" y="1315" font-family="Arial" font-size="11" fill="#666">Virtual Visit</text>
+
+    <!-- Recent Care Team Notes Section -->
+    <text x="40" y="1380" font-family="Arial" font-size="16" font-weight="bold">RECENT CARE TEAM NOTES</text>
+
+    <!-- Note Card 1 -->
+    <rect x="60" y="1400" width="930" height="100" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="1425" font-family="Arial" font-size="13" font-weight="bold">Dec 10 - RDN Lopez</text>
+    <text x="80" y="1450" font-family="Arial" font-size="12" fill="#555">
+      <tspan x="80" dy="0">"Patient showing excellent progress with carb counting. HbA1c</tspan>
+      <tspan x="80" dy="18">improved to 6.8%. Continue current meal plan..."</tspan>
+    </text>
+    <text x="80" y="1485" font-family="Arial" font-size="11" fill="#1976d2" text-decoration="underline">[CLICK TO READ MORE]</text>
+
+    <!-- Note Card 2 -->
+    <rect x="60" y="1520" width="930" height="100" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="80" y="1545" font-family="Arial" font-size="13" font-weight="bold">Feb 8 - AVA Check-in Summary</text>
+    <text x="80" y="1570" font-family="Arial" font-size="12" fill="#555">
+      <tspan x="80" dy="0">"Patient reported glucose avg 180 this week (improving from 220).</tspan>
+      <tspan x="80" dy="18">Feeling 'less foggy.' Medication adherence 6/7 days..."</tspan>
+    </text>
+    <text x="80" y="1605" font-family="Arial" font-size="11" fill="#1976d2" text-decoration="underline">[CLICK TO READ MORE]</text>
+
+    <!-- Milestones & Achievements Section -->
+    <text x="40" y="1660" font-family="Arial" font-size="16" font-weight="bold">MILESTONES &amp; ACHIEVEMENTS</text>
+
+    <!-- Achievement Card 1 -->
+    <rect x="60" y="1680" width="930" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+    <text x="80" y="1705" font-family="Arial" font-size="13" font-weight="bold">🎉 2 weeks of consistent meal logging!</text>
+    <text x="80" y="1725" font-family="Arial" font-size="11" fill="#666">Jan 28, 2026</text>
+
+    <!-- Achievement Card 2 -->
+    <rect x="60" y="1760" width="930" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+    <text x="80" y="1785" font-family="Arial" font-size="13" font-weight="bold">🎉 HbA1c improved by 2.4 points!</text>
+    <text x="80" y="1805" font-family="Arial" font-size="11" fill="#666">Dec 10, 2025 - From 9.2% to 6.8%</text>
+
+    <!-- Next Steps Section -->
+    <text x="40" y="1860" font-family="Arial" font-size="16" font-weight="bold">NEXT STEPS &amp; ACTION ITEMS</text>
+
+    <!-- Action Item 1 -->
+    <rect x="60" y="1880" width="930" height="40" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="5"/>
+    <text x="80" y="1905" font-family="Arial" font-size="12">□ Schedule your monthly check-in with PCP Dr. Martinez</text>
+
+    <!-- Action Item 2 -->
+    <rect x="60" y="1935" width="930" height="40" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="5"/>
+    <text x="80" y="1960" font-family="Arial" font-size="12">□ Complete this week's mood survey</text>
+
+    <!-- Action Item 3 -->
+    <rect x="60" y="1990" width="930" height="40" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="5"/>
+    <text x="80" y="2015" font-family="Arial" font-size="12">□ Log blood pressure readings 2x this week</text>
+
+    <!-- Care Plan Timeline Link -->
+    <rect x="60" y="2060" width="930" height="50" fill="none" stroke="#1976d2" stroke-width="2" rx="5"/>
+    <text x="420" y="2090" font-family="Arial" font-size="14" fill="#1976d2" font-weight="bold">[View Full Care Plan Timeline]</text>
+
+    <!-- Contact Care Team Link -->
+    <rect x="60" y="2130" width="930" height="50" fill="none" stroke="#4caf50" stroke-width="2" rx="5"/>
+    <text x="390" y="2160" font-family="Arial" font-size="14" fill="#4caf50" font-weight="bold">[Contact Care Team via Ava Chat →]</text>
+
+  </g>
+
+  <!-- Scroll Indicator -->
+  <text x="480" y="2350" font-family="Arial" font-size="11" fill="#999">(Scrollable content)</text>
+
+</svg>

@@ -1,0 +1,18 @@
+<!--
+@component-meta
+name: Mobile i18n Bar
+category: Layout
+classes: mobile-i18n-bar, mobile-i18n-toggle
+preline: false
+description: Fixed top bar for patient app screens. Language toggle swaps data-i18n-en / data-i18n-es attributes. Shared partial: src/partials/patient-i18n-bar.html. JS: src/scripts/components/i18n.js
+-->
+
+<div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+  <button class="mobile-i18n-toggle" id="lang-toggle" type="button" aria-label="Switch to Spanish">
+    <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+    <i class="fa-solid fa-globe"></i>
+  </button>
+</div>
+
+<!-- i18n attribute pattern for bilingual text nodes on any screen: -->
+<!-- <span data-i18n-en="English text" data-i18n-es="Texto en español">English text</span> -->

@@ -1,167 +1,276 @@
-# Task: Fix shared header + add missing app index stubs
-_Generated: 2026-03-10_
-_App: cross-app_
+# Task 01: Mobile Shell + i18n System
 
----
+## Scope
+Pattern library + CSS + Partial + JS. No app page work in this task.
 
-## Scope Classification
+## Context
+This task establishes the three foundational pieces every patient app screen depends on:
+1. The `mobile-shell` CSS classes that override the desktop body defaults
+2. The `mobile-i18n-bar` — a fixed top bar with a language toggle (EN/ES)
+3. The `i18n.js` script that swaps `data-i18n-en` / `data-i18n-es` attributes on toggle
 
-- [x] Cross-app infrastructure — no new components; three HTML files edited/created
+These must exist before any app screen is built. The i18n bar will be a shared partial included on all 10 patient screens.
 
----
+## Prerequisites
+None — this is the first task.
 
-## Pre-Build Audit
+## Files to Read First
+- `src/styles/tokens/components.css` — confirm there is no existing `.mobile-shell` or `.mobile-app` class before adding
+- `pattern-library/COMPONENT-INDEX.md` — confirm no existing mobile shell component
+- `src/partials/` — list existing partials to avoid naming conflicts
+- `.project-docs/decisions-log.md` — review active rules before writing any CSS
 
-Before writing anything:
+## Instructions
 
-1. Read `src/partials/header.html` in full — this is the file being replaced
-2. Read `apps/provider/index.html` to confirm the `<load src="src/partials/header.html" />` usage pattern
-3. Read `src/partials/scripts.html` to confirm the scripts partial path
-4. Confirm `apps/patient/` and `apps/care-coordinator/` directories exist but are empty
+### Step 1: Add semantic classes to components.css
 
-No new semantic classes are needed. No `components.css` changes. No pattern library changes.
+Open `src/styles/tokens/components.css`. Add the following block after the existing `.sidebar-toggle-bar` section (around line 80). Do NOT modify any existing rules.
 
----
+```css
+/* ===================================
+   MOBILE APP SHELL (Patient App)
+   =================================== */
 
-## Prompt 1: Replace `src/partials/header.html`
+/* Applied to <body> on all patient app screens.
+   Disables desktop ambient blobs, sets white bg. */
+.mobile-app {
+  @apply bg-white;
+  @apply dark:bg-neutral-900;
+}
 
-The current `src/partials/header.html` is a leftover theme demo header. It has a nav bar
-with section jump links (`#buttons`, `#forms`, etc.) that have no targets in the apps.
-Replace it entirely with a minimal Haven branding header.
+.mobile-app::before,
+.mobile-app::after {
+  display: none !important;
+}
 
-Write this exact content to `src/partials/header.html`:
+/* Inner centering wrapper — constrains content to mobile width */
+.mobile-shell {
+  @apply block w-full max-w-[430px] mx-auto min-h-dvh bg-white relative;
+  @apply dark:bg-neutral-900;
+}
 
-```html
-<header>
-  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 dark:bg-neutral-800/95 dark:border-neutral-700">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <a href="/" class="text-xl font-bold text-primary-600 dark:text-primary-400 no-underline">Haven</a>
-        <div class="flex items-center gap-4">
-          <a href="/apps/" class="text-sm font-medium text-gray-600 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 no-underline">Apps</a>
-          <a href="/pattern-library/" class="text-sm font-medium text-gray-600 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 no-underline">Pattern Library</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
+/* ===================================
+   MOBILE i18n BAR (Patient App)
+   =================================== */
+
+/* Fixed top bar containing the language toggle.
+   Present on all patient app screens. */
+.mobile-i18n-bar {
+  @apply fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 bg-white border-b border-gray-100;
+  height: 40px;
+  max-width: 430px;
+  margin-inline: auto;
+  @apply dark:bg-neutral-900 dark:border-neutral-800;
+}
+
+/* Language toggle button inside the i18n bar */
+.mobile-i18n-toggle {
+  @apply inline-flex items-center gap-1 text-xs text-gray-500;
+  @apply hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
 ```
 
-Confirm by reading back the file after writing.
+**Known Constraints (from decisions-log.md):**
+- Any class using only raw CSS properties (no `@apply`) must include `@apply block;` as the first line to prevent Tailwind v4 tree-shaking from silently dropping it. The `.mobile-app::before` and `.mobile-app::after` rules are pseudo-elements on a class that does have `@apply`, so they are safe.
+- The base `button` element rule must not set size or color — `.mobile-i18n-toggle` overrides size/color via its own class, which is correct.
 
-### Known Constraints
-- No utility chains in HTML for component styling. These are layout/nav-specific one-off utilities on a shared partial, which is acceptable per CLAUDE.md.
-- No `<script>` blocks in HTML files.
+### Step 2: Create the i18n partial
 
----
-
-## Prompt 2: Create `apps/patient/index.html`
-
-The `apps/patient/` directory exists but is empty. Create `apps/patient/index.html`
-as a minimal coming-soon stub that matches the structure of the other app index pages.
-
-Write this exact content to `apps/patient/index.html`:
+Create `src/partials/patient-i18n-bar.html` with this exact content:
 
 ```html
-<!doctype html>
-<html lang="en">
-<load src="src/partials/head.html" />
-<body>
-  <load src="src/partials/header.html" />
-  <main class="container py-8">
-    <h1>Patient App</h1>
-    <p class="mt-2">Patient-facing mobile experience.</p>
-    <p class="mt-4 text-gray-500">Coming soon.</p>
-    <div class="mt-6">
-      <a href="/apps/" class="btn-outline">Back to Apps</a>
+<!-- Patient App: Language Toggle Bar -->
+<!-- Include on ALL patient app screens, before other body content -->
+<div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+  <button
+    class="mobile-i18n-toggle"
+    id="lang-toggle"
+    type="button"
+    aria-label="Switch to Spanish"
+  >
+    <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+    <i class="fa-solid fa-globe"></i>
+  </button>
+</div>
+```
+
+### Step 3: Create the i18n JavaScript module
+
+Create `src/scripts/components/i18n.js` with this exact content:
+
+```javascript
+/**
+ * i18n.js — Patient App language toggle
+ * Swaps data-i18n-en / data-i18n-es attributes on all text nodes.
+ * Persists language choice in localStorage.
+ * Include on all patient app screens.
+ */
+(function () {
+  'use strict';
+
+  var LANG_KEY = 'cena-lang';
+  var DEFAULT_LANG = 'en';
+
+  function applyLanguage(lang) {
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+
+    // Swap all bilingual text nodes
+    document.querySelectorAll('[data-i18n-en]').forEach(function (el) {
+      var text = lang === 'en' ? el.dataset.i18nEn : el.dataset.i18nEs;
+      if (text !== undefined) el.textContent = text;
+    });
+
+    // Update toggle aria-label to name the language you WILL switch to
+    var toggle = document.getElementById('lang-toggle');
+    if (toggle) {
+      toggle.setAttribute(
+        'aria-label',
+        lang === 'en' ? 'Switch to Spanish' : 'Switch to English'
+      );
+    }
+
+    // Persist choice
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+  }
+
+  function init() {
+    var saved;
+    try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
+    applyLanguage(saved || DEFAULT_LANG);
+
+    var toggle = document.getElementById('lang-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var current;
+        try { current = localStorage.getItem(LANG_KEY); } catch (e) {}
+        applyLanguage((current || DEFAULT_LANG) === 'en' ? 'es' : 'en');
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+```
+
+### Step 4: Create pattern library files
+
+Create `pattern-library/components/layout-mobile-shell.html`:
+
+```html
+<!--
+@component-meta
+name: Mobile Shell
+category: Layout
+classes: mobile-app, mobile-shell
+preline: false
+description: Base layout wrapper for patient app screens. Applied as class on body + inner div. Constrains to 430px, disables desktop ambient blobs, sets white background.
+-->
+
+<!-- Usage: Add mobile-app to <body>, wrap all content in mobile-shell -->
+<body class="mobile-app bg-gray-100">
+  <div class="mobile-shell">
+    <!-- Patient app content here -->
+    <div class="px-4 py-6">
+      <p class="text-sm text-gray-500">Mobile shell — max 430px, centered</p>
     </div>
-  </main>
-  <load src="src/partials/scripts.html" />
+  </div>
 </body>
-</html>
 ```
 
-Confirm by reading back the file after writing.
-
----
-
-## Prompt 3: Create `apps/care-coordinator/index.html`
-
-The `apps/care-coordinator/` directory exists but is empty. Create
-`apps/care-coordinator/index.html` as a minimal coming-soon stub.
-
-Write this exact content to `apps/care-coordinator/index.html`:
+Create `pattern-library/components/layout-mobile-i18n-bar.html`:
 
 ```html
-<!doctype html>
-<html lang="en">
-<load src="src/partials/head.html" />
-<body>
-  <load src="src/partials/header.html" />
-  <main class="container py-8">
-    <h1>Care Coordinator</h1>
-    <p class="mt-2">Care team coordination interface.</p>
-    <p class="mt-4 text-gray-500">Coming soon.</p>
-    <div class="mt-6">
-      <a href="/apps/" class="btn-outline">Back to Apps</a>
-    </div>
-  </main>
-  <load src="src/partials/scripts.html" />
-</body>
-</html>
+<!--
+@component-meta
+name: Mobile i18n Bar
+category: Layout
+classes: mobile-i18n-bar, mobile-i18n-toggle
+preline: false
+description: Fixed top bar for patient app screens. Language toggle swaps data-i18n-en / data-i18n-es attributes. Shared partial: src/partials/patient-i18n-bar.html. JS: src/scripts/components/i18n.js
+-->
+
+<div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+  <button class="mobile-i18n-toggle" id="lang-toggle" type="button" aria-label="Switch to Spanish">
+    <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+    <i class="fa-solid fa-globe"></i>
+  </button>
+</div>
+
+<!-- i18n attribute pattern for bilingual text nodes on any screen: -->
+<!-- <span data-i18n-en="English text" data-i18n-es="Texto en español">English text</span> -->
 ```
 
-Confirm by reading back the file after writing.
+### Step 5: Update COMPONENT-INDEX.md
 
----
+Add these two rows to the **Layout** table in `pattern-library/COMPONENT-INDEX.md`, after the existing "App Shell" row:
+
+```
+| Mobile Shell | `layout-mobile-shell.html` | `mobile-app`, `mobile-shell` | no | Patient app only. Apply `mobile-app` to `<body>`, `mobile-shell` to inner wrapper. |
+| Mobile i18n Bar | `layout-mobile-i18n-bar.html` | `mobile-i18n-bar`, `mobile-i18n-toggle` | no | Patient app only. Partial: `src/partials/patient-i18n-bar.html`. JS: `src/scripts/components/i18n.js` |
+```
+
+## Expected Result
+After this task:
+- `src/styles/tokens/components.css` contains `.mobile-app`, `.mobile-shell`, `.mobile-i18n-bar`, `.mobile-i18n-toggle` with proper dark mode variants
+- `src/partials/patient-i18n-bar.html` exists with the language toggle markup
+- `src/scripts/components/i18n.js` exists with the language swap module
+- `pattern-library/components/layout-mobile-shell.html` exists with `@component-meta` header
+- `pattern-library/components/layout-mobile-i18n-bar.html` exists with `@component-meta` header
+- `pattern-library/COMPONENT-INDEX.md` has two new rows in the Layout table
+
+No app pages are built in this task.
 
 ## Verification
-
-- [ ] Verified at `http://localhost:5173/` — header shows "Haven" with Apps + Pattern Library links
-- [ ] Verified at `http://localhost:5173/apps/provider/` — same clean header, no section jump links
-- [ ] Verified at `http://localhost:5173/apps/patient/` — renders coming soon stub
-- [ ] Verified at `http://localhost:5173/apps/care-coordinator/` — renders coming soon stub
-- [ ] Verified at `http://localhost:5173/pattern-library/` — still works (uses its own pl-nav, unaffected)
-- [ ] No utility chains added for component styling
-- [ ] No `style="..."` attributes
-- [ ] No `<script>` blocks in HTML files
-- [ ] No `components.css` changes
-- [ ] No pattern library files changed
-
----
+- [ ] `.mobile-app` class exists in `components.css` with `@apply bg-white` and dark mode
+- [ ] `.mobile-app::before, .mobile-app::after` have `display: none !important`
+- [ ] `.mobile-shell` class exists with `max-w-[430px]` and dark mode
+- [ ] `.mobile-i18n-bar` is `position: fixed`, `height: 40px`, `max-width: 430px`
+- [ ] `.mobile-i18n-toggle` has no size/color on the base `button` element rule — all styling is on the class
+- [ ] `src/partials/patient-i18n-bar.html` exists and contains `id="lang-toggle"`
+- [ ] `src/scripts/components/i18n.js` exists
+- [ ] Both pattern library files exist with `@component-meta` headers
+- [ ] `COMPONENT-INDEX.md` has both new rows
+- [ ] HTML classes in pattern library files are semantic — no utility chains in component styling
+- [ ] Dark mode variants present on `.mobile-app`, `.mobile-shell`, `.mobile-i18n-bar`, `.mobile-i18n-toggle`
+- [ ] `ANDREY-README.md` updated with i18n attribute pattern and `data-i18n-en`/`data-i18n-es` documentation (yes — Andrey needs this for Angular binding)
+- [ ] `src/data/_schema-notes.md` not affected (no data model changes)
 
 ## Completion Report
 
-After verification passes, output:
+After all verification passes, output:
 
 ```
-## Completion Report — Fix shared header + add missing app index stubs
+## Completion Report — Task 01: Mobile Shell + i18n System
 
-- New semantic classes added to components.css: none
+- New semantic classes added to components.css: [list]
 - Existing classes modified: none
-- Pattern library files created or updated: none
-- Files modified: src/partials/header.html
-- Files created: apps/patient/index.html, apps/care-coordinator/index.html
-- Judgment calls: none
-- Dark mode: existing dark: variants used inline on nav partial (layout partial, acceptable)
-- ANDREY-README.md updated: not applicable
+- Pattern library files created: [list]
+- Partials created: src/partials/patient-i18n-bar.html
+- Scripts created: src/scripts/components/i18n.js
+- Judgment calls: [any decisions not explicitly specified above]
+- Dark mode added: yes
+- ANDREY-README.md updated: yes
 - Schema delta logged: not applicable
 - Items deferred or incomplete: none
 ```
 
----
-
-## Final Step
-
-```bash
+Then run:
+```
 git add -A
-git commit -m "Replace theme demo header with minimal Haven nav; add patient + care-coordinator stubs"
+git commit -m "task 01: mobile shell, i18n bar, and language toggle system"
 ```
 
-Then output:
-
----
-**View your result:**
-- If `npm run dev` is already running: http://localhost:5173/
-- If not running: open a terminal in the repo root, run `npm run dev`, then visit http://localhost:5173/
----
+## If Something Goes Wrong
+- If `components.css` already has a `.mobile-shell` or `.mobile-app` class: do not duplicate. Read the existing class, confirm it matches the spec above, add any missing properties.
+- If the i18n bar partial conflicts with an existing partial name: check `src/partials/`, rename to `patient-i18n-bar.html` (already specified).
+- If `localStorage` is not available in the test environment: the `try/catch` blocks handle this gracefully — language defaults to English.

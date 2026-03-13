@@ -45,6 +45,8 @@ before creating any new component or semantic class.
 | Grid (2-col) | `layout-grid.html` | `grid-2` | no | Responsive 2-col grid |
 | Prose Section | `layout-prose-section.html` | `prose-section` | no | Constrains text to readable line length |
 | App Shell | `layout-app-shell.html` | `app-sidebar`, `app-sidebar-header`, `app-sidebar-brand`, `app-sidebar-nav`, `sidebar-nav-list`, `sidebar-nav-item`, `sidebar-nav-section` | yes | Full app layout with sidebar |
+| Mobile Shell | `layout-mobile-shell.html` | `mobile-app`, `mobile-shell` | no | Patient app only. Apply `mobile-app` to `<body>`, `mobile-shell` to inner wrapper. |
+| Mobile i18n Bar | `layout-mobile-i18n-bar.html` | `mobile-i18n-bar`, `mobile-i18n-toggle` | no | Patient app only. Partial: `src/partials/patient-i18n-bar.html`. JS: `src/scripts/components/i18n.js` |
 
 ---
 
