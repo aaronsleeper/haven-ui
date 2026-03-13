@@ -21,8 +21,8 @@ Patient app MVP build in progress -- onboarding screens complete, main app scree
 | ONB-01 Welcome | `apps/patient/onboarding/welcome.html` | ✅ |
 | ONB-02 Consent | `apps/patient/onboarding/consent.html` | ✅ |
 | ONB-03 Preferences | `apps/patient/onboarding/preferences.html` | ✅ |
-| Meals | `apps/patient/meals/index.html` | ⏳ Task 05 next |
-| Deliveries | `apps/patient/deliveries/index.html` | ⏳ |
+| Meals | `apps/patient/meals/index.html` | ✅ |
+| Deliveries | `apps/patient/deliveries/index.html` | ✅ |
 | Messages | `apps/patient/care-team/messages.html` | ⏳ |
 | Meal Feedback | `apps/patient/care-team/feedback.html` | ⏳ |
 | Profile | `apps/patient/profile/index.html` | ⏳ |
