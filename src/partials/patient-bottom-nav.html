@@ -1,0 +1,37 @@
+<!-- Patient App: Bottom Navigation Bar -->
+<!-- Include on all post-onboarding screens (NOT on onboarding screens) -->
+<!-- Set the .active class and aria-current="page" on the correct tab per screen -->
+<nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+  <a href="/apps/patient/meals/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Meals">
+    <i class="fa-solid fa-bowl-food"></i>
+    <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
+  </a>
+
+  <a href="/apps/patient/deliveries/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Delivery">
+    <i class="fa-solid fa-truck"></i>
+    <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+  </a>
+
+  <a href="/apps/patient/care-team/messages.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Care Team, 2 unread messages">
+    <span class="relative inline-flex">
+      <i class="fa-solid fa-comments"></i>
+      <span class="mobile-bottom-nav-badge">2</span>
+    </span>
+    <span data-i18n-en="Care Team" data-i18n-es="Mi Equipo">Care Team</span>
+  </a>
+
+  <a href="/apps/patient/profile/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Profile">
+    <i class="fa-solid fa-circle-user"></i>
+    <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
+  </a>
+
+</nav>

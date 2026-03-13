@@ -1,0 +1,48 @@
+<!--
+@component-meta
+name: Mobile Bottom Nav
+category: Layout
+classes: mobile-bottom-nav, mobile-bottom-nav-tab, mobile-bottom-nav-tab.active, mobile-bottom-nav-badge
+preline: false
+description: Fixed four-tab bottom navigation bar for the patient app. Present on all post-onboarding screens. Shared partial: src/partials/patient-bottom-nav.html. Copy partial and set .active + aria-current="page" on the correct tab per screen. Badge on Care Team tab shows unread count; hide with display:none when count is 0.
+-->
+
+<nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+  <!-- Meals tab (active example) -->
+  <a href="/apps/patient/meals/index.html"
+     class="mobile-bottom-nav-tab active"
+     aria-current="page"
+     aria-label="Meals">
+    <i class="fa-solid fa-bowl-food"></i>
+    <span>Meals</span>
+  </a>
+
+  <!-- Delivery tab -->
+  <a href="/apps/patient/deliveries/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Delivery">
+    <i class="fa-solid fa-truck"></i>
+    <span>Delivery</span>
+  </a>
+
+  <!-- Care Team tab with unread badge -->
+  <a href="/apps/patient/care-team/messages.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Care Team, 2 unread messages">
+    <span class="relative inline-flex">
+      <i class="fa-solid fa-comments"></i>
+      <span class="mobile-bottom-nav-badge">2</span>
+    </span>
+    <span>Care Team</span>
+  </a>
+
+  <!-- Profile tab -->
+  <a href="/apps/patient/profile/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Profile">
+    <i class="fa-solid fa-circle-user"></i>
+    <span>Profile</span>
+  </a>
+
+</nav>

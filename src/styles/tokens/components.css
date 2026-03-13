@@ -131,6 +131,60 @@ form > div {
 }
 
 /* ===================================
+   MOBILE BOTTOM NAV (Patient App)
+   =================================== */
+
+/* Fixed four-tab bar — present on all post-onboarding screens */
+.mobile-bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-4 bg-white border-t border-gray-200 shadow-lg;
+  max-width: 430px;
+  margin-inline: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+  @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+/* Individual tab item — <a> or <button> */
+.mobile-bottom-nav-tab {
+  @apply flex flex-col items-center justify-center gap-1 py-2 text-gray-400 text-xs font-medium;
+  @apply hover:text-primary-600 dark:text-neutral-500 dark:hover:text-primary-400;
+  min-height: 64px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-bottom-nav-tab i {
+  @apply text-xl;
+}
+
+/* Active tab — applied to the tab matching the current screen */
+.mobile-bottom-nav-tab.active {
+  @apply text-primary-600 dark:text-primary-400;
+}
+
+/* Unread count badge — positioned on the Care Team tab icon */
+.mobile-bottom-nav-badge {
+  @apply absolute -top-1.5 -right-2.5 flex items-center justify-center;
+  @apply bg-error-500 text-white font-bold rounded-full;
+  @apply dark:bg-error-600;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 3px;
+  font-size: 10px;
+}
+
+/* ===================================
+   ONBOARDING PROGRESS (Patient App)
+   =================================== */
+
+/* "Step N of 3" indicator on onboarding screens */
+.onb-progress {
+  @apply block text-sm text-gray-500 text-center mt-4 mb-2;
+  @apply dark:text-neutral-400;
+}
+
+/* ===================================
    FIELDSETS
    =================================== */
 

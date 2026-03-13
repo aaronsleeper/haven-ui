@@ -262,6 +262,80 @@ Patient app screens use a mobile-first layout:
 
 ---
 
+## Patient App: Bottom Navigation
+
+Fixed four-tab bar at the bottom of all post-onboarding patient screens.
+
+### HTML Structure
+
+```html
+<nav class="mobile-bottom-nav" aria-label="Main navigation">
+  <a href="/apps/patient/meals/index.html"
+     class="mobile-bottom-nav-tab active"
+     aria-current="page"
+     aria-label="Meals">
+    <i class="fa-solid fa-bowl-food"></i>
+    <span>Meals</span>
+  </a>
+  <a href="/apps/patient/deliveries/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Delivery">
+    <i class="fa-solid fa-truck"></i>
+    <span>Delivery</span>
+  </a>
+  <a href="/apps/patient/care-team/messages.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Care Team, 2 unread messages">
+    <span class="relative inline-flex">
+      <i class="fa-solid fa-comments"></i>
+      <span class="mobile-bottom-nav-badge">2</span>
+    </span>
+    <span>Care Team</span>
+  </a>
+  <a href="/apps/patient/profile/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Profile">
+    <i class="fa-solid fa-circle-user"></i>
+    <span>Profile</span>
+  </a>
+</nav>
+```
+
+### Active State
+
+Add `.active` to the `.mobile-bottom-nav-tab` for the current page and set `aria-current="page"`. In Angular, use `routerLinkActive="active"`.
+
+### Unread Badge
+
+The `.mobile-bottom-nav-badge` shows an unread count on the Care Team tab. Hide it with `display: none` (or `*ngIf`) when the count is 0.
+
+### Semantic Classes
+
+| Class | Element | Purpose |
+|---|---|---|
+| `mobile-bottom-nav` | `<nav>` | Fixed bottom bar, 4-col grid, 430px max-width |
+| `mobile-bottom-nav-tab` | `<a>` or `<button>` | Individual tab (icon + label, 64px min-height) |
+| `mobile-bottom-nav-tab.active` | same | Active tab highlight (primary color text) |
+| `mobile-bottom-nav-badge` | `<span>` | Absolute-positioned unread count badge (needs `relative` parent) |
+
+---
+
+## Patient App: Onboarding Progress
+
+"Step N of 3" indicator used on onboarding screens.
+
+```html
+<p class="onb-progress" aria-label="Step 1 of 3">
+  Step 1 of 3
+</p>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `onb-progress` | `<p>` | Centered, small gray text for step indicator |
+
+---
+
 ## Questions / Updates
 
 If component HTML or class names change, the agent will update this file as part of the same task.
