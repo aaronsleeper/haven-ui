@@ -123,6 +123,7 @@ form > div {
 .mobile-i18n-toggle {
   @apply inline-flex items-center gap-1 text-xs text-gray-500;
   @apply hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400;
+  @apply focus:outline-none focus:ring-0 focus:ring-offset-0;
   text-decoration: none;
   background: none;
   border: none;
@@ -2986,7 +2987,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-card-img {
-  @apply size-20 rounded-lg object-cover shrink-0 bg-stone-100;
+  @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-stone-100;
 }
 
 .meal-card-body {

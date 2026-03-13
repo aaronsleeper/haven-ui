@@ -19,12 +19,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Swap interaction: track active meal ---
-  document.querySelectorAll('.meal-card-swap').forEach(function (btn) {
+  // --- Custom bottom sheet for swap ---
+  var sheet = document.getElementById('sheet-swap');
+  var backdrop = document.getElementById('swap-backdrop');
+
+  function openSwap() {
+    sheet.classList.remove('translate-y-full');
+    sheet.classList.add('translate-y-0');
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100', 'pointer-events-auto');
+  }
+
+  function closeSwap() {
+    sheet.classList.remove('translate-y-0');
+    sheet.classList.add('translate-y-full');
+    backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+  }
+
+  // Open swap: buttons with [data-open-swap]
+  document.querySelectorAll('[data-open-swap]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       window._activeMealSlug = btn.dataset.meal;
+      openSwap();
     });
   });
+
+  // Close swap: X button [data-close-swap] and backdrop tap
+  document.querySelectorAll('[data-close-swap]').forEach(function (btn) {
+    btn.addEventListener('click', closeSwap);
+  });
+  if (backdrop) {
+    backdrop.addEventListener('click', closeSwap);
+  }
 
   // --- Swap option selection ---
   document.querySelectorAll('.swap-option').forEach(function (btn) {
@@ -32,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var slug = window._activeMealSlug;
       if (!slug) return;
 
-      var swapBtn = document.querySelector('.meal-card-swap[data-meal="' + slug + '"]');
+      var swapBtn = document.querySelector('[data-open-swap][data-meal="' + slug + '"]');
       var targetCard = swapBtn ? swapBtn.closest('.meal-card') : null;
 
       if (targetCard) {
@@ -43,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (img) img.src = btn.dataset.mealImg;
       }
 
-      if (window.HSOverlay) HSOverlay.close('#sheet-swap');
+      closeSwap();
     });
   });
 
