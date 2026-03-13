@@ -1,600 +1,628 @@
-# Task 03: Patient-Specific Components — CSS + Pattern Library
+# Task 04: Onboarding Screens (ONB-01, ONB-02, ONB-03)
 
 ## Scope
-Pattern library + CSS only. No app page work in this task.
+App pages only. Three files created in `apps/patient/onboarding/`. No new CSS classes — all components were built in Tasks 01–03. No new partials.
 
 ## Context
-This task adds the seven patient-app-specific semantic class groups that app screens (Tasks 04–09) will use. All must exist in `components.css` and have a matching pattern library file before any screen references them.
-
-The seven components:
-1. `meal-card` — horizontal meal photo + info card (MEALS-01)
-2. `delivery-status-card` — large centered status display (MEALS-02)
-3. `message-bubble-out` / `message-bubble-in` + related — SMS-style chat bubbles (CARE-01)
-4. `feedback-rating-card` + `feedback-rating-fieldset` — large tap-target rating option (CARE-02)
-5. `pref-image-card` + related — visual checkbox card for food preferences (ONB-03, PROFILE-01)
-
-Read the spec files in `apps/patient/design/new-components/` before writing any CSS. The specs contain exact `@apply` definitions — use them verbatim. Do not invent variants or add properties not listed.
+First three screens a patient sees. The flow is linear: Welcome → Consent → Preferences → Meals (MEALS-01). All three screens use the mobile shell pattern, i18n bar, and onboarding progress indicator. No bottom nav on onboarding screens.
 
 ## Prerequisites
-- Task 01 complete (`mobile-app`, `mobile-shell`, `mobile-i18n-bar`, `mobile-i18n-toggle` in `components.css`)
-- Task 02 complete (`mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge`, `onb-progress` in `components.css`)
+- Tasks 01, 02, 03 complete — all component classes and partials exist
 
 ## Files to Read First
-- `apps/patient/design/new-components/meal-card.md`
-- `apps/patient/design/new-components/delivery-status-card.md`
-- `apps/patient/design/new-components/message-bubble.md`
-- `apps/patient/design/new-components/feedback-rating.md`
-- `apps/patient/design/new-components/pref-image-card.md`
-- `src/styles/tokens/components.css` — find the end of the file for insertion point; confirm no conflicts with existing class names
-- `pattern-library/COMPONENT-INDEX.md` — confirm no existing entries for these components
-- `.project-docs/decisions-log.md` — review active rules before writing any CSS
+- `src/styles/tokens/components.css` — confirm all classes referenced below exist
+- `src/partials/patient-i18n-bar.html` — copy content verbatim into each screen
+- `src/styles/tokens/` — confirm `--font-serif` token name (used for Lora headings)
+- `src/vendor/fontawesome/` — confirm FA Pro v7.1.0 is present; use the correct `<link>` path
+- `src/scripts/components/i18n.js` — confirm file path for script tag
+- `src/scripts/components/pref-image-cards.js` — used on ONB-03 only
+- `apps/patient/design/review-notes.md` — authoritative copy for all text strings
+- `.project-docs/decisions-log.md` — active rules
 
-## Instructions
+## Shared HTML Structure (apply to all three files)
 
-### Step 1: Add all new semantic classes to components.css
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Screen Title] — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell">
 
-Open `src/styles/tokens/components.css`. Add the following block at the end of the file, after all existing content. Add each section in order. Use exact `@apply` definitions from the spec files.
+    <!-- i18n bar (copied from partial) -->
+    [patient-i18n-bar.html content here]
 
-```css
-/* ===================================
-   PATIENT APP — MEAL CARD
-   =================================== */
+    <!-- Screen content -->
+    [screen-specific content]
 
-.meal-card {
-  @apply flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
-}
+  </div><!-- /.mobile-shell -->
 
-.meal-card-img {
-  @apply size-20 rounded-lg object-cover shrink-0 bg-stone-100;
-}
-
-.meal-card-body {
-  @apply flex flex-col gap-1 flex-1 min-w-0;
-}
-
-.meal-card-name {
-  @apply text-sm font-medium text-gray-900 leading-snug;
-  @apply dark:text-neutral-100;
-}
-
-.meal-card-day {
-  @apply text-xs text-gray-500;
-  @apply dark:text-neutral-400;
-}
-
-.meal-card-tags {
-  @apply flex flex-wrap gap-1 mt-0.5;
-}
-
-.meal-card-swap {
-  @apply text-sm text-primary-600 font-medium text-left mt-1;
-  @apply hover:text-primary-700 dark:text-primary-400;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-/* Hide swap button after a meal has been swapped */
-.meal-card.is-swapped .meal-card-swap {
-  display: none;
-}
-
-/* ===================================
-   PATIENT APP — DELIVERY STATUS CARD
-   =================================== */
-
-.delivery-status-card {
-  @apply card mx-4;
-}
-
-.delivery-status-top {
-  @apply flex flex-col items-center text-center p-6 gap-2;
-}
-
-.delivery-status-icon {
-  @apply text-5xl mb-1;
-}
-
-.delivery-status-label {
-  @apply text-xl font-semibold text-gray-900;
-  font-family: var(--font-serif);
-  @apply dark:text-neutral-100;
-}
-
-.delivery-status-timing {
-  @apply text-sm text-gray-500;
-  @apply dark:text-neutral-400;
-}
-
-.delivery-status-divider {
-  @apply border-t border-gray-200 mx-4;
-  @apply dark:border-neutral-700;
-}
-
-.delivery-summary {
-  @apply p-4 flex flex-col gap-1;
-}
-
-.delivery-summary-label {
-  @apply text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1;
-  @apply dark:text-neutral-400;
-}
-
-.delivery-summary-count {
-  @apply text-sm font-medium text-gray-900;
-  @apply dark:text-neutral-100;
-}
-
-.delivery-summary-list {
-  @apply text-sm text-gray-600 space-y-0.5 list-none pl-0;
-  @apply dark:text-neutral-400;
-}
-
-/* ===================================
-   PATIENT APP — MESSAGE BUBBLES
-   =================================== */
-
-/* Outgoing (patient) bubble — right-aligned */
-.message-bubble-out {
-  @apply bg-primary-500 text-white rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
-  border-bottom-right-radius: 4px;
-  @apply dark:bg-primary-600;
-}
-
-/* Incoming (care team) bubble — left-aligned */
-.message-bubble-in {
-  @apply bg-gray-100 text-gray-900 rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
-  border-bottom-left-radius: 4px;
-  @apply dark:bg-neutral-800 dark:text-neutral-100;
-}
-
-/* Sender label — appears above first bubble in a consecutive group */
-.message-sender-label {
-  @apply text-xs text-gray-500 mb-1;
-  @apply dark:text-neutral-400;
-}
-
-/* Date separator between day groups */
-.message-date-sep {
-  @apply text-xs text-gray-400 text-center py-2;
-  @apply dark:text-neutral-500;
-}
-
-/* Timestamp below a bubble */
-.message-timestamp {
-  @apply text-xs text-gray-400 mt-1;
-  @apply dark:text-neutral-500;
-}
-
-/* Floating "new message" pill — sits above compose bar when new messages arrive */
-/* Bottom offset: 64px nav + 64px compose = 128px */
-.message-new-pill {
-  @apply fixed left-1/2 -translate-x-1/2 z-30;
-  @apply bg-primary-500 text-white rounded-full text-sm px-3 flex items-center gap-1.5 shadow-md;
-  @apply dark:bg-primary-600;
-  bottom: 136px;
-  height: 32px;
-}
-
-/* ===================================
-   PATIENT APP — FEEDBACK RATING CARD
-   =================================== */
-
-/* Fieldset wrapper — strips default fieldset border/padding for the rating row */
-.feedback-rating-fieldset {
-  @apply border-0 p-0 space-y-2;
-}
-
-/* Individual rating option card — wraps a sr-only radio input */
-.feedback-rating-card {
-  @apply flex flex-col items-center justify-center gap-2 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer;
-  @apply hover:border-primary-300 hover:bg-primary-50;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
-  min-height: 80px;
-}
-
-/* Selected state via :has() — supported in all modern browsers */
-.feedback-rating-card:has(input:checked) {
-  @apply border-primary-500 bg-primary-50;
-  @apply dark:border-primary-600 dark:bg-primary-900/20;
-}
-
-.feedback-rating-card span {
-  @apply text-xs font-medium text-gray-700;
-  @apply dark:text-neutral-300;
-}
-
-.feedback-rating-card i {
-  @apply text-2xl text-gray-400;
-}
-
-.feedback-rating-card:has(input:checked) i {
-  @apply text-primary-600;
-  @apply dark:text-primary-400;
-}
-
-.feedback-rating-card:has(input:checked) span {
-  @apply text-primary-700 dark:text-primary-300;
-}
-
-/* ===================================
-   PATIENT APP — PREFERENCE IMAGE CARD
-   =================================== */
-
-/* Outer label wrapper — makes full card tappable */
-.pref-image-card {
-  @apply flex flex-col items-center gap-2 cursor-pointer;
-}
-
-/* Square image container with border that highlights on selection */
-.pref-image-card-img-wrap {
-  @apply relative w-full aspect-square rounded-lg overflow-hidden bg-stone-100 border-2 border-transparent transition-all;
-}
-
-/* Selected: primary border on image wrap */
-.pref-image-card:has(input:checked) .pref-image-card-img-wrap {
-  @apply border-primary-500;
-}
-
-/* Fills image wrap */
-.pref-image-card-img {
-  @apply w-full h-full object-cover;
-}
-
-/* Checkmark overlay — hidden by default, fades in on selection */
-.pref-image-card-check {
-  @apply absolute inset-0 flex items-center justify-center bg-primary-600/60 opacity-0 transition-opacity;
-}
-
-.pref-image-card:has(input:checked) .pref-image-card-check {
-  @apply opacity-100;
-}
-
-/* Label below the image */
-.pref-image-card-label {
-  @apply text-xs font-medium text-gray-700 text-center;
-  @apply dark:text-neutral-300;
-}
-
-.pref-image-card:has(input:checked) .pref-image-card-label {
-  @apply text-primary-600 dark:text-primary-400;
-}
-
-/* "No preference" plain variant — no photo, centered icon instead */
-.pref-image-card-img-wrap-plain {
-  @apply flex items-center justify-center;
-}
+  <!-- i18n script (all screens) -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Screen-specific scripts added below per screen -->
+</body>
+</html>
 ```
 
-**Known Constraints (from decisions-log.md):**
-- The base `button` element rule must not set size or color. `.meal-card-swap` adds `background: none; border: none; padding: 0;` as raw CSS to suppress button defaults — this is correct; the class owns these overrides.
-- `.delivery-status-card` uses `@apply card mx-4` — this is correct composition using an existing semantic class.
-- The `border-bottom-right-radius: 4px` and `border-bottom-left-radius: 4px` on message bubbles are raw CSS overriding the Tailwind `rounded-2xl` on specific corners — this is intentional and does not need `@apply block` (those rules are inside classed selectors that already have `@apply`).
-- `.feedback-rating-card:has(input:checked)` — `:has()` is supported in all modern browsers as of 2024. Do not add a fallback.
-- Nested border radii: `.meal-card` uses `rounded-xl` (parent), `.meal-card-img` uses `rounded-lg` (inner) — follows the nested border radius reduction rule from decisions-log.md. ✓
+**Directory:** Create `apps/patient/onboarding/` before writing files.
 
-### Step 2: Create the pref-image-card mutual exclusivity JS
+---
 
-Create `src/scripts/components/pref-image-cards.js`:
+## ONB-01: `apps/patient/onboarding/welcome.html`
 
-```javascript
-/**
- * pref-image-cards.js — Food preference image card selection
- * Enforces mutual exclusivity between "No preference" and cuisine options.
- * Include on ONB-03 and PROFILE-01.
- */
+**Title:** "Welcome — Cena Health"
+
+### Content
+```html
+<main class="px-4 pt-20 pb-8">
+
+  <!-- Wordmark -->
+  <div class="flex justify-center mb-6">
+    <img src="/src/assets/cena-wordmark.svg" alt="Cena Health" class="h-8">
+  </div>
+
+  <!-- Headline -->
+  <h1 class="text-2xl text-center mb-1" style="font-family: var(--font-serif);">
+    <span data-i18n-en="Welcome to Cena Health" data-i18n-es="Bienvenido a Cena Health">Welcome to Cena Health</span>
+  </h1>
+  <p class="text-sm text-gray-500 text-center mb-4">
+    <span data-i18n-en="Your meals and care team are ready. Let's set up your account." data-i18n-es="Tus comidas y tu equipo de atención están listos. Configuremos tu cuenta.">Your meals and care team are ready. Let's set up your account.</span>
+  </p>
+
+  <!-- Progress -->
+  <p class="onb-progress" aria-label="Step 1 of 3">
+    <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 1
+    <span data-i18n-en="of" data-i18n-es="de">of</span> 3
+  </p>
+
+  <!-- Form card -->
+  <div class="card mx-0 mt-6">
+    <div class="card-body">
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+          <span data-i18n-en="Create a password" data-i18n-es="Crea una contraseña">Create a password</span>
+        </label>
+        <div class="relative">
+          <input
+            id="password"
+            type="password"
+            autocomplete="new-password"
+            aria-describedby="password-helper password-error"
+            class="w-full pr-10"
+          >
+          <button
+            type="button"
+            class="btn-icon absolute right-2 top-1/2 -translate-y-1/2"
+            aria-label="Show password"
+            onclick="this.closest('div').querySelector('input').type = this.closest('div').querySelector('input').type === 'password' ? 'text' : 'password';"
+          >
+            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p id="password-helper" class="text-xs text-gray-500 mt-1">
+          <span data-i18n-en="Must be at least 8 characters" data-i18n-es="Debe tener al menos 8 caracteres">Must be at least 8 characters</span>
+        </p>
+        <p id="password-error" class="text-xs text-error-600 mt-1 hidden" aria-live="polite">
+          <span data-i18n-en="Password must be at least 8 characters." data-i18n-es="La contraseña debe tener al menos 8 caracteres.">Password must be at least 8 characters.</span>
+        </p>
+      </div>
+
+      <!-- Confirm password -->
+      <div class="mt-4">
+        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">
+          <span data-i18n-en="Confirm your password" data-i18n-es="Confirma tu contraseña">Confirm your password</span>
+        </label>
+        <div class="relative">
+          <input
+            id="password-confirm"
+            type="password"
+            autocomplete="new-password"
+            aria-describedby="confirm-error"
+            class="w-full pr-10"
+          >
+          <button
+            type="button"
+            class="btn-icon absolute right-2 top-1/2 -translate-y-1/2"
+            aria-label="Show confirm password"
+            onclick="this.closest('div').querySelector('input').type = this.closest('div').querySelector('input').type === 'password' ? 'text' : 'password';"
+          >
+            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p id="confirm-error" class="text-xs text-error-600 mt-1 hidden" aria-live="polite">
+          <span data-i18n-en="Passwords don't match. Try again." data-i18n-es="Las contraseñas no coinciden. Inténtalo de nuevo.">Passwords don't match. Try again.</span>
+        </p>
+      </div>
+
+      <!-- Continue CTA -->
+      <a href="/apps/patient/onboarding/consent.html" class="btn-primary w-full mt-6">
+        <span data-i18n-en="Continue" data-i18n-es="Continuar">Continue</span>
+      </a>
+
+    </div><!-- /.card-body -->
+  </div><!-- /.card -->
+
+  <!-- Help text -->
+  <p class="text-xs text-center text-gray-400 mt-4">
+    <span data-i18n-en="Need help? Call us at" data-i18n-es="¿Necesitas ayuda? Llámanos al">Need help? Call us at</span>
+    <a href="tel:+18002462458" class="text-link">1-800-246-2458</a>
+  </p>
+
+</main>
+```
+
+**Notes:**
+- The wordmark asset path is `/src/assets/cena-wordmark.svg`. If the file doesn't exist, use the text fallback: `<span class="text-xl font-semibold text-primary-700" style="font-family: var(--font-serif);">Cena Health</span>`. Do not create the SVG file.
+- Show/hide password toggle uses a minimal inline `onclick` — no separate JS file needed for this screen.
+- The "Continue" CTA is an `<a>` not a `<button>` — it navigates to the next screen in the prototype.
+- No form validation JS needed for this prototype screen.
+
+---
+
+## ONB-02: `apps/patient/onboarding/consent.html`
+
+**Title:** "Your Information — Cena Health"
+
+### Structure
+Three sub-steps are rendered as three separate `<section>` elements shown/hidden by a small inline script (step counter). They are NOT separate pages.
+
+### Content
+
+```html
+<main class="px-4 pt-20 pb-8">
+
+  <!-- Back button -->
+  <button
+    type="button"
+    class="btn-icon mb-2"
+    aria-label="Back"
+    id="consent-back"
+  >
+    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+  </button>
+
+  <!-- Progress -->
+  <p class="onb-progress" aria-label="Step 2 of 3">
+    <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 2
+    <span data-i18n-en="of" data-i18n-es="de">of</span> 3
+  </p>
+
+  <!-- ===== Consent Step 1: HIPAA ===== -->
+  <section id="consent-step-1" aria-labelledby="consent-1-heading">
+    <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+      <span data-i18n-en="Step 1 of 3" data-i18n-es="Paso 1 de 3">Step 1 of 3</span>
+    </p>
+    <h1 id="consent-1-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
+      <span data-i18n-en="Your health information" data-i18n-es="Tu información de salud">Your health information</span>
+    </h1>
+    <p class="text-sm text-gray-700 mb-4">
+      <span
+        data-i18n-en="We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure."
+        data-i18n-es="Compartiremos tu historial de salud con tu equipo de atención para que puedan crear el plan de comidas adecuado para ti. Mantenemos tu información privada y segura."
+      >We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure.</span>
+    </p>
+
+    <!-- Read aloud button (disabled, prototype) -->
+    <div class="relative inline-block mb-4">
+      <button
+        type="button"
+        class="btn-outline w-full"
+        disabled
+        aria-disabled="true"
+        aria-describedby="read-aloud-tip"
+      >
+        <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
+        <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
+      </button>
+      <span id="read-aloud-tip" role="tooltip" class="absolute left-0 bottom-full mb-1 text-xs bg-gray-800 text-white rounded px-2 py-1 whitespace-nowrap pointer-events-none opacity-0 transition-opacity" aria-hidden="true">
+        <span data-i18n-en="Coming soon" data-i18n-es="Próximamente">Coming soon</span>
+      </span>
+    </div>
+
+    <!-- Expand full consent text -->
+    <div class="hs-accordion mb-6" id="hipaa-accordion">
+      <button
+        type="button"
+        class="hs-accordion-toggle text-sm text-primary-600 underline"
+        aria-expanded="false"
+        aria-controls="hipaa-accordion-body"
+      >
+        <span data-i18n-en="Read full text" data-i18n-es="Leer el texto completo">Read full text</span>
+      </button>
+      <div
+        id="hipaa-accordion-body"
+        class="hs-accordion-content overflow-hidden transition-[height] duration-300 hidden"
+        role="region"
+        aria-labelledby="hipaa-accordion"
+      >
+        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+          This Notice of Privacy Practices describes how Cena Health may use and disclose your protected health information (PHI) to carry out treatment, payment, and health care operations. We are required by law to maintain the privacy of your PHI. Full notice available at <a href="#" class="text-link">cenahealth.com/privacy</a>.
+        </p>
+      </div>
+    </div>
+
+    <button type="button" class="btn-primary w-full" id="consent-1-agree">
+      <span data-i18n-en="I agree" data-i18n-es="Acepto">I agree</span>
+    </button>
+    <p class="text-xs text-gray-400 text-center mt-3">
+      <span
+        data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
+        data-i18n-es="Al tocar 'Acepto', confirmas que has leído y comprendido lo anterior."
+      >By tapping 'I agree', you confirm you have read and understood the above.</span>
+    </p>
+  </section>
+
+  <!-- ===== Consent Step 2: Program ===== -->
+  <section id="consent-step-2" aria-labelledby="consent-2-heading" class="hidden">
+    <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+      <span data-i18n-en="Step 2 of 3" data-i18n-es="Paso 2 de 3">Step 2 of 3</span>
+    </p>
+    <h1 id="consent-2-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
+      <span data-i18n-en="How the program works" data-i18n-es="Cómo funciona el programa">How the program works</span>
+    </h1>
+    <p class="text-sm text-gray-700 mb-4">
+      <span
+        data-i18n-en="By joining, you agree to receive meals, care check-ins, and health support through Cena Health. You can leave the program at any time."
+        data-i18n-es="Al unirte, aceptas recibir comidas, revisiones de atención y apoyo de salud a través de Cena Health. Puedes salir del programa en cualquier momento."
+      >By joining, you agree to receive meals, care check-ins, and health support through Cena Health. You can leave the program at any time.</span>
+    </p>
+
+    <!-- Read aloud (same disabled pattern) -->
+    <div class="relative inline-block mb-4">
+      <button type="button" class="btn-outline w-full" disabled aria-disabled="true">
+        <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
+        <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
+      </button>
+    </div>
+
+    <!-- Expand full program terms -->
+    <div class="hs-accordion mb-6" id="program-accordion">
+      <button
+        type="button"
+        class="hs-accordion-toggle text-sm text-primary-600 underline"
+        aria-expanded="false"
+        aria-controls="program-accordion-body"
+      >
+        <span data-i18n-en="Read full text" data-i18n-es="Leer el texto completo">Read full text</span>
+      </button>
+      <div
+        id="program-accordion-body"
+        class="hs-accordion-content overflow-hidden transition-[height] duration-300 hidden"
+        role="region"
+      >
+        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+          As a Cena Health program participant, you agree to receive prepared meals delivered to your registered address, participate in periodic care check-ins with your assigned care team, and share relevant health data to support your care plan. Participation is voluntary and you may withdraw at any time by contacting your care coordinator.
+        </p>
+      </div>
+    </div>
+
+    <button type="button" class="btn-primary w-full" id="consent-2-agree">
+      <span data-i18n-en="I agree" data-i18n-es="Acepto">I agree</span>
+    </button>
+    <p class="text-xs text-gray-400 text-center mt-3">
+      <span
+        data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
+        data-i18n-es="Al tocar 'Acepto', confirmas que has leído y comprendido lo anterior."
+      >By tapping 'I agree', you confirm you have read and understood the above.</span>
+    </p>
+  </section>
+
+  <!-- ===== Consent Step 3: AVA (optional) ===== -->
+  <section id="consent-step-3" aria-labelledby="consent-3-heading" class="hidden">
+    <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+      <span data-i18n-en="Step 3 of 3" data-i18n-es="Paso 3 de 3">Step 3 of 3</span>
+    </p>
+    <h1 id="consent-3-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
+      <span data-i18n-en="Voice check-ins (optional)" data-i18n-es="Visitas de voz (opcional)">Voice check-ins (optional)</span>
+    </h1>
+    <p class="text-sm text-gray-700 mb-4">
+      <span
+        data-i18n-en="AVA is our automated health assistant. It can call you for quick check-ins between visits. This is optional — your meals and care continue either way."
+        data-i18n-es="AVA es nuestra asistente de salud automatizada. Puede llamarte para revisiones rápidas entre visitas. Esto es opcional — tus comidas y atención continúan de cualquier manera."
+      >AVA is our automated health assistant. It can call you for quick check-ins between visits. This is optional — your meals and care continue either way.</span>
+    </p>
+
+    <!-- AVA opt card (neutral bg — not warning) -->
+    <div class="card border-stone-200 mb-6" style="background-color: var(--color-stone-50, #fafaf9);">
+      <div class="card-body space-y-3">
+        <label class="radio-label">
+          <input type="radio" name="ava-consent" value="yes">
+          <span data-i18n-en="Yes, I'd like AVA calls" data-i18n-es="Sí, quiero llamadas de AVA">Yes, I'd like AVA calls</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="ava-consent" value="no" checked>
+          <span data-i18n-en="No thanks" data-i18n-es="No, gracias">No thanks</span>
+        </label>
+      </div>
+    </div>
+
+    <a href="/apps/patient/onboarding/preferences.html" class="btn-primary w-full">
+      <span data-i18n-en="Continue" data-i18n-es="Continuar">Continue</span>
+    </a>
+  </section>
+
+</main>
+```
+
+### Inline consent navigation script (add before `</body>`)
+```html
+<script>
 (function () {
-  'use strict';
+  var step = 1;
+  var steps = [
+    document.getElementById('consent-step-1'),
+    document.getElementById('consent-step-2'),
+    document.getElementById('consent-step-3')
+  ];
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var noPref = document.getElementById('pref-none');
-    var otherPrefs = document.querySelectorAll('input[name="food-pref"]:not(#pref-none)');
-
-    if (!noPref) return;
-
-    noPref.addEventListener('change', function () {
-      if (this.checked) {
-        otherPrefs.forEach(function (cb) { cb.checked = false; });
-      }
+  function showStep(n) {
+    steps.forEach(function (s, i) {
+      s.classList.toggle('hidden', i !== n - 1);
     });
+    step = n;
+  }
 
-    otherPrefs.forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        if (this.checked) { noPref.checked = false; }
-      });
-    });
+  document.getElementById('consent-1-agree').addEventListener('click', function () { showStep(2); });
+  document.getElementById('consent-2-agree').addEventListener('click', function () { showStep(3); });
+  document.getElementById('consent-back').addEventListener('click', function () {
+    if (step > 1) {
+      showStep(step - 1);
+    } else {
+      window.location.href = '/apps/patient/onboarding/welcome.html';
+    }
   });
 })();
+</script>
 ```
 
-### Step 3: Create all seven pattern library files
+**Notes:**
+- Preline `hs-accordion` is used for expand/collapse. Confirm Preline JS is imported. If not available, use a simple inline `onclick` to toggle the `hidden` class on the accordion body — do not leave a broken accordion.
+- The tooltip on "Read aloud" is CSS-only (opacity: 0, shown on `:focus-within` on parent) — no JS needed. Add `:focus-within .tooltip-class { opacity: 1; }` as an inline `<style>` block if the `.relative` parent trick is used.
+- AVA option: "No thanks" is pre-checked (default). This is intentional per review-notes — opt-in, not opt-out.
+- The "Continue" CTA on step 3 navigates to ONB-03 as an `<a>` tag.
 
-Create each file exactly as specified below.
+### Preline dependency
+Consent accordion requires Preline JS. Add to `<head>` or before `</body>`:
+```html
+<script src="/node_modules/preline/dist/preline.js"></script>
+```
+Check if this path is correct by looking at `package.json` and existing pattern library files to see how other pages load Preline.
 
 ---
 
-**`pattern-library/components/patient-meal-card.html`:**
+## ONB-03: `apps/patient/onboarding/preferences.html`
+
+**Title:** "Your Preferences — Cena Health"
+
+### Content
 
 ```html
-<!--
-@component-meta
-name: Meal Card
-category: Patient App
-classes: meal-card, meal-card-img, meal-card-body, meal-card-name, meal-card-day, meal-card-tags, meal-card-swap, meal-card.is-swapped
-preline: false
-description: Horizontal card showing a meal photo, name, day, diet tag badges, and optional swap link. Used in the weekly meals list (MEALS-01) and swap bottom sheet (omit .meal-card-swap in the sheet). Add .is-swapped to hide swap button and show a Swapped badge after substitution. Missing images show bg-stone-100 placeholder via CSS.
--->
+<main class="px-4 pt-20 pb-8">
 
-<!-- Default state -->
-<div class="meal-card">
-  <img
-    class="meal-card-img"
-    src="/src/assets/meals/chicken-verde.jpg"
-    alt="Chicken Verde with cilantro rice and black beans"
-  >
-  <div class="meal-card-body">
-    <p class="meal-card-name">Chicken Verde</p>
-    <p class="meal-card-day">Monday</p>
-    <div class="meal-card-tags">
-      <span class="badge badge-info badge-pill">Low sodium</span>
-      <span class="badge badge-secondary badge-pill">Diabetic-friendly</span>
+  <!-- Back button -->
+  <a href="/apps/patient/onboarding/consent.html" class="btn-icon mb-2" aria-label="Back">
+    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+  </a>
+
+  <!-- Progress -->
+  <p class="onb-progress" aria-label="Step 3 of 3">
+    <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 3
+    <span data-i18n-en="of" data-i18n-es="de">of</span> 3
+  </p>
+
+  <!-- Heading -->
+  <h1 class="text-2xl mb-1" style="font-family: var(--font-serif);">
+    <span data-i18n-en="Let's personalize your experience" data-i18n-es="Personalicemos tu experiencia">Let's personalize your experience</span>
+  </h1>
+  <p class="text-sm text-gray-500 mb-6">
+    <span data-i18n-en="You can always update these in your profile." data-i18n-es="Siempre puedes actualizarlos en tu perfil.">You can always update these in your profile.</span>
+  </p>
+
+  <!-- Section 1: Language preference -->
+  <fieldset class="border-0 p-0 mb-6">
+    <legend class="text-sm font-semibold text-gray-900 mb-3">
+      <span data-i18n-en="What language do you prefer?" data-i18n-es="¿Qué idioma prefieres?">What language do you prefer?</span>
+    </legend>
+    <div class="grid grid-cols-2 gap-3">
+      <label class="radio-label">
+        <input type="radio" name="language" value="en" checked>
+        <span>English</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="language" value="es">
+        <span>Español</span>
+      </label>
     </div>
-    <button class="meal-card-swap" aria-label="Swap Chicken Verde">Swap meal</button>
-  </div>
-</div>
+  </fieldset>
 
-<!-- Swapped state (add .is-swapped; swap button hidden; badge added) -->
-<div class="meal-card is-swapped mt-3">
-  <img
-    class="meal-card-img"
-    src="/src/assets/meals/grilled-tilapia.jpg"
-    alt="Grilled Tilapia with mango salsa"
-  >
-  <div class="meal-card-body">
-    <p class="meal-card-name">Grilled Tilapia
-      <span class="badge badge-success badge-pill ms-1">Swapped</span>
+  <!-- Section 2: Food preferences -->
+  <fieldset class="border-0 p-0 mb-6">
+    <legend class="text-sm font-semibold text-gray-900 mb-1">
+      <span data-i18n-en="What flavors do you enjoy?" data-i18n-es="¿Qué sabores te gustan?">What flavors do you enjoy?</span>
+    </legend>
+    <p class="text-xs text-gray-500 mb-3">
+      <span data-i18n-en="Pick as many as you like. We'll rotate your meals to match." data-i18n-es="Elige los que quieras. Rotaremos tus comidas según tus preferencias.">Pick as many as you like. We'll rotate your meals to match.</span>
     </p>
-    <p class="meal-card-day">Monday</p>
-    <div class="meal-card-tags">
-      <span class="badge badge-info badge-pill">Heart-healthy</span>
+    <div class="grid grid-cols-2 gap-3">
+      <label class="pref-image-card">
+        <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
+        <div class="pref-image-card-img-wrap">
+          <img class="pref-image-card-img" src="/src/assets/meals/pref-latin-american.jpg" alt="Latin American cuisine">
+          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+        </div>
+        <span class="pref-image-card-label">
+          <span data-i18n-en="Latin American" data-i18n-es="Latinoamericana">Latin American</span>
+        </span>
+      </label>
+      <label class="pref-image-card">
+        <input type="checkbox" name="food-pref" value="soul-food" class="sr-only">
+        <div class="pref-image-card-img-wrap">
+          <img class="pref-image-card-img" src="/src/assets/meals/pref-soul-food.jpg" alt="Soul food cuisine">
+          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+        </div>
+        <span class="pref-image-card-label">
+          <span data-i18n-en="Soul Food" data-i18n-es="Comida Sureña">Soul Food</span>
+        </span>
+      </label>
+      <label class="pref-image-card">
+        <input type="checkbox" name="food-pref" value="mediterranean" class="sr-only">
+        <div class="pref-image-card-img-wrap">
+          <img class="pref-image-card-img" src="/src/assets/meals/pref-mediterranean.jpg" alt="Mediterranean cuisine">
+          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+        </div>
+        <span class="pref-image-card-label">
+          <span data-i18n-en="Mediterranean" data-i18n-es="Mediterránea">Mediterranean</span>
+        </span>
+      </label>
+      <label class="pref-image-card">
+        <input type="checkbox" name="food-pref" value="asian" class="sr-only">
+        <div class="pref-image-card-img-wrap">
+          <img class="pref-image-card-img" src="/src/assets/meals/pref-asian.jpg" alt="Asian cuisine">
+          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
+        </div>
+        <span class="pref-image-card-label">
+          <span data-i18n-en="Asian" data-i18n-es="Asiática">Asian</span>
+        </span>
+      </label>
     </div>
-    <button class="meal-card-swap" aria-label="Swap Grilled Tilapia">Swap meal</button>
-  </div>
-</div>
-```
-
----
-
-**`pattern-library/components/patient-delivery-status-card.html`:**
-
-```html
-<!--
-@component-meta
-name: Delivery Status Card
-category: Patient App
-classes: delivery-status-card, delivery-status-top, delivery-status-icon, delivery-status-label, delivery-status-timing, delivery-status-divider, delivery-summary, delivery-summary-label, delivery-summary-count, delivery-summary-list
-preline: false
-description: Large-format card showing current delivery status. Three states driven by JS reading URLSearchParams: preparing (default), delivering, delivered. Change icon class and color token class per state. See MEALS-02 spec for state table.
--->
-
-<!-- Preparing state (default) -->
-<div class="delivery-status-card">
-  <div class="delivery-status-top">
-    <i class="fa-solid fa-kitchen-set delivery-status-icon text-warning-500"></i>
-    <p class="delivery-status-label">Getting your meals ready</p>
-    <p class="delivery-status-timing">Arriving between 10am – 2pm</p>
-  </div>
-  <hr class="delivery-status-divider">
-  <div class="delivery-summary">
-    <p class="delivery-summary-label">What's coming</p>
-    <p class="delivery-summary-count">5 meals</p>
-    <ul class="delivery-summary-list">
-      <li>Chicken Verde</li>
-      <li>Black Bean Tacos</li>
-      <li>Lemon Herb Salmon</li>
-    </ul>
-    <a href="/apps/patient/meals/index.html" class="text-link text-sm mt-1">See all meals</a>
-  </div>
-</div>
-```
-
----
-
-**`pattern-library/components/patient-message-bubble.html`:**
-
-```html
-<!--
-@component-meta
-name: Message Bubble
-category: Patient App
-classes: message-bubble-out, message-bubble-in, message-sender-label, message-date-sep, message-timestamp, message-new-pill
-preline: false
-description: SMS-style chat bubbles for the patient messaging screen (CARE-01). Outgoing (patient) is right-aligned; incoming (care team) is left-aligned. Sender label appears above the first bubble in a consecutive group only. Date separator between day groups. New message pill floats above the compose bar.
--->
-
-<!-- Date separator -->
-<div class="message-date-sep">Today</div>
-
-<!-- Incoming message (care team) -->
-<div class="flex flex-col items-start mb-3">
-  <p class="message-sender-label">Your dietitian</p>
-  <div class="message-bubble-in">
-    Hi Maria! Your meals for next week are all set. Let me know if you have any questions.
-  </div>
-  <p class="message-timestamp">9:14 AM</p>
-</div>
-
-<!-- Outgoing message (patient) -->
-<div class="flex flex-col items-end mb-3">
-  <div class="message-bubble-out">
-    Thanks! Can I swap the salmon for something else?
-  </div>
-  <p class="message-timestamp">9:16 AM</p>
-</div>
-
-<!-- New message pill (shown when patient has scrolled up) -->
-<button class="message-new-pill" aria-live="polite">
-  <i class="fa-solid fa-arrow-down text-xs"></i>
-  New message
-</button>
-```
-
----
-
-**`pattern-library/components/patient-feedback-rating.html`:**
-
-```html
-<!--
-@component-meta
-name: Feedback Rating Card
-category: Patient App
-classes: feedback-rating-fieldset, feedback-rating-card
-preline: false
-description: Large tap-target rating option for the meal feedback screen (CARE-02). Three cards in a grid-cols-3 row. Radio input is sr-only; the label is the tap target. Selected state driven by :has(input:checked). Icon + text label always present.
--->
-
-<fieldset class="feedback-rating-fieldset">
-  <legend>Overall, how were your meals this week?</legend>
-  <div class="grid grid-cols-3 gap-2">
-
-    <label class="feedback-rating-card">
-      <input type="radio" name="overall-rating" value="good" class="sr-only">
-      <i class="fa-solid fa-thumbs-up"></i>
-      <span>Good</span>
-    </label>
-
-    <label class="feedback-rating-card">
-      <input type="radio" name="overall-rating" value="okay" class="sr-only">
-      <i class="fa-solid fa-face-meh"></i>
-      <span>Okay</span>
-    </label>
-
-    <label class="feedback-rating-card">
-      <input type="radio" name="overall-rating" value="bad" class="sr-only">
-      <i class="fa-solid fa-thumbs-down"></i>
-      <span>Not good</span>
-    </label>
-
-  </div>
-</fieldset>
-```
-
----
-
-**`pattern-library/components/patient-pref-image-card.html`:**
-
-```html
-<!--
-@component-meta
-name: Preference Image Card
-category: Patient App
-classes: pref-image-card, pref-image-card-img-wrap, pref-image-card-img, pref-image-card-check, pref-image-card-label, pref-image-card-img-wrap-plain
-preline: false
-description: Visual checkbox card for cultural food preference selection. Used in ONB-03 and PROFILE-01. Checkbox is sr-only; label is the full tap target. "No preference" uses pref-image-card-img-wrap-plain (icon instead of photo). Mutual exclusivity JS: src/scripts/components/pref-image-cards.js. Grid layout: grid grid-cols-2 gap-3 on the parent container.
--->
-
-<div class="grid grid-cols-2 gap-3">
-
-  <!-- Cuisine option -->
-  <label class="pref-image-card">
-    <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
-    <div class="pref-image-card-img-wrap">
-      <img
-        class="pref-image-card-img"
-        src="/src/assets/meals/pref-latin-american.jpg"
-        alt="Latin American cuisine"
-      >
-      <div class="pref-image-card-check">
-        <i class="fa-solid fa-check text-white text-sm"></i>
-      </div>
+    <!-- No preference — below the grid, visually distinct -->
+    <div class="mt-3">
+      <label class="pref-image-card flex-row items-center gap-3">
+        <input type="checkbox" name="food-pref" value="no-preference" id="pref-none" class="sr-only">
+        <div class="pref-image-card-img-wrap pref-image-card-img-wrap-plain" style="width: 48px; height: 48px; flex-shrink: 0;">
+          <i class="fa-regular fa-circle-dot text-gray-300 text-2xl" aria-hidden="true"></i>
+          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-xs" aria-hidden="true"></i></div>
+        </div>
+        <span class="pref-image-card-label text-left">
+          <span data-i18n-en="No preference" data-i18n-es="Sin preferencia">No preference</span>
+        </span>
+      </label>
     </div>
-    <span class="pref-image-card-label">Latin American</span>
-  </label>
+  </fieldset>
 
-  <!-- No preference option -->
-  <label class="pref-image-card">
-    <input type="checkbox" name="food-pref" value="no-preference" class="sr-only" id="pref-none">
-    <div class="pref-image-card-img-wrap pref-image-card-img-wrap-plain">
-      <i class="fa-regular fa-circle-dot text-gray-300 text-3xl"></i>
-      <div class="pref-image-card-check">
-        <i class="fa-solid fa-check text-white text-sm"></i>
-      </div>
+  <!-- Section 3: Contact method -->
+  <fieldset class="border-0 p-0 mb-6">
+    <legend class="text-sm font-semibold text-gray-900 mb-1">
+      <span data-i18n-en="How should we reach you?" data-i18n-es="¿Cómo debemos comunicarnos contigo?">How should we reach you?</span>
+    </legend>
+    <p class="text-xs text-gray-500 mb-3">
+      <span data-i18n-en="Preferred contact method" data-i18n-es="Método de contacto preferido">Preferred contact method</span>
+    </p>
+    <div class="space-y-2">
+      <label class="radio-label">
+        <input type="radio" name="contact-method" value="phone">
+        <span data-i18n-en="Phone call" data-i18n-es="Llamada telefónica">Phone call</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="contact-method" value="text" checked>
+        <span data-i18n-en="Text message" data-i18n-es="Mensaje de texto">Text message</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="contact-method" value="app">
+        <span data-i18n-en="App notifications only" data-i18n-es="Solo notificaciones de la app">App notifications only</span>
+      </label>
     </div>
-    <span class="pref-image-card-label">No preference</span>
-  </label>
+  </fieldset>
 
-</div>
+  <!-- Section 4: Best times -->
+  <fieldset class="border-0 p-0 mb-8">
+    <legend class="text-sm font-semibold text-gray-900 mb-3">
+      <span data-i18n-en="Best times to reach you" data-i18n-es="Mejores horarios para contactarte">Best times to reach you</span>
+    </legend>
+    <div class="space-y-2">
+      <label class="checkbox-label">
+        <input type="checkbox" name="best-times" value="morning">
+        <span data-i18n-en="Morning (8am–12pm)" data-i18n-es="Mañana (8am–12pm)">Morning (8am–12pm)</span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" name="best-times" value="afternoon" checked>
+        <span data-i18n-en="Afternoon (12pm–5pm)" data-i18n-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" name="best-times" value="evening">
+        <span data-i18n-en="Evening (5pm–8pm)" data-i18n-es="Noche (5pm–8pm)">Evening (5pm–8pm)</span>
+      </label>
+    </div>
+  </fieldset>
+
+  <!-- Error (hidden by default) -->
+  <div class="alert alert-error mb-4 hidden" role="alert" aria-live="assertive">
+    <span data-i18n-en="We couldn't save your preferences. Try again?" data-i18n-es="No pudimos guardar tus preferencias. ¿Intentar de nuevo?">We couldn't save your preferences. Try again?</span>
+  </div>
+
+  <!-- CTA -->
+  <a href="/apps/patient/meals/index.html" class="btn-primary w-full">
+    <span data-i18n-en="All done" data-i18n-es="Listo">All done</span>
+  </a>
+  <p class="text-xs text-center text-gray-400 mt-3">
+    <a href="/apps/patient/meals/index.html" class="text-link text-gray-400">
+      <span data-i18n-en="Skip for now" data-i18n-es="Omitir por ahora">Skip for now</span>
+    </a>
+    —
+    <span data-i18n-en="we'll use your defaults and you can update anytime." data-i18n-es="usaremos tus valores predeterminados y puedes actualizarlos en cualquier momento.">we'll use your defaults and you can update anytime.</span>
+  </p>
+
+</main>
 ```
 
-### Step 4: Update COMPONENT-INDEX.md
+**Notes:**
+- The "No preference" card uses a `flex-row` utility to override the default `flex-col` of `.pref-image-card` for the inline layout. This is a one-off layout tweak on a single element — acceptable as a layout utility in HTML per architecture rules.
+- `pref-image-cards.js` handles mutual exclusivity between "No preference" and the cuisine options. Must be included before `</body>`.
 
-Add a new **Patient App** section at the bottom of `pattern-library/COMPONENT-INDEX.md`, before the "Meal Assignment Grid (Kitchen-Specific)" section:
-
-```markdown
 ---
-
-## Patient App
-
-| Component | File | Classes | Preline | Notes |
-|---|---|---|---|---|
-| Meal Card | `patient-meal-card.html` | `meal-card`, `meal-card-img`, `meal-card-body`, `meal-card-name`, `meal-card-day`, `meal-card-tags`, `meal-card-swap`, `meal-card.is-swapped` | no | Add `.is-swapped` after swap. Missing images show `bg-stone-100` placeholder. |
-| Delivery Status Card | `patient-delivery-status-card.html` | `delivery-status-card`, `delivery-status-top`, `delivery-status-icon`, `delivery-status-label`, `delivery-status-timing`, `delivery-status-divider`, `delivery-summary`, `delivery-summary-label`, `delivery-summary-count`, `delivery-summary-list` | no | Three states (preparing/delivering/delivered) driven by JS URL param. |
-| Message Bubble | `patient-message-bubble.html` | `message-bubble-out`, `message-bubble-in`, `message-sender-label`, `message-date-sep`, `message-timestamp`, `message-new-pill` | no | Right-align outgoing with `flex flex-col items-end`; left-align incoming with `items-start`. |
-| Feedback Rating Card | `patient-feedback-rating.html` | `feedback-rating-fieldset`, `feedback-rating-card` | no | Uses `:has(input:checked)` for selected state. Three cards in `grid grid-cols-3 gap-2`. |
-| Preference Image Card | `patient-pref-image-card.html` | `pref-image-card`, `pref-image-card-img-wrap`, `pref-image-card-img`, `pref-image-card-check`, `pref-image-card-label`, `pref-image-card-img-wrap-plain` | no | Mutual exclusivity JS: `src/scripts/components/pref-image-cards.js`. Grid: `grid grid-cols-2 gap-3`. |
-```
-
-## Expected Result
-After this task:
-- `components.css` has five new sections covering all patient-specific component classes with dark mode
-- `src/scripts/components/pref-image-cards.js` exists
-- Five pattern library files exist with `@component-meta` headers
-- `COMPONENT-INDEX.md` has a new "Patient App" section with five rows
-- No app pages exist yet — Tasks 04–09 build those
 
 ## Verification
-- [ ] All five CSS sections present in `components.css` — confirm by searching for `.meal-card`, `.delivery-status-card`, `.message-bubble-out`, `.feedback-rating-card`, `.pref-image-card`
-- [ ] `.delivery-status-card` uses `@apply card mx-4` (composition with existing `.card`) — not a duplicate card definition
-- [ ] `.meal-card-swap` has `background: none; border: none; padding: 0;` (suppresses base button defaults)
-- [ ] `.feedback-rating-card:has(input:checked)` is present (not a JS class-toggle fallback)
-- [ ] `.message-new-pill` has `bottom: 136px` (not `bottom-[128px]` utility — raw CSS here)
-- [ ] `.feedback-rating-fieldset` has `@apply border-0 p-0` to suppress default fieldset styling
-- [ ] Dark mode variants present on all classes that use color, background, or border
-- [ ] `src/scripts/components/pref-image-cards.js` exists
-- [ ] All five pattern library files exist with `@component-meta` headers
-- [ ] `COMPONENT-INDEX.md` has a new "Patient App" section with five component rows
-- [ ] HTML in pattern library files uses semantic classes — no utility chains for component styling
-- [ ] Nested border radii follow the decisions-log rule: `.meal-card` (`rounded-xl`) > `.meal-card-img` (`rounded-lg`) ✓
-- [ ] `ANDREY-README.md` updated with new patient component classes (yes — Andrey needs the full class list for Angular templates)
-- [ ] `src/data/_schema-notes.md` not affected
+- [ ] `apps/patient/onboarding/` directory created with three files: `welcome.html`, `consent.html`, `preferences.html`
+- [ ] All three use `<body class="mobile-app">` and `<div class="mobile-shell">`
+- [ ] i18n bar partial is included on all three screens (content copied from `src/partials/patient-i18n-bar.html`)
+- [ ] `i18n.js` script tag present on all three screens
+- [ ] No bottom nav on any of the three screens (onboarding only)
+- [ ] `onb-progress` used correctly on all three screens with correct step numbers and `aria-label`
+- [ ] ONB-01: password show/hide toggle works; "Continue" links to `consent.html`
+- [ ] ONB-02: three sub-steps shown/hidden by inline JS; back button on step 1 goes to `welcome.html`; AVA "No thanks" is pre-checked; "Continue" on step 3 goes to `preferences.html`
+- [ ] ONB-02: "Read aloud" button is disabled with `disabled` + `aria-disabled="true"` on both steps 1 and 2
+- [ ] ONB-02: AVA opt card uses stone background (not warning yellow)
+- [ ] ONB-03: "No preference" is below the 2×2 grid, not inside it
+- [ ] ONB-03: `pref-image-cards.js` script included
+- [ ] ONB-03: "All done" CTA and "Skip for now" link both navigate to `/apps/patient/meals/index.html`
+- [ ] All `data-i18n-en` / `data-i18n-es` attributes present on every text node
+- [ ] All images use correct asset paths (`/src/assets/meals/pref-*.jpg`); if files are missing, `bg-stone-100` on wrapper is visible instead of broken image icon
+- [ ] No new semantic classes created — only existing classes used
+- [ ] No utility chains used for component styling (layout utilities in HTML are acceptable)
+- [ ] Preline loaded on ONB-02 (accordion); check how other HTML pages in the project load it
 
 ## Completion Report
 
 After all verification passes, output:
 
 ```
-## Completion Report — Task 03: Patient-Specific Components
+## Completion Report — Task 04: Onboarding Screens
 
-- New semantic classes added to components.css: [full list]
-- Existing classes modified: none
-- Pattern library files created: [list of 5 files]
-- Scripts created: src/scripts/components/pref-image-cards.js
-- Judgment calls: [any]
-- Dark mode added: yes
-- ANDREY-README.md updated: yes
-- Schema delta logged: not applicable
+- Files created: apps/patient/onboarding/welcome.html, consent.html, preferences.html
+- New CSS classes added: none
+- Deviations from spec: [any judgment calls]
+- Preline loaded via: [path used]
+- Wordmark: [SVG found at path / text fallback used]
 - Items deferred or incomplete: none
 ```
 
 Then run:
 ```
 git add -A
-git commit -m "task 03: patient app component classes and pattern library entries"
+git commit -m "task 04: patient app onboarding screens (ONB-01, 02, 03)"
 ```
 
 ## If Something Goes Wrong
-- If `.delivery-status-card { @apply card mx-4; }` causes a build error because `card` is not resolved: confirm `components.css` is being processed after the `.card` class definition. Both live in the same file, so order matters — the `.card` definition must appear before `.delivery-status-card`. If needed, move the new patient sections to the very end of the file (after `.card` is defined).
-- If `:has()` selector causes a CSS parse warning: it is valid in all modern browsers. Ignore warnings from older linters. Do not replace with a JS fallback.
-- If `@apply border-0` inside `.feedback-rating-fieldset` conflicts with the global `fieldset` rule (which applies `border border-gray-200`): the class selector `.feedback-rating-fieldset` has higher specificity than the element selector `fieldset` and will win. No workaround needed.
+- If Preline accordion on ONB-02 doesn't initialize: check how other HTML pages in the project import Preline JS (look at `pattern-library/components/` files that use Preline). Mirror that exact import pattern.
+- If `pref-image-card:has(input:checked)` doesn't apply in the browser: `:has()` requires a modern browser. For the prototype, this is acceptable. Do not add a JS fallback.
+- If the `mobile-shell` max-width isn't constraining: confirm `<body class="mobile-app">` is set (not just the inner div).
+- If preference images are all broken: add `style="background-color: var(--color-stone-100, #f5f5f4);"` to the `.pref-image-card-img-wrap` elements as an inline fallback.

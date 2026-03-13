@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Information — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell">
+
+    <!-- i18n bar (copied from partial) -->
+    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+      <button
+        class="mobile-i18n-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to Spanish"
+      >
+        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+        <i class="fa-solid fa-globe"></i>
+      </button>
+    </div>
+
+    <!-- Screen content -->
+    <main class="px-4 pt-20 pb-8">
+
+      <!-- Back button -->
+      <button
+        type="button"
+        class="btn-icon mb-2"
+        aria-label="Back"
+        id="consent-back"
+      >
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+      <!-- Progress -->
+      <p class="onb-progress" aria-label="Step 2 of 3">
+        <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 2
+        <span data-i18n-en="of" data-i18n-es="de">of</span> 3
+      </p>
+
+      <!-- ===== Consent Step 1: HIPAA ===== -->
+      <section id="consent-step-1" aria-labelledby="consent-1-heading">
+        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+          <span data-i18n-en="Step 1 of 3" data-i18n-es="Paso 1 de 3">Step 1 of 3</span>
+        </p>
+        <h1 id="consent-1-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
+          <span data-i18n-en="Your health information" data-i18n-es="Tu información de salud">Your health information</span>
+        </h1>
+        <p class="text-sm text-gray-700 mb-4">
+          <span
+            data-i18n-en="We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure."
+            data-i18n-es="Compartiremos tu historial de salud con tu equipo de atención para que puedan crear el plan de comidas adecuado para ti. Mantenemos tu información privada y segura."
+          >We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure.</span>
+        </p>
+
+        <!-- Read aloud button (disabled, prototype) -->
+        <div class="relative inline-block mb-4">
+          <button
+            type="button"
+            class="btn-outline w-full"
+            disabled
+            aria-disabled="true"
+            aria-describedby="read-aloud-tip"
+          >
+            <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
+            <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
+          </button>
+          <span id="read-aloud-tip" role="tooltip" class="absolute left-0 bottom-full mb-1 text-xs bg-gray-800 text-white rounded px-2 py-1 whitespace-nowrap pointer-events-none opacity-0 transition-opacity" aria-hidden="true">
+            <span data-i18n-en="Coming soon" data-i18n-es="Próximamente">Coming soon</span>
+          </span>
+        </div>
+
+        <!-- Expand full consent text -->
+        <div class="hs-accordion mb-6" id="hipaa-accordion">
+          <button
+            type="button"
+            class="hs-accordion-toggle text-sm text-primary-600 underline"
+            aria-expanded="false"
+            aria-controls="hipaa-accordion-body"
+          >
+            <span data-i18n-en="Read full text" data-i18n-es="Leer el texto completo">Read full text</span>
+          </button>
+          <div
+            id="hipaa-accordion-body"
+            class="hs-accordion-content overflow-hidden transition-[height] duration-300 hidden"
+            role="region"
+            aria-labelledby="hipaa-accordion"
+          >
+            <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+              This Notice of Privacy Practices describes how Cena Health may use and disclose your protected health information (PHI) to carry out treatment, payment, and health care operations. We are required by law to maintain the privacy of your PHI. Full notice available at <a href="#" class="text-link">cenahealth.com/privacy</a>.
+            </p>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary w-full" id="consent-1-agree">
+          <span data-i18n-en="I agree" data-i18n-es="Acepto">I agree</span>
+        </button>
+        <p class="text-xs text-gray-400 text-center mt-3">
+          <span
+            data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
+            data-i18n-es="Al tocar 'Acepto', confirmas que has leído y comprendido lo anterior."
+          >By tapping 'I agree', you confirm you have read and understood the above.</span>
+        </p>
+      </section>
+
+      <!-- ===== Consent Step 2: Program ===== -->
+      <section id="consent-step-2" aria-labelledby="consent-2-heading" class="hidden">
+        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+          <span data-i18n-en="Step 2 of 3" data-i18n-es="Paso 2 de 3">Step 2 of 3</span>
+        </p>
+        <h1 id="consent-2-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
+          <span data-i18n-en="How the program works" data-i18n-es="Cómo funciona el programa">How the program works</span>
+        </h1>
+        <p class="text-sm text-gray-700 mb-4">
+          <span
+            data-i18n-en="By joining, you agree to receive meals, care check-ins, and health support through Cena Health. You can leave the program at any time."
+            data-i18n-es="Al unirte, aceptas recibir comidas, revisiones de atención y apoyo de salud a través de Cena Health. Puedes salir del programa en cualquier momento."
+          >By joining, you agree to receive meals, care check-ins, and health support through Cena Health. You can leave the program at any time.</span>
+        </p>
+
+        <!-- Read aloud (same disabled pattern) -->
+        <div class="relative inline-block mb-4">
+          <button type="button" class="btn-outline w-full" disabled aria-disabled="true">
+            <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
+            <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
+          </button>
+        </div>
+
+        <!-- Expand full program terms -->
+        <div class="hs-accordion mb-6" id="program-accordion">
+          <button
+            type="button"
+            class="hs-accordion-toggle text-sm text-primary-600 underline"
+            aria-expanded="false"
+            aria-controls="program-accordion-body"
+          >
+            <span data-i18n-en="Read full text" data-i18n-es="Leer el texto completo">Read full text</span>
+          </button>
+          <div
+            id="program-accordion-body"
+            class="hs-accordion-content overflow-hidden transition-[height] duration-300 hidden"
+            role="region"
+          >
+            <p class="text-sm text-gray-600 mt-3 leading-relaxed">
+              As a Cena Health program participant, you agree to receive prepared meals delivered to your registered address, participate in periodic care check-ins with your assigned care team, and share relevant health data to support your care plan. Participation is voluntary and you may withdraw at any time by contacting your care coordinator.
+            </p>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary w-full" id="consent-2-agree">
+          <span data-i18n-en="I agree" data-i18n-es="Acepto">I agree</span>
+        </button>
+        <p class="text-xs text-gray-400 text-center mt-3">
+          <span
+            data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
+            data-i18n-es="Al tocar 'Acepto', confirmas que has leído y comprendido lo anterior."
+          >By tapping 'I agree', you confirm you have read and understood the above.</span>
+        </p>
+      </section>
+
+      <!-- ===== Consent Step 3: AVA (optional) ===== -->
+      <section id="consent-step-3" aria-labelledby="consent-3-heading" class="hidden">
+        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+          <span data-i18n-en="Step 3 of 3" data-i18n-es="Paso 3 de 3">Step 3 of 3</span>
+        </p>
+        <h1 id="consent-3-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
+          <span data-i18n-en="Voice check-ins (optional)" data-i18n-es="Visitas de voz (opcional)">Voice check-ins (optional)</span>
+        </h1>
+        <p class="text-sm text-gray-700 mb-4">
+          <span
+            data-i18n-en="AVA is our automated health assistant. It can call you for quick check-ins between visits. This is optional — your meals and care continue either way."
+            data-i18n-es="AVA es nuestra asistente de salud automatizada. Puede llamarte para revisiones rápidas entre visitas. Esto es opcional — tus comidas y atención continúan de cualquier manera."
+          >AVA is our automated health assistant. It can call you for quick check-ins between visits. This is optional — your meals and care continue either way.</span>
+        </p>
+
+        <!-- AVA opt card (neutral bg — not warning) -->
+        <div class="card border-stone-200 mb-6" style="background-color: var(--color-stone-50, #fafaf9);">
+          <div class="card-body space-y-3">
+            <label class="radio-label">
+              <input type="radio" name="ava-consent" value="yes">
+              <span data-i18n-en="Yes, I'd like AVA calls" data-i18n-es="Sí, quiero llamadas de AVA">Yes, I'd like AVA calls</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="ava-consent" value="no" checked>
+              <span data-i18n-en="No thanks" data-i18n-es="No, gracias">No thanks</span>
+            </label>
+          </div>
+        </div>
+
+        <a href="/apps/patient/onboarding/preferences.html" class="btn-primary w-full">
+          <span data-i18n-en="Continue" data-i18n-es="Continuar">Continue</span>
+        </a>
+      </section>
+
+    </main>
+
+  </div><!-- /.mobile-shell -->
+
+  <!-- Preline JS (for accordion components) -->
+  <script type="module" src="/src/scripts/main.js"></script>
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Consent step navigation -->
+  <script>
+  (function () {
+    var step = 1;
+    var steps = [
+      document.getElementById('consent-step-1'),
+      document.getElementById('consent-step-2'),
+      document.getElementById('consent-step-3')
+    ];
+
+    function showStep(n) {
+      steps.forEach(function (s, i) {
+        s.classList.toggle('hidden', i !== n - 1);
+      });
+      step = n;
+    }
+
+    document.getElementById('consent-1-agree').addEventListener('click', function () { showStep(2); });
+    document.getElementById('consent-2-agree').addEventListener('click', function () { showStep(3); });
+    document.getElementById('consent-back').addEventListener('click', function () {
+      if (step > 1) {
+        showStep(step - 1);
+      } else {
+        window.location.href = '/apps/patient/onboarding/welcome.html';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

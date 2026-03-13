@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell">
+
+    <!-- i18n bar (copied from partial) -->
+    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+      <button
+        class="mobile-i18n-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to Spanish"
+      >
+        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+        <i class="fa-solid fa-globe"></i>
+      </button>
+    </div>
+
+    <!-- Screen content -->
+    <main class="px-4 pt-20 pb-8">
+
+      <!-- Wordmark (text fallback — SVG not available) -->
+      <div class="flex justify-center mb-6">
+        <span class="text-xl font-semibold text-primary-700" style="font-family: var(--font-serif);">Cena Health</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-2xl text-center mb-1" style="font-family: var(--font-serif);">
+        <span data-i18n-en="Welcome to Cena Health" data-i18n-es="Bienvenido a Cena Health">Welcome to Cena Health</span>
+      </h1>
+      <p class="text-sm text-gray-500 text-center mb-4">
+        <span data-i18n-en="Your meals and care team are ready. Let's set up your account." data-i18n-es="Tus comidas y tu equipo de atención están listos. Configuremos tu cuenta.">Your meals and care team are ready. Let's set up your account.</span>
+      </p>
+
+      <!-- Progress -->
+      <p class="onb-progress" aria-label="Step 1 of 3">
+        <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 1
+        <span data-i18n-en="of" data-i18n-es="de">of</span> 3
+      </p>
+
+      <!-- Form card -->
+      <div class="card mx-0 mt-6">
+        <div class="card-body">
+
+          <!-- Password -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+              <span data-i18n-en="Create a password" data-i18n-es="Crea una contraseña">Create a password</span>
+            </label>
+            <div class="relative">
+              <input
+                id="password"
+                type="password"
+                autocomplete="new-password"
+                aria-describedby="password-helper password-error"
+                class="w-full pr-10"
+              >
+              <button
+                type="button"
+                class="btn-icon absolute right-2 top-1/2 -translate-y-1/2"
+                aria-label="Show password"
+                onclick="this.closest('div').querySelector('input').type = this.closest('div').querySelector('input').type === 'password' ? 'text' : 'password';"
+              >
+                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            <p id="password-helper" class="text-xs text-gray-500 mt-1">
+              <span data-i18n-en="Must be at least 8 characters" data-i18n-es="Debe tener al menos 8 caracteres">Must be at least 8 characters</span>
+            </p>
+            <p id="password-error" class="text-xs text-error-600 mt-1 hidden" aria-live="polite">
+              <span data-i18n-en="Password must be at least 8 characters." data-i18n-es="La contraseña debe tener al menos 8 caracteres.">Password must be at least 8 characters.</span>
+            </p>
+          </div>
+
+          <!-- Confirm password -->
+          <div class="mt-4">
+            <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">
+              <span data-i18n-en="Confirm your password" data-i18n-es="Confirma tu contraseña">Confirm your password</span>
+            </label>
+            <div class="relative">
+              <input
+                id="password-confirm"
+                type="password"
+                autocomplete="new-password"
+                aria-describedby="confirm-error"
+                class="w-full pr-10"
+              >
+              <button
+                type="button"
+                class="btn-icon absolute right-2 top-1/2 -translate-y-1/2"
+                aria-label="Show confirm password"
+                onclick="this.closest('div').querySelector('input').type = this.closest('div').querySelector('input').type === 'password' ? 'text' : 'password';"
+              >
+                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            <p id="confirm-error" class="text-xs text-error-600 mt-1 hidden" aria-live="polite">
+              <span data-i18n-en="Passwords don't match. Try again." data-i18n-es="Las contraseñas no coinciden. Inténtalo de nuevo.">Passwords don't match. Try again.</span>
+            </p>
+          </div>
+
+          <!-- Continue CTA -->
+          <a href="/apps/patient/onboarding/consent.html" class="btn-primary w-full mt-6">
+            <span data-i18n-en="Continue" data-i18n-es="Continuar">Continue</span>
+          </a>
+
+        </div><!-- /.card-body -->
+      </div><!-- /.card -->
+
+      <!-- Help text -->
+      <p class="text-xs text-center text-gray-400 mt-4">
+        <span data-i18n-en="Need help? Call us at" data-i18n-es="¿Necesitas ayuda? Llámanos al">Need help? Call us at</span>
+        <a href="tel:+18002462458" class="text-link">1-800-246-2458</a>
+      </p>
+
+    </main>
+
+  </div><!-- /.mobile-shell -->
+
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+</body>
+</html>
