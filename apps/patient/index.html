@@ -1,16 +1,203 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<load src="src/partials/head.html" />
-<body>
-  <load src="src/partials/header.html" />
-  <main class="container py-8">
-    <h1>Patient App</h1>
-    <p class="mt-2">Patient-facing mobile experience.</p>
-    <p class="mt-4 text-gray-500">Coming soon.</p>
-    <div class="mt-6">
-      <a href="/apps/" class="btn-outline">Back to Apps</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[128px]">
+
+    <!-- i18n bar (copied from partial) -->
+    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+      <button
+        class="mobile-i18n-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to Spanish"
+      >
+        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+        <i class="fa-solid fa-globe"></i>
+      </button>
     </div>
-  </main>
-  <load src="src/partials/scripts.html" />
+
+    <main class="px-4 pt-20 pb-4">
+
+      <!-- Greeting -->
+      <div class="mb-1">
+        <p class="text-sm text-gray-400" id="dashboard-time-greeting">
+          <span data-i18n-en="Good morning" data-i18n-es="Buenos días">Good morning</span>
+        </p>
+        <h1 class="dashboard-greeting">
+          <span data-i18n-en="Maria" data-i18n-es="Maria">Maria</span>
+        </h1>
+      </div>
+
+      <!-- Confirm meals callout -->
+      <div class="alert alert-warning alert-banner mt-4 dashboard-confirm-callout" role="alert">
+        <div class="flex items-center justify-between w-full gap-3">
+          <div class="flex items-center gap-2 min-w-0">
+            <i class="fa-solid fa-clock-rotate-left shrink-0" aria-hidden="true"></i>
+            <span class="text-sm" data-i18n-en="Confirm your meals by Thursday at 5pm" data-i18n-es="Confirma tus comidas antes del jueves a las 5pm">Confirm your meals by Thursday at 5pm</span>
+          </div>
+          <a href="/apps/patient/meals/index.html" class="btn-primary shrink-0 text-xs py-1.5 px-3">
+            <span data-i18n-en="Confirm" data-i18n-es="Confirmar">Confirm</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Delivery snapshot -->
+      <div class="dashboard-section-header">
+        <h2 data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</h2>
+        <a href="/apps/patient/deliveries/index.html" data-i18n-en="Details" data-i18n-es="Detalles">Details</a>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-bowl-food text-primary-500 text-xl" aria-hidden="true"></i>
+            <div>
+              <p class="text-sm font-semibold text-gray-900" data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</p>
+              <p class="text-xs text-gray-500" data-i18n-en="Arriving Thursday, March 19 · 11am–1pm" data-i18n-es="Llegando el jueves 19 de marzo · 11am–1pm">Arriving Thursday, March 19 · 11am–1pm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- This week's meals -->
+      <div class="dashboard-section-header">
+        <h2 data-i18n-en="This week's meals" data-i18n-es="Tus comidas de esta semana">This week's meals</h2>
+        <a href="/apps/patient/meals/index.html" data-i18n-en="See all" data-i18n-es="Ver todas">See all</a>
+      </div>
+      <div class="dashboard-meal-scroll">
+
+        <div class="dashboard-meal-chip">
+          <img class="dashboard-meal-chip-img"
+               src="https://images.unsplash.com/photo-1512058454903-4d8b520e7e8b?w=200&h=200&fit=crop&q=80"
+               alt="Chicken Verde Rice Bowl" loading="lazy">
+          <span class="dashboard-meal-chip-day" data-i18n-en="Mon" data-i18n-es="Lun">Mon</span>
+          <span class="dashboard-meal-chip-name">Chicken Verde Rice Bowl</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <img class="dashboard-meal-chip-img"
+               src="https://images.unsplash.com/photo-1565299507177-b3b0a4b9b5d5?w=200&h=200&fit=crop&q=80"
+               alt="Black Bean Tacos" loading="lazy">
+          <span class="dashboard-meal-chip-day" data-i18n-en="Tue" data-i18n-es="Mar">Tue</span>
+          <span class="dashboard-meal-chip-name">Black Bean Tacos</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <img class="dashboard-meal-chip-img"
+               src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=200&h=200&fit=crop&q=80"
+               alt="Lemon Herb Salmon" loading="lazy">
+          <span class="dashboard-meal-chip-day" data-i18n-en="Wed" data-i18n-es="Mié">Wed</span>
+          <span class="dashboard-meal-chip-name">Lemon Herb Salmon</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <img class="dashboard-meal-chip-img"
+               src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=200&fit=crop&q=80"
+               alt="Turkey Sofrito Bowl" loading="lazy">
+          <span class="dashboard-meal-chip-day" data-i18n-en="Thu" data-i18n-es="Jue">Thu</span>
+          <span class="dashboard-meal-chip-name">Turkey Sofrito Bowl</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <img class="dashboard-meal-chip-img"
+               src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop&q=80"
+               alt="Veggie Stir-Fry" loading="lazy">
+          <span class="dashboard-meal-chip-day" data-i18n-en="Fri" data-i18n-es="Vie">Fri</span>
+          <span class="dashboard-meal-chip-name">Veggie Stir-Fry</span>
+        </div>
+
+      </div>
+
+      <!-- Care team messages -->
+      <div class="dashboard-section-header">
+        <h2 data-i18n-en="Care Team" data-i18n-es="Equipo de cuidado">Care Team</h2>
+        <a href="/apps/patient/care-team/messages.html" data-i18n-en="Open" data-i18n-es="Abrir">Open</a>
+      </div>
+      <div class="card">
+        <div class="card-body">
+
+          <div class="dashboard-message-preview">
+            <div class="dashboard-message-preview-avatar" aria-hidden="true">MC</div>
+            <div class="dashboard-message-preview-body">
+              <p class="dashboard-message-preview-sender">Maria Chen, RD</p>
+              <p class="dashboard-message-preview-text" data-i18n-en="I've set up your meal plan for next week." data-i18n-es="He preparado tu plan de comidas para la semana.">I've set up your meal plan for next week.</p>
+            </div>
+            <span class="dashboard-message-preview-time">2:14 PM</span>
+          </div>
+
+          <div class="dashboard-message-preview mt-2">
+            <div class="dashboard-message-preview-avatar" aria-hidden="true">JR</div>
+            <div class="dashboard-message-preview-body">
+              <p class="dashboard-message-preview-sender">James Rivera</p>
+              <p class="dashboard-message-preview-text" data-i18n-en="Your delivery window is Thursday 11am–1pm." data-i18n-es="Tu ventana de entrega es el jueves 11am–1pm.">Your delivery window is Thursday 11am–1pm.</p>
+            </div>
+            <span class="dashboard-message-preview-time">8:02 AM</span>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- /.mobile-shell -->
+
+  <!-- Bottom nav — Home tab active -->
+  <nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+    <a href="/apps/patient/index.html"
+       class="mobile-bottom-nav-tab active"
+       aria-current="page"
+       aria-label="Home">
+      <i class="fa-solid fa-house"></i>
+      <span data-i18n-en="Home" data-i18n-es="Inicio">Home</span>
+    </a>
+
+    <a href="/apps/patient/meals/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Meals">
+      <i class="fa-solid fa-bowl-food"></i>
+      <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
+    </a>
+
+    <a href="/apps/patient/deliveries/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Delivery">
+      <i class="fa-solid fa-truck"></i>
+      <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+    </a>
+
+    <a href="/apps/patient/care-team/messages.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Care Team">
+      <span class="relative inline-flex">
+        <i class="fa-solid fa-comments"></i>
+        <span class="mobile-bottom-nav-badge">2</span>
+      </span>
+      <span data-i18n-en="Team" data-i18n-es="Equipo">Team</span>
+    </a>
+
+    <a href="/apps/patient/profile/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Profile">
+      <i class="fa-solid fa-circle-user"></i>
+      <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
+    </a>
+
+  </nav>
+
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Dashboard interaction -->
+  <script src="/src/scripts/components/dashboard.js"></script>
+  <!-- Preline autoInit (must be last) -->
+  <script src="/src/scripts/main.js" type="module"></script>
 </body>
 </html>

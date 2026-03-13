@@ -1,4 +1,4 @@
-# Task: Patient Profile Screen (PAT-PROFILE-01)
+# Task: Patient Dashboard + 5-Tab Nav (PAT-DASH-01)
 _Generated: 2026-03-12_
 _App: patient_
 
@@ -6,22 +6,34 @@ _App: patient_
 
 ## Scope Classification
 
-**Work type:** App page + CSS additions.
+**Work type:** App page + CSS modification + multi-file nav update.
+
+**Files being created:**
+- `apps/patient/index.html` (replace stub)
+- `src/scripts/components/dashboard.js` (new)
+
+**Files being modified:**
+- `src/styles/tokens/components.css` — `mobile-bottom-nav` grid-cols-4 → grid-cols-5
+- `apps/patient/meals/index.html` — nav block updated to 5-tab
+- `apps/patient/deliveries/index.html` — nav block updated to 5-tab
+- `apps/patient/care-team/messages.html` — nav block updated to 5-tab
+- `apps/patient/care-team/feedback.html` — nav block updated to 5-tab
+- `apps/patient/profile/index.html` — nav block updated to 5-tab
 
 **Patterns being used (all verified in components.css):**
 - `mobile-shell`, `mobile-app` — body/wrapper
 - `mobile-i18n-bar`, `mobile-i18n-toggle` — language bar
-- `mobile-bottom-nav`, `mobile-bottom-nav-tab` — bottom nav
-- `pref-row`, `pref-row-indicator`, `pref-row-indicator--circle`, `pref-row-indicator--square`, `pref-row-label` — editable preference controls
-- `pref-image-card`, `pref-image-card-img-wrap`, `pref-image-card-check`, `pref-image-card-label` — cuisine image selectors
-- `card`, `card-body` — section grouping
-- `sticky-footer`, `sticky-footer-inner`, `sticky-footer-actions` — save footer
-- `btn-primary` — save button
-- `alert`, `alert-error` — error state
+- `mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge` — bottom nav
+- `card`, `card-body` — section cards
+- `alert`, `alert-warning`, `alert-banner` — confirm-meals callout
+- `badge`, `badge-primary`, `badge-pill` — meal tags
+- `btn-primary`, `btn-outline` — action buttons
+- `delivery-status-card` — delivery snapshot (read from deliveries/index.html)
+- `text-link` — section links
 
-**New semantic classes needed:** `profile-section-heading`, `profile-field-row`, `profile-field-label`, `profile-field-value`, `profile-danger-row`
+**New semantic classes needed:** `dashboard-greeting`, `dashboard-section-header`, `dashboard-meal-scroll`, `dashboard-meal-chip`, `dashboard-message-preview`
 
-Flag any gap found during audit before writing HTML.
+Flag any gap found during audit before writing anything.
 
 ---
 
@@ -29,48 +41,172 @@ Flag any gap found during audit before writing HTML.
 
 Before writing any HTML or CSS:
 
-1. Read `src/styles/tokens/components.css` — confirm all class names in Scope Classification exist. If any are missing, stop and report which ones.
-2. Read `apps/patient/onboarding/preferences.html` in full — copy pref-row and pref-image-card markup verbatim; do not paraphrase or reconstruct from memory.
-3. Read `apps/patient/care-team/messages.html` — copy the bottom nav block verbatim.
-4. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List which apply to this task.
+1. Read `src/styles/tokens/components.css` — confirm all class names in Scope Classification exist. Note the exact `grid-cols-4` value in `.mobile-bottom-nav`. Note existing `.delivery-status-card` rules.
+2. Read `apps/patient/meals/index.html` — note the bottom nav block and the `banner-unconfirmed` / `banner-confirmed` pattern.
+3. Read `apps/patient/deliveries/index.html` — note bottom nav and `delivery-status-card` markup.
+4. Read `apps/patient/care-team/messages.html` — copy bottom nav block as the reference for the 5-tab replacement.
+5. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List which apply to this task.
 
 ---
 
-## Prompt 1: Add new semantic classes to `src/styles/tokens/components.css`
+## Prompt 1: Update `mobile-bottom-nav` in `src/styles/tokens/components.css`
 
-Append the following section at the end of the file, after all existing rules. Each class uses `@apply` — no raw-CSS-only rules without a no-op `@apply block;`.
+Find the `.mobile-bottom-nav` rule and change `grid-cols-4` to `grid-cols-5`. No other changes to this rule.
+
+The tab icon size (`text-xl`) and label size (`text-xs`) do not need changes — 5-column layout at mobile widths is tight but intentional.
+
+Do NOT modify any other rules.
+
+---
+
+## Prompt 2: Update bottom nav in all existing patient screens
+
+Each of the following files has a `<nav class="mobile-bottom-nav">` block. Replace it with the new 5-tab nav below. The only difference between files is which tab has `class="mobile-bottom-nav-tab active"` and `aria-current="page"`.
+
+**Files and their active tab:**
+- `apps/patient/meals/index.html` → Meals active
+- `apps/patient/deliveries/index.html` → Delivery active
+- `apps/patient/care-team/messages.html` → Team active
+- `apps/patient/care-team/feedback.html` → Team active (care-team section)
+- `apps/patient/profile/index.html` → Profile active
+
+**Standard 5-tab nav block (substitute active tab per file):**
+
+```html
+<nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+  <a href="/apps/patient/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Home">
+    <i class="fa-solid fa-house"></i>
+    <span data-i18n-en="Home" data-i18n-es="Inicio">Home</span>
+  </a>
+
+  <a href="/apps/patient/meals/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Meals">
+    <i class="fa-solid fa-bowl-food"></i>
+    <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
+  </a>
+
+  <a href="/apps/patient/deliveries/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Delivery">
+    <i class="fa-solid fa-truck"></i>
+    <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+  </a>
+
+  <a href="/apps/patient/care-team/messages.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Care Team">
+    <span class="relative inline-flex">
+      <i class="fa-solid fa-comments"></i>
+      <span class="mobile-bottom-nav-badge">2</span>
+    </span>
+    <span data-i18n-en="Team" data-i18n-es="Equipo">Team</span>
+  </a>
+
+  <a href="/apps/patient/profile/index.html"
+     class="mobile-bottom-nav-tab"
+     aria-label="Profile">
+    <i class="fa-solid fa-circle-user"></i>
+    <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
+  </a>
+
+</nav>
+```
+
+Add `class="mobile-bottom-nav-tab active"` and `aria-current="page"` to the correct tab in each file. Remove those attributes from all other tabs.
+
+Process all 5 files. Report each file updated.
+
+---
+
+## Prompt 3: Add new semantic classes to `src/styles/tokens/components.css`
+
+Append the following section at the end of the file, after all existing rules.
 
 ```css
 /* ============================================================
-   PROFILE SCREEN
+   DASHBOARD SCREEN
    ============================================================ */
 
-/* Section heading rendered above each grouped card */
-.profile-section-heading {
-    @apply block text-xs font-semibold uppercase tracking-wide text-gray-400 px-1 mb-2 mt-6;
+/* Greeting block — "Good morning, Maria" */
+.dashboard-greeting {
+    @apply text-2xl font-semibold text-gray-900;
+    font-family: var(--font-serif);
 }
 
-/* Read-only display row for personal info fields */
-.profile-field-row {
-    @apply flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0;
-    @apply dark:border-neutral-800;
+/* Section label above each card group */
+.dashboard-section-header {
+    @apply flex items-center justify-between mb-2 mt-5;
 }
 
-.profile-field-label {
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-400;
+.dashboard-section-header h2 {
+    @apply text-sm font-semibold text-gray-700;
 }
 
-.profile-field-value {
-    @apply text-sm font-medium text-gray-900 text-right;
-    @apply dark:text-white;
+.dashboard-section-header a {
+    @apply text-xs text-primary-600 font-medium;
+    @apply dark:text-primary-400;
+    text-decoration: none;
 }
 
-/* Destructive action row (e.g. sign out) */
-.profile-danger-row {
-    @apply flex items-center justify-between py-3 cursor-pointer;
-    @apply hover:bg-red-50 dark:hover:bg-red-950/30;
-    @apply rounded-lg px-2 -mx-2;
+/* Horizontal scroll row of meal chips */
+.dashboard-meal-scroll {
+    @apply flex gap-2 overflow-x-auto pb-1;
+    scrollbar-width: none;
+}
+
+.dashboard-meal-scroll::-webkit-scrollbar {
+    @apply block;
+    display: none;
+}
+
+/* Individual meal chip in the scroll row */
+.dashboard-meal-chip {
+    @apply flex flex-col gap-1 shrink-0 w-24;
+}
+
+.dashboard-meal-chip-img {
+    @apply w-24 h-24 rounded-xl object-cover bg-stone-100;
+}
+
+.dashboard-meal-chip-day {
+    @apply text-xs text-gray-400 font-medium;
+}
+
+.dashboard-meal-chip-name {
+    @apply text-xs text-gray-700 leading-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Care team message preview row */
+.dashboard-message-preview {
+    @apply flex items-start gap-3 py-1;
+}
+
+.dashboard-message-preview-avatar {
+    @apply w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center shrink-0 text-primary-600 text-xs font-bold;
+}
+
+.dashboard-message-preview-body {
+    @apply flex-1 min-w-0;
+}
+
+.dashboard-message-preview-sender {
+    @apply text-sm font-semibold text-gray-900;
+}
+
+.dashboard-message-preview-text {
+    @apply text-sm text-gray-500 truncate;
+}
+
+.dashboard-message-preview-time {
+    @apply text-xs text-gray-400 shrink-0 mt-0.5;
 }
 ```
 
@@ -78,249 +214,257 @@ Do NOT modify any existing rules. Only append this section.
 
 ---
 
-## Prompt 2: Create `apps/patient/profile/index.html`
+## Prompt 4: Create `apps/patient/index.html`
 
-Create the `profile/` directory if it does not exist.
+Completely replace the existing stub. This is the patient app dashboard — the home screen.
 
 ### Shell setup
-- `<body class="mobile-app">` with `<div class="mobile-shell pb-32">`
+- `<body class="mobile-app">` with `<div class="mobile-shell pb-[128px]">`
 - i18n bar: copy verbatim from `messages.html`
-- Bottom nav: copy verbatim from `messages.html`, set Profile tab active (fourth tab, `fa-circle-user`). Remove active class and aria-current from Care Team tab.
-- Title: `"Profile — Cena Health"`
+- Bottom nav: use the 5-tab nav from Prompt 2, with **Home tab active**
+- Title: `"Home — Cena Health"`
 
 ### Head block
-Match `messages.html` exactly — same stylesheet and FontAwesome links, no other changes.
+Match `messages.html` exactly — same stylesheet and FontAwesome links.
 
 ### Page structure
 
-All content inside `<main class="px-4 pt-20 pb-8">`.
+All content inside `<main class="px-4 pt-20 pb-4">`.
 
-**Header**
+---
+
+**Greeting**
 ```html
-<div class="flex items-center gap-4 mb-2">
-  <div class="w-14 h-14 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
-    <i class="fa-solid fa-circle-user text-primary-500 text-3xl" aria-hidden="true"></i>
-  </div>
-  <div>
-    <h1 class="text-lg font-semibold text-gray-900" style="font-family: var(--font-serif);">
-      <span data-i18n-en="Maria Gonzalez" data-i18n-es="Maria Gonzalez">Maria Gonzalez</span>
-    </h1>
-    <p class="text-sm text-gray-500">
-      <span data-i18n-en="Patient since January 2026" data-i18n-es="Paciente desde enero de 2026">Patient since January 2026</span>
-    </p>
+<div class="mb-1">
+  <p class="text-sm text-gray-400" id="dashboard-time-greeting">
+    <span data-i18n-en="Good morning" data-i18n-es="Buenos días">Good morning</span>
+  </p>
+  <h1 class="dashboard-greeting">
+    <span data-i18n-en="Maria" data-i18n-es="Maria">Maria</span>
+  </h1>
+</div>
+```
+
+---
+
+**Confirm meals callout** — shown when meals are unconfirmed (default state)
+
+```html
+<div class="alert alert-warning alert-banner mt-4 dashboard-confirm-callout" role="alert">
+  <div class="flex items-center justify-between w-full gap-3">
+    <div class="flex items-center gap-2 min-w-0">
+      <i class="fa-solid fa-clock-rotate-left shrink-0" aria-hidden="true"></i>
+      <span class="text-sm" data-i18n-en="Confirm your meals by Thursday at 5pm" data-i18n-es="Confirma tus comidas antes del jueves a las 5pm">Confirm your meals by Thursday at 5pm</span>
+    </div>
+    <a href="/apps/patient/meals/index.html" class="btn-primary shrink-0 text-xs py-1.5 px-3">
+      <span data-i18n-en="Confirm" data-i18n-es="Confirmar">Confirm</span>
+    </a>
   </div>
 </div>
 ```
 
-**Section 1 — Personal info** (read-only)
+Hide this element when meals are confirmed (class `meals-confirmed` on `<body>` — see JS).
+
+---
+
+**Delivery snapshot**
+
 ```html
-<p class="profile-section-heading">
-  <span data-i18n-en="Personal Info" data-i18n-es="Información personal">Personal Info</span>
-</p>
-<div class="card">
-  <div class="card-body">
-    <div class="profile-field-row">
-      <span class="profile-field-label" data-i18n-en="Name" data-i18n-es="Nombre">Name</span>
-      <span class="profile-field-value">Maria Gonzalez</span>
-    </div>
-    <div class="profile-field-row">
-      <span class="profile-field-label" data-i18n-en="Date of birth" data-i18n-es="Fecha de nacimiento">Date of birth</span>
-      <span class="profile-field-value">March 4, 1968</span>
-    </div>
-    <div class="profile-field-row">
-      <span class="profile-field-label" data-i18n-en="Phone" data-i18n-es="Teléfono">Phone</span>
-      <span class="profile-field-value">(619) 555-0142</span>
-    </div>
-    <div class="profile-field-row">
-      <span class="profile-field-label" data-i18n-en="Address" data-i18n-es="Dirección">Address</span>
-      <span class="profile-field-value">1847 Euclid Ave, San Diego, CA</span>
-    </div>
-  </div>
+<div class="dashboard-section-header">
+  <h2 data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</h2>
+  <a href="/apps/patient/deliveries/index.html" data-i18n-en="Details" data-i18n-es="Detalles">Details</a>
 </div>
-```
-
-**Section 2 — Dietary preferences** (editable)
-
-Copy the food flavor `<fieldset>` verbatim from `apps/patient/onboarding/preferences.html` (the one with 4 `pref-image-card` labels + "No preference" pref-row). Pre-check `latin-american` and `mediterranean` inputs.
-
-Wrap in:
-```html
-<p class="profile-section-heading">
-  <span data-i18n-en="Dietary Preferences" data-i18n-es="Preferencias alimentarias">Dietary Preferences</span>
-</p>
 <div class="card">
   <div class="card-body">
-    <!-- verbatim food flavor fieldset from preferences.html -->
-  </div>
-</div>
-```
-
-**Section 3 — Communication** (editable)
-
-Copy the language, contact method, and best times `<fieldset>` blocks verbatim from `preferences.html`. Pre-set:
-- Language: Spanish (`es`) selected
-- Contact method: Text message (`text`) selected
-- Best times: Afternoon (`afternoon`) selected
-
-Wrap in:
-```html
-<p class="profile-section-heading">
-  <span data-i18n-en="Communication" data-i18n-es="Comunicación">Communication</span>
-</p>
-<div class="card">
-  <div class="card-body">
-    <!-- verbatim language fieldset -->
-    <!-- verbatim contact method fieldset -->
-    <!-- verbatim best times fieldset -->
-  </div>
-</div>
-```
-
-**Section 4 — Notifications** (editable)
-```html
-<p class="profile-section-heading">
-  <span data-i18n-en="Notifications" data-i18n-es="Notificaciones">Notifications</span>
-</p>
-<div class="card">
-  <div class="card-body">
-    <fieldset class="border-0 p-0">
-      <legend class="sr-only" data-i18n-en="Notification preferences" data-i18n-es="Preferencias de notificación">Notification preferences</legend>
-      <div class="space-y-2">
-        <label class="pref-row">
-          <input type="checkbox" name="notif" value="delivery" checked class="sr-only">
-          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
-          <span class="pref-row-label" data-i18n-en="Delivery reminders" data-i18n-es="Recordatorios de entrega">Delivery reminders</span>
-        </label>
-        <label class="pref-row">
-          <input type="checkbox" name="notif" value="messages" checked class="sr-only">
-          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
-          <span class="pref-row-label" data-i18n-en="New messages from care team" data-i18n-es="Nuevos mensajes de tu equipo">New messages from care team</span>
-        </label>
-        <label class="pref-row">
-          <input type="checkbox" name="notif" value="feedback" class="sr-only">
-          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
-          <span class="pref-row-label" data-i18n-en="Meal feedback reminders" data-i18n-es="Recordatorios de comentarios">Meal feedback reminders</span>
-        </label>
-        <label class="pref-row">
-          <input type="checkbox" name="notif" value="plan-updates" checked class="sr-only">
-          <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
-          <span class="pref-row-label" data-i18n-en="Meal plan updates" data-i18n-es="Actualizaciones del plan de comidas">Meal plan updates</span>
-        </label>
+    <div class="flex items-center gap-3">
+      <i class="fa-solid fa-bowl-food text-primary-500 text-xl" aria-hidden="true"></i>
+      <div>
+        <p class="text-sm font-semibold text-gray-900" data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</p>
+        <p class="text-xs text-gray-500" data-i18n-en="Arriving Thursday, March 19 · 11am–1pm" data-i18n-es="Llegando el jueves 19 de marzo · 11am–1pm">Arriving Thursday, March 19 · 11am–1pm</p>
       </div>
-    </fieldset>
+    </div>
   </div>
 </div>
 ```
 
-**Section 5 — Account**
+---
+
+**This week's meals**
+
 ```html
-<p class="profile-section-heading">
-  <span data-i18n-en="Account" data-i18n-es="Cuenta">Account</span>
-</p>
+<div class="dashboard-section-header">
+  <h2 data-i18n-en="This week's meals" data-i18n-es="Tus comidas de esta semana">This week's meals</h2>
+  <a href="/apps/patient/meals/index.html" data-i18n-en="See all" data-i18n-es="Ver todas">See all</a>
+</div>
+<div class="dashboard-meal-scroll">
+
+  <div class="dashboard-meal-chip">
+    <img class="dashboard-meal-chip-img"
+         src="https://images.unsplash.com/photo-1512058454903-4d8b520e7e8b?w=200&h=200&fit=crop&q=80"
+         alt="Chicken Verde Rice Bowl" loading="lazy">
+    <span class="dashboard-meal-chip-day" data-i18n-en="Mon" data-i18n-es="Lun">Mon</span>
+    <span class="dashboard-meal-chip-name">Chicken Verde Rice Bowl</span>
+  </div>
+
+  <div class="dashboard-meal-chip">
+    <img class="dashboard-meal-chip-img"
+         src="https://images.unsplash.com/photo-1565299507177-b3b0a4b9b5d5?w=200&h=200&fit=crop&q=80"
+         alt="Black Bean Tacos" loading="lazy">
+    <span class="dashboard-meal-chip-day" data-i18n-en="Tue" data-i18n-es="Mar">Tue</span>
+    <span class="dashboard-meal-chip-name">Black Bean Tacos</span>
+  </div>
+
+  <div class="dashboard-meal-chip">
+    <img class="dashboard-meal-chip-img"
+         src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=200&h=200&fit=crop&q=80"
+         alt="Lemon Herb Salmon" loading="lazy">
+    <span class="dashboard-meal-chip-day" data-i18n-en="Wed" data-i18n-es="Mié">Wed</span>
+    <span class="dashboard-meal-chip-name">Lemon Herb Salmon</span>
+  </div>
+
+  <div class="dashboard-meal-chip">
+    <img class="dashboard-meal-chip-img"
+         src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=200&fit=crop&q=80"
+         alt="Turkey Sofrito Bowl" loading="lazy">
+    <span class="dashboard-meal-chip-day" data-i18n-en="Thu" data-i18n-es="Jue">Thu</span>
+    <span class="dashboard-meal-chip-name">Turkey Sofrito Bowl</span>
+  </div>
+
+  <div class="dashboard-meal-chip">
+    <img class="dashboard-meal-chip-img"
+         src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop&q=80"
+         alt="Veggie Stir-Fry" loading="lazy">
+    <span class="dashboard-meal-chip-day" data-i18n-en="Fri" data-i18n-es="Vie">Fri</span>
+    <span class="dashboard-meal-chip-name">Veggie Stir-Fry</span>
+  </div>
+
+</div>
+```
+
+---
+
+**Care team messages**
+
+```html
+<div class="dashboard-section-header">
+  <h2 data-i18n-en="Care Team" data-i18n-es="Equipo de cuidado">Care Team</h2>
+  <a href="/apps/patient/care-team/messages.html" data-i18n-en="Open" data-i18n-es="Abrir">Open</a>
+</div>
 <div class="card">
   <div class="card-body">
-    <div class="profile-danger-row" role="button" tabindex="0" aria-label="Sign out">
-      <span class="text-sm font-medium text-red-600" data-i18n-en="Sign out" data-i18n-es="Cerrar sesión">Sign out</span>
-      <i class="fa-solid fa-right-from-bracket text-red-400" aria-hidden="true"></i>
+
+    <div class="dashboard-message-preview">
+      <div class="dashboard-message-preview-avatar" aria-hidden="true">MC</div>
+      <div class="dashboard-message-preview-body">
+        <p class="dashboard-message-preview-sender">Maria Chen, RD</p>
+        <p class="dashboard-message-preview-text" data-i18n-en="I've set up your meal plan for next week." data-i18n-es="He preparado tu plan de comidas para la semana.">I've set up your meal plan for next week.</p>
+      </div>
+      <span class="dashboard-message-preview-time">2:14 PM</span>
     </div>
+
+    <div class="dashboard-message-preview mt-2">
+      <div class="dashboard-message-preview-avatar" aria-hidden="true">JR</div>
+      <div class="dashboard-message-preview-body">
+        <p class="dashboard-message-preview-sender">James Rivera</p>
+        <p class="dashboard-message-preview-text" data-i18n-en="Your delivery window is Thursday 11am–1pm." data-i18n-es="Tu ventana de entrega es el jueves 11am–1pm.">Your delivery window is Thursday 11am–1pm.</p>
+      </div>
+      <span class="dashboard-message-preview-time">8:02 AM</span>
+    </div>
+
   </div>
 </div>
 ```
 
-**Sticky footer — Save changes**
-```html
-<div class="sticky-footer">
-  <div class="sticky-footer-inner">
-    <div class="sticky-footer-actions">
-      <button class="btn-primary w-full" id="btn-save-profile"
-        data-saved-label="Saved!"
-        data-i18n-data-saved-label-en="Saved!"
-        data-i18n-data-saved-label-es="¡Guardado!">
-        <span data-i18n-en="Save changes" data-i18n-es="Guardar cambios">Save changes</span>
-      </button>
-    </div>
-  </div>
-</div>
-```
-
-Place the sticky footer inside `.mobile-shell`, after the closing `</main>` tag.
+---
 
 ### Scripts (in order)
 ```html
 <script src="/src/scripts/components/i18n.js"></script>
-<script src="/src/scripts/components/pref-image-cards.js"></script>
-<script src="/src/scripts/components/profile.js"></script>
+<script src="/src/scripts/components/dashboard.js"></script>
 <script src="/src/scripts/main.js" type="module"></script>
 ```
 
 ### Known Constraints
 - No `<script>` blocks in HTML.
 - Never `@apply` a semantic class inside another semantic class.
-- Any raw-CSS-only rule in `components.css` must begin with `@apply block;`.
-- `card-body > * + *` has a spacing rule — `profile-field-row` elements are separated by `border-b`, not margin. If unexpected vertical gaps appear between field rows, add `profile-field-row` to the `:not()` exclusion list in the `card-body > * + *` rule.
+- Raw-CSS-only rules in `components.css` must begin with `@apply block;`.
+- `dashboard-meal-scroll::-webkit-scrollbar` needs `@apply block;` as its first line to survive Tailwind v4 tree-shaking.
+- The confirm callout uses `alert alert-warning alert-banner` — same classes as `meals/index.html`. Do not invent new classes for it.
 
 ---
 
-## Prompt 3: Create `src/scripts/components/profile.js`
+## Prompt 5: Create `src/scripts/components/dashboard.js`
 
 ```js
 /**
- * Profile screen interactions
- * - Save button: 2-second "Saved!" confirmation, then restore
- * - Sign out: redirect to onboarding welcome
+ * Dashboard screen
+ * - Time-of-day greeting
+ * - Hide confirm callout if meals already confirmed
+ *   (reads localStorage key 'mealsConfirmed' set by meals.js)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Save changes
-  const saveBtn = document.getElementById('btn-save-profile');
-  saveBtn?.addEventListener('click', () => {
-    const originalHTML = saveBtn.innerHTML;
-    const savedLabel = saveBtn.getAttribute('data-saved-label') || 'Saved!';
-    saveBtn.textContent = savedLabel;
-    saveBtn.disabled = true;
-    setTimeout(() => {
-      saveBtn.innerHTML = originalHTML;
-      saveBtn.disabled = false;
-    }, 2000);
-  });
+  // Time-of-day greeting
+  const greetingEl = document.getElementById('dashboard-time-greeting');
+  if (greetingEl) {
+    const hour = new Date().getHours();
+    const isSpanish = document.documentElement.lang === 'es' ||
+      document.querySelector('[data-i18n-es]');
 
-  // Sign out — click and keyboard
-  const signOutBtn = document.querySelector('[aria-label="Sign out"]');
-  signOutBtn?.addEventListener('click', () => {
-    window.location.href = '/apps/patient/onboarding/welcome.html';
-  });
-  signOutBtn?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.location.href = '/apps/patient/onboarding/welcome.html';
+    let en, es;
+    if (hour < 12) {
+      en = 'Good morning'; es = 'Buenos días';
+    } else if (hour < 18) {
+      en = 'Good afternoon'; es = 'Buenas tardes';
+    } else {
+      en = 'Good evening'; es = 'Buenas noches';
     }
-  });
+
+    const span = greetingEl.querySelector('span[data-i18n-en]');
+    if (span) {
+      span.setAttribute('data-i18n-en', en);
+      span.setAttribute('data-i18n-es', es);
+      span.textContent = en;
+    }
+  }
+
+  // Hide confirm callout if meals are confirmed
+  const confirmed = localStorage.getItem('mealsConfirmed') === 'true';
+  if (confirmed) {
+    const callout = document.querySelector('.dashboard-confirm-callout');
+    if (callout) callout.style.display = 'none';
+  }
 });
 ```
+
+**Note on localStorage:** This is a prototype-only pattern. The agent should add a comment to this effect in the file. No persistence architecture changes are needed.
 
 ---
 
 ## Verification
 
-Verify at `http://localhost:5173/apps/patient/profile/index.html`:
+Verify at `http://localhost:5173/apps/patient/index.html`:
 
 - [ ] Page loads without console errors
-- [ ] Header: avatar circle + name + "Patient since" subtitle render correctly
-- [ ] Personal info section: 4 field rows (Name, DOB, Phone, Address) with label/value layout
-- [ ] Dietary preferences: 4 cuisine image cards; Latin American and Mediterranean pre-checked (teal overlay visible)
-- [ ] "No preference" pref-row present below image cards
-- [ ] Communication section: Language (Spanish pre-selected), Contact method (Text pre-selected), Best times (Afternoon pre-selected)
-- [ ] Notifications section: Delivery, Messages, Plan updates pre-checked; Feedback reminder unchecked
-- [ ] Account section: Sign out row renders in red with right-bracket icon
-- [ ] Clicking Sign out navigates to `/apps/patient/onboarding/welcome.html`
-- [ ] Save button: clicking shows "Saved!" for ~2 seconds, then restores original label
-- [ ] Sticky footer visible and does not overlap bottom nav
-- [ ] Bottom nav: Profile tab active; no other tab marked active
-- [ ] i18n toggle switches all `data-i18n-en/es` strings
-- [ ] pref-image-cards mutual exclusivity works (checking "No preference" unchecks images and vice versa)
-- [ ] No utility class chains on component elements (only semantic classes + layout utilities)
-- [ ] No `<script>` blocks in HTML
-- [ ] `src/scripts/components/profile.js` exists
+- [ ] Greeting shows correct time-of-day text (Good morning / afternoon / evening)
+- [ ] Patient name "Maria" renders in serif
+- [ ] Confirm callout visible by default (warning banner with Confirm button)
+- [ ] Delivery snapshot card renders with icon, status, and ETA text
+- [ ] Meal scroll row renders 5 chips; scroll works horizontally without visible scrollbar
+- [ ] Each chip shows image, day abbreviation, and truncated meal name
+- [ ] Care team section shows 2 message previews with initials avatars
+- [ ] "Details", "See all", "Open" links navigate to correct screens
+- [ ] "Confirm" button in callout links to `/apps/patient/meals/index.html`
+- [ ] Bottom nav: Home tab active; 5 tabs visible
+- [ ] i18n toggle works on all `data-i18n-en/es` strings
+
+Then verify nav update across all existing screens:
+
+- [ ] `meals/index.html` — 5 tabs, Meals active
+- [ ] `deliveries/index.html` — 5 tabs, Delivery active
+- [ ] `care-team/messages.html` — 5 tabs, Team active
+- [ ] `care-team/feedback.html` — 5 tabs, Team active
+- [ ] `profile/index.html` — 5 tabs, Profile active
 
 ---
 
@@ -329,13 +473,13 @@ Verify at `http://localhost:5173/apps/patient/profile/index.html`:
 After verification passes, output:
 
 ```
-## Completion Report — Patient Profile Screen (PAT-PROFILE-01)
+## Completion Report — Patient Dashboard + 5-Tab Nav (PAT-DASH-01)
 
 - New semantic classes added to components.css: [list]
-- Existing classes modified: [list, or "none"]
-- Pattern library files created or updated: [list, or "none"]
+- Existing classes modified: mobile-bottom-nav (grid-cols-4 → grid-cols-5)
+- Files with nav updated: [list all 5]
 - Judgment calls: [list, or "none"]
-- Dark mode added: yes — profile-field-row, profile-field-label, profile-field-value, profile-danger-row
+- Dark mode added: [list new classes with dark variants, or "none"]
 - ANDREY-README.md updated: not applicable
 - Schema delta logged: not applicable
 - Items deferred or incomplete: [list, or "none"]
@@ -347,12 +491,14 @@ After verification passes, output:
 
 ```bash
 git add -A
-git commit -m "feat(patient): add profile screen (PAT-PROFILE-01) with editable preferences and save flow"
+git commit -m "feat(patient): add dashboard home screen and 5-tab nav (PAT-DASH-01)"
 ```
 
 Then output:
 
 ---
 **View your result:**
-- http://localhost:5173/apps/patient/profile/index.html
+- Dashboard: http://localhost:5173/apps/patient/index.html
+- Meals (nav check): http://localhost:5173/apps/patient/meals/index.html
+- Profile (nav check): http://localhost:5173/apps/patient/profile/index.html
 ---

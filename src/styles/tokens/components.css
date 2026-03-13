@@ -136,7 +136,7 @@ form > div {
 
 /* Fixed four-tab bar — present on all post-onboarding screens */
 .mobile-bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-4 bg-white border-t border-gray-200 shadow-lg;
+  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 bg-white border-t border-gray-200 shadow-lg;
   max-width: 430px;
   margin-inline: auto;
   padding-bottom: env(safe-area-inset-bottom);
@@ -3366,4 +3366,86 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply flex items-center justify-between py-3 cursor-pointer;
     @apply hover:bg-red-50 dark:hover:bg-red-950/30;
     @apply rounded-lg px-2 -mx-2;
+}
+
+/* ============================================================
+   DASHBOARD SCREEN
+   ============================================================ */
+
+/* Greeting block — "Good morning, Maria" */
+.dashboard-greeting {
+    @apply text-2xl font-semibold text-gray-900;
+    font-family: var(--font-serif);
+}
+
+/* Section label above each card group */
+.dashboard-section-header {
+    @apply flex items-center justify-between mb-2 mt-5;
+}
+
+.dashboard-section-header h2 {
+    @apply text-sm font-semibold text-gray-700;
+}
+
+.dashboard-section-header a {
+    @apply text-xs text-primary-600 font-medium;
+    @apply dark:text-primary-400;
+    text-decoration: none;
+}
+
+/* Horizontal scroll row of meal chips */
+.dashboard-meal-scroll {
+    @apply flex gap-2 overflow-x-auto pb-1;
+    scrollbar-width: none;
+}
+
+.dashboard-meal-scroll::-webkit-scrollbar {
+    @apply block;
+    display: none;
+}
+
+/* Individual meal chip in the scroll row */
+.dashboard-meal-chip {
+    @apply flex flex-col gap-1 shrink-0 w-24;
+}
+
+.dashboard-meal-chip-img {
+    @apply w-24 h-24 rounded-xl object-cover bg-stone-100;
+}
+
+.dashboard-meal-chip-day {
+    @apply text-xs text-gray-400 font-medium;
+}
+
+.dashboard-meal-chip-name {
+    @apply text-xs text-gray-700 leading-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Care team message preview row */
+.dashboard-message-preview {
+    @apply flex items-start gap-3 py-1;
+}
+
+.dashboard-message-preview-avatar {
+    @apply w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center shrink-0 text-primary-600 text-xs font-bold;
+}
+
+.dashboard-message-preview-body {
+    @apply flex-1 min-w-0;
+}
+
+.dashboard-message-preview-sender {
+    @apply text-sm font-semibold text-gray-900;
+}
+
+.dashboard-message-preview-text {
+    @apply text-sm text-gray-500 truncate;
+}
+
+.dashboard-message-preview-time {
+    @apply text-xs text-gray-400 shrink-0 mt-0.5;
 }

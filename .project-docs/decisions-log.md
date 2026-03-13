@@ -374,6 +374,18 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+## Decision: profile-field-row Added to card-body Spacing Exclusion List
+**Date:** March 2026
+**Context:** `card-body > * + *` applies `mt-4` to stack children with spacing. `profile-field-row` uses `border-b` for separation between field rows, not margin -- `mt-4` would add a visible gap above every field row after the first.
+
+**Decision:** Added `.profile-field-row` to the `:not()` exclusion list on the `card-body > * + *` rule, consistent with prior exclusions for `.activity-feed-row`, `.medication-row`, `.partner-list-item`, `.alert-summary-row`.
+
+**Rule:** Any component that uses `border-b` or `divide-y` for item separation inside a `card-body` must be added to this exclusion list. Check the list before building any new list-row component that will live inside a card.
+
+**Outcome:** ✅ No unwanted gaps between field rows.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]
