@@ -53,13 +53,15 @@
           <span data-i18n-en="What language do you prefer?" data-i18n-es="¿Qué idioma prefieres?">What language do you prefer?</span>
         </legend>
         <div class="grid grid-cols-2 gap-3">
-          <label class="radio-label">
-            <input type="radio" name="language" value="en" checked>
-            <span>English</span>
+          <label class="pref-row">
+            <input type="radio" name="language" value="en" checked class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+            <span class="pref-row-label">English</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="language" value="es">
-            <span>Español</span>
+          <label class="pref-row">
+            <input type="radio" name="language" value="es" class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+            <span class="pref-row-label">Español</span>
           </label>
         </div>
       </fieldset>
@@ -76,7 +78,7 @@
           <label class="pref-image-card">
             <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
             <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
-              <img class="pref-image-card-img" src="/src/assets/meals/pref-latin-american.jpg" alt="Latin American cuisine">
+              <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=400&fit=crop&q=80" alt="Latin American cuisine">
               <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
             </div>
             <span class="pref-image-card-label">
@@ -86,7 +88,7 @@
           <label class="pref-image-card">
             <input type="checkbox" name="food-pref" value="soul-food" class="sr-only">
             <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
-              <img class="pref-image-card-img" src="/src/assets/meals/pref-soul-food.jpg" alt="Soul food cuisine">
+              <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400&h=400&fit=crop&q=80" alt="Soul food cuisine">
               <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
             </div>
             <span class="pref-image-card-label">
@@ -96,7 +98,7 @@
           <label class="pref-image-card">
             <input type="checkbox" name="food-pref" value="mediterranean" class="sr-only">
             <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
-              <img class="pref-image-card-img" src="/src/assets/meals/pref-mediterranean.jpg" alt="Mediterranean cuisine">
+              <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=400&fit=crop&q=80" alt="Mediterranean cuisine">
               <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
             </div>
             <span class="pref-image-card-label">
@@ -106,7 +108,7 @@
           <label class="pref-image-card">
             <input type="checkbox" name="food-pref" value="asian" class="sr-only">
             <div class="pref-image-card-img-wrap" style="background-color: var(--color-stone-100, #f5f5f4);">
-              <img class="pref-image-card-img" src="/src/assets/meals/pref-asian.jpg" alt="Asian cuisine">
+              <img class="pref-image-card-img" src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&h=400&fit=crop&q=80" alt="Asian cuisine">
               <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
             </div>
             <span class="pref-image-card-label">
@@ -114,15 +116,12 @@
             </span>
           </label>
         </div>
-        <!-- No preference — below the grid, visually distinct -->
+        <!-- No preference — inline row matching image card visual style -->
         <div class="mt-3">
-          <label class="pref-image-card flex-row items-center gap-3">
+          <label class="pref-row">
             <input type="checkbox" name="food-pref" value="no-preference" id="pref-none" class="sr-only">
-            <div class="pref-image-card-img-wrap pref-image-card-img-wrap-plain" style="width: 48px; height: 48px; flex-shrink: 0; background-color: var(--color-stone-100, #f5f5f4);">
-              <i class="fa-regular fa-circle-dot text-gray-300 text-2xl" aria-hidden="true"></i>
-              <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-xs" aria-hidden="true"></i></div>
-            </div>
-            <span class="pref-image-card-label text-left">
+            <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+            <span class="pref-row-label">
               <span data-i18n-en="No preference" data-i18n-es="Sin preferencia">No preference</span>
             </span>
           </label>
@@ -138,17 +137,20 @@
           <span data-i18n-en="Preferred contact method" data-i18n-es="Método de contacto preferido">Preferred contact method</span>
         </p>
         <div class="space-y-2">
-          <label class="radio-label">
-            <input type="radio" name="contact-method" value="phone">
-            <span data-i18n-en="Phone call" data-i18n-es="Llamada telefónica">Phone call</span>
+          <label class="pref-row">
+            <input type="radio" name="contact-method" value="phone" class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+            <span class="pref-row-label" data-i18n-en="Phone call" data-i18n-es="Llamada telefónica">Phone call</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="contact-method" value="text" checked>
-            <span data-i18n-en="Text message" data-i18n-es="Mensaje de texto">Text message</span>
+          <label class="pref-row">
+            <input type="radio" name="contact-method" value="text" checked class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+            <span class="pref-row-label" data-i18n-en="Text message" data-i18n-es="Mensaje de texto">Text message</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="contact-method" value="app">
-            <span data-i18n-en="App notifications only" data-i18n-es="Solo notificaciones de la app">App notifications only</span>
+          <label class="pref-row">
+            <input type="radio" name="contact-method" value="app" class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+            <span class="pref-row-label" data-i18n-en="App notifications only" data-i18n-es="Solo notificaciones de la app">App notifications only</span>
           </label>
         </div>
       </fieldset>
@@ -159,17 +161,20 @@
           <span data-i18n-en="Best times to reach you" data-i18n-es="Mejores horarios para contactarte">Best times to reach you</span>
         </legend>
         <div class="space-y-2">
-          <label class="checkbox-label">
-            <input type="checkbox" name="best-times" value="morning">
-            <span data-i18n-en="Morning (8am–12pm)" data-i18n-es="Mañana (8am–12pm)">Morning (8am–12pm)</span>
+          <label class="pref-row">
+            <input type="checkbox" name="best-times" value="morning" class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+            <span class="pref-row-label" data-i18n-en="Morning (8am–12pm)" data-i18n-es="Mañana (8am–12pm)">Morning (8am–12pm)</span>
           </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="best-times" value="afternoon" checked>
-            <span data-i18n-en="Afternoon (12pm–5pm)" data-i18n-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</span>
+          <label class="pref-row">
+            <input type="checkbox" name="best-times" value="afternoon" checked class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+            <span class="pref-row-label" data-i18n-en="Afternoon (12pm–5pm)" data-i18n-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</span>
           </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="best-times" value="evening">
-            <span data-i18n-en="Evening (5pm–8pm)" data-i18n-es="Noche (5pm–8pm)">Evening (5pm–8pm)</span>
+          <label class="pref-row">
+            <input type="checkbox" name="best-times" value="evening" class="sr-only">
+            <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+            <span class="pref-row-label" data-i18n-en="Evening (5pm–8pm)" data-i18n-es="Noche (5pm–8pm)">Evening (5pm–8pm)</span>
           </label>
         </div>
       </fieldset>

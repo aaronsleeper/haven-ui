@@ -1,628 +1,332 @@
-# Task 04: Onboarding Screens (ONB-01, ONB-02, ONB-03)
-
-## Scope
-App pages only. Three files created in `apps/patient/onboarding/`. No new CSS classes — all components were built in Tasks 01–03. No new partials.
-
-## Context
-First three screens a patient sees. The flow is linear: Welcome → Consent → Preferences → Meals (MEALS-01). All three screens use the mobile shell pattern, i18n bar, and onboarding progress indicator. No bottom nav on onboarding screens.
-
-## Prerequisites
-- Tasks 01, 02, 03 complete — all component classes and partials exist
-
-## Files to Read First
-- `src/styles/tokens/components.css` — confirm all classes referenced below exist
-- `src/partials/patient-i18n-bar.html` — copy content verbatim into each screen
-- `src/styles/tokens/` — confirm `--font-serif` token name (used for Lora headings)
-- `src/vendor/fontawesome/` — confirm FA Pro v7.1.0 is present; use the correct `<link>` path
-- `src/scripts/components/i18n.js` — confirm file path for script tag
-- `src/scripts/components/pref-image-cards.js` — used on ONB-03 only
-- `apps/patient/design/review-notes.md` — authoritative copy for all text strings
-- `.project-docs/decisions-log.md` — active rules
-
-## Shared HTML Structure (apply to all three files)
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[Screen Title] — Cena Health</title>
-  <!-- Vite will process this in dev mode -->
-  <link rel="stylesheet" href="/src/styles/main.css">
-  <!-- FontAwesome Pro v7.1.0 -->
-  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
-</head>
-<body class="mobile-app">
-  <div class="mobile-shell">
-
-    <!-- i18n bar (copied from partial) -->
-    [patient-i18n-bar.html content here]
-
-    <!-- Screen content -->
-    [screen-specific content]
-
-  </div><!-- /.mobile-shell -->
-
-  <!-- i18n script (all screens) -->
-  <script src="/src/scripts/components/i18n.js"></script>
-  <!-- Screen-specific scripts added below per screen -->
-</body>
-</html>
-```
-
-**Directory:** Create `apps/patient/onboarding/` before writing files.
+# Task: Patient Delivery Status Screen (MEALS-02)
+_Generated: 2026-03-12_
+_App: patient_
 
 ---
 
-## ONB-01: `apps/patient/onboarding/welcome.html`
+## Scope Classification
 
-**Title:** "Welcome — Cena Health"
+**Work type:** App only — composing existing patterns; no new components.
 
-### Content
+**Patterns being used (all verified in components.css):**
+- `mobile-shell`, `mobile-app` — body/wrapper
+- `mobile-i18n-bar`, `mobile-i18n-toggle` — language bar partial
+- `mobile-bottom-nav`, `mobile-bottom-nav-tab` — nav partial
+- `delivery-status-card`, `delivery-status-top`, `delivery-status-icon`, `delivery-status-label`, `delivery-status-timing`, `delivery-status-divider`, `delivery-summary`, `delivery-summary-label`, `delivery-summary-count`, `delivery-summary-list` — main status card
+- `card`, `card-body` — issue report card
+- `alert-banner` — full-bleed banner (established in MEALS-01 QA)
+- `btn-outline`, `btn-primary`, `btn-icon` — buttons
+- `empty-state`, `empty-state-icon` — fallback state
+- `text-link` — care team link
+
+**No new semantic classes needed.** If a gap is found during audit, stop and flag it.
+
+---
+
+## Pre-Build Audit
+
+Before writing any HTML:
+
+1. Read `src/styles/tokens/components.css` — confirm all class names above exist exactly as written. Note the `@apply` values for `delivery-status-card` and `card`.
+2. Read `src/partials/patient-i18n-bar.html` and `src/partials/patient-bottom-nav.html` — copy verbatim into the new page.
+3. Read `apps/patient/meals/index.html` — use as structural reference for mobile shell, head, script loading, and bottom nav active tab pattern.
+4. Read `.project-docs/decisions-log.md` — extract every **"Rule to follow in future prompts"** entry. List them before proceeding and flag which apply here.
+
+---
+
+## Prompt 1: Build `apps/patient/deliveries/index.html`
+
+Build the delivery status screen for the Cena Health patient app.
+
+### File to create
+`apps/patient/deliveries/index.html`
+
+### Shell setup
+- `<body class="mobile-app">` + `<div class="mobile-shell pb-[64px]">`
+- Copy i18n bar verbatim from `src/partials/patient-i18n-bar.html`
+- Copy bottom nav verbatim from `src/partials/patient-bottom-nav.html`, set "Delivery" tab as active (second tab)
+- Title: `"Delivery — Cena Health"`
+
+### Page structure (top to bottom)
+
+**1. Header zone** — `<div class="px-4 pt-20 pb-4">`
+- `<h1>` with `style="font-family: var(--font-serif);"` — "Delivery"
+- `<p class="text-sm text-gray-500 mt-1">` — "Expected Thursday, March 19"
+
+**2. Delivery status card** — three prototype state variants driven by body class
+
+The card structure is the same for all states; only the icon, label, and timing text change. Use three sibling versions of the card, one per state, toggled by JS state class (same pattern as MEALS-01 banners).
+
+Add classes `status-preparing`, `status-delivering`, `status-delivered` to each card div respectively.
+
+**Preparing state** (default — no URL param):
 ```html
-<main class="px-4 pt-20 pb-8">
+<div class="delivery-status-card status-preparing">
+  <div class="delivery-status-top">
+    <div class="delivery-status-icon">
+      <i class="fa-solid fa-bowl-food text-primary-500" aria-hidden="true"></i>
+    </div>
+    <p class="delivery-status-label">
+      <span data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</span>
+    </p>
+    <p class="delivery-status-timing">
+      <span data-i18n-en="Arriving between 11am and 1pm" data-i18n-es="Llegando entre las 11am y 1pm">Arriving between 11am and 1pm</span>
+    </p>
+  </div>
+  <div class="delivery-status-divider"></div>
+  <div class="delivery-summary">
+    <p class="delivery-summary-label">
+      <span data-i18n-en="What's coming" data-i18n-es="Lo que viene">What's coming</span>
+    </p>
+    <p class="delivery-summary-count">
+      <span data-i18n-en="5 meals · Mon – Fri" data-i18n-es="5 comidas · Lun – Vie">5 meals · Mon – Fri</span>
+    </p>
+    <ul class="delivery-summary-list mt-2">
+      <li>Chicken Verde Rice Bowl</li>
+      <li>Black Bean Tacos</li>
+      <li>Lemon Herb Salmon</li>
+      <li>Turkey Sofrito Bowl</li>
+      <li>Veggie Stir-Fry</li>
+    </ul>
+    <a href="/apps/patient/meals/index.html?state=confirmed" class="text-link text-sm mt-2 block">
+      <span data-i18n-en="See all meals" data-i18n-es="Ver todas las comidas">See all meals</span>
+    </a>
+  </div>
+</div>
+```
 
-  <!-- Wordmark -->
-  <div class="flex justify-center mb-6">
-    <img src="/src/assets/cena-wordmark.svg" alt="Cena Health" class="h-8">
+**Out for delivery state** (`?state=delivering` — `body.state-delivering`):
+Same structure, different icon/label/timing:
+- Icon: `fa-solid fa-truck-fast text-warning-500`
+- Label: "On the way"
+- Timing: "Arriving between 11am and 1pm"
+
+**Delivered state** (`?state=delivered` — `body.state-delivered`):
+- Icon: `fa-solid fa-circle-check text-success-500`
+- Label: "Delivered"
+- Timing: "Delivered at 12:34pm"
+
+**3. Issue report card** — `<div class="px-4 mt-4">`
+
+Three internal states managed by JS class toggling on the card itself (`.is-expanded`, `.is-submitted`). Default shows only the report button; expanded shows the form; submitted shows confirmation.
+
+```html
+<div class="card" id="issue-card">
+
+  <!-- Default: report button -->
+  <div class="card-body issue-default">
+    <p class="text-sm font-semibold text-gray-700 mb-2">
+      <span data-i18n-en="Something wrong?" data-i18n-es="¿Algo salió mal?">Something wrong?</span>
+    </p>
+    <button class="btn-outline w-full" id="btn-report-issue">
+      <span data-i18n-en="Report an issue" data-i18n-es="Reportar un problema">Report an issue</span>
+    </button>
   </div>
 
-  <!-- Headline -->
-  <h1 class="text-2xl text-center mb-1" style="font-family: var(--font-serif);">
-    <span data-i18n-en="Welcome to Cena Health" data-i18n-es="Bienvenido a Cena Health">Welcome to Cena Health</span>
-  </h1>
-  <p class="text-sm text-gray-500 text-center mb-4">
-    <span data-i18n-en="Your meals and care team are ready. Let's set up your account." data-i18n-es="Tus comidas y tu equipo de atención están listos. Configuremos tu cuenta.">Your meals and care team are ready. Let's set up your account.</span>
-  </p>
+  <!-- Expanded: issue form (hidden by default) -->
+  <div class="card-body issue-expanded" style="display:none;">
+    <p class="text-sm font-semibold text-gray-700 mb-3">
+      <span data-i18n-en="What went wrong?" data-i18n-es="¿Qué salió mal?">What went wrong?</span>
+    </p>
+    <div class="space-y-2 mb-3">
+      <button class="btn-outline w-full issue-type-btn" data-issue="not-delivered">
+        <span data-i18n-en="Meals not delivered" data-i18n-es="Comidas no entregadas">Meals not delivered</span>
+      </button>
+      <button class="btn-outline w-full issue-type-btn" data-issue="wrong-meals">
+        <span data-i18n-en="Wrong meals" data-i18n-es="Comidas incorrectas">Wrong meals</span>
+      </button>
+      <button class="btn-outline w-full issue-type-btn" data-issue="damaged">
+        <span data-i18n-en="Damaged packaging" data-i18n-es="Empaque dañado">Damaged packaging</span>
+      </button>
+      <button class="btn-outline w-full issue-type-btn" data-issue="other">
+        <span data-i18n-en="Something else" data-i18n-es="Otra cosa">Something else</span>
+      </button>
+    </div>
+    <textarea rows="3" placeholder="Tell us more (optional)" class="w-full mb-3" aria-label="Additional details"></textarea>
+    <div class="flex gap-2">
+      <button class="btn-outline flex-1" id="btn-cancel-issue">
+        <span data-i18n-en="Cancel" data-i18n-es="Cancelar">Cancel</span>
+      </button>
+      <button class="btn-primary flex-1" id="btn-submit-issue">
+        <span data-i18n-en="Submit report" data-i18n-es="Enviar reporte">Submit report</span>
+      </button>
+    </div>
+  </div>
 
-  <!-- Progress -->
-  <p class="onb-progress" aria-label="Step 1 of 3">
-    <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 1
-    <span data-i18n-en="of" data-i18n-es="de">of</span> 3
-  </p>
+  <!-- Submitted: confirmation (hidden by default) -->
+  <div class="card-body issue-submitted" style="display:none;">
+    <div class="flex items-center gap-3">
+      <i class="fa-solid fa-circle-check text-success-500 text-xl" aria-hidden="true"></i>
+      <p class="text-sm text-gray-700">
+        <span data-i18n-en="Issue reported. Your care team will follow up." data-i18n-es="Problema reportado. Tu equipo de cuidado te contactará.">Issue reported. Your care team will follow up.</span>
+      </p>
+    </div>
+  </div>
 
-  <!-- Form card -->
-  <div class="card mx-0 mt-6">
-    <div class="card-body">
-
-      <!-- Password -->
-      <div>
-        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-          <span data-i18n-en="Create a password" data-i18n-es="Crea una contraseña">Create a password</span>
-        </label>
-        <div class="relative">
-          <input
-            id="password"
-            type="password"
-            autocomplete="new-password"
-            aria-describedby="password-helper password-error"
-            class="w-full pr-10"
-          >
-          <button
-            type="button"
-            class="btn-icon absolute right-2 top-1/2 -translate-y-1/2"
-            aria-label="Show password"
-            onclick="this.closest('div').querySelector('input').type = this.closest('div').querySelector('input').type === 'password' ? 'text' : 'password';"
-          >
-            <i class="fa-solid fa-eye" aria-hidden="true"></i>
-          </button>
-        </div>
-        <p id="password-helper" class="text-xs text-gray-500 mt-1">
-          <span data-i18n-en="Must be at least 8 characters" data-i18n-es="Debe tener al menos 8 caracteres">Must be at least 8 characters</span>
-        </p>
-        <p id="password-error" class="text-xs text-error-600 mt-1 hidden" aria-live="polite">
-          <span data-i18n-en="Password must be at least 8 characters." data-i18n-es="La contraseña debe tener al menos 8 caracteres.">Password must be at least 8 characters.</span>
-        </p>
-      </div>
-
-      <!-- Confirm password -->
-      <div class="mt-4">
-        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">
-          <span data-i18n-en="Confirm your password" data-i18n-es="Confirma tu contraseña">Confirm your password</span>
-        </label>
-        <div class="relative">
-          <input
-            id="password-confirm"
-            type="password"
-            autocomplete="new-password"
-            aria-describedby="confirm-error"
-            class="w-full pr-10"
-          >
-          <button
-            type="button"
-            class="btn-icon absolute right-2 top-1/2 -translate-y-1/2"
-            aria-label="Show confirm password"
-            onclick="this.closest('div').querySelector('input').type = this.closest('div').querySelector('input').type === 'password' ? 'text' : 'password';"
-          >
-            <i class="fa-solid fa-eye" aria-hidden="true"></i>
-          </button>
-        </div>
-        <p id="confirm-error" class="text-xs text-error-600 mt-1 hidden" aria-live="polite">
-          <span data-i18n-en="Passwords don't match. Try again." data-i18n-es="Las contraseñas no coinciden. Inténtalo de nuevo.">Passwords don't match. Try again.</span>
-        </p>
-      </div>
-
-      <!-- Continue CTA -->
-      <a href="/apps/patient/onboarding/consent.html" class="btn-primary w-full mt-6">
-        <span data-i18n-en="Continue" data-i18n-es="Continuar">Continue</span>
-      </a>
-
-    </div><!-- /.card-body -->
-  </div><!-- /.card -->
-
-  <!-- Help text -->
-  <p class="text-xs text-center text-gray-400 mt-4">
-    <span data-i18n-en="Need help? Call us at" data-i18n-es="¿Necesitas ayuda? Llámanos al">Need help? Call us at</span>
-    <a href="tel:+18002462458" class="text-link">1-800-246-2458</a>
-  </p>
-
-</main>
+</div>
 ```
 
-**Notes:**
-- The wordmark asset path is `/src/assets/cena-wordmark.svg`. If the file doesn't exist, use the text fallback: `<span class="text-xl font-semibold text-primary-700" style="font-family: var(--font-serif);">Cena Health</span>`. Do not create the SVG file.
-- Show/hide password toggle uses a minimal inline `onclick` — no separate JS file needed for this screen.
-- The "Continue" CTA is an `<a>` not a `<button>` — it navigates to the next screen in the prototype.
-- No form validation JS needed for this prototype screen.
+**4. Care team link** — `<p class="text-center text-sm mt-4 mb-6">`
+```html
+<a href="/apps/patient/care-team/messages.html" class="text-link">
+  <span data-i18n-en="Questions? Message your care team" data-i18n-es="¿Preguntas? Escribe a tu equipo de cuidado">Questions? Message your care team</span>
+</a>
+```
+
+### State-driven CSS
+
+Add the following under a `/* Delivery screen state variants */` comment in `src/styles/tokens/components.css`. Follow the `@apply block; display: none;` tree-shaking pattern from MEALS-01:
+
+```css
+/* Delivery screen state variants */
+.status-preparing { @apply block; }
+.status-delivering { @apply block; display: none; }
+.status-delivered { @apply block; display: none; }
+
+.state-delivering .status-preparing { @apply block; display: none; }
+.state-delivering .status-delivering { @apply block; display: block; }
+
+.state-delivered .status-preparing { @apply block; display: none; }
+.state-delivered .status-delivered { @apply block; display: block; }
+```
+
+### Scripts
+- `<script src="/src/scripts/components/i18n.js"></script>`
+- `<script src="/src/scripts/components/delivery.js"></script>`
+- `<script src="/src/scripts/main.js" type="module"></script>` — last
+
+### Known Constraints
+- **Never `@apply` a semantic class inside another semantic class.**
+- **No `<script>` blocks in HTML.** All JS in `src/scripts/`.
+- **Raw CSS rules in `components.css` must start with `@apply block;`** if they contain no other `@apply` directive (tree-shaking prevention).
+- **Semantic classes only in HTML** — layout utilities (`px-4`, `mt-4`, `flex`, `gap-2`, `w-full`) are fine in the page template.
 
 ---
 
-## ONB-02: `apps/patient/onboarding/consent.html`
+## Prompt 2: Build `src/scripts/components/delivery.js`
 
-**Title:** "Your Information — Cena Health"
+Create `src/scripts/components/delivery.js`.
 
-### Structure
-Three sub-steps are rendered as three separate `<section>` elements shown/hidden by a small inline script (step counter). They are NOT separate pages.
+### State management
 
-### Content
-
-```html
-<main class="px-4 pt-20 pb-8">
-
-  <!-- Back button -->
-  <button
-    type="button"
-    class="btn-icon mb-2"
-    aria-label="Back"
-    id="consent-back"
-  >
-    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-  </button>
-
-  <!-- Progress -->
-  <p class="onb-progress" aria-label="Step 2 of 3">
-    <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 2
-    <span data-i18n-en="of" data-i18n-es="de">of</span> 3
-  </p>
-
-  <!-- ===== Consent Step 1: HIPAA ===== -->
-  <section id="consent-step-1" aria-labelledby="consent-1-heading">
-    <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
-      <span data-i18n-en="Step 1 of 3" data-i18n-es="Paso 1 de 3">Step 1 of 3</span>
-    </p>
-    <h1 id="consent-1-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
-      <span data-i18n-en="Your health information" data-i18n-es="Tu información de salud">Your health information</span>
-    </h1>
-    <p class="text-sm text-gray-700 mb-4">
-      <span
-        data-i18n-en="We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure."
-        data-i18n-es="Compartiremos tu historial de salud con tu equipo de atención para que puedan crear el plan de comidas adecuado para ti. Mantenemos tu información privada y segura."
-      >We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure.</span>
-    </p>
-
-    <!-- Read aloud button (disabled, prototype) -->
-    <div class="relative inline-block mb-4">
-      <button
-        type="button"
-        class="btn-outline w-full"
-        disabled
-        aria-disabled="true"
-        aria-describedby="read-aloud-tip"
-      >
-        <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
-        <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
-      </button>
-      <span id="read-aloud-tip" role="tooltip" class="absolute left-0 bottom-full mb-1 text-xs bg-gray-800 text-white rounded px-2 py-1 whitespace-nowrap pointer-events-none opacity-0 transition-opacity" aria-hidden="true">
-        <span data-i18n-en="Coming soon" data-i18n-es="Próximamente">Coming soon</span>
-      </span>
-    </div>
-
-    <!-- Expand full consent text -->
-    <div class="hs-accordion mb-6" id="hipaa-accordion">
-      <button
-        type="button"
-        class="hs-accordion-toggle text-sm text-primary-600 underline"
-        aria-expanded="false"
-        aria-controls="hipaa-accordion-body"
-      >
-        <span data-i18n-en="Read full text" data-i18n-es="Leer el texto completo">Read full text</span>
-      </button>
-      <div
-        id="hipaa-accordion-body"
-        class="hs-accordion-content overflow-hidden transition-[height] duration-300 hidden"
-        role="region"
-        aria-labelledby="hipaa-accordion"
-      >
-        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
-          This Notice of Privacy Practices describes how Cena Health may use and disclose your protected health information (PHI) to carry out treatment, payment, and health care operations. We are required by law to maintain the privacy of your PHI. Full notice available at <a href="#" class="text-link">cenahealth.com/privacy</a>.
-        </p>
-      </div>
-    </div>
-
-    <button type="button" class="btn-primary w-full" id="consent-1-agree">
-      <span data-i18n-en="I agree" data-i18n-es="Acepto">I agree</span>
-    </button>
-    <p class="text-xs text-gray-400 text-center mt-3">
-      <span
-        data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
-        data-i18n-es="Al tocar 'Acepto', confirmas que has leído y comprendido lo anterior."
-      >By tapping 'I agree', you confirm you have read and understood the above.</span>
-    </p>
-  </section>
-
-  <!-- ===== Consent Step 2: Program ===== -->
-  <section id="consent-step-2" aria-labelledby="consent-2-heading" class="hidden">
-    <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
-      <span data-i18n-en="Step 2 of 3" data-i18n-es="Paso 2 de 3">Step 2 of 3</span>
-    </p>
-    <h1 id="consent-2-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
-      <span data-i18n-en="How the program works" data-i18n-es="Cómo funciona el programa">How the program works</span>
-    </h1>
-    <p class="text-sm text-gray-700 mb-4">
-      <span
-        data-i18n-en="By joining, you agree to receive meals, care check-ins, and health support through Cena Health. You can leave the program at any time."
-        data-i18n-es="Al unirte, aceptas recibir comidas, revisiones de atención y apoyo de salud a través de Cena Health. Puedes salir del programa en cualquier momento."
-      >By joining, you agree to receive meals, care check-ins, and health support through Cena Health. You can leave the program at any time.</span>
-    </p>
-
-    <!-- Read aloud (same disabled pattern) -->
-    <div class="relative inline-block mb-4">
-      <button type="button" class="btn-outline w-full" disabled aria-disabled="true">
-        <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
-        <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
-      </button>
-    </div>
-
-    <!-- Expand full program terms -->
-    <div class="hs-accordion mb-6" id="program-accordion">
-      <button
-        type="button"
-        class="hs-accordion-toggle text-sm text-primary-600 underline"
-        aria-expanded="false"
-        aria-controls="program-accordion-body"
-      >
-        <span data-i18n-en="Read full text" data-i18n-es="Leer el texto completo">Read full text</span>
-      </button>
-      <div
-        id="program-accordion-body"
-        class="hs-accordion-content overflow-hidden transition-[height] duration-300 hidden"
-        role="region"
-      >
-        <p class="text-sm text-gray-600 mt-3 leading-relaxed">
-          As a Cena Health program participant, you agree to receive prepared meals delivered to your registered address, participate in periodic care check-ins with your assigned care team, and share relevant health data to support your care plan. Participation is voluntary and you may withdraw at any time by contacting your care coordinator.
-        </p>
-      </div>
-    </div>
-
-    <button type="button" class="btn-primary w-full" id="consent-2-agree">
-      <span data-i18n-en="I agree" data-i18n-es="Acepto">I agree</span>
-    </button>
-    <p class="text-xs text-gray-400 text-center mt-3">
-      <span
-        data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
-        data-i18n-es="Al tocar 'Acepto', confirmas que has leído y comprendido lo anterior."
-      >By tapping 'I agree', you confirm you have read and understood the above.</span>
-    </p>
-  </section>
-
-  <!-- ===== Consent Step 3: AVA (optional) ===== -->
-  <section id="consent-step-3" aria-labelledby="consent-3-heading" class="hidden">
-    <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
-      <span data-i18n-en="Step 3 of 3" data-i18n-es="Paso 3 de 3">Step 3 of 3</span>
-    </p>
-    <h1 id="consent-3-heading" class="text-2xl mb-2" style="font-family: var(--font-serif);">
-      <span data-i18n-en="Voice check-ins (optional)" data-i18n-es="Visitas de voz (opcional)">Voice check-ins (optional)</span>
-    </h1>
-    <p class="text-sm text-gray-700 mb-4">
-      <span
-        data-i18n-en="AVA is our automated health assistant. It can call you for quick check-ins between visits. This is optional — your meals and care continue either way."
-        data-i18n-es="AVA es nuestra asistente de salud automatizada. Puede llamarte para revisiones rápidas entre visitas. Esto es opcional — tus comidas y atención continúan de cualquier manera."
-      >AVA is our automated health assistant. It can call you for quick check-ins between visits. This is optional — your meals and care continue either way.</span>
-    </p>
-
-    <!-- AVA opt card (neutral bg — not warning) -->
-    <div class="card border-stone-200 mb-6" style="background-color: var(--color-stone-50, #fafaf9);">
-      <div class="card-body space-y-3">
-        <label class="radio-label">
-          <input type="radio" name="ava-consent" value="yes">
-          <span data-i18n-en="Yes, I'd like AVA calls" data-i18n-es="Sí, quiero llamadas de AVA">Yes, I'd like AVA calls</span>
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="ava-consent" value="no" checked>
-          <span data-i18n-en="No thanks" data-i18n-es="No, gracias">No thanks</span>
-        </label>
-      </div>
-    </div>
-
-    <a href="/apps/patient/onboarding/preferences.html" class="btn-primary w-full">
-      <span data-i18n-en="Continue" data-i18n-es="Continuar">Continue</span>
-    </a>
-  </section>
-
-</main>
+```js
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const state = params.get('state');
+  if (state) document.body.classList.add(`state-${state}`);
+});
 ```
 
-### Inline consent navigation script (add before `</body>`)
-```html
-<script>
-(function () {
-  var step = 1;
-  var steps = [
-    document.getElementById('consent-step-1'),
-    document.getElementById('consent-step-2'),
-    document.getElementById('consent-step-3')
-  ];
+### Issue card interaction
 
-  function showStep(n) {
-    steps.forEach(function (s, i) {
-      s.classList.toggle('hidden', i !== n - 1);
-    });
-    step = n;
-  }
+Three-state toggle on `#issue-card`: default → expanded → submitted.
 
-  document.getElementById('consent-1-agree').addEventListener('click', function () { showStep(2); });
-  document.getElementById('consent-2-agree').addEventListener('click', function () { showStep(3); });
-  document.getElementById('consent-back').addEventListener('click', function () {
-    if (step > 1) {
-      showStep(step - 1);
-    } else {
-      window.location.href = '/apps/patient/onboarding/welcome.html';
-    }
+```js
+const issueCard = document.getElementById('issue-card');
+const issueDefault = issueCard?.querySelector('.issue-default');
+const issueExpanded = issueCard?.querySelector('.issue-expanded');
+const issueSubmitted = issueCard?.querySelector('.issue-submitted');
+
+function showIssueState(state) {
+  issueDefault.style.display = state === 'default' ? '' : 'none';
+  issueExpanded.style.display = state === 'expanded' ? '' : 'none';
+  issueSubmitted.style.display = state === 'submitted' ? '' : 'none';
+}
+
+document.getElementById('btn-report-issue')?.addEventListener('click', () => {
+  showIssueState('expanded');
+});
+
+document.getElementById('btn-cancel-issue')?.addEventListener('click', () => {
+  showIssueState('default');
+});
+
+document.getElementById('btn-submit-issue')?.addEventListener('click', () => {
+  showIssueState('submitted');
+});
+
+// Issue type buttons — visual selected state
+document.querySelectorAll('.issue-type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.issue-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
   });
-})();
-</script>
+});
 ```
 
-**Notes:**
-- Preline `hs-accordion` is used for expand/collapse. Confirm Preline JS is imported. If not available, use a simple inline `onclick` to toggle the `hidden` class on the accordion body — do not leave a broken accordion.
-- The tooltip on "Read aloud" is CSS-only (opacity: 0, shown on `:focus-within` on parent) — no JS needed. Add `:focus-within .tooltip-class { opacity: 1; }` as an inline `<style>` block if the `.relative` parent trick is used.
-- AVA option: "No thanks" is pre-checked (default). This is intentional per review-notes — opt-in, not opt-out.
-- The "Continue" CTA on step 3 navigates to ONB-03 as an `<a>` tag.
+The `.active` class on `.btn-outline` should show a selected state. Add this to `components.css` under the delivery state variants comment:
 
-### Preline dependency
-Consent accordion requires Preline JS. Add to `<head>` or before `</body>`:
-```html
-<script src="/node_modules/preline/dist/preline.js"></script>
-```
-Check if this path is correct by looking at `package.json` and existing pattern library files to see how other pages load Preline.
-
----
-
-## ONB-03: `apps/patient/onboarding/preferences.html`
-
-**Title:** "Your Preferences — Cena Health"
-
-### Content
-
-```html
-<main class="px-4 pt-20 pb-8">
-
-  <!-- Back button -->
-  <a href="/apps/patient/onboarding/consent.html" class="btn-icon mb-2" aria-label="Back">
-    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-  </a>
-
-  <!-- Progress -->
-  <p class="onb-progress" aria-label="Step 3 of 3">
-    <span data-i18n-en="Step" data-i18n-es="Paso">Step</span> 3
-    <span data-i18n-en="of" data-i18n-es="de">of</span> 3
-  </p>
-
-  <!-- Heading -->
-  <h1 class="text-2xl mb-1" style="font-family: var(--font-serif);">
-    <span data-i18n-en="Let's personalize your experience" data-i18n-es="Personalicemos tu experiencia">Let's personalize your experience</span>
-  </h1>
-  <p class="text-sm text-gray-500 mb-6">
-    <span data-i18n-en="You can always update these in your profile." data-i18n-es="Siempre puedes actualizarlos en tu perfil.">You can always update these in your profile.</span>
-  </p>
-
-  <!-- Section 1: Language preference -->
-  <fieldset class="border-0 p-0 mb-6">
-    <legend class="text-sm font-semibold text-gray-900 mb-3">
-      <span data-i18n-en="What language do you prefer?" data-i18n-es="¿Qué idioma prefieres?">What language do you prefer?</span>
-    </legend>
-    <div class="grid grid-cols-2 gap-3">
-      <label class="radio-label">
-        <input type="radio" name="language" value="en" checked>
-        <span>English</span>
-      </label>
-      <label class="radio-label">
-        <input type="radio" name="language" value="es">
-        <span>Español</span>
-      </label>
-    </div>
-  </fieldset>
-
-  <!-- Section 2: Food preferences -->
-  <fieldset class="border-0 p-0 mb-6">
-    <legend class="text-sm font-semibold text-gray-900 mb-1">
-      <span data-i18n-en="What flavors do you enjoy?" data-i18n-es="¿Qué sabores te gustan?">What flavors do you enjoy?</span>
-    </legend>
-    <p class="text-xs text-gray-500 mb-3">
-      <span data-i18n-en="Pick as many as you like. We'll rotate your meals to match." data-i18n-es="Elige los que quieras. Rotaremos tus comidas según tus preferencias.">Pick as many as you like. We'll rotate your meals to match.</span>
-    </p>
-    <div class="grid grid-cols-2 gap-3">
-      <label class="pref-image-card">
-        <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
-        <div class="pref-image-card-img-wrap">
-          <img class="pref-image-card-img" src="/src/assets/meals/pref-latin-american.jpg" alt="Latin American cuisine">
-          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
-        </div>
-        <span class="pref-image-card-label">
-          <span data-i18n-en="Latin American" data-i18n-es="Latinoamericana">Latin American</span>
-        </span>
-      </label>
-      <label class="pref-image-card">
-        <input type="checkbox" name="food-pref" value="soul-food" class="sr-only">
-        <div class="pref-image-card-img-wrap">
-          <img class="pref-image-card-img" src="/src/assets/meals/pref-soul-food.jpg" alt="Soul food cuisine">
-          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
-        </div>
-        <span class="pref-image-card-label">
-          <span data-i18n-en="Soul Food" data-i18n-es="Comida Sureña">Soul Food</span>
-        </span>
-      </label>
-      <label class="pref-image-card">
-        <input type="checkbox" name="food-pref" value="mediterranean" class="sr-only">
-        <div class="pref-image-card-img-wrap">
-          <img class="pref-image-card-img" src="/src/assets/meals/pref-mediterranean.jpg" alt="Mediterranean cuisine">
-          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
-        </div>
-        <span class="pref-image-card-label">
-          <span data-i18n-en="Mediterranean" data-i18n-es="Mediterránea">Mediterranean</span>
-        </span>
-      </label>
-      <label class="pref-image-card">
-        <input type="checkbox" name="food-pref" value="asian" class="sr-only">
-        <div class="pref-image-card-img-wrap">
-          <img class="pref-image-card-img" src="/src/assets/meals/pref-asian.jpg" alt="Asian cuisine">
-          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-sm" aria-hidden="true"></i></div>
-        </div>
-        <span class="pref-image-card-label">
-          <span data-i18n-en="Asian" data-i18n-es="Asiática">Asian</span>
-        </span>
-      </label>
-    </div>
-    <!-- No preference — below the grid, visually distinct -->
-    <div class="mt-3">
-      <label class="pref-image-card flex-row items-center gap-3">
-        <input type="checkbox" name="food-pref" value="no-preference" id="pref-none" class="sr-only">
-        <div class="pref-image-card-img-wrap pref-image-card-img-wrap-plain" style="width: 48px; height: 48px; flex-shrink: 0;">
-          <i class="fa-regular fa-circle-dot text-gray-300 text-2xl" aria-hidden="true"></i>
-          <div class="pref-image-card-check"><i class="fa-solid fa-check text-white text-xs" aria-hidden="true"></i></div>
-        </div>
-        <span class="pref-image-card-label text-left">
-          <span data-i18n-en="No preference" data-i18n-es="Sin preferencia">No preference</span>
-        </span>
-      </label>
-    </div>
-  </fieldset>
-
-  <!-- Section 3: Contact method -->
-  <fieldset class="border-0 p-0 mb-6">
-    <legend class="text-sm font-semibold text-gray-900 mb-1">
-      <span data-i18n-en="How should we reach you?" data-i18n-es="¿Cómo debemos comunicarnos contigo?">How should we reach you?</span>
-    </legend>
-    <p class="text-xs text-gray-500 mb-3">
-      <span data-i18n-en="Preferred contact method" data-i18n-es="Método de contacto preferido">Preferred contact method</span>
-    </p>
-    <div class="space-y-2">
-      <label class="radio-label">
-        <input type="radio" name="contact-method" value="phone">
-        <span data-i18n-en="Phone call" data-i18n-es="Llamada telefónica">Phone call</span>
-      </label>
-      <label class="radio-label">
-        <input type="radio" name="contact-method" value="text" checked>
-        <span data-i18n-en="Text message" data-i18n-es="Mensaje de texto">Text message</span>
-      </label>
-      <label class="radio-label">
-        <input type="radio" name="contact-method" value="app">
-        <span data-i18n-en="App notifications only" data-i18n-es="Solo notificaciones de la app">App notifications only</span>
-      </label>
-    </div>
-  </fieldset>
-
-  <!-- Section 4: Best times -->
-  <fieldset class="border-0 p-0 mb-8">
-    <legend class="text-sm font-semibold text-gray-900 mb-3">
-      <span data-i18n-en="Best times to reach you" data-i18n-es="Mejores horarios para contactarte">Best times to reach you</span>
-    </legend>
-    <div class="space-y-2">
-      <label class="checkbox-label">
-        <input type="checkbox" name="best-times" value="morning">
-        <span data-i18n-en="Morning (8am–12pm)" data-i18n-es="Mañana (8am–12pm)">Morning (8am–12pm)</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="best-times" value="afternoon" checked>
-        <span data-i18n-en="Afternoon (12pm–5pm)" data-i18n-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</span>
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="best-times" value="evening">
-        <span data-i18n-en="Evening (5pm–8pm)" data-i18n-es="Noche (5pm–8pm)">Evening (5pm–8pm)</span>
-      </label>
-    </div>
-  </fieldset>
-
-  <!-- Error (hidden by default) -->
-  <div class="alert alert-error mb-4 hidden" role="alert" aria-live="assertive">
-    <span data-i18n-en="We couldn't save your preferences. Try again?" data-i18n-es="No pudimos guardar tus preferencias. ¿Intentar de nuevo?">We couldn't save your preferences. Try again?</span>
-  </div>
-
-  <!-- CTA -->
-  <a href="/apps/patient/meals/index.html" class="btn-primary w-full">
-    <span data-i18n-en="All done" data-i18n-es="Listo">All done</span>
-  </a>
-  <p class="text-xs text-center text-gray-400 mt-3">
-    <a href="/apps/patient/meals/index.html" class="text-link text-gray-400">
-      <span data-i18n-en="Skip for now" data-i18n-es="Omitir por ahora">Skip for now</span>
-    </a>
-    —
-    <span data-i18n-en="we'll use your defaults and you can update anytime." data-i18n-es="usaremos tus valores predeterminados y puedes actualizarlos en cualquier momento.">we'll use your defaults and you can update anytime.</span>
-  </p>
-
-</main>
+```css
+.btn-outline.active {
+  @apply bg-primary-50 border-primary-500 text-primary-700;
+  @apply dark:bg-primary-900/20 dark:border-primary-600 dark:text-primary-400;
+}
 ```
 
-**Notes:**
-- The "No preference" card uses a `flex-row` utility to override the default `flex-col` of `.pref-image-card` for the inline layout. This is a one-off layout tweak on a single element — acceptable as a layout utility in HTML per architecture rules.
-- `pref-image-cards.js` handles mutual exclusivity between "No preference" and the cuisine options. Must be included before `</body>`.
+### Known Constraints
+- No inline scripts in HTML.
+- `delivery.js` loads before `main.js` — no Preline dependencies needed on this screen.
 
 ---
 
 ## Verification
-- [ ] `apps/patient/onboarding/` directory created with three files: `welcome.html`, `consent.html`, `preferences.html`
-- [ ] All three use `<body class="mobile-app">` and `<div class="mobile-shell">`
-- [ ] i18n bar partial is included on all three screens (content copied from `src/partials/patient-i18n-bar.html`)
-- [ ] `i18n.js` script tag present on all three screens
-- [ ] No bottom nav on any of the three screens (onboarding only)
-- [ ] `onb-progress` used correctly on all three screens with correct step numbers and `aria-label`
-- [ ] ONB-01: password show/hide toggle works; "Continue" links to `consent.html`
-- [ ] ONB-02: three sub-steps shown/hidden by inline JS; back button on step 1 goes to `welcome.html`; AVA "No thanks" is pre-checked; "Continue" on step 3 goes to `preferences.html`
-- [ ] ONB-02: "Read aloud" button is disabled with `disabled` + `aria-disabled="true"` on both steps 1 and 2
-- [ ] ONB-02: AVA opt card uses stone background (not warning yellow)
-- [ ] ONB-03: "No preference" is below the 2×2 grid, not inside it
-- [ ] ONB-03: `pref-image-cards.js` script included
-- [ ] ONB-03: "All done" CTA and "Skip for now" link both navigate to `/apps/patient/meals/index.html`
-- [ ] All `data-i18n-en` / `data-i18n-es` attributes present on every text node
-- [ ] All images use correct asset paths (`/src/assets/meals/pref-*.jpg`); if files are missing, `bg-stone-100` on wrapper is visible instead of broken image icon
-- [ ] No new semantic classes created — only existing classes used
-- [ ] No utility chains used for component styling (layout utilities in HTML are acceptable)
-- [ ] Preline loaded on ONB-02 (accordion); check how other HTML pages in the project load it
+
+After both prompts complete, verify at `http://localhost:5173/apps/patient/deliveries/index.html`:
+
+- [ ] Default state: "Getting your meals ready" card visible, delivering/delivered cards hidden
+- [ ] `?state=delivering`: truck icon and "On the way" label visible, other states hidden
+- [ ] `?state=delivered`: check icon and "Delivered" label visible, other states hidden
+- [ ] Meal summary list shows all 5 meals
+- [ ] "See all meals" link points to meals screen with `?state=confirmed`
+- [ ] Issue card: default shows report button only
+- [ ] Clicking "Report an issue" reveals the form, hides the button section
+- [ ] Selecting an issue type highlights it with `.active` style
+- [ ] Clicking "Submit report" shows confirmation, hides form
+- [ ] Clicking "Cancel" returns to default state
+- [ ] Care team link renders at bottom
+- [ ] Bottom nav renders with Delivery tab active
+- [ ] i18n toggle works on all strings
+- [ ] No utility class chains on component elements
+- [ ] No `<script>` blocks in HTML
+- [ ] `src/scripts/components/delivery.js` exists
+- [ ] New CSS rules added under `/* Delivery screen state variants */` in `components.css`
+- [ ] Dark mode: not applicable
+- [ ] No new pattern library files needed
+- [ ] ANDREY-README.md: not applicable
+
+---
 
 ## Completion Report
 
-After all verification passes, output:
+After verification passes, output:
 
 ```
-## Completion Report — Task 04: Onboarding Screens
+## Completion Report — Patient Delivery Status Screen (MEALS-02)
 
-- Files created: apps/patient/onboarding/welcome.html, consent.html, preferences.html
-- New CSS classes added: none
-- Deviations from spec: [any judgment calls]
-- Preline loaded via: [path used]
-- Wordmark: [SVG found at path / text fallback used]
-- Items deferred or incomplete: none
+- New semantic classes added to components.css: [list, or "none"]
+- Existing classes modified: [list, or "none"]
+- Pattern library files created or updated: [list, or "none"]
+- Judgment calls: [list, or "none"]
+- Dark mode added: not applicable
+- ANDREY-README.md updated: not applicable
+- Schema delta logged: not applicable
+- Items deferred or incomplete: [list, or "none"]
 ```
 
-Then run:
-```
+---
+
+## Final Step
+
+```bash
 git add -A
-git commit -m "task 04: patient app onboarding screens (ONB-01, 02, 03)"
+git commit -m "feat(patient): add delivery status screen (MEALS-02) with issue reporting"
 ```
 
-## If Something Goes Wrong
-- If Preline accordion on ONB-02 doesn't initialize: check how other HTML pages in the project import Preline JS (look at `pattern-library/components/` files that use Preline). Mirror that exact import pattern.
-- If `pref-image-card:has(input:checked)` doesn't apply in the browser: `:has()` requires a modern browser. For the prototype, this is acceptable. Do not add a JS fallback.
-- If the `mobile-shell` max-width isn't constraining: confirm `<body class="mobile-app">` is set (not just the inner div).
-- If preference images are all broken: add `style="background-color: var(--color-stone-100, #f5f5f4);"` to the `.pref-image-card-img-wrap` elements as an inline fallback.
+Then output:
+
+---
+**View your result:**
+- Default: http://localhost:5173/apps/patient/deliveries/index.html
+- Out for delivery: http://localhost:5173/apps/patient/deliveries/index.html?state=delivering
+- Delivered: http://localhost:5173/apps/patient/deliveries/index.html?state=delivered
+---

@@ -675,6 +675,82 @@ zone.color.replace(/, 1\)$/, ', 0.08)')
 
 ---
 
+## Pattern: Badge Classes for Diet Tags
+**Tags:** #components #patient #forms
+
+`badge-teal` and `badge-stone` do not exist. The correct pattern for diet/category tags is:
+
+```html
+<span class="badge badge-primary badge-pill">Low Sodium</span>
+<span class="badge badge-info badge-pill">High Protein</span>
+<span class="badge badge-secondary badge-pill">Vegetarian</span>
+<span class="badge badge-success badge-pill">Heart Healthy</span>
+```
+
+Always use `badge` (base) + `badge-{variant}` + `badge-pill` for food/diet tags. Never invent `badge-teal`, `badge-stone`, or other color-named variants -- they don't exist in `components.css`.
+
+---
+
+## Pattern: Unsplash Demo Images (No API Key)
+**Tags:** #demo-assets #patient
+
+For prototype/demo screens that need real food photography without managing local assets, use Unsplash's direct image URL with query params:
+
+```html
+<img src="https://images.unsplash.com/photo-{PHOTO_ID}?w=400&h=400&fit=crop&q=80" alt="..."
+```
+
+**How to find a photo ID:** Browse unsplash.com, click a free photo, copy the alphanumeric slug from the URL (e.g., `photo-1565299585323-38d6b0865b47`).
+
+**Params:** `w`, `h` control size; `fit=crop` ensures square fill; `q=80` balances quality/speed.
+
+**No API key required** for this URL format -- it works directly in `<img src>`.
+
+**Photo IDs used in patient onboarding (as of March 2026):**
+- Latin American: `1565299585323-38d6b0865b47` (tacos/Mexican spread)
+- Soul Food: `1626082927389-6cd097cdc6ec` (fried chicken plate)
+- Mediterranean: `1540189549336-e6e99c3679fe` (mezze/salad bowl)
+- Asian: `1569050467447-ce54b3bbc37d` (ramen/noodle bowl)
+
+**Note:** Unsplash free tier has rate limits. Fine for demos; swap for local assets before production.
+
+---
+
+## Pattern: Unified Selection Controls (pref-row)
+**Tags:** #selection-controls #mobile #patient #forms
+
+For large tap-target selection controls on mobile -- where both radio and checkbox inputs need to look like full-width cards -- use the `pref-row` system instead of modifying global `.radio-label` / `.checkbox-label`.
+
+**Classes:** `.pref-row` (wrapper label), `.pref-row-indicator` (visual indicator), `.pref-row-indicator--circle` (radio/single-select), `.pref-row-indicator--square` (checkbox/multi-select), `.pref-row-label` (text)
+
+**Key rules:**
+- Native input is always `sr-only` (accessible, not visual)
+- Visual state driven entirely by `:has(input:checked)` -- no JS needed
+- Circle = single-select, Square = multi-select (consistent visual language)
+- Selected state uses inset ring: solid primary fill + `box-shadow: inset 0 0 0 3px white`
+
+**Radio (single-select):**
+```html
+<label class="pref-row">
+  <input type="radio" name="group" value="x" class="sr-only">
+  <div class="pref-row-indicator pref-row-indicator--circle" aria-hidden="true"></div>
+  <span class="pref-row-label">Option label</span>
+</label>
+```
+
+**Checkbox (multi-select):**
+```html
+<label class="pref-row">
+  <input type="checkbox" name="group" value="x" class="sr-only">
+  <div class="pref-row-indicator pref-row-indicator--square" aria-hidden="true"></div>
+  <span class="pref-row-label">Option label</span>
+</label>
+```
+
+**Do not use** `.radio-label` or `.checkbox-label` for mobile preference screens -- those are for desktop provider/kitchen forms and are shared across apps.
+
+---
+
 ## Anti-Pattern: Skipping Verification on Modification Prompts
 **Tags:** #verification #workflow
 
@@ -712,3 +788,7 @@ zone.color.replace(/, 1\)$/, ', 0.08)')
 - `#preline` - Preline UI patterns and gotchas
 - `#sidebar` - Sidebar layout patterns
 - `#javascript` - JS patterns for interactive components
+- `#demo-assets` - Placeholder images and demo data patterns
+- `#mobile` - Mobile shell, bottom nav, patient app patterns
+- `#patient` - Patient app specific patterns
+- `#selection-controls` - Radio, checkbox, pref-row patterns

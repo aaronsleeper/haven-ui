@@ -128,6 +128,8 @@ None — pure CSS selection states.
 9. **Empty state:** `.empty-state` + `.empty-state-icon` (existing) — `.btn-outline` CTA
 10. **Skeleton loading:** `skeleton` cards (existing)
 
+**Badge pattern for diet tags:** `badge badge-primary badge-pill`, `badge badge-info badge-pill`, `badge badge-secondary badge-pill`, `badge badge-success badge-pill`. Do NOT use `badge-teal` or `badge-stone` — these do not exist.
+
 ### Bottom sheet — Meal Detail
 - Preline `hs-overlay` drawer anchored to bottom
 - Inner: `<div class="p-4">` — large meal image, name `<h2>`, description `<p>`, diet tag badges

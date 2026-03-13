@@ -59,16 +59,17 @@
           >We'll share your health records with your care team so they can create the right meal plan for you. We keep your information private and secure.</span>
         </p>
 
-        <!-- Read aloud button (disabled, prototype) -->
-        <div class="relative inline-block mb-4">
+        <!-- Read aloud button (disabled, prototype — opacity raised for legibility) -->
+        <div class="relative inline-block mb-4 w-full">
           <button
             type="button"
             class="btn-outline w-full"
             disabled
             aria-disabled="true"
             aria-describedby="read-aloud-tip"
+            style="opacity: 0.6;"
           >
-            <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
+            <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
             <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
           </button>
           <span id="read-aloud-tip" role="tooltip" class="absolute left-0 bottom-full mb-1 text-xs bg-gray-800 text-white rounded px-2 py-1 whitespace-nowrap pointer-events-none opacity-0 transition-opacity" aria-hidden="true">
@@ -125,9 +126,9 @@
         </p>
 
         <!-- Read aloud (same disabled pattern) -->
-        <div class="relative inline-block mb-4">
-          <button type="button" class="btn-outline w-full" disabled aria-disabled="true">
-            <i class="fa-solid fa-volume-high mr-2" aria-hidden="true"></i>
+        <div class="relative inline-block mb-4 w-full">
+          <button type="button" class="btn-outline w-full" disabled aria-disabled="true" style="opacity: 0.6;">
+            <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
             <span data-i18n-en="Read aloud" data-i18n-es="Leer en voz alta">Read aloud</span>
           </button>
         </div>

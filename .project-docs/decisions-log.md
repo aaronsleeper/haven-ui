@@ -332,6 +332,34 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+## Rule: Never @apply a Semantic Class Inside Another Semantic Class
+**Date:** March 2026
+**Context:** Task 03 spec wrote `.delivery-status-card { @apply card mx-4; }` as a shorthand. This caused a Vite/Tailwind build error: `Cannot apply unknown utility class 'card'`.
+
+**Rule:** Tailwind's `@apply` can only resolve utility classes from Tailwind's own registry. Custom semantic classes defined in `components.css` (like `.card`) are NOT resolvable by `@apply` inside another class definition.
+
+**Correct pattern:** Inline the constituent `@apply` properties directly. If `.card` is `@apply flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:...`, then a derived class must repeat those properties, not reference `.card`.
+
+**Outcome:** Fixed by inlining `.card`'s properties into `.delivery-status-card` directly.
+
+---
+
+## Decision: Unified Preference Control System (pref-row)
+**Date:** March 2026
+**Context:** Patient onboarding preferences screen needed both radio (single-select) and checkbox (multi-select) controls styled as full-width tap targets. The platform default `.radio-label` / `.checkbox-label` classes are shared across provider, kitchen, and care coordinator -- modifying them would have cascading effects.
+
+**Decision:** Introduced a new self-contained class set: `.pref-row`, `.pref-row-indicator`, `.pref-row-indicator--circle` (radio), `.pref-row-indicator--square` (checkbox), `.pref-row-label`. Native inputs are `sr-only`; all visual state is driven by `:has(input:checked)`.
+
+**Design principle established:** Things that function the same should look the same. Circle indicator = single-select (radio). Square indicator = multi-select (checkbox). Both use an inset ring (solid fill + `box-shadow: inset 0 0 0 3px white`) as the selected state signal -- consistent with the `pref-image-card-check` indicator on image cards.
+
+**Scope:** Patient app onboarding only. `.radio-label` and `.checkbox-label` are NOT changed -- they remain the standard for all other apps.
+
+**Candidate for reuse:** Any future profile settings or intake screen that needs large tap-target selection controls should use `.pref-row` rather than adding new variants to the global radio/checkbox classes.
+
+**Outcome:** ✅ Applied to language, contact method, and best times sections of `preferences.html`.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]

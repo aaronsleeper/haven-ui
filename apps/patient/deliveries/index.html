@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[64px]">
+
+    <!-- i18n bar (copied from partial) -->
+    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+      <button
+        class="mobile-i18n-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to Spanish"
+      >
+        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+        <i class="fa-solid fa-globe"></i>
+      </button>
+    </div>
+
+    <!-- Header zone -->
+    <div class="px-4 pt-20 pb-4">
+      <h1 class="text-2xl" style="font-family: var(--font-serif);">
+        <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+      </h1>
+      <p class="text-sm text-gray-500 mt-1">
+        <span data-i18n-en="Expected Thursday, March 19" data-i18n-es="Esperado jueves, 19 de marzo">Expected Thursday, March 19</span>
+      </p>
+    </div>
+
+    <!-- Delivery status card: Preparing (default) -->
+    <div class="delivery-status-card status-preparing">
+      <div class="delivery-status-top">
+        <div class="delivery-status-icon">
+          <i class="fa-solid fa-bowl-food text-primary-500" aria-hidden="true"></i>
+        </div>
+        <p class="delivery-status-label">
+          <span data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</span>
+        </p>
+        <p class="delivery-status-timing">
+          <span data-i18n-en="Arriving between 11am and 1pm" data-i18n-es="Llegando entre las 11am y 1pm">Arriving between 11am and 1pm</span>
+        </p>
+      </div>
+      <div class="delivery-status-divider"></div>
+      <div class="delivery-summary">
+        <p class="delivery-summary-label">
+          <span data-i18n-en="What's coming" data-i18n-es="Lo que viene">What's coming</span>
+        </p>
+        <p class="delivery-summary-count">
+          <span data-i18n-en="5 meals · Mon – Fri" data-i18n-es="5 comidas · Lun – Vie">5 meals · Mon – Fri</span>
+        </p>
+        <ul class="delivery-summary-list mt-2">
+          <li>Chicken Verde Rice Bowl</li>
+          <li>Black Bean Tacos</li>
+          <li>Lemon Herb Salmon</li>
+          <li>Turkey Sofrito Bowl</li>
+          <li>Veggie Stir-Fry</li>
+        </ul>
+        <a href="/apps/patient/meals/index.html?state=confirmed" class="text-link text-sm mt-2 block">
+          <span data-i18n-en="See all meals" data-i18n-es="Ver todas las comidas">See all meals</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Delivery status card: Out for delivery -->
+    <div class="delivery-status-card status-delivering">
+      <div class="delivery-status-top">
+        <div class="delivery-status-icon">
+          <i class="fa-solid fa-truck-fast text-warning-500" aria-hidden="true"></i>
+        </div>
+        <p class="delivery-status-label">
+          <span data-i18n-en="On the way" data-i18n-es="En camino">On the way</span>
+        </p>
+        <p class="delivery-status-timing">
+          <span data-i18n-en="Arriving between 11am and 1pm" data-i18n-es="Llegando entre las 11am y 1pm">Arriving between 11am and 1pm</span>
+        </p>
+      </div>
+      <div class="delivery-status-divider"></div>
+      <div class="delivery-summary">
+        <p class="delivery-summary-label">
+          <span data-i18n-en="What's coming" data-i18n-es="Lo que viene">What's coming</span>
+        </p>
+        <p class="delivery-summary-count">
+          <span data-i18n-en="5 meals · Mon – Fri" data-i18n-es="5 comidas · Lun – Vie">5 meals · Mon – Fri</span>
+        </p>
+        <ul class="delivery-summary-list mt-2">
+          <li>Chicken Verde Rice Bowl</li>
+          <li>Black Bean Tacos</li>
+          <li>Lemon Herb Salmon</li>
+          <li>Turkey Sofrito Bowl</li>
+          <li>Veggie Stir-Fry</li>
+        </ul>
+        <a href="/apps/patient/meals/index.html?state=confirmed" class="text-link text-sm mt-2 block">
+          <span data-i18n-en="See all meals" data-i18n-es="Ver todas las comidas">See all meals</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Delivery status card: Delivered -->
+    <div class="delivery-status-card status-delivered">
+      <div class="delivery-status-top">
+        <div class="delivery-status-icon">
+          <i class="fa-solid fa-circle-check text-success-500" aria-hidden="true"></i>
+        </div>
+        <p class="delivery-status-label">
+          <span data-i18n-en="Delivered" data-i18n-es="Entregado">Delivered</span>
+        </p>
+        <p class="delivery-status-timing">
+          <span data-i18n-en="Delivered at 12:34pm" data-i18n-es="Entregado a las 12:34pm">Delivered at 12:34pm</span>
+        </p>
+      </div>
+      <div class="delivery-status-divider"></div>
+      <div class="delivery-summary">
+        <p class="delivery-summary-label">
+          <span data-i18n-en="What's coming" data-i18n-es="Lo que viene">What's coming</span>
+        </p>
+        <p class="delivery-summary-count">
+          <span data-i18n-en="5 meals · Mon – Fri" data-i18n-es="5 comidas · Lun – Vie">5 meals · Mon – Fri</span>
+        </p>
+        <ul class="delivery-summary-list mt-2">
+          <li>Chicken Verde Rice Bowl</li>
+          <li>Black Bean Tacos</li>
+          <li>Lemon Herb Salmon</li>
+          <li>Turkey Sofrito Bowl</li>
+          <li>Veggie Stir-Fry</li>
+        </ul>
+        <a href="/apps/patient/meals/index.html?state=confirmed" class="text-link text-sm mt-2 block">
+          <span data-i18n-en="See all meals" data-i18n-es="Ver todas las comidas">See all meals</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Issue report card -->
+    <div class="px-4 mt-4">
+      <div class="card" id="issue-card">
+
+        <!-- Default: report button -->
+        <div class="card-body issue-default">
+          <p class="text-sm font-semibold text-gray-700 mb-2">
+            <span data-i18n-en="Something wrong?" data-i18n-es="¿Algo salió mal?">Something wrong?</span>
+          </p>
+          <button class="btn-outline w-full" id="btn-report-issue">
+            <span data-i18n-en="Report an issue" data-i18n-es="Reportar un problema">Report an issue</span>
+          </button>
+        </div>
+
+        <!-- Expanded: issue form (hidden by default) -->
+        <div class="card-body issue-expanded" style="display:none;">
+          <p class="text-sm font-semibold text-gray-700 mb-3">
+            <span data-i18n-en="What went wrong?" data-i18n-es="¿Qué salió mal?">What went wrong?</span>
+          </p>
+          <div class="space-y-2 mb-3">
+            <button class="btn-outline w-full issue-type-btn" data-issue="not-delivered">
+              <span data-i18n-en="Meals not delivered" data-i18n-es="Comidas no entregadas">Meals not delivered</span>
+            </button>
+            <button class="btn-outline w-full issue-type-btn" data-issue="wrong-meals">
+              <span data-i18n-en="Wrong meals" data-i18n-es="Comidas incorrectas">Wrong meals</span>
+            </button>
+            <button class="btn-outline w-full issue-type-btn" data-issue="damaged">
+              <span data-i18n-en="Damaged packaging" data-i18n-es="Empaque dañado">Damaged packaging</span>
+            </button>
+            <button class="btn-outline w-full issue-type-btn" data-issue="other">
+              <span data-i18n-en="Something else" data-i18n-es="Otra cosa">Something else</span>
+            </button>
+          </div>
+          <textarea rows="3" placeholder="Tell us more (optional)" class="w-full mb-3" aria-label="Additional details"></textarea>
+          <div class="flex gap-2">
+            <button class="btn-outline flex-1" id="btn-cancel-issue">
+              <span data-i18n-en="Cancel" data-i18n-es="Cancelar">Cancel</span>
+            </button>
+            <button class="btn-primary flex-1" id="btn-submit-issue">
+              <span data-i18n-en="Submit report" data-i18n-es="Enviar reporte">Submit report</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submitted: confirmation (hidden by default) -->
+        <div class="card-body issue-submitted" style="display:none;">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-circle-check text-success-500 text-xl" aria-hidden="true"></i>
+            <p class="text-sm text-gray-700">
+              <span data-i18n-en="Issue reported. Your care team will follow up." data-i18n-es="Problema reportado. Tu equipo de cuidado te contactará.">Issue reported. Your care team will follow up.</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Care team link -->
+    <p class="text-center text-sm mt-4 mb-6">
+      <a href="/apps/patient/care-team/messages.html" class="text-link">
+        <span data-i18n-en="Questions? Message your care team" data-i18n-es="¿Preguntas? Escribe a tu equipo de cuidado">Questions? Message your care team</span>
+      </a>
+    </p>
+
+  </div><!-- /.mobile-shell -->
+
+  <!-- Bottom nav (copied from partial) -->
+  <nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+    <a href="/apps/patient/meals/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Meals">
+      <i class="fa-solid fa-bowl-food"></i>
+      <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
+    </a>
+
+    <a href="/apps/patient/deliveries/index.html"
+       class="mobile-bottom-nav-tab active"
+       aria-current="page"
+       aria-label="Delivery">
+      <i class="fa-solid fa-truck"></i>
+      <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+    </a>
+
+    <a href="/apps/patient/care-team/messages.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Care Team, 2 unread messages">
+      <span class="relative inline-flex">
+        <i class="fa-solid fa-comments"></i>
+        <span class="mobile-bottom-nav-badge">2</span>
+      </span>
+      <span data-i18n-en="Care Team" data-i18n-es="Mi Equipo">Care Team</span>
+    </a>
+
+    <a href="/apps/patient/profile/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Profile">
+      <i class="fa-solid fa-circle-user"></i>
+      <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
+    </a>
+
+  </nav>
+
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Delivery state management -->
+  <script src="/src/scripts/components/delivery.js"></script>
+  <!-- Preline autoInit (must be last) -->
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>

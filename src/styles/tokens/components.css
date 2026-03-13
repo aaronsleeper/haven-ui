@@ -835,6 +835,13 @@ a.btn-danger {
     @apply flex items-start gap-3 text-sm rounded-lg p-4;
 }
 
+/* Full-bleed banner variant — removes rounding and horizontal margin for edge-to-edge use */
+.alert-banner {
+    @apply block rounded-none;
+    border-left: none;
+    border-right: none;
+}
+
 .alert-icon {
     @apply shrink-0 size-4 mt-0.5;
 }
@@ -3003,10 +3010,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .meal-card-swap {
   @apply text-sm text-primary-600 font-medium text-left mt-1;
   @apply hover:text-primary-700 dark:text-primary-400;
-  background: none;
-  border: none;
-  padding: 0;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
   cursor: pointer;
+  box-shadow: none !important;
 }
 
 /* Hide swap button after a meal has been swapped */
@@ -3074,6 +3082,22 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .delivery-summary-list {
   @apply text-sm text-gray-600 space-y-0.5 list-none pl-0;
   @apply dark:text-neutral-400;
+}
+
+/* Delivery screen state variants */
+.status-preparing { @apply block; }
+.status-delivering { @apply block; display: none; }
+.status-delivered { @apply block; display: none; }
+
+.state-delivering .status-preparing { @apply block; display: none; }
+.state-delivering .status-delivering { @apply block; display: block; }
+
+.state-delivered .status-preparing { @apply block; display: none; }
+.state-delivered .status-delivered { @apply block; display: block; }
+
+.btn-outline.active {
+  @apply bg-primary-50 border-primary-500 text-primary-700;
+  @apply dark:bg-primary-900/20 dark:border-primary-600 dark:text-primary-400;
 }
 
 /* ===================================
