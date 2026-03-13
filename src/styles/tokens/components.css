@@ -2987,7 +2987,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .meal-card {
-  @apply flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
+  @apply flex items-center gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
   @apply dark:bg-neutral-900 dark:border-neutral-700;
   @apply hover:bg-gray-50 transition-colors;
   background-color: white !important; /* suppress button hover inheritance */
@@ -3031,11 +3031,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-card-swap {
-  @apply inline-flex items-center gap-x-1.5 py-1.5 px-3 text-xs font-medium mt-1.5;
-  @apply bg-transparent border border-gray-300 text-gray-700 rounded-lg;
-  @apply hover:bg-gray-50;
+  @apply flex-shrink-0 flex items-center justify-center;
+  @apply size-9 rounded-lg text-gray-400;
+  @apply hover:text-gray-600 hover:bg-gray-100;
   @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
-  @apply dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800;
+  @apply dark:text-neutral-500 dark:hover:text-neutral-300 dark:hover:bg-neutral-800;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
   cursor: pointer;
 }
 

@@ -386,6 +386,38 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+---
+
+## Decision: Scoped `.meal-card-swap` Over Applying btn-outline btn-sm Directly in HTML
+**Date:** March 2026
+**Context:** Swap button needed to be promoted from a bare text-link to a visible bordered button. The obvious approach was to replace `.meal-card-swap` with `.btn-outline.btn-sm` in HTML, but `.btn-sm` inherits from the global `button` reset which had conflicting `!important` overrides from the previous swap button implementation.
+**Decision:** Rewrote `.meal-card-swap` in `components.css` with the btn-outline visual pattern inline, keeping a single class in HTML. No utility chain.
+**Rationale:** Keeps HTML clean, avoids specificity conflicts with the global button reset, and lets `.meal-card-swap` carry its own margin (`mt-1.5`) without needing a wrapper div.
+**Rule:** When an existing semantic class needs to be visually repromoted (link → button, etc.), rewrite the class in `components.css` rather than adding utility classes in HTML.
+**Outcome:** ✅ Borders, icon, hover state all correct. No regression on global button styles.
+
+---
+
+## Decision: `.alert-inset` Modifier Over Editing Global `.alert` Padding
+**Date:** March 2026
+**Context:** Alert banners on the patient meals page had a visual misalignment -- their text started 4px further right than the card content below due to `p-4` vs card's `p-3` internal padding. Fixing `.alert` globally would affect every alert in the system.
+**Decision:** Added `.alert-inset` as a modifier class with `px-3` to override horizontal padding only. Applied only to the two meal-page alerts.
+**Rationale:** Systemic fix at the modifier level, not a per-instance inline style. Other alerts remain unchanged.
+**Rule:** Alert padding adjustments that are context-specific (e.g., inside a mobile card list) should use a modifier class, not modify the base `.alert`.
+**Outcome:** ✅ Icon + text aligns with adjacent card content.
+
+---
+
+## Decision: `::after` Pseudo-Element with `mix-blend-mode: multiply` for Image Inset Border
+**Date:** March 2026
+**Context:** Food photos with light backgrounds were bleeding into the white card surface, making images appear borderless. A real CSS `border` on the `img` or `.meal-card-img` would render outside the `overflow-hidden` clip or create layout shift.
+**Decision:** Added `::after` pseudo-element to `.meal-card-img` with `position: absolute; inset: 0; border: 1px solid rgba(0,0,0,0.10); mix-blend-mode: multiply`. Parent set to `position: relative`.
+**Rationale:** Multiply blend mode is invisible on dark image pixels and visible on light ones -- exactly the right behavior for food photography. No layout impact. No new HTML element.
+**Rule:** For image surface contrast aids, always use `::after` + `mix-blend-mode: multiply` on the image wrapper, not a real border on the wrapper or the img element. Use `border-radius: inherit` to respect parent rounding.
+**Outcome:** ✅ Subtle inset border visible on light-background photos, invisible on dark ones.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]
