@@ -1,0 +1,33 @@
+<!--
+@component-meta
+name: Feedback Rating Card
+category: Patient App
+classes: feedback-rating-fieldset, feedback-rating-card
+preline: false
+description: Large tap-target rating option for the meal feedback screen (CARE-02). Three cards in a grid-cols-3 row. Radio input is sr-only; the label is the tap target. Selected state driven by :has(input:checked). Icon + text label always present.
+-->
+
+<fieldset class="feedback-rating-fieldset">
+  <legend>Overall, how were your meals this week?</legend>
+  <div class="grid grid-cols-3 gap-2">
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="good" class="sr-only">
+      <i class="fa-solid fa-thumbs-up"></i>
+      <span>Good</span>
+    </label>
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="okay" class="sr-only">
+      <i class="fa-solid fa-face-meh"></i>
+      <span>Okay</span>
+    </label>
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="bad" class="sr-only">
+      <i class="fa-solid fa-thumbs-down"></i>
+      <span>Not good</span>
+    </label>
+
+  </div>
+</fieldset>

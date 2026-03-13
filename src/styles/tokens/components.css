@@ -2966,3 +2966,234 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
         @apply p-4;
     }
 }
+
+/* ===================================
+   PATIENT APP — MEAL CARD
+   =================================== */
+
+.meal-card {
+  @apply flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
+  @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+.meal-card-img {
+  @apply size-20 rounded-lg object-cover shrink-0 bg-stone-100;
+}
+
+.meal-card-body {
+  @apply flex flex-col gap-1 flex-1 min-w-0;
+}
+
+.meal-card-name {
+  @apply text-sm font-medium text-gray-900 leading-snug;
+  @apply dark:text-neutral-100;
+}
+
+.meal-card-day {
+  @apply text-xs text-gray-500;
+  @apply dark:text-neutral-400;
+}
+
+.meal-card-tags {
+  @apply flex flex-wrap gap-1 mt-0.5;
+}
+
+.meal-card-swap {
+  @apply text-sm text-primary-600 font-medium text-left mt-1;
+  @apply hover:text-primary-700 dark:text-primary-400;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Hide swap button after a meal has been swapped */
+.meal-card.is-swapped .meal-card-swap {
+  display: none;
+}
+
+/* ===================================
+   PATIENT APP — DELIVERY STATUS CARD
+   =================================== */
+
+.delivery-status-card {
+  @apply card mx-4;
+}
+
+.delivery-status-top {
+  @apply flex flex-col items-center text-center p-6 gap-2;
+}
+
+.delivery-status-icon {
+  @apply text-5xl mb-1;
+}
+
+.delivery-status-label {
+  @apply text-xl font-semibold text-gray-900;
+  font-family: var(--font-serif);
+  @apply dark:text-neutral-100;
+}
+
+.delivery-status-timing {
+  @apply text-sm text-gray-500;
+  @apply dark:text-neutral-400;
+}
+
+.delivery-status-divider {
+  @apply border-t border-gray-200 mx-4;
+  @apply dark:border-neutral-700;
+}
+
+.delivery-summary {
+  @apply p-4 flex flex-col gap-1;
+}
+
+.delivery-summary-label {
+  @apply text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1;
+  @apply dark:text-neutral-400;
+}
+
+.delivery-summary-count {
+  @apply text-sm font-medium text-gray-900;
+  @apply dark:text-neutral-100;
+}
+
+.delivery-summary-list {
+  @apply text-sm text-gray-600 space-y-0.5 list-none pl-0;
+  @apply dark:text-neutral-400;
+}
+
+/* ===================================
+   PATIENT APP — MESSAGE BUBBLES
+   =================================== */
+
+/* Outgoing (patient) bubble — right-aligned */
+.message-bubble-out {
+  @apply bg-primary-500 text-white rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
+  border-bottom-right-radius: 4px;
+  @apply dark:bg-primary-600;
+}
+
+/* Incoming (care team) bubble — left-aligned */
+.message-bubble-in {
+  @apply bg-gray-100 text-gray-900 rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
+  border-bottom-left-radius: 4px;
+  @apply dark:bg-neutral-800 dark:text-neutral-100;
+}
+
+/* Sender label — appears above first bubble in a consecutive group */
+.message-sender-label {
+  @apply text-xs text-gray-500 mb-1;
+  @apply dark:text-neutral-400;
+}
+
+/* Date separator between day groups */
+.message-date-sep {
+  @apply text-xs text-gray-400 text-center py-2;
+  @apply dark:text-neutral-500;
+}
+
+/* Timestamp below a bubble */
+.message-timestamp {
+  @apply text-xs text-gray-400 mt-1;
+  @apply dark:text-neutral-500;
+}
+
+/* Floating "new message" pill — sits above compose bar when new messages arrive */
+/* Bottom offset: 64px nav + 64px compose = 128px */
+.message-new-pill {
+  @apply fixed left-1/2 -translate-x-1/2 z-30;
+  @apply bg-primary-500 text-white rounded-full text-sm px-3 flex items-center gap-1.5 shadow-md;
+  @apply dark:bg-primary-600;
+  bottom: 136px;
+  height: 32px;
+}
+
+/* ===================================
+   PATIENT APP — FEEDBACK RATING CARD
+   =================================== */
+
+/* Fieldset wrapper — strips default fieldset border/padding for the rating row */
+.feedback-rating-fieldset {
+  @apply border-0 p-0 space-y-2;
+}
+
+/* Individual rating option card — wraps a sr-only radio input */
+.feedback-rating-card {
+  @apply flex flex-col items-center justify-center gap-2 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer;
+  @apply hover:border-primary-300 hover:bg-primary-50;
+  @apply dark:bg-neutral-900 dark:border-neutral-700;
+  min-height: 80px;
+}
+
+/* Selected state via :has() — supported in all modern browsers */
+.feedback-rating-card:has(input:checked) {
+  @apply border-primary-500 bg-primary-50;
+  @apply dark:border-primary-600 dark:bg-primary-900/20;
+}
+
+.feedback-rating-card span {
+  @apply text-xs font-medium text-gray-700;
+  @apply dark:text-neutral-300;
+}
+
+.feedback-rating-card i {
+  @apply text-2xl text-gray-400;
+}
+
+.feedback-rating-card:has(input:checked) i {
+  @apply text-primary-600;
+  @apply dark:text-primary-400;
+}
+
+.feedback-rating-card:has(input:checked) span {
+  @apply text-primary-700 dark:text-primary-300;
+}
+
+/* ===================================
+   PATIENT APP — PREFERENCE IMAGE CARD
+   =================================== */
+
+/* Outer label wrapper — makes full card tappable */
+.pref-image-card {
+  @apply flex flex-col items-center gap-2 cursor-pointer;
+}
+
+/* Square image container with border that highlights on selection */
+.pref-image-card-img-wrap {
+  @apply relative w-full aspect-square rounded-lg overflow-hidden bg-stone-100 border-2 border-transparent transition-all;
+}
+
+/* Selected: primary border on image wrap */
+.pref-image-card:has(input:checked) .pref-image-card-img-wrap {
+  @apply border-primary-500;
+}
+
+/* Fills image wrap */
+.pref-image-card-img {
+  @apply w-full h-full object-cover;
+}
+
+/* Checkmark overlay — hidden by default, fades in on selection */
+.pref-image-card-check {
+  @apply absolute inset-0 flex items-center justify-center bg-primary-600/60 opacity-0 transition-opacity;
+}
+
+.pref-image-card:has(input:checked) .pref-image-card-check {
+  @apply opacity-100;
+}
+
+/* Label below the image */
+.pref-image-card-label {
+  @apply text-xs font-medium text-gray-700 text-center;
+  @apply dark:text-neutral-300;
+}
+
+.pref-image-card:has(input:checked) .pref-image-card-label {
+  @apply text-primary-600 dark:text-primary-400;
+}
+
+/* "No preference" plain variant — no photo, centered icon instead */
+.pref-image-card-img-wrap-plain {
+  @apply flex items-center justify-center;
+}

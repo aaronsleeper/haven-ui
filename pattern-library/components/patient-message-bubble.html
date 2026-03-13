@@ -1,0 +1,34 @@
+<!--
+@component-meta
+name: Message Bubble
+category: Patient App
+classes: message-bubble-out, message-bubble-in, message-sender-label, message-date-sep, message-timestamp, message-new-pill
+preline: false
+description: SMS-style chat bubbles for the patient messaging screen (CARE-01). Outgoing (patient) is right-aligned; incoming (care team) is left-aligned. Sender label appears above the first bubble in a consecutive group only. Date separator between day groups. New message pill floats above the compose bar.
+-->
+
+<!-- Date separator -->
+<div class="message-date-sep">Today</div>
+
+<!-- Incoming message (care team) -->
+<div class="flex flex-col items-start mb-3">
+  <p class="message-sender-label">Your dietitian</p>
+  <div class="message-bubble-in">
+    Hi Maria! Your meals for next week are all set. Let me know if you have any questions.
+  </div>
+  <p class="message-timestamp">9:14 AM</p>
+</div>
+
+<!-- Outgoing message (patient) -->
+<div class="flex flex-col items-end mb-3">
+  <div class="message-bubble-out">
+    Thanks! Can I swap the salmon for something else?
+  </div>
+  <p class="message-timestamp">9:16 AM</p>
+</div>
+
+<!-- New message pill (shown when patient has scrolled up) -->
+<button class="message-new-pill" aria-live="polite">
+  <i class="fa-solid fa-arrow-down text-xs"></i>
+  New message
+</button>

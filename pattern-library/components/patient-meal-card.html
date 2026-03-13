@@ -1,0 +1,45 @@
+<!--
+@component-meta
+name: Meal Card
+category: Patient App
+classes: meal-card, meal-card-img, meal-card-body, meal-card-name, meal-card-day, meal-card-tags, meal-card-swap, meal-card.is-swapped
+preline: false
+description: Horizontal card showing a meal photo, name, day, diet tag badges, and optional swap link. Used in the weekly meals list (MEALS-01) and swap bottom sheet (omit .meal-card-swap in the sheet). Add .is-swapped to hide swap button and show a Swapped badge after substitution. Missing images show bg-stone-100 placeholder via CSS.
+-->
+
+<!-- Default state -->
+<div class="meal-card">
+  <img
+    class="meal-card-img"
+    src="/src/assets/meals/chicken-verde.jpg"
+    alt="Chicken Verde with cilantro rice and black beans"
+  >
+  <div class="meal-card-body">
+    <p class="meal-card-name">Chicken Verde</p>
+    <p class="meal-card-day">Monday</p>
+    <div class="meal-card-tags">
+      <span class="badge badge-info badge-pill">Low sodium</span>
+      <span class="badge badge-secondary badge-pill">Diabetic-friendly</span>
+    </div>
+    <button class="meal-card-swap" aria-label="Swap Chicken Verde">Swap meal</button>
+  </div>
+</div>
+
+<!-- Swapped state (add .is-swapped; swap button hidden; badge added) -->
+<div class="meal-card is-swapped mt-3">
+  <img
+    class="meal-card-img"
+    src="/src/assets/meals/grilled-tilapia.jpg"
+    alt="Grilled Tilapia with mango salsa"
+  >
+  <div class="meal-card-body">
+    <p class="meal-card-name">Grilled Tilapia
+      <span class="badge badge-success badge-pill ms-1">Swapped</span>
+    </p>
+    <p class="meal-card-day">Monday</p>
+    <div class="meal-card-tags">
+      <span class="badge badge-info badge-pill">Heart-healthy</span>
+    </div>
+    <button class="meal-card-swap" aria-label="Swap Grilled Tilapia">Swap meal</button>
+  </div>
+</div>

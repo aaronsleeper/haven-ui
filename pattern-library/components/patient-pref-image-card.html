@@ -1,0 +1,40 @@
+<!--
+@component-meta
+name: Preference Image Card
+category: Patient App
+classes: pref-image-card, pref-image-card-img-wrap, pref-image-card-img, pref-image-card-check, pref-image-card-label, pref-image-card-img-wrap-plain
+preline: false
+description: Visual checkbox card for cultural food preference selection. Used in ONB-03 and PROFILE-01. Checkbox is sr-only; label is the full tap target. "No preference" uses pref-image-card-img-wrap-plain (icon instead of photo). Mutual exclusivity JS: src/scripts/components/pref-image-cards.js. Grid layout: grid grid-cols-2 gap-3 on the parent container.
+-->
+
+<div class="grid grid-cols-2 gap-3">
+
+  <!-- Cuisine option -->
+  <label class="pref-image-card">
+    <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
+    <div class="pref-image-card-img-wrap">
+      <img
+        class="pref-image-card-img"
+        src="/src/assets/meals/pref-latin-american.jpg"
+        alt="Latin American cuisine"
+      >
+      <div class="pref-image-card-check">
+        <i class="fa-solid fa-check text-white text-sm"></i>
+      </div>
+    </div>
+    <span class="pref-image-card-label">Latin American</span>
+  </label>
+
+  <!-- No preference option -->
+  <label class="pref-image-card">
+    <input type="checkbox" name="food-pref" value="no-preference" class="sr-only" id="pref-none">
+    <div class="pref-image-card-img-wrap pref-image-card-img-wrap-plain">
+      <i class="fa-regular fa-circle-dot text-gray-300 text-3xl"></i>
+      <div class="pref-image-card-check">
+        <i class="fa-solid fa-check text-white text-sm"></i>
+      </div>
+    </div>
+    <span class="pref-image-card-label">No preference</span>
+  </label>
+
+</div>

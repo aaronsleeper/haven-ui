@@ -1,243 +1,573 @@
-# Task 02: Mobile Bottom Nav + Onboarding Progress Indicator
+# Task 03: Patient-Specific Components — CSS + Pattern Library
 
 ## Scope
-Pattern library + CSS + Partial. No app page work in this task.
+Pattern library + CSS only. No app page work in this task.
 
 ## Context
-Two more foundational components before any screen is built:
-1. `mobile-bottom-nav` — the fixed four-tab bar that appears on all post-onboarding screens
-2. `onb-progress` — the "Step N of 3" indicator on the onboarding screens
+This task adds the seven patient-app-specific semantic class groups that app screens (Tasks 04–09) will use. All must exist in `components.css` and have a matching pattern library file before any screen references them.
 
-The bottom nav will become a shared partial (`src/partials/patient-bottom-nav.html`) that the agent copies and modifies per screen to set the active tab. The progress indicator is a simple single class used inline.
+The seven components:
+1. `meal-card` — horizontal meal photo + info card (MEALS-01)
+2. `delivery-status-card` — large centered status display (MEALS-02)
+3. `message-bubble-out` / `message-bubble-in` + related — SMS-style chat bubbles (CARE-01)
+4. `feedback-rating-card` + `feedback-rating-fieldset` — large tap-target rating option (CARE-02)
+5. `pref-image-card` + related — visual checkbox card for food preferences (ONB-03, PROFILE-01)
+
+Read the spec files in `apps/patient/design/new-components/` before writing any CSS. The specs contain exact `@apply` definitions — use them verbatim. Do not invent variants or add properties not listed.
 
 ## Prerequisites
-- Task 01 complete (`mobile-app`, `mobile-shell`, `mobile-i18n-bar`, `mobile-i18n-toggle` exist in `components.css`)
+- Task 01 complete (`mobile-app`, `mobile-shell`, `mobile-i18n-bar`, `mobile-i18n-toggle` in `components.css`)
+- Task 02 complete (`mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge`, `onb-progress` in `components.css`)
 
 ## Files to Read First
-- `src/styles/tokens/components.css` — confirm Tasks 01 classes are present; find the right insertion point for new classes
-- `pattern-library/COMPONENT-INDEX.md` — confirm no existing bottom nav or onboarding progress component
-- `src/partials/` — list existing partials; confirm `patient-i18n-bar.html` exists from Task 01
-- `.project-docs/decisions-log.md` — review active rules
+- `apps/patient/design/new-components/meal-card.md`
+- `apps/patient/design/new-components/delivery-status-card.md`
+- `apps/patient/design/new-components/message-bubble.md`
+- `apps/patient/design/new-components/feedback-rating.md`
+- `apps/patient/design/new-components/pref-image-card.md`
+- `src/styles/tokens/components.css` — find the end of the file for insertion point; confirm no conflicts with existing class names
+- `pattern-library/COMPONENT-INDEX.md` — confirm no existing entries for these components
+- `.project-docs/decisions-log.md` — review active rules before writing any CSS
 
 ## Instructions
 
-### Step 1: Add semantic classes to components.css
+### Step 1: Add all new semantic classes to components.css
 
-Open `src/styles/tokens/components.css`. Add the following block immediately after the `/* MOBILE i18n BAR */` section added in Task 01. Do NOT modify any existing rules.
+Open `src/styles/tokens/components.css`. Add the following block at the end of the file, after all existing content. Add each section in order. Use exact `@apply` definitions from the spec files.
 
 ```css
 /* ===================================
-   MOBILE BOTTOM NAV (Patient App)
+   PATIENT APP — MEAL CARD
    =================================== */
 
-/* Fixed four-tab bar — present on all post-onboarding screens */
-.mobile-bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-4 bg-white border-t border-gray-200 shadow-lg;
-  max-width: 430px;
-  margin-inline: auto;
-  padding-bottom: env(safe-area-inset-bottom);
+.meal-card {
+  @apply flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
   @apply dark:bg-neutral-900 dark:border-neutral-700;
 }
 
-/* Individual tab item — <a> or <button> */
-.mobile-bottom-nav-tab {
-  @apply flex flex-col items-center justify-center gap-1 py-2 text-gray-400 text-xs font-medium;
-  @apply hover:text-primary-600 dark:text-neutral-500 dark:hover:text-primary-400;
-  min-height: 64px;
-  text-decoration: none;
+.meal-card-img {
+  @apply size-20 rounded-lg object-cover shrink-0 bg-stone-100;
+}
+
+.meal-card-body {
+  @apply flex flex-col gap-1 flex-1 min-w-0;
+}
+
+.meal-card-name {
+  @apply text-sm font-medium text-gray-900 leading-snug;
+  @apply dark:text-neutral-100;
+}
+
+.meal-card-day {
+  @apply text-xs text-gray-500;
+  @apply dark:text-neutral-400;
+}
+
+.meal-card-tags {
+  @apply flex flex-wrap gap-1 mt-0.5;
+}
+
+.meal-card-swap {
+  @apply text-sm text-primary-600 font-medium text-left mt-1;
+  @apply hover:text-primary-700 dark:text-primary-400;
   background: none;
   border: none;
+  padding: 0;
   cursor: pointer;
 }
 
-.mobile-bottom-nav-tab i {
-  @apply text-xl;
-}
-
-/* Active tab — applied to the tab matching the current screen */
-.mobile-bottom-nav-tab.active {
-  @apply text-primary-600 dark:text-primary-400;
-}
-
-/* Unread count badge — positioned on the Care Team tab icon */
-.mobile-bottom-nav-badge {
-  @apply absolute -top-1.5 -right-2.5 flex items-center justify-center;
-  @apply bg-error-500 text-white font-bold rounded-full;
-  @apply dark:bg-error-600;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 3px;
-  font-size: 10px;
+/* Hide swap button after a meal has been swapped */
+.meal-card.is-swapped .meal-card-swap {
+  display: none;
 }
 
 /* ===================================
-   ONBOARDING PROGRESS (Patient App)
+   PATIENT APP — DELIVERY STATUS CARD
    =================================== */
 
-/* "Step N of 3" indicator on onboarding screens */
-.onb-progress {
-  @apply block text-sm text-gray-500 text-center mt-4 mb-2;
+.delivery-status-card {
+  @apply card mx-4;
+}
+
+.delivery-status-top {
+  @apply flex flex-col items-center text-center p-6 gap-2;
+}
+
+.delivery-status-icon {
+  @apply text-5xl mb-1;
+}
+
+.delivery-status-label {
+  @apply text-xl font-semibold text-gray-900;
+  font-family: var(--font-serif);
+  @apply dark:text-neutral-100;
+}
+
+.delivery-status-timing {
+  @apply text-sm text-gray-500;
   @apply dark:text-neutral-400;
+}
+
+.delivery-status-divider {
+  @apply border-t border-gray-200 mx-4;
+  @apply dark:border-neutral-700;
+}
+
+.delivery-summary {
+  @apply p-4 flex flex-col gap-1;
+}
+
+.delivery-summary-label {
+  @apply text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1;
+  @apply dark:text-neutral-400;
+}
+
+.delivery-summary-count {
+  @apply text-sm font-medium text-gray-900;
+  @apply dark:text-neutral-100;
+}
+
+.delivery-summary-list {
+  @apply text-sm text-gray-600 space-y-0.5 list-none pl-0;
+  @apply dark:text-neutral-400;
+}
+
+/* ===================================
+   PATIENT APP — MESSAGE BUBBLES
+   =================================== */
+
+/* Outgoing (patient) bubble — right-aligned */
+.message-bubble-out {
+  @apply bg-primary-500 text-white rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
+  border-bottom-right-radius: 4px;
+  @apply dark:bg-primary-600;
+}
+
+/* Incoming (care team) bubble — left-aligned */
+.message-bubble-in {
+  @apply bg-gray-100 text-gray-900 rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
+  border-bottom-left-radius: 4px;
+  @apply dark:bg-neutral-800 dark:text-neutral-100;
+}
+
+/* Sender label — appears above first bubble in a consecutive group */
+.message-sender-label {
+  @apply text-xs text-gray-500 mb-1;
+  @apply dark:text-neutral-400;
+}
+
+/* Date separator between day groups */
+.message-date-sep {
+  @apply text-xs text-gray-400 text-center py-2;
+  @apply dark:text-neutral-500;
+}
+
+/* Timestamp below a bubble */
+.message-timestamp {
+  @apply text-xs text-gray-400 mt-1;
+  @apply dark:text-neutral-500;
+}
+
+/* Floating "new message" pill — sits above compose bar when new messages arrive */
+/* Bottom offset: 64px nav + 64px compose = 128px */
+.message-new-pill {
+  @apply fixed left-1/2 -translate-x-1/2 z-30;
+  @apply bg-primary-500 text-white rounded-full text-sm px-3 flex items-center gap-1.5 shadow-md;
+  @apply dark:bg-primary-600;
+  bottom: 136px;
+  height: 32px;
+}
+
+/* ===================================
+   PATIENT APP — FEEDBACK RATING CARD
+   =================================== */
+
+/* Fieldset wrapper — strips default fieldset border/padding for the rating row */
+.feedback-rating-fieldset {
+  @apply border-0 p-0 space-y-2;
+}
+
+/* Individual rating option card — wraps a sr-only radio input */
+.feedback-rating-card {
+  @apply flex flex-col items-center justify-center gap-2 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer;
+  @apply hover:border-primary-300 hover:bg-primary-50;
+  @apply dark:bg-neutral-900 dark:border-neutral-700;
+  min-height: 80px;
+}
+
+/* Selected state via :has() — supported in all modern browsers */
+.feedback-rating-card:has(input:checked) {
+  @apply border-primary-500 bg-primary-50;
+  @apply dark:border-primary-600 dark:bg-primary-900/20;
+}
+
+.feedback-rating-card span {
+  @apply text-xs font-medium text-gray-700;
+  @apply dark:text-neutral-300;
+}
+
+.feedback-rating-card i {
+  @apply text-2xl text-gray-400;
+}
+
+.feedback-rating-card:has(input:checked) i {
+  @apply text-primary-600;
+  @apply dark:text-primary-400;
+}
+
+.feedback-rating-card:has(input:checked) span {
+  @apply text-primary-700 dark:text-primary-300;
+}
+
+/* ===================================
+   PATIENT APP — PREFERENCE IMAGE CARD
+   =================================== */
+
+/* Outer label wrapper — makes full card tappable */
+.pref-image-card {
+  @apply flex flex-col items-center gap-2 cursor-pointer;
+}
+
+/* Square image container with border that highlights on selection */
+.pref-image-card-img-wrap {
+  @apply relative w-full aspect-square rounded-lg overflow-hidden bg-stone-100 border-2 border-transparent transition-all;
+}
+
+/* Selected: primary border on image wrap */
+.pref-image-card:has(input:checked) .pref-image-card-img-wrap {
+  @apply border-primary-500;
+}
+
+/* Fills image wrap */
+.pref-image-card-img {
+  @apply w-full h-full object-cover;
+}
+
+/* Checkmark overlay — hidden by default, fades in on selection */
+.pref-image-card-check {
+  @apply absolute inset-0 flex items-center justify-center bg-primary-600/60 opacity-0 transition-opacity;
+}
+
+.pref-image-card:has(input:checked) .pref-image-card-check {
+  @apply opacity-100;
+}
+
+/* Label below the image */
+.pref-image-card-label {
+  @apply text-xs font-medium text-gray-700 text-center;
+  @apply dark:text-neutral-300;
+}
+
+.pref-image-card:has(input:checked) .pref-image-card-label {
+  @apply text-primary-600 dark:text-primary-400;
+}
+
+/* "No preference" plain variant — no photo, centered icon instead */
+.pref-image-card-img-wrap-plain {
+  @apply flex items-center justify-center;
 }
 ```
 
 **Known Constraints (from decisions-log.md):**
-- The base `button` element rule must not set size or color. `.mobile-bottom-nav-tab` sets its own padding and colors via the class — correct pattern.
-- Any class using only raw CSS properties must include `@apply block;` as its first line. `.onb-progress` uses `@apply` so it is safe. The `min-height`, `padding-bottom env(...)`, `min-width`, `height`, `padding`, `font-size` raw properties inside classed rules are fine — they live on classes that also have `@apply` directives.
+- The base `button` element rule must not set size or color. `.meal-card-swap` adds `background: none; border: none; padding: 0;` as raw CSS to suppress button defaults — this is correct; the class owns these overrides.
+- `.delivery-status-card` uses `@apply card mx-4` — this is correct composition using an existing semantic class.
+- The `border-bottom-right-radius: 4px` and `border-bottom-left-radius: 4px` on message bubbles are raw CSS overriding the Tailwind `rounded-2xl` on specific corners — this is intentional and does not need `@apply block` (those rules are inside classed selectors that already have `@apply`).
+- `.feedback-rating-card:has(input:checked)` — `:has()` is supported in all modern browsers as of 2024. Do not add a fallback.
+- Nested border radii: `.meal-card` uses `rounded-xl` (parent), `.meal-card-img` uses `rounded-lg` (inner) — follows the nested border radius reduction rule from decisions-log.md. ✓
 
-### Step 2: Create the bottom nav partial
+### Step 2: Create the pref-image-card mutual exclusivity JS
 
-Create `src/partials/patient-bottom-nav.html` with this exact content:
+Create `src/scripts/components/pref-image-cards.js`:
 
-```html
-<!-- Patient App: Bottom Navigation Bar -->
-<!-- Include on all post-onboarding screens (NOT on onboarding screens) -->
-<!-- Set the .active class and aria-current="page" on the correct tab per screen -->
-<nav class="mobile-bottom-nav" aria-label="Main navigation">
+```javascript
+/**
+ * pref-image-cards.js — Food preference image card selection
+ * Enforces mutual exclusivity between "No preference" and cuisine options.
+ * Include on ONB-03 and PROFILE-01.
+ */
+(function () {
+  'use strict';
 
-  <a href="/apps/patient/meals/index.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Meals">
-    <i class="fa-solid fa-bowl-food"></i>
-    <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
-  </a>
+  document.addEventListener('DOMContentLoaded', function () {
+    var noPref = document.getElementById('pref-none');
+    var otherPrefs = document.querySelectorAll('input[name="food-pref"]:not(#pref-none)');
 
-  <a href="/apps/patient/deliveries/index.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Delivery">
-    <i class="fa-solid fa-truck"></i>
-    <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
-  </a>
+    if (!noPref) return;
 
-  <a href="/apps/patient/care-team/messages.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Care Team, 2 unread messages">
-    <span class="relative inline-flex">
-      <i class="fa-solid fa-comments"></i>
-      <span class="mobile-bottom-nav-badge">2</span>
-    </span>
-    <span data-i18n-en="Care Team" data-i18n-es="Mi Equipo">Care Team</span>
-  </a>
+    noPref.addEventListener('change', function () {
+      if (this.checked) {
+        otherPrefs.forEach(function (cb) { cb.checked = false; });
+      }
+    });
 
-  <a href="/apps/patient/profile/index.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Profile">
-    <i class="fa-solid fa-circle-user"></i>
-    <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
-  </a>
-
-</nav>
+    otherPrefs.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        if (this.checked) { noPref.checked = false; }
+      });
+    });
+  });
+})();
 ```
 
-**Note for the agent building app screens (Tasks 04–09):** When including this partial in a screen, copy it and add `class="mobile-bottom-nav-tab active"` and `aria-current="page"` to the correct tab for that screen. Do not use JavaScript to set the active state — set it statically in the HTML per screen.
+### Step 3: Create all seven pattern library files
 
-### Step 3: Create pattern library files
+Create each file exactly as specified below.
 
-Create `pattern-library/components/layout-mobile-bottom-nav.html`:
+---
+
+**`pattern-library/components/patient-meal-card.html`:**
 
 ```html
 <!--
 @component-meta
-name: Mobile Bottom Nav
-category: Layout
-classes: mobile-bottom-nav, mobile-bottom-nav-tab, mobile-bottom-nav-tab.active, mobile-bottom-nav-badge
+name: Meal Card
+category: Patient App
+classes: meal-card, meal-card-img, meal-card-body, meal-card-name, meal-card-day, meal-card-tags, meal-card-swap, meal-card.is-swapped
 preline: false
-description: Fixed four-tab bottom navigation bar for the patient app. Present on all post-onboarding screens. Shared partial: src/partials/patient-bottom-nav.html. Copy partial and set .active + aria-current="page" on the correct tab per screen. Badge on Care Team tab shows unread count; hide with display:none when count is 0.
+description: Horizontal card showing a meal photo, name, day, diet tag badges, and optional swap link. Used in the weekly meals list (MEALS-01) and swap bottom sheet (omit .meal-card-swap in the sheet). Add .is-swapped to hide swap button and show a Swapped badge after substitution. Missing images show bg-stone-100 placeholder via CSS.
 -->
 
-<nav class="mobile-bottom-nav" aria-label="Main navigation">
+<!-- Default state -->
+<div class="meal-card">
+  <img
+    class="meal-card-img"
+    src="/src/assets/meals/chicken-verde.jpg"
+    alt="Chicken Verde with cilantro rice and black beans"
+  >
+  <div class="meal-card-body">
+    <p class="meal-card-name">Chicken Verde</p>
+    <p class="meal-card-day">Monday</p>
+    <div class="meal-card-tags">
+      <span class="badge badge-info badge-pill">Low sodium</span>
+      <span class="badge badge-secondary badge-pill">Diabetic-friendly</span>
+    </div>
+    <button class="meal-card-swap" aria-label="Swap Chicken Verde">Swap meal</button>
+  </div>
+</div>
 
-  <!-- Meals tab (active example) -->
-  <a href="/apps/patient/meals/index.html"
-     class="mobile-bottom-nav-tab active"
-     aria-current="page"
-     aria-label="Meals">
-    <i class="fa-solid fa-bowl-food"></i>
-    <span>Meals</span>
-  </a>
-
-  <!-- Delivery tab -->
-  <a href="/apps/patient/deliveries/index.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Delivery">
-    <i class="fa-solid fa-truck"></i>
-    <span>Delivery</span>
-  </a>
-
-  <!-- Care Team tab with unread badge -->
-  <a href="/apps/patient/care-team/messages.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Care Team, 2 unread messages">
-    <span class="relative inline-flex">
-      <i class="fa-solid fa-comments"></i>
-      <span class="mobile-bottom-nav-badge">2</span>
-    </span>
-    <span>Care Team</span>
-  </a>
-
-  <!-- Profile tab -->
-  <a href="/apps/patient/profile/index.html"
-     class="mobile-bottom-nav-tab"
-     aria-label="Profile">
-    <i class="fa-solid fa-circle-user"></i>
-    <span>Profile</span>
-  </a>
-
-</nav>
+<!-- Swapped state (add .is-swapped; swap button hidden; badge added) -->
+<div class="meal-card is-swapped mt-3">
+  <img
+    class="meal-card-img"
+    src="/src/assets/meals/grilled-tilapia.jpg"
+    alt="Grilled Tilapia with mango salsa"
+  >
+  <div class="meal-card-body">
+    <p class="meal-card-name">Grilled Tilapia
+      <span class="badge badge-success badge-pill ms-1">Swapped</span>
+    </p>
+    <p class="meal-card-day">Monday</p>
+    <div class="meal-card-tags">
+      <span class="badge badge-info badge-pill">Heart-healthy</span>
+    </div>
+    <button class="meal-card-swap" aria-label="Swap Grilled Tilapia">Swap meal</button>
+  </div>
+</div>
 ```
 
-Create `pattern-library/components/layout-onb-progress.html`:
+---
+
+**`pattern-library/components/patient-delivery-status-card.html`:**
 
 ```html
 <!--
 @component-meta
-name: Onboarding Progress Indicator
-category: Layout
-classes: onb-progress
+name: Delivery Status Card
+category: Patient App
+classes: delivery-status-card, delivery-status-top, delivery-status-icon, delivery-status-label, delivery-status-timing, delivery-status-divider, delivery-summary, delivery-summary-label, delivery-summary-count, delivery-summary-list
 preline: false
-description: "Step N of 3" text indicator for onboarding screens. Set aria-label to the full readable string. Inner spans carry data-i18n-en/es attributes for language toggle support.
+description: Large-format card showing current delivery status. Three states driven by JS reading URLSearchParams: preparing (default), delivering, delivered. Change icon class and color token class per state. See MEALS-02 spec for state table.
 -->
 
-<!-- Step 1 of 3 example -->
-<p class="onb-progress" aria-label="Step 1 of 3">
-  <span data-i18n-en="Step" data-i18n-es="Paso">Step</span>
-  1
-  <span data-i18n-en="of" data-i18n-es="de">of</span>
-  3
-</p>
+<!-- Preparing state (default) -->
+<div class="delivery-status-card">
+  <div class="delivery-status-top">
+    <i class="fa-solid fa-kitchen-set delivery-status-icon text-warning-500"></i>
+    <p class="delivery-status-label">Getting your meals ready</p>
+    <p class="delivery-status-timing">Arriving between 10am – 2pm</p>
+  </div>
+  <hr class="delivery-status-divider">
+  <div class="delivery-summary">
+    <p class="delivery-summary-label">What's coming</p>
+    <p class="delivery-summary-count">5 meals</p>
+    <ul class="delivery-summary-list">
+      <li>Chicken Verde</li>
+      <li>Black Bean Tacos</li>
+      <li>Lemon Herb Salmon</li>
+    </ul>
+    <a href="/apps/patient/meals/index.html" class="text-link text-sm mt-1">See all meals</a>
+  </div>
+</div>
+```
+
+---
+
+**`pattern-library/components/patient-message-bubble.html`:**
+
+```html
+<!--
+@component-meta
+name: Message Bubble
+category: Patient App
+classes: message-bubble-out, message-bubble-in, message-sender-label, message-date-sep, message-timestamp, message-new-pill
+preline: false
+description: SMS-style chat bubbles for the patient messaging screen (CARE-01). Outgoing (patient) is right-aligned; incoming (care team) is left-aligned. Sender label appears above the first bubble in a consecutive group only. Date separator between day groups. New message pill floats above the compose bar.
+-->
+
+<!-- Date separator -->
+<div class="message-date-sep">Today</div>
+
+<!-- Incoming message (care team) -->
+<div class="flex flex-col items-start mb-3">
+  <p class="message-sender-label">Your dietitian</p>
+  <div class="message-bubble-in">
+    Hi Maria! Your meals for next week are all set. Let me know if you have any questions.
+  </div>
+  <p class="message-timestamp">9:14 AM</p>
+</div>
+
+<!-- Outgoing message (patient) -->
+<div class="flex flex-col items-end mb-3">
+  <div class="message-bubble-out">
+    Thanks! Can I swap the salmon for something else?
+  </div>
+  <p class="message-timestamp">9:16 AM</p>
+</div>
+
+<!-- New message pill (shown when patient has scrolled up) -->
+<button class="message-new-pill" aria-live="polite">
+  <i class="fa-solid fa-arrow-down text-xs"></i>
+  New message
+</button>
+```
+
+---
+
+**`pattern-library/components/patient-feedback-rating.html`:**
+
+```html
+<!--
+@component-meta
+name: Feedback Rating Card
+category: Patient App
+classes: feedback-rating-fieldset, feedback-rating-card
+preline: false
+description: Large tap-target rating option for the meal feedback screen (CARE-02). Three cards in a grid-cols-3 row. Radio input is sr-only; the label is the tap target. Selected state driven by :has(input:checked). Icon + text label always present.
+-->
+
+<fieldset class="feedback-rating-fieldset">
+  <legend>Overall, how were your meals this week?</legend>
+  <div class="grid grid-cols-3 gap-2">
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="good" class="sr-only">
+      <i class="fa-solid fa-thumbs-up"></i>
+      <span>Good</span>
+    </label>
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="okay" class="sr-only">
+      <i class="fa-solid fa-face-meh"></i>
+      <span>Okay</span>
+    </label>
+
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="bad" class="sr-only">
+      <i class="fa-solid fa-thumbs-down"></i>
+      <span>Not good</span>
+    </label>
+
+  </div>
+</fieldset>
+```
+
+---
+
+**`pattern-library/components/patient-pref-image-card.html`:**
+
+```html
+<!--
+@component-meta
+name: Preference Image Card
+category: Patient App
+classes: pref-image-card, pref-image-card-img-wrap, pref-image-card-img, pref-image-card-check, pref-image-card-label, pref-image-card-img-wrap-plain
+preline: false
+description: Visual checkbox card for cultural food preference selection. Used in ONB-03 and PROFILE-01. Checkbox is sr-only; label is the full tap target. "No preference" uses pref-image-card-img-wrap-plain (icon instead of photo). Mutual exclusivity JS: src/scripts/components/pref-image-cards.js. Grid layout: grid grid-cols-2 gap-3 on the parent container.
+-->
+
+<div class="grid grid-cols-2 gap-3">
+
+  <!-- Cuisine option -->
+  <label class="pref-image-card">
+    <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
+    <div class="pref-image-card-img-wrap">
+      <img
+        class="pref-image-card-img"
+        src="/src/assets/meals/pref-latin-american.jpg"
+        alt="Latin American cuisine"
+      >
+      <div class="pref-image-card-check">
+        <i class="fa-solid fa-check text-white text-sm"></i>
+      </div>
+    </div>
+    <span class="pref-image-card-label">Latin American</span>
+  </label>
+
+  <!-- No preference option -->
+  <label class="pref-image-card">
+    <input type="checkbox" name="food-pref" value="no-preference" class="sr-only" id="pref-none">
+    <div class="pref-image-card-img-wrap pref-image-card-img-wrap-plain">
+      <i class="fa-regular fa-circle-dot text-gray-300 text-3xl"></i>
+      <div class="pref-image-card-check">
+        <i class="fa-solid fa-check text-white text-sm"></i>
+      </div>
+    </div>
+    <span class="pref-image-card-label">No preference</span>
+  </label>
+
+</div>
 ```
 
 ### Step 4: Update COMPONENT-INDEX.md
 
-Add these two rows to the **Layout** table in `pattern-library/COMPONENT-INDEX.md`, after the two rows added in Task 01:
+Add a new **Patient App** section at the bottom of `pattern-library/COMPONENT-INDEX.md`, before the "Meal Assignment Grid (Kitchen-Specific)" section:
 
-```
-| Mobile Bottom Nav | `layout-mobile-bottom-nav.html` | `mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge` | no | Patient app only. Shared partial: `src/partials/patient-bottom-nav.html`. Copy + set `.active` per screen. |
-| Onboarding Progress | `layout-onb-progress.html` | `onb-progress` | no | Patient app only. Used on ONB-01, 02, 03. Set `aria-label="Step N of 3"`. |
+```markdown
+---
+
+## Patient App
+
+| Component | File | Classes | Preline | Notes |
+|---|---|---|---|---|
+| Meal Card | `patient-meal-card.html` | `meal-card`, `meal-card-img`, `meal-card-body`, `meal-card-name`, `meal-card-day`, `meal-card-tags`, `meal-card-swap`, `meal-card.is-swapped` | no | Add `.is-swapped` after swap. Missing images show `bg-stone-100` placeholder. |
+| Delivery Status Card | `patient-delivery-status-card.html` | `delivery-status-card`, `delivery-status-top`, `delivery-status-icon`, `delivery-status-label`, `delivery-status-timing`, `delivery-status-divider`, `delivery-summary`, `delivery-summary-label`, `delivery-summary-count`, `delivery-summary-list` | no | Three states (preparing/delivering/delivered) driven by JS URL param. |
+| Message Bubble | `patient-message-bubble.html` | `message-bubble-out`, `message-bubble-in`, `message-sender-label`, `message-date-sep`, `message-timestamp`, `message-new-pill` | no | Right-align outgoing with `flex flex-col items-end`; left-align incoming with `items-start`. |
+| Feedback Rating Card | `patient-feedback-rating.html` | `feedback-rating-fieldset`, `feedback-rating-card` | no | Uses `:has(input:checked)` for selected state. Three cards in `grid grid-cols-3 gap-2`. |
+| Preference Image Card | `patient-pref-image-card.html` | `pref-image-card`, `pref-image-card-img-wrap`, `pref-image-card-img`, `pref-image-card-check`, `pref-image-card-label`, `pref-image-card-img-wrap-plain` | no | Mutual exclusivity JS: `src/scripts/components/pref-image-cards.js`. Grid: `grid grid-cols-2 gap-3`. |
 ```
 
 ## Expected Result
 After this task:
-- `components.css` contains `.mobile-bottom-nav`, `.mobile-bottom-nav-tab`, `.mobile-bottom-nav-tab.active`, `.mobile-bottom-nav-badge`, `.onb-progress` with dark mode variants
-- `src/partials/patient-bottom-nav.html` exists (no active tab set — that is per-screen)
-- `pattern-library/components/layout-mobile-bottom-nav.html` exists with `@component-meta` header
-- `pattern-library/components/layout-onb-progress.html` exists with `@component-meta` header
-- `COMPONENT-INDEX.md` has two new rows in the Layout table
-
-No app pages are built in this task.
+- `components.css` has five new sections covering all patient-specific component classes with dark mode
+- `src/scripts/components/pref-image-cards.js` exists
+- Five pattern library files exist with `@component-meta` headers
+- `COMPONENT-INDEX.md` has a new "Patient App" section with five rows
+- No app pages exist yet — Tasks 04–09 build those
 
 ## Verification
-- [ ] `.mobile-bottom-nav` is `position: fixed`, `grid-cols-4`, `max-width: 430px`, `padding-bottom: env(safe-area-inset-bottom)` with dark mode
-- [ ] `.mobile-bottom-nav-tab` min-height is 64px (exceeds 44px WCAG touch target minimum)
-- [ ] `.mobile-bottom-nav-tab.active` applies `text-primary-600` (not a background fill)
-- [ ] `.mobile-bottom-nav-badge` is `position: absolute` — confirm parent `<span>` uses `relative inline-flex` in the partial (not on the class itself)
-- [ ] `.onb-progress` has `@apply` (not raw-CSS-only — no `@apply block` workaround needed, but confirm)
-- [ ] `src/partials/patient-bottom-nav.html` exists; no `.active` class set (left for per-screen customization)
-- [ ] Both pattern library files exist with `@component-meta` headers
-- [ ] `COMPONENT-INDEX.md` has both new rows in the Layout table
-- [ ] HTML classes in pattern library files are semantic — no utility chains in component styling
-- [ ] Dark mode variants present on all new classes
-- [ ] `ANDREY-README.md` updated with bottom nav tab active state convention and badge hide/show pattern (yes — Andrey needs this for Angular router `routerLinkActive`)
+- [ ] All five CSS sections present in `components.css` — confirm by searching for `.meal-card`, `.delivery-status-card`, `.message-bubble-out`, `.feedback-rating-card`, `.pref-image-card`
+- [ ] `.delivery-status-card` uses `@apply card mx-4` (composition with existing `.card`) — not a duplicate card definition
+- [ ] `.meal-card-swap` has `background: none; border: none; padding: 0;` (suppresses base button defaults)
+- [ ] `.feedback-rating-card:has(input:checked)` is present (not a JS class-toggle fallback)
+- [ ] `.message-new-pill` has `bottom: 136px` (not `bottom-[128px]` utility — raw CSS here)
+- [ ] `.feedback-rating-fieldset` has `@apply border-0 p-0` to suppress default fieldset styling
+- [ ] Dark mode variants present on all classes that use color, background, or border
+- [ ] `src/scripts/components/pref-image-cards.js` exists
+- [ ] All five pattern library files exist with `@component-meta` headers
+- [ ] `COMPONENT-INDEX.md` has a new "Patient App" section with five component rows
+- [ ] HTML in pattern library files uses semantic classes — no utility chains for component styling
+- [ ] Nested border radii follow the decisions-log rule: `.meal-card` (`rounded-xl`) > `.meal-card-img` (`rounded-lg`) ✓
+- [ ] `ANDREY-README.md` updated with new patient component classes (yes — Andrey needs the full class list for Angular templates)
 - [ ] `src/data/_schema-notes.md` not affected
 
 ## Completion Report
@@ -245,13 +575,12 @@ No app pages are built in this task.
 After all verification passes, output:
 
 ```
-## Completion Report — Task 02: Mobile Bottom Nav + Onboarding Progress
+## Completion Report — Task 03: Patient-Specific Components
 
-- New semantic classes added to components.css: [list]
+- New semantic classes added to components.css: [full list]
 - Existing classes modified: none
-- Pattern library files created: [list]
-- Partials created: src/partials/patient-bottom-nav.html
-- Scripts created: none
+- Pattern library files created: [list of 5 files]
+- Scripts created: src/scripts/components/pref-image-cards.js
 - Judgment calls: [any]
 - Dark mode added: yes
 - ANDREY-README.md updated: yes
@@ -262,10 +591,10 @@ After all verification passes, output:
 Then run:
 ```
 git add -A
-git commit -m "task 02: mobile bottom nav and onboarding progress indicator"
+git commit -m "task 03: patient app component classes and pattern library entries"
 ```
 
 ## If Something Goes Wrong
-- If `.mobile-bottom-nav-badge` positioning looks off: confirm the parent `<span>` in the HTML has `class="relative inline-flex"`. The badge itself uses `position: absolute` via the class, but needs a positioned ancestor — that is handled in the HTML structure, not the CSS class.
-- If `env(safe-area-inset-bottom)` causes a lint warning: it is valid CSS for iOS home indicator clearance. Keep it.
-- If the nav appears wider than 430px on desktop: confirm `max-width: 430px; margin-inline: auto;` is present in `.mobile-bottom-nav` (mirrors `mobile-shell` constraint).
+- If `.delivery-status-card { @apply card mx-4; }` causes a build error because `card` is not resolved: confirm `components.css` is being processed after the `.card` class definition. Both live in the same file, so order matters — the `.card` definition must appear before `.delivery-status-card`. If needed, move the new patient sections to the very end of the file (after `.card` is defined).
+- If `:has()` selector causes a CSS parse warning: it is valid in all modern browsers. Ignore warnings from older linters. Do not replace with a JS fallback.
+- If `@apply border-0` inside `.feedback-rating-fieldset` conflicts with the global `fieldset` rule (which applies `border border-gray-200`): the class selector `.feedback-rating-fieldset` has higher specificity than the element selector `fieldset` and will win. No workaround needed.

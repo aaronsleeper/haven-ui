@@ -22,7 +22,7 @@
 | # | Task | Scope | Files Modified | Depends On | Status |
 |---|------|-------|----------------|------------|--------|
 | 01 | Mobile shell + i18n system | Pattern + CSS + Partial + JS | `components.css`, `pattern-library/`, `src/partials/patient-i18n-bar.html`, `src/scripts/components/i18n.js` | — | ✅ |
-| 02 | Bottom nav + onboarding progress | Pattern + CSS + Partial | `components.css`, `pattern-library/`, `src/partials/patient-bottom-nav.html` | 01 | ☐ |
+| 02 | Bottom nav + onboarding progress | Pattern + CSS + Partial | `components.css`, `pattern-library/`, `src/partials/patient-bottom-nav.html` | 01 | ✅ |
 | 03 | Patient-specific components in CSS + pattern library | Pattern + CSS | `components.css`, `pattern-library/` (×7 new files) | 01 | ☐ |
 | 04 | Onboarding screens (ONB-01, 02, 03) | App | `apps/patient/onboarding/` (3 files) | 01, 02, 03 | ☐ |
 | 05 | Meals-01: Weekly Meals | App | `apps/patient/meals/index.html`, `src/scripts/components/meals.js` | 01, 02, 03 | ☐ |

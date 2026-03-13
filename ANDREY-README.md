@@ -336,6 +336,161 @@ The `.mobile-bottom-nav-badge` shows an unread count on the Care Team tab. Hide 
 
 ---
 
+## Patient App: Meal Card
+
+Horizontal card showing a meal photo, name, day label, diet tags, and optional swap link.
+
+```html
+<div class="meal-card">
+  <img class="meal-card-img" src="[photo]" alt="[meal description]">
+  <div class="meal-card-body">
+    <p class="meal-card-name">Chicken Verde</p>
+    <p class="meal-card-day">Monday</p>
+    <div class="meal-card-tags">
+      <span class="badge badge-info badge-pill">Low sodium</span>
+    </div>
+    <button class="meal-card-swap" aria-label="Swap Chicken Verde">Swap meal</button>
+  </div>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `meal-card` | `<div>` | Outer card wrapper |
+| `meal-card-img` | `<img>` | Photo thumbnail (80×80) |
+| `meal-card-body` | `<div>` | Right-side text stack |
+| `meal-card-name` | `<p>` | Meal name |
+| `meal-card-day` | `<p>` | Day label |
+| `meal-card-tags` | `<div>` | Tag row wrapper |
+| `meal-card-swap` | `<button>` | Swap link (text style) |
+| `meal-card.is-swapped` | modifier | Hides swap button after substitution |
+
+---
+
+## Patient App: Delivery Status Card
+
+Large-format card showing delivery status with icon, label, timing, and meal summary.
+
+```html
+<div class="delivery-status-card">
+  <div class="delivery-status-top">
+    <i class="fa-solid fa-kitchen-set delivery-status-icon text-warning-500"></i>
+    <p class="delivery-status-label">Getting your meals ready</p>
+    <p class="delivery-status-timing">Arriving between 10am – 2pm</p>
+  </div>
+  <hr class="delivery-status-divider">
+  <div class="delivery-summary">
+    <p class="delivery-summary-label">What's coming</p>
+    <p class="delivery-summary-count">5 meals</p>
+    <ul class="delivery-summary-list">
+      <li>Chicken Verde</li>
+    </ul>
+  </div>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `delivery-status-card` | `<div>` | Outer card (composes `.card` + `mx-4`) |
+| `delivery-status-top` | `<div>` | Centered icon + label area |
+| `delivery-status-icon` | `<i>` | Large status icon |
+| `delivery-status-label` | `<p>` | Status text (serif font) |
+| `delivery-status-timing` | `<p>` | Timing detail |
+| `delivery-status-divider` | `<hr>` | Horizontal rule |
+| `delivery-summary` | `<div>` | Meal summary section |
+| `delivery-summary-label` | `<p>` | Section label |
+| `delivery-summary-count` | `<p>` | Meal count |
+| `delivery-summary-list` | `<ul>` | Meal name list |
+
+---
+
+## Patient App: Message Bubbles
+
+SMS-style chat bubbles for patient messaging.
+
+```html
+<!-- Incoming -->
+<div class="flex flex-col items-start mb-3">
+  <p class="message-sender-label">Your dietitian</p>
+  <div class="message-bubble-in">Message text</div>
+  <p class="message-timestamp">9:14 AM</p>
+</div>
+
+<!-- Outgoing -->
+<div class="flex flex-col items-end mb-3">
+  <div class="message-bubble-out">Message text</div>
+  <p class="message-timestamp">9:16 AM</p>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `message-bubble-out` | `<div>` | Outgoing (patient) bubble, right-aligned |
+| `message-bubble-in` | `<div>` | Incoming (care team) bubble, left-aligned |
+| `message-sender-label` | `<p>` | Sender role label above incoming bubble |
+| `message-date-sep` | `<div>` | Date separator between day groups |
+| `message-timestamp` | `<p>` | Timestamp below bubble |
+| `message-new-pill` | `<button>` | Floating "new message" indicator |
+
+---
+
+## Patient App: Feedback Rating Card
+
+Large tap-target rating option cards (Good / Okay / Not good).
+
+```html
+<fieldset class="feedback-rating-fieldset">
+  <legend>Overall, how were your meals this week?</legend>
+  <div class="grid grid-cols-3 gap-2">
+    <label class="feedback-rating-card">
+      <input type="radio" name="overall-rating" value="good" class="sr-only">
+      <i class="fa-solid fa-thumbs-up"></i>
+      <span>Good</span>
+    </label>
+    <!-- repeat for okay, bad -->
+  </div>
+</fieldset>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `feedback-rating-fieldset` | `<fieldset>` | Strips default fieldset border/padding |
+| `feedback-rating-card` | `<label>` | Card wrapping sr-only radio input |
+
+Selected state uses `:has(input:checked)` — no JS class toggle needed.
+
+---
+
+## Patient App: Preference Image Card
+
+Visual checkbox card for cultural food preference selection.
+
+```html
+<label class="pref-image-card">
+  <input type="checkbox" name="food-pref" value="latin-american" class="sr-only">
+  <div class="pref-image-card-img-wrap">
+    <img class="pref-image-card-img" src="[photo]" alt="Latin American cuisine">
+    <div class="pref-image-card-check">
+      <i class="fa-solid fa-check text-white text-sm"></i>
+    </div>
+  </div>
+  <span class="pref-image-card-label">Latin American</span>
+</label>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `pref-image-card` | `<label>` | Outer tappable wrapper |
+| `pref-image-card-img-wrap` | `<div>` | Square image container with selection border |
+| `pref-image-card-img` | `<img>` | Cuisine photo |
+| `pref-image-card-check` | `<div>` | Checkmark overlay (visible on selection) |
+| `pref-image-card-label` | `<span>` | Label below image |
+| `pref-image-card-img-wrap-plain` | modifier | Icon-only variant for "No preference" |
+
+JS: `src/scripts/components/pref-image-cards.js` enforces mutual exclusivity between "No preference" and other options.
+
+---
+
 ## Questions / Updates
 
 If component HTML or class names change, the agent will update this file as part of the same task.

@@ -1,0 +1,28 @@
+<!--
+@component-meta
+name: Delivery Status Card
+category: Patient App
+classes: delivery-status-card, delivery-status-top, delivery-status-icon, delivery-status-label, delivery-status-timing, delivery-status-divider, delivery-summary, delivery-summary-label, delivery-summary-count, delivery-summary-list
+preline: false
+description: Large-format card showing current delivery status. Three states driven by JS reading URLSearchParams: preparing (default), delivering, delivered. Change icon class and color token class per state. See MEALS-02 spec for state table.
+-->
+
+<!-- Preparing state (default) -->
+<div class="delivery-status-card">
+  <div class="delivery-status-top">
+    <i class="fa-solid fa-kitchen-set delivery-status-icon text-warning-500"></i>
+    <p class="delivery-status-label">Getting your meals ready</p>
+    <p class="delivery-status-timing">Arriving between 10am – 2pm</p>
+  </div>
+  <hr class="delivery-status-divider">
+  <div class="delivery-summary">
+    <p class="delivery-summary-label">What's coming</p>
+    <p class="delivery-summary-count">5 meals</p>
+    <ul class="delivery-summary-list">
+      <li>Chicken Verde</li>
+      <li>Black Bean Tacos</li>
+      <li>Lemon Herb Salmon</li>
+    </ul>
+    <a href="/apps/patient/meals/index.html" class="text-link text-sm mt-1">See all meals</a>
+  </div>
+</div>
