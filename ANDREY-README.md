@@ -5,14 +5,60 @@ All styling uses semantic class names. Utility classes do not appear in componen
 
 ---
 
-## How to Use This Repo
+## Getting Started (Browse in a Browser)
+
+If you're pulling this repo to review progress on the patient app or any other screen,
+this is the fastest path to seeing it live.
+
+**Prerequisites:** Node.js 18+ and npm.
+
+```bash
+git pull
+npm install
+npm run dev
+```
+
+Vite starts at **http://localhost:5173** — open that in your browser.
+`strictPort: true` is set, so if port 5173 is already occupied, Vite will fail loudly
+rather than silently picking a different port. Free the port and retry.
+
+No build step is needed for local review. Hot reload is active — CSS and HTML changes
+appear in the browser immediately without refreshing.
+
+---
+
+## Patient App Screen Index
+
+All patient screens live under `apps/patient/`. Open them directly at:
+
+| Screen | URL |
+|---|---|
+| Patient dashboard | http://localhost:5173/apps/patient/index.html |
+| Meals | http://localhost:5173/apps/patient/meals/index.html |
+| Deliveries | http://localhost:5173/apps/patient/deliveries/index.html |
+| Care team messages | http://localhost:5173/apps/patient/care-team/messages.html |
+| Care team feedback | http://localhost:5173/apps/patient/care-team/feedback.html |
+| Profile | http://localhost:5173/apps/patient/profile/index.html |
+| Onboarding: Welcome | http://localhost:5173/apps/patient/onboarding/welcome.html |
+| Onboarding: Consent | http://localhost:5173/apps/patient/onboarding/consent.html |
+| Onboarding: Preferences | http://localhost:5173/apps/patient/onboarding/preferences.html |
+
+Patient screens are designed at 430px width (iPhone 14 viewport). In Chrome DevTools,
+use the device toolbar and set a custom size of 430 x 932 for the most accurate view.
+
+---
+
+## Angular Integration Notes
+
+### Compiled stylesheet
 
 1. `npm install` then `npm run build` to compile the theme to `dist/assets/haven-ui.css`
 2. Copy `dist/assets/haven-ui.css` to your Angular project
 3. Copy the HTML structure for any component you need (see sections below)
 4. FontAwesome Pro v7.1.0 is used for icons -- you will need the local copy at `src/vendor/fontawesome/`
 5. Preline UI JS is required for interactive components (dropdowns, modals, accordions, overlays)
-   CDN: `https://cdn.jsdelivr.net/npm/preline@2.6.0/dist/preline.min.js`
+   Load it once per page; in Angular it can go in `angular.json` scripts array:
+   `node_modules/preline/dist/preline.js`
 
 ---
 
