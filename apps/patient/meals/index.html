@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Meals — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.min.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[128px]">
+
+    <!-- i18n bar (copied from partial) -->
+    <div class="mobile-i18n-bar" role="navigation" aria-label="Language selection">
+      <button
+        class="mobile-i18n-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to Spanish"
+      >
+        <span id="lang-label" data-i18n-en="English" data-i18n-es="Español">English</span>
+        <i class="fa-solid fa-globe"></i>
+      </button>
+    </div>
+
+    <!-- Header zone -->
+    <div class="px-4 pt-20 pb-2">
+      <h1 class="text-2xl" style="font-family: var(--font-serif);">
+        <span data-i18n-en="Your Meals" data-i18n-es="Tus Comidas">Your Meals</span>
+      </h1>
+      <p class="text-sm text-gray-500 mt-1 subtitle-unconfirmed">
+        <span data-i18n-en="Confirm by Thursday at 5pm" data-i18n-es="Confirmar antes del jueves a las 5pm">Confirm by Thursday at 5pm</span>
+      </p>
+      <p class="text-sm text-gray-500 mt-1 subtitle-confirmed">
+        <span data-i18n-en="Confirmed for delivery Thursday, March 19" data-i18n-es="Confirmado para entrega el jueves 19 de marzo">Confirmed for delivery Thursday, March 19</span>
+      </p>
+    </div>
+
+    <!-- Status banner — unconfirmed -->
+    <div class="alert alert-warning mx-0 rounded-none mb-4 banner-unconfirmed" role="alert">
+      <i class="fa-solid fa-clock-rotate-left mr-2" aria-hidden="true"></i>
+      <span data-i18n-en="Please confirm your meals by Thursday at 5pm." data-i18n-es="Por favor confirma tus comidas antes del jueves a las 5pm.">Please confirm your meals by Thursday at 5pm.</span>
+    </div>
+
+    <!-- Status banner — confirmed -->
+    <div class="alert alert-success mx-0 rounded-none mb-4 banner-confirmed" role="alert">
+      <i class="fa-solid fa-circle-check mr-2" aria-hidden="true"></i>
+      <span data-i18n-en="Your meals are confirmed. Delivery on Thursday, March 19." data-i18n-es="Tus comidas están confirmadas. Entrega el jueves 19 de marzo.">Your meals are confirmed. Delivery on Thursday, March 19.</span>
+    </div>
+
+    <!-- Meal list -->
+    <div class="space-y-3 px-4">
+
+      <!-- Monday -->
+      <div class="meal-card">
+        <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+          <img src="https://images.unsplash.com/photo-1512058454903-4d8b520e7e8b?w=200&h=200&fit=crop&q=80"
+               alt="Chicken Verde Rice Bowl"
+               class="w-full h-full object-cover"
+               loading="lazy">
+        </div>
+        <div class="meal-card-body">
+          <p class="meal-card-day">
+            <span data-i18n-en="Monday" data-i18n-es="Lunes">Monday</span>
+          </p>
+          <p class="meal-card-name">Chicken Verde Rice Bowl</p>
+          <div class="meal-card-tags">
+            <span class="badge badge-primary badge-pill">Low Sodium</span>
+            <span class="badge badge-info badge-pill">High Protein</span>
+          </div>
+          <button class="meal-card-swap"
+                  aria-label="Swap Chicken Verde Rice Bowl"
+                  data-hs-overlay="#sheet-swap"
+                  data-meal="monday">
+            <span data-i18n-en="Swap meal" data-i18n-es="Cambiar comida">Swap meal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tuesday -->
+      <div class="meal-card">
+        <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+          <img src="https://images.unsplash.com/photo-1565299507177-b3b0a4b9b5d5?w=200&h=200&fit=crop&q=80"
+               alt="Black Bean Tacos"
+               class="w-full h-full object-cover"
+               loading="lazy">
+        </div>
+        <div class="meal-card-body">
+          <p class="meal-card-day">
+            <span data-i18n-en="Tuesday" data-i18n-es="Martes">Tuesday</span>
+          </p>
+          <p class="meal-card-name">Black Bean Tacos</p>
+          <div class="meal-card-tags">
+            <span class="badge badge-secondary badge-pill">Vegetarian</span>
+            <span class="badge badge-primary badge-pill">Low Sodium</span>
+          </div>
+          <button class="meal-card-swap"
+                  aria-label="Swap Black Bean Tacos"
+                  data-hs-overlay="#sheet-swap"
+                  data-meal="tuesday">
+            <span data-i18n-en="Swap meal" data-i18n-es="Cambiar comida">Swap meal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Wednesday -->
+      <div class="meal-card">
+        <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=200&h=200&fit=crop&q=80"
+               alt="Lemon Herb Salmon"
+               class="w-full h-full object-cover"
+               loading="lazy">
+        </div>
+        <div class="meal-card-body">
+          <p class="meal-card-day">
+            <span data-i18n-en="Wednesday" data-i18n-es="Miércoles">Wednesday</span>
+          </p>
+          <p class="meal-card-name">Lemon Herb Salmon</p>
+          <div class="meal-card-tags">
+            <span class="badge badge-info badge-pill">High Protein</span>
+            <span class="badge badge-success badge-pill">Heart Healthy</span>
+          </div>
+          <button class="meal-card-swap"
+                  aria-label="Swap Lemon Herb Salmon"
+                  data-hs-overlay="#sheet-swap"
+                  data-meal="wednesday">
+            <span data-i18n-en="Swap meal" data-i18n-es="Cambiar comida">Swap meal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Thursday -->
+      <div class="meal-card">
+        <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=200&fit=crop&q=80"
+               alt="Turkey Sofrito Bowl"
+               class="w-full h-full object-cover"
+               loading="lazy">
+        </div>
+        <div class="meal-card-body">
+          <p class="meal-card-day">
+            <span data-i18n-en="Thursday" data-i18n-es="Jueves">Thursday</span>
+          </p>
+          <p class="meal-card-name">Turkey Sofrito Bowl</p>
+          <div class="meal-card-tags">
+            <span class="badge badge-primary badge-pill">Low Sodium</span>
+          </div>
+          <button class="meal-card-swap"
+                  aria-label="Swap Turkey Sofrito Bowl"
+                  data-hs-overlay="#sheet-swap"
+                  data-meal="thursday">
+            <span data-i18n-en="Swap meal" data-i18n-es="Cambiar comida">Swap meal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Friday -->
+      <div class="meal-card">
+        <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop&q=80"
+               alt="Veggie Stir-Fry"
+               class="w-full h-full object-cover"
+               loading="lazy">
+        </div>
+        <div class="meal-card-body">
+          <p class="meal-card-day">
+            <span data-i18n-en="Friday" data-i18n-es="Viernes">Friday</span>
+          </p>
+          <p class="meal-card-name">Veggie Stir-Fry</p>
+          <div class="meal-card-tags">
+            <span class="badge badge-secondary badge-pill">Vegetarian</span>
+            <span class="badge badge-primary badge-pill">Low Sodium</span>
+          </div>
+          <button class="meal-card-swap"
+                  aria-label="Swap Veggie Stir-Fry"
+                  data-hs-overlay="#sheet-swap"
+                  data-meal="friday">
+            <span data-i18n-en="Swap meal" data-i18n-es="Cambiar comida">Swap meal</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Care team shortcut card -->
+    <div class="px-4 mt-3 care-team-shortcut">
+      <div class="card bg-teal-50 border-teal-200">
+        <div class="card-body">
+          <p class="text-sm text-teal-800">
+            <span data-i18n-en="Have a question about your meals?" data-i18n-es="¿Tienes una pregunta sobre tus comidas?">Have a question about your meals?</span>
+          </p>
+          <a href="/apps/patient/care-team/messages.html" class="text-link text-sm mt-1 block">
+            <span data-i18n-en="Message your care team" data-i18n-es="Enviar mensaje a tu equipo de cuidado">Message your care team</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky confirm footer -->
+    <div class="sticky-footer" id="confirm-footer">
+      <div class="sticky-footer-inner">
+        <div class="sticky-footer-actions">
+          <button class="btn-primary w-full" id="btn-confirm-meals">
+            <span data-i18n-en="Confirm my meals" data-i18n-es="Confirmar mis comidas">Confirm my meals</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.mobile-shell -->
+
+  <!-- Bottom nav (copied from partial) -->
+  <nav class="mobile-bottom-nav" aria-label="Main navigation">
+
+    <a href="/apps/patient/meals/index.html"
+       class="mobile-bottom-nav-tab active"
+       aria-current="page"
+       aria-label="Meals">
+      <i class="fa-solid fa-bowl-food"></i>
+      <span data-i18n-en="Meals" data-i18n-es="Comidas">Meals</span>
+    </a>
+
+    <a href="/apps/patient/deliveries/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Delivery">
+      <i class="fa-solid fa-truck"></i>
+      <span data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</span>
+    </a>
+
+    <a href="/apps/patient/care-team/messages.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Care Team, 2 unread messages">
+      <span class="relative inline-flex">
+        <i class="fa-solid fa-comments"></i>
+        <span class="mobile-bottom-nav-badge">2</span>
+      </span>
+      <span data-i18n-en="Care Team" data-i18n-es="Mi Equipo">Care Team</span>
+    </a>
+
+    <a href="/apps/patient/profile/index.html"
+       class="mobile-bottom-nav-tab"
+       aria-label="Profile">
+      <i class="fa-solid fa-circle-user"></i>
+      <span data-i18n-en="Profile" data-i18n-es="Perfil">Profile</span>
+    </a>
+
+  </nav>
+
+  <!-- Sheet: Meal Detail -->
+  <div id="sheet-detail" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="sheet-detail-label">
+    <div class="modal-panel !m-0 !mt-auto !sm:max-w-full">
+      <div class="bg-white rounded-t-xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1512058454903-4d8b520e7e8b?w=600&h=300&fit=crop&q=80"
+             alt="Chicken Verde Rice Bowl"
+             class="w-full h-48 object-cover">
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-1">
+            <h2 id="sheet-detail-label" class="text-lg font-semibold" style="font-family: var(--font-serif);">Chicken Verde Rice Bowl</h2>
+            <button type="button" class="btn-icon" data-hs-overlay="#sheet-detail" aria-label="Close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Tender chicken in green salsa served over brown rice with black beans and fresh cilantro.</p>
+          <div class="meal-card-tags mt-2">
+            <span class="badge badge-primary badge-pill">Low Sodium</span>
+            <span class="badge badge-info badge-pill">High Protein</span>
+          </div>
+          <button class="btn-outline w-full mt-4" data-hs-overlay="#sheet-swap">
+            <span data-i18n-en="Swap this meal" data-i18n-es="Cambiar esta comida">Swap this meal</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sheet: Swap Meal -->
+  <div id="sheet-swap" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="sheet-swap-label">
+    <div class="modal-panel !m-0 !mt-auto !sm:max-w-full">
+      <div class="bg-white rounded-t-xl overflow-hidden">
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h2 id="sheet-swap-label" class="text-base font-semibold" style="font-family: var(--font-serif);">
+              <span data-i18n-en="Choose a different meal" data-i18n-es="Elige otra comida">Choose a different meal</span>
+            </h2>
+            <button type="button" class="btn-icon" data-hs-overlay="#sheet-swap" aria-label="Close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="space-y-3">
+
+            <!-- Swap option 1 -->
+            <button type="button"
+                    class="meal-card swap-option w-full text-left"
+                    data-swap-option
+                    data-meal-name="Beef and Vegetable Stew"
+                    data-meal-img="https://images.unsplash.com/photo-1547592180-85f173990819?w=200&h=200&fit=crop&q=80">
+              <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990819?w=200&h=200&fit=crop&q=80"
+                     alt="Beef and Vegetable Stew"
+                     class="w-full h-full object-cover"
+                     loading="lazy">
+              </div>
+              <div class="meal-card-body">
+                <p class="meal-card-name">Beef and Vegetable Stew</p>
+                <div class="meal-card-tags">
+                  <span class="badge badge-primary badge-pill">Low Sodium</span>
+                </div>
+              </div>
+            </button>
+
+            <!-- Swap option 2 -->
+            <button type="button"
+                    class="meal-card swap-option w-full text-left"
+                    data-swap-option
+                    data-meal-name="Shrimp and Brown Rice"
+                    data-meal-img="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=200&h=200&fit=crop&q=80">
+              <div class="meal-card-img" style="background-color: var(--color-stone-100);">
+                <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=200&h=200&fit=crop&q=80"
+                     alt="Shrimp and Brown Rice"
+                     class="w-full h-full object-cover"
+                     loading="lazy">
+              </div>
+              <div class="meal-card-body">
+                <p class="meal-card-name">Shrimp and Brown Rice</p>
+                <div class="meal-card-tags">
+                  <span class="badge badge-info badge-pill">High Protein</span>
+                </div>
+              </div>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Meals state management -->
+  <script src="/src/scripts/components/meals.js"></script>
+  <!-- Preline autoInit (must be last) -->
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>

@@ -273,7 +273,7 @@ label {
 /* Radio button input */
 input[type='radio'] {
     @apply shrink-0 mt-0.5 border-gray-200 rounded-full text-primary-600;
-    @apply focus:ring-primary-500;
+    @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
@@ -286,6 +286,7 @@ input[type='radio'] {
     @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
+    cursor: pointer;
 }
 
 .radio-label span {
@@ -299,7 +300,7 @@ input[type='radio'] {
 /* Checkbox input */
 input[type='checkbox'] {
     @apply shrink-0 mt-0.5 border-gray-200 rounded text-primary-600;
-    @apply focus:ring-primary-500;
+    @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
@@ -312,6 +313,7 @@ input[type='checkbox'] {
     @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
+    cursor: pointer;
 }
 
 .checkbox-label span {
@@ -3012,12 +3014,23 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   display: none;
 }
 
+/* Meals screen state variants */
+.state-confirmed #confirm-footer { @apply hidden; }
+.state-confirmed .care-team-shortcut { @apply block; display: none; }
+.state-confirmed .banner-unconfirmed { @apply block; display: none; }
+.state-confirmed .banner-confirmed { @apply flex; }
+.banner-confirmed { @apply block; display: none; }
+.state-confirmed .subtitle-unconfirmed { @apply block; display: none; }
+.state-confirmed .subtitle-confirmed { @apply block; }
+.subtitle-confirmed { @apply block; display: none; }
+
 /* ===================================
    PATIENT APP — DELIVERY STATUS CARD
    =================================== */
 
 .delivery-status-card {
-  @apply card mx-4;
+  @apply flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl mx-4;
+  @apply dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
 }
 
 .delivery-status-top {
@@ -3174,13 +3187,30 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   @apply w-full h-full object-cover;
 }
 
-/* Checkmark overlay — hidden by default, fades in on selection */
+/* Checkbox indicator — top-right corner of image, always visible.
+   Square (rounded-sm) to match checkbox convention, not radio (circle). */
 .pref-image-card-check {
-  @apply absolute inset-0 flex items-center justify-center bg-primary-600/60 opacity-0 transition-opacity;
+  @apply absolute top-2 right-2 flex items-center justify-center rounded-sm transition-all;
+  @apply bg-white/80 border-2 border-white/60;
+  width: 20px;
+  height: 20px;
 }
 
+.pref-image-card-check i {
+  @apply text-white opacity-0 transition-opacity;
+  font-size: 10px;
+}
+
+/* Selected: filled square + inset white ring (matches pref-row-indicator pattern) */
 .pref-image-card:has(input:checked) .pref-image-card-check {
-  @apply opacity-100;
+  background: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  box-shadow: inset 0 0 0 3px white;
+}
+
+/* Check icon hidden — inset ring is the selection signal on image cards */
+.pref-image-card:has(input:checked) .pref-image-card-check i {
+  opacity: 0;
 }
 
 /* Label below the image */
@@ -3195,5 +3225,81 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* "No preference" plain variant — no photo, centered icon instead */
 .pref-image-card-img-wrap-plain {
-  @apply flex items-center justify-center;
+  @apply flex items-center justify-center bg-gray-100;
+  /* Reset the aspect-square sizing used by image wrap — sized inline per use */
+  aspect-ratio: auto;
+}
+
+/* ===================================
+   PATIENT APP — PREFERENCE ROW CONTROLS
+   Custom-styled radio + checkbox rows for onboarding preference screens.
+   Native inputs are sr-only; visual state is driven by :has(input:checked).
+   Inset ring on selection: filled bg + white box-shadow gap mimics the
+   classic radio/checkbox filled-center pattern.
+   =================================== */
+
+/* Shared indicator element — placed as first child inside .pref-row */
+.pref-row-indicator {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-gray-300);
+  background: white;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Square indicator — multi-select (checkbox) */
+.pref-row-indicator--square {
+  border-radius: 3px;
+}
+
+/* Circle indicator — single-select (radio) */
+.pref-row-indicator--circle {
+  border-radius: 50%;
+}
+
+/* fa-check icon inside the indicator — hidden until selected */
+.pref-row-indicator i {
+  color: white;
+  opacity: 0;
+  font-size: 9px;
+  transition: opacity 0.15s ease;
+}
+
+/* Selected state — filled bg + inset white ring = gap between fill and border */
+.pref-row:has(input:checked) .pref-row-indicator {
+  background: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  box-shadow: inset 0 0 0 3px white;
+}
+
+/* Show check icon on checkbox variant only (radio uses the ring alone) */
+.pref-row:has(input[type='checkbox']:checked) .pref-row-indicator i {
+  opacity: 0; /* ring is sufficient; no check mark needed inside the inset */
+}
+
+/* Wrapper label — shared base for both radio and checkbox rows */
+.pref-row {
+  @apply flex items-center gap-3 w-full p-3 bg-white border border-gray-200 rounded-xl cursor-pointer;
+  @apply hover:border-primary-300 hover:bg-primary-50 transition-colors;
+  @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
+  @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+.pref-row:has(input:checked) {
+  @apply border-primary-500 bg-primary-50;
+  @apply dark:border-primary-600 dark:bg-primary-900/20;
+}
+
+.pref-row-label {
+  @apply text-sm font-medium text-gray-700;
+  @apply dark:text-neutral-300;
+}
+
+.pref-row:has(input:checked) .pref-row-label {
+  @apply text-primary-700;
+  @apply dark:text-primary-300;
 }
