@@ -14,7 +14,7 @@ App pages migration in progress (see active `next-task.md`).
 
 ## Active Work
 
-Patient app MVP build in progress -- onboarding screens complete, main app screens pending.
+Patient app MVP complete. All onboarding and main app screens built and committed.
 
 | Screen | File | Status |
 |--------|------|--------|
@@ -26,15 +26,13 @@ Patient app MVP build in progress -- onboarding screens complete, main app scree
 | Messages | `apps/patient/care-team/messages.html` | ✅ |
 | Meal Feedback | `apps/patient/care-team/feedback.html` | ✅ |
 | Profile | `apps/patient/profile/index.html` | ✅ |
-| App Index / Dashboard | `apps/patient/index.html` | ⏳ |
+| App Index / Dashboard | `apps/patient/index.html` | ✅ |
 
 ## Next Priorities
 
-1. **Task 05** -- Patient Meals screen (`apps/patient/meals/index.html` + `meals.js`)
-2. Tasks 06-10 -- remaining patient app screens
-3. Kitchen Partner Portal finance page
-4. Remaining kitchen pages
-5. Provider portal pages
+1. Kitchen Partner Portal finance page
+2. Remaining kitchen pages
+3. Provider portal pages
 
 ## Backlog
 
