@@ -1,0 +1,138 @@
+<!--
+  @component-meta
+  name: Drawer (Offcanvas)
+  category: Overlays
+  file: overlay-drawer.html
+  classes: drawer-panel, drawer-panel-left, drawer-header, drawer-title, drawer-body, drawer-footer
+  when-to-use: Secondary content panels that slide in alongside main content — filters, patient detail previews, form inputs that don't require full-page focus, or navigation on mobile. Use right-side drawers by default. Use left-side only when the content is navigation-like.
+  do-not-use-when: The action requires full user focus and blocking the background — use a modal.
+  preline-required: yes — HSOverlay
+  notes: |
+    Structure: a hidden .hs-overlay element containing the drawer panel.
+    The trigger uses data-hs-overlay="#drawer-id" to open/close.
+    Preline adds .open to the .hs-overlay wrapper when the drawer is shown.
+
+    Z-INDEX FIX: Both .drawer-panel and .drawer-panel-left use z-index: 70, which
+    is above .app-sidebar (z-[60]). This prevents the known issue where a left-side
+    drawer slides in underneath the app sidebar.
+
+    The .hs-overlay-backdrop is shared with modals and applies the same blur treatment.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Drawer</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Sliding side panel for supplementary content. Right-side by default. Uses Preline HSOverlay with Haven's animation tokens.
+  </p>
+
+  <!-- Right drawer (default) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Right Drawer (Default)</h4>
+    <!-- @component: drawer-right -->
+    <button type="button" class="btn-outline" data-hs-overlay="#hs-drawer-right">
+      <i class="fa-solid fa-sidebar-flip"></i>
+      Open Patient Detail
+    </button>
+
+    <div
+      id="hs-drawer-right"
+      class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto"
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="hs-drawer-right-label"
+    >
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <h3 id="hs-drawer-right-label" class="drawer-title">Patient Detail</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#hs-drawer-right" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="drawer-body">
+          <table class="kv-table mb-6">
+            <tr><td>Name</td><td>Maria Rivera</td></tr>
+            <tr><td>MRN</td><td>PT-2024-0847</td></tr>
+            <tr><td>DOB</td><td>March 14, 1958</td></tr>
+            <tr><td>Program</td><td>Diabetes Management</td></tr>
+            <tr><td>Enrolled</td><td>January 3, 2025</td></tr>
+            <tr><td>Provider</td><td>Dr. James Chen</td></tr>
+          </table>
+          <div class="alert alert-info">
+            <i class="fa-solid fa-circle-info alert-icon"></i>
+            <div>Next scheduled delivery: <strong>Wednesday, March 26</strong></div>
+          </div>
+        </div>
+        <div class="drawer-footer">
+          <button type="button" class="btn-outline" data-hs-overlay="#hs-drawer-right">Close</button>
+          <button type="button" class="btn-primary">Open Full Record</button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Left drawer -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Left Drawer</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-5">
+      Uses <code class="text-xs font-mono bg-gray-100 dark:bg-neutral-800 px-1 rounded">.drawer-panel-left</code> which carries <code class="text-xs font-mono bg-gray-100 dark:bg-neutral-800 px-1 rounded">z-index: 70</code> — above the app sidebar — fixing the known stacking issue.
+    </p>
+    <!-- @component: drawer-left -->
+    <button type="button" class="btn-outline" data-hs-overlay="#hs-drawer-left">
+      <i class="fa-solid fa-sidebar"></i>
+      Open Filter Panel
+    </button>
+
+    <div
+      id="hs-drawer-left"
+      class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto"
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="hs-drawer-left-label"
+    >
+      <div class="drawer-panel-left">
+        <div class="drawer-header">
+          <h3 id="hs-drawer-left-label" class="drawer-title">Filters</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#hs-drawer-left" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="drawer-body space-y-5">
+          <div>
+            <label for="dfl-program">Program</label>
+            <select id="dfl-program" class="select-haven">
+              <option>All programs</option>
+              <option>Diabetes Management</option>
+              <option>HTN &amp; Cardiac</option>
+              <option>Food Insecurity Support</option>
+            </select>
+          </div>
+          <div>
+            <label for="dfl-status">Enrollment Status</label>
+            <select id="dfl-status" class="select-haven">
+              <option>All statuses</option>
+              <option>Active</option>
+              <option>Pending</option>
+              <option>Discharged</option>
+            </select>
+          </div>
+          <div>
+            <label for="dfl-provider">Provider</label>
+            <select id="dfl-provider" class="select-haven">
+              <option>All providers</option>
+              <option>Dr. James Chen</option>
+              <option>Dr. Priya Nair</option>
+            </select>
+          </div>
+        </div>
+        <div class="drawer-footer">
+          <button type="button" class="btn-outline" data-hs-overlay="#hs-drawer-left">Clear</button>
+          <button type="button" class="btn-primary" data-hs-overlay="#hs-drawer-left">Apply Filters</button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

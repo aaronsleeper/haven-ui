@@ -3,117 +3,78 @@
 /* Dark mode toggle via class on <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ==========================================================================
+   Haven UI — Cena Health Theme
+   Sourced from cena-health-brand/src/css/cena.css
+
+   Responsibilities:
+   1. Typography @theme block — font stacks, sizes, line heights, letter spacing
+   2. Preline :root overrides — maps --primary-* etc. to Cena teal
+   ========================================================================== */
+
 @theme {
-  /* ============================================
-     HAVEN THEME - Tailwind CSS v4
-     A calm, safe-harbor aesthetic
-     ============================================ */
+  /* --------------------------------------------------------------------------
+     Typography
+     -------------------------------------------------------------------------- */
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:    'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'Source Code Pro', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
 
-  /* --- Primary (Teal) --- */
-  --color-primary-50: var(--color-teal-50);
-  --color-primary-100: var(--color-teal-100);
-  --color-primary-200: var(--color-teal-200);
-  --color-primary-300: var(--color-teal-300);
-  --color-primary-400: var(--color-teal-400);
-  --color-primary-500: var(--color-teal-500);
-  --color-primary-600: var(--color-teal-600);
-  --color-primary-700: var(--color-teal-700);
-  --color-primary-800: var(--color-teal-800);
-  --color-primary-900: var(--color-teal-900);
-  --color-primary-950: var(--color-teal-950);
+  /* Text sizes */
+  --text-3xs:     0.5rem;
+  --text-2xs:     0.625rem;
+  --text-xs:      0.8125rem;
+  --text-sm:      0.875rem;
+  --text-base:    1rem;
+  --text-md:      1.25rem;
+  --text-lg:      1.5625rem;
+  --text-xl:      1.9375rem;
+  --text-2xl:     2.4375rem;
+  --text-3xl:     3.0625rem;
+  --text-display: 3.8125rem;
 
-  /* --- Secondary (Sand) --- */
-  --color-secondary-50: var(--color-sand-50);
-  --color-secondary-100: var(--color-sand-100);
-  --color-secondary-200: var(--color-sand-200);
-  --color-secondary-300: var(--color-sand-300);
-  --color-secondary-400: var(--color-sand-400);
-  --color-secondary-500: var(--color-sand-500);
-  --color-secondary-600: var(--color-sand-600);
-  --color-secondary-700: var(--color-sand-700);
-  --color-secondary-800: var(--color-sand-800);
-  --color-secondary-900: var(--color-sand-900);
-  --color-secondary-950: var(--color-sand-950);
+  /* Line heights */
+  --leading-none:    1.00;
+  --leading-tight:   1.05;
+  --leading-heading: 1.15;
+  --leading-snug:    1.20;
+  --leading-normal:  1.25;
+  --leading-relaxed: 1.45;
+  --leading-body-sm: 1.50;
+  --leading-body:    1.55;
+  --leading-loose:   1.65;
 
-  /* --- Accent (Violet) --- */
-  --color-accent-50: var(--color-violet-50);
-  --color-accent-100: var(--color-violet-100);
-  --color-accent-200: var(--color-violet-200);
-  --color-accent-300: var(--color-violet-300);
-  --color-accent-400: var(--color-violet-400);
-  --color-accent-500: var(--color-violet-500);
-  --color-accent-600: var(--color-violet-600);
-  --color-accent-700: var(--color-violet-700);
-  --color-accent-800: var(--color-violet-800);
-  --color-accent-900: var(--color-violet-900);
-  --color-accent-950: var(--color-violet-950);
+  /* Letter spacing */
+  --tracking-tightest: -0.02em;
+  --tracking-tight:    -0.01em;
+  --tracking-snug:     -0.005em;
+  --tracking-normal:    0;
+  --tracking-wide:      0.005em;
+  --tracking-wider:     0.01em;
+  --tracking-widest:    0.08em;
 
-  /* --- Success (Green) --- */
-  --color-success-50: var(--color-green-50);
-  --color-success-100: var(--color-green-100);
-  --color-success-200: var(--color-green-200);
-  --color-success-300: var(--color-green-300);
-  --color-success-400: var(--color-green-400);
-  --color-success-500: var(--color-green-500);
-  --color-success-600: var(--color-green-600);
-  --color-success-700: var(--color-green-700);
-  --color-success-800: var(--color-green-800);
-  --color-success-900: var(--color-green-900);
-  --color-success-950: var(--color-green-950);
+  /* Breakpoints */
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
 
-  /* --- Warning (Amber) --- */
-  --color-warning-50: var(--color-amber-50);
-  --color-warning-100: var(--color-amber-100);
-  --color-warning-200: var(--color-amber-200);
-  --color-warning-300: var(--color-amber-300);
-  --color-warning-400: var(--color-amber-400);
-  --color-warning-500: var(--color-amber-500);
-  --color-warning-600: var(--color-amber-600);
-  --color-warning-700: var(--color-amber-700);
-  --color-warning-800: var(--color-amber-800);
-  --color-warning-900: var(--color-amber-900);
-  --color-warning-950: var(--color-amber-950);
-
-  /* --- Error (Red) --- */
-  --color-error-50: var(--color-red-50);
-  --color-error-100: var(--color-red-100);
-  --color-error-200: var(--color-red-200);
-  --color-error-300: var(--color-red-300);
-  --color-error-400: var(--color-red-400);
-  --color-error-500: var(--color-red-500);
-  --color-error-600: var(--color-red-600);
-  --color-error-700: var(--color-red-700);
-  --color-error-800: var(--color-red-800);
-  --color-error-900: var(--color-red-900);
-  --color-error-950: var(--color-red-950);
-
-  /* --- Info (Cyan) --- */
-  --color-info-50: var(--color-cyan-50);
-  --color-info-100: var(--color-cyan-100);
-  --color-info-200: var(--color-cyan-200);
-  --color-info-300: var(--color-cyan-300);
-  --color-info-400: var(--color-cyan-400);
-  --color-info-500: var(--color-cyan-500);
-  --color-info-600: var(--color-cyan-600);
-  --color-info-700: var(--color-cyan-700);
-  --color-info-800: var(--color-cyan-800);
-  --color-info-900: var(--color-cyan-900);
-  --color-info-950: var(--color-cyan-950);
-
-  /* --- Typography --- */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Shadows */
+  --shadow-sm: 0 2px 8px 0 rgba(91, 84, 76, 0.08);
+  --shadow-md: 0 4px 16px 0 rgba(91, 84, 76, 0.08);
+  --shadow-lg: 0 8px 24px 2px rgba(91, 84, 76, 0.10);
 }
 
-/* ============================================
-   PRELINE THEME TOKEN OVERRIDES
-   Preline uses its own CSS variables (--primary, --sidebar-nav-hover, etc.)
-   separate from Tailwind's --color-* theme. We override them here so all
-   Preline interactive components use Haven's palette.
-   See: https://preline.co/docs/themes.html
-   ============================================ */
+/* ==========================================================================
+   Preline token overrides
+   Preline uses --primary, --sidebar-*, --layer-*, --muted-*, --destructive-*
+   separate from Tailwind. These must be set after Preline's theme.css so
+   they win the cascade.
+   ========================================================================== */
 
 :root {
-  --primary-50: var(--color-primary-50);
+  /* Primary action — Cena teal */
+  --primary-50:  var(--color-primary-50);
   --primary-100: var(--color-primary-100);
   --primary-200: var(--color-primary-200);
   --primary-300: var(--color-primary-300);
@@ -125,47 +86,51 @@
   --primary-900: var(--color-primary-900);
   --primary-950: var(--color-primary-950);
 
-  --primary: var(--color-primary-600);
-  --primary-hover: var(--color-primary-700);
-  --primary-focus: var(--color-primary-700);
-  --primary-active: var(--color-primary-700);
-  --primary-checked: var(--color-primary-600);
-  --primary-foreground: var(--color-white);
-  --primary-line: transparent;
+  --primary:             var(--color-primary-600);
+  --primary-hover:       var(--color-primary-700);
+  --primary-focus:       var(--color-primary-700);
+  --primary-active:      var(--color-primary-700);
+  --primary-checked:     var(--color-primary-600);
+  --primary-foreground:  var(--color-warm-950);
+  --primary-line:        transparent;
 
-  --sidebar: var(--color-white);
-  --sidebar-line: var(--color-gray-200);
-  --sidebar-divider: var(--color-gray-200);
-  --sidebar-nav-foreground: var(--color-gray-700);
-  --sidebar-nav-hover: var(--color-gray-100);
-  --sidebar-nav-focus: var(--color-gray-100);
-  --sidebar-nav-active: var(--color-gray-100);
-  --sidebar-inverse: var(--color-primary-950);
+  /* Sidebar — warm light surfaces */
+  --sidebar:                var(--color-warm-950);
+  --sidebar-line:           var(--color-warm-700);
+  --sidebar-divider:        var(--color-warm-700);
+  --sidebar-nav-foreground: var(--color-warm-300);
+  --sidebar-nav-hover:      var(--color-warm-800);
+  --sidebar-nav-focus:      var(--color-warm-800);
+  --sidebar-nav-active:     var(--color-warm-800);
+  --sidebar-inverse:        var(--color-teal-50);
 
-  --layer-hover: var(--color-gray-50);
-  --layer-focus: var(--color-gray-50);
-  --layer-active: var(--color-gray-50);
+  /* Layer hover states */
+  --layer-hover:  var(--color-warm-900);
+  --layer-focus:  var(--color-warm-900);
+  --layer-active: var(--color-warm-900);
 
-  --muted-hover: var(--color-gray-100);
-  --muted-focus: var(--color-gray-100);
-  --muted-active: var(--color-gray-100);
+  /* Muted hover states */
+  --muted-hover:  var(--color-warm-800);
+  --muted-focus:  var(--color-warm-800);
+  --muted-active: var(--color-warm-800);
 
-  --destructive: var(--color-error-500);
-  --destructive-foreground: var(--color-white);
-  --destructive-hover: var(--color-error-600);
-  --destructive-focus: var(--color-error-600);
+  /* Destructive */
+  --destructive:            var(--color-error-base);
+  --destructive-foreground: var(--color-warm-950);
+  --destructive-hover:      var(--color-error-text);
+  --destructive-focus:      var(--color-error-text);
 }
 
 .dark {
-  --primary: var(--color-primary-500);
+  --primary:       var(--color-primary-500);
   --primary-hover: var(--color-primary-600);
   --primary-focus: var(--color-primary-600);
   --primary-active: var(--color-primary-600);
 
-  --sidebar: var(--color-neutral-800);
-  --sidebar-line: var(--color-neutral-700);
-  --sidebar-nav-foreground: var(--color-neutral-400);
-  --sidebar-nav-hover: var(--color-neutral-700);
-  --sidebar-nav-focus: var(--color-neutral-700);
-  --sidebar-nav-active: var(--color-neutral-700);
+  --sidebar:                var(--color-warm-100);
+  --sidebar-line:           var(--color-warm-200);
+  --sidebar-nav-foreground: var(--color-warm-600);
+  --sidebar-nav-hover:      var(--color-warm-200);
+  --sidebar-nav-focus:      var(--color-warm-200);
+  --sidebar-nav-active:     var(--color-warm-200);
 }

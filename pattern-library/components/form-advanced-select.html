@@ -1,0 +1,170 @@
+<!--
+  @component-meta
+  name: Advanced Select
+  category: Primitives — Forms
+  file: form-advanced-select.html
+  classes: adv-select-toggle, adv-select-dropdown, adv-select-search, adv-select-option, adv-select-no-result, adv-select-tags-item
+  when-to-use: Use instead of a native <select> when you need: searchable filtering, multi-select with tag pills, custom option layout, or long option lists (10+). For short lists with no search needed, use .select-haven (native select).
+  do-not-use-when: The list is short (under 8 options) and requires no search — use the native select instead.
+  preline-required: yes — HSSelect
+  notes: |
+    All styling classes are passed as strings inside the data-hs-select JSON attribute, NOT applied directly
+    as HTML class attributes. Preline injects them dynamically into the generated DOM.
+
+    Core data-hs-select parameters used here:
+      toggleTag       — HTML tag for the toggle button (always use <button type="button">)
+      toggleClasses   — classes applied to the toggle button element
+      dropdownClasses — classes applied to the dropdown panel
+      optionClasses   — classes applied to each option li element
+      hasSearch       — enables search input inside dropdown
+      searchClasses   — classes for the search input
+      searchNoResultClasses — classes for the "no results" message
+      placeholder     — placeholder text when nothing is selected
+
+    For multi-select (tags mode), add the `multiple` attribute to the <select> and add
+    tagsItemClasses for the pill styling.
+
+    Never hardcode utility chains directly in HTML — use the semantic classes above.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Advanced Select</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Preline HSSelect — enhanced select with search, multi-select tags, and custom option layout. Use instead of native select when the list is long or searchable filtering is needed.
+  </p>
+
+  <!-- Single select with search -->
+  <div class="mb-10">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Single — Searchable</h4>
+    <!-- @component: adv-select-single -->
+    <div class="max-w-sm">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2" for="adv-select-program">
+        Program Type
+      </label>
+      <select
+        id="adv-select-program"
+        data-hs-select='{
+          "placeholder": "Select a program...",
+          "hasSearch": true,
+          "searchPlaceholder": "Search programs",
+          "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+          "toggleClasses": "adv-select-toggle",
+          "dropdownClasses": "adv-select-dropdown",
+          "optionClasses": "adv-select-option",
+          "searchClasses": "adv-select-search",
+          "searchNoResultClasses": "adv-select-no-result",
+          "searchNoResultText": "No programs found"
+        }'
+      >
+        <option value="">Select a program...</option>
+        <option value="dm">Diabetes Management</option>
+        <option value="htn">HTN &amp; Cardiac</option>
+        <option value="fi">Food Insecurity Support</option>
+        <option value="pd">Post-Discharge Nutrition</option>
+        <option value="ckd">Chronic Kidney Disease</option>
+        <option value="ob">Obesity Management</option>
+        <option value="chf">Congestive Heart Failure</option>
+      </select>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Multi-select with tags -->
+  <div class="mb-10">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Multi-select — Tags</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Selected values appear as removable pill tags inside the toggle. Pass <code class="text-xs font-mono bg-gray-100 dark:bg-neutral-800 px-1 rounded">multiple</code> to the select element.
+    </p>
+    <!-- @component: adv-select-multi -->
+    <div class="max-w-sm">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2" for="adv-select-diet">
+        Dietary Restrictions
+      </label>
+      <select
+        id="adv-select-diet"
+        multiple
+        data-hs-select='{
+          "placeholder": "Select restrictions...",
+          "hasSearch": true,
+          "searchPlaceholder": "Search",
+          "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+          "toggleClasses": "adv-select-toggle",
+          "dropdownClasses": "adv-select-dropdown",
+          "optionClasses": "adv-select-option",
+          "searchClasses": "adv-select-search",
+          "tagsItemClasses": "adv-select-tags-item",
+          "searchNoResultClasses": "adv-select-no-result",
+          "searchNoResultText": "No matches"
+        }'
+      >
+        <option value="df">Dairy-free</option>
+        <option value="gf">Gluten-free</option>
+        <option value="hs">Low-sodium</option>
+        <option value="hl">Low-cholesterol</option>
+        <option value="vg">Vegetarian</option>
+        <option value="vn">Vegan</option>
+        <option value="kp">Kosher</option>
+        <option value="hl2">Halal</option>
+        <option value="nf">Nut-free</option>
+      </select>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Single select, no search (short list) — when to use native vs advanced -->
+  <div class="mb-10">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Single — No Search (Short List)</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      For short lists where custom styling is still needed but search is unnecessary. Omit <code class="text-xs font-mono bg-gray-100 dark:bg-neutral-800 px-1 rounded">hasSearch</code> or set it to false.
+    </p>
+    <!-- @component: adv-select-no-search -->
+    <div class="max-w-sm">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2" for="adv-select-status">
+        Enrollment Status
+      </label>
+      <select
+        id="adv-select-status"
+        data-hs-select='{
+          "placeholder": "Select status...",
+          "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+          "toggleClasses": "adv-select-toggle",
+          "dropdownClasses": "adv-select-dropdown",
+          "optionClasses": "adv-select-option"
+        }'
+      >
+        <option value="">Select status...</option>
+        <option value="active">Active</option>
+        <option value="pending">Pending</option>
+        <option value="paused">Paused</option>
+        <option value="discharged">Discharged</option>
+      </select>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled state -->
+  <div class="mb-10">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Disabled</h4>
+    <!-- @component: adv-select-disabled -->
+    <div class="max-w-sm">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2" for="adv-select-provider">
+        Assigned Provider
+      </label>
+      <select
+        id="adv-select-provider"
+        disabled
+        data-hs-select='{
+          "placeholder": "Auto-assigned",
+          "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+          "toggleClasses": "adv-select-toggle"
+        }'
+      >
+        <option value="">Auto-assigned</option>
+        <option value="chen">Dr. James Chen</option>
+      </select>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

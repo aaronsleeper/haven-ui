@@ -1,0 +1,103 @@
+<!--
+  @component-meta
+  name: Clipboard / Copy to Clipboard
+  category: Primitives — Forms
+  file: form-clipboard.html
+  classes: copy-field, copy-field-input, copy-field-btn, copy-icon-btn
+  when-to-use: Copying MRN numbers, referral codes, invite links, API-style identifiers, or any read-only string the user needs to transfer elsewhere.
+  do-not-use-when: The content is long-form prose — use a textarea with a select-all pattern instead.
+  preline-required: no
+  notes: Uses native navigator.clipboard.writeText — no external plugin. Button temporarily shows "Copied!" feedback via .is-copied class and JS timeout. Works in all modern browsers over HTTPS.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Clipboard</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Copy a value to the clipboard with a single click. Uses the native Web Clipboard API — no external plugin required.
+  </p>
+
+  <!-- Copy field: input + inline button -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Copy Field</h4>
+    <!-- @component: clipboard-field -->
+    <div class="max-w-sm">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Patient MRN</label>
+      <div class="copy-field">
+        <input
+          type="text"
+          id="copy-mrn"
+          class="copy-field-input"
+          value="PT-2024-0847"
+          readonly
+          aria-label="Patient MRN"
+        >
+        <button
+          type="button"
+          class="copy-field-btn"
+          id="copy-mrn-btn"
+          aria-label="Copy MRN to clipboard"
+          onclick="havenCopyField('copy-mrn', 'copy-mrn-btn')"
+        >
+          <i class="fa-regular fa-copy"></i>
+          <span class="copy-btn-label">Copy</span>
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Copy icon button: standalone, for use next to code blocks -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Copy Icon Button</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Icon-only variant for use alongside code snippets or inline identifiers.
+    </p>
+    <!-- @component: clipboard-icon-btn -->
+    <div class="flex items-center gap-2">
+      <code class="text-sm font-mono text-gray-700 dark:text-neutral-300 bg-gray-100 dark:bg-neutral-800 px-2 py-1 rounded" id="copy-code-val">npm install preline</code>
+      <button
+        type="button"
+        class="copy-icon-btn"
+        id="copy-code-btn"
+        aria-label="Copy command to clipboard"
+        onclick="havenCopyField('copy-code-val', 'copy-code-btn')"
+      >
+        <i class="fa-regular fa-copy"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Multiple copy fields -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Multiple Fields</h4>
+    <!-- @component: clipboard-multi -->
+    <div class="max-w-sm space-y-3">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">MRN</label>
+        <div class="copy-field">
+          <input type="text" id="copy-multi-mrn" class="copy-field-input" value="PT-2024-0847" readonly>
+          <button type="button" class="copy-field-btn" id="copy-multi-mrn-btn" onclick="havenCopyField('copy-multi-mrn', 'copy-multi-mrn-btn')">
+            <i class="fa-regular fa-copy"></i>
+            <span class="copy-btn-label">Copy</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Enrollment Code</label>
+        <div class="copy-field">
+          <input type="text" id="copy-multi-code" class="copy-field-input" value="CENA-DM-2025-Q1" readonly>
+          <button type="button" class="copy-field-btn" id="copy-multi-code-btn" onclick="havenCopyField('copy-multi-code', 'copy-multi-code-btn')">
+            <i class="fa-regular fa-copy"></i>
+            <span class="copy-btn-label">Copy</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
+
+<script type="module" src="/src/scripts/components/clipboard.js"></script>

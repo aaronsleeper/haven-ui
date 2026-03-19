@@ -95,6 +95,7 @@ before creating any new component or semantic class.
 | Component | File | Classes | Preline | Notes |
 |---|---|---|---|---|
 | Text Input | `form-input-text.html` | *(element default)* `input[type='text']` | no | Default styling on element |
+| Inputs (all types) | `form-inputs-all.html` | `input-group`, `input-group-addon`, `input-group-addon-end`, `input-group-field` | no (password toggle variant needs HSTogglePassword) | Comprehensive reference: text, email, tel, url, password, number, date, time, search, states, input-group addon. Page: `inputs.html`. |
 | Textarea | `form-textarea.html` | *(element default)* `textarea` | no | |
 | Select | `form-select.html` | *(element default)* `select`, `select-haven` | no | `.select-haven` for explicit custom styling |
 | Checkbox | `form-checkbox.html` | *(element default)* `input[type='checkbox']`, `checkbox-label`, `schedule-checkbox` | no | |
@@ -102,6 +103,14 @@ before creating any new component or semantic class.
 | Fieldset | `form-fieldset.html` | *(element default)* `fieldset`, `legend` | no | |
 | File List | `form-file-list.html` | `file-list`, `file-list-item`, `file-list-input`, `file-list-action`, `file-list-add`, `file-list-heading`, `file-list-description` | no | Dynamic file attachment input |
 | Stepped Form | `form-layout.html` | `form-layout`, `step-nav`, `step-nav-item`, `step-num`, `form-content`, `form-nav` | yes | Multi-step form with vertical tab nav |
+| Advanced Select | `form-advanced-select.html` | `adv-select-toggle`, `adv-select-dropdown`, `adv-select-search`, `adv-select-option`, `adv-select-no-result`, `adv-select-tags-item` | yes — HSSelect | Classes passed as strings in `data-hs-select` JSON, NOT as HTML attributes. Supports single, multi-select tags, search. Use instead of native select for lists 8+ items or when search is needed. |
+| Range Slider | `form-range-slider.html` | `range-field`, `range-label-row`, `range-label`, `range-value`, `range-input`, `range-pips`, `range-pip` | no | Native `<input type="range">`. No external plugin. Use `step` + `datalist` for preset increments. |
+| Clipboard | `form-clipboard.html` | `copy-field`, `copy-field-input`, `copy-field-btn`, `copy-icon-btn` | no | Uses native Web Clipboard API. JS: `src/scripts/components/clipboard.js` — `havenCopyField(sourceId, btnId)`. |
+| Toggle Password | `form-toggle-password.html` | *(none — uses `.btn-icon`)* | yes — HSTogglePassword | `data-hs-toggle-password` on button with `target` pointing to input id. Supports single input or array of ids. |
+| Strong Password | `form-strong-password.html` | `strong-password-strip`, `strong-password-hints` | yes — HSStrongPassword | `stripClasses` and hints container id passed via `data-hs-strong-password`. Preline injects DOM. |
+| Toggle Count | `form-toggle-count.html` | *(none — uses `.badge`)* | yes — HSToggleCount | `data-hs-toggle-count` on the count display element. `target` = checkbox id, `min`/`max` = values, `duration` = ms. |
+| PIN Input | `form-pin-input.html` | `pin-input-wrap`, `pin-input-field` | yes — HSPinInput | `data-hs-pin-input` on wrapper, `data-hs-pin-input-item` on each cell. Handles focus, backspace, paste. |
+| Copy Markup | `form-copy-markup.html` | `copy-markup-wrap`, `copy-markup-item` | yes — HSCopyMarkup | `data-hs-copy-markup` on add button. `targetSelector`/`wrapperSelector`/`limit`. Delete via `data-hs-remove-element`. |
 
 ---
 
@@ -138,7 +147,11 @@ before creating any new component or semantic class.
 | Component | File | Classes | Preline | Notes |
 |---|---|---|---|---|
 | Dropdown | `overlay-dropdown.html` | `hs-dropdown-menu`, `hs-dropdown-item` | yes | **Use exact pattern from CLAUDE.md.** Never add transition utilities to menu div. |
-| Modal | `overlay-modal.html` | `modal-panel` | yes | |
+| Modal | `overlay-modal.html` | `modal-panel`, `modal-header` | yes | Use `.modal-header` alongside `.card-header` on title-only headers to reduce gap. |
+| Tooltip | `overlay-tooltip.html` | `tooltip-content` | yes — HSTooltip | `.hs-tooltip` wrapper, `.hs-tooltip-toggle` on trigger, `.hs-tooltip-content tooltip-content` on panel. Placement via `[--placement:X]` CSS var. |
+| Popover | `overlay-popover.html` | `popover-panel`, `popover-header`, `popover-title`, `popover-body` | yes — HSPopover | `.hs-popover` wrapper, `.hs-popover-toggle` trigger, `.hs-popover-content popover-panel` on content. Trigger type via `[--trigger:click]`. |
+| Drawer (right) | `overlay-drawer.html` | `drawer-panel`, `drawer-header`, `drawer-title`, `drawer-body`, `drawer-footer` | yes — HSOverlay | Default right-slide. z-index: 70 (above app-sidebar). |
+| Drawer (left) | `overlay-drawer.html` | `drawer-panel-left` | yes — HSOverlay | Left-slide variant. z-index: 70 fixes the stacking-under-sidebar issue. |
 
 ---
 

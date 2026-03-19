@@ -1,0 +1,105 @@
+<!--
+  @component-meta
+  name: Range Slider
+  category: Primitives — Forms
+  file: form-range-slider.html
+  classes: range-field, range-label-row, range-label, range-value, range-input, range-pips, range-pip
+  when-to-use: Selecting a numeric value within a min/max range. Use for clinical thresholds, dietary targets, portion preferences, or any continuous numeric input. Use preset-increment variant when choices should snap to discrete labeled stops.
+  do-not-use-when: You need exact text input — use a number input instead.
+  preline-required: no
+  notes: JS required for live value display. Use oninput to update the .range-value span. Use step attribute for preset increments. No external plugin needed — native <input type="range"> only.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Range Slider</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Native range input styled with Haven tokens. Supports live value display, disabled state, and preset-increment stops with pip labels.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Default</h4>
+    <!-- @component: range-slider-default -->
+    <div class="range-field max-w-sm">
+      <div class="range-label-row">
+        <label class="range-label" for="rs-default">Daily Sodium Target</label>
+        <span class="range-value" id="rs-default-val">1500 mg</span>
+      </div>
+      <input
+        type="range"
+        id="rs-default"
+        class="range-input"
+        min="500"
+        max="3000"
+        value="1500"
+        oninput="document.getElementById('rs-default-val').textContent = this.value + ' mg'"
+      >
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Disabled</h4>
+    <!-- @component: range-slider-disabled -->
+    <div class="range-field max-w-sm">
+      <div class="range-label-row">
+        <label class="range-label" for="rs-disabled">Calorie Budget</label>
+        <span class="range-value" id="rs-disabled-val">1800 kcal</span>
+      </div>
+      <input
+        type="range"
+        id="rs-disabled"
+        class="range-input"
+        min="1000"
+        max="3000"
+        value="1800"
+        disabled
+      >
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Preset increments with pips -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">Preset Increments (Pips)</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Snaps to labeled stops. Use when choices should be discrete (e.g. meal frequency, portion size).
+    </p>
+    <!-- @component: range-slider-pips -->
+    <div class="range-field max-w-sm">
+      <div class="range-label-row">
+        <label class="range-label" for="rs-pips">Meals Per Week</label>
+        <span class="range-value" id="rs-pips-val">10</span>
+      </div>
+      <input
+        type="range"
+        id="rs-pips"
+        class="range-input"
+        min="5"
+        max="21"
+        step="1"
+        value="10"
+        list="rs-pips-marks"
+        oninput="document.getElementById('rs-pips-val').textContent = this.value"
+      >
+      <datalist id="rs-pips-marks">
+        <option value="5"></option>
+        <option value="7"></option>
+        <option value="10"></option>
+        <option value="14"></option>
+        <option value="21"></option>
+      </datalist>
+      <div class="range-pips">
+        <span class="range-pip">5</span>
+        <span class="range-pip">7</span>
+        <span class="range-pip">10</span>
+        <span class="range-pip">14</span>
+        <span class="range-pip">21</span>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

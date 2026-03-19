@@ -1,0 +1,75 @@
+<!--
+  @component-meta
+  name: PIN Input
+  category: Primitives — Forms
+  file: form-pin-input.html
+  classes: pin-input-wrap, pin-input-field
+  when-to-use: Numeric verification codes (OTP, MFA, portal access codes). Each digit gets its own input cell — Preline handles focus advancement and paste auto-fill automatically.
+  preline-required: yes — HSPinInput
+  notes: |
+    HSPinInput is initialized on a wrapper element via data-hs-pin-input.
+    Each child input with data-hs-pin-input-item is a single digit cell.
+    Preline handles:
+      - Auto-advancing focus on input
+      - Backspace moving focus to previous field
+      - Paste auto-filling all cells
+    Optional: data-hs-pin-input='{"availableCharsRE": "^[0-9]+$"}' restricts to digits only.
+    The completed state fires a "completed" custom event on the wrapper.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">PIN Input</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Single-digit input cells for OTP and verification codes. Preline handles focus advancement, backspace, and paste automatically.
+  </p>
+
+  <!-- 4-digit numeric PIN -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">4-Digit Numeric PIN</h4>
+    <!-- @component: pin-input-4 -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
+        Portal Access Code
+      </label>
+      <div
+        class="pin-input-wrap"
+        data-hs-pin-input='{"availableCharsRE": "^[0-9]+$"}'
+      >
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 1" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 2" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 3" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 4" placeholder="0">
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- 6-digit OTP -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4">6-Digit OTP</h4>
+    <!-- @component: pin-input-6 -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
+        Verification Code
+      </label>
+      <p class="text-sm text-gray-500 dark:text-neutral-400 mb-3">
+        Enter the 6-digit code sent to Maria Rivera's phone on file.
+      </p>
+      <div
+        class="pin-input-wrap"
+        data-hs-pin-input='{"availableCharsRE": "^[0-9]+$"}'
+      >
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 1" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 2" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 3" placeholder="0">
+        <span class="text-gray-300 dark:text-neutral-600 text-lg font-light self-center">—</span>
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 4" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 5" placeholder="0">
+        <input type="text" class="pin-input-field" maxlength="1" inputmode="numeric" data-hs-pin-input-item aria-label="Digit 6" placeholder="0">
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
