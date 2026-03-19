@@ -76,7 +76,7 @@ haven-ui/
 |---|---|
 | Colors, tokens | `src/styles/tokens/colors.css` |
 | Semantic component classes | `src/styles/tokens/components.css` |
-| Typography | `src/styles/tokens/typography.css` |
+| Typography | `src/styles/tokens/typography.css` — fonts: Plus Jakarta Sans (display), Source Sans 3 (body/sans), Source Code Pro (mono). `--font-serif` / Lora no longer exists. |
 | Spacing | `src/styles/tokens/spacing.css` |
 | Theme + Preline overrides | `src/styles/haven.css` |
 | Page HTML | `apps/[persona]/**/*.html` |
@@ -201,6 +201,13 @@ See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 - Design tokens use `@theme` directive in `src/styles/tokens/colors.css`
 - Semantic classes use `@apply` in `src/styles/tokens/components.css`
 - Do not create `tailwind.config.js`
+
+**CRITICAL — Tailwind @theme cascade trap:**
+Tailwind's `@layer theme` overwrites any `@theme` variable whose name Tailwind owns
+(`--color-teal-*`, `--color-gray-*`, `--color-neutral-*`, `--color-blue-*`, etc.) with its own
+OKLCH values, regardless of source order. Always use **hex literals** for those variables
+inside `@theme`. Custom names (`--color-sand-*`, `--color-warm-*`) survive untouched.
+See decisions-log.md → "Cena Health Brand Theme Merge" for full context.
 
 ### Preline UI
 

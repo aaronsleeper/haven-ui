@@ -2,15 +2,16 @@
 
 ## Current State
 
-Repo scaffolded and build pipeline verified. Token files migrated from haven-tailwind-theme.
-`components.css` copied (76KB, full content). FontAwesome Pro v7.1.0 vendor files in place.
-`npm install` complete. Dev server confirmed at localhost:5173.
+Repo scaffolded and build pipeline verified. Dev server confirmed at localhost:5173.
 
 Pattern library scaffold populated with 80+ component files across all categories.
 `COMPONENT-INDEX.md` created — ground truth for all existing components and their classes.
 Pattern-Library-First workflow established in CLAUDE.md and task-template.md.
 
-App pages migration in progress (see active `next-task.md`).
+**Brand theme merged (March 2026):** Cena Health warm neutral palette and brand teal applied.
+Fonts: Plus Jakarta Sans (headings), Source Sans 3 (body), Source Code Pro (mono).
+`cena-health-brand` repo is archived — haven-ui is the single source of truth.
+See decisions-log.md → "Cena Health Brand Theme Merge" for the Tailwind cascade trap rule.
 
 ## Active Work
 

@@ -460,6 +460,31 @@ Do NOT include `hs-dropdown-open:*` variants on the menu -- they will never fire
 
 ---
 
+## Decision: Cena Health Brand Theme Merge into haven-ui
+**Date:** March 2026
+**Context:** Two parallel repos existed: `haven-ui` (Preline-based UI prototype, well-developed component system) and `cena-health-brand` (agent-generated brand system with a new warm palette, inverted teal scale, and new typefaces). Attempts to directly adopt cena-health-brand's CSS architecture into haven-ui caused cascade conflicts due to Tailwind v4 overwriting built-in color names (`--color-teal-*`, `--color-gray-*`) with its own OKLCH values at `@layer theme` time.
+
+**Decision:** Keep haven-ui's architecture entirely intact. Replace only the palette values inside `colors.css` (sand and teal scales) and the font stack in `haven.css`. Archive cena-health-brand.
+
+**The Cascade Trap — Critical Rule:**
+Any color variable set in `@theme` using a name Tailwind owns (`--color-teal-*`, `--color-gray-*`, `--color-neutral-*`, `--color-blue-*`, etc.) will be overwritten by Tailwind's own `@layer theme` block with OKLCH equivalents, regardless of source order. The only reliable fix is to use **hex literals directly** for those values inside `@theme`. Custom names Tailwind doesn't own (`--color-sand-*`, `--color-warm-*`, `--color-brand-*`) survive untouched and can safely use `var()` references.
+
+**What changed in the merge:**
+- `src/styles/tokens/colors.css` — sand scale replaced with Cena warm neutrals (#FBFAF8–#0E0A08), teal scale replaced with Cena brand teal (#E9F5F2–#010F0C). All values as hex literals.
+- `src/styles/haven.css` — `--font-sans` swapped from Inter to Source Sans 3; `--font-display`, `--font-body`, `--font-mono` tokens added.
+- `src/styles/tokens/typography.css` — heading font swapped from `--font-serif` (Lora) to `--font-display` (Plus Jakarta Sans).
+- `src/partials/head.html` — Google Fonts swapped from Inter/Lora/JetBrains to Plus Jakarta Sans/Source Sans 3/Source Code Pro.
+
+**What did NOT change:** components.css, the semantic class system, the Preline overrides structure, the `@theme` mapping structure in haven.css, all app HTML files.
+
+**Rule for future theme changes:** Only edit the palette values (hex literals) inside the sand and teal scales in `colors.css`. Never introduce `var(--color-teal-*)` or `var(--color-gray-*)` references inside `@theme` — use hex directly or use `--color-sand-*` / `--color-warm-*` which Tailwind won't clobber.
+
+**cena-health-brand status:** Archived. Do not edit. All brand value is now in haven-ui.
+
+**Outcome:** ✅ Brand teal (#1B685E) and warm neutrals rendering correctly. Plus Jakarta Sans on headings, Source Sans 3 on body.
+
+---
+
 ## Template for Future Decisions
 
 **Decision:** [Name]
