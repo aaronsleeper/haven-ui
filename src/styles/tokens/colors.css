@@ -171,18 +171,20 @@
   --color-rose-900: hsla(357, 27.3%, 30.2%, 1);
   --color-rose-950: hsla(0, 28.8%, 23.1%, 1);
 
-  /* Sand */
-  --color-sand-50: hsla(24, 22.7%, 91.4%, 1);
-  --color-sand-100: hsla(23, 20%, 82.4%, 1);
-  --color-sand-200: hsla(25, 19.1%, 73.3%, 1);
-  --color-sand-300: hsla(23, 17.3%, 64.9%, 1);
-  --color-sand-400: hsla(26, 14.3%, 56.1%, 1);
-  --color-sand-500: hsla(25, 12.7%, 48%, 1);
-  --color-sand-600: hsla(26, 13.7%, 40%, 1);
-  --color-sand-700: hsla(27, 14.6%, 32.2%, 1);
-  --color-sand-800: hsla(27, 15.9%, 24.7%, 1);
-  --color-sand-900: hsla(28, 16.9%, 17.5%, 1);
-  --color-sand-950: hsla(30, 20%, 9.8%, 1);
+  /* Sand — Cena Health warm neutral palette.
+     50=lightest (#FBFAF8 off-white), 950=darkest (#0E0A08 near-black).
+     All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
+  --color-sand-50:  #FBFAF8;
+  --color-sand-100: #F3F1EE;
+  --color-sand-200: #E7E4DF;
+  --color-sand-300: #D1CDC6;
+  --color-sand-400: #B3ADA4;
+  --color-sand-500: #958E85;
+  --color-sand-600: #787066;
+  --color-sand-700: #5B544C;
+  --color-sand-800: #3F3933;
+  --color-sand-900: #25211D;
+  --color-sand-950: #0E0A08;
 
   /* Neutral Mappings (Aliased to Sand) */
   /* Slate */
@@ -263,18 +265,20 @@
   --color-sky-900: hsla(207, 53.8%, 25.5%, 1);
   --color-sky-950: hsla(210, 58%, 19.6%, 1);
 
-  /* Teal */
-  --color-teal-50: hsla(144, 65.2%, 95.5%, 1);
-  --color-teal-100: hsla(151, 65.6%, 81.8%, 1);
-  --color-teal-200: hsla(158, 53.8%, 69.4%, 1);
-  --color-teal-300: hsla(162, 43%, 59.4%, 1);
-  --color-teal-400: hsla(166, 33.9%, 50.8%, 1);
-  --color-teal-500: hsla(169, 35.8%, 42.7%, 1);
-  --color-teal-600: hsla(173, 38.5%, 35.1%, 1);
-  --color-teal-700: hsla(176, 41.3%, 28%, 1);
-  --color-teal-800: hsla(179, 43.1%, 21.4%, 1);
-  --color-teal-900: hsla(182, 48.1%, 15.1%, 1);
-  --color-teal-950: hsla(184, 60%, 8.8%, 1);
+  /* Teal — Cena Health brand teal palette.
+     50=lightest (#E9F5F2), 950=darkest (#010F0C).
+     All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
+  --color-teal-50:  #E9F5F2;
+  --color-teal-100: #D0E7E2;
+  --color-teal-200: #A8D1C9;
+  --color-teal-300: #7CB9AD;
+  --color-teal-400: #52A395;
+  --color-teal-500: #3A8478;
+  --color-teal-600: #1B685E;
+  --color-teal-700: #124D45;
+  --color-teal-800: #0D322D;
+  --color-teal-900: #04201C;
+  --color-teal-950: #010F0C;
 
   /* Violet */
   --color-violet-50: hsla(260, 31.6%, 92.5%, 1);
