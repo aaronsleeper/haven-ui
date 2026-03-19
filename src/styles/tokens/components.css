@@ -296,7 +296,7 @@ label {
 
 /* Radio button input */
 input[type='radio'] {
-    @apply shrink-0 border-gray-200 rounded-full text-primary-600;
+    @apply shrink-0 mt-0.5 border-gray-200 rounded-full text-primary-600;
     @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
@@ -307,7 +307,7 @@ input[type='radio'] {
 
 /* Radio button with label wrapper */
 .radio-label {
-    @apply flex items-center p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
+    @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     cursor: pointer;
@@ -323,7 +323,7 @@ input[type='radio'] {
 
 /* Checkbox input */
 input[type='checkbox'] {
-    @apply shrink-0 border-gray-200 rounded text-primary-600;
+    @apply shrink-0 mt-0.5 border-gray-200 rounded text-primary-600;
     @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
@@ -334,7 +334,7 @@ input[type='checkbox'] {
 
 /* Checkbox with label wrapper */
 .checkbox-label {
-    @apply flex items-center p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
+    @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     cursor: pointer;
@@ -374,7 +374,6 @@ a.btn-danger {
     @apply dark:focus:ring-offset-neutral-800;
     cursor: pointer;
     text-decoration: none;
-    line-height: 1;
 }
 
 /* Primary Button Variant */
@@ -416,7 +415,6 @@ a.btn-danger {
 .badge {
     @apply inline-flex items-center text-xs font-bold uppercase tracking-wider px-2 py-1 rounded whitespace-nowrap;
     font-family: var(--font-sans);
-    line-height: 1;
 }
 
 /* Badge color variants */
@@ -555,13 +553,6 @@ a.btn-danger {
     @apply dark:border-neutral-700;
 }
 
-/* Modal header — tighter vertical padding for title-only headers (no subtitle).
-   Use instead of .card-header when the header contains only a title + close button.
-   Structure: <div class="card-header modal-header flex items-center justify-between"> */
-.modal-header {
-    @apply py-2.5 md:py-3;
-}
-
 /* Stat card variant — compact uniform padding for dashboard metric cards */
 .card-stat {
     @apply p-5;
@@ -581,19 +572,8 @@ a.btn-danger {
 
 /* Space between sibling fieldsets and other block elements inside card body.
    Excludes feed/list row patterns that manage their own spacing via borders. */
-.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.field-row),
-.card-body-sm > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.field-row) {
-    @apply mt-4;
-}
-
-/* Form field row — vertical spacing for stacked label+input pairs inside .modal-body,
-   .card-body, or any card container. Provides consistent gap between rows without
-   colliding with the card-body sibling margin rule above. */
-.field-row {
-    @apply block;
-}
-
-.field-row + .field-row {
+.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview),
+.card-body-sm > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview) {
     @apply mt-4;
 }
 
@@ -912,7 +892,7 @@ a.btn-danger {
 
 /* Base alert */
 .alert {
-    @apply flex items-center gap-3 text-sm rounded-lg p-4;
+    @apply flex items-start gap-3 text-sm rounded-lg p-4;
 }
 
 /* Full-bleed banner variant — removes rounding and horizontal margin for edge-to-edge use */
@@ -923,7 +903,7 @@ a.btn-danger {
 }
 
 .alert-icon {
-    @apply shrink-0;
+    @apply shrink-0 mt-0.5;
     font-size: 1rem; /* 16px — controls FA glyph size; size-4 only affects SVG */
     width: 1rem;
     height: 1rem;
@@ -1097,8 +1077,7 @@ a.btn-danger {
     /* Hidden by default; Preline adds 'block' when open, 'hidden' (display:none) when closed */
     display: none;
     opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-out),
-                margin  var(--duration-base) var(--ease-out);
+    transition: opacity 0.15s ease, margin 0.15s ease;
 }
 
 /* Preline v4 removes 'hidden' and adds 'block' when open */
@@ -1569,9 +1548,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .app-sidebar-brand {
-    @apply flex-none inline-flex items-center gap-2 text-xl font-semibold text-gray-900;
+    @apply flex-none text-xl font-semibold text-gray-900;
     @apply dark:text-white;
-    text-decoration: none;
 }
 
 .app-sidebar-nav {
@@ -1591,10 +1569,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-gray-400 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
     min-height: 3.15em; /* ~44px at 14px (text-sm), scales with font-size */
     padding-block: 0.575em;
-    line-height: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .sidebar-nav-item:focus-visible {
@@ -1608,8 +1582,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .sidebar-nav-section {
-    @apply block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 ml-2.5 mt-7;
-    @apply dark:text-neutral-300;
+    @apply block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-2.5 mt-5;
+    @apply dark:text-neutral-500;
 }
 
 /* No top margin on the very first section label */
@@ -2014,16 +1988,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .modal-panel {
+    @apply mt-0 opacity-0 transition-all ease-out;
     @apply sm:max-w-lg sm:w-full m-3 sm:mx-auto;
-    margin-top: 0;
-    opacity: 0;
-    transition: margin-top var(--duration-slow) var(--ease-out),
-                opacity    var(--duration-slow) var(--ease-out);
 }
 
 .hs-overlay.open .modal-panel {
-    margin-top: 1.75rem;
-    opacity: 1;
+    @apply mt-7 opacity-100 duration-500;
 }
 
 /* Modal backdrop — semi-transparent with blur instead of fully opaque.
@@ -2032,125 +2002,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     background-color: rgba(0, 0, 0, 0.4) !important;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    transition: opacity var(--duration-slow) var(--ease-out);
-}
-
-/* ===================================
-   TOOLTIP
-   Preline HSTooltip — data-hs-tooltip on the trigger element.
-   The tooltip panel is injected by FloatingUI into the DOM.
-   =================================== */
-
-/* Tooltip content panel */
-.tooltip-content {
-    @apply inline-block px-2.5 py-1.5 text-xs font-medium text-white rounded-md shadow-md;
-    background-color: var(--color-gray-900);
-    max-width: 16rem;
-    line-height: 1.4;
-    opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-out);
-    @apply dark:bg-neutral-700;
-}
-
-/* Preline sets .show on the tooltip when visible */
-.tooltip-content.show {
-    opacity: 1;
-}
-
-/* ===================================
-   POPOVER
-   Preline HSPopover — data-hs-popover on the trigger.
-   The popover panel is injected by FloatingUI.
-   =================================== */
-
-.popover-panel {
-    @apply bg-white border border-gray-200 rounded-xl shadow-lg z-50;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
-    min-width: 14rem;
-    max-width: 22rem;
-    opacity: 0;
-    transform: scale(0.97) translateY(-4px);
-    transition: opacity  var(--duration-base) var(--ease-out),
-                transform var(--duration-base) var(--ease-out);
-    transform-origin: top;
-}
-
-.popover-panel.show {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-}
-
-.popover-header {
-    @apply px-4 py-3 border-b border-gray-100 dark:border-neutral-700;
-}
-
-.popover-title {
-    @apply text-sm font-semibold text-gray-800 dark:text-neutral-200;
-}
-
-.popover-body {
-    @apply px-4 py-3 text-sm text-gray-600 dark:text-neutral-400;
-}
-
-/* ===================================
-   DRAWER (Offcanvas)
-   Preline HSOverlay with data-hs-overlay-options type:offcanvas.
-   =================================== */
-
-/* Base drawer — right side (default) */
-.drawer-panel {
-    @apply fixed top-0 end-0 bottom-0 bg-white border-s border-gray-200 shadow-xl;
-    @apply dark:bg-neutral-900 dark:border-neutral-800;
-    width: min(100vw, 28rem);
-    z-index: 70;  /* above .app-sidebar (z-[60]) */
-    transform: translateX(100%);
-    transition: transform var(--duration-slow) var(--ease-spring);
-    overflow-y: auto;
-}
-
-/* Left-side drawer — slides in from left, must exceed sidebar z-index */
-.drawer-panel-left {
-    @apply fixed top-0 start-0 bottom-0 bg-white border-e border-gray-200 shadow-xl;
-    @apply dark:bg-neutral-900 dark:border-neutral-800;
-    width: min(100vw, 28rem);
-    z-index: 70;  /* above .app-sidebar (z-[60]) — this is the fix */
-    transform: translateX(-100%);
-    transition: transform var(--duration-slow) var(--ease-spring);
-    overflow-y: auto;
-}
-
-/* Preline adds .open to the hs-overlay element when the drawer is shown */
-.hs-overlay.open > .drawer-panel {
-    transform: translateX(0);
-}
-
-.hs-overlay.open > .drawer-panel-left {
-    transform: translateX(0);
-}
-
-.drawer-header {
-    @apply flex items-center justify-between px-5 py-4 border-b border-gray-200;
-    @apply dark:border-neutral-700;
-    position: sticky;
-    top: 0;
-    background: inherit;
-    z-index: 1;
-}
-
-.drawer-title {
-    @apply text-base font-semibold text-gray-800 dark:text-neutral-200;
-}
-
-.drawer-body {
-    @apply px-5 py-4;
-}
-
-.drawer-footer {
-    @apply flex items-center justify-end gap-3 px-5 py-4 border-t border-gray-200;
-    @apply dark:border-neutral-700;
-    position: sticky;
-    bottom: 0;
-    background: inherit;
 }
 
 /* ===================================
@@ -2910,8 +2761,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .timeline-connector {
     @apply w-px flex-1 bg-gray-200 mt-1;
-    /* Extend into the pb-6 gap of .timeline-event so the line visually connects to the next icon */
-    margin-bottom: -1.5rem;
 }
 
 .timeline-event:last-child .timeline-connector {
@@ -2952,7 +2801,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .timeline-event-header {
     @apply flex items-center gap-2 flex-wrap mb-1;
-    align-items: center; /* explicit — belt-and-suspenders for cross-browser consistency */
 }
 
 .timeline-event-preview {
@@ -3146,10 +2994,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     padding-left: 1.55em; /* ~20px at 13px, scales with font-size */
     min-height: 2.75em; /* ~36px at 13px, scales with font-size */
     padding-block: 0.45em;
-    line-height: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .sidebar-subnav-item:hover {
@@ -3177,30 +3021,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    Use on prose/article sections within full-width page layouts. */
 .prose-section {
     @apply block;
-    max-inline-size: 75ch;
-}
-
-/* Constrain descriptive paragraphs in pattern library pages to readable width.
-   Applies to the intro/description <p> tags that appear above component demos.
-   Does not affect component markup inside demo sections. */
-.prose-section p,
-main > section > p,
-main > .page-header + p {
-    max-inline-size: 75ch;
+    max-inline-size: 72ch;
 }
 
 /* Key/value pair table — consistent label+value list used on patient detail,
    partner detail, and anywhere a two-column definition list appears.
    Usage: <table class="kv-table"><tr><td>Label</td><td>Value</td></tr></table> */
 .kv-table {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
+    @apply block w-full;
 }
 
 .kv-table tr {
-    display: table-row;
-    width: 100%;
     @apply border-b border-gray-100 dark:border-neutral-800;
 }
 
@@ -3214,308 +3045,6 @@ main > .page-header + p {
 
 .kv-table td:last-child {
     @apply py-2 text-gray-900 dark:text-neutral-100 text-sm;
-}
-
-/* ===================================
-   INPUT GROUP
-   Prefix/suffix addon wrapper for inputs (unit labels, icons, currency symbols).
-   Structure:
-     <div class="input-group">
-       <span class="input-group-addon">kg</span>
-       <input type="number" class="input-group-field">
-     </div>
-   Addon can be left OR right. Use both for sandwiched inputs.
-   =================================== */
-
-.input-group {
-    @apply flex items-stretch rounded-lg overflow-hidden border border-gray-200;
-    @apply focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-500;
-    @apply dark:border-neutral-700;
-}
-
-.input-group-addon {
-    @apply flex items-center px-3 text-sm font-medium text-gray-500 bg-gray-50 border-r border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
-    white-space: nowrap;
-    line-height: 1;
-    flex-shrink: 0;
-}
-
-/* Addon on the right side */
-.input-group-addon-end {
-    @apply flex items-center px-3 text-sm font-medium text-gray-500 bg-gray-50 border-l border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
-    white-space: nowrap;
-    line-height: 1;
-    flex-shrink: 0;
-}
-
-/* The input inside an input-group — strips its own border/rounding since the wrapper handles it */
-.input-group-field {
-    @apply flex-1 min-w-0;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.input-group-field:focus {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    --tw-ring-shadow: none !important;
-}
-
-/* ===================================
-   STRONG PASSWORD
-   Injected elements styled here — Preline generates the DOM.
-   =================================== */
-
-/* Each strength strip bar injected by Preline */
-.strong-password-strip {
-    @apply block h-1.5 flex-1 rounded-full bg-gray-200 transition-colors duration-300;
-    @apply dark:bg-neutral-700;
-}
-
-/* Hints container injected by Preline */
-.strong-password-hints {
-    @apply text-xs text-gray-500 mt-2 space-y-0.5;
-    @apply dark:text-neutral-400;
-}
-
-/* ===================================
-   PIN INPUT
-   =================================== */
-
-/* Wrapper — flex row of digit cells */
-.pin-input-wrap {
-    @apply flex items-center gap-2;
-}
-
-/* Individual digit cell */
-.pin-input-field {
-    @apply w-11 h-11 text-center text-base font-semibold rounded-lg border border-gray-300;
-    @apply text-gray-900 bg-white;
-    @apply focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-100;
-    padding: 0 !important; /* override global input padding */
-    line-height: 1;
-}
-
-.pin-input-field:focus {
-    border-color: var(--color-primary-500) !important;
-}
-
-/* ===================================
-   COPY MARKUP
-   =================================== */
-
-/* Container receiving cloned rows */
-.copy-markup-wrap {
-    @apply flex flex-col gap-2;
-}
-
-/* Individual cloneable row */
-.copy-markup-item {
-    @apply block;
-}
-
-/* ===================================
-   ADVANCED SELECT (Preline HSSelect)
-   Semantic wrapper classes for data-hs-select components.
-   All class names here are passed as strings inside the data-hs-select
-   JSON attribute — they are NOT applied directly in HTML.
-   =================================== */
-
-/* Toggle button — the visible "select" trigger */
-.adv-select-toggle {
-    @apply block w-full py-2.5 px-4 text-sm text-left rounded-lg border border-gray-200 bg-white text-gray-700;
-    @apply focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500;
-    @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
-    /* Chevron via background-image — same as .select-haven */
-    appearance: none;
-    padding-inline-end: 2.5rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1rem 1rem;
-    line-height: 1;
-}
-
-/* Dropdown panel */
-.adv-select-dropdown {
-    @apply mt-1 bg-white border border-gray-200 rounded-lg shadow-md z-50 overflow-hidden;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
-    min-width: 100%;
-}
-
-/* Search input inside dropdown */
-.adv-select-search {
-    @apply block w-full py-2 px-3 text-sm border-b border-gray-100 bg-white;
-    @apply placeholder-gray-400 text-gray-700;
-    @apply focus:outline-none;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-}
-
-/* Individual option item */
-.adv-select-option {
-    @apply flex items-center gap-2 py-2 px-3 text-sm text-gray-700 cursor-pointer;
-    @apply hover:bg-gray-50;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-800;
-}
-
-/* Selected state — Preline adds hs-selected class to active option */
-.adv-select-option.hs-selected {
-    @apply bg-primary-50 text-primary-700 font-medium;
-    @apply dark:bg-primary-900/20 dark:text-primary-400;
-}
-
-/* No results message */
-.adv-select-no-result {
-    @apply py-3 px-3 text-sm text-gray-400 dark:text-neutral-500;
-}
-
-/* Tags mode: wrapper around the selected tag pills inside the toggle */
-.adv-select-tags-item {
-    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
-    @apply bg-primary-100 text-primary-700;
-    @apply dark:bg-primary-900/30 dark:text-primary-300;
-}
-
-/* ===================================
-   RANGE SLIDER
-   =================================== */
-
-/* Wrapper for label + slider + value display */
-.range-field {
-    @apply block;
-}
-
-.range-label-row {
-    @apply flex items-center justify-between mb-2;
-}
-
-.range-label {
-    @apply text-sm font-medium text-gray-700 dark:text-gray-200;
-}
-
-.range-value {
-    @apply text-sm font-semibold text-primary-600 dark:text-primary-400;
-    font-variant-numeric: tabular-nums;
-}
-
-/* The range input itself */
-.range-input {
-    @apply block w-full;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 6px;
-    border-radius: 9999px;
-    background: var(--color-gray-200);
-    outline: none;
-    cursor: pointer;
-}
-
-.range-input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--color-primary-600);
-    border: 2px solid white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.1s ease;
-}
-
-.range-input::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--color-primary-600);
-    border: 2px solid white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: background 0.15s ease;
-}
-
-.range-input:focus::-webkit-slider-thumb {
-    box-shadow: 0 0 0 3px var(--color-primary-200);
-}
-
-.range-input:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 3px var(--color-primary-200);
-}
-
-.range-input:hover::-webkit-slider-thumb {
-    background: var(--color-primary-700);
-    transform: scale(1.1);
-}
-
-.range-input:disabled {
-    @apply opacity-50 pointer-events-none;
-}
-
-/* Pip markers for preset-increment variant */
-.range-pips {
-    @apply flex justify-between mt-1.5;
-}
-
-.range-pip {
-    @apply text-xs text-gray-400 dark:text-neutral-500;
-    font-variant-numeric: tabular-nums;
-}
-
-/* ===================================
-   CLIPBOARD / COPY-TO-CLIPBOARD
-   =================================== */
-
-/* Wrapper combining a read-only input + copy button side by side */
-.copy-field {
-    @apply flex items-stretch gap-0 rounded-lg overflow-hidden border border-gray-200;
-    @apply dark:border-neutral-700;
-}
-
-.copy-field-input {
-    @apply flex-1 py-2.5 px-3 text-sm text-gray-700 bg-gray-50 border-0;
-    @apply dark:bg-neutral-800 dark:text-neutral-300;
-    font-family: var(--font-mono, monospace);
-    min-width: 0;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.copy-field-btn {
-    @apply flex items-center gap-1.5 px-3 text-sm font-medium text-gray-600 bg-white border-l border-gray-200;
-    @apply hover:bg-gray-50 hover:text-gray-900;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s ease, color 0.15s ease;
-}
-
-.copy-field-btn.is-copied {
-    @apply text-success-600 dark:text-success-400;
-}
-
-/* Standalone copy icon button — for use next to code blocks */
-.copy-icon-btn {
-    @apply inline-flex items-center justify-center size-8 rounded-lg text-gray-400 bg-transparent;
-    @apply hover:text-gray-700 hover:bg-gray-100;
-    @apply dark:text-neutral-500 dark:hover:text-neutral-200 dark:hover:bg-neutral-700;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
-    border: none;
-}
-
-.copy-icon-btn.is-copied {
-    @apply text-success-500 dark:text-success-400;
 }
 
 /* ===================================
