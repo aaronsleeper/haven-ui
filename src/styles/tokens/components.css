@@ -6956,3 +6956,201 @@ a.list-group-item-action {
     @apply text-primary-700 dark:text-primary-300;
     text-decoration: underline;
 }
+
+
+/* ===================================
+   COMMAND PALETTE
+   Keyboard-driven search/action launcher.
+   Opens via Cmd+K / Ctrl+K. Custom JS for
+   open/close, filtering, and keyboard nav.
+   =================================== */
+
+/* Full-screen overlay container */
+.cmd-palette {
+    @apply fixed inset-0 z-[90] flex items-start justify-center;
+    padding-top: 15vh;
+}
+
+/* Backdrop — semi-transparent with blur */
+.cmd-palette-backdrop {
+    @apply fixed inset-0;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Main panel — centered card */
+.cmd-palette-panel {
+    @apply relative flex flex-col bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    width: 36rem;
+    max-width: calc(100vw - 2rem);
+    max-height: 26rem;
+}
+
+/* Search area at top */
+.cmd-palette-search {
+    @apply flex items-center gap-3 px-4 py-3;
+    @apply border-b border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+.cmd-palette-search i {
+    @apply text-gray-400 text-base shrink-0;
+    @apply dark:text-neutral-500;
+}
+
+/* The search input — borderless, full-width */
+.cmd-palette-input {
+    @apply block w-full text-base text-gray-900 bg-transparent outline-none;
+    @apply dark:text-neutral-100;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.cmd-palette-input::placeholder {
+    @apply text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+/* Keyboard shortcut badge (e.g. "Cmd K") */
+.cmd-palette-shortcut {
+    @apply inline-flex items-center gap-0.5 text-[10px] font-medium text-gray-400 shrink-0;
+    @apply dark:text-neutral-500;
+}
+
+.cmd-palette-shortcut kbd {
+    @apply inline-flex items-center justify-center rounded px-1 py-0.5;
+    @apply bg-gray-100 border border-gray-200 text-gray-500;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
+    font-family: inherit;
+    font-size: 10px;
+    line-height: 1;
+    min-width: 1.25rem;
+}
+
+/* Scrollable results body */
+.cmd-palette-body {
+    @apply flex-1 overflow-y-auto;
+    @apply py-2;
+}
+
+/* Empty / no-results state */
+.cmd-palette-empty {
+    @apply flex flex-col items-center justify-center py-10 px-4;
+    @apply text-sm text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+.cmd-palette-empty i {
+    @apply text-2xl mb-2 text-gray-300;
+    @apply dark:text-neutral-600;
+}
+
+/* Result group */
+.cmd-palette-group {
+    @apply px-2;
+}
+
+.cmd-palette-group + .cmd-palette-group {
+    @apply mt-2 pt-2 border-t border-gray-100;
+    @apply dark:border-neutral-700;
+}
+
+/* Group heading */
+.cmd-palette-group-title {
+    @apply text-[11px] font-semibold uppercase tracking-wider text-gray-400 px-2 py-1.5;
+    @apply dark:text-neutral-500;
+}
+
+/* Individual result item */
+.cmd-palette-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer;
+    @apply text-sm text-gray-700;
+    @apply dark:text-neutral-300;
+    transition: background-color 0.1s ease;
+}
+
+.cmd-palette-item:hover,
+.cmd-palette-item.is-active {
+    @apply bg-primary-50 text-primary-700;
+    @apply dark:bg-primary-900/20 dark:text-primary-300;
+}
+
+/* Leading icon */
+.cmd-palette-item-icon {
+    @apply text-gray-400 text-sm w-5 text-center shrink-0;
+    @apply dark:text-neutral-500;
+}
+
+.cmd-palette-item:hover .cmd-palette-item-icon,
+.cmd-palette-item.is-active .cmd-palette-item-icon {
+    @apply text-primary-500;
+    @apply dark:text-primary-400;
+}
+
+/* Text content wrapper */
+.cmd-palette-item-content {
+    @apply flex-1 min-w-0;
+}
+
+/* Primary label */
+.cmd-palette-item-title {
+    @apply block truncate;
+}
+
+/* Secondary description */
+.cmd-palette-item-description {
+    @apply block text-xs text-gray-400 truncate mt-0.5;
+    @apply dark:text-neutral-500;
+}
+
+.cmd-palette-item:hover .cmd-palette-item-description,
+.cmd-palette-item.is-active .cmd-palette-item-description {
+    @apply text-primary-400;
+    @apply dark:text-primary-500;
+}
+
+/* Trailing keyboard shortcut on item */
+.cmd-palette-item-shortcut {
+    @apply shrink-0 flex items-center gap-0.5;
+}
+
+.cmd-palette-item-shortcut kbd {
+    @apply inline-flex items-center justify-center rounded px-1 py-0.5;
+    @apply bg-gray-100 border border-gray-200 text-gray-400;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-500;
+    font-family: inherit;
+    font-size: 10px;
+    line-height: 1;
+    min-width: 1.25rem;
+}
+
+.cmd-palette-item:hover .cmd-palette-item-shortcut kbd,
+.cmd-palette-item.is-active .cmd-palette-item-shortcut kbd {
+    @apply bg-primary-100 border-primary-200 text-primary-500;
+    @apply dark:bg-primary-900/30 dark:border-primary-800 dark:text-primary-400;
+}
+
+/* Footer with keyboard navigation hints */
+.cmd-palette-footer {
+    @apply flex items-center gap-4 px-4 py-2.5;
+    @apply border-t border-gray-200 bg-gray-50;
+    @apply dark:border-neutral-700 dark:bg-neutral-800/50;
+}
+
+.cmd-palette-footer-hint {
+    @apply flex items-center gap-1.5 text-[11px] text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+.cmd-palette-footer-hint kbd {
+    @apply inline-flex items-center justify-center rounded px-1 py-0.5;
+    @apply bg-white border border-gray-200 text-gray-500;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
+    font-family: inherit;
+    font-size: 10px;
+    line-height: 1;
+    min-width: 1.25rem;
+}

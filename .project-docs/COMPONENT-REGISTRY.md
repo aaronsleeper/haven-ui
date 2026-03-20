@@ -254,7 +254,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Stepped Form | `pages/forms-stepped.html` | built | |
 | Issues Sidebar | `pages/complex.html` | built | |
 | Notification Center | `pages/complex-notifications.html` | built | Grouped notification list with dismiss |
-| Command Palette | `pages/complex-command-palette.html` | missing | Keyboard-driven search/action launcher |
+| Command Palette | `pages/complex-command-palette.html` | built | Keyboard-driven search/action launcher |
 
 ---
 

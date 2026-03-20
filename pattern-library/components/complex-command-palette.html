@@ -1,0 +1,230 @@
+<!--
+  @component-meta
+  name: Command Palette
+  category: Complex / Composite
+  file: complex-command-palette.html
+  classes: cmd-palette, cmd-palette-backdrop, cmd-palette-panel, cmd-palette-search, cmd-palette-input, cmd-palette-shortcut, cmd-palette-body, cmd-palette-empty, cmd-palette-group, cmd-palette-group-title, cmd-palette-item, cmd-palette-item-icon, cmd-palette-item-content, cmd-palette-item-title, cmd-palette-item-description, cmd-palette-item-shortcut, cmd-palette-footer, cmd-palette-footer-hint
+  when-to-use: Keyboard-driven search and action launcher — open with Cmd+K / Ctrl+K to quickly navigate, search, or trigger actions.
+  preline-required: no
+  notes: Custom JS handles open/close, keyboard navigation, and filtering. Does not use Preline overlays.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Command Palette</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Keyboard-driven search and action launcher. Press Cmd+K (Mac) or Ctrl+K (Windows/Linux) to open.
+  </p>
+
+  <!-- Variant: Default with grouped results -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default — Grouped Results</h4>
+    <!-- @component: cmd-palette-default -->
+    <button type="button" class="btn-outline" data-cmd-palette-trigger="cmd-palette-demo-1">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Search or jump to...
+      <span class="cmd-palette-shortcut ml-2">
+        <kbd>⌘</kbd><kbd>K</kbd>
+      </span>
+    </button>
+
+    <div id="cmd-palette-demo-1" class="cmd-palette" style="display: none;" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="cmd-palette-backdrop" data-cmd-palette-close></div>
+      <div class="cmd-palette-panel">
+        <div class="cmd-palette-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" class="cmd-palette-input" placeholder="Type a command or search..." data-cmd-palette-input autocomplete="off" spellcheck="false">
+          <span class="cmd-palette-shortcut">
+            <kbd>Esc</kbd>
+          </span>
+        </div>
+        <div class="cmd-palette-body">
+          <div class="cmd-palette-group" data-cmd-group>
+            <div class="cmd-palette-group-title">Recent</div>
+            <div class="cmd-palette-item is-active" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Maria Rivera — Patient Chart</span>
+              </span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-file-medical"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Care Plan — Type 2 Diabetes</span>
+              </span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-chart-line"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Population Health Dashboard</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="cmd-palette-group" data-cmd-group>
+            <div class="cmd-palette-group-title">Actions</div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-user-plus"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Add new patient</span>
+              </span>
+              <span class="cmd-palette-item-shortcut"><kbd>⌘</kbd><kbd>N</kbd></span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-circle-play"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Start new session</span>
+              </span>
+              <span class="cmd-palette-item-shortcut"><kbd>⌘</kbd><kbd>S</kbd></span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-file-csv"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Export report</span>
+              </span>
+              <span class="cmd-palette-item-shortcut"><kbd>⌘</kbd><kbd>E</kbd></span>
+            </div>
+          </div>
+
+          <div class="cmd-palette-group" data-cmd-group>
+            <div class="cmd-palette-group-title">Pages</div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-house"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Dashboard</span>
+              </span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-users"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Patient List</span>
+              </span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-calendar"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Schedule</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-palette-footer">
+          <span class="cmd-palette-footer-hint"><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+          <span class="cmd-palette-footer-hint"><kbd>↵</kbd> select</span>
+          <span class="cmd-palette-footer-hint"><kbd>Esc</kbd> close</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Variant: With Descriptions -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Descriptions</h4>
+    <!-- @component: cmd-palette-descriptions -->
+    <button type="button" class="btn-outline" data-cmd-palette-trigger="cmd-palette-demo-2">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Search actions...
+    </button>
+
+    <div id="cmd-palette-demo-2" class="cmd-palette" style="display: none;" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="cmd-palette-backdrop" data-cmd-palette-close></div>
+      <div class="cmd-palette-panel">
+        <div class="cmd-palette-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" class="cmd-palette-input" placeholder="Search actions..." data-cmd-palette-input autocomplete="off" spellcheck="false">
+          <span class="cmd-palette-shortcut">
+            <kbd>Esc</kbd>
+          </span>
+        </div>
+        <div class="cmd-palette-body">
+          <div class="cmd-palette-group" data-cmd-group>
+            <div class="cmd-palette-group-title">Clinical Actions</div>
+            <div class="cmd-palette-item is-active" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-stethoscope"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Open clinical review</span>
+                <span class="cmd-palette-item-description">Review alerts, vitals, and care plan for the active patient</span>
+              </span>
+              <span class="cmd-palette-item-shortcut"><kbd>⌘</kbd><kbd>R</kbd></span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-pills"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Medication reconciliation</span>
+                <span class="cmd-palette-item-description">Compare current medications against the discharge list</span>
+              </span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-bolt"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">AI risk assessment</span>
+                <span class="cmd-palette-item-description">Generate a predictive risk score for readmission</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="cmd-palette-group" data-cmd-group>
+            <div class="cmd-palette-group-title">Admin</div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-gear"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Settings</span>
+                <span class="cmd-palette-item-description">Account preferences, notifications, and integrations</span>
+              </span>
+              <span class="cmd-palette-item-shortcut"><kbd>⌘</kbd><kbd>,</kbd></span>
+            </div>
+            <div class="cmd-palette-item" data-cmd-item>
+              <span class="cmd-palette-item-icon"><i class="fa-solid fa-people-group"></i></span>
+              <span class="cmd-palette-item-content">
+                <span class="cmd-palette-item-title">Team management</span>
+                <span class="cmd-palette-item-description">Add or remove care team members and set roles</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-palette-footer">
+          <span class="cmd-palette-footer-hint"><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+          <span class="cmd-palette-footer-hint"><kbd>↵</kbd> select</span>
+          <span class="cmd-palette-footer-hint"><kbd>Esc</kbd> close</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Variant: Empty State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Empty State — No Results</h4>
+    <!-- @component: cmd-palette-empty -->
+    <button type="button" class="btn-outline" data-cmd-palette-trigger="cmd-palette-demo-3">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Try searching "xyz"...
+    </button>
+
+    <div id="cmd-palette-demo-3" class="cmd-palette" style="display: none;" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="cmd-palette-backdrop" data-cmd-palette-close></div>
+      <div class="cmd-palette-panel">
+        <div class="cmd-palette-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" class="cmd-palette-input" placeholder="Type a command or search..." value="xylophone concerto" data-cmd-palette-input autocomplete="off" spellcheck="false">
+          <span class="cmd-palette-shortcut">
+            <kbd>Esc</kbd>
+          </span>
+        </div>
+        <div class="cmd-palette-body">
+          <div class="cmd-palette-empty">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            No results found. Try a different search term.
+          </div>
+        </div>
+        <div class="cmd-palette-footer">
+          <span class="cmd-palette-footer-hint"><kbd>Esc</kbd> close</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
