@@ -1,0 +1,147 @@
+<!--
+  @component-meta
+  name: Button Group
+  category: Primitives — Buttons
+  file: btn-group.html
+  classes: btn-group, btn-group-item, btn-group-item.active, btn-group-vertical
+  when-to-use: Group related actions or toggle options into a single connected control.
+  do-not-use-when: Buttons are unrelated actions — use separate buttons with spacing instead. Do not use for navigation tabs — use tab-nav or segmented-control.
+  preline-required: no
+  notes: Pure CSS component. Active/selected state uses .active class on the btn-group-item. Combine with existing btn-outline, btn-primary, btn-sm, btn-icon classes.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button Group</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Connected buttons sharing borders. Use for related actions or toggle selections.
+  </p>
+
+  <!-- Default outline group -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default (Outline)</h4>
+    <!-- @component: btn-group-default -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-outline">Day</button>
+      <button type="button" class="btn-group-item btn-outline">Week</button>
+      <button type="button" class="btn-group-item btn-outline">Month</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Active / selected toggle -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Active / Toggle State</h4>
+    <!-- @component: btn-group-toggle -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-outline">Day</button>
+      <button type="button" class="btn-group-item btn-outline active">Week</button>
+      <button type="button" class="btn-group-item btn-outline">Month</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Primary group -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Primary</h4>
+    <!-- @component: btn-group-primary -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-primary">Save</button>
+      <button type="button" class="btn-group-item btn-primary">Save &amp; Close</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Icon-only group -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Icon Only</h4>
+    <!-- @component: btn-group-icon -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-outline" aria-label="List view">
+        <i class="fa-solid fa-list"></i>
+      </button>
+      <button type="button" class="btn-group-item btn-outline active" aria-label="Grid view">
+        <i class="fa-solid fa-grid-2"></i>
+      </button>
+      <button type="button" class="btn-group-item btn-outline" aria-label="Calendar view">
+        <i class="fa-solid fa-calendar"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Icon + text group -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Icon + Text</h4>
+    <!-- @component: btn-group-icon-text -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-outline">
+        <i class="fa-solid fa-align-left"></i> Left
+      </button>
+      <button type="button" class="btn-group-item btn-outline active">
+        <i class="fa-solid fa-align-center"></i> Center
+      </button>
+      <button type="button" class="btn-group-item btn-outline">
+        <i class="fa-solid fa-align-right"></i> Right
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Size: Small -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Small (btn-sm)</h4>
+    <!-- @component: btn-group-sm -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-outline btn-sm">Active</button>
+      <button type="button" class="btn-group-item btn-outline btn-sm">Paused</button>
+      <button type="button" class="btn-group-item btn-outline btn-sm">Archived</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Size: Large (default py-3 px-5) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Large</h4>
+    <!-- @component: btn-group-lg -->
+    <div class="btn-group">
+      <button type="button" class="btn-group-item btn-outline py-3.5 px-6 text-base">Reports</button>
+      <button type="button" class="btn-group-item btn-outline py-3.5 px-6 text-base">Analytics</button>
+      <button type="button" class="btn-group-item btn-outline py-3.5 px-6 text-base">Settings</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Vertical group -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Vertical</h4>
+    <!-- @component: btn-group-vertical -->
+    <div class="btn-group-vertical">
+      <button type="button" class="btn-group-item btn-outline">Profile</button>
+      <button type="button" class="btn-group-item btn-outline active">Notifications</button>
+      <button type="button" class="btn-group-item btn-outline">Security</button>
+      <button type="button" class="btn-group-item btn-outline">Billing</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Vertical icon group -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Vertical Icon Only</h4>
+    <!-- @component: btn-group-vertical-icon -->
+    <div class="btn-group-vertical">
+      <button type="button" class="btn-group-item btn-outline" aria-label="Bold">
+        <i class="fa-solid fa-bold"></i>
+      </button>
+      <button type="button" class="btn-group-item btn-outline" aria-label="Italic">
+        <i class="fa-solid fa-italic"></i>
+      </button>
+      <button type="button" class="btn-group-item btn-outline" aria-label="Underline">
+        <i class="fa-solid fa-underline"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

@@ -408,6 +408,63 @@ a.btn-danger {
 }
 
 /* ===================================
+   BUTTON GROUP
+   =================================== */
+
+/* Horizontal button group — connected buttons with shared borders */
+.btn-group {
+    @apply inline-flex items-stretch;
+}
+
+/* Each item inside the group: collapse inner radii, share borders */
+.btn-group .btn-group-item {
+    @apply rounded-none -ml-px relative;
+}
+.btn-group .btn-group-item:first-child {
+    @apply ml-0 rounded-l-lg;
+}
+.btn-group .btn-group-item:last-child {
+    @apply rounded-r-lg;
+}
+
+/* Hover z-index lift so border overlaps correctly */
+.btn-group .btn-group-item:hover {
+    @apply z-10;
+}
+.btn-group .btn-group-item:focus {
+    @apply z-20;
+}
+
+/* Active / selected toggle state */
+.btn-group-item.active {
+    @apply bg-primary-50 border-primary-500 text-primary-700 z-10;
+    @apply dark:bg-primary-900/20 dark:border-primary-600 dark:text-primary-400;
+}
+
+/* Vertical button group */
+.btn-group-vertical {
+    @apply inline-flex flex-col items-stretch;
+}
+
+.btn-group-vertical .btn-group-item {
+    @apply rounded-none -mt-px relative;
+    margin-left: 0;
+}
+.btn-group-vertical .btn-group-item:first-child {
+    @apply mt-0 rounded-t-lg;
+}
+.btn-group-vertical .btn-group-item:last-child {
+    @apply rounded-b-lg;
+}
+
+.btn-group-vertical .btn-group-item:hover {
+    @apply z-10;
+}
+.btn-group-vertical .btn-group-item:focus {
+    @apply z-20;
+}
+
+/* ===================================
    BADGES
    =================================== */
 
