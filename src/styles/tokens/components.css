@@ -3335,6 +3335,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 :is(.dark) .avatar-group > .avatar,
 :is(.dark) .avatar-group > .indicator-positioned {
+    @apply block;
     box-shadow: 0 0 0 2px var(--color-neutral-900);
 }
 
