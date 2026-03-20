@@ -373,6 +373,29 @@ update `ANDREY-README.md` in the same task. Do not leave it stale.
 
 ---
 
+## Slash Commands
+
+| Command | What it does |
+|---|---|
+| `/build` | Executes `.project-docs/prompts/next-task.md`, then runs QA sub-agent |
+| `/pl-build` | Builds next `missing` component from `COMPONENT-REGISTRY.md`, runs QA, marks `built` |
+| `/brand-review` | Reviews next `built` component against Cena brand spec, produces proposals for Aaron |
+
+Command files live in `.claude/commands/`. Skill files live in `.project-docs/agent-workflow/skills/`.
+
+## Component Registry
+
+`.project-docs/COMPONENT-REGISTRY.md` is the authoritative list of every component
+that must exist in the pattern library. It has a Status column (`missing` / `in-progress` /
+`built` / `brand-reviewed`). The `/pl-build` command uses this file to drive systematic
+build sprints without requiring manual diffing or multiple requests.
+
+**Never mark a component `built` until:**
+1. `pattern-library/components/{name}.html` exists with `@component-meta`
+2. Classes are in `src/styles/tokens/components.css`
+3. `COMPONENT-INDEX.md` row is updated
+4. QA checklist in `haven-pl-qa.md` passes
+
 ## UX Design & Build Workflow
 
 A full design-to-build pipeline lives in `.project-docs/agent-workflow/`.
