@@ -4543,6 +4543,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle-track {
+    @apply block;
     background-color: var(--color-neutral-600);
 }
 
@@ -4562,25 +4563,29 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle input:checked + .toggle-track {
-    @apply bg-primary-500;
+    @apply block bg-primary-500;
 }
 
 .toggle input:checked + .toggle-track::after {
+    @apply block;
     transform: translateX(20px);
 }
 
 /* Focus ring on the track */
 .toggle input:focus-visible + .toggle-track {
+    @apply block;
     outline: 2px solid var(--color-primary-500);
     outline-offset: 2px;
 }
 
 /* Hover */
 .toggle:hover .toggle-track {
+    @apply block;
     background-color: var(--color-sand-400);
 }
 
 :is(.dark) .toggle:hover .toggle-track {
+    @apply block;
     background-color: var(--color-neutral-500);
 }
 
@@ -4589,7 +4594,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle:hover input:checked + .toggle-track {
-    @apply bg-primary-400;
+    @apply block bg-primary-400;
 }
 
 /* Disabled state */
@@ -4599,11 +4604,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* --- Size: Small (32×18) --- */
 .toggle-sm .toggle-track {
+    @apply block;
     width: 32px;
     height: 18px;
 }
 
 .toggle-sm .toggle-track::after {
+    @apply block;
     width: 14px;
     height: 14px;
     left: 2px;
@@ -4611,16 +4618,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .toggle-sm input:checked + .toggle-track::after {
+    @apply block;
     transform: translateX(14px);
 }
 
 /* --- Size: Large (52×28) --- */
 .toggle-lg .toggle-track {
+    @apply block;
     width: 52px;
     height: 28px;
 }
 
 .toggle-lg .toggle-track::after {
+    @apply block;
     width: 22px;
     height: 22px;
     left: 3px;
@@ -4628,6 +4638,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .toggle-lg input:checked + .toggle-track::after {
+    @apply block;
     transform: translateX(24px);
 }
 
@@ -4637,7 +4648,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle-success input:checked + .toggle-track {
-    @apply bg-success-500;
+    @apply block bg-success-500;
 }
 
 .toggle-success:hover input:checked + .toggle-track {
@@ -4645,7 +4656,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle-success:hover input:checked + .toggle-track {
-    @apply bg-success-400;
+    @apply block bg-success-400;
 }
 
 /* --- Color: Danger (red when checked) --- */
@@ -4654,7 +4665,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle-danger input:checked + .toggle-track {
-    @apply bg-error-500;
+    @apply block bg-error-500;
 }
 
 .toggle-danger:hover input:checked + .toggle-track {
@@ -4662,7 +4673,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .toggle-danger:hover input:checked + .toggle-track {
-    @apply bg-error-400;
+    @apply block bg-error-400;
 }
 
 /* --- Toggle Group: wrapper for toggle + label + description --- */
