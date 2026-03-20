@@ -3,7 +3,7 @@
   name: Notification Center
   category: Complex / Composite
   file: complex-notification-center.html
-  classes: notif-center, notif-center-header, notif-center-title, notif-center-count, notif-center-mark-read, notif-center-tabs, notif-center-tab, notif-center-body, notif-center-empty, notif-center-empty-icon, notif-center-empty-text, notif-group-label, notif-item, notif-item-unread, notif-item-icon, notif-item-icon-success, notif-item-icon-warning, notif-item-icon-error, notif-item-icon-info, notif-item-icon-default, notif-item-content, notif-item-title, notif-item-description, notif-item-time, notif-item-dismiss, notif-center-footer
+  classes: notif-center, notif-center-header, notif-center-title, notif-center-count, notif-center-count-positioned, notif-center-mark-read, notif-center-tabs, notif-center-tab, notif-center-body, notif-center-empty, notif-center-empty-icon, notif-center-empty-text, notif-group-label, notif-item, notif-item-unread, notif-item-icon, notif-item-icon-success, notif-item-icon-warning, notif-item-icon-error, notif-item-icon-info, notif-item-icon-default, notif-item-content, notif-item-title, notif-item-description, notif-item-time, notif-item-dismiss, notif-center-footer
   when-to-use: Grouped notification list panel — typically triggered from a bell icon in the navbar. Shows grouped (by date) notifications with unread indicators and dismiss actions.
   preline-required: yes — hs-dropdown (for bell-trigger demo)
   notes: JS required — src/scripts/components/notification-center.js for dismiss and mark-all-read. Dismiss button appears on hover.
@@ -234,7 +234,7 @@
     <div class="hs-dropdown relative inline-flex">
       <button type="button" class="hs-dropdown-toggle btn-icon relative">
         <i class="fa-solid fa-bell"></i>
-        <span class="notif-center-count" style="position:absolute;top:0;right:0;transform:translate(25%,-25%);">3</span>
+        <span class="notif-center-count notif-center-count-positioned">3</span>
       </button>
 
       <div class="hs-dropdown-menu notif-center" role="menu">
