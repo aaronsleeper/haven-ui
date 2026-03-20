@@ -39,8 +39,7 @@
 
         // Add check icon
         var icon = document.createElement('i');
-        icon.className = 'fa-solid fa-check text-white text-xs';
-        icon.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;';
+        icon.className = 'fa-solid fa-check color-picker-check';
         swatch.appendChild(icon);
 
         // Update preview if present

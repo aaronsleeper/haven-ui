@@ -3,7 +3,7 @@
   name: Color Picker
   category: Forms
   file: forms-color-picker.html
-  classes: color-picker, color-picker-label, color-picker-swatches, color-picker-swatch, color-picker-swatch-sm, color-picker-swatch-custom, color-picker-preview, color-picker-preview-dot, color-picker-value, color-picker-disabled
+  classes: color-picker, color-picker-label, color-picker-swatches, color-picker-swatch, color-picker-swatch-sm, color-picker-swatch-custom, color-picker-check, color-picker-preview, color-picker-preview-dot, color-picker-value, color-picker-disabled
   when-to-use: Swatch selector for meal type, status color, or category assignment where the user picks from a constrained palette.
   preline-required: no
   notes: JS required (color-picker.js). Uses hidden radio inputs for form value. Custom swatch bridges to native input[type=color].
@@ -25,7 +25,7 @@
       <div class="color-picker-swatches">
         <label class="color-picker-swatch active" style="background-color: #B91C1C; color: #B91C1C;" title="Red">
           <input type="radio" name="color-default" value="#B91C1C" class="sr-only" checked>
-          <i class="fa-solid fa-check text-white text-xs" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"></i>
+          <i class="fa-solid fa-check color-picker-check"></i>
         </label>
         <label class="color-picker-swatch" style="background-color: #D97706; color: #D97706;" title="Amber">
           <input type="radio" name="color-default" value="#D97706" class="sr-only">
@@ -62,7 +62,7 @@
         </label>
         <label class="color-picker-swatch active" style="background-color: #15803D; color: #15803D;" title="Green">
           <input type="radio" name="color-labeled" value="#15803D" class="sr-only" checked>
-          <i class="fa-solid fa-check text-white text-xs" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"></i>
+          <i class="fa-solid fa-check color-picker-check"></i>
         </label>
         <label class="color-picker-swatch" style="background-color: #1D4ED8; color: #1D4ED8;" title="Blue">
           <input type="radio" name="color-labeled" value="#1D4ED8" class="sr-only">
@@ -84,7 +84,7 @@
       <div class="color-picker-swatches">
         <label class="color-picker-swatch active" style="background-color: #15803D; color: #15803D;" title="Green">
           <input type="radio" name="color-preview" value="#15803D" data-color-name="Green" class="sr-only" checked>
-          <i class="fa-solid fa-check text-white text-xs" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"></i>
+          <i class="fa-solid fa-check color-picker-check"></i>
         </label>
         <label class="color-picker-swatch" style="background-color: #D97706; color: #D97706;" title="Amber">
           <input type="radio" name="color-preview" value="#D97706" data-color-name="Amber" class="sr-only">
@@ -149,7 +149,7 @@
       <div class="color-picker-swatches">
         <label class="color-picker-swatch active" style="background-color: #B91C1C; color: #B91C1C;" title="Red">
           <input type="radio" name="color-custom" value="#B91C1C" class="sr-only" checked>
-          <i class="fa-solid fa-check text-white text-xs" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"></i>
+          <i class="fa-solid fa-check color-picker-check"></i>
         </label>
         <label class="color-picker-swatch" style="background-color: #D97706; color: #D97706;" title="Amber">
           <input type="radio" name="color-custom" value="#D97706" class="sr-only">
@@ -181,7 +181,7 @@
         </label>
         <label class="color-picker-swatch active" style="background-color: #D97706; color: #D97706;" title="Amber">
           <input type="radio" name="color-disabled" value="#D97706" class="sr-only" disabled checked>
-          <i class="fa-solid fa-check text-white text-xs" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"></i>
+          <i class="fa-solid fa-check color-picker-check"></i>
         </label>
         <label class="color-picker-swatch" style="background-color: #15803D; color: #15803D;" title="Green">
           <input type="radio" name="color-disabled" value="#15803D" class="sr-only" disabled>
@@ -198,7 +198,7 @@
   <div class="mb-8">
     <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Meal Type Use Case (In Card)</h4>
     <!-- @component: color-picker-meal-type -->
-    <div class="card" style="max-width: 24rem;">
+    <div class="card max-w-sm">
       <div class="card-header">
         <h3 class="card-title">Assign Meal Type</h3>
       </div>
@@ -211,7 +211,7 @@
             </label>
             <label class="color-picker-swatch active" style="background-color: #D97706; color: #D97706;" title="Warm - Amber">
               <input type="radio" name="color-meal" value="#D97706" data-color-name="Warm" class="sr-only" checked>
-              <i class="fa-solid fa-check text-white text-xs" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"></i>
+              <i class="fa-solid fa-check color-picker-check"></i>
             </label>
             <label class="color-picker-swatch" style="background-color: #15803D; color: #15803D;" title="Regular - Green">
               <input type="radio" name="color-meal" value="#15803D" data-color-name="Regular" class="sr-only">

@@ -5737,6 +5737,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-neutral-400;
 }
 
+/* Check icon overlay inside active swatch */
+.color-picker-check {
+    @apply absolute inset-0 flex items-center justify-center text-white text-xs;
+}
+
 /* Disabled state */
 .color-picker-disabled {
     @apply opacity-50 pointer-events-none;
