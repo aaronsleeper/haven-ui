@@ -572,8 +572,8 @@ a.btn-danger {
 
 /* Space between sibling fieldsets and other block elements inside card body.
    Excludes feed/list row patterns that manage their own spacing via borders. */
-.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview),
-.card-body-sm > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview) {
+.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.icon-style-row),
+.card-body-sm > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.icon-style-row) {
     @apply mt-4;
 }
 
