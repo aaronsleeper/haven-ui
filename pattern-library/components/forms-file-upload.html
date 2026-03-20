@@ -1,0 +1,282 @@
+<!--
+  @component-meta
+  name: File Upload
+  category: Forms
+  file: forms-file-upload.html
+  classes: file-upload-dropzone, file-upload-dropzone-compact, file-upload-dropzone-icon, file-upload-dropzone-text, file-upload-dropzone-hint, file-upload-browse, file-upload-list, file-upload-item, file-upload-item-icon, file-upload-item-info, file-upload-item-name, file-upload-item-size, file-upload-item-status, file-upload-item-progress, file-upload-item-progress-bar, file-upload-item-remove
+  when-to-use: File attachment fields in clinical forms, document uploads for care plans, partner certification uploads. Use the dropzone for primary upload areas; use the compact variant inside cards or tight layouts.
+  do-not-use-when: You need repeatable URL text inputs — use the file-list component instead. For single file inputs with no drag-drop, use a native input[type=file].
+  preline-required: no
+  notes: JS required for drag-drop interactivity (file-upload.js). Progress bars are CSS-driven with inline width. States: default, is-dragover (dropzone), is-complete, is-error (file items).
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">File Upload</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Drag-and-drop upload zone with file list, progress indicators, and status states.
+  </p>
+
+  <!-- Default Dropzone -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default Dropzone</h4>
+    <!-- @component: file-upload-dropzone -->
+    <div class="file-upload-dropzone" data-file-upload-dropzone>
+      <i class="fa-solid fa-cloud-arrow-up file-upload-dropzone-icon"></i>
+      <p class="file-upload-dropzone-text">
+        Drag and drop files here, or <span class="file-upload-browse">browse</span>
+      </p>
+      <p class="file-upload-dropzone-hint">PDF, DOC, JPG, or PNG up to 10 MB</p>
+      <input type="file" class="sr-only" multiple aria-label="Upload files">
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Dropzone — Drag-Over State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Drag-Over State</h4>
+    <!-- @component: file-upload-dropzone-dragover -->
+    <div class="file-upload-dropzone is-dragover">
+      <i class="fa-solid fa-cloud-arrow-up file-upload-dropzone-icon"></i>
+      <p class="file-upload-dropzone-text">
+        Drop files to upload
+      </p>
+      <p class="file-upload-dropzone-hint">PDF, DOC, JPG, or PNG up to 10 MB</p>
+      <input type="file" class="sr-only" multiple aria-label="Upload files">
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Compact Dropzone -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Compact Dropzone</h4>
+    <!-- @component: file-upload-dropzone-compact -->
+    <div class="file-upload-dropzone-compact" data-file-upload-dropzone>
+      <i class="fa-solid fa-cloud-arrow-up file-upload-dropzone-icon"></i>
+      <div>
+        <p class="file-upload-dropzone-text">
+          Drag files here or <span class="file-upload-browse">browse</span>
+        </p>
+        <p class="file-upload-dropzone-hint">PDF, DOC, JPG, or PNG up to 10 MB</p>
+      </div>
+      <input type="file" class="sr-only" multiple aria-label="Upload files">
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- File List — Uploading -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">File List — Uploading</h4>
+    <!-- @component: file-upload-list-uploading -->
+    <div class="file-upload-list">
+
+      <div class="file-upload-item">
+        <div class="file-upload-item-icon">
+          <i class="fa-solid fa-file-pdf"></i>
+        </div>
+        <div class="file-upload-item-info">
+          <p class="file-upload-item-name">care-plan-maria-rivera.pdf</p>
+          <p class="file-upload-item-size">2.4 MB</p>
+          <div class="file-upload-item-progress">
+            <div class="file-upload-item-progress-bar" style="width: 65%"></div>
+          </div>
+        </div>
+        <span class="file-upload-item-status">65%</span>
+        <button type="button" class="file-upload-item-remove" aria-label="Cancel upload">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="file-upload-item">
+        <div class="file-upload-item-icon">
+          <i class="fa-solid fa-file-image"></i>
+        </div>
+        <div class="file-upload-item-info">
+          <p class="file-upload-item-name">lab-results-2026-03.jpg</p>
+          <p class="file-upload-item-size">1.1 MB</p>
+          <div class="file-upload-item-progress">
+            <div class="file-upload-item-progress-bar" style="width: 30%"></div>
+          </div>
+        </div>
+        <span class="file-upload-item-status">30%</span>
+        <button type="button" class="file-upload-item-remove" aria-label="Cancel upload">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- File List — Complete -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">File List — Complete</h4>
+    <!-- @component: file-upload-list-complete -->
+    <div class="file-upload-list">
+
+      <div class="file-upload-item is-complete">
+        <div class="file-upload-item-icon">
+          <i class="fa-solid fa-file-pdf"></i>
+        </div>
+        <div class="file-upload-item-info">
+          <p class="file-upload-item-name">care-plan-maria-rivera.pdf</p>
+          <p class="file-upload-item-size">2.4 MB</p>
+          <div class="file-upload-item-progress">
+            <div class="file-upload-item-progress-bar" style="width: 100%"></div>
+          </div>
+        </div>
+        <span class="file-upload-item-status">
+          <i class="fa-solid fa-circle-check text-xs"></i> Complete
+        </span>
+        <button type="button" class="file-upload-item-remove" aria-label="Remove file">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="file-upload-item is-complete">
+        <div class="file-upload-item-icon">
+          <i class="fa-solid fa-file-word"></i>
+        </div>
+        <div class="file-upload-item-info">
+          <p class="file-upload-item-name">discharge-summary.docx</p>
+          <p class="file-upload-item-size">856 KB</p>
+          <div class="file-upload-item-progress">
+            <div class="file-upload-item-progress-bar" style="width: 100%"></div>
+          </div>
+        </div>
+        <span class="file-upload-item-status">
+          <i class="fa-solid fa-circle-check text-xs"></i> Complete
+        </span>
+        <button type="button" class="file-upload-item-remove" aria-label="Remove file">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- File List — Error State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">File List — Error</h4>
+    <!-- @component: file-upload-list-error -->
+    <div class="file-upload-list">
+
+      <div class="file-upload-item is-error">
+        <div class="file-upload-item-icon">
+          <i class="fa-solid fa-file-image"></i>
+        </div>
+        <div class="file-upload-item-info">
+          <p class="file-upload-item-name">scan-corrupted-file.png</p>
+          <p class="file-upload-item-size">14.2 MB</p>
+          <div class="file-upload-item-progress">
+            <div class="file-upload-item-progress-bar" style="width: 100%"></div>
+          </div>
+        </div>
+        <span class="file-upload-item-status">
+          <i class="fa-solid fa-circle-exclamation text-xs"></i> File too large
+        </span>
+        <button type="button" class="file-upload-item-remove" aria-label="Remove file">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="file-upload-item is-error">
+        <div class="file-upload-item-icon">
+          <i class="fa-solid fa-file"></i>
+        </div>
+        <div class="file-upload-item-info">
+          <p class="file-upload-item-name">report.exe</p>
+          <p class="file-upload-item-size">3.8 MB</p>
+          <div class="file-upload-item-progress">
+            <div class="file-upload-item-progress-bar" style="width: 100%"></div>
+          </div>
+        </div>
+        <span class="file-upload-item-status">
+          <i class="fa-solid fa-circle-exclamation text-xs"></i> Unsupported format
+        </span>
+        <button type="button" class="file-upload-item-remove" aria-label="Remove file">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Full Composition — Dropzone + File List -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Full Composition</h4>
+    <!-- @component: file-upload-full -->
+    <div>
+      <div class="file-upload-dropzone" data-file-upload-dropzone>
+        <i class="fa-solid fa-cloud-arrow-up file-upload-dropzone-icon"></i>
+        <p class="file-upload-dropzone-text">
+          Drag and drop files here, or <span class="file-upload-browse">browse</span>
+        </p>
+        <p class="file-upload-dropzone-hint">PDF, DOC, JPG, or PNG up to 10 MB</p>
+        <input type="file" class="sr-only" multiple aria-label="Upload files">
+      </div>
+
+      <div class="file-upload-list">
+        <div class="file-upload-item is-complete">
+          <div class="file-upload-item-icon">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <div class="file-upload-item-info">
+            <p class="file-upload-item-name">care-plan-maria-rivera.pdf</p>
+            <p class="file-upload-item-size">2.4 MB</p>
+            <div class="file-upload-item-progress">
+              <div class="file-upload-item-progress-bar" style="width: 100%"></div>
+            </div>
+          </div>
+          <span class="file-upload-item-status">
+            <i class="fa-solid fa-circle-check text-xs"></i> Complete
+          </span>
+          <button type="button" class="file-upload-item-remove" aria-label="Remove file">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="file-upload-item">
+          <div class="file-upload-item-icon">
+            <i class="fa-solid fa-file-image"></i>
+          </div>
+          <div class="file-upload-item-info">
+            <p class="file-upload-item-name">lab-results-2026-03.jpg</p>
+            <p class="file-upload-item-size">1.1 MB</p>
+            <div class="file-upload-item-progress">
+              <div class="file-upload-item-progress-bar" style="width: 45%"></div>
+            </div>
+          </div>
+          <span class="file-upload-item-status">45%</span>
+          <button type="button" class="file-upload-item-remove" aria-label="Cancel upload">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="file-upload-item is-error">
+          <div class="file-upload-item-icon">
+            <i class="fa-solid fa-file"></i>
+          </div>
+          <div class="file-upload-item-info">
+            <p class="file-upload-item-name">medication-schedule.xlsx</p>
+            <p class="file-upload-item-size">15.3 MB</p>
+            <div class="file-upload-item-progress">
+              <div class="file-upload-item-progress-bar" style="width: 100%"></div>
+            </div>
+          </div>
+          <span class="file-upload-item-status">
+            <i class="fa-solid fa-circle-exclamation text-xs"></i> File too large
+          </span>
+          <button type="button" class="file-upload-item-remove" aria-label="Remove file">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

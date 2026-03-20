@@ -4770,3 +4770,161 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
         width: 0%;
     }
 }
+
+/* ===================================
+   File Upload — Dropzone + File List
+   =================================== */
+
+.file-upload-dropzone {
+    @apply relative flex flex-col items-center justify-center gap-3 p-8 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 text-center cursor-pointer transition-colors;
+    @apply hover:border-primary-400 hover:bg-primary-50/40;
+    @apply dark:border-neutral-600 dark:bg-neutral-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
+}
+
+.file-upload-dropzone.is-dragover {
+    @apply border-primary-500 bg-primary-50/60;
+    @apply dark:border-primary-400 dark:bg-primary-900/30;
+}
+
+.file-upload-dropzone-compact {
+    @apply relative flex items-center gap-4 p-4 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 cursor-pointer transition-colors;
+    @apply hover:border-primary-400 hover:bg-primary-50/40;
+    @apply dark:border-neutral-600 dark:bg-neutral-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
+}
+
+.file-upload-dropzone-compact.is-dragover {
+    @apply border-primary-500 bg-primary-50/60;
+    @apply dark:border-primary-400 dark:bg-primary-900/30;
+}
+
+.file-upload-dropzone-icon {
+    @apply text-3xl text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+.file-upload-dropzone-compact .file-upload-dropzone-icon {
+    @apply text-xl text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+.file-upload-dropzone-text {
+    @apply text-sm font-medium text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+.file-upload-dropzone-hint {
+    @apply text-xs text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.file-upload-browse {
+    @apply font-semibold text-primary-600 hover:text-primary-700 underline cursor-pointer;
+    @apply dark:text-primary-400 dark:hover:text-primary-300;
+}
+
+/* File item list container */
+.file-upload-list {
+    @apply space-y-2 mt-4;
+}
+
+/* Individual file item row */
+.file-upload-item {
+    @apply flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-white;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+}
+
+.file-upload-item.is-complete {
+    @apply border-success-200 bg-success-50/40;
+    @apply dark:border-success-800 dark:bg-success-900/20;
+}
+
+.file-upload-item.is-error {
+    @apply border-error-200 bg-error-50/40;
+    @apply dark:border-error-800 dark:bg-error-900/20;
+}
+
+.file-upload-item-icon {
+    @apply flex items-center justify-center size-9 rounded-md bg-gray-100 text-gray-500 text-sm shrink-0;
+    @apply dark:bg-neutral-700 dark:text-neutral-400;
+}
+
+.file-upload-item.is-complete .file-upload-item-icon {
+    @apply bg-success-100 text-success-600;
+    @apply dark:bg-success-900/30 dark:text-success-400;
+}
+
+.file-upload-item.is-error .file-upload-item-icon {
+    @apply bg-error-100 text-error-600;
+    @apply dark:bg-error-900/30 dark:text-error-400;
+}
+
+.file-upload-item-info {
+    @apply flex-1 min-w-0;
+}
+
+.file-upload-item-name {
+    @apply text-sm font-medium text-gray-900 truncate;
+    @apply dark:text-white;
+}
+
+.file-upload-item-size {
+    @apply text-xs text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.file-upload-item-status {
+    @apply text-xs font-medium text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.file-upload-item.is-complete .file-upload-item-status {
+    @apply text-success-600;
+    @apply dark:text-success-400;
+}
+
+.file-upload-item.is-error .file-upload-item-status {
+    @apply text-error-600;
+    @apply dark:text-error-400;
+}
+
+/* Progress bar track */
+.file-upload-item-progress {
+    @apply block;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--color-sand-200);
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+:is(.dark) .file-upload-item-progress {
+    background-color: var(--color-sand-700);
+}
+
+/* Progress bar fill */
+.file-upload-item-progress-bar {
+    @apply block;
+    height: 100%;
+    border-radius: 2px;
+    background-color: var(--color-primary-500);
+    transition: width 0.3s ease;
+}
+
+.file-upload-item.is-complete .file-upload-item-progress-bar {
+    background-color: var(--color-success-500);
+}
+
+.file-upload-item.is-error .file-upload-item-progress-bar {
+    background-color: var(--color-error-500);
+}
+
+.file-upload-item-remove {
+    @apply flex items-center justify-center size-7 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-pointer transition-colors shrink-0;
+    @apply dark:text-neutral-500 dark:hover:text-neutral-300 dark:hover:bg-neutral-700;
+}
+
+.file-upload-item.is-error .file-upload-item-remove {
+    @apply text-error-400 hover:text-error-600;
+    @apply dark:text-error-500 dark:hover:text-error-300;
+}
