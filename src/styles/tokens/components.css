@@ -5871,3 +5871,125 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .combobox-item-description {
     @apply text-xs text-gray-500 dark:text-neutral-400;
 }
+
+/* ===================================
+   NAVBAR / TOP BAR
+   =================================== */
+
+/* Top application bar — sticky, full-width */
+.navbar {
+    @apply sticky top-0 z-50 w-full;
+    @apply flex items-center justify-between;
+    @apply px-4 sm:px-6 lg:px-8 py-3;
+    @apply bg-white border-b border-gray-200;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+}
+
+/* Compact variant — reduced vertical padding */
+.navbar-compact {
+    @apply py-2;
+}
+
+/* Transparent variant — no bg or border, for hero/landing pages */
+.navbar-transparent {
+    @apply bg-transparent border-transparent;
+    @apply dark:bg-transparent dark:border-transparent;
+}
+
+/* Brand / logo area */
+.navbar-brand {
+    @apply flex items-center gap-2 text-lg font-semibold tracking-tight;
+    @apply text-gray-900 dark:text-white;
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.navbar-brand:hover {
+    @apply no-underline;
+}
+
+.navbar-brand img {
+    @apply h-8 w-auto;
+}
+
+/* Horizontal nav link list */
+.navbar-nav {
+    @apply hidden md:flex items-center gap-1;
+}
+
+/* Individual nav link */
+.navbar-nav-item {
+    @apply px-3 py-2 text-sm font-medium rounded-lg;
+    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
+    @apply dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800;
+    @apply transition-colors;
+}
+
+.navbar-nav-item.active {
+    @apply text-primary-700 bg-primary-50;
+    @apply dark:text-primary-400 dark:bg-primary-900/20;
+}
+
+/* Right-side actions area */
+.navbar-actions {
+    @apply flex items-center gap-2;
+}
+
+/* Icon button in actions area */
+.navbar-action-btn {
+    @apply relative inline-flex items-center justify-center;
+    @apply w-9 h-9 rounded-lg;
+    @apply text-gray-500 hover:text-gray-700 hover:bg-gray-100;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply transition-colors cursor-pointer;
+}
+
+/* Notification dot on action button */
+.navbar-action-btn .indicator {
+    @apply absolute top-1 right-1;
+}
+
+/* User trigger — avatar + name */
+.navbar-user {
+    @apply flex items-center gap-2 px-2 py-1.5 rounded-lg;
+    @apply hover:bg-gray-100 dark:hover:bg-neutral-800;
+    @apply transition-colors cursor-pointer;
+}
+
+.navbar-user-name {
+    @apply hidden sm:block text-sm font-medium;
+    @apply text-gray-700 dark:text-neutral-300;
+}
+
+.navbar-user-role {
+    @apply hidden sm:block text-xs;
+    @apply text-gray-500 dark:text-neutral-500;
+}
+
+/* Mobile hamburger toggle */
+.navbar-mobile-toggle {
+    @apply inline-flex md:hidden items-center justify-center;
+    @apply w-9 h-9 rounded-lg;
+    @apply text-gray-500 hover:text-gray-700 hover:bg-gray-100;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply transition-colors cursor-pointer;
+}
+
+/* Collapsible mobile menu container */
+.navbar-mobile-menu {
+    @apply md:hidden border-t border-gray-200 dark:border-neutral-700;
+    @apply px-4 py-3;
+}
+
+/* Mobile nav items stack vertically */
+.navbar-mobile-menu .navbar-nav {
+    @apply flex flex-col gap-1;
+}
+
+.navbar-mobile-menu .navbar-nav-item {
+    @apply w-full;
+}
+
+/* Divider inside navbar (vertical separator between sections) */
+.navbar-divider {
+    @apply hidden md:block w-px h-6 bg-gray-200 dark:bg-neutral-700;
+}

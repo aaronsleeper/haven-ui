@@ -1,0 +1,282 @@
+<!--
+  @component-meta
+  name: Navbar / Top Bar
+  category: Navigation
+  file: nav-topbar.html
+  classes: navbar, navbar-compact, navbar-transparent, navbar-brand, navbar-nav, navbar-nav-item, navbar-actions, navbar-action-btn, navbar-user, navbar-user-name, navbar-user-role, navbar-mobile-toggle, navbar-mobile-menu, navbar-divider
+  when-to-use: Top-level application navigation bar with logo, nav links, and user actions. Use instead of sidebar for apps that need horizontal nav.
+  preline-required: yes — hs-dropdown (user menu), hs-collapse (mobile menu)
+  notes: Mobile nav uses Preline hs-collapse. User dropdown uses hs-dropdown. Reuses existing avatar, indicator, hs-dropdown-menu, hs-dropdown-item classes.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Navbar / Top Bar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Top application bar with logo, navigation links, and user actions. Responsive — collapses to hamburger on mobile.
+  </p>
+
+  <!-- Default Navbar -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: navbar-default -->
+    <div class="border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden">
+      <nav class="navbar" style="position: relative;">
+        <div class="flex items-center gap-8">
+          <!-- Brand -->
+          <a href="#" class="navbar-brand">
+            <i class="fa-solid fa-leaf text-primary-600"></i>
+            Haven
+          </a>
+          <!-- Nav links -->
+          <ul class="navbar-nav">
+            <li><a href="#" class="navbar-nav-item active">Dashboard</a></li>
+            <li><a href="#" class="navbar-nav-item">Patients</a></li>
+            <li><a href="#" class="navbar-nav-item">Meals</a></li>
+            <li><a href="#" class="navbar-nav-item">Reports</a></li>
+          </ul>
+        </div>
+        <!-- Actions -->
+        <div class="navbar-actions">
+          <button type="button" class="navbar-action-btn" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="indicator indicator-sm indicator-online indicator-pulse"></span>
+          </button>
+          <div class="navbar-divider"></div>
+          <div class="hs-dropdown relative inline-flex">
+            <button type="button" class="hs-dropdown-toggle navbar-user">
+              <span class="avatar avatar-sm avatar-primary">DR</span>
+              <div class="text-start">
+                <span class="navbar-user-name">Dr. Rivera</span>
+                <span class="navbar-user-role">Care Coordinator</span>
+              </div>
+              <i class="fa-solid fa-chevron-down text-xs text-gray-400 hidden sm:block"></i>
+            </button>
+            <div class="hs-dropdown-menu" role="menu">
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-circle-question"></i> Help</a>
+              <div class="border-t border-gray-200 dark:border-neutral-700 my-1"></div>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Navbar with Search -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Search</h4>
+    <!-- @component: navbar-with-search -->
+    <div class="border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden">
+      <nav class="navbar" style="position: relative;">
+        <div class="flex items-center gap-8">
+          <a href="#" class="navbar-brand">
+            <i class="fa-solid fa-leaf text-primary-600"></i>
+            Haven
+          </a>
+          <ul class="navbar-nav">
+            <li><a href="#" class="navbar-nav-item active">Dashboard</a></li>
+            <li><a href="#" class="navbar-nav-item">Patients</a></li>
+            <li><a href="#" class="navbar-nav-item">Meals</a></li>
+          </ul>
+        </div>
+        <div class="navbar-actions">
+          <div class="search-input hidden md:flex">
+            <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+            <input type="text" placeholder="Search patients, meals..." class="text-sm">
+          </div>
+          <button type="button" class="navbar-action-btn md:hidden" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button type="button" class="navbar-action-btn" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+          <div class="navbar-divider"></div>
+          <div class="hs-dropdown relative inline-flex">
+            <button type="button" class="hs-dropdown-toggle navbar-user">
+              <span class="avatar avatar-sm avatar-primary">DR</span>
+              <i class="fa-solid fa-chevron-down text-xs text-gray-400 hidden sm:block"></i>
+            </button>
+            <div class="hs-dropdown-menu" role="menu">
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Compact Navbar -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Compact</h4>
+    <!-- @component: navbar-compact -->
+    <div class="border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden">
+      <nav class="navbar navbar-compact" style="position: relative;">
+        <div class="flex items-center gap-6">
+          <a href="#" class="navbar-brand">
+            <i class="fa-solid fa-leaf text-primary-600"></i>
+            Haven
+          </a>
+          <ul class="navbar-nav">
+            <li><a href="#" class="navbar-nav-item active">Dashboard</a></li>
+            <li><a href="#" class="navbar-nav-item">Patients</a></li>
+            <li><a href="#" class="navbar-nav-item">Meals</a></li>
+            <li><a href="#" class="navbar-nav-item">Reports</a></li>
+          </ul>
+        </div>
+        <div class="navbar-actions">
+          <button type="button" class="navbar-action-btn" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+          <div class="hs-dropdown relative inline-flex">
+            <button type="button" class="hs-dropdown-toggle navbar-user">
+              <span class="avatar avatar-sm avatar-primary">DR</span>
+            </button>
+            <div class="hs-dropdown-menu" role="menu">
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Transparent Navbar -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Transparent (Hero / Landing)</h4>
+    <!-- @component: navbar-transparent -->
+    <div class="rounded-xl overflow-hidden" style="background: linear-gradient(135deg, #1B685E 0%, #0E4A43 100%); min-height: 120px;">
+      <nav class="navbar navbar-transparent" style="position: relative;">
+        <div class="flex items-center gap-8">
+          <a href="#" class="navbar-brand" style="color: white;">
+            <i class="fa-solid fa-leaf"></i>
+            Haven
+          </a>
+          <ul class="navbar-nav">
+            <li><a href="#" class="navbar-nav-item" style="color: rgba(255,255,255,0.8);">Features</a></li>
+            <li><a href="#" class="navbar-nav-item" style="color: rgba(255,255,255,0.8);">About</a></li>
+            <li><a href="#" class="navbar-nav-item" style="color: rgba(255,255,255,0.8);">Contact</a></li>
+          </ul>
+        </div>
+        <div class="navbar-actions">
+          <a href="#" class="btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);">Sign in</a>
+          <a href="#" class="btn-primary">Get started</a>
+        </div>
+      </nav>
+    </div>
+    <!-- /component -->
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mt-2">
+      Note: The transparent variant requires page-specific color overrides on nav items since it sits on a colored background.
+    </p>
+  </div>
+
+  <!-- Mobile Responsive Navbar -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Mobile Responsive (with Hamburger)</h4>
+    <!-- @component: navbar-mobile -->
+    <div class="border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden" style="max-width: 420px;">
+      <nav class="navbar" style="position: relative;">
+        <div class="flex items-center gap-4">
+          <a href="#" class="navbar-brand">
+            <i class="fa-solid fa-leaf text-primary-600"></i>
+            Haven
+          </a>
+        </div>
+        <div class="navbar-actions">
+          <button type="button" class="navbar-action-btn" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="indicator indicator-sm indicator-online indicator-pulse"></span>
+          </button>
+          <div class="hs-dropdown relative inline-flex">
+            <button type="button" class="hs-dropdown-toggle navbar-user">
+              <span class="avatar avatar-sm avatar-primary">DR</span>
+            </button>
+            <div class="hs-dropdown-menu" role="menu">
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+            </div>
+          </div>
+          <button type="button" class="navbar-mobile-toggle"
+            data-hs-collapse="#navbar-mobile-demo" aria-controls="navbar-mobile-demo" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+      <div id="navbar-mobile-demo" class="navbar-mobile-menu hs-collapse hidden">
+        <ul class="navbar-nav">
+          <li><a href="#" class="navbar-nav-item active">Dashboard</a></li>
+          <li><a href="#" class="navbar-nav-item">Patients</a></li>
+          <li><a href="#" class="navbar-nav-item">Meals</a></li>
+          <li><a href="#" class="navbar-nav-item">Reports</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /component -->
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mt-2">
+      Constrained to 420px to simulate mobile. The hamburger button triggers Preline's hs-collapse to reveal the mobile menu.
+    </p>
+  </div>
+
+  <!-- Navbar with Badge Actions -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Multiple Action Buttons</h4>
+    <!-- @component: navbar-actions-demo -->
+    <div class="border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden">
+      <nav class="navbar" style="position: relative;">
+        <div class="flex items-center gap-8">
+          <a href="#" class="navbar-brand">
+            <i class="fa-solid fa-leaf text-primary-600"></i>
+            Haven
+          </a>
+          <ul class="navbar-nav">
+            <li><a href="#" class="navbar-nav-item active">Dashboard</a></li>
+            <li><a href="#" class="navbar-nav-item">Patients</a></li>
+            <li><a href="#" class="navbar-nav-item">Meals</a></li>
+          </ul>
+        </div>
+        <div class="navbar-actions">
+          <button type="button" class="navbar-action-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button type="button" class="navbar-action-btn" aria-label="Messages">
+            <i class="fa-solid fa-envelope"></i>
+            <span class="indicator indicator-sm indicator-online"></span>
+          </button>
+          <button type="button" class="navbar-action-btn" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="indicator indicator-sm indicator-online indicator-pulse"></span>
+          </button>
+          <div class="navbar-divider"></div>
+          <div class="hs-dropdown relative inline-flex">
+            <button type="button" class="hs-dropdown-toggle navbar-user">
+              <span class="avatar avatar-sm avatar-primary">JC</span>
+              <div class="text-start">
+                <span class="navbar-user-name">Jamie Chen</span>
+                <span class="navbar-user-role">Kitchen Manager</span>
+              </div>
+              <i class="fa-solid fa-chevron-down text-xs text-gray-400 hidden sm:block"></i>
+            </button>
+            <div class="hs-dropdown-menu" role="menu">
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-circle-question"></i> Help</a>
+              <div class="border-t border-gray-200 dark:border-neutral-700 my-1"></div>
+              <a class="hs-dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i> Sign out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

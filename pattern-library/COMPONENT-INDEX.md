@@ -147,6 +147,7 @@ before creating any new component or semantic class.
 | Segmented Control | `nav-segmented-control.html` | `segmented-control`, `segmented-control-btn`, `view-toggle`, `view-toggle-btn` | no | Also used as view toggle |
 | Sidebar Nav | `nav-sidebar.html` | *(see App Shell)* | yes | |
 | Stratification Bar | `nav-stratification-bar.html` | `stratification-bar`, `stratification-bar-label`, `stratification-bar-item` | no | Filter by cohort/segment |
+| Navbar / Top Bar | `nav-topbar.html` | `navbar`, `navbar-compact`, `navbar-transparent`, `navbar-brand`, `navbar-nav`, `navbar-nav-item`, `navbar-actions`, `navbar-action-btn`, `navbar-user`, `navbar-user-name`, `navbar-user-role`, `navbar-mobile-toggle`, `navbar-mobile-menu`, `navbar-divider` | yes — hs-dropdown, hs-collapse | Top application bar — logo, nav links, user dropdown. Mobile hamburger via hs-collapse. |
 | Tab Nav | `nav-tabs.html` | `tab-nav`, `tab-nav-item` | yes | Preline `hs-tab-active` class on active item |
 | Sub-Nav (sidebar) | *(inside App Shell)* | `sidebar-subnav-list`, `sidebar-subnav-item` | no | Indented sub-items in sidebar accordion |
 

@@ -150,7 +150,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Tab Nav | `pages/navigation.html` | built | |
 | Sidebar Sub-nav | `pages/navigation.html` | built | Indented accordion sub-items |
 | Stratification Bar | `pages/navigation.html` | built | |
-| Navbar / Top Bar | `pages/nav-topbar.html` | missing | Top application bar — logo, nav links, actions |
+| Navbar / Top Bar | `pages/nav-topbar.html` | built | Top application bar — logo, nav links, actions |
 | Pagination | `pages/pagination.html` | built | |
 | Stepper | `pages/stepper.html` | missing | Horizontal step indicator — Preline HsStepper |
 | Mobile Bottom Nav | `pages/layout-mobile-bottom-nav.html` | built | Patient app only |
