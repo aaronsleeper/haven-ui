@@ -3,43 +3,162 @@
   name: Alert Summary Row
   category: Healthcare-Specific
   file: clinical-alert-summary-row.html
-  classes: alert-summary-row, severity-badge, severity-high, severity-medium, severity-low
-  when-to-use: Compact alert list entries in patient detail or dashboard panels showing severity, description, and timestamp.
+  classes: alert-summary-row, alert-summary-row-title, alert-summary-row-meta, alert-summary-row-status
+  when-to-use: Compact alert list entries in patient detail or dashboard panels showing severity, description, status, and timestamp.
   preline-required: no
-  notes: Wrap rows in a .card for proper containment. Use severity-high, severity-medium, or severity-low on the severity-badge.
+  notes: Wrap rows in a .card for proper containment. Use severity-high, severity-medium, or severity-low on the severity-badge. Already excluded from card-body spacing rule.
   @end-meta
 -->
 
 <!-- DEMO WRAPPER: visual context only, do not copy -->
 <section>
   <h3 class="section-title mb-4">Alert Summary Row</h3>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
-    Compact alert list entries in patient detail or dashboard panels showing severity, description, and timestamp.
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Compact alert list entries for patient detail or dashboard panels. Shows severity, description, and timestamp.
   </p>
 
-  <!-- @component: clinical-alert-summary-row -->
-  <div class="card">
+  <!-- Default -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: alert-summary-row-default -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Active Alerts</h3>
+      </div>
+      <div class="card-body">
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-high">High</span>
+            <span class="alert-summary-row-title">Blood pressure exceeds 160/100 threshold</span>
+          </div>
+          <span class="alert-summary-row-meta">Feb 18, 2026</span>
+        </div>
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-medium">Medium</span>
+            <span class="alert-summary-row-title">Missed medication refill — Metformin due 5 days ago</span>
+          </div>
+          <span class="alert-summary-row-meta">Feb 16, 2026</span>
+        </div>
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-low">Low</span>
+            <span class="alert-summary-row-title">Annual wellness visit overdue by 2 weeks</span>
+          </div>
+          <span class="alert-summary-row-meta">Feb 10, 2026</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Status -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Status</h4>
+    <!-- @component: alert-summary-row-with-status -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Alert History</h3>
+      </div>
+      <div class="card-body">
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-high">High</span>
+            <span class="alert-summary-row-title">Blood glucose above 300 mg/dL</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="alert-summary-row-status is-active">Active</span>
+            <span class="alert-summary-row-meta">Mar 15, 2026</span>
+          </div>
+        </div>
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-medium">Medium</span>
+            <span class="alert-summary-row-title">HbA1c trending upward — 7.2% to 8.1%</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="alert-summary-row-status is-pending">Pending</span>
+            <span class="alert-summary-row-meta">Mar 12, 2026</span>
+          </div>
+        </div>
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-high">High</span>
+            <span class="alert-summary-row-title">Missed insulin dose — 2 consecutive days</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="alert-summary-row-status is-resolved">Resolved</span>
+            <span class="alert-summary-row-meta">Mar 8, 2026</span>
+          </div>
+        </div>
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-low">Low</span>
+            <span class="alert-summary-row-title">Dietary log incomplete for 3 days</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="alert-summary-row-status is-resolved">Resolved</span>
+            <span class="alert-summary-row-meta">Mar 1, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Action -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Action</h4>
+    <!-- @component: alert-summary-row-with-action -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Requires Attention</h3>
+      </div>
+      <div class="card-body">
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-high">High</span>
+            <span class="alert-summary-row-title">Blood pressure exceeds 160/100 threshold</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="alert-summary-row-meta">Feb 18, 2026</span>
+            <a href="#" class="text-link text-xs">Review</a>
+          </div>
+        </div>
+        <div class="alert-summary-row">
+          <div class="flex items-center gap-2">
+            <span class="severity-badge severity-medium">Medium</span>
+            <span class="alert-summary-row-title">Missed medication refill — Metformin due 5 days ago</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="alert-summary-row-meta">Feb 16, 2026</span>
+            <a href="#" class="text-link text-xs">Review</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Standalone (no card wrapper) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Standalone (no card wrapper)</h4>
+    <!-- @component: alert-summary-row-standalone -->
     <div class="alert-summary-row">
       <div class="flex items-center gap-2">
         <span class="severity-badge severity-high">High</span>
-        <span class="text-sm text-gray-700 dark:text-neutral-300">Blood pressure exceeds 160/100 threshold</span>
+        <span class="alert-summary-row-title">Fall risk assessment overdue</span>
       </div>
-      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">Feb 18, 2026</span>
-    </div>
-    <div class="alert-summary-row">
-      <div class="flex items-center gap-2">
-        <span class="severity-badge severity-medium">Medium</span>
-        <span class="text-sm text-gray-700 dark:text-neutral-300">Missed medication refill — Metformin due 5 days ago</span>
-      </div>
-      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">Feb 16, 2026</span>
+      <span class="alert-summary-row-meta">Mar 20, 2026</span>
     </div>
     <div class="alert-summary-row">
       <div class="flex items-center gap-2">
         <span class="severity-badge severity-low">Low</span>
-        <span class="text-sm text-gray-700 dark:text-neutral-300">Annual wellness visit overdue by 2 weeks</span>
+        <span class="alert-summary-row-title">Care plan review due next week</span>
       </div>
-      <span class="text-xs text-gray-400 dark:text-neutral-500 shrink-0">Feb 10, 2026</span>
+      <span class="alert-summary-row-meta">Mar 19, 2026</span>
     </div>
+    <!-- /component -->
   </div>
-  <!-- /component -->
+
 </section>

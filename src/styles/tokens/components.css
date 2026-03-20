@@ -2968,6 +2968,36 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .alert-summary-row {
     @apply flex items-center justify-between gap-2 px-4 py-2.5;
     @apply border-b border-gray-100 last:border-b-0;
+    @apply dark:border-neutral-700;
+}
+
+.alert-summary-row-title {
+    @apply text-sm text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+.alert-summary-row-meta {
+    @apply text-xs text-gray-400 shrink-0;
+    @apply dark:text-neutral-500;
+}
+
+.alert-summary-row-status {
+    @apply text-xs font-medium shrink-0;
+}
+
+.alert-summary-row-status.is-active {
+    @apply text-error-600;
+    @apply dark:text-error-400;
+}
+
+.alert-summary-row-status.is-resolved {
+    @apply text-success-600;
+    @apply dark:text-success-400;
+}
+
+.alert-summary-row-status.is-pending {
+    @apply text-warning-600;
+    @apply dark:text-warning-400;
 }
 
 /* ===================================

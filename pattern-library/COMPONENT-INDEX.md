@@ -191,7 +191,7 @@ before creating any new component or semantic class.
 | Activity Feed Row | `clinical-activity-feed.html` | `activity-feed-row` | no | |
 | AI Field | `clinical-ai-field.html` | `ai-field`, `ai-field-icon`, `ai-field-confirmed`, `ai-field-confirmed-icon`, `ai-field-label`, `ai-field-confirmed-label`, `ai-field-zero-callout` | no | Agent-populated values pending confirmation |
 | Alert Category Card | `clinical-alert-category.html` | `alert-category-card`, `alert-category-label` | no | `--alert-accent` CSS var for left border color |
-| Alert Summary Row | `clinical-alert-summary-row.html` | `alert-summary-row` | no | |
+| Alert Summary Row | `clinical-alert-summary-row.html` | `alert-summary-row`, `alert-summary-row-title`, `alert-summary-row-meta`, `alert-summary-row-status` | no | Wrap rows in a `.card`. Status modifiers: `.is-active`, `.is-resolved`, `.is-pending`. Already excluded from `card-body` spacing rule. |
 | HEDIS Grid | `clinical-hedis-grid.html` | `hedis-grid`, `hedis-stat`, `hedis-stat-label`, `hedis-stat-value`, `hedis-stat-detail` | no | |
 | Medication Row | `clinical-medication-row.html` | `medication-row`, `medication-row-icon`, `medication-row-details`, `medication-row-name`, `medication-row-dose` | no | Wrap rows in a `.card`. Already excluded from `card-body` spacing rule. |
 | Metric Card | `clinical-metric-card.html` | `clinical-metric-card`, `metric-card-flagged`, `metric-value-danger` | no | |
