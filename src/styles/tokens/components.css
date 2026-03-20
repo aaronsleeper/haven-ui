@@ -407,6 +407,10 @@ a.btn-danger {
     @apply py-1 px-2 text-xs gap-x-1;
 }
 
+.btn-lg {
+    @apply py-3.5 px-6 text-base;
+}
+
 /* ===================================
    BUTTON GROUP
    =================================== */

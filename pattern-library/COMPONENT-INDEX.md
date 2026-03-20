@@ -69,7 +69,7 @@ before creating any new component or semantic class.
 | Icon | `btn-icon.html` | `btn-icon`, `btn-icon-primary` | no | Icon-only buttons |
 | Dropdown | `btn-dropdown.html` | `btn-model-selector`, `dropdown-btn` | yes | Dropdown trigger |
 | Dark Mode Toggle | `btn-dark-mode-toggle.html` | `btn-dark-mode-toggle`, `dark-mode-toggle` | no | Theme toggle button |
-| Sizes | `btn-sizes.html` | `btn-sm`, `btn-xs` | no | Size modifiers for any button variant |
+| Sizes | `btn-sizes.html` | `btn-sm`, `btn-xs`, `btn-lg` | no | Size modifiers for any button variant |
 | Button Group | `btn-group.html` | `btn-group`, `btn-group-item`, `btn-group-vertical` | no | Connected buttons. Combine with `btn-outline`, `btn-primary`, size classes. `.active` for selected state. |
 
 ---
