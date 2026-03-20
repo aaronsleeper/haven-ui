@@ -53,4 +53,14 @@ After QA passes:
 git add -A
 git commit -m "feat(pl): add {component name} component"
 ```
-3. Output: "Built: {component name}. Run /pl-build again for the next component."
+
+## Step 6: Continue automatically
+
+Do not stop. Do not wait for input. Return to Step 1 and build the next `missing` component.
+
+Continue this loop until one of these conditions is met:
+- No `missing` rows remain in COMPONENT-REGISTRY.md — output "Sprint complete. All components built." and stop.
+- A QA check fails twice on the same component — output a failure report and stop for Aaron's review.
+- A build produces a JS console error at localhost:5173 that cannot be resolved — stop and report.
+
+**Do not pause between components for confirmation. Build continuously.**
