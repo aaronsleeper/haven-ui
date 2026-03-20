@@ -657,8 +657,8 @@ a.btn-danger {
 
 /* Space between sibling fieldsets and other block elements inside card body.
    Excludes feed/list row patterns that manage their own spacing via borders. */
-.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.icon-style-row),
-.card-body-sm > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.icon-style-row) {
+.card-body > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.icon-style-row):not(.list-group-item):not(.list-group-item-action),
+.card-body-sm > * + *:not(.activity-feed-row):not(.medication-row):not(.partner-list-item):not(.alert-summary-row):not(.profile-field-row):not(.dashboard-message-preview):not(.icon-style-row):not(.list-group-item):not(.list-group-item-action) {
     @apply mt-4;
 }
 
@@ -6285,4 +6285,76 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .progress-stacked .progress-bar {
     @apply rounded-none;
+}
+
+/* ===================================
+   LIST GROUP
+   =================================== */
+
+.list-group {
+    @apply border border-gray-200 rounded-lg overflow-hidden;
+    @apply dark:border-neutral-700;
+}
+
+.list-group-item {
+    @apply flex items-center gap-3 px-4 py-3 text-sm text-gray-800;
+    @apply border-b border-gray-200 last:border-b-0;
+    @apply dark:text-neutral-200 dark:border-neutral-700;
+}
+
+.list-group-item-action {
+    @apply flex items-center gap-3 px-4 py-3 text-sm text-gray-800 w-full text-left;
+    @apply border-b border-gray-200 last:border-b-0 cursor-pointer;
+    @apply hover:bg-gray-50 focus:bg-gray-50 transition-colors;
+    @apply dark:text-neutral-200 dark:border-neutral-700 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800;
+}
+
+a.list-group-item-action {
+    @apply no-underline;
+}
+
+.list-group-item-action.active,
+.list-group-item.active {
+    @apply bg-primary-50 text-primary-700 border-b-primary-100;
+    @apply dark:bg-primary-900/20 dark:text-primary-400 dark:border-b-primary-800;
+}
+
+.list-group-item-action.disabled,
+.list-group-item.disabled {
+    @apply opacity-50 pointer-events-none;
+}
+
+.list-group-item-icon {
+    @apply text-gray-400 text-base flex-shrink-0;
+    @apply dark:text-neutral-500;
+}
+
+.list-group-item-content {
+    @apply flex flex-col min-w-0 flex-1;
+}
+
+.list-group-item-title {
+    @apply text-sm font-semibold text-gray-900 truncate;
+    @apply dark:text-neutral-100;
+}
+
+.list-group-item-description {
+    @apply text-xs text-gray-500 mt-0.5 truncate;
+    @apply dark:text-neutral-400;
+}
+
+.list-group-item-trailing {
+    @apply ml-auto flex-shrink-0 flex items-center gap-2;
+}
+
+/* Flush variant — no outer border or radius, for embedding inside cards */
+.list-group-flush {
+    @apply border-0 rounded-none;
+}
+
+/* Bordered variant — adds background to alternating rows */
+.list-group-striped .list-group-item:nth-child(odd),
+.list-group-striped .list-group-item-action:nth-child(odd) {
+    @apply bg-gray-50;
+    @apply dark:bg-neutral-800/50;
 }

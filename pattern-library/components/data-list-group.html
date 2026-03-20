@@ -1,0 +1,278 @@
+<!--
+  @component-meta
+  name: List Group
+  category: Data Display
+  file: data-list-group.html
+  classes: list-group, list-group-item, list-group-item-action, list-group-item-icon, list-group-item-content, list-group-item-title, list-group-item-description, list-group-item-trailing, list-group-flush, list-group-striped
+  when-to-use: Bordered vertical list of related items with optional icons, descriptions, and trailing actions.
+  preline-required: no
+  notes: Use list-group-item for static items, list-group-item-action for clickable items. Flush variant for embedding inside cards. Add to card-body exclusion list.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">List Group</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Bordered vertical list of related items. Use for settings, navigation lists, or grouped data rows.
+  </p>
+
+  <!-- Basic -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic</h4>
+    <!-- @component: list-group-basic -->
+    <div class="list-group max-w-md">
+      <div class="list-group-item">Dietary preferences</div>
+      <div class="list-group-item">Allergy information</div>
+      <div class="list-group-item">Medication interactions</div>
+      <div class="list-group-item">Delivery schedule</div>
+      <div class="list-group-item">Emergency contacts</div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Icons -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Icons</h4>
+    <!-- @component: list-group-icons -->
+    <div class="list-group max-w-md">
+      <div class="list-group-item">
+        <i class="fa-solid fa-user list-group-item-icon"></i>
+        Patient profile
+      </div>
+      <div class="list-group-item">
+        <i class="fa-solid fa-pills list-group-item-icon"></i>
+        Medications
+      </div>
+      <div class="list-group-item">
+        <i class="fa-solid fa-file-medical list-group-item-icon"></i>
+        Care plan
+      </div>
+      <div class="list-group-item">
+        <i class="fa-solid fa-clock-rotate-left list-group-item-icon"></i>
+        Visit history
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Descriptions -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Descriptions</h4>
+    <!-- @component: list-group-descriptions -->
+    <div class="list-group max-w-lg">
+      <div class="list-group-item">
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Maria Rivera</span>
+          <span class="list-group-item-description">MRN PT-2024-0847 — Type 2 Diabetes</span>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">James Chen</span>
+          <span class="list-group-item-description">MRN PT-2024-1203 — Hypertension</span>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Aisha Johnson</span>
+          <span class="list-group-item-description">MRN PT-2024-0592 — Chronic Kidney Disease</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Trailing Content -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Trailing Content</h4>
+    <!-- @component: list-group-trailing -->
+    <div class="list-group max-w-lg">
+      <div class="list-group-item">
+        <i class="fa-solid fa-stethoscope list-group-item-icon"></i>
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Clinical alerts</span>
+          <span class="list-group-item-description">Active alerts requiring review</span>
+        </div>
+        <div class="list-group-item-trailing">
+          <span class="badge badge-error">3</span>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <i class="fa-solid fa-truck list-group-item-icon"></i>
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Pending deliveries</span>
+          <span class="list-group-item-description">Meals scheduled for today</span>
+        </div>
+        <div class="list-group-item-trailing">
+          <span class="badge badge-warning">12</span>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <i class="fa-solid fa-circle-check list-group-item-icon"></i>
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Completed orders</span>
+          <span class="list-group-item-description">Delivered and confirmed</span>
+        </div>
+        <div class="list-group-item-trailing">
+          <span class="badge badge-success">48</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Actionable (Links) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Actionable (Links)</h4>
+    <!-- @component: list-group-actionable -->
+    <div class="list-group max-w-md">
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-chart-line list-group-item-icon"></i>
+        Dashboard
+        <div class="list-group-item-trailing">
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-people-group list-group-item-icon"></i>
+        Patient roster
+        <div class="list-group-item-trailing">
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-bolt list-group-item-icon"></i>
+        AI insights
+        <div class="list-group-item-trailing">
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-print list-group-item-icon"></i>
+        Reports
+        <div class="list-group-item-trailing">
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Active & Disabled States -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Active &amp; Disabled States</h4>
+    <!-- @component: list-group-states -->
+    <div class="list-group max-w-md">
+      <a href="#" class="list-group-item-action active">
+        <i class="fa-solid fa-house list-group-item-icon"></i>
+        Home (active)
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-user list-group-item-icon"></i>
+        Profile
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-gear list-group-item-icon"></i>
+        Settings
+      </a>
+      <a href="#" class="list-group-item-action disabled" tabindex="-1" aria-disabled="true">
+        <i class="fa-solid fa-lock list-group-item-icon"></i>
+        Admin (disabled)
+      </a>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Flush Variant (inside card) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Flush (Inside Card)</h4>
+    <!-- @component: list-group-flush -->
+    <div class="card max-w-md">
+      <div class="card-header">
+        <h3 class="card-title">Recent activity</h3>
+      </div>
+      <div class="list-group list-group-flush">
+        <div class="list-group-item">
+          <i class="fa-solid fa-circle-check list-group-item-icon"></i>
+          <div class="list-group-item-content">
+            <span class="list-group-item-title">Meal plan approved</span>
+            <span class="list-group-item-description">Maria Rivera — 2 hours ago</span>
+          </div>
+        </div>
+        <div class="list-group-item">
+          <i class="fa-solid fa-triangle-exclamation list-group-item-icon"></i>
+          <div class="list-group-item-content">
+            <span class="list-group-item-title">Allergy flag added</span>
+            <span class="list-group-item-description">James Chen — 4 hours ago</span>
+          </div>
+        </div>
+        <div class="list-group-item">
+          <i class="fa-solid fa-truck list-group-item-icon"></i>
+          <div class="list-group-item-content">
+            <span class="list-group-item-title">Delivery confirmed</span>
+            <span class="list-group-item-description">Aisha Johnson — yesterday</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Striped Variant -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Striped</h4>
+    <!-- @component: list-group-striped -->
+    <div class="list-group list-group-striped max-w-md">
+      <div class="list-group-item">Breakfast — 7:00 AM</div>
+      <div class="list-group-item">Morning snack — 10:00 AM</div>
+      <div class="list-group-item">Lunch — 12:00 PM</div>
+      <div class="list-group-item">Afternoon snack — 3:00 PM</div>
+      <div class="list-group-item">Dinner — 6:00 PM</div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Complex Items -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Complex Items</h4>
+    <!-- @component: list-group-complex -->
+    <div class="list-group max-w-xl">
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-user list-group-item-icon"></i>
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Maria Rivera</span>
+          <span class="list-group-item-description">Type 2 Diabetes — Last visit: Mar 15, 2026</span>
+        </div>
+        <div class="list-group-item-trailing">
+          <span class="badge badge-pill badge-warning">Needs review</span>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-user list-group-item-icon"></i>
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">James Chen</span>
+          <span class="list-group-item-description">Hypertension — Last visit: Mar 12, 2026</span>
+        </div>
+        <div class="list-group-item-trailing">
+          <span class="badge badge-pill badge-success">Up to date</span>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+      <a href="#" class="list-group-item-action">
+        <i class="fa-solid fa-user list-group-item-icon"></i>
+        <div class="list-group-item-content">
+          <span class="list-group-item-title">Aisha Johnson</span>
+          <span class="list-group-item-description">Chronic Kidney Disease — Last visit: Mar 10, 2026</span>
+        </div>
+        <div class="list-group-item-trailing">
+          <span class="badge badge-pill badge-error">Urgent</span>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400 dark:text-neutral-500"></i>
+        </div>
+      </a>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

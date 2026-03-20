@@ -134,6 +134,7 @@ before creating any new component or semantic class.
 | Pagination | `data-pagination.html` | `pagination`, `pagination-info`, `pagination-controls`, `pagination-btn` | no | |
 | Skeleton Loader | `data-skeleton.html` | `skeleton`, `skeleton-text`, `skeleton-text-sm` | no | Loading placeholders |
 | Table Section Divider | `data-table-section-divider.html` | `table-section-divider` | no | Visual separator row in tables |
+| List Group | `data-list-group.html` | `list-group`, `list-group-item`, `list-group-item-action`, `list-group-item-icon`, `list-group-item-content`, `list-group-item-title`, `list-group-item-description`, `list-group-item-trailing`, `list-group-flush`, `list-group-striped` | no | Bordered list with optional icons, descriptions, trailing actions. Flush variant for cards. `.active` / `.disabled` states. |
 
 ---
 
