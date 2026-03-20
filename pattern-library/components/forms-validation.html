@@ -1,0 +1,270 @@
+<!--
+  @component-meta
+  name: Form Validation
+  category: Forms
+  file: forms-validation.html
+  classes: field-success, field-warning, field-row-success, field-row-warning, validation-summary, validation-summary-title, validation-summary-list
+  when-to-use: Show inline validation feedback on form fields — patient intake, medication entry, required clinical fields. Also provides a summary error banner for forms with multiple errors.
+  do-not-use-when: You only need a standalone page-level alert — use the alert component instead. For single-field help text without validation state, use field-help.
+  preline-required: no
+  notes: Reuses field-row, field-row-error, field-error, field-help, field-label, and required from the Field Row component. Adds success (green), warning (amber) states and a validation summary banner. All border overrides use !important per the form element override decision.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Form Validation</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Inline validation states and summary error banners for clinical forms.
+  </p>
+
+  <!-- Error State — Text Input -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Error State — Text Input</h4>
+    <!-- @component: validation-error-text -->
+    <div class="field-row field-row-error">
+      <label class="field-label required" for="v-phone">Phone Number</label>
+      <input type="tel" id="v-phone" value="555-12" aria-invalid="true" aria-describedby="v-phone-error">
+      <p class="field-error" id="v-phone-error">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Please enter a valid 10-digit phone number.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Success State — Text Input -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Success State — Text Input</h4>
+    <!-- @component: validation-success-text -->
+    <div class="field-row field-row-success">
+      <label class="field-label required" for="v-email">Email Address</label>
+      <input type="email" id="v-email" value="maria.rivera@example.com" aria-describedby="v-email-success">
+      <p class="field-success" id="v-email-success">
+        <i class="fa-solid fa-circle-check text-xs"></i>
+        Email address is valid.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Warning State — Text Input -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Warning State — Text Input</h4>
+    <!-- @component: validation-warning-text -->
+    <div class="field-row field-row-warning">
+      <label class="field-label" for="v-dose">Insulin Dose (units)</label>
+      <input type="number" id="v-dose" value="85" aria-describedby="v-dose-warning">
+      <p class="field-warning" id="v-dose-warning">
+        <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+        This dose exceeds the typical range (10–60 units). Please confirm.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Error State — Select -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Error State — Select</h4>
+    <!-- @component: validation-error-select -->
+    <div class="field-row field-row-error">
+      <label class="field-label required" for="v-condition">Primary Condition</label>
+      <select id="v-condition" aria-invalid="true" aria-describedby="v-condition-error">
+        <option value="">Select condition</option>
+        <option value="t2d">Type 2 Diabetes</option>
+        <option value="chf">Congestive Heart Failure</option>
+        <option value="ckd">Chronic Kidney Disease</option>
+      </select>
+      <p class="field-error" id="v-condition-error">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Please select a primary condition.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Error State — Textarea -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Error State — Textarea</h4>
+    <!-- @component: validation-error-textarea -->
+    <div class="field-row field-row-error">
+      <label class="field-label required" for="v-notes">Clinical Notes</label>
+      <textarea id="v-notes" rows="3" aria-invalid="true" aria-describedby="v-notes-error"></textarea>
+      <p class="field-error" id="v-notes-error">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Clinical notes are required for this visit type.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Error State — Checkbox -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Error State — Checkbox</h4>
+    <!-- @component: validation-error-checkbox -->
+    <div class="field-row field-row-error">
+      <label class="checkbox-label">
+        <input type="checkbox" aria-invalid="true" aria-describedby="v-consent-error">
+        I acknowledge that this patient has provided informed consent.
+      </label>
+      <p class="field-error" id="v-consent-error">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Patient consent acknowledgment is required.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Error State — Radio -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Error State — Radio Group</h4>
+    <!-- @component: validation-error-radio -->
+    <div class="field-row field-row-error">
+      <span class="field-label required">Meal Delivery Preference</span>
+      <div class="flex flex-col gap-2 mt-1">
+        <label class="radio-label">
+          <input type="radio" name="v-delivery" aria-invalid="true" aria-describedby="v-delivery-error">
+          Standard delivery window
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="v-delivery">
+          Flexible delivery window
+        </label>
+      </div>
+      <p class="field-error" id="v-delivery-error">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Please select a delivery preference.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Required Field Indicator -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Required Field Indicator</h4>
+    <!-- @component: validation-required -->
+    <div class="field-row">
+      <label class="field-label required" for="v-mrn">Medical Record Number</label>
+      <input type="text" id="v-mrn" placeholder="PT-2024-0847" required>
+      <p class="field-help">The red asterisk (*) indicates a required field.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Validation Summary Banner -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Validation Summary Banner</h4>
+    <!-- @component: validation-summary -->
+    <div class="validation-summary" role="alert">
+      <p class="validation-summary-title">
+        <i class="fa-solid fa-circle-xmark"></i>
+        Please fix 3 errors before submitting
+      </p>
+      <ul class="validation-summary-list">
+        <li>Phone Number — please enter a valid 10-digit phone number</li>
+        <li>Primary Condition — please select a primary condition</li>
+        <li>Clinical Notes — clinical notes are required for this visit type</li>
+      </ul>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Combined Form Example -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Combined Example — Patient Intake</h4>
+    <!-- @component: validation-combined -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Patient Intake Form</h3>
+        <p class="card-subtitle">Maria Rivera — MRN PT-2024-0847</p>
+      </div>
+      <div class="card-body space-y-4">
+
+        <!-- Summary banner -->
+        <div class="validation-summary" role="alert">
+          <p class="validation-summary-title">
+            <i class="fa-solid fa-circle-xmark"></i>
+            Please fix 2 errors below
+          </p>
+          <ul class="validation-summary-list">
+            <li>Email Address — please enter a valid email address</li>
+            <li>Consent — patient consent acknowledgment is required</li>
+          </ul>
+        </div>
+
+        <!-- Valid field -->
+        <div class="field-row field-row-success">
+          <label class="field-label required" for="vc-name">Full Name</label>
+          <input type="text" id="vc-name" value="Maria Rivera" aria-describedby="vc-name-success">
+          <p class="field-success" id="vc-name-success">
+            <i class="fa-solid fa-circle-check text-xs"></i>
+            Looks good.
+          </p>
+        </div>
+
+        <!-- Error field -->
+        <div class="field-row field-row-error">
+          <label class="field-label required" for="vc-email">Email Address</label>
+          <input type="email" id="vc-email" value="maria@" aria-invalid="true" aria-describedby="vc-email-error">
+          <p class="field-error" id="vc-email-error">
+            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+            Please enter a valid email address.
+          </p>
+        </div>
+
+        <!-- Valid field with help text -->
+        <div class="field-row">
+          <label class="field-label required" for="vc-phone">Phone Number</label>
+          <input type="tel" id="vc-phone" value="(555) 847-2024">
+          <p class="field-help">We will send appointment reminders to this number.</p>
+        </div>
+
+        <!-- Warning field -->
+        <div class="field-row field-row-warning">
+          <label class="field-label" for="vc-a1c">Last A1C (%)</label>
+          <div class="field-input-group">
+            <input type="number" id="vc-a1c" value="11.2" step="0.1" aria-describedby="vc-a1c-warning">
+            <span class="field-addon">%</span>
+          </div>
+          <p class="field-warning" id="vc-a1c-warning">
+            <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+            A1C above 10% may require urgent care coordination. Please verify.
+          </p>
+        </div>
+
+        <!-- Valid select -->
+        <div class="field-row field-row-success">
+          <label class="field-label required" for="vc-condition">Primary Condition</label>
+          <select id="vc-condition" aria-describedby="vc-condition-success">
+            <option value="">Select condition</option>
+            <option value="t2d" selected>Type 2 Diabetes</option>
+            <option value="chf">Congestive Heart Failure</option>
+          </select>
+          <p class="field-success" id="vc-condition-success">
+            <i class="fa-solid fa-circle-check text-xs"></i>
+            Condition selected.
+          </p>
+        </div>
+
+        <!-- Error checkbox -->
+        <div class="field-row field-row-error">
+          <label class="checkbox-label">
+            <input type="checkbox" aria-invalid="true" aria-describedby="vc-consent-error">
+            I acknowledge that this patient has provided informed consent.
+          </label>
+          <p class="field-error" id="vc-consent-error">
+            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+            Patient consent acknowledgment is required.
+          </p>
+        </div>
+
+      </div>
+      <div class="card-footer flex justify-end gap-3">
+        <button type="button" class="btn-outline">Cancel</button>
+        <button type="submit" class="btn-primary" disabled>Submit Intake</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

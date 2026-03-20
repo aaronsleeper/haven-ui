@@ -129,7 +129,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Copy Markup | `pages/forms.html` | built | Preline HSCopyMarkup |
 | Stepped Form | `pages/forms-stepped.html` | built | Multi-step vertical tab form |
 | Fieldset | `pages/forms.html` | built | |
-| Form Validation | `pages/forms-validation.html` | missing | Error states, success states, inline messages |
+| Form Validation | `pages/forms-validation.html` | built | Error states, success states, inline messages |
 | File Upload | `pages/forms-file-upload.html` | missing | Drag-drop zone, file list, progress |
 | Date Picker | `pages/forms-datepicker.html` | missing | Preline HSDatepicker |
 | Time Picker | `pages/forms-timepicker.html` | missing | Preline HSTimepicker |

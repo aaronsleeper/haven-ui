@@ -112,6 +112,7 @@ before creating any new component or semantic class.
 | Radio | `form-radio.html` | *(element default)* `input[type='radio']`, `radio-label` | no | |
 | Fieldset | `form-fieldset.html` | *(element default)* `fieldset`, `legend` | no | |
 | Toggle / Switch | `forms-toggle.html` | `toggle`, `toggle-track`, `toggle-sm`, `toggle-lg`, `toggle-success`, `toggle-danger`, `toggle-group`, `toggle-label`, `toggle-description` | no | CSS-only hidden checkbox + label. Sizes: sm/default/lg. Colors: primary/success/danger. |
+| Form Validation | `forms-validation.html` | `field-success`, `field-warning`, `field-row-success`, `field-row-warning`, `validation-summary`, `validation-summary-title`, `validation-summary-list` | no | Error/success/warning states on inputs, selects, textareas, checkboxes, radios. Summary error banner. Reuses `field-row-error`, `field-error`, `field-help`, `required` from Field Row. |
 | File List | `form-file-list.html` | `file-list`, `file-list-item`, `file-list-input`, `file-list-action`, `file-list-add`, `file-list-heading`, `file-list-description` | no | Dynamic file attachment input |
 | Stepped Form | `form-layout.html` | `form-layout`, `step-nav`, `step-nav-item`, `step-num`, `form-content`, `form-nav` | yes | Multi-step form with vertical tab nav |
 

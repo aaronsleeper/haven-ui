@@ -738,6 +738,58 @@ a.btn-danger {
     --tw-ring-color: var(--color-error-500) !important;
 }
 
+/* Success message below input */
+.field-success {
+    @apply text-sm text-success-600 mt-1.5 flex items-center gap-1 dark:text-success-400;
+}
+
+/* Success state modifier on field-row — turns input border green */
+.field-row-success input,
+.field-row-success select,
+.field-row-success textarea {
+    border-color: var(--color-success-500) !important;
+}
+
+.field-row-success input:focus,
+.field-row-success select:focus,
+.field-row-success textarea:focus {
+    border-color: var(--color-success-500) !important;
+    --tw-ring-color: var(--color-success-500) !important;
+}
+
+/* Warning message below input */
+.field-warning {
+    @apply text-sm text-warning-600 mt-1.5 flex items-center gap-1 dark:text-warning-500;
+}
+
+/* Warning state modifier on field-row — turns input border amber */
+.field-row-warning input,
+.field-row-warning select,
+.field-row-warning textarea {
+    border-color: var(--color-warning-500) !important;
+}
+
+.field-row-warning input:focus,
+.field-row-warning select:focus,
+.field-row-warning textarea:focus {
+    border-color: var(--color-warning-500) !important;
+    --tw-ring-color: var(--color-warning-500) !important;
+}
+
+/* Validation summary banner — error count + list at top of form */
+.validation-summary {
+    @apply bg-error-50 border border-error-200 rounded-lg p-4 text-sm text-error-800;
+    @apply dark:bg-error-900/20 dark:border-error-800 dark:text-error-300;
+}
+
+.validation-summary-title {
+    @apply font-semibold flex items-center gap-2 text-error-700 dark:text-error-400;
+}
+
+.validation-summary-list {
+    @apply mt-2 ml-6 list-disc space-y-1 text-error-600 dark:text-error-400;
+}
+
 /* Input group: wraps input + prefix/suffix addons into a single visual row */
 .field-input-group {
     @apply flex items-stretch;
