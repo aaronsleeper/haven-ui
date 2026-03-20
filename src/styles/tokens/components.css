@@ -5525,6 +5525,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     opacity: 0.6;
     transition: opacity 0.15s ease;
 }
+.dark .tags-input-tag-remove {
+    @apply block;
+    color: var(--color-primary-300);
+}
 .tags-input-tag-remove:hover {
     @apply block;
     opacity: 1;
@@ -5554,13 +5558,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply block;
     color: var(--color-sand-400);
 }
-@media (prefers-color-scheme: dark) {
-    .dark .tags-input-field {
-        color: var(--color-neutral-100);
-    }
-    .dark .tags-input-field::placeholder {
-        color: var(--color-neutral-500);
-    }
+.dark .tags-input-field {
+    @apply block;
+    color: var(--color-neutral-100);
+}
+.dark .tags-input-field::placeholder {
+    @apply block;
+    color: var(--color-neutral-500);
 }
 
 /* Tag count / limit indicator */
