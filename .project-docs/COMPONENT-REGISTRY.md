@@ -55,7 +55,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Divider | `pages/layout-divider.html` | built | Horizontal rule, labeled divider, vertical divider |
 | KV Table | `pages/layout-kv-table.html` | built | Key-value definition table |
 | Comparison Panel | `pages/layout-comparison-panel.html` | built | Side-by-side comparison layout |
-| Issues Sidebar | `pages/layout-issues-sidebar.html` | missing | Persistent right-side issue tracking panel |
+| Issues Sidebar | `pages/layout-issues-sidebar.html` | built | Persistent right-side issue tracking panel |
 | Field Row | `pages/layout-field-row.html` | missing | Stacked label+input row pattern |
 
 ---

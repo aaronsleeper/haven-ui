@@ -1386,6 +1386,47 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-success-400;
 }
 
+/* Layout: issues sidebar alongside main content */
+.issues-layout {
+    @apply flex gap-6;
+}
+
+.issues-layout-main {
+    @apply flex-1 min-w-0;
+}
+
+.issues-layout-aside {
+    @apply w-80 shrink-0 transition-transform duration-200;
+}
+
+/* Mobile: sidebar slides off-screen right */
+@media (max-width: 63.9375rem) {
+    .issues-layout-aside {
+        @apply fixed top-0 right-0 bottom-0 z-40 w-80 translate-x-full bg-white shadow-xl p-4 overflow-y-auto;
+        @apply dark:bg-neutral-900;
+    }
+    .issues-layout-aside.open {
+        @apply translate-x-0;
+    }
+}
+
+/* Toggle button for mobile sidebar */
+.issues-layout-toggle {
+    @apply inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg;
+    @apply bg-white border border-gray-200 text-gray-700 shadow-sm;
+    @apply hover:bg-gray-50;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300;
+    @apply dark:hover:bg-neutral-700;
+}
+
+/* Backdrop overlay when mobile sidebar is open */
+.issues-layout-backdrop {
+    @apply fixed inset-0 z-30 bg-black/40 hidden;
+}
+.issues-layout-backdrop.open {
+    @apply block;
+}
+
 /* ===================================
    TAG GROUPS
    =================================== */

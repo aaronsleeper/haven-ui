@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body class="bg-gray-50 dark:bg-neutral-900">
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-16">
+
+      <div class="page-header">
+        <h1>Issues Sidebar Layout</h1>
+      </div>
+
+      <!-- ============================================================
+           Section 1: Default Layout — open issues
+           ============================================================ -->
+      <section>
+        <h3 class="section-title mb-4">Default — Main Content + Issues Panel</h3>
+        <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+          The issues sidebar sits as a persistent right column alongside the main content area.
+          On screens narrower than 1024px it slides off-screen and is toggled via a button.
+        </p>
+
+        <!-- Mobile toggle (visible below lg) -->
+        <div class="mb-4 lg:hidden">
+          <button type="button" class="issues-layout-toggle" data-issues-toggle aria-expanded="false">
+            <i class="fa-solid fa-circle-exclamation text-warning-500"></i>
+            3 Issues
+          </button>
+        </div>
+
+        <!-- Backdrop for mobile overlay -->
+        <div class="issues-layout-backdrop"></div>
+
+        <div class="issues-layout">
+
+          <!-- Main content area -->
+          <div class="issues-layout-main">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Patient Profile — Maria Rivera</h2>
+                <p class="card-subtitle">MRN PT-2024-0847 &middot; Type 2 Diabetes</p>
+              </div>
+              <div class="card-body">
+                <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+                  This area represents the main content of the page. The issues sidebar
+                  remains visible at all times on desktop, providing persistent context
+                  about unresolved data-entry issues that need attention.
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <p class="stat-label">Daily Calorie Target</p>
+                      <p class="stat-value">1,800 kcal</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <p class="stat-label">Current Intake</p>
+                      <p class="stat-value">2,150 kcal</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Meal</th>
+                        <th>Calories</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="cell-primary">Breakfast</td>
+                        <td class="cell-numeric">620</td>
+                        <td><span class="badge badge-success badge-sm">Confirmed</span></td>
+                      </tr>
+                      <tr>
+                        <td class="cell-primary">Lunch</td>
+                        <td class="cell-numeric">780</td>
+                        <td><span class="badge badge-warning badge-sm">Review</span></td>
+                      </tr>
+                      <tr>
+                        <td class="cell-primary">Dinner</td>
+                        <td class="cell-numeric">750</td>
+                        <td><span class="badge badge-warning badge-sm">Review</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Issues sidebar -->
+          <div class="issues-layout-aside">
+            <div class="card card-body issues-sidebar">
+              <div class="issues-sidebar-header">
+                <span class="issues-sidebar-title">
+                  <i class="fa-solid fa-circle-exclamation text-warning-500"></i>
+                  Issues
+                </span>
+                <span class="badge badge-warning badge-sm">3 open</span>
+              </div>
+
+              <div class="flex flex-col">
+                <!-- Open issue — error severity -->
+                <div class="issue-item">
+                  <span class="issue-item-icon text-error-500">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Calorie count exceeds daily limit by 350 kcal</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <!-- Open issue — warning severity -->
+                <div class="issue-item">
+                  <span class="issue-item-icon text-warning-500">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Missing allergen information for lunch</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <!-- Open issue — info severity -->
+                <div class="issue-item">
+                  <span class="issue-item-icon text-info-500">
+                    <i class="fa-solid fa-circle-info"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Dinner portion size not yet confirmed</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <!-- Resolved issue -->
+                <div class="issue-item issue-item-resolved">
+                  <span class="issue-item-icon text-success-500">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Breakfast nutrition verified</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <!-- Resolved issue -->
+                <div class="issue-item issue-item-resolved">
+                  <span class="issue-item-icon text-success-500">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Dietary restrictions confirmed</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section 2: All Resolved State
+           ============================================================ -->
+      <section>
+        <h3 class="section-title mb-4">All Resolved</h3>
+        <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+          When every issue has been resolved, the sidebar shows a success message.
+        </p>
+
+        <div class="issues-layout">
+
+          <div class="issues-layout-main">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Patient Profile — Maria Rivera</h2>
+                <p class="card-subtitle">MRN PT-2024-0847 &middot; Type 2 Diabetes</p>
+              </div>
+              <div class="card-body">
+                <p class="text-sm text-gray-600 dark:text-neutral-400">
+                  All data-entry issues have been resolved. The sidebar confirms the clean state.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="issues-layout-aside">
+            <div class="card card-body issues-sidebar">
+              <div class="issues-sidebar-header">
+                <span class="issues-sidebar-title">
+                  <i class="fa-solid fa-circle-check text-success-500"></i>
+                  Issues
+                </span>
+                <span class="badge badge-success badge-sm">All clear</span>
+              </div>
+
+              <div class="issues-sidebar-resolved">
+                <i class="fa-solid fa-circle-check"></i>
+                All issues have been resolved
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Section 3: High-Volume Issues
+           ============================================================ -->
+      <section>
+        <h3 class="section-title mb-4">High-Volume — Scrollable</h3>
+        <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+          When many issues exist, the sidebar scrolls independently via <code>max-h</code> and <code>overflow-y-auto</code>.
+        </p>
+
+        <div class="issues-layout">
+
+          <div class="issues-layout-main">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Meal Plan Review</h2>
+              </div>
+              <div class="card-body">
+                <p class="text-sm text-gray-600 dark:text-neutral-400">
+                  Simulates a page with many issues. The sidebar scrolls independently from the main content.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="issues-layout-aside">
+            <div class="card card-body issues-sidebar">
+              <div class="issues-sidebar-header">
+                <span class="issues-sidebar-title">
+                  <i class="fa-solid fa-circle-exclamation text-error-500"></i>
+                  Issues
+                </span>
+                <span class="badge badge-error badge-sm">6 open</span>
+              </div>
+
+              <div class="flex flex-col">
+                <div class="issue-item">
+                  <span class="issue-item-icon text-error-500">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Sodium exceeds daily maximum (3,200mg / 2,300mg limit)</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item">
+                  <span class="issue-item-icon text-error-500">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Lunch contains peanut allergen — patient flagged peanut allergy</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item">
+                  <span class="issue-item-icon text-warning-500">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Fiber intake below recommended minimum</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item">
+                  <span class="issue-item-icon text-warning-500">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Dinner not yet assigned a delivery window</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item">
+                  <span class="issue-item-icon text-info-500">
+                    <i class="fa-solid fa-circle-info"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Snack substitution pending dietitian approval</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item">
+                  <span class="issue-item-icon text-info-500">
+                    <i class="fa-solid fa-circle-info"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Hydration goal not configured for this patient</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item issue-item-resolved">
+                  <span class="issue-item-icon text-success-500">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Breakfast verified</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+
+                <div class="issue-item issue-item-resolved">
+                  <span class="issue-item-icon text-success-500">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </span>
+                  <div class="issue-item-content">
+                    <div class="issue-item-description">Morning snack portion confirmed</div>
+                    <div class="issue-item-action">Click to resolve</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Usage Notes
+           ============================================================ -->
+      <section>
+        <h3 class="section-title mb-4">Usage Notes</h3>
+        <div class="card card-body prose-section">
+          <ul class="text-sm text-gray-600 dark:text-neutral-400 space-y-2">
+            <li><strong>Layout classes:</strong> <code>.issues-layout</code> wraps a <code>.issues-layout-main</code> + <code>.issues-layout-aside</code> pair.</li>
+            <li><strong>Responsive:</strong> Below 1024px, the aside becomes a fixed right-side overlay with backdrop. Toggle it with the <code>[data-issues-toggle]</code> button.</li>
+            <li><strong>Sticky:</strong> The <code>.issues-sidebar</code> class makes the card sticky on scroll (desktop).</li>
+            <li><strong>Severity:</strong> Use <code>text-error-500</code> for critical, <code>text-warning-500</code> for warnings, <code>text-info-500</code> for informational.</li>
+            <li><strong>Resolved state:</strong> Add <code>.issue-item-resolved</code> to resolved items. Use <code>.issues-sidebar-resolved</code> for the all-clear message.</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+  <script src="/src/scripts/components/issues-sidebar-toggle.js"></script>
+</body>
+</html>

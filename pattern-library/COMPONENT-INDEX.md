@@ -52,6 +52,7 @@ before creating any new component or semantic class.
 | Mobile Bottom Nav | `layout-mobile-bottom-nav.html` | `mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge` | no | Patient app only. Shared partial: `src/partials/patient-bottom-nav.html`. Copy + set `.active` per screen. |
 | Onboarding Progress | `layout-onb-progress.html` | `onb-progress` | no | Patient app only. Used on ONB-01, 02, 03. Set `aria-label="Step N of 3"`. |
 | Divider | `layout-divider.html` | `divider`, `divider-compact`, `divider-spacious`, `divider-labeled`, `divider-label`, `divider-vertical` | no | Horizontal rule, labeled divider, vertical divider. Spacing variants: compact/default/spacious. |
+| Issues Sidebar Layout | `(layout page only)` | `issues-layout`, `issues-layout-main`, `issues-layout-aside`, `issues-layout-toggle`, `issues-layout-backdrop` | no | 2-column layout with persistent right issues panel. Mobile: slides off-screen, toggled via `[data-issues-toggle]`. JS: `issues-sidebar-toggle.js`. |
 
 ---
 
