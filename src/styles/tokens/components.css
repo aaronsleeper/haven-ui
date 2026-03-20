@@ -1208,11 +1208,18 @@ a.btn-danger {
 }
 
 /* Accordion chevrons for data accordion (reuses existing pattern) */
+.accordion-chevron-wrap {
+    @apply text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
 .accordion-header .accordion-chevron-up {
+    @apply text-xs;
     display: none !important;
 }
 
 .accordion-header .accordion-chevron-down {
+    @apply text-xs;
     display: block !important;
 }
 

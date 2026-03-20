@@ -3,7 +3,7 @@
   name: Accordion
   category: Data Display
   file: data-accordion.html
-  classes: accordion, accordion-item, accordion-header, accordion-body, accordion-header-icon, accordion-flush, accordion-bordered
+  classes: accordion, accordion-item, accordion-header, accordion-body, accordion-header-icon, accordion-flush, accordion-bordered, accordion-chevron-wrap
   when-to-use: Collapsible content sections for FAQs, settings panels, or grouped detail views where users scan headings and expand selectively.
   preline-required: yes — HSAccordion
   notes: Uses Preline data-hs-accordion on the group wrapper. Single accordion does not need hs-accordion-group. Apply .hs-accordion-toggle to toggle buttons to neutralize Preline hover. Chevron icons use existing accordion-chevron-up/down pattern.
@@ -25,9 +25,9 @@
       <div class="hs-accordion active accordion-item" id="acc-default-1">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-default-1-body">
           <span>What services does Cena Health provide?</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-default-1-body" class="accordion-body" role="region" aria-labelledby="acc-default-1">
@@ -37,9 +37,9 @@
       <div class="hs-accordion accordion-item" id="acc-default-2">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-default-2-body">
           <span>How are meal plans customized?</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-default-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-default-2">
@@ -49,9 +49,9 @@
       <div class="hs-accordion accordion-item" id="acc-default-3">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-default-3-body">
           <span>Can patients request meal substitutions?</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-default-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-default-3">
@@ -71,9 +71,9 @@
       <div class="hs-accordion active accordion-item" id="acc-single-1">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-single-1-body">
           <span>Referral requirements</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-single-1-body" class="accordion-body" role="region" aria-labelledby="acc-single-1">
@@ -83,9 +83,9 @@
       <div class="hs-accordion accordion-item" id="acc-single-2">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-single-2-body">
           <span>Insurance and billing</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-single-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-single-2">
@@ -95,9 +95,9 @@
       <div class="hs-accordion accordion-item" id="acc-single-3">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-single-3-body">
           <span>Delivery schedule and areas</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-single-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-single-3">
@@ -119,9 +119,9 @@
             <i class="fa-solid fa-stethoscope accordion-header-icon"></i>
             <span>Clinical overview</span>
           </span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-icons-1-body" class="accordion-body" role="region" aria-labelledby="acc-icons-1">
@@ -134,9 +134,9 @@
             <i class="fa-solid fa-truck accordion-header-icon"></i>
             <span>Delivery details</span>
           </span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-icons-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-icons-2">
@@ -149,9 +149,9 @@
             <i class="fa-solid fa-pills accordion-header-icon"></i>
             <span>Medications</span>
           </span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-icons-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-icons-3">
@@ -175,9 +175,9 @@
         <div class="hs-accordion active accordion-item" id="acc-flush-1">
           <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-flush-1-body">
             <span>Demographics</span>
-            <span class="text-gray-400 dark:text-neutral-500">
-              <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-              <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+            <span class="accordion-chevron-wrap">
+              <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+              <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
             </span>
           </button>
           <div id="acc-flush-1-body" class="accordion-body" role="region" aria-labelledby="acc-flush-1">
@@ -187,9 +187,9 @@
         <div class="hs-accordion accordion-item" id="acc-flush-2">
           <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-flush-2-body">
             <span>Dietary restrictions</span>
-            <span class="text-gray-400 dark:text-neutral-500">
-              <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-              <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+            <span class="accordion-chevron-wrap">
+              <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+              <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
             </span>
           </button>
           <div id="acc-flush-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-flush-2">
@@ -199,9 +199,9 @@
         <div class="hs-accordion accordion-item" id="acc-flush-3">
           <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-flush-3-body">
             <span>Care team</span>
-            <span class="text-gray-400 dark:text-neutral-500">
-              <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-              <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+            <span class="accordion-chevron-wrap">
+              <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+              <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
             </span>
           </button>
           <div id="acc-flush-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-flush-3">
@@ -222,9 +222,9 @@
       <div class="hs-accordion active accordion-item" id="acc-bordered-1">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-bordered-1-body">
           <span>Enrollment status</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-bordered-1-body" class="accordion-body" role="region" aria-labelledby="acc-bordered-1">
@@ -234,9 +234,9 @@
       <div class="hs-accordion accordion-item" id="acc-bordered-2">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-bordered-2-body">
           <span>Compliance notes</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-bordered-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-bordered-2">
@@ -246,9 +246,9 @@
       <div class="hs-accordion accordion-item" id="acc-bordered-3">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-bordered-3-body">
           <span>Escalation history</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-bordered-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-bordered-3">
@@ -268,9 +268,9 @@
       <div class="hs-accordion active accordion-item" id="acc-nested-1">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-nested-1-body">
           <span>Week of March 17, 2026</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-nested-1-body" class="accordion-body" role="region" aria-labelledby="acc-nested-1">
@@ -278,9 +278,9 @@
             <div class="hs-accordion active accordion-item" id="acc-nested-1a">
               <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-nested-1a-body">
                 <span>Monday — Breakfast</span>
-                <span class="text-gray-400 dark:text-neutral-500">
-                  <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-                  <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+                <span class="accordion-chevron-wrap">
+                  <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+                  <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
                 </span>
               </button>
               <div id="acc-nested-1a-body" class="accordion-body" role="region" aria-labelledby="acc-nested-1a">
@@ -290,9 +290,9 @@
             <div class="hs-accordion accordion-item" id="acc-nested-1b">
               <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-nested-1b-body">
                 <span>Monday — Lunch</span>
-                <span class="text-gray-400 dark:text-neutral-500">
-                  <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-                  <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+                <span class="accordion-chevron-wrap">
+                  <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+                  <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
                 </span>
               </button>
               <div id="acc-nested-1b-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-nested-1b">
@@ -305,9 +305,9 @@
       <div class="hs-accordion accordion-item" id="acc-nested-2">
         <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-nested-2-body">
           <span>Week of March 10, 2026</span>
-          <span class="text-gray-400 dark:text-neutral-500">
-            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
-            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          <span class="accordion-chevron-wrap">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down"></i>
           </span>
         </button>
         <div id="acc-nested-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-nested-2">
