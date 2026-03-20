@@ -1,0 +1,473 @@
+<!--
+  @component-meta
+  name: Iconography
+  category: Foundations
+  file: foundations-icons.html
+  classes: icon-demo-grid, icon-demo-card, icon-demo-label, icon-style-row
+  when-to-use: Reference this page for Haven's icon conventions — FA Pro styles, sizing, common icons, and usage rules.
+  preline-required: no
+  notes: Icons from local FA Pro v7.1.0 at src/vendor/fontawesome/. Always use /src/vendor/fontawesome/css/all.css, never a CDN or all.min.css.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section id="icons">
+
+  <h2>Iconography</h2>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Haven uses FontAwesome Pro v7.1.0 exclusively. Icons are loaded from a local copy
+    at <code>src/vendor/fontawesome/</code>. Never use CDN links, Material Icons, Heroicons,
+    or emoji as icons.
+  </p>
+
+  <!-- @component: reference-only -->
+
+  <!-- ==========================================
+       USAGE RULES
+       ========================================== -->
+  <div class="card card-body mb-10">
+    <h3 class="card-title text-base mb-3">Usage Rules</h3>
+    <table class="kv-table">
+      <tr><td>Library</td><td>FontAwesome Pro v7.1.0 only</td></tr>
+      <tr><td>Source</td><td><code>/src/vendor/fontawesome/css/all.css</code> (local). Never <code>all.min.css</code> (does not exist) or CDN.</td></tr>
+      <tr><td>Markup</td><td><code>&lt;i class="fa-solid fa-{name}"&gt;&lt;/i&gt;</code></td></tr>
+      <tr><td>Default style</td><td><code>fa-solid</code> for most UI icons. Use lighter weights for decorative/secondary use.</td></tr>
+      <tr><td>Sizing</td><td>Icons inherit <code>font-size</code> from their parent. Use Tailwind text-size classes to override.</td></tr>
+      <tr><td>Color</td><td>Icons inherit <code>color</code> from their parent. Do not set color on the <code>&lt;i&gt;</code> tag unless overriding.</td></tr>
+      <tr><td>Accessibility</td><td>Decorative icons: no extra attributes needed. Meaningful icons: add <code>aria-label</code> or pair with visible text.</td></tr>
+      <tr><td>No emoji</td><td>Never use emoji as icons. Use FA Pro icons for all icon needs.</td></tr>
+    </table>
+  </div>
+
+  <!-- ==========================================
+       COMMON ICON REFERENCE
+       ========================================== -->
+  <div class="mb-12">
+    <h3 class="section-title mb-4">Common Icon Reference</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      Standard icons used across Haven. Use these exact icons for their associated concepts to maintain consistency.
+    </p>
+
+    <div class="icon-demo-grid">
+      <!-- Alert / Warning -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-triangle-exclamation text-2xl text-warning-600 dark:text-warning-400"></i>
+        <span class="icon-demo-label">fa-triangle-exclamation</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Alert / Warning</span>
+      </div>
+
+      <!-- Clinical -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-stethoscope text-2xl text-primary-600 dark:text-primary-400"></i>
+        <span class="icon-demo-label">fa-stethoscope</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Clinical</span>
+      </div>
+
+      <!-- Delivery -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-truck text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-truck</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Delivery</span>
+      </div>
+
+      <!-- Social -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-people-group text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-people-group</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Social</span>
+      </div>
+
+      <!-- Safety -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-shield-halved text-2xl text-primary-600 dark:text-primary-400"></i>
+        <span class="icon-demo-label">fa-shield-halved</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Safety</span>
+      </div>
+
+      <!-- Patient -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-user text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-user</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Patient</span>
+      </div>
+
+      <!-- Check / Resolved -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-circle-check text-2xl text-success-600 dark:text-success-400"></i>
+        <span class="icon-demo-label">fa-circle-check</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Check / Resolved</span>
+      </div>
+
+      <!-- Unresolved -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-circle-exclamation text-2xl text-error-600 dark:text-error-400"></i>
+        <span class="icon-demo-label">fa-circle-exclamation</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Unresolved</span>
+      </div>
+
+      <!-- Chart / Reports -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-chart-line text-2xl text-primary-600 dark:text-primary-400"></i>
+        <span class="icon-demo-label">fa-chart-line</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Chart / Reports</span>
+      </div>
+
+      <!-- Escalate -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-arrow-up-right-from-square text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-arrow-up-right-from-square</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Escalate</span>
+      </div>
+
+      <!-- Session / Visit -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-circle-play text-2xl text-primary-600 dark:text-primary-400"></i>
+        <span class="icon-demo-label">fa-circle-play</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Session / Visit</span>
+      </div>
+
+      <!-- Timeline -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-clock-rotate-left text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-clock-rotate-left</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Timeline</span>
+      </div>
+
+      <!-- Care Plan -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-file-medical text-2xl text-primary-600 dark:text-primary-400"></i>
+        <span class="icon-demo-label">fa-file-medical</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Care Plan</span>
+      </div>
+
+      <!-- Medication -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-pills text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-pills</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Medication</span>
+      </div>
+
+      <!-- AI Insight -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-bolt text-2xl text-violet-600 dark:text-violet-400"></i>
+        <span class="icon-demo-label">fa-bolt</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">AI Insight</span>
+      </div>
+
+      <!-- Print -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-print text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-print</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Print</span>
+      </div>
+
+      <!-- Export -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-file-csv text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-file-csv</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Export</span>
+      </div>
+
+      <!-- Filter -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-filter text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-filter</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Filter</span>
+      </div>
+
+      <!-- Sort -->
+      <div class="icon-demo-card">
+        <i class="fa-solid fa-sort text-2xl text-gray-600 dark:text-neutral-300"></i>
+        <span class="icon-demo-label">fa-sort</span>
+        <span class="text-xs text-gray-400 dark:text-neutral-500">Sort</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       FA PRO STYLES
+       ========================================== -->
+  <div class="mb-12">
+    <h3 class="section-title mb-4">FontAwesome Pro Styles</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      FA Pro v7.1.0 ships multiple style families. Haven defaults to <code>fa-solid</code> for
+      UI icons. Lighter weights can be used for decorative or secondary contexts.
+    </p>
+
+    <div class="card card-body">
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Classic family</h4>
+
+      <!-- Solid -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-solid</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Default</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-solid fa-bell"></i>
+          <i class="fa-solid fa-gear"></i>
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+      </div>
+
+      <!-- Regular -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-regular</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Outlined</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-regular fa-house"></i>
+          <i class="fa-regular fa-bell"></i>
+          <i class="fa-regular fa-gear"></i>
+          <i class="fa-regular fa-heart"></i>
+          <i class="fa-regular fa-star"></i>
+          <i class="fa-regular fa-envelope"></i>
+        </div>
+      </div>
+
+      <!-- Light -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-light</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Thin strokes</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-light fa-house"></i>
+          <i class="fa-light fa-bell"></i>
+          <i class="fa-light fa-gear"></i>
+          <i class="fa-light fa-heart"></i>
+          <i class="fa-light fa-star"></i>
+          <i class="fa-light fa-envelope"></i>
+        </div>
+      </div>
+
+      <!-- Thin -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-thin</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Hairline</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-thin fa-house"></i>
+          <i class="fa-thin fa-bell"></i>
+          <i class="fa-thin fa-gear"></i>
+          <i class="fa-thin fa-heart"></i>
+          <i class="fa-thin fa-star"></i>
+          <i class="fa-thin fa-envelope"></i>
+        </div>
+      </div>
+
+      <!-- Duotone -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-duotone</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Two-tone layers</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-duotone fa-house"></i>
+          <i class="fa-duotone fa-bell"></i>
+          <i class="fa-duotone fa-gear"></i>
+          <i class="fa-duotone fa-heart"></i>
+          <i class="fa-duotone fa-star"></i>
+          <i class="fa-duotone fa-envelope"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-body mt-4">
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Sharp family</h4>
+
+      <!-- Sharp Solid -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-sharp fa-solid</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Sharp filled</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-sharp fa-solid fa-house"></i>
+          <i class="fa-sharp fa-solid fa-bell"></i>
+          <i class="fa-sharp fa-solid fa-gear"></i>
+          <i class="fa-sharp fa-solid fa-heart"></i>
+          <i class="fa-sharp fa-solid fa-star"></i>
+          <i class="fa-sharp fa-solid fa-envelope"></i>
+        </div>
+      </div>
+
+      <!-- Sharp Regular -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-sharp fa-regular</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Sharp outlined</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-sharp fa-regular fa-house"></i>
+          <i class="fa-sharp fa-regular fa-bell"></i>
+          <i class="fa-sharp fa-regular fa-gear"></i>
+          <i class="fa-sharp fa-regular fa-heart"></i>
+          <i class="fa-sharp fa-regular fa-star"></i>
+          <i class="fa-sharp fa-regular fa-envelope"></i>
+        </div>
+      </div>
+
+      <!-- Sharp Light -->
+      <div class="icon-style-row">
+        <div class="w-32 shrink-0">
+          <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">fa-sharp fa-light</code>
+          <p class="text-xs text-gray-400 dark:text-neutral-500">Sharp thin</p>
+        </div>
+        <div class="flex items-center gap-6 text-2xl text-gray-700 dark:text-neutral-200">
+          <i class="fa-sharp fa-light fa-house"></i>
+          <i class="fa-sharp fa-light fa-bell"></i>
+          <i class="fa-sharp fa-light fa-gear"></i>
+          <i class="fa-sharp fa-light fa-heart"></i>
+          <i class="fa-sharp fa-light fa-star"></i>
+          <i class="fa-sharp fa-light fa-envelope"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       SIZING
+       ========================================== -->
+  <div class="mb-12">
+    <h3 class="section-title mb-4">Sizing</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      Icons inherit <code>font-size</code> from their parent element. Override with Tailwind
+      text-size utilities when needed. These are the standard sizes used in Haven.
+    </p>
+
+    <div class="card card-body">
+      <div class="flex items-end gap-8 flex-wrap">
+        <!-- text-xs -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-xs text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-xs</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">12px</span>
+        </div>
+
+        <!-- text-sm -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-sm text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-sm</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">14px</span>
+        </div>
+
+        <!-- text-base -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-base text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-base</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">16px</span>
+        </div>
+
+        <!-- text-lg -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-lg text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-lg</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">18px</span>
+        </div>
+
+        <!-- text-xl -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-xl text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-xl</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">20px</span>
+        </div>
+
+        <!-- text-2xl -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-2xl text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-2xl</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">24px</span>
+        </div>
+
+        <!-- text-3xl -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-3xl text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-3xl</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">30px</span>
+        </div>
+
+        <!-- text-4xl -->
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bell text-4xl text-gray-700 dark:text-neutral-200"></i>
+          <code class="text-xs font-mono text-gray-500 dark:text-neutral-400">text-4xl</code>
+          <span class="text-xs text-gray-400 dark:text-neutral-500">36px</span>
+        </div>
+      </div>
+
+      <div class="card card-body mt-6">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Sizing guidance</h4>
+        <table class="kv-table">
+          <tr><td><code>text-xs</code></td><td>Inline with small text, badge icons, dropdown chevrons</td></tr>
+          <tr><td><code>text-sm</code></td><td>Inline with body text, button icons, nav items</td></tr>
+          <tr><td><code>text-base</code></td><td>Default. Standalone icons, form field indicators</td></tr>
+          <tr><td><code>text-xl</code> to <code>text-2xl</code></td><td>Card accent icons, stat card icons, empty state illustrations</td></tr>
+          <tr><td><code>text-3xl</code> to <code>text-4xl</code></td><td>Hero-level icons, empty state focal points. Use sparingly.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       COLOR & CONTEXT
+       ========================================== -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Color &amp; Context</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      Icons inherit color from their parent by default. Apply semantic color classes
+      directly to the <code>&lt;i&gt;</code> element only when the icon needs to
+      differ from its surrounding text.
+    </p>
+
+    <div class="card card-body">
+      <div class="flex items-center gap-8 flex-wrap text-2xl">
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-circle-info text-primary-600 dark:text-primary-400"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">Primary</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-circle-check text-success-600 dark:text-success-400"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">Success</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-warning-600 dark:text-warning-400"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">Warning</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-circle-xmark text-error-600 dark:text-error-400"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">Error</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-circle-info text-info-600 dark:text-info-400"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">Info</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-bolt text-violet-600 dark:text-violet-400"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">AI / Violet</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <i class="fa-solid fa-gear text-gray-400 dark:text-neutral-500"></i>
+          <span class="text-xs text-gray-500 dark:text-neutral-400">Muted</span>
+        </div>
+      </div>
+
+      <div class="card card-body mt-6">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Color rules</h4>
+        <table class="kv-table">
+          <tr><td>Inherit</td><td>Default. Let the icon take the parent element's text color. Works in buttons, nav, badges.</td></tr>
+          <tr><td>Semantic color</td><td>Apply <code>text-{status}-600</code> when the icon carries independent meaning (e.g., a check for success).</td></tr>
+          <tr><td>Muted</td><td>Use <code>text-gray-400</code> for decorative or de-emphasized icons.</td></tr>
+          <tr><td>AI / Violet</td><td>Use <code>text-violet-600</code> for AI-generated content indicators.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- /component -->
+
+</section>

@@ -30,6 +30,7 @@ before creating any new component or semantic class.
 | Typography | `foundations-typography.html` | — | no | Reference only |
 | Spacing | `foundations-spacing.html` | — | no | Reference only |
 | Motion / Animation | `foundations-motion.html` | `motion-demo-box`, `motion-demo-track` | no | Reference only. Tokens: `--duration-*`, `--ease-*`. JS: `motion-demos.js` |
+| Iconography | `foundations-icons.html` | `icon-demo-grid`, `icon-demo-card`, `icon-demo-label`, `icon-style-row` | no | Reference only. FA Pro v7.1.0 — styles, sizing, common icons, usage rules. |
 
 ---
 

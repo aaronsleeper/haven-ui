@@ -3540,6 +3540,36 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   transform: translateX(calc(100cqw - 100%));
 }
 
+/* ============================================================
+   ICONOGRAPHY — Pattern Library Reference
+   ============================================================ */
+
+/* Grid layout for icon showcase cards */
+.icon-demo-grid {
+  @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+/* Individual icon display card — centered icon + label */
+.icon-demo-card {
+  @apply flex flex-col items-center justify-center gap-2 p-4 rounded-lg border border-gray-200 bg-white;
+  @apply dark:border-neutral-700 dark:bg-neutral-800;
+}
+
+/* Icon name label below demo icon */
+.icon-demo-label {
+  @apply block text-xs font-mono text-gray-500 text-center;
+  @apply dark:text-neutral-400;
+}
+
+/* Row showing the same icon across multiple FA styles */
+.icon-style-row {
+  @apply flex items-center gap-6 py-3 border-b border-gray-100;
+  @apply dark:border-neutral-700;
+}
+.icon-style-row:last-child {
+  @apply border-b-0;
+}
+
 .pref-row:has(input:checked) .pref-row-label {
   @apply text-primary-700;
   @apply dark:text-primary-300;
