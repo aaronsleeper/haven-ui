@@ -1,0 +1,266 @@
+<!--
+  @component-meta
+  name: Toggle / Switch
+  category: Forms
+  file: forms-toggle.html
+  classes: toggle, toggle-track, toggle-sm, toggle-lg, toggle-success, toggle-danger, toggle-group, toggle-label, toggle-description
+  when-to-use: On/off controls for preferences, settings, and binary options. Use instead of a single checkbox when the effect is immediate (no form submit).
+  preline-required: no
+  notes: CSS-only. Hidden checkbox + label approach. No JS required for basic toggle behavior.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Toggle / Switch</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    On/off switch for binary settings. Uses a hidden checkbox for accessibility — works without JavaScript.
+  </p>
+
+  <!-- Basic Toggle -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic Toggle</h4>
+    <div class="flex items-center gap-6">
+      <!-- @component: toggle-off -->
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+
+      <!-- @component: toggle-on -->
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Disabled State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled</h4>
+    <div class="flex items-center gap-6">
+      <!-- @component: toggle-disabled-off -->
+      <label class="toggle">
+        <input type="checkbox" disabled>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+
+      <!-- @component: toggle-disabled-on -->
+      <label class="toggle">
+        <input type="checkbox" checked disabled>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Size Variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Sizes</h4>
+    <div class="flex items-center gap-6">
+      <!-- @component: toggle-sm -->
+      <label class="toggle toggle-sm">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+
+      <!-- @component: toggle-default-size -->
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+
+      <!-- @component: toggle-lg -->
+      <label class="toggle toggle-lg">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+    </div>
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mt-2">Small (32px) / Default (44px) / Large (52px)</p>
+  </div>
+
+  <!-- Color Variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Color Variants (when on)</h4>
+    <div class="flex items-center gap-6">
+      <!-- @component: toggle-primary -->
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+
+      <!-- @component: toggle-success -->
+      <label class="toggle toggle-success">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+
+      <!-- @component: toggle-danger -->
+      <label class="toggle toggle-danger">
+        <input type="checkbox" checked>
+        <span class="toggle-track"></span>
+      </label>
+      <!-- /component -->
+    </div>
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mt-2">Primary (teal) / Success (green) / Danger (red)</p>
+  </div>
+
+  <!-- Toggle with Label -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Toggle with Label</h4>
+    <div class="space-y-4">
+      <!-- @component: toggle-label-right -->
+      <div class="toggle-group">
+        <label class="toggle">
+          <input type="checkbox" checked>
+          <span class="toggle-track"></span>
+        </label>
+        <span class="toggle-label">Email notifications</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: toggle-label-left -->
+      <div class="toggle-group">
+        <span class="toggle-label">SMS alerts</span>
+        <label class="toggle">
+          <input type="checkbox">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Toggle with Description -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Toggle with Description</h4>
+    <div class="space-y-5">
+      <!-- @component: toggle-with-description -->
+      <div class="toggle-group">
+        <label class="toggle">
+          <input type="checkbox" checked>
+          <span class="toggle-track"></span>
+        </label>
+        <div>
+          <span class="toggle-label">Delivery notifications</span>
+          <p class="toggle-description">Receive a push notification when your meal is on its way.</p>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: toggle-with-description-off -->
+      <div class="toggle-group">
+        <label class="toggle">
+          <input type="checkbox">
+          <span class="toggle-track"></span>
+        </label>
+        <div>
+          <span class="toggle-label">Weekly meal summary</span>
+          <p class="toggle-description">Get a digest of your upcoming meals every Sunday evening.</p>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Healthcare Examples -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Healthcare Context</h4>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Notification Preferences</h3>
+      </div>
+      <div class="card-body space-y-4">
+        <!-- @component: toggle-healthcare-notifications -->
+        <div class="toggle-group">
+          <label class="toggle toggle-sm">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+          </label>
+          <div>
+            <span class="toggle-label">Appointment reminders</span>
+            <p class="toggle-description">24-hour and 1-hour reminders before scheduled visits.</p>
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle toggle-sm">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+          </label>
+          <div>
+            <span class="toggle-label">Medication alerts</span>
+            <p class="toggle-description">Reminders to take prescribed medications on schedule.</p>
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle toggle-sm">
+            <input type="checkbox">
+            <span class="toggle-track"></span>
+          </label>
+          <div>
+            <span class="toggle-label">Care team messages</span>
+            <p class="toggle-description">Notifications when your care coordinator sends a message.</p>
+          </div>
+        </div>
+        <!-- /component -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Dietary Restrictions Example -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Dietary Restrictions</h4>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Dietary Preferences</h3>
+        <p class="card-subtitle">Toggle restrictions for meal planning</p>
+      </div>
+      <div class="card-body space-y-4">
+        <!-- @component: toggle-healthcare-dietary -->
+        <div class="toggle-group">
+          <label class="toggle toggle-success">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">Low sodium</span>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle toggle-success">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">Diabetic-friendly</span>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle toggle-danger">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">Nut allergy</span>
+        </div>
+
+        <div class="toggle-group">
+          <label class="toggle">
+            <input type="checkbox">
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">Gluten-free</span>
+        </div>
+        <!-- /component -->
+      </div>
+    </div>
+  </div>
+
+</section>

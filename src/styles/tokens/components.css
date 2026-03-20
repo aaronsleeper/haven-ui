@@ -4518,6 +4518,176 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     }
 }
 
+/* ===================================
+   TOGGLE / SWITCH
+   Checkbox-based on/off toggle. Hide the native checkbox,
+   show a pill track with sliding thumb. CSS-only — no JS.
+   =================================== */
+
+/* Wrapper label — hides the native checkbox, positions the track */
+.toggle {
+    @apply relative inline-flex items-center cursor-pointer;
+}
+
+/* Hidden native checkbox */
+.toggle input[type="checkbox"] {
+    @apply sr-only;
+}
+
+/* The pill track */
+.toggle-track {
+    @apply relative inline-flex shrink-0 items-center rounded-full transition-colors duration-200;
+    width: 44px;
+    height: 24px;
+    background-color: var(--color-sand-300);
+}
+
+:is(.dark) .toggle-track {
+    background-color: var(--color-neutral-600);
+}
+
+/* The sliding thumb (pseudo on the track) */
+.toggle-track::after {
+    content: '';
+    @apply absolute rounded-full bg-white shadow-sm transition-transform duration-200;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+}
+
+/* Checked state — primary (teal) */
+.toggle input:checked + .toggle-track {
+    @apply bg-primary-600;
+}
+
+:is(.dark) .toggle input:checked + .toggle-track {
+    @apply bg-primary-500;
+}
+
+.toggle input:checked + .toggle-track::after {
+    transform: translateX(20px);
+}
+
+/* Focus ring on the track */
+.toggle input:focus-visible + .toggle-track {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+}
+
+/* Hover */
+.toggle:hover .toggle-track {
+    background-color: var(--color-sand-400);
+}
+
+:is(.dark) .toggle:hover .toggle-track {
+    background-color: var(--color-neutral-500);
+}
+
+.toggle:hover input:checked + .toggle-track {
+    @apply bg-primary-700;
+}
+
+:is(.dark) .toggle:hover input:checked + .toggle-track {
+    @apply bg-primary-400;
+}
+
+/* Disabled state */
+.toggle:has(input:disabled) {
+    @apply opacity-50 pointer-events-none cursor-not-allowed;
+}
+
+/* --- Size: Small (32×18) --- */
+.toggle-sm .toggle-track {
+    width: 32px;
+    height: 18px;
+}
+
+.toggle-sm .toggle-track::after {
+    width: 14px;
+    height: 14px;
+    left: 2px;
+    top: 2px;
+}
+
+.toggle-sm input:checked + .toggle-track::after {
+    transform: translateX(14px);
+}
+
+/* --- Size: Large (52×28) --- */
+.toggle-lg .toggle-track {
+    width: 52px;
+    height: 28px;
+}
+
+.toggle-lg .toggle-track::after {
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+}
+
+.toggle-lg input:checked + .toggle-track::after {
+    transform: translateX(24px);
+}
+
+/* --- Color: Success (green when checked) --- */
+.toggle-success input:checked + .toggle-track {
+    @apply bg-success-600;
+}
+
+:is(.dark) .toggle-success input:checked + .toggle-track {
+    @apply bg-success-500;
+}
+
+.toggle-success:hover input:checked + .toggle-track {
+    @apply bg-success-700;
+}
+
+:is(.dark) .toggle-success:hover input:checked + .toggle-track {
+    @apply bg-success-400;
+}
+
+/* --- Color: Danger (red when checked) --- */
+.toggle-danger input:checked + .toggle-track {
+    @apply bg-error-600;
+}
+
+:is(.dark) .toggle-danger input:checked + .toggle-track {
+    @apply bg-error-500;
+}
+
+.toggle-danger:hover input:checked + .toggle-track {
+    @apply bg-error-700;
+}
+
+:is(.dark) .toggle-danger:hover input:checked + .toggle-track {
+    @apply bg-error-400;
+}
+
+/* --- Toggle Group: wrapper for toggle + label + description --- */
+.toggle-group {
+    @apply flex items-start gap-3;
+}
+
+/* Center-align when no description (single line) */
+.toggle-group:has(.toggle-label):not(:has(.toggle-description)) {
+    @apply items-center;
+}
+
+/* Label text */
+.toggle-label {
+    @apply text-sm font-medium text-gray-700;
+    @apply dark:text-neutral-200;
+}
+
+/* Description text */
+.toggle-description {
+    @apply text-sm text-gray-500 mt-0.5;
+    @apply dark:text-neutral-400;
+}
+
+
 @keyframes toast-fade-out {
     from {
         opacity: 1;

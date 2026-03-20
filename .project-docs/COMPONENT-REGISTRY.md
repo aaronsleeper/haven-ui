@@ -118,7 +118,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Select (haven custom) | `pages/forms.html` | built | `.select-haven` |
 | Checkbox | `pages/forms.html` | built | |
 | Radio | `pages/forms.html` | built | |
-| Toggle / Switch | `pages/forms-toggle.html` | missing | On/off toggle — Preline HSToggle or custom |
+| Toggle / Switch | `pages/forms-toggle.html` | built | On/off toggle — CSS-only hidden checkbox + label |
 | Range Slider | `pages/range-sliders.html` | built | |
 | Clipboard / Copy | `pages/clipboard.html` | built | |
 | Advanced Select | `pages/forms.html` | built | Preline HSSelect — searchable, multi-select |
