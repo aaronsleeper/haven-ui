@@ -88,7 +88,7 @@ visible at localhost:5173/pattern-library/pages/.
 | SDOH Badge | `pages/badges.html` | built | |
 | AI Insight Badge | `pages/badges.html` | built | |
 | Removable Badge | `pages/badges.html` | built | |
-| Indicator / Dot | `pages/badges-indicator.html` | missing | Small status dot — online/offline/busy, pulse variant |
+| Indicator / Dot | `pages/badges-indicator.html` | built | Small status dot — online/offline/busy, pulse variant |
 | Avatar | `pages/avatar.html` | missing | Initials, image, size variants, group/stack |
 | Spinner | `pages/spinner.html` | missing | Loading spinner — sizes, colors |
 

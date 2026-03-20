@@ -1,0 +1,255 @@
+<!--
+  @component-meta
+  name: Indicator / Dot
+  category: Badges & Status
+  file: indicator-dot.html
+  classes: indicator, indicator-sm, indicator-lg, indicator-online, indicator-offline, indicator-busy, indicator-away, indicator-pulse, indicator-label, indicator-positioned
+  when-to-use: Small colored dot to show online/offline status, alert severity, or real-time session state on provider listings, patient dashboards, and care coordination screens.
+  do-not-use-when: You need a text label with semantic color background — use a badge instead.
+  preline-required: no
+  notes: Combine base .indicator with a status variant (.indicator-online, etc.) and optionally a size modifier (.indicator-sm, .indicator-lg). Pulse variant adds animated ring for live/active states.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Indicator / Dot</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Small status dots for presence, severity, and real-time state. Used on provider listings, session panels, and alert tables.
+  </p>
+
+  <!-- Status Variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Status Variants</h4>
+    <div class="flex items-center gap-6">
+      <!-- @component: indicator-default -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Default</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-online -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-online"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Online</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-offline -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-offline"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Offline</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-busy -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-busy"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Busy</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-away -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-away"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Away</span>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Size Variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Size Variants</h4>
+    <div class="flex items-center gap-8">
+      <!-- @component: indicator-sm -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-online indicator-sm"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Small (6px)</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-default-size -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-online"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Default (8px)</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-lg -->
+      <div class="flex flex-col items-center gap-2">
+        <span class="indicator indicator-online indicator-lg"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Large (12px)</span>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Pulse / Ping Animation -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Pulse Animation</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Add <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">indicator-pulse</code> for live/active status. The ring inherits the dot color.
+    </p>
+    <div class="flex items-center gap-8">
+      <!-- @component: indicator-pulse-online -->
+      <div class="flex flex-col items-center gap-3">
+        <span class="indicator indicator-online indicator-pulse"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Online (pulse)</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-pulse-busy -->
+      <div class="flex flex-col items-center gap-3">
+        <span class="indicator indicator-busy indicator-pulse"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Busy (pulse)</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-pulse-away -->
+      <div class="flex flex-col items-center gap-3">
+        <span class="indicator indicator-away indicator-pulse"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Away (pulse)</span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-pulse-lg -->
+      <div class="flex flex-col items-center gap-3">
+        <span class="indicator indicator-online indicator-lg indicator-pulse"></span>
+        <span class="text-xs text-gray-500 dark:text-neutral-400">Large + pulse</span>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Indicator with Label -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Indicator with Label</h4>
+    <div class="flex flex-col gap-3">
+      <!-- @component: indicator-label-online -->
+      <span class="indicator-label">
+        <span class="indicator indicator-online"></span>
+        Online
+      </span>
+      <!-- /component -->
+
+      <!-- @component: indicator-label-offline -->
+      <span class="indicator-label">
+        <span class="indicator indicator-offline"></span>
+        Offline
+      </span>
+      <!-- /component -->
+
+      <!-- @component: indicator-label-busy -->
+      <span class="indicator-label">
+        <span class="indicator indicator-busy indicator-pulse"></span>
+        In session
+      </span>
+      <!-- /component -->
+
+      <!-- @component: indicator-label-away -->
+      <span class="indicator-label">
+        <span class="indicator indicator-away"></span>
+        Away
+      </span>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Positioned on Avatar -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Positioned on Avatar / Icon</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Wrap an avatar or icon with <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">indicator-positioned</code>. The dot anchors to the bottom-right corner with a border ring matching the surface.
+    </p>
+    <div class="flex items-center gap-8">
+      <!-- @component: indicator-positioned-avatar-online -->
+      <div class="indicator-positioned">
+        <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-700 dark:text-primary-400 text-sm font-semibold">MR</div>
+        <span class="indicator indicator-online"></span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-positioned-avatar-busy -->
+      <div class="indicator-positioned">
+        <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-neutral-700 flex items-center justify-center text-gray-600 dark:text-neutral-300 text-sm font-semibold">JS</div>
+        <span class="indicator indicator-busy indicator-pulse"></span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-positioned-avatar-offline -->
+      <div class="indicator-positioned">
+        <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-neutral-700 flex items-center justify-center text-gray-600 dark:text-neutral-300 text-sm font-semibold">KL</div>
+        <span class="indicator indicator-offline"></span>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: indicator-positioned-icon -->
+      <div class="indicator-positioned">
+        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center">
+          <i class="fa-solid fa-user-doctor text-gray-500 dark:text-neutral-400"></i>
+        </div>
+        <span class="indicator indicator-online indicator-pulse"></span>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Healthcare Context Examples -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Healthcare Context</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Common usage patterns in Cena Health: provider presence on care team lists, session activity on patient dashboards, and alert severity in triage views.
+    </p>
+    <div class="card">
+      <div class="card-body">
+        <div class="flex flex-col gap-3">
+          <!-- Provider row example -->
+          <div class="flex items-center gap-3 py-2">
+            <div class="indicator-positioned">
+              <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-700 dark:text-primary-400 text-xs font-semibold">DR</div>
+              <span class="indicator indicator-online indicator-sm"></span>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-900 dark:text-neutral-100">Dr. Rachel Torres</div>
+              <span class="indicator-label text-xs">
+                <span class="indicator indicator-online indicator-sm"></span>
+                Available
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 py-2 border-t border-gray-100 dark:border-neutral-800">
+            <div class="indicator-positioned">
+              <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-neutral-700 flex items-center justify-center text-gray-600 dark:text-neutral-300 text-xs font-semibold">NP</div>
+              <span class="indicator indicator-busy indicator-sm indicator-pulse"></span>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-900 dark:text-neutral-100">Nancy Park, NP</div>
+              <span class="indicator-label text-xs">
+                <span class="indicator indicator-busy indicator-sm indicator-pulse"></span>
+                In session with patient
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 py-2 border-t border-gray-100 dark:border-neutral-800">
+            <div class="indicator-positioned">
+              <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-neutral-700 flex items-center justify-center text-gray-600 dark:text-neutral-300 text-xs font-semibold">AW</div>
+              <span class="indicator indicator-offline indicator-sm"></span>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-900 dark:text-neutral-100">Alex Williams, RD</div>
+              <span class="indicator-label text-xs">
+                <span class="indicator indicator-offline indicator-sm"></span>
+                Offline
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -86,6 +86,7 @@ before creating any new component or semantic class.
 | SDOH Badge | `badge-sdoh.html` | `sdoh-badge` | no | Social determinants; monospace font |
 | AI Insight Badge | `badge-ai-insight.html` | `ai-insight-badge`, `ai-insight-callout`, `ai-insight-callout-icon` | no | Violet; for AI-generated content |
 | Removable Badge | *(inside tag-group)* | `badge-removable` | no | Badge with X close button |
+| Indicator / Dot | `indicator-dot.html` | `indicator`, `indicator-sm`, `indicator-lg`, `indicator-online`, `indicator-offline`, `indicator-busy`, `indicator-away`, `indicator-pulse`, `indicator-label`, `indicator-positioned` | no | Status dot for presence/severity. Pulse variant for live state. Position on avatars with `indicator-positioned`. |
 
 ---
 
