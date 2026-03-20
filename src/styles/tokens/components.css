@@ -6652,3 +6652,55 @@ a.list-group-item-action {
     @apply mt-2 text-sm text-gray-600;
     @apply dark:text-neutral-400;
 }
+
+/* ===================================
+   BOTTOM SHEET
+   Mobile-only drawer from bottom.
+   Uses Preline hs-overlay for open/close.
+   =================================== */
+
+.bottom-sheet-panel {
+    @apply fixed inset-x-0 bottom-0 z-[80];
+    @apply w-full max-h-[85vh];
+    @apply bg-white rounded-t-2xl shadow-lg;
+    @apply flex flex-col;
+    @apply opacity-0 transition-all duration-300 ease-out;
+    @apply dark:bg-neutral-800;
+    transform: translateY(100%);
+}
+
+.hs-overlay.open .bottom-sheet-panel {
+    @apply opacity-100;
+    transform: translateY(0);
+}
+
+.bottom-sheet-handle {
+    @apply flex justify-center pt-3 pb-1 cursor-grab;
+}
+
+.bottom-sheet-handle::after {
+    @apply block rounded-full;
+    content: '';
+    width: 36px;
+    height: 4px;
+    background-color: var(--color-sand-300);
+}
+
+:is(.dark) .bottom-sheet-handle::after {
+    background-color: var(--color-sand-600);
+}
+
+.bottom-sheet-header {
+    @apply flex items-center justify-between px-4 py-3;
+    @apply border-b border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+.bottom-sheet-title {
+    @apply text-base font-semibold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.bottom-sheet-body {
+    @apply flex-1 overflow-y-auto px-4 py-4;
+}

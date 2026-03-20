@@ -1,0 +1,195 @@
+<!--
+  @component-meta
+  name: Bottom Sheet
+  category: Overlays
+  file: overlay-bottom-sheet.html
+  classes: bottom-sheet-panel, bottom-sheet-handle, bottom-sheet-header, bottom-sheet-title, bottom-sheet-body
+  when-to-use: Mobile-only drawer that slides up from the bottom — ideal for actions, quick forms, and detail previews in the patient app.
+  preline-required: yes — hs-overlay
+  notes: Reuses .hs-overlay-backdrop from the modal system. Max height 85vh with scrollable body. Use .bottom-sheet-handle for drag affordance (visual only). Rounded top corners (2xl). Place hs-overlay wrapper outside main content flow.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Bottom Sheet</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Mobile-only drawer from the bottom edge. Uses Preline hs-overlay for open/close behavior with a slide-up transition.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default with Handle</h4>
+    <!-- @component: bottom-sheet-default -->
+    <button type="button" class="btn-primary" data-hs-overlay="#bs-default">
+      Open Bottom Sheet
+    </button>
+
+    <div id="bs-default" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="bs-default-label">
+      <div class="bottom-sheet-panel">
+        <div class="bottom-sheet-handle"></div>
+        <div class="bottom-sheet-header">
+          <h3 id="bs-default-label" class="bottom-sheet-title">Meal Details</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#bs-default">
+            <span class="sr-only">Close</span>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="bottom-sheet-body">
+          <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+            Your meal for Tuesday lunch has been updated. The new selection includes grilled chicken with roasted vegetables and brown rice.
+          </p>
+          <div class="flex gap-3">
+            <button type="button" class="btn-primary flex-1" data-hs-overlay="#bs-default">Confirm</button>
+            <button type="button" class="btn-outline flex-1" data-hs-overlay="#bs-default">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Action List -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Action List</h4>
+    <!-- @component: bottom-sheet-action-list -->
+    <button type="button" class="btn-outline" data-hs-overlay="#bs-actions">
+      Open Action Sheet
+    </button>
+
+    <div id="bs-actions" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="bs-actions-label">
+      <div class="bottom-sheet-panel">
+        <div class="bottom-sheet-handle"></div>
+        <div class="bottom-sheet-header">
+          <h3 id="bs-actions-label" class="bottom-sheet-title">Actions</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#bs-actions">
+            <span class="sr-only">Close</span>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="bottom-sheet-body">
+          <div class="list-group list-group-flush">
+            <button type="button" class="list-group-item list-group-item-action" data-hs-overlay="#bs-actions">
+              <span class="list-group-item-icon"><i class="fa-solid fa-shuffle"></i></span>
+              <span class="list-group-item-content">
+                <span class="list-group-item-title">Swap Meal</span>
+                <span class="list-group-item-description">Choose a different option for this slot</span>
+              </span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action" data-hs-overlay="#bs-actions">
+              <span class="list-group-item-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
+              <span class="list-group-item-content">
+                <span class="list-group-item-title">View History</span>
+                <span class="list-group-item-description">See past selections for this meal</span>
+              </span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action" data-hs-overlay="#bs-actions">
+              <span class="list-group-item-icon"><i class="fa-solid fa-comment"></i></span>
+              <span class="list-group-item-content">
+                <span class="list-group-item-title">Leave a Note</span>
+                <span class="list-group-item-description">Add dietary notes or preferences</span>
+              </span>
+            </button>
+            <button type="button" class="list-group-item list-group-item-action" data-hs-overlay="#bs-actions">
+              <span class="list-group-item-icon text-error-600 dark:text-error-400"><i class="fa-solid fa-circle-xmark"></i></span>
+              <span class="list-group-item-content">
+                <span class="list-group-item-title text-error-600 dark:text-error-400">Skip This Meal</span>
+                <span class="list-group-item-description">Mark this meal as skipped</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Form -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Form</h4>
+    <!-- @component: bottom-sheet-form -->
+    <button type="button" class="btn-outline" data-hs-overlay="#bs-form">
+      Open Form Sheet
+    </button>
+
+    <div id="bs-form" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="bs-form-label">
+      <div class="bottom-sheet-panel">
+        <div class="bottom-sheet-handle"></div>
+        <div class="bottom-sheet-header">
+          <h3 id="bs-form-label" class="bottom-sheet-title">Add a Note</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#bs-form">
+            <span class="sr-only">Close</span>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="bottom-sheet-body">
+          <form class="space-y-4">
+            <div>
+              <label class="field-label" for="bs-note-subject">Subject</label>
+              <select id="bs-note-subject">
+                <option>Dietary preference</option>
+                <option>Allergy alert</option>
+                <option>Delivery instructions</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="bs-note-text">Note</label>
+              <textarea id="bs-note-text" rows="3" placeholder="Describe your request or concern..."></textarea>
+            </div>
+            <button type="button" class="btn-primary w-full" data-hs-overlay="#bs-form">Submit Note</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Without Handle -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Without Handle (Header Only)</h4>
+    <!-- @component: bottom-sheet-no-handle -->
+    <button type="button" class="btn-outline" data-hs-overlay="#bs-no-handle">
+      Open Sheet (No Handle)
+    </button>
+
+    <div id="bs-no-handle" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="bs-no-handle-label">
+      <div class="bottom-sheet-panel">
+        <div class="bottom-sheet-header">
+          <h3 id="bs-no-handle-label" class="bottom-sheet-title">Delivery Information</h3>
+          <button type="button" class="btn-icon" data-hs-overlay="#bs-no-handle">
+            <span class="sr-only">Close</span>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="bottom-sheet-body">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-truck text-primary-600 dark:text-primary-400"></i>
+              <div>
+                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">Estimated Delivery</p>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">Today, 12:30 PM - 1:00 PM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-location-dot text-primary-600 dark:text-primary-400"></i>
+              <div>
+                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">Delivery Location</p>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">Room 412, Building A</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-user text-primary-600 dark:text-primary-400"></i>
+              <div>
+                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">Delivered By</p>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">Kitchen Team - Station 3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

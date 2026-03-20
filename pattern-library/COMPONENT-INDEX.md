@@ -165,6 +165,7 @@ before creating any new component or semantic class.
 | Context Menu | `overlay-context-menu.html` | `ctx-menu`, `ctx-menu-item`, `ctx-menu-item-danger`, `ctx-menu-divider`, `ctx-menu-label`, `ctx-menu-shortcut`, `ctx-menu-icon`, `ctx-menu-backdrop` | no | Vanilla JS — right-click / long-press. JS: `context-menu.js`. Trigger via `data-ctx-menu="<id>"`. |
 | Modal | `overlay-modal.html` | `modal-panel` | yes | |
 | Confirm Dialog | `overlay-confirm-dialog.html` | `confirm-dialog-icon`, `confirm-dialog-icon-danger`, `confirm-dialog-icon-warning`, `confirm-dialog-icon-info`, `confirm-dialog-title`, `confirm-dialog-body` | yes — hs-overlay | Destructive/warning/info confirmation. Reuses `modal-panel` + `card`. |
+| Bottom Sheet | `overlay-bottom-sheet.html` | `bottom-sheet-panel`, `bottom-sheet-handle`, `bottom-sheet-header`, `bottom-sheet-title`, `bottom-sheet-body` | yes — hs-overlay | Mobile-only slide-up drawer. Reuses `.hs-overlay-backdrop`. Max 85vh, scrollable body. Patient app. |
 
 ---
 

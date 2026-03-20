@@ -191,7 +191,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Drawer | `pages/overlays.html` | built | |
 | Context Menu | `pages/overlays-context-menu.html` | built | Right-click / long-press menu |
 | Confirm Dialog | `pages/overlays-confirm.html` | built | Destructive action confirmation modal variant |
-| Bottom Sheet | `pages/overlays-bottom-sheet.html` | missing | Mobile-only drawer from bottom — patient app |
+| Bottom Sheet | `pages/overlays-bottom-sheet.html` | built | Mobile-only drawer from bottom — patient app |
 
 ---
 
