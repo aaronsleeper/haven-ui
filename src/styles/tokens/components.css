@@ -3248,6 +3248,116 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 /* ===================================
+   AVATAR
+   Circular user/entity representation.
+   Initials, image, icon variants. Size scale xs–xl.
+   =================================== */
+
+/* Base avatar — 40px default, centered content */
+.avatar {
+    @apply inline-flex items-center justify-center rounded-full font-semibold shrink-0;
+    @apply w-10 h-10 text-sm;
+    @apply bg-primary-100 text-primary-700;
+    @apply dark:bg-primary-900/30 dark:text-primary-400;
+}
+
+/* Size variants */
+.avatar-xs {
+    @apply w-6 h-6 text-[10px];
+}
+
+.avatar-sm {
+    @apply w-8 h-8 text-xs;
+}
+
+.avatar-lg {
+    @apply w-12 h-12 text-base;
+}
+
+.avatar-xl {
+    @apply w-16 h-16 text-lg;
+}
+
+/* Color variants */
+.avatar-primary {
+    @apply bg-primary-100 text-primary-700;
+    @apply dark:bg-primary-900/30 dark:text-primary-400;
+}
+
+.avatar-secondary {
+    @apply bg-secondary-100 text-secondary-700;
+    @apply dark:bg-secondary-900/30 dark:text-secondary-400;
+}
+
+.avatar-neutral {
+    @apply bg-gray-200 text-gray-600;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
+}
+
+/* Image avatar — wrap an <img> inside .avatar */
+.avatar-img {
+    @apply w-full h-full rounded-full object-cover;
+}
+
+/* Icon avatar — slightly larger icon than text */
+.avatar-icon {
+    @apply text-base;
+}
+
+.avatar-xs .avatar-icon {
+    @apply text-xs;
+}
+
+.avatar-sm .avatar-icon {
+    @apply text-sm;
+}
+
+.avatar-lg .avatar-icon {
+    @apply text-lg;
+}
+
+.avatar-xl .avatar-icon {
+    @apply text-xl;
+}
+
+/* Avatar group — overlapping row */
+.avatar-group {
+    @apply inline-flex flex-row-reverse items-center;
+}
+
+.avatar-group > .avatar,
+.avatar-group > .indicator-positioned {
+    @apply block; /* keeps rule alive through Tailwind v4 tree-shaking */
+    margin-left: -0.5rem;
+    box-shadow: 0 0 0 2px var(--color-sand-50);
+    border-radius: 9999px;
+}
+
+:is(.dark) .avatar-group > .avatar,
+:is(.dark) .avatar-group > .indicator-positioned {
+    box-shadow: 0 0 0 2px var(--color-neutral-900);
+}
+
+/* "+N more" overflow indicator in avatar group */
+.avatar-group-overflow {
+    @apply inline-flex items-center justify-center rounded-full font-semibold shrink-0;
+    @apply w-10 h-10 text-xs;
+    @apply bg-gray-100 text-gray-600 border-2 border-white;
+    @apply dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-900;
+    margin-left: -0.5rem;
+}
+
+.avatar-xs ~ .avatar-group-overflow,
+.avatar-group-overflow.avatar-xs {
+    @apply w-6 h-6 text-[10px];
+}
+
+.avatar-sm ~ .avatar-group-overflow,
+.avatar-group-overflow.avatar-sm {
+    @apply w-8 h-8 text-[10px];
+}
+
+/* ===================================
    MUTED TABLE ROW
    For inactive patients, resolved alerts, etc.
    =================================== */

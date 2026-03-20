@@ -89,7 +89,7 @@ visible at localhost:5173/pattern-library/pages/.
 | AI Insight Badge | `pages/badges.html` | built | |
 | Removable Badge | `pages/badges.html` | built | |
 | Indicator / Dot | `pages/badges-indicator.html` | built | Small status dot — online/offline/busy, pulse variant |
-| Avatar | `pages/avatar.html` | missing | Initials, image, size variants, group/stack |
+| Avatar | `pages/avatar.html` | built | Initials, image, size variants, group/stack |
 | Spinner | `pages/spinner.html` | missing | Loading spinner — sizes, colors |
 
 ---
