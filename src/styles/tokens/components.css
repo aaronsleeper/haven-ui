@@ -5572,3 +5572,172 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply text-xs text-gray-400;
     @apply dark:text-neutral-500;
 }
+
+
+/* ===================================
+   COLOR PICKER
+   =================================== */
+
+.color-picker {
+    @apply flex flex-col gap-2;
+}
+
+.color-picker-label {
+    @apply text-sm font-medium text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+.color-picker-swatches {
+    @apply flex flex-wrap gap-2;
+}
+
+.color-picker-swatch {
+    @apply block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+    position: relative;
+    flex-shrink: 0;
+}
+.color-picker-swatch:hover {
+    @apply block;
+    transform: scale(1.1);
+}
+.color-picker-swatch:focus-visible {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-teal-500);
+}
+.dark .color-picker-swatch:focus-visible {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 4px var(--color-teal-400);
+}
+.color-picker-swatch.active {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px currentColor;
+    transform: scale(1.1);
+}
+.dark .color-picker-swatch.active {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 4px currentColor;
+}
+.color-picker-swatch.active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+}
+
+/* Small swatch variant */
+.color-picker-swatch-sm {
+    @apply block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+    position: relative;
+    flex-shrink: 0;
+}
+.color-picker-swatch-sm:hover {
+    @apply block;
+    transform: scale(1.15);
+}
+.color-picker-swatch-sm:focus-visible {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 3px var(--color-teal-500);
+}
+.dark .color-picker-swatch-sm:focus-visible {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 3px var(--color-teal-400);
+}
+.color-picker-swatch-sm.active {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 3px currentColor;
+    transform: scale(1.15);
+}
+.dark .color-picker-swatch-sm.active {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 3px currentColor;
+}
+
+/* Custom color swatch — dashed border, triggers native input[type=color] */
+.color-picker-swatch-custom {
+    @apply block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 2px dashed var(--color-sand-300);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    outline: none;
+    position: relative;
+    flex-shrink: 0;
+    background: var(--color-sand-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-sand-400);
+    font-size: 0.75rem;
+}
+.dark .color-picker-swatch-custom {
+    @apply block;
+    border-color: var(--color-neutral-600);
+    background: var(--color-neutral-800);
+    color: var(--color-neutral-500);
+}
+.color-picker-swatch-custom:hover {
+    @apply block;
+    border-color: var(--color-sand-400);
+    transform: scale(1.1);
+}
+.dark .color-picker-swatch-custom:hover {
+    @apply block;
+    border-color: var(--color-neutral-400);
+}
+.color-picker-swatch-custom.active {
+    @apply block;
+    border-style: solid;
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-teal-500);
+    transform: scale(1.1);
+}
+.dark .color-picker-swatch-custom.active {
+    @apply block;
+    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 4px var(--color-teal-400);
+}
+
+/* Preview bar showing current selection */
+.color-picker-preview {
+    @apply flex items-center gap-3 mt-1;
+}
+
+.color-picker-preview-dot {
+    @apply block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-sand-200);
+    flex-shrink: 0;
+}
+.dark .color-picker-preview-dot {
+    @apply block;
+    border-color: var(--color-neutral-600);
+}
+
+.color-picker-value {
+    @apply text-sm text-gray-600;
+    @apply dark:text-neutral-400;
+}
+
+/* Disabled state */
+.color-picker-disabled {
+    @apply opacity-50 pointer-events-none;
+}
