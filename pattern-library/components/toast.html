@@ -3,7 +3,7 @@
   name: Toast
   category: Alerts
   file: toast.html
-  classes: toast-container, toast, toast-icon, toast-content, toast-title, toast-description, toast-dismiss, toast-progress, toast-success, toast-warning, toast-error, toast-info
+  classes: toast-container, toast, toast-static, toast-icon, toast-content, toast-title, toast-description, toast-dismiss, toast-progress, toast-success, toast-warning, toast-error, toast-info
   when-to-use: Transient feedback after user actions — operation confirmations, error alerts, background notifications. Appears top-right and auto-dismisses or is manually dismissed.
   do-not-use-when: Feedback needs to persist on page — use an inline alert instead.
   preline-required: no
@@ -26,7 +26,7 @@
     <div class="flex flex-col gap-4 max-w-sm">
 
       <!-- @component: toast-success -->
-      <div class="toast toast-success" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-success toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
         <div class="toast-content">
           <div class="toast-title">Patient updated</div>
@@ -39,7 +39,7 @@
       <!-- /component -->
 
       <!-- @component: toast-warning -->
-      <div class="toast toast-warning" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-warning toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
         <div class="toast-content">
           <div class="toast-title">Allergy conflict</div>
@@ -52,7 +52,7 @@
       <!-- /component -->
 
       <!-- @component: toast-error -->
-      <div class="toast toast-error" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-error toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-circle-xmark"></i></div>
         <div class="toast-content">
           <div class="toast-title">Save failed</div>
@@ -65,7 +65,7 @@
       <!-- /component -->
 
       <!-- @component: toast-info -->
-      <div class="toast toast-info" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-info toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-circle-info"></i></div>
         <div class="toast-content">
           <div class="toast-title">Session ending</div>
@@ -87,7 +87,7 @@
     <div class="flex flex-col gap-4 max-w-sm">
 
       <!-- @component: toast-success-minimal -->
-      <div class="toast toast-success" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-success toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
         <div class="toast-content">
           <div class="toast-title">Meal plan confirmed</div>
@@ -99,7 +99,7 @@
       <!-- /component -->
 
       <!-- @component: toast-error-minimal -->
-      <div class="toast toast-error" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-error toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-circle-xmark"></i></div>
         <div class="toast-content">
           <div class="toast-title">Connection lost</div>
@@ -121,7 +121,7 @@
     <div class="flex flex-col gap-4 max-w-sm">
 
       <!-- @component: toast-success-progress -->
-      <div class="toast toast-success" role="status" style="animation: none; position: relative;">
+      <div class="toast toast-success toast-static" role="status">
         <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
         <div class="toast-content">
           <div class="toast-title">Changes saved</div>
@@ -130,7 +130,7 @@
         <button type="button" class="toast-dismiss" aria-label="Dismiss">
           <i class="fa-solid fa-xmark text-xs"></i>
         </button>
-        <div class="toast-progress" style="--toast-duration: 5s; animation-play-state: paused; width: 65%;"></div>
+        <div class="toast-progress toast-static" style="width: 65%;"></div>
       </div>
       <!-- /component -->
 

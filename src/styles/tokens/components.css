@@ -4500,6 +4500,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply bg-info-500;
 }
 
+/* Static demo variant — suppresses enter animation for inline previews */
+.toast-static {
+    @apply block;
+    animation: none;
+}
+
 /* Keyframes */
 @keyframes toast-slide-in {
     from {

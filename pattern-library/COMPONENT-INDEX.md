@@ -97,7 +97,7 @@ before creating any new component or semantic class.
 | Component | File | Classes | Preline | Notes |
 |---|---|---|---|---|
 | Alert (all variants) | `alert.html` | `alert`, `alert-icon`, `alert-success`, `alert-warning`, `alert-error`, `alert-info` | no | Use FA icon inside `.alert-icon` |
-| Toast | `toast.html` | `toast-container`, `toast`, `toast-icon`, `toast-content`, `toast-title`, `toast-description`, `toast-dismiss`, `toast-progress`, `toast-success`, `toast-warning`, `toast-error`, `toast-info` | no | Transient notification — JS required (`toast.js`). Use `HavenToast.show()` API. |
+| Toast | `toast.html` | `toast-container`, `toast`, `toast-static`, `toast-icon`, `toast-content`, `toast-title`, `toast-description`, `toast-dismiss`, `toast-progress`, `toast-success`, `toast-warning`, `toast-error`, `toast-info` | no | Transient notification — JS required (`toast.js`). Use `HavenToast.show()` API. `toast-static` suppresses animation for inline previews. |
 
 ---
 
