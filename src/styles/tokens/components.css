@@ -4928,3 +4928,415 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply text-error-400 hover:text-error-600;
     @apply dark:text-error-500 dark:hover:text-error-300;
 }
+
+/* ===================================
+   DATE PICKER
+   =================================== */
+
+/* Input wrapper — positions the icon relative to the input */
+.datepicker-wrapper {
+    @apply relative;
+}
+
+.datepicker-wrapper .datepicker-icon {
+    @apply absolute top-1/2 end-3 -translate-y-1/2 text-gray-400 pointer-events-none text-sm;
+    @apply dark:text-neutral-500;
+}
+
+/* When disabled, dim the icon */
+.datepicker-wrapper:has(input:disabled) .datepicker-icon {
+    @apply opacity-50;
+}
+
+/* --- Calendar popup container --- */
+.vc {
+    @apply block;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-sand-200);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    z-index: 50;
+}
+
+.vc[data-vc-input] {
+    @apply absolute;
+}
+
+.vc[data-vc-type="default"] {
+    @apply p-3;
+}
+
+.vc[data-vc-type="multiple"] {
+    @apply py-3;
+    width: 20rem;
+}
+
+@media (min-width: 640px) {
+    .vc[data-vc-type="multiple"] {
+        width: 40rem;
+    }
+}
+
+.vc[data-vc-calendar-hidden] {
+    @apply hidden;
+}
+
+:is(.dark) .vc {
+    background-color: var(--color-neutral-900);
+    border-color: var(--color-neutral-700);
+}
+
+/* --- Week header row --- */
+.vc-week {
+    @apply flex pb-1.5;
+}
+
+.vc-week__day {
+    @apply block;
+    margin: 1px;
+    width: 2.5rem;
+    font-weight: 400;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-sand-500);
+}
+
+.vc-week__day:focus {
+    outline: none;
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-week__day {
+    color: var(--color-neutral-500);
+}
+
+/* --- Date cells grid --- */
+.vc-dates {
+    @apply grid grid-cols-7;
+    gap: 0.125rem 0;
+}
+
+.vc-date {
+    @apply block;
+    position: relative;
+    width: 2.625rem;
+    height: 2.625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--color-sand-800);
+    border-radius: 9999px;
+}
+
+.vc-date:empty {
+    visibility: hidden;
+}
+
+.vc-date:hover {
+    color: var(--color-primary-600);
+}
+
+.vc-date:hover::before {
+    border-color: var(--color-primary-600);
+}
+
+.vc-date:nth-child(7n) {
+    border-radius: 0 9999px 9999px 0;
+}
+
+.vc-date:nth-child(7n+1) {
+    border-radius: 9999px 0 0 9999px;
+}
+
+.vc-date::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid transparent;
+    border-radius: 9999px;
+}
+
+.vc-date button {
+    @apply block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+}
+
+/* Prev/next month dates */
+.vc-date[data-vc-date-month="prev"],
+.vc-date[data-vc-date-month="next"] {
+    color: var(--color-sand-400);
+}
+
+/* Today */
+.vc-date[data-vc-date-today] {
+    background-color: var(--color-primary-600);
+    color: var(--color-white);
+}
+
+/* Selected */
+.vc-date[data-vc-date-selected] {
+    background-color: var(--color-primary-600);
+}
+
+.vc-date[data-vc-date-selected]:not([data-vc-date-selected="middle"]) {
+    color: var(--color-white);
+}
+
+.vc-date[data-vc-date-selected][data-vc-date-hover="first-and-last"] {
+    border-radius: 9999px;
+}
+
+/* Range first/last endpoints */
+.vc-date[data-vc-date-hover="first"],
+.vc-date[data-vc-date-selected="first"] {
+    border-radius: 9999px 0 0 9999px;
+}
+
+.vc-date[data-vc-date-hover="first"]::before,
+.vc-date[data-vc-date-selected="first"]::before {
+    border-radius: 9999px 0 0 9999px;
+}
+
+.vc-date[data-vc-date-hover="last"],
+.vc-date[data-vc-date-selected="last"] {
+    border-radius: 0 9999px 9999px 0;
+}
+
+.vc-date[data-vc-date-hover="last"]::before,
+.vc-date[data-vc-date-selected="last"]::before {
+    border-radius: 0 9999px 9999px 0;
+}
+
+/* Range endpoints: colored fill */
+.vc-date[data-vc-date-hover="first"][data-vc-date-selected],
+.vc-date[data-vc-date-hover="last"][data-vc-date-selected],
+.vc-date[data-vc-date-selected="first"],
+.vc-date[data-vc-date-selected="last"] {
+    color: var(--color-white);
+}
+
+.vc-date[data-vc-date-hover="first"][data-vc-date-selected]::before,
+.vc-date[data-vc-date-hover="last"][data-vc-date-selected]::before,
+.vc-date[data-vc-date-selected="first"]::before,
+.vc-date[data-vc-date-selected="last"]::before {
+    background-color: var(--color-primary-600);
+}
+
+/* Range middle (between first and last) */
+.vc-date[data-vc-date-hover]:not([data-vc-date-hover="first"]):not([data-vc-date-hover="last"]):not([data-vc-date-hover="first-and-last"]),
+.vc-date[data-vc-date-selected="middle"]:not([data-vc-date-hover="first"]):not([data-vc-date-hover="last"]):not([data-vc-date-hover="first-and-last"]) {
+    border-radius: 0;
+}
+
+.vc-date[data-vc-date-hover]:not([data-vc-date-today]):not([data-vc-date-hover="first-and-last"]),
+.vc-date[data-vc-date-selected="middle"]:not([data-vc-date-today]):not([data-vc-date-hover="first-and-last"]) {
+    background-color: var(--color-sand-100);
+}
+
+/* Dark mode: date cells */
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-date {
+    color: var(--color-neutral-200);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-month="prev"],
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-month="next"] {
+    color: var(--color-neutral-600);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-hover]:not([data-vc-date-today]):not([data-vc-date-hover="first-and-last"]),
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-selected="middle"]:not([data-vc-date-today]):not([data-vc-date-hover="first-and-last"]) {
+    background-color: var(--color-neutral-800);
+}
+
+/* --- Month/Year labels --- */
+.vc-month {
+    @apply block;
+    color: var(--color-sand-800);
+}
+
+.vc-month:hover,
+.vc-month:focus {
+    color: var(--color-sand-600);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-month {
+    color: var(--color-neutral-200);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-month:hover,
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-month:focus {
+    color: var(--color-neutral-300);
+}
+
+.vc-year {
+    @apply block;
+    color: var(--color-sand-800);
+}
+
+.vc-year:hover,
+.vc-year:focus {
+    color: var(--color-sand-600);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-year {
+    color: var(--color-neutral-200);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-year:hover,
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-year:focus {
+    color: var(--color-neutral-300);
+}
+
+/* --- Arrow navigation --- */
+.vc-arrow {
+    @apply block;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-sand-800);
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+.vc-arrow:hover,
+.vc-arrow:focus {
+    background-color: var(--color-sand-100);
+}
+
+.vc-arrow:focus {
+    outline: none;
+}
+
+.vc-arrow:disabled,
+.vc-arrow.disabled {
+    @apply opacity-50 pointer-events-none;
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-arrow {
+    color: var(--color-neutral-400);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-arrow:hover,
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-arrow:focus {
+    background-color: var(--color-neutral-800);
+}
+
+/* --- Month picker grid --- */
+.vc-months {
+    @apply grid grid-cols-4 gap-3 px-3 pb-3;
+}
+
+.vc-months__month {
+    @apply block;
+    padding: 0.5rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-sand-200);
+    color: var(--color-sand-800);
+    cursor: pointer;
+}
+
+.vc-months__month:hover {
+    border-color: var(--color-sand-300);
+    color: var(--color-sand-500);
+}
+
+.vc-months__month:focus {
+    outline: none;
+    border-color: var(--color-sand-300);
+    color: var(--color-sand-500);
+}
+
+.vc-months__month:disabled,
+.vc-months__month.disabled {
+    @apply opacity-50 pointer-events-none;
+}
+
+.vc-months__month[data-vc-months-month-selected] {
+    background-color: var(--color-primary-600);
+    border-color: var(--color-primary-600);
+    color: var(--color-white);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month {
+    border-color: var(--color-neutral-700);
+    color: var(--color-neutral-200);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month:hover,
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month:focus {
+    border-color: var(--color-neutral-600);
+    color: var(--color-neutral-500);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month[data-vc-months-month-selected] {
+    background-color: var(--color-primary-500);
+    border-color: var(--color-primary-500);
+}
+
+/* --- Year picker grid --- */
+.vc-years {
+    @apply grid grid-cols-5 gap-2 px-3 pb-3;
+}
+
+.vc-years__year {
+    @apply block;
+    padding: 0.5rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-sand-200);
+    color: var(--color-sand-800);
+    cursor: pointer;
+}
+
+.vc-years__year:hover,
+.vc-years__year:focus {
+    border-color: var(--color-sand-300);
+    color: var(--color-sand-500);
+}
+
+.vc-years__year:focus {
+    outline: none;
+}
+
+.vc-years__year:disabled,
+.vc-years__year.disabled {
+    @apply opacity-50 pointer-events-none;
+}
+
+.vc-years__year[data-vc-years-year-selected] {
+    background-color: var(--color-primary-600);
+    border-color: var(--color-primary-600);
+    color: var(--color-white);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year {
+    border-color: var(--color-neutral-700);
+    color: var(--color-neutral-200);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year:hover,
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year:focus {
+    border-color: var(--color-neutral-600);
+    color: var(--color-neutral-500);
+}
+
+:is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year[data-vc-years-year-selected] {
+    background-color: var(--color-primary-500);
+    border-color: var(--color-primary-500);
+}

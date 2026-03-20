@@ -1,0 +1,164 @@
+<!--
+  @component-meta
+  name: Date Picker
+  category: Forms
+  file: forms-datepicker.html
+  classes: datepicker-wrapper, datepicker-icon, vc, vc-week, vc-week__day, vc-dates, vc-date, vc-arrow, vc-month, vc-year, vc-months, vc-months__month, vc-years, vc-years__year
+  when-to-use: Date selection fields in forms — appointment scheduling, filter by date range, date of birth entry.
+  preline-required: yes — HSDatepicker
+  notes: Preline HSDatepicker wraps vanilla-calendar-pro. Use class .hs-datepicker and data-hs-datepicker attribute for auto-init. Calendar renders as popup from input (inputMode true by default) or inline (inputMode false).
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Date Picker</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Calendar-based date selection powered by Preline HSDatepicker. Renders as a popup from an input or inline.
+  </p>
+
+  <!-- Basic Date Picker -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic Date Picker</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Click the input to open the calendar popup. Select a date to populate the field.</p>
+    <!-- @component: datepicker-basic -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Select date</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker" data-hs-datepicker='{
+          "dateMin": "2024-01-01",
+          "dateMax": "2027-12-31"
+        }' placeholder="Pick a date" readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Date Picker with Preset Date -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Preset Date</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">A datepicker initialized with a pre-selected date.</p>
+    <!-- @component: datepicker-preset -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Appointment date</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker" data-hs-datepicker='{
+          "dateMin": "2024-01-01",
+          "dateMax": "2027-12-31",
+          "selectedDates": ["2026-03-25"]
+        }' placeholder="Pick a date" readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Date Range Picker -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Date Range</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Select a start and end date. Uses <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">selectionDatesMode: "multiple-ranged"</code>.</p>
+    <!-- @component: datepicker-range -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Date range</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker" data-hs-datepicker='{
+          "dateMin": "2024-01-01",
+          "dateMax": "2027-12-31",
+          "selectionDatesMode": "multiple-ranged"
+        }' placeholder="Start — End" readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Min/Max Constraints -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Min / Max Date Constraints</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Dates outside the allowed range are disabled. This example limits selection to March 2026.</p>
+    <!-- @component: datepicker-minmax -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Available dates</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker" data-hs-datepicker='{
+          "dateMin": "2026-03-01",
+          "dateMax": "2026-03-31"
+        }' placeholder="March 2026 only" readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Multiple Dates -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Multiple Dates</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Select multiple individual dates. Uses <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">selectionDatesMode: "multiple"</code>.</p>
+    <!-- @component: datepicker-multiple -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Select dates</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker" data-hs-datepicker='{
+          "dateMin": "2024-01-01",
+          "dateMax": "2027-12-31",
+          "selectionDatesMode": "multiple"
+        }' placeholder="Pick multiple dates" readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled State -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">A non-interactive datepicker. The input and icon are dimmed.</p>
+    <!-- @component: datepicker-disabled -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Locked date</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker --prevent-on-load-init" placeholder="Not available" disabled readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Inline Calendar -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Inline Calendar</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">An always-visible calendar rendered directly in the page. Uses <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">inputMode: false</code>.</p>
+    <!-- @component: datepicker-inline -->
+    <div class="max-w-xs">
+      <div class="hs-datepicker" data-hs-datepicker='{
+        "dateMin": "2024-01-01",
+        "dateMax": "2027-12-31",
+        "inputMode": false
+      }'></div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Custom Date Format -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Custom Date Format</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Displays selected date with slash separators instead of dots.</p>
+    <!-- @component: datepicker-format -->
+    <div class="max-w-sm">
+      <label class="field-label mb-1.5">Date of birth</label>
+      <div class="datepicker-wrapper">
+        <input type="text" class="hs-datepicker" data-hs-datepicker='{
+          "dateMin": "1920-01-01",
+          "dateMax": "2026-12-31",
+          "inputModeOptions": {
+            "dateSeparator": "/"
+          }
+        }' placeholder="MM/DD/YYYY" readonly>
+        <i class="fa-regular fa-calendar datepicker-icon"></i>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

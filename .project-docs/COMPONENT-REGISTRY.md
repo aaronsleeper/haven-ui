@@ -131,7 +131,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Fieldset | `pages/forms.html` | built | |
 | Form Validation | `pages/forms-validation.html` | built | Error states, success states, inline messages |
 | File Upload | `pages/forms-file-upload.html` | built | Drag-drop zone, file list, progress |
-| Date Picker | `pages/forms-datepicker.html` | missing | Preline HSDatepicker |
+| Date Picker | `pages/forms-datepicker.html` | built | Preline HSDatepicker |
 | Time Picker | `pages/forms-timepicker.html` | missing | Preline HSTimepicker |
 | Tags Input | `pages/forms-tags-input.html` | missing | Free-entry tag chips — Preline HSTagsInput |
 | Color Picker | `pages/forms-color-picker.html` | missing | Swatch selector for meal type / status |
