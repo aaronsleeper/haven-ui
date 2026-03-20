@@ -3729,3 +3729,55 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     font-size: 0.625rem; /* 10px — smaller than text-xs */
     @apply dark:text-neutral-700;
 }
+
+
+/* ==========================================================================
+   DIVIDER
+   Horizontal rules, labeled dividers, and vertical dividers.
+   ========================================================================== */
+
+.divider {
+    @apply border-t border-gray-200 my-4;
+    @apply dark:border-neutral-700;
+}
+
+.divider-compact {
+    @apply border-t border-gray-200 my-2;
+    @apply dark:border-neutral-700;
+}
+
+.divider-spacious {
+    @apply border-t border-gray-200 my-8;
+    @apply dark:border-neutral-700;
+}
+
+.divider-labeled {
+    @apply flex items-center gap-3 my-4;
+}
+
+.divider-labeled::before,
+.divider-labeled::after {
+    @apply block;
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--color-sand-200);
+}
+
+:is(.dark) .divider-labeled::before,
+:is(.dark) .divider-labeled::after {
+    border-top-color: var(--color-sand-700);
+}
+
+.divider-label {
+    @apply text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap;
+    @apply dark:text-neutral-400;
+}
+
+.divider-vertical {
+    @apply block self-stretch;
+    border-left: 1px solid var(--color-sand-200);
+}
+
+:is(.dark) .divider-vertical {
+    border-left-color: var(--color-sand-700);
+}

@@ -1,0 +1,131 @@
+<!--
+  @component-meta
+  name: Divider
+  category: Layout
+  file: layout-divider.html
+  classes: divider, divider-compact, divider-spacious, divider-labeled, divider-label, divider-vertical
+  when-to-use: Separate content sections, label groups of content, or visually divide inline items.
+  preline-required: no
+  notes: Labeled divider uses flexbox with pseudo-element lines. Vertical divider is for flex containers only.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Divider</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Visual separators for content sections, labeled groups, and inline elements.
+  </p>
+
+  <!-- Basic Horizontal Divider -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic Horizontal Divider</h4>
+    <!-- @component: divider-default -->
+    <div class="card">
+      <div class="card-body">
+        <p class="text-sm text-gray-700 dark:text-neutral-300">Content above the divider.</p>
+        <hr class="divider">
+        <p class="text-sm text-gray-700 dark:text-neutral-300">Content below the divider.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Spacing Variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Spacing Variants</h4>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <!-- @component: divider-compact -->
+      <div class="card">
+        <div class="card-body">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Compact</p>
+          <p class="text-sm text-gray-700 dark:text-neutral-300">Above</p>
+          <hr class="divider-compact">
+          <p class="text-sm text-gray-700 dark:text-neutral-300">Below</p>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: divider-default-spacing -->
+      <div class="card">
+        <div class="card-body">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Default</p>
+          <p class="text-sm text-gray-700 dark:text-neutral-300">Above</p>
+          <hr class="divider">
+          <p class="text-sm text-gray-700 dark:text-neutral-300">Below</p>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: divider-spacious -->
+      <div class="card">
+        <div class="card-body">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Spacious</p>
+          <p class="text-sm text-gray-700 dark:text-neutral-300">Above</p>
+          <hr class="divider-spacious">
+          <p class="text-sm text-gray-700 dark:text-neutral-300">Below</p>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Labeled Divider -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Labeled Divider</h4>
+    <!-- @component: divider-labeled -->
+    <div class="card">
+      <div class="card-body">
+        <p class="text-sm text-gray-700 dark:text-neutral-300">First group of content sits above the labeled divider.</p>
+        <div class="divider-labeled">
+          <span class="divider-label">Or continue with</span>
+        </div>
+        <p class="text-sm text-gray-700 dark:text-neutral-300">Second group of content sits below.</p>
+
+        <div class="divider-labeled">
+          <span class="divider-label">Section 2</span>
+        </div>
+        <p class="text-sm text-gray-700 dark:text-neutral-300">Labeled dividers work well for form sections and grouped content.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Vertical Divider -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Vertical Divider</h4>
+    <!-- @component: divider-vertical -->
+    <div class="card">
+      <div class="card-body">
+        <div class="flex items-center gap-4">
+          <span class="text-sm font-medium text-gray-700 dark:text-neutral-300">Dashboard</span>
+          <span class="divider-vertical" style="height: 1.25rem;"></span>
+          <span class="text-sm font-medium text-gray-700 dark:text-neutral-300">Reports</span>
+          <span class="divider-vertical" style="height: 1.25rem;"></span>
+          <span class="text-sm font-medium text-gray-700 dark:text-neutral-300">Settings</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: divider-vertical-tall -->
+    <div class="card mt-4">
+      <div class="card-body">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Self-stretching in flex containers</p>
+        <div class="flex items-stretch gap-4" style="min-height: 4rem;">
+          <div class="flex-1">
+            <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Left panel</p>
+            <p class="text-xs text-gray-500 dark:text-neutral-400">The vertical divider stretches to match the tallest sibling.</p>
+          </div>
+          <span class="divider-vertical"></span>
+          <div class="flex-1">
+            <p class="text-sm font-medium text-gray-700 dark:text-neutral-300">Right panel</p>
+            <p class="text-xs text-gray-500 dark:text-neutral-400">No fixed height needed when using <code class="text-xs">items-stretch</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

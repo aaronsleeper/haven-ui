@@ -52,7 +52,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Grid | `pages/layout-grid.html` | built | |
 | Prose Section | `pages/layout-prose-section.html` | built | |
 | App Shell / Sidebar | `pages/layout-app-shell.html` | built | |
-| Divider | `pages/layout-divider.html` | missing | Horizontal rule, labeled divider, vertical divider |
+| Divider | `pages/layout-divider.html` | built | Horizontal rule, labeled divider, vertical divider |
 | KV Table | `pages/layout-kv-table.html` | built | Key-value definition table |
 | Comparison Panel | `pages/layout-comparison-panel.html` | missing | Side-by-side comparison layout |
 | Issues Sidebar | `pages/layout-issues-sidebar.html` | missing | Persistent right-side issue tracking panel |
