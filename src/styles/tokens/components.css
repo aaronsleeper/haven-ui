@@ -2936,9 +2936,29 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .medication-row {
-    @apply flex items-start gap-3 px-4 py-3;
+    @apply flex items-center gap-3 px-4 py-3;
     @apply border-b border-gray-100 last:border-b-0;
     @apply hover:bg-gray-50 transition-colors cursor-pointer;
+    @apply dark:border-neutral-700 dark:hover:bg-neutral-800/50;
+}
+
+.medication-row-icon {
+    @apply shrink-0 text-primary-500 text-base;
+    @apply dark:text-primary-400;
+}
+
+.medication-row-details {
+    @apply flex-1 min-w-0;
+}
+
+.medication-row-name {
+    @apply text-sm font-semibold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.medication-row-dose {
+    @apply text-xs text-gray-500 ml-1.5;
+    @apply dark:text-neutral-400;
 }
 
 /* ===================================

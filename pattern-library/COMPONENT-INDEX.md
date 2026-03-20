@@ -193,7 +193,7 @@ before creating any new component or semantic class.
 | Alert Category Card | `clinical-alert-category.html` | `alert-category-card`, `alert-category-label` | no | `--alert-accent` CSS var for left border color |
 | Alert Summary Row | `clinical-alert-summary-row.html` | `alert-summary-row` | no | |
 | HEDIS Grid | `clinical-hedis-grid.html` | `hedis-grid`, `hedis-stat`, `hedis-stat-label`, `hedis-stat-value`, `hedis-stat-detail` | no | |
-| Medication Row | `clinical-medication-row.html` | `medication-row` | no | |
+| Medication Row | `clinical-medication-row.html` | `medication-row`, `medication-row-icon`, `medication-row-details`, `medication-row-name`, `medication-row-dose` | no | Wrap rows in a `.card`. Already excluded from `card-body` spacing rule. |
 | Metric Card | `clinical-metric-card.html` | `clinical-metric-card`, `metric-card-flagged`, `metric-value-danger` | no | |
 | Nutrition List | `clinical-nutrition-list.html` | `nutrition-list`, `nutrition-list-row`, `nutrition-list-label`, `nutrition-list-value`, `nutrition-input-group`, `nutrition-input`, `nutrition-unit` | no | Always-editable inputs, not click-to-edit |
 | Patient Card | `clinical-patient-card.html` | `patient-card` | no | Card-view patient list item |

@@ -1,51 +1,151 @@
 <!--
   @component-meta
   name: Medication Row
-  category: Healthcare-Specific
+  category: Data Display
   file: clinical-medication-row.html
-  classes: medication-row
+  classes: medication-row, medication-row-icon, medication-row-details, medication-row-name, medication-row-dose
   when-to-use: Medication list entries in patient detail views showing drug name, dosage, and frequency.
   preline-required: no
-  notes: Wrap rows in a .card for proper containment. Each row includes an icon, medication details, frequency badge, and action link.
+  notes: Wrap rows in a .card for proper containment. Each row includes an icon, medication details, frequency badge, and optional action link. Already excluded from card-body spacing rule.
   @end-meta
 -->
 
 <!-- DEMO WRAPPER: visual context only, do not copy -->
 <section>
   <h3 class="section-title mb-4">Medication Row</h3>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
     Medication list entries in patient detail views showing drug name, dosage, and frequency.
   </p>
 
-  <!-- @component: clinical-medication-row -->
-  <div class="card">
-    <div class="medication-row">
-      <i class="fa-solid fa-pills text-primary-400 shrink-0 mt-0.5"></i>
-      <div class="flex-1 min-w-0">
-        <span class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Metformin</span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400 ml-2">500 mg</span>
+  <!-- Default -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: medication-row-default -->
+    <div class="card">
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Metformin</span>
+          <span class="medication-row-dose">500 mg</span>
+        </div>
+        <span class="badge badge-neutral badge-sm">Twice daily</span>
+        <a href="#" class="text-link">View details</a>
       </div>
-      <span class="badge badge-neutral badge-sm">Twice daily</span>
-      <a href="#" class="text-link">View details</a>
-    </div>
-    <div class="medication-row">
-      <i class="fa-solid fa-pills text-primary-400 shrink-0 mt-0.5"></i>
-      <div class="flex-1 min-w-0">
-        <span class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Lisinopril</span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400 ml-2">10 mg</span>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Lisinopril</span>
+          <span class="medication-row-dose">10 mg</span>
+        </div>
+        <span class="badge badge-neutral badge-sm">Once daily</span>
+        <a href="#" class="text-link">View details</a>
       </div>
-      <span class="badge badge-neutral badge-sm">Once daily</span>
-      <a href="#" class="text-link">View details</a>
-    </div>
-    <div class="medication-row">
-      <i class="fa-solid fa-pills text-primary-400 shrink-0 mt-0.5"></i>
-      <div class="flex-1 min-w-0">
-        <span class="text-sm font-semibold text-gray-800 dark:text-neutral-200">Atorvastatin</span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400 ml-2">20 mg</span>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Atorvastatin</span>
+          <span class="medication-row-dose">20 mg</span>
+        </div>
+        <span class="badge badge-neutral badge-sm">Once daily</span>
+        <a href="#" class="text-link">View details</a>
       </div>
-      <span class="badge badge-neutral badge-sm">Once daily</span>
-      <a href="#" class="text-link">View details</a>
     </div>
+    <!-- /component -->
   </div>
-  <!-- /component -->
+
+  <!-- With Status Badges -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Status Badges</h4>
+    <!-- @component: medication-row-status -->
+    <div class="card">
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Metformin</span>
+          <span class="medication-row-dose">500 mg</span>
+        </div>
+        <span class="badge badge-success badge-sm">Active</span>
+        <span class="badge badge-neutral badge-sm">Twice daily</span>
+      </div>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Glipizide</span>
+          <span class="medication-row-dose">5 mg</span>
+        </div>
+        <span class="badge badge-error badge-sm">Discontinued</span>
+        <span class="badge badge-neutral badge-sm">Once daily</span>
+      </div>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Ondansetron</span>
+          <span class="medication-row-dose">4 mg</span>
+        </div>
+        <span class="badge badge-warning badge-sm">PRN</span>
+        <span class="badge badge-neutral badge-sm">As needed</span>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Inside Card with Header -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Inside Card with Header</h4>
+    <!-- @component: medication-row-card -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fa-solid fa-pills"></i> Current Medications
+        </h3>
+        <span class="badge badge-neutral badge-sm">3 active</span>
+      </div>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Metformin</span>
+          <span class="medication-row-dose">500 mg</span>
+        </div>
+        <span class="badge badge-neutral badge-sm">Twice daily</span>
+      </div>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Lisinopril</span>
+          <span class="medication-row-dose">10 mg</span>
+        </div>
+        <span class="badge badge-neutral badge-sm">Once daily</span>
+      </div>
+      <div class="medication-row">
+        <i class="fa-solid fa-pills medication-row-icon"></i>
+        <div class="medication-row-details">
+          <span class="medication-row-name">Atorvastatin</span>
+          <span class="medication-row-dose">20 mg</span>
+        </div>
+        <span class="badge badge-neutral badge-sm">Once daily</span>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Empty State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Empty State</h4>
+    <!-- @component: medication-row-empty -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fa-solid fa-pills"></i> Current Medications
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="empty-state">
+          <i class="fa-solid fa-pills empty-state-icon"></i>
+          <p>No medications on file for this patient.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
 </section>

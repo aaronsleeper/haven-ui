@@ -170,7 +170,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Skeleton Loader | `pages/data-display.html` | built | |
 | Activity Feed | `pages/data-activity-feed.html` | built | |
 | Timeline | `pages/data-timeline.html` | built | |
-| Medication Row | `pages/data-medication.html` | missing | Medication list row — icon, name, dose, schedule |
+| Medication Row | `pages/data-medication.html` | built | Medication list row — icon, name, dose, schedule |
 | Alert Summary Row | `pages/data-alert-summary.html` | missing | Alert list row — severity, title, status, date |
 | Pipeline Bar | `pages/data-pipeline-bar.html` | built | |
 | Progress Bar | `pages/data-progress.html` | missing | Linear progress — labeled, colored variants |
