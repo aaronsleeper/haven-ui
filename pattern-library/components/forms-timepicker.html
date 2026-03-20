@@ -1,0 +1,308 @@
+<!--
+  @component-meta
+  name: Time Picker
+  category: Forms
+  file: forms-timepicker.html
+  classes: timepicker-wrapper, timepicker-icon-btn, timepicker-panel, timepicker-columns, timepicker-column, timepicker-option, timepicker-footer, timepicker-footer-btn, timepicker-footer-ok
+  when-to-use: Time selection fields in forms — appointment scheduling, shift start/end, medication reminders.
+  preline-required: yes — hs-dropdown
+  notes: Built on hs-dropdown with radio button columns. 12-hour mode includes AM/PM column. 24-hour mode omits it. JS (timepicker.js) syncs selections to the text input. Use unique radio name prefixes per instance.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Time Picker</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Scroll-column time selector built on Preline hs-dropdown. Select hours, minutes, and optionally AM/PM.
+  </p>
+
+  <!-- Browser Default -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Browser Default</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Native HTML time input. Use as a lightweight fallback when the custom picker is not needed.</p>
+    <!-- @component: timepicker-native -->
+    <div class="max-w-xs">
+      <label class="field-label mb-1.5">Appointment time</label>
+      <input type="time" placeholder="Select time">
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- 12-Hour Format -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">12-Hour Format</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Hours 01–12 with AM/PM column. Click the clock icon to open the selector.</p>
+    <!-- @component: timepicker-12h -->
+    <div class="max-w-xs">
+      <label class="field-label mb-1.5">Delivery window</label>
+      <div class="timepicker-wrapper">
+        <input type="text" placeholder="hh:mm AM" readonly>
+        <div class="hs-dropdown [--auto-close:inside] absolute inset-y-0 end-0 flex items-center pe-1">
+          <button id="tp-12h-toggle" type="button" class="hs-dropdown-toggle timepicker-icon-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Select time">
+            <i class="fa-regular fa-clock text-sm"></i>
+          </button>
+          <div class="hs-dropdown-menu timepicker-panel" role="menu" aria-labelledby="tp-12h-toggle">
+            <div class="timepicker-columns">
+              <!-- Hours 01-12 -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="01"><span>01</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="02"><span>02</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="03"><span>03</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="04"><span>04</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="05"><span>05</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="06"><span>06</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="07"><span>07</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="08"><span>08</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="09"><span>09</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="10"><span>10</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="11"><span>11</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-hour" value="12"><span>12</span></label>
+              </div>
+              <!-- Minutes 00-59 (5-min increments) -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="00"><span>00</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="05"><span>05</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="10"><span>10</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="15"><span>15</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="20"><span>20</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="25"><span>25</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="30"><span>30</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="35"><span>35</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="40"><span>40</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="45"><span>45</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="50"><span>50</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-minute" value="55"><span>55</span></label>
+              </div>
+              <!-- AM / PM -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tp12-period" value="AM"><span>AM</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp12-period" value="PM"><span>PM</span></label>
+              </div>
+            </div>
+            <div class="timepicker-footer">
+              <button type="button" class="timepicker-footer-btn" data-timepicker-now>Now</button>
+              <button type="button" class="timepicker-footer-ok" data-timepicker-ok>OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- 24-Hour Format -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">24-Hour Format</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Hours 00–23 with no AM/PM column. Common for clinical and kitchen scheduling.</p>
+    <!-- @component: timepicker-24h -->
+    <div class="max-w-xs">
+      <label class="field-label mb-1.5">Shift start</label>
+      <div class="timepicker-wrapper">
+        <input type="text" placeholder="HH:mm" readonly>
+        <div class="hs-dropdown [--auto-close:inside] absolute inset-y-0 end-0 flex items-center pe-1">
+          <button id="tp-24h-toggle" type="button" class="hs-dropdown-toggle timepicker-icon-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Select time">
+            <i class="fa-regular fa-clock text-sm"></i>
+          </button>
+          <div class="hs-dropdown-menu timepicker-panel" role="menu" aria-labelledby="tp-24h-toggle">
+            <div class="timepicker-columns">
+              <!-- Hours 00-23 -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="00"><span>00</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="01"><span>01</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="02"><span>02</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="03"><span>03</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="04"><span>04</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="05"><span>05</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="06"><span>06</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="07"><span>07</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="08"><span>08</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="09"><span>09</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="10"><span>10</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="11"><span>11</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="12"><span>12</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="13"><span>13</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="14"><span>14</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="15"><span>15</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="16"><span>16</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="17"><span>17</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="18"><span>18</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="19"><span>19</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="20"><span>20</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="21"><span>21</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="22"><span>22</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-hour" value="23"><span>23</span></label>
+              </div>
+              <!-- Minutes 00-59 (5-min increments) -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="00"><span>00</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="05"><span>05</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="10"><span>10</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="15"><span>15</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="20"><span>20</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="25"><span>25</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="30"><span>30</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="35"><span>35</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="40"><span>40</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="45"><span>45</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="50"><span>50</span></label>
+                <label class="timepicker-option"><input type="radio" name="tp24-minute" value="55"><span>55</span></label>
+              </div>
+            </div>
+            <div class="timepicker-footer">
+              <button type="button" class="timepicker-footer-btn" data-timepicker-now>Now</button>
+              <button type="button" class="timepicker-footer-ok" data-timepicker-ok>OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Preset Time -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Preset Time</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">A time picker initialized with a pre-selected value. Radios are pre-checked and the input shows the time.</p>
+    <!-- @component: timepicker-preset -->
+    <div class="max-w-xs">
+      <label class="field-label mb-1.5">Medication reminder</label>
+      <div class="timepicker-wrapper">
+        <input type="text" value="08:30 AM" readonly>
+        <div class="hs-dropdown [--auto-close:inside] absolute inset-y-0 end-0 flex items-center pe-1">
+          <button id="tp-preset-toggle" type="button" class="hs-dropdown-toggle timepicker-icon-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Select time">
+            <i class="fa-regular fa-clock text-sm"></i>
+          </button>
+          <div class="hs-dropdown-menu timepicker-panel" role="menu" aria-labelledby="tp-preset-toggle">
+            <div class="timepicker-columns">
+              <!-- Hours 01-12 -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="01"><span>01</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="02"><span>02</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="03"><span>03</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="04"><span>04</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="05"><span>05</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="06"><span>06</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="07"><span>07</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="08" checked><span>08</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="09"><span>09</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="10"><span>10</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="11"><span>11</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-hour" value="12"><span>12</span></label>
+              </div>
+              <!-- Minutes (5-min increments) -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="00"><span>00</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="05"><span>05</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="10"><span>10</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="15"><span>15</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="20"><span>20</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="25"><span>25</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="30" checked><span>30</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="35"><span>35</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="40"><span>40</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="45"><span>45</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="50"><span>50</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-minute" value="55"><span>55</span></label>
+              </div>
+              <!-- AM / PM -->
+              <div class="timepicker-column">
+                <label class="timepicker-option"><input type="radio" name="tppre-period" value="AM" checked><span>AM</span></label>
+                <label class="timepicker-option"><input type="radio" name="tppre-period" value="PM"><span>PM</span></label>
+              </div>
+            </div>
+            <div class="timepicker-footer">
+              <button type="button" class="timepicker-footer-btn" data-timepicker-now>Now</button>
+              <button type="button" class="timepicker-footer-ok" data-timepicker-ok>OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">A non-interactive time picker. The input and icon button are dimmed.</p>
+    <!-- @component: timepicker-disabled -->
+    <div class="max-w-xs">
+      <label class="field-label mb-1.5">Locked time</label>
+      <div class="timepicker-wrapper">
+        <input type="text" value="02:00 PM" disabled readonly>
+        <div class="absolute inset-y-0 end-0 flex items-center pe-1">
+          <span class="timepicker-icon-btn">
+            <i class="fa-regular fa-clock text-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Field Row -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Inside a Field Row</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Time picker composed with the field-row pattern including label and help text.</p>
+    <!-- @component: timepicker-field-row -->
+    <div class="max-w-sm">
+      <div class="field-row">
+        <label class="field-label">Preferred call time</label>
+        <div class="field-body">
+          <div class="timepicker-wrapper">
+            <input type="text" placeholder="hh:mm AM" readonly>
+            <div class="hs-dropdown [--auto-close:inside] absolute inset-y-0 end-0 flex items-center pe-1">
+              <button id="tp-field-toggle" type="button" class="hs-dropdown-toggle timepicker-icon-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Select time">
+                <i class="fa-regular fa-clock text-sm"></i>
+              </button>
+              <div class="hs-dropdown-menu timepicker-panel" role="menu" aria-labelledby="tp-field-toggle">
+                <div class="timepicker-columns">
+                  <div class="timepicker-column">
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="01"><span>01</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="02"><span>02</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="03"><span>03</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="04"><span>04</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="05"><span>05</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="06"><span>06</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="07"><span>07</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="08"><span>08</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="09"><span>09</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="10"><span>10</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="11"><span>11</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-hour" value="12"><span>12</span></label>
+                  </div>
+                  <div class="timepicker-column">
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="00"><span>00</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="05"><span>05</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="10"><span>10</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="15"><span>15</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="20"><span>20</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="25"><span>25</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="30"><span>30</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="35"><span>35</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="40"><span>40</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="45"><span>45</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="50"><span>50</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-minute" value="55"><span>55</span></label>
+                  </div>
+                  <div class="timepicker-column">
+                    <label class="timepicker-option"><input type="radio" name="tpfr-period" value="AM"><span>AM</span></label>
+                    <label class="timepicker-option"><input type="radio" name="tpfr-period" value="PM"><span>PM</span></label>
+                  </div>
+                </div>
+                <div class="timepicker-footer">
+                  <button type="button" class="timepicker-footer-btn" data-timepicker-now>Now</button>
+                  <button type="button" class="timepicker-footer-ok" data-timepicker-ok>OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="field-help">We will call within 30 minutes of this time.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

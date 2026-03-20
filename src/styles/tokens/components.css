@@ -5340,3 +5340,108 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     background-color: var(--color-primary-500);
     border-color: var(--color-primary-500);
 }
+
+/* ===================================
+   TIME PICKER
+   Scroll-column time selector built on hs-dropdown.
+   =================================== */
+
+/* Input wrapper — positions the icon button relative to the input */
+.timepicker-wrapper {
+    @apply relative;
+}
+
+/* Clock icon trigger button (absolute end of input) */
+.timepicker-icon-btn {
+    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-gray-400 cursor-pointer;
+    @apply hover:bg-gray-100 hover:text-gray-600;
+    @apply focus:outline-none focus:bg-gray-100;
+    @apply dark:text-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-neutral-300 dark:focus:bg-neutral-800;
+}
+
+/* Disabled wrapper dims the icon button */
+.timepicker-wrapper:has(input:disabled) .timepicker-icon-btn {
+    @apply opacity-50 pointer-events-none;
+}
+
+/* Dropdown panel for the columns — overrides base hs-dropdown-menu sizing */
+.timepicker-panel {
+    @apply min-w-0 p-0 mt-1;
+}
+
+/* Flex row holding hour / minute / ampm columns */
+.timepicker-columns {
+    @apply flex flex-row divide-x divide-gray-200;
+    @apply dark:divide-neutral-700;
+}
+
+/* Individual scrollable column */
+.timepicker-column {
+    @apply block;
+    padding: 0.25rem;
+    max-height: 14rem;
+    overflow-y: auto;
+}
+
+/* Thin scrollbar for columns */
+.timepicker-column::-webkit-scrollbar {
+    width: 4px;
+}
+.timepicker-column::-webkit-scrollbar-track {
+    background: transparent;
+}
+.timepicker-column::-webkit-scrollbar-thumb {
+    background-color: var(--color-sand-300);
+    border-radius: 9999px;
+}
+:is(.dark) .timepicker-column::-webkit-scrollbar-thumb {
+    background-color: var(--color-neutral-600);
+}
+
+/* Each selectable option (label wrapping a hidden radio) */
+.timepicker-option {
+    @apply relative flex justify-center items-center w-10 text-center text-sm cursor-pointer rounded-md;
+    @apply text-gray-700 hover:bg-gray-100;
+    @apply dark:text-neutral-300 dark:hover:bg-neutral-800;
+    padding: 0.375rem 0.25rem;
+}
+
+/* Hidden radio inside the option */
+.timepicker-option input {
+    @apply sr-only;
+}
+
+/* Selected state — primary fill */
+.timepicker-option:has(input:checked) {
+    @apply bg-primary-600 text-white;
+    @apply hover:bg-primary-700;
+    @apply dark:bg-primary-500 dark:hover:bg-primary-600;
+}
+
+/* Disabled option */
+.timepicker-option:has(input:disabled) {
+    @apply opacity-50 pointer-events-none;
+}
+
+/* Footer bar with Now / OK buttons */
+.timepicker-footer {
+    @apply flex flex-wrap justify-between items-center gap-2 py-2 px-3 border-t border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+/* Ghost "Now" button */
+.timepicker-footer-btn {
+    @apply text-xs font-medium text-gray-600 cursor-pointer rounded-md;
+    @apply hover:text-primary-600;
+    @apply focus:outline-none focus:text-primary-600;
+    @apply dark:text-neutral-400 dark:hover:text-primary-400 dark:focus:text-primary-400;
+}
+
+/* Primary "OK" button */
+.timepicker-footer-ok {
+    @apply py-1 px-2.5 text-xs font-medium rounded-md cursor-pointer;
+    @apply bg-primary-600 text-white;
+    @apply hover:bg-primary-700;
+    @apply focus:outline-none focus:bg-primary-700;
+    @apply dark:bg-primary-500 dark:hover:bg-primary-600;
+}
