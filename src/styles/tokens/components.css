@@ -3747,6 +3747,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:border-neutral-700;
 }
 
+/* Finish button hidden by default — Preline shows it on last step */
+.stepper-actions [data-hs-stepper-finish-btn] {
+    @apply hidden;
+}
+
 /* Vertical variant */
 .stepper-nav-vertical {
     @apply flex flex-col gap-y-1 mb-6;
