@@ -1,0 +1,287 @@
+<!--
+  @component-meta
+  name: Motion / Animation Tokens
+  category: Foundations
+  file: foundations-motion.html
+  classes: motion-demo-box, motion-demo-track
+  when-to-use: Reference this page for Haven's duration and easing tokens. Use these tokens for all transitions and animations.
+  do-not-use-when: N/A
+  preline-required: no
+  notes: Tokens defined in haven.css @theme block. Duration tokens: --duration-instant (0ms), --duration-fast (100ms), --duration-normal (200ms), --duration-slow (300ms), --duration-slower (500ms). Easing tokens: --ease-default, --ease-in, --ease-out, --ease-in-out, --ease-spring. JS: src/scripts/components/motion-demos.js
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section id="motion">
+
+  <h2>Motion &amp; Animation</h2>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Haven defines duration and easing tokens for consistent, purposeful motion across all components.
+    Every transition should use these tokens rather than arbitrary values.
+  </p>
+
+  <!-- @component: reference-only -->
+
+  <!-- Design Principles -->
+  <div class="card card-body mb-10">
+    <h3 class="card-title text-base mb-3">Motion Principles</h3>
+    <table class="kv-table">
+      <tr><td>Purposeful</td><td>Motion communicates state changes. Never animate for decoration alone.</td></tr>
+      <tr><td>Quick</td><td>Most interactions use <code>--duration-fast</code> or <code>--duration-normal</code>. Users should never wait for an animation to finish.</td></tr>
+      <tr><td>Consistent</td><td>Same type of change = same duration + easing. Hover states are always fast. Overlays are slow.</td></tr>
+      <tr><td>Accessible</td><td>Respect <code>prefers-reduced-motion</code>. All transitions collapse to instant when the user prefers reduced motion.</td></tr>
+    </table>
+  </div>
+
+  <!-- ==========================================
+       DURATION TOKENS
+       ========================================== -->
+  <div class="mb-12" id="duration-section">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="section-title mb-0">Duration Tokens</h3>
+      <button type="button" class="btn-outline btn-sm" data-motion-play-all="duration-section">
+        <i class="fa-solid fa-play text-xs"></i> Play all
+      </button>
+    </div>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      Click <strong>Play</strong> to see each duration. The box travels the full track width.
+    </p>
+
+    <!-- Instant -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-40 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--duration-instant</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">0ms</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-instant">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-instant); transition-timing-function: var(--ease-default);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-instant">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Fast -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-40 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--duration-fast</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">100ms</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-fast">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-fast); transition-timing-function: var(--ease-default);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-fast">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Normal -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-40 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--duration-normal</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">200ms</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-normal">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-normal); transition-timing-function: var(--ease-default);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-normal">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Slow -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-40 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--duration-slow</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">300ms</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-slow">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slow); transition-timing-function: var(--ease-default);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-slow">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Slower -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-40 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--duration-slower</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">500ms</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-slower">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slower); transition-timing-function: var(--ease-default);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-slower">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Usage Guide -->
+    <div class="card card-body mt-6">
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">When to use each duration</h4>
+      <table class="kv-table">
+        <tr><td><code>--duration-instant</code></td><td>State toggles with no visual transition (e.g. checkbox check)</td></tr>
+        <tr><td><code>--duration-fast</code></td><td>Hover color changes, focus rings, icon swaps</td></tr>
+        <tr><td><code>--duration-normal</code></td><td>Button press feedback, card hover lift, tooltip appear</td></tr>
+        <tr><td><code>--duration-slow</code></td><td>Sidebar slide, dropdown open, modal enter, accordion expand</td></tr>
+        <tr><td><code>--duration-slower</code></td><td>Page transitions, large layout shifts, skeleton-to-content reveal</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       EASING CURVES
+       ========================================== -->
+  <div class="mb-12" id="easing-section">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="section-title mb-0">Easing Curves</h3>
+      <button type="button" class="btn-outline btn-sm" data-motion-play-all="easing-section">
+        <i class="fa-solid fa-play text-xs"></i> Play all
+      </button>
+    </div>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      All demos use <code>--duration-slow</code> (300ms) so the easing difference is visible.
+    </p>
+
+    <!-- ease-default -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-48 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--ease-default</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">cubic-bezier(0.4, 0, 0.2, 1)</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-ease-default">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slow); transition-timing-function: var(--ease-default);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-ease-default">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- ease-in -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-48 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--ease-in</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">cubic-bezier(0.4, 0, 1, 1)</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-ease-in">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slow); transition-timing-function: var(--ease-in);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-ease-in">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- ease-out -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-48 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--ease-out</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">cubic-bezier(0, 0, 0.2, 1)</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-ease-out">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slow); transition-timing-function: var(--ease-out);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-ease-out">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- ease-in-out -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-48 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--ease-in-out</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">cubic-bezier(0.4, 0, 0.2, 1)</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-ease-in-out">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slow); transition-timing-function: var(--ease-in-out);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-ease-in-out">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- ease-spring -->
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-48 shrink-0">
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300">--ease-spring</code>
+        <p class="text-xs text-gray-400 dark:text-neutral-500">cubic-bezier(0.34, 1.56, 0.64, 1)</p>
+      </div>
+      <div class="motion-demo-track flex-1" id="track-ease-spring">
+        <div class="motion-demo-box" style="transition-duration: var(--duration-slow); transition-timing-function: var(--ease-spring);"></div>
+      </div>
+      <button type="button" class="btn-outline btn-xs" data-motion-play="track-ease-spring">
+        <i class="fa-solid fa-play text-xs"></i>
+      </button>
+    </div>
+
+    <!-- Easing Usage Guide -->
+    <div class="card card-body mt-6">
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">When to use each easing</h4>
+      <table class="kv-table">
+        <tr><td><code>--ease-default</code></td><td>Default for most transitions. Starts fast, ends gentle.</td></tr>
+        <tr><td><code>--ease-in</code></td><td>Elements exiting view (fade out, slide off-screen). Starts slow, accelerates away.</td></tr>
+        <tr><td><code>--ease-out</code></td><td>Elements entering view (dropdown open, modal appear). Decelerates to a stop.</td></tr>
+        <tr><td><code>--ease-in-out</code></td><td>Continuous motion (loading bars, looping animations). Symmetric acceleration.</td></tr>
+        <tr><td><code>--ease-spring</code></td><td>Playful emphasis (toggle snap, badge bounce). Overshoots then settles. Use sparingly.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       TRANSITION PROPERTY PATTERNS
+       ========================================== -->
+  <div class="mb-12">
+    <h3 class="section-title mb-4">Common Transition Patterns</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-6">
+      These are the standard transition recipes used across Haven components.
+      Copy the CSS variable usage, not hardcoded values.
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-4">
+      <!-- Color Change -->
+      <div class="card card-body">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Color change</h4>
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300 block mb-3">transition: color var(--duration-fast) var(--ease-default),<br>&nbsp;&nbsp;background-color var(--duration-fast) var(--ease-default);</code>
+        <p class="text-xs text-gray-500 dark:text-neutral-400">Used by: buttons, links, nav items, filter pills</p>
+      </div>
+
+      <!-- Opacity -->
+      <div class="card card-body">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Opacity</h4>
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300 block mb-3">transition: opacity var(--duration-fast) var(--ease-default);</code>
+        <p class="text-xs text-gray-500 dark:text-neutral-400">Used by: dropdowns, tooltips, skeleton loaders</p>
+      </div>
+
+      <!-- Shadow lift -->
+      <div class="card card-body">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Shadow lift</h4>
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300 block mb-3">transition: box-shadow var(--duration-normal) var(--ease-out);</code>
+        <p class="text-xs text-gray-500 dark:text-neutral-400">Used by: card hover, focused inputs</p>
+      </div>
+
+      <!-- Transform -->
+      <div class="card card-body">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Transform (slide / scale)</h4>
+        <code class="text-xs font-mono text-gray-600 dark:text-neutral-300 block mb-3">transition: transform var(--duration-slow) var(--ease-out);</code>
+        <p class="text-xs text-gray-500 dark:text-neutral-400">Used by: sidebar, modals, accordion panels</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       REDUCED MOTION
+       ========================================== -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Reduced Motion</h3>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      When the user's OS has "Reduce motion" enabled, all Haven transitions should collapse to instant.
+      Add this rule globally or per-component:
+    </p>
+    <div class="card card-body">
+      <code class="text-xs font-mono text-gray-600 dark:text-neutral-300 block">@media (prefers-reduced-motion: reduce) {<br>&nbsp;&nbsp;*, *::before, *::after {<br>&nbsp;&nbsp;&nbsp;&nbsp;animation-duration: 0.01ms !important;<br>&nbsp;&nbsp;&nbsp;&nbsp;animation-iteration-count: 1 !important;<br>&nbsp;&nbsp;&nbsp;&nbsp;transition-duration: 0.01ms !important;<br>&nbsp;&nbsp;}<br>}</code>
+    </div>
+  </div>
+
+  <!-- /component -->
+
+</section>

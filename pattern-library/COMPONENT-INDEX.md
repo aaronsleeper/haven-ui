@@ -29,6 +29,7 @@ before creating any new component or semantic class.
 | Colors | `foundations-colors.html` | — | no | Reference only |
 | Typography | `foundations-typography.html` | — | no | Reference only |
 | Spacing | `foundations-spacing.html` | — | no | Reference only |
+| Motion / Animation | `foundations-motion.html` | `motion-demo-box`, `motion-demo-track` | no | Reference only. Tokens: `--duration-*`, `--ease-*`. JS: `motion-demos.js` |
 
 ---
 

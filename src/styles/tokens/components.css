@@ -3517,6 +3517,29 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   @apply dark:text-neutral-300;
 }
 
+/* ===================================
+   MOTION DEMO (Pattern Library only)
+   =================================== */
+
+.motion-demo-box {
+  @apply block w-10 h-10 rounded-lg bg-primary-500 shrink-0;
+}
+
+.motion-demo-track {
+  @apply block relative w-full h-12 rounded-lg bg-gray-100 overflow-hidden;
+  @apply dark:bg-neutral-800;
+  container-type: inline-size;
+}
+
+.motion-demo-track .motion-demo-box {
+  @apply absolute left-0 top-1 h-10;
+  transition-property: transform;
+}
+
+.motion-demo-track.is-playing .motion-demo-box {
+  transform: translateX(calc(100cqw - 100%));
+}
+
 .pref-row:has(input:checked) .pref-row-label {
   @apply text-primary-700;
   @apply dark:text-primary-300;
