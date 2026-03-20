@@ -1,44 +1,186 @@
 <!--
   @component-meta
   name: Comparison Panel
-  category: Complex / App-Specific
+  category: Layout
   file: complex-comparison-panel.html
-  classes: comparison-panel, comparison-column, comparison-intro, comparison-column-header, comparison-meal-title, comparison-meal-details, comparison-meta, comparison-actions
-  when-to-use: Side-by-side comparison for duplicate resolution or A/B meal selection.
+  classes: comparison-panel, comparison-column, comparison-intro, comparison-column-header, comparison-title, comparison-subtitle, comparison-meal-title, comparison-meal-details, comparison-meta, comparison-actions, comparison-row, comparison-row-header, comparison-row-label, comparison-row-value, comparison-row-diff
+  when-to-use: Side-by-side comparison of two options — care plans, meal choices, medication regimens, metric snapshots, or duplicate resolution.
   preline-required: no
-  notes: The panel uses a 2-column grid. Actions span the full width below both columns.
+  notes: Uses a 2-column grid that stacks on mobile. Row-based variant uses a 3-column sub-grid (label + 2 values). Add .comparison-row-diff to highlight changed rows.
   @end-meta
 -->
 
 <!-- DEMO WRAPPER: visual context only, do not copy -->
 <section>
   <h3 class="section-title mb-4">Comparison Panel</h3>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
-    Side-by-side comparison for duplicate resolution or A/B meal selection.
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Side-by-side comparison layout for evaluating two options. Stacks on mobile.
   </p>
 
-  <!-- @component: comparison-panel -->
-  <div class="comparison-panel">
-    <p class="comparison-intro">Two similar meals were found. Choose which to keep or dismiss both.</p>
+  <!-- ========================================
+       COLUMN-BASED: Free-form content per column
+       ======================================== -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Column-Based (Free Content)</h4>
 
-    <div class="comparison-column">
-      <div class="comparison-column-header">Option A — Original</div>
-      <div class="comparison-meal-title">Grilled Chicken Breast</div>
-      <div class="comparison-meal-details">6 oz grilled chicken, steamed broccoli, brown rice</div>
-      <div class="comparison-meta">Added Jan 12, 2026 by Kitchen Staff</div>
-    </div>
+    <!-- @component: comparison-panel-columns -->
+    <div class="comparison-panel">
+      <p class="comparison-intro">Two similar meals were found. Choose which to keep or dismiss both.</p>
 
-    <div class="comparison-column">
-      <div class="comparison-column-header">Option B — Duplicate</div>
-      <div class="comparison-meal-title">Grilled Chicken Plate</div>
-      <div class="comparison-meal-details">6 oz grilled chicken, steamed vegetables, wild rice</div>
-      <div class="comparison-meta">Added Jan 14, 2026 by Nutrition AI</div>
-    </div>
+      <div class="comparison-column">
+        <div class="comparison-column-header">Option A — Original</div>
+        <div class="comparison-meal-title">Grilled Chicken Breast</div>
+        <div class="comparison-meal-details">6 oz grilled chicken, steamed broccoli, brown rice</div>
+        <div class="comparison-meta">Added Jan 12, 2026 by Kitchen Staff</div>
+      </div>
 
-    <div class="comparison-actions">
-      <button class="btn-outline">Dismiss</button>
-      <button class="btn-primary">Keep Left</button>
+      <div class="comparison-column">
+        <div class="comparison-column-header">Option B — Duplicate</div>
+        <div class="comparison-meal-title">Grilled Chicken Plate</div>
+        <div class="comparison-meal-details">6 oz grilled chicken, steamed vegetables, wild rice</div>
+        <div class="comparison-meta">Added Jan 14, 2026 by Nutrition AI</div>
+      </div>
+
+      <div class="comparison-actions">
+        <button class="btn-outline">Dismiss Both</button>
+        <button class="btn-primary">Keep Original</button>
+      </div>
     </div>
+    <!-- /component -->
   </div>
-  <!-- /component -->
+
+  <!-- ========================================
+       ROW-BASED: Label + value per column
+       ======================================== -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Row-Based (Value Comparison)</h4>
+
+    <!-- @component: comparison-panel-rows -->
+    <div class="comparison-panel">
+      <p class="comparison-intro">Compare care plan options for Maria Rivera (MRN PT-2024-0847).</p>
+
+      <!-- Column headers spanning the grid -->
+      <div class="comparison-row comparison-row-header">
+        <div class="comparison-row-label"></div>
+        <div class="comparison-column-header">Current Plan</div>
+        <div class="comparison-column-header">Proposed Plan</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Diagnosis</div>
+        <div class="comparison-row-value">Type 2 Diabetes</div>
+        <div class="comparison-row-value">Type 2 Diabetes</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Diet</div>
+        <div class="comparison-row-value">1800 cal, low sodium</div>
+        <div class="comparison-row-value">1600 cal, low sodium</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Meal Frequency</div>
+        <div class="comparison-row-value">3 meals/day</div>
+        <div class="comparison-row-value">3 meals + 2 snacks/day</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Monitoring</div>
+        <div class="comparison-row-value">Weekly check-in</div>
+        <div class="comparison-row-value">Bi-weekly check-in</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Medications</div>
+        <div class="comparison-row-value">Metformin 500 mg BID</div>
+        <div class="comparison-row-value">Metformin 1000 mg BID</div>
+      </div>
+
+      <div class="comparison-actions">
+        <button class="btn-outline">Keep Current</button>
+        <button class="btn-primary">Adopt Proposed</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ========================================
+       DIFF HIGHLIGHT: Changed rows stand out
+       ======================================== -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Diff Highlight Variant</h4>
+
+    <!-- @component: comparison-panel-diff -->
+    <div class="comparison-panel">
+      <p class="comparison-intro">Changes between current and proposed medication regimen are highlighted.</p>
+
+      <div class="comparison-row comparison-row-header">
+        <div class="comparison-row-label"></div>
+        <div class="comparison-column-header">Before</div>
+        <div class="comparison-column-header">After</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Metformin</div>
+        <div class="comparison-row-value">500 mg BID</div>
+        <div class="comparison-row-value">500 mg BID</div>
+      </div>
+
+      <div class="comparison-row comparison-row-diff">
+        <div class="comparison-row-label">Lisinopril</div>
+        <div class="comparison-row-value">10 mg daily</div>
+        <div class="comparison-row-value">20 mg daily</div>
+      </div>
+
+      <div class="comparison-row comparison-row-diff">
+        <div class="comparison-row-label">Atorvastatin</div>
+        <div class="comparison-row-value">Not prescribed</div>
+        <div class="comparison-row-value">20 mg nightly</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-row-label">Insulin</div>
+        <div class="comparison-row-value">Lantus 10 U at bedtime</div>
+        <div class="comparison-row-value">Lantus 10 U at bedtime</div>
+      </div>
+
+      <div class="comparison-actions">
+        <button class="btn-outline">Reject Changes</button>
+        <button class="btn-primary">Approve Changes</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ========================================
+       COLUMN-BASED WITH GENERIC TITLES
+       ======================================== -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Column-Based (Generic Titles)</h4>
+
+    <!-- @component: comparison-panel-generic -->
+    <div class="comparison-panel">
+      <div class="comparison-column">
+        <div class="comparison-column-header">Plan A</div>
+        <div class="comparison-title">Standard Diabetic Menu</div>
+        <div class="comparison-subtitle">1800 cal, 3 meals/day, no snack supplements</div>
+        <div class="comparison-meta">Last updated Feb 28, 2026</div>
+      </div>
+
+      <div class="comparison-column">
+        <div class="comparison-column-header">Plan B</div>
+        <div class="comparison-title">Enhanced Nutrition Plan</div>
+        <div class="comparison-subtitle">1600 cal, 3 meals + 2 snacks/day, protein-enriched</div>
+        <div class="comparison-meta">Recommended by Dr. Chen, Mar 1, 2026</div>
+      </div>
+
+      <div class="comparison-actions">
+        <button class="btn-outline">Cancel</button>
+        <button class="btn-secondary">Save for Later</button>
+        <button class="btn-primary">Select Plan B</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
 </section>

@@ -1471,7 +1471,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    COMPARISON PANEL
    =================================== */
 
-/* Side-by-side comparison layout for duplicate resolution */
+/* Side-by-side comparison layout */
 .comparison-panel {
     @apply grid sm:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
@@ -1487,6 +1487,22 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-neutral-400;
 }
 
+.comparison-column-header {
+    @apply text-xs uppercase tracking-wide text-gray-500 font-medium mb-3;
+    @apply dark:text-neutral-400;
+}
+
+.comparison-title {
+    @apply font-semibold text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.comparison-subtitle {
+    @apply text-sm text-gray-500 mt-0.5;
+    @apply dark:text-neutral-400;
+}
+
+/* Legacy alias — meal-specific variant */
 .comparison-meal-title {
     @apply font-semibold text-gray-800;
     @apply dark:text-neutral-200;
@@ -1502,13 +1518,39 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-neutral-500;
 }
 
-.comparison-column-header {
-    @apply text-xs uppercase tracking-wide text-gray-500 font-medium mb-3;
-    @apply dark:text-neutral-400;
-}
-
 .comparison-actions {
     @apply flex flex-wrap items-center gap-3 pt-4 col-span-full;
+}
+
+/* Row-based comparison: label + value per column */
+.comparison-row {
+    @apply grid grid-cols-1 sm:grid-cols-[140px_1fr_1fr] gap-x-4 gap-y-1 py-3 border-b border-gray-100 col-span-full items-baseline;
+    @apply dark:border-neutral-700;
+}
+
+.comparison-row:last-of-type {
+    @apply border-b-0;
+}
+
+.comparison-row-label {
+    @apply text-xs font-medium uppercase tracking-wide text-gray-400;
+    @apply dark:text-neutral-500;
+}
+
+.comparison-row-value {
+    @apply text-sm text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+/* Header row — no border, tighter spacing */
+.comparison-row-header {
+    @apply border-b-0 pb-0;
+}
+
+/* Diff highlight — calls out changed values */
+.comparison-row-diff .comparison-row-value {
+    @apply font-semibold text-primary-700 bg-primary-50 rounded px-1.5 py-0.5 -mx-1.5;
+    @apply dark:text-primary-400 dark:bg-primary-900/20;
 }
 
 /* ===================================
