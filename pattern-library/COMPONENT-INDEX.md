@@ -219,6 +219,7 @@ before creating any new component or semantic class.
 | Partner Alert Row | `complex-partner-alert-row.html` | `partner-alert-row` | no | |
 | Partner List Item | `complex-partner-list-item.html` | `partner-list-item` | no | |
 | Performance Metric Card | `complex-performance-metric-card.html` | `performance-metric-card`, `performance-metric-label`, `performance-metric-value`, `performance-metric-detail`, `performance-stats-row`, `performance-stat-compact`, `performance-stat-compact-label`, `performance-stat-compact-value`, `performance-stat-compact-detail` | no | |
+| Progress Bar | `data-progress.html` | `progress`, `progress-bar`, `progress-label`, `progress-label-text`, `progress-label-value`, `progress-sm`, `progress-lg`, `progress-primary`, `progress-success`, `progress-warning`, `progress-error`, `progress-info`, `progress-striped`, `progress-animated`, `progress-inner-label`, `progress-stacked` | no | Linear progress — labeled, colored, striped, stacked. Width set via `style="width: N%"` on `.progress-bar`. |
 | Pipeline Bar | `complex-pipeline-bar.html` | `pipeline-bar`, `pipeline-segment` | no | Proportional stacked bar. Segments use `style="flex: N"` (data-driven, acceptable). |
 | Prompt Input | `complex-prompt-input.html` | `prompt-input-container`, `prompt-textarea`, `prompt-toolbar`, `category-chip` | no | AI prompt box with category chips |
 | Tag Group | `complex-tag-group.html` | `tag-group`, `tag-group-label`, `badge-removable` | no | |

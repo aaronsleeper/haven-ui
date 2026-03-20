@@ -1,0 +1,264 @@
+<!--
+  @component-meta
+  name: Progress Bar
+  category: Data Display
+  file: data-progress.html
+  classes: progress, progress-bar, progress-label, progress-label-text, progress-label-value, progress-sm, progress-lg, progress-primary, progress-success, progress-warning, progress-error, progress-info, progress-striped, progress-animated, progress-inner-label, progress-stacked
+  when-to-use: Show completion percentage or proportional progress of a task, upload, or metric.
+  preline-required: no
+  notes: Width is set inline via style="width: N%" on .progress-bar. Color variants go on .progress wrapper. Stacked uses .progress-stacked wrapper with multiple .progress-bar children.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Progress Bar</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Linear progress indicator for completion, upload status, or metric visualization.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: progress-default -->
+    <div class="space-y-4">
+      <div class="progress">
+        <div class="progress-bar" style="width: 25%"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" style="width: 50%"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" style="width: 75%"></div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" style="width: 100%"></div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Labels -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Labels</h4>
+    <!-- @component: progress-labeled -->
+    <div class="space-y-4">
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Patient onboarding</span>
+          <span class="progress-label-value">3 of 5 steps</span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width: 60%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Meal plans confirmed</span>
+          <span class="progress-label-value">82%</span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width: 82%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Monthly assessments</span>
+          <span class="progress-label-value">12 / 48</span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width: 25%"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Color Variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Color Variants</h4>
+    <!-- @component: progress-colors -->
+    <div class="space-y-4">
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Primary</span>
+          <span class="progress-label-value">65%</span>
+        </div>
+        <div class="progress progress-primary">
+          <div class="progress-bar" style="width: 65%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Success</span>
+          <span class="progress-label-value">90%</span>
+        </div>
+        <div class="progress progress-success">
+          <div class="progress-bar" style="width: 90%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Warning</span>
+          <span class="progress-label-value">45%</span>
+        </div>
+        <div class="progress progress-warning">
+          <div class="progress-bar" style="width: 45%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Error</span>
+          <span class="progress-label-value">20%</span>
+        </div>
+        <div class="progress progress-error">
+          <div class="progress-bar" style="width: 20%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Info</span>
+          <span class="progress-label-value">70%</span>
+        </div>
+        <div class="progress progress-info">
+          <div class="progress-bar" style="width: 70%"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Sizes -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Sizes</h4>
+    <!-- @component: progress-sizes -->
+    <div class="space-y-4">
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Small</span>
+          <span class="progress-label-value">40%</span>
+        </div>
+        <div class="progress progress-sm">
+          <div class="progress-bar" style="width: 40%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Default</span>
+          <span class="progress-label-value">60%</span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width: 60%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Large</span>
+          <span class="progress-label-value">80%</span>
+        </div>
+        <div class="progress progress-lg">
+          <div class="progress-bar" style="width: 80%"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Striped -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Striped</h4>
+    <!-- @component: progress-striped -->
+    <div class="space-y-4">
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Striped</span>
+          <span class="progress-label-value">55%</span>
+        </div>
+        <div class="progress progress-striped progress-lg">
+          <div class="progress-bar" style="width: 55%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Animated stripes</span>
+          <span class="progress-label-value">70%</span>
+        </div>
+        <div class="progress progress-striped progress-animated progress-lg progress-success">
+          <div class="progress-bar" style="width: 70%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Animated warning</span>
+          <span class="progress-label-value">35%</span>
+        </div>
+        <div class="progress progress-striped progress-animated progress-lg progress-warning">
+          <div class="progress-bar" style="width: 35%"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Inner Label -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Inner Label</h4>
+    <!-- @component: progress-inner-label -->
+    <div class="space-y-4">
+      <div class="progress progress-lg progress-inner-label">
+        <div class="progress-bar" style="width: 50%">50%</div>
+      </div>
+      <div class="progress progress-lg progress-inner-label progress-success">
+        <div class="progress-bar" style="width: 85%">85%</div>
+      </div>
+      <div class="progress progress-lg progress-inner-label progress-warning">
+        <div class="progress-bar" style="width: 30%">30%</div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Stacked -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Stacked (Multi-Segment)</h4>
+    <!-- @component: progress-stacked -->
+    <div class="space-y-4">
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Delivery status breakdown</span>
+          <span class="progress-label-value">120 total</span>
+        </div>
+        <div class="progress-stacked">
+          <div class="progress-bar bg-success-500" style="width: 45%"></div>
+          <div class="progress-bar bg-warning-500" style="width: 30%"></div>
+          <div class="progress-bar bg-error-500" style="width: 15%"></div>
+          <div class="progress-bar bg-gray-400" style="width: 10%"></div>
+        </div>
+        <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 dark:text-neutral-400">
+          <span><i class="fa-solid fa-square text-success-500 me-1"></i> Delivered (54)</span>
+          <span><i class="fa-solid fa-square text-warning-500 me-1"></i> In transit (36)</span>
+          <span><i class="fa-solid fa-square text-error-500 me-1"></i> Delayed (18)</span>
+          <span><i class="fa-solid fa-square text-gray-400 me-1"></i> Pending (12)</span>
+        </div>
+      </div>
+      <div>
+        <div class="progress-label">
+          <span class="progress-label-text">Assessment completion</span>
+          <span class="progress-label-value">48 patients</span>
+        </div>
+        <div class="progress-stacked progress-lg">
+          <div class="progress-bar bg-primary-500" style="width: 60%"></div>
+          <div class="progress-bar bg-info-500" style="width: 25%"></div>
+          <div class="progress-bar bg-gray-300 dark:bg-neutral-600" style="width: 15%"></div>
+        </div>
+        <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 dark:text-neutral-400">
+          <span><i class="fa-solid fa-square text-primary-500 me-1"></i> Complete (29)</span>
+          <span><i class="fa-solid fa-square text-info-500 me-1"></i> In progress (12)</span>
+          <span><i class="fa-solid fa-square text-gray-300 dark:text-neutral-600 me-1"></i> Not started (7)</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

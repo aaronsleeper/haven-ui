@@ -173,7 +173,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Medication Row | `pages/data-medication.html` | built | Medication list row — icon, name, dose, schedule |
 | Alert Summary Row | `pages/data-alert-summary.html` | built | Alert list row — severity, title, status, date |
 | Pipeline Bar | `pages/data-pipeline-bar.html` | built | |
-| Progress Bar | `pages/data-progress.html` | missing | Linear progress — labeled, colored variants |
+| Progress Bar | `pages/data-progress.html` | built | Linear progress — labeled, colored variants |
 | List Group | `pages/data-list-group.html` | missing | Bordered list with optional actions — Preline |
 | Accordion (data) | `pages/accordion.html` | missing | Content accordion — Preline HSAccordion |
 | Collapse | `pages/collapse.html` | missing | Single inline show/hide — Preline HSCollapse |
