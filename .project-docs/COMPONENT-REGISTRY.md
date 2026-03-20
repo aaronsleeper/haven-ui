@@ -190,7 +190,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Popover | `pages/overlays.html` | built | |
 | Drawer | `pages/overlays.html` | built | |
 | Context Menu | `pages/overlays-context-menu.html` | built | Right-click / long-press menu |
-| Confirm Dialog | `pages/overlays-confirm.html` | missing | Destructive action confirmation modal variant |
+| Confirm Dialog | `pages/overlays-confirm.html` | built | Destructive action confirmation modal variant |
 | Bottom Sheet | `pages/overlays-bottom-sheet.html` | missing | Mobile-only drawer from bottom — patient app |
 
 ---

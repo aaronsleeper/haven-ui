@@ -2508,6 +2508,41 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 /* ===================================
+   CONFIRM DIALOG
+   Icon-led confirmation modal variant.
+   Reuses .modal-panel + .card for structure.
+   =================================== */
+
+.confirm-dialog-icon {
+    @apply mx-auto flex items-center justify-center size-12 rounded-full;
+}
+
+.confirm-dialog-icon-danger {
+    @apply bg-error-100 text-error-600;
+    @apply dark:bg-error-900/30 dark:text-error-400;
+}
+
+.confirm-dialog-icon-warning {
+    @apply bg-warning-100 text-warning-600;
+    @apply dark:bg-warning-900/30 dark:text-warning-400;
+}
+
+.confirm-dialog-icon-info {
+    @apply bg-primary-100 text-primary-600;
+    @apply dark:bg-primary-900/30 dark:text-primary-400;
+}
+
+.confirm-dialog-title {
+    @apply text-lg font-semibold text-gray-800 text-center mt-3;
+    @apply dark:text-neutral-200;
+}
+
+.confirm-dialog-body {
+    @apply text-sm text-gray-600 text-center mt-2;
+    @apply dark:text-neutral-400;
+}
+
+/* ===================================
    ASSIGNMENT SELECT
    =================================== */
 

@@ -1,0 +1,183 @@
+<!--
+  @component-meta
+  name: Confirm Dialog
+  category: Overlays
+  file: overlay-confirm-dialog.html
+  classes: confirm-dialog-icon, confirm-dialog-icon-danger, confirm-dialog-icon-warning, confirm-dialog-icon-info, confirm-dialog-title, confirm-dialog-body
+  when-to-use: Destructive or consequential action confirmation that requires explicit user intent before proceeding.
+  preline-required: yes — hs-overlay
+  notes: Reuses modal-panel + card for structure. Icon variant sets the visual tone (danger/warning/info). For simple confirms without icon, use the compact variant.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Confirm Dialog</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Modal confirmation for destructive or consequential actions. Uses an icon circle to set visual tone.
+  </p>
+
+  <!-- Destructive Confirm -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Destructive</h4>
+    <!-- @component: confirm-dialog-danger -->
+    <button type="button" class="btn-danger" data-hs-overlay="#hs-confirm-danger">
+      <i class="fa-solid fa-trash-can"></i> Delete Record
+    </button>
+
+    <div id="hs-confirm-danger" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-danger-label">
+      <div class="modal-panel">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="confirm-dialog-icon confirm-dialog-icon-danger">
+              <i class="fa-solid fa-trash-can text-xl"></i>
+            </div>
+            <h3 id="hs-confirm-danger-label" class="confirm-dialog-title">Delete Patient Record</h3>
+            <p class="confirm-dialog-body">
+              This will permanently remove Maria Rivera's record and all associated care plans. This action cannot be undone.
+            </p>
+          </div>
+          <div class="card-footer flex justify-end gap-3">
+            <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-danger">Cancel</button>
+            <button type="button" class="btn-danger">
+              <i class="fa-solid fa-trash-can"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Warning Confirm -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Warning</h4>
+    <!-- @component: confirm-dialog-warning -->
+    <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-warning">
+      <i class="fa-solid fa-people-arrows"></i> Reassign Care Team
+    </button>
+
+    <div id="hs-confirm-warning" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-warning-label">
+      <div class="modal-panel">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="confirm-dialog-icon confirm-dialog-icon-warning">
+              <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+            </div>
+            <h3 id="hs-confirm-warning-label" class="confirm-dialog-title">Reassign Care Team</h3>
+            <p class="confirm-dialog-body">
+              Reassigning Maria Rivera will notify her current care coordinator and transfer all active care plans to the new team. Are you sure?
+            </p>
+          </div>
+          <div class="card-footer flex justify-end gap-3">
+            <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-warning">Cancel</button>
+            <button type="button" class="btn-primary">Reassign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Info Confirm -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Info</h4>
+    <!-- @component: confirm-dialog-info -->
+    <button type="button" class="btn-primary" data-hs-overlay="#hs-confirm-info">
+      <i class="fa-solid fa-paper-plane"></i> Submit for Review
+    </button>
+
+    <div id="hs-confirm-info" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-info-label">
+      <div class="modal-panel">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="confirm-dialog-icon confirm-dialog-icon-info">
+              <i class="fa-solid fa-paper-plane text-xl"></i>
+            </div>
+            <h3 id="hs-confirm-info-label" class="confirm-dialog-title">Submit for Review</h3>
+            <p class="confirm-dialog-body">
+              The care plan for Maria Rivera will be submitted to the clinical review board. You will not be able to edit it until the review is complete.
+            </p>
+          </div>
+          <div class="card-footer flex justify-end gap-3">
+            <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-info">Cancel</button>
+            <button type="button" class="btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Destructive with Details -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Details List</h4>
+    <!-- @component: confirm-dialog-details -->
+    <button type="button" class="btn-danger" data-hs-overlay="#hs-confirm-details">
+      <i class="fa-solid fa-ban"></i> Deactivate Account
+    </button>
+
+    <div id="hs-confirm-details" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-details-label">
+      <div class="modal-panel">
+        <div class="card">
+          <div class="card-body">
+            <div class="confirm-dialog-icon confirm-dialog-icon-danger">
+              <i class="fa-solid fa-ban text-xl"></i>
+            </div>
+            <h3 id="hs-confirm-details-label" class="confirm-dialog-title">Deactivate Account</h3>
+            <p class="confirm-dialog-body">
+              Deactivating this account will immediately:
+            </p>
+            <ul class="mt-3 text-sm text-gray-600 dark:text-neutral-400 space-y-1.5 list-disc list-inside">
+              <li>Revoke all active sessions</li>
+              <li>Cancel pending meal deliveries</li>
+              <li>Archive care plan history</li>
+              <li>Notify the assigned care coordinator</li>
+            </ul>
+          </div>
+          <div class="card-footer flex justify-end gap-3">
+            <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-details">Cancel</button>
+            <button type="button" class="btn-danger">
+              <i class="fa-solid fa-ban"></i> Deactivate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Compact (no icon) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Compact (No Icon)</h4>
+    <!-- @component: confirm-dialog-compact -->
+    <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-compact">
+      Discard Changes
+    </button>
+
+    <div id="hs-confirm-compact" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto" role="dialog" tabindex="-1" aria-labelledby="hs-confirm-compact-label">
+      <div class="modal-panel">
+        <div class="card">
+          <div class="card-header flex items-center justify-between">
+            <h3 id="hs-confirm-compact-label" class="card-title text-lg">Discard Changes?</h3>
+            <button type="button" class="btn-icon" data-hs-overlay="#hs-confirm-compact">
+              <span class="sr-only">Close</span>
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="card-body">
+            <p class="text-sm text-gray-600 dark:text-neutral-400">
+              You have unsaved changes to this care plan. Discarding will revert to the last saved version.
+            </p>
+          </div>
+          <div class="card-footer flex justify-end gap-3">
+            <button type="button" class="btn-outline" data-hs-overlay="#hs-confirm-compact">Keep Editing</button>
+            <button type="button" class="btn-danger">Discard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
