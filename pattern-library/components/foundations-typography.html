@@ -4,10 +4,10 @@
   category: Foundations
   file: foundations-typography.html
   classes: prose-section
-  when-to-use: Reference this page for heading scale, font families, and the prose-section pattern. Use prose-section to constrain text-heavy content to a readable line length.
+  when-to-use: Reference this page for font families, type scale, heading scale, weights, line heights, and the prose-section pattern. Use prose-section to constrain text-heavy content to a readable line length.
   do-not-use-when: N/A
   preline-required: no
-  notes: Headings use Lora (serif). Body text uses Inter (sans). Code uses JetBrains Mono. Font sizes defined as CSS custom properties in typography.css.
+  notes: Headings use Plus Jakarta Sans (display). Body text uses Source Sans 3 (sans). Code uses Source Code Pro (mono). Font sizes defined as CSS custom properties in typography.css. Serif/Lora no longer exists.
   @end-meta
 -->
 
@@ -15,99 +15,308 @@
 <section id="typography">
 
   <h2>Typography</h2>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
-    Haven uses a three-font system: Lora for headings, Inter for body, JetBrains Mono for code.
+  <p class="text-sm text-gray-600 dark:text-neutral-400 mb-8">
+    Haven uses a three-font system: Plus Jakarta Sans for headings and display text, Source Sans 3 for body and UI, Source Code Pro for code.
   </p>
 
-  <!-- Heading Scale -->
-  <div class="mb-10">
-    <h3 class="section-title mb-4">Heading Scale</h3>
-    <div class="card card-body space-y-4">
-      <h1>Heading 1 <span class="text-sm font-normal text-gray-400">~2.49rem / Lora Bold</span></h1>
-      <h2>Heading 2 <span class="text-sm font-normal text-gray-400">~2.07rem / Lora Bold</span></h2>
-      <h3>Heading 3 <span class="text-sm font-normal text-gray-400">~1.73rem / Lora Bold</span></h3>
-      <h4>Heading 4 <span class="text-sm font-normal text-gray-400">~1.44rem / Lora Bold</span></h4>
-      <h5>Heading 5 <span class="text-sm font-normal text-gray-400">~1.20rem / Lora Bold</span></h5>
-      <h6>Heading 6 <span class="text-sm font-normal text-gray-400">1rem / Lora Bold</span></h6>
-    </div>
-  </div>
-
-  <!-- Font Families -->
+  <!-- ================================================
+       1. Font Families
+       ================================================ -->
   <div class="mb-10">
     <h3 class="section-title mb-4">Font Families</h3>
     <div class="card card-body space-y-6">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Inter (Sans) — Body text, labels, UI elements</p>
-        <p class="text-lg font-sans text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Plus Jakarta Sans (Display) — Headings, hero text</p>
+        <p class="text-xl font-display text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-display &middot; var(--font-display)</p>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Lora (Serif) — Headings</p>
-        <p class="text-lg font-serif text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Source Sans 3 (Body / Sans) — Body text, UI labels, forms</p>
+        <p class="text-xl font-sans text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-sans &middot; var(--font-sans)</p>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">JetBrains Mono — Code, monospace</p>
-        <p class="text-lg font-mono text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Source Code Pro (Mono) — Code blocks, technical values</p>
+        <p class="text-xl font-mono text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-mono &middot; var(--font-mono)</p>
       </div>
     </div>
   </div>
 
-  <!-- Font Size Scale -->
+  <!-- ================================================
+       2. Type Scale
+       ================================================ -->
   <div class="mb-10">
-    <h3 class="section-title mb-4">Font Size Variables</h3>
-    <div class="card card-body space-y-3">
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-xs</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-xs)">0.69rem / 11.11px</span>
+    <h3 class="section-title mb-4">Type Scale</h3>
+    <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+      A 1.2x (minor third) modular scale. All sizes are defined as CSS custom properties in <code class="text-xs font-mono">typography.css</code>.
+    </p>
+    <div class="card card-body space-y-4">
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">xs</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">11.11px / 0.69rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-xs">Haven Design System — xs</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-sm</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-sm)">0.83rem / 13.33px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">sm</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">13.33px / 0.83rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-sm">Haven Design System — sm</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-base</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-base)">1rem / 16px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">base</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">16px / 1rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-base">Haven Design System — base</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-lg</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-lg)">1.2rem / 19.2px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">lg</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">19.2px / 1.2rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-lg">Haven Design System — lg</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-xl</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-xl)">1.44rem / 23.04px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">23.04px / 1.44rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-xl">Haven Design System — xl</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-2xl</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-2xl)">1.73rem / 27.65px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">2xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">27.65px / 1.73rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-2xl">Haven Design System — 2xl</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-3xl</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-3xl)">2.07rem / 33.18px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">3xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">33.18px / 2.07rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-3xl">Haven Design System — 3xl</span>
       </div>
-      <div class="flex items-baseline gap-4">
-        <code class="text-xs font-mono text-gray-500 w-36 shrink-0">--font-size-4xl</code>
-        <span class="font-sans text-gray-800 dark:text-neutral-200" style="font-size: var(--font-size-4xl)">2.49rem / 39.81px</span>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">4xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">39.81px / 2.49rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-4xl">Haven — 4xl</span>
+      </div>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">5xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">47.78px / 2.99rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-5xl leading-none">Haven — 5xl</span>
+      </div>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">6xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">57.34px / 3.58rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-6xl leading-none">Haven — 6xl</span>
+      </div>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">7xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">68.81px / 4.30rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-7xl leading-none">Haven — 7xl</span>
+      </div>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">8xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">82.57px / 5.16rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-8xl leading-none">Haven — 8xl</span>
+      </div>
+
+      <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">9xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">99.08px / 6.19rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 text-9xl leading-none">Haven — 9xl</span>
+      </div>
+
+      <div class="flex items-baseline gap-4 pb-1">
+        <code class="text-xs font-mono text-gray-500 w-28 shrink-0">10xl</code>
+        <span class="text-xs font-mono text-gray-400 w-28 shrink-0">118.9px / 7.43rem</span>
+        <span class="font-sans text-gray-800 dark:text-neutral-200 leading-none" style="font-size: var(--font-size-10xl)">Haven</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================
+       3. Heading Scale
+       ================================================ -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Heading Scale</h3>
+    <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+      All headings use Plus Jakarta Sans Bold. Sizes are mapped to the modular scale in <code class="text-xs font-mono">typography.css</code>.
+    </p>
+    <div class="card card-body space-y-6">
+      <div>
+        <h1 class="mb-0">Heading 1</h1>
+        <p class="text-xs font-mono text-gray-400 mt-1">h1 &middot; 4xl (39.81px) &middot; font-weight: 700</p>
+      </div>
+      <div>
+        <h2 class="mb-0">Heading 2</h2>
+        <p class="text-xs font-mono text-gray-400 mt-1">h2 &middot; 3xl (33.18px) &middot; font-weight: 700</p>
+      </div>
+      <div>
+        <h3 class="mb-0">Heading 3</h3>
+        <p class="text-xs font-mono text-gray-400 mt-1">h3 &middot; 2xl (27.65px) &middot; font-weight: 700</p>
+      </div>
+      <div>
+        <h4 class="mb-0">Heading 4</h4>
+        <p class="text-xs font-mono text-gray-400 mt-1">h4 &middot; xl (23.04px) &middot; font-weight: 700</p>
+      </div>
+      <div>
+        <h5 class="mb-0">Heading 5</h5>
+        <p class="text-xs font-mono text-gray-400 mt-1">h5 &middot; lg (19.2px) &middot; font-weight: 700</p>
+      </div>
+      <div>
+        <h6 class="mb-0">Heading 6</h6>
+        <p class="text-xs font-mono text-gray-400 mt-1">h6 &middot; base (16px) &middot; font-weight: 700</p>
       </div>
     </div>
   </div>
 
-  <!-- Prose Section -->
+  <!-- ================================================
+       4. Font Weights
+       ================================================ -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Font Weights</h3>
+    <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+      Available weights for Plus Jakarta Sans and Source Sans 3. Use semantic weight classes from Tailwind.
+    </p>
+    <div class="card card-body space-y-5">
+      <div>
+        <p class="text-xl font-sans font-normal text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-normal &middot; 400 (Regular)</p>
+      </div>
+      <div>
+        <p class="text-xl font-sans font-medium text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-medium &middot; 500 (Medium)</p>
+      </div>
+      <div>
+        <p class="text-xl font-sans font-semibold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-semibold &middot; 600 (SemiBold)</p>
+      </div>
+      <div>
+        <p class="text-xl font-sans font-bold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-bold &middot; 700 (Bold)</p>
+      </div>
+      <div>
+        <p class="text-xl font-sans font-extrabold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-extrabold &middot; 800 (ExtraBold)</p>
+      </div>
+    </div>
+
+    <p class="text-sm text-gray-600 dark:text-neutral-400 mt-4 mb-4">
+      Same weights rendered in Plus Jakarta Sans (display):
+    </p>
+    <div class="card card-body space-y-5">
+      <div>
+        <p class="text-xl font-display font-normal text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-display font-normal &middot; 400</p>
+      </div>
+      <div>
+        <p class="text-xl font-display font-medium text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-display font-medium &middot; 500</p>
+      </div>
+      <div>
+        <p class="text-xl font-display font-semibold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-display font-semibold &middot; 600</p>
+      </div>
+      <div>
+        <p class="text-xl font-display font-bold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-display font-bold &middot; 700</p>
+      </div>
+      <div>
+        <p class="text-xl font-display font-extrabold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-400 mt-1">font-display font-extrabold &middot; 800</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================
+       5. Line Heights
+       ================================================ -->
+  <div class="mb-10">
+    <h3 class="section-title mb-4">Line Heights</h3>
+    <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+      Tailwind line-height utilities control vertical rhythm. Tighter values suit headings; relaxed values suit body text.
+    </p>
+    <div class="card card-body space-y-8">
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">leading-none (1.0)</p>
+        <p class="text-lg font-sans leading-none text-gray-800 dark:text-neutral-200">
+          Cena Health provides medically tailored meals to patients managing chronic conditions.
+          Our platform connects care coordinators, kitchens, and delivery partners in a single workflow.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">leading-tight (1.25)</p>
+        <p class="text-lg font-sans leading-tight text-gray-800 dark:text-neutral-200">
+          Cena Health provides medically tailored meals to patients managing chronic conditions.
+          Our platform connects care coordinators, kitchens, and delivery partners in a single workflow.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">leading-snug (1.375)</p>
+        <p class="text-lg font-sans leading-snug text-gray-800 dark:text-neutral-200">
+          Cena Health provides medically tailored meals to patients managing chronic conditions.
+          Our platform connects care coordinators, kitchens, and delivery partners in a single workflow.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">leading-normal (1.5) — default for body text</p>
+        <p class="text-lg font-sans leading-normal text-gray-800 dark:text-neutral-200">
+          Cena Health provides medically tailored meals to patients managing chronic conditions.
+          Our platform connects care coordinators, kitchens, and delivery partners in a single workflow.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">leading-relaxed (1.625)</p>
+        <p class="text-lg font-sans leading-relaxed text-gray-800 dark:text-neutral-200">
+          Cena Health provides medically tailored meals to patients managing chronic conditions.
+          Our platform connects care coordinators, kitchens, and delivery partners in a single workflow.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">leading-loose (2.0)</p>
+        <p class="text-lg font-sans leading-loose text-gray-800 dark:text-neutral-200">
+          Cena Health provides medically tailored meals to patients managing chronic conditions.
+          Our platform connects care coordinators, kitchens, and delivery partners in a single workflow.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================
+       6. Prose Section
+       ================================================ -->
   <div class="mb-10">
     <h3 class="section-title mb-4">Prose Section</h3>
-    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
-      Use <code class="text-xs font-mono">.prose-section</code> to constrain text content to a readable max width of 72ch.
+    <p class="text-sm text-gray-600 dark:text-neutral-400 mb-4">
+      Use <code class="text-xs font-mono">.prose-section</code> to constrain text content to a readable max width of 72ch. Ideal for articles, help text, and long-form content.
     </p>
 
     <!-- @component: prose-section -->
     <div class="prose-section">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum,
-        nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec
-        congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut facilisis. Cras imperdiet nunc nec
-        lorem pretium, et dictum risus aliquet.
+        Medically tailored meals are a critical intervention for patients managing chronic conditions
+        such as diabetes, heart failure, and chronic kidney disease. By delivering nutritionally
+        appropriate meals directly to patients, care teams can improve adherence to dietary
+        recommendations, reduce hospital readmissions, and support better long-term health outcomes.
       </p>
       <p>
-        Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis. Aenean
-        posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
+        The Cena Health platform streamlines this process by connecting care coordinators who assess
+        patient needs, kitchens that prepare the meals, and delivery partners who ensure timely
+        fulfillment. Each step is tracked, documented, and visible to every stakeholder in the chain
+        of care.
       </p>
     </div>
     <!-- /component -->
