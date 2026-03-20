@@ -5823,6 +5823,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* When Preline sets display:block via inline style, show with opacity */
 .combobox.active .combobox-output {
+    @apply block;
     opacity: 1;
 }
 
