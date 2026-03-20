@@ -56,7 +56,7 @@ visible at localhost:5173/pattern-library/pages/.
 | KV Table | `pages/layout-kv-table.html` | built | Key-value definition table |
 | Comparison Panel | `pages/layout-comparison-panel.html` | built | Side-by-side comparison layout |
 | Issues Sidebar | `pages/layout-issues-sidebar.html` | built | Persistent right-side issue tracking panel |
-| Field Row | `pages/layout-field-row.html` | missing | Stacked label+input row pattern |
+| Field Row | `pages/layout-field-row.html` | built | Stacked label+input row pattern |
 
 ---
 

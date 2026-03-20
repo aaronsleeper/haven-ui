@@ -1,0 +1,239 @@
+<!--
+  @component-meta
+  name: Field Row
+  category: Layout
+  file: layout-field-row.html
+  classes: field-row, field-row-horizontal, field-label, field-body, field-help, field-error, field-row-error, field-input-group, field-addon
+  when-to-use: Stacked label+input row pattern for forms — patient intake, care plan editing, provider settings.
+  do-not-use-when: You need a read-only key/value display — use profile-field-row instead. For nutrition inputs, use nutrition-input-group.
+  preline-required: no
+  notes: Uses existing base label/input element defaults. field-row-error uses !important to override input border. field-input-group handles prefix/suffix addons with automatic border radius adjustment.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Field Row</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Stacked label + input row pattern for forms. Used in patient intake, care plan editing, and provider settings.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: field-row-default -->
+    <div class="field-row">
+      <label class="field-label" for="fr-name">Patient Name</label>
+      <input type="text" id="fr-name" placeholder="Enter patient name">
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Required Field -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Required Field</h4>
+    <!-- @component: field-row-required -->
+    <div class="field-row">
+      <label class="field-label required" for="fr-email">Email Address</label>
+      <input type="email" id="fr-email" placeholder="patient@example.com" required>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Help Text -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Help Text</h4>
+    <!-- @component: field-row-help -->
+    <div class="field-row">
+      <label class="field-label" for="fr-mrn">Medical Record Number</label>
+      <input type="text" id="fr-mrn" placeholder="PT-2024-0847">
+      <p class="field-help">Format: PT-YYYY-NNNN. Found on the patient's intake form.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Error State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Error State</h4>
+    <!-- @component: field-row-error -->
+    <div class="field-row field-row-error">
+      <label class="field-label required" for="fr-phone">Phone Number</label>
+      <input type="tel" id="fr-phone" value="555-12" aria-invalid="true" aria-describedby="fr-phone-error">
+      <p class="field-error" id="fr-phone-error">
+        <i class="fa-solid fa-circle-exclamation text-xs"></i>
+        Please enter a valid 10-digit phone number.
+      </p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled State -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled</h4>
+    <!-- @component: field-row-disabled -->
+    <div class="field-row">
+      <label class="field-label" for="fr-provider">Referring Provider</label>
+      <input type="text" id="fr-provider" value="Dr. Sarah Chen" disabled>
+      <p class="field-help">Auto-assigned based on care team.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Horizontal Variant -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Horizontal Layout</h4>
+    <!-- @component: field-row-horizontal -->
+    <div class="field-row-horizontal">
+      <label class="field-label" for="fr-dob">Date of Birth</label>
+      <div class="field-body">
+        <input type="date" id="fr-dob">
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: field-row-horizontal-help -->
+    <div class="field-row-horizontal mt-4">
+      <label class="field-label required" for="fr-lang">Preferred Language</label>
+      <div class="field-body">
+        <select id="fr-lang" required>
+          <option value="">Select language</option>
+          <option value="en">English</option>
+          <option value="es" selected>Spanish</option>
+          <option value="zh">Mandarin</option>
+          <option value="vi">Vietnamese</option>
+        </select>
+        <p class="field-help">Used for patient-facing communications and meal labels.</p>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: field-row-horizontal-error -->
+    <div class="field-row-horizontal field-row-error mt-4">
+      <label class="field-label required" for="fr-weight">Weight (lbs)</label>
+      <div class="field-body">
+        <input type="number" id="fr-weight" value="-5" aria-invalid="true" aria-describedby="fr-weight-error">
+        <p class="field-error" id="fr-weight-error">
+          <i class="fa-solid fa-circle-exclamation text-xs"></i>
+          Weight must be a positive number.
+        </p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Prefix / Suffix Addons -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Prefix &amp; Suffix Addons</h4>
+
+    <!-- @component: field-row-prefix -->
+    <div class="field-row">
+      <label class="field-label" for="fr-website">Website</label>
+      <div class="field-input-group">
+        <span class="field-addon">https://</span>
+        <input type="url" id="fr-website" placeholder="www.example.com">
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: field-row-suffix -->
+    <div class="field-row mt-4">
+      <label class="field-label" for="fr-glucose">Fasting Glucose</label>
+      <div class="field-input-group">
+        <input type="number" id="fr-glucose" placeholder="0">
+        <span class="field-addon">mg/dL</span>
+      </div>
+      <p class="field-help">Last recorded fasting blood glucose level.</p>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: field-row-icon-prefix -->
+    <div class="field-row mt-4">
+      <label class="field-label" for="fr-search-patient">Search Patients</label>
+      <div class="field-input-group">
+        <span class="field-addon"><i class="fa-solid fa-magnifying-glass text-xs"></i></span>
+        <input type="search" id="fr-search-patient" placeholder="Name, MRN, or DOB">
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: field-row-both-addons -->
+    <div class="field-row mt-4">
+      <label class="field-label" for="fr-copay">Co-pay Amount</label>
+      <div class="field-input-group">
+        <span class="field-addon">$</span>
+        <input type="number" id="fr-copay" placeholder="0.00">
+        <span class="field-addon">USD</span>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Textarea -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Textarea</h4>
+    <!-- @component: field-row-textarea -->
+    <div class="field-row">
+      <label class="field-label" for="fr-notes">Clinical Notes</label>
+      <textarea id="fr-notes" rows="3" placeholder="Enter observations or care plan notes"></textarea>
+      <p class="field-help">Visible to the care team only. Not shared with the patient.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Combined Form Example -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Combined Example</h4>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Patient Intake</h3>
+      </div>
+      <div class="card-body space-y-4">
+        <!-- @component: field-row-combined -->
+        <div class="field-row">
+          <label class="field-label required" for="fr-c-name">Full Name</label>
+          <input type="text" id="fr-c-name" value="Maria Rivera">
+        </div>
+
+        <div class="field-row field-row-error">
+          <label class="field-label required" for="fr-c-email">Email</label>
+          <input type="email" id="fr-c-email" value="maria@" aria-invalid="true" aria-describedby="fr-c-email-err">
+          <p class="field-error" id="fr-c-email-err">
+            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+            Please enter a valid email address.
+          </p>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label required" for="fr-c-phone">Phone</label>
+          <input type="tel" id="fr-c-phone" placeholder="(555) 000-0000">
+          <p class="field-help">We will send appointment reminders to this number.</p>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label" for="fr-c-condition">Primary Condition</label>
+          <select id="fr-c-condition">
+            <option value="">Select condition</option>
+            <option value="t2d" selected>Type 2 Diabetes</option>
+            <option value="chf">Congestive Heart Failure</option>
+            <option value="ckd">Chronic Kidney Disease</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label" for="fr-c-a1c">Last A1C</label>
+          <div class="field-input-group">
+            <input type="number" id="fr-c-a1c" placeholder="0.0" step="0.1">
+            <span class="field-addon">%</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label" for="fr-c-notes">Intake Notes</label>
+          <textarea id="fr-c-notes" rows="2" placeholder="Dietary restrictions, allergies, preferences"></textarea>
+        </div>
+        <!-- /component -->
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -603,6 +603,99 @@ a.btn-danger {
 }
 
 /* ===================================
+   FIELD ROW
+   =================================== */
+
+/* Stacked label + input container with consistent vertical spacing */
+.field-row {
+    @apply flex flex-col gap-1.5;
+}
+
+/* Horizontal variant: label beside input at sm+ breakpoints */
+.field-row-horizontal {
+    @apply flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-4;
+}
+
+.field-row-horizontal .field-label {
+    @apply sm:w-1/3 sm:pt-2.5 sm:text-right;
+}
+
+.field-row-horizontal .field-body {
+    @apply sm:flex-1;
+}
+
+/* Field label — mirrors base label styling as an explicit class */
+.field-label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-200;
+}
+
+/* Help text below input */
+.field-help {
+    @apply text-xs text-gray-500 mt-1 dark:text-neutral-400;
+}
+
+/* Error message below input */
+.field-error {
+    @apply text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400;
+}
+
+/* Error state modifier on field-row — turns input border red */
+.field-row-error input,
+.field-row-error select,
+.field-row-error textarea {
+    border-color: var(--color-error-500) !important;
+}
+
+.field-row-error input:focus,
+.field-row-error select:focus,
+.field-row-error textarea:focus {
+    border-color: var(--color-error-500) !important;
+    --tw-ring-color: var(--color-error-500) !important;
+}
+
+/* Input group: wraps input + prefix/suffix addons into a single visual row */
+.field-input-group {
+    @apply flex items-stretch;
+}
+
+/* Addon (prefix or suffix) flanking an input */
+.field-addon {
+    @apply inline-flex items-center px-3 text-sm text-gray-500 bg-gray-50 border border-gray-200;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
+}
+
+/* First child addon gets left rounding, last gets right rounding */
+.field-addon:first-child {
+    @apply rounded-s-lg border-e-0;
+}
+
+.field-addon:last-child {
+    @apply rounded-e-lg border-s-0;
+}
+
+/* Input inside a group loses its own border radius on the addon side */
+.field-input-group input,
+.field-input-group select {
+    @apply flex-1 min-w-0;
+}
+
+.field-input-group .field-addon:first-child + input,
+.field-input-group .field-addon:first-child + select {
+    @apply rounded-s-none;
+}
+
+.field-input-group input:has(+ .field-addon),
+.field-input-group select:has(+ .field-addon) {
+    @apply rounded-e-none;
+}
+
+/* When input is sandwiched between two addons */
+.field-input-group .field-addon + input + .field-addon,
+.field-input-group .field-addon + select + .field-addon {
+    @apply border-s-0;
+}
+
+/* ===================================
    SECTION TITLE
    =================================== */
 

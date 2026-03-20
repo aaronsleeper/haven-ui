@@ -53,6 +53,7 @@ before creating any new component or semantic class.
 | Onboarding Progress | `layout-onb-progress.html` | `onb-progress` | no | Patient app only. Used on ONB-01, 02, 03. Set `aria-label="Step N of 3"`. |
 | Divider | `layout-divider.html` | `divider`, `divider-compact`, `divider-spacious`, `divider-labeled`, `divider-label`, `divider-vertical` | no | Horizontal rule, labeled divider, vertical divider. Spacing variants: compact/default/spacious. |
 | Issues Sidebar Layout | `(layout page only)` | `issues-layout`, `issues-layout-main`, `issues-layout-aside`, `issues-layout-toggle`, `issues-layout-backdrop` | no | 2-column layout with persistent right issues panel. Mobile: slides off-screen, toggled via `[data-issues-toggle]`. JS: `issues-sidebar-toggle.js`. |
+| Field Row | `layout-field-row.html` | `field-row`, `field-row-horizontal`, `field-label`, `field-body`, `field-help`, `field-error`, `field-row-error`, `field-input-group`, `field-addon` | no | Stacked label+input row. Horizontal variant at sm+. Prefix/suffix addons. Error state uses `!important` on input border. |
 
 ---
 
