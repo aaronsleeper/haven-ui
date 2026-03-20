@@ -415,7 +415,7 @@ a.btn-danger {
    BUTTON LOADING STATE
    =================================== */
 
-@keyframes btn-spin {
+@keyframes spin {
     to { transform: rotate(360deg); }
 }
 
@@ -427,7 +427,7 @@ a.btn-danger {
     border: 2px solid currentColor;
     border-top-color: transparent;
     border-radius: 9999px;
-    animation: btn-spin 0.6s linear infinite;
+    animation: spin 0.6s linear infinite;
 }
 
 /* Loading modifier — add to any button variant */
@@ -4248,4 +4248,95 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 :is(.dark) .divider-vertical {
     @apply block;
     border-left-color: var(--color-sand-700);
+}
+
+/* ===================================
+   SPINNER
+   =================================== */
+
+/* Base spinner — 24px neutral rotating circle.
+   Uses shared @keyframes spin (also used by .btn-spinner). */
+.spinner {
+    @apply inline-block shrink-0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid var(--color-sand-300);
+    border-top-color: var(--color-sand-600);
+    border-radius: 9999px;
+    animation: spin 0.7s linear infinite;
+}
+
+:is(.dark) .spinner {
+    @apply inline-block;
+    border-color: var(--color-sand-600);
+    border-top-color: var(--color-sand-300);
+}
+
+/* Size variants */
+.spinner-sm {
+    @apply inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-width: 2px;
+}
+
+.spinner-lg {
+    @apply inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-width: 3px;
+}
+
+.spinner-xl {
+    @apply inline-block;
+    width: 3rem;
+    height: 3rem;
+    border-width: 4px;
+}
+
+/* Color variants */
+.spinner-primary {
+    @apply inline-block;
+    border-color: var(--color-teal-200);
+    border-top-color: var(--color-teal-600);
+}
+
+:is(.dark) .spinner.spinner-primary {
+    @apply inline-block;
+    border-color: var(--color-teal-800);
+    border-top-color: var(--color-teal-400);
+}
+
+.spinner-white {
+    @apply inline-block;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+}
+
+/* Spinner with label — wraps .spinner + text */
+.spinner-container {
+    @apply inline-flex items-center gap-3;
+}
+
+.spinner-container-vertical {
+    @apply inline-flex flex-col items-center gap-2;
+}
+
+.spinner-label {
+    @apply text-sm font-medium text-gray-500 dark:text-neutral-400;
+}
+
+/* Full-section overlay spinner — centered in a positioned parent */
+.spinner-overlay {
+    @apply flex items-center justify-center;
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: inherit;
+    z-index: 10;
+}
+
+:is(.dark) .spinner-overlay {
+    @apply flex;
+    background-color: rgba(0, 0, 0, 0.5);
 }

@@ -88,6 +88,7 @@ before creating any new component or semantic class.
 | Removable Badge | *(inside tag-group)* | `badge-removable` | no | Badge with X close button |
 | Indicator / Dot | `indicator-dot.html` | `indicator`, `indicator-sm`, `indicator-lg`, `indicator-online`, `indicator-offline`, `indicator-busy`, `indicator-away`, `indicator-pulse`, `indicator-label`, `indicator-positioned` | no | Status dot for presence/severity. Pulse variant for live state. Position on avatars with `indicator-positioned`. |
 | Avatar | `avatar.html` | `avatar`, `avatar-xs`, `avatar-sm`, `avatar-lg`, `avatar-xl`, `avatar-primary`, `avatar-secondary`, `avatar-neutral`, `avatar-img`, `avatar-icon`, `avatar-group`, `avatar-group-overflow` | no | Circular user representation — initials, image, icon. Size scale xs–xl. Group/stack with overflow. Use `indicator-positioned` for status dots. |
+| Spinner | `spinner.html` | `spinner`, `spinner-sm`, `spinner-lg`, `spinner-xl`, `spinner-primary`, `spinner-white`, `spinner-container`, `spinner-container-vertical`, `spinner-label`, `spinner-overlay` | no | Standalone loading spinner. Sizes sm–xl. Colors: neutral (default), primary, white. Overlay variant for full-section loading. Uses shared `@keyframes spin`. For button spinners use `.btn-spinner` instead. |
 
 ---
 
