@@ -1,3 +1,0 @@
-providers
-referalls
-then patients

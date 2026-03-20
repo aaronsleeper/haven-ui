@@ -1,14 +1,14 @@
 /* Google Fonts Import moved to head partial */
 
 :root {
-    /* Sans-serif: Inter */
-    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Body / Sans: Source Sans 3 */
+    --font-sans: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-    /* Monospace: JetBrains Mono */
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    /* Monospace: Source Code Pro */
+    --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-    /* Serif: Lora */
-    --font-serif: 'Lora', Georgia, Cambria, 'Times New Roman', Times, serif;
+    /* Note: --font-display (Plus Jakarta Sans) and --font-body (Source Sans 3)
+       are defined in haven.css @theme. --font-serif / Lora no longer exists. */
 
     /* 11.11px */
     --font-size-xs: 0.6944rem;
