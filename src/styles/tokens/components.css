@@ -412,6 +412,30 @@ a.btn-danger {
 }
 
 /* ===================================
+   BUTTON LOADING STATE
+   =================================== */
+
+@keyframes btn-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Inline spinner element — place inside any button */
+.btn-spinner {
+    @apply inline-block shrink-0;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 9999px;
+    animation: btn-spin 0.6s linear infinite;
+}
+
+/* Loading modifier — add to any button variant */
+.btn-loading {
+    @apply pointer-events-none opacity-60;
+}
+
+/* ===================================
    BUTTON GROUP
    =================================== */
 

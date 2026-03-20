@@ -71,6 +71,7 @@ before creating any new component or semantic class.
 | Dark Mode Toggle | `btn-dark-mode-toggle.html` | `btn-dark-mode-toggle`, `dark-mode-toggle` | no | Theme toggle button |
 | Sizes | `btn-sizes.html` | `btn-sm`, `btn-xs`, `btn-lg` | no | Size modifiers for any button variant |
 | Button Group | `btn-group.html` | `btn-group`, `btn-group-item`, `btn-group-vertical` | no | Connected buttons. Combine with `btn-outline`, `btn-primary`, size classes. `.active` for selected state. |
+| Loading State | `btn-loading.html` | `btn-loading`, `btn-spinner` | no | Spinner inside button, disabled interaction. Combine with any variant + size. CSS-only animation. |
 
 ---
 

@@ -73,7 +73,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Button Sizes | `pages/buttons.html` | built | |
 | Dark Mode Toggle | `pages/buttons.html` | built | |
 | Button Group | `pages/btn-group.html` | built | Horizontal group of connected buttons (Preline HSButtonGroup or custom) |
-| Loading State | `pages/btn-loading.html` | missing | Spinner inside button, disabled interaction |
+| Loading State | `pages/btn-loading.html` | built | Spinner inside button, disabled interaction |
 
 ---
 

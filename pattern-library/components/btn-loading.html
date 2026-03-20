@@ -1,0 +1,151 @@
+<!--
+  @component-meta
+  name: Button: Loading State
+  category: Primitives — Buttons
+  file: btn-loading.html
+  classes: btn-loading, btn-spinner
+  when-to-use: During async operations (form submit, API call) to indicate the button action is in progress. Prevents double-clicks.
+  do-not-use-when: The loading state is page-wide — use skeleton loaders instead. Do not use for instant actions that complete synchronously.
+  preline-required: no
+  notes: btn-loading is a modifier — combine with btn-primary, btn-outline, etc. btn-spinner is the inline animated element. CSS-only animation via @keyframes btn-spin. No JS required for the spinner itself.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Button: Loading State</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Spinner inside button with disabled interaction. Combine <code class="text-xs font-mono">.btn-loading</code> with any button variant.
+  </p>
+
+  <!-- Variant: Primary loading -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Primary</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <!-- @component: btn-loading-primary -->
+      <button type="button" class="btn-primary btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Saving...
+      </button>
+      <!-- /component -->
+
+      <!-- @component: btn-loading-primary-spinner-only -->
+      <button type="button" class="btn-primary btn-loading" disabled aria-label="Loading">
+        <span class="btn-spinner"></span>
+      </button>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Variant: Secondary loading -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Secondary</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <!-- @component: btn-loading-secondary -->
+      <button type="button" class="btn-secondary btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Processing...
+      </button>
+      <!-- /component -->
+
+      <!-- @component: btn-loading-secondary-spinner-only -->
+      <button type="button" class="btn-secondary btn-loading" disabled aria-label="Loading">
+        <span class="btn-spinner"></span>
+      </button>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Variant: Outline loading -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Outline</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <!-- @component: btn-loading-outline -->
+      <button type="button" class="btn-outline btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Loading...
+      </button>
+      <!-- /component -->
+
+      <!-- @component: btn-loading-outline-spinner-only -->
+      <button type="button" class="btn-outline btn-loading" disabled aria-label="Loading">
+        <span class="btn-spinner"></span>
+      </button>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Variant: Danger loading -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Danger</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <!-- @component: btn-loading-danger -->
+      <button type="button" class="btn-danger btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Deleting...
+      </button>
+      <!-- /component -->
+
+      <!-- @component: btn-loading-danger-spinner-only -->
+      <button type="button" class="btn-danger btn-loading" disabled aria-label="Loading">
+        <span class="btn-spinner"></span>
+      </button>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Size variants -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Size Variants</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <!-- @component: btn-loading-sm -->
+      <button type="button" class="btn-primary btn-sm btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Saving...
+      </button>
+      <!-- /component -->
+
+      <!-- @component: btn-loading-default-size -->
+      <button type="button" class="btn-primary btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Saving...
+      </button>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Text label variant -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Loading Text Label</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <!-- @component: btn-loading-text-label -->
+      <button type="button" class="btn-primary btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Loading...
+      </button>
+      <!-- /component -->
+
+      <!-- @component: btn-loading-text-label-outline -->
+      <button type="button" class="btn-outline btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Please wait...
+      </button>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- Comparison: normal vs loading -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Normal vs Loading</h4>
+    <div class="flex flex-wrap items-center gap-4">
+      <button type="button" class="btn-primary">
+        Save Changes
+      </button>
+      <button type="button" class="btn-primary btn-loading" disabled>
+        <span class="btn-spinner"></span>
+        Saving...
+      </button>
+    </div>
+  </div>
+
+</section>
