@@ -4340,3 +4340,194 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply flex;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* ===================================
+   TOAST NOTIFICATIONS
+   =================================== */
+
+/* Fixed container for stacking toasts — top-right corner */
+.toast-container {
+    @apply fixed flex flex-col gap-3;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    width: 22rem;
+    max-width: calc(100vw - 2rem);
+    pointer-events: none;
+}
+
+/* Base toast */
+.toast {
+    @apply flex items-start gap-3 text-sm rounded-xl p-4 shadow-lg;
+    @apply bg-white border border-gray-200;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+    animation: toast-slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.toast.toast-exiting {
+    @apply block;
+    animation: toast-fade-out 0.25s ease forwards;
+}
+
+.toast-icon {
+    @apply shrink-0 mt-0.5;
+    font-size: 1rem;
+}
+
+.toast-content {
+    @apply flex-1 min-w-0;
+}
+
+.toast-title {
+    @apply font-semibold text-gray-900 dark:text-white;
+}
+
+.toast-description {
+    @apply text-gray-600 dark:text-neutral-400 mt-0.5;
+}
+
+.toast-dismiss {
+    @apply shrink-0 inline-flex items-center justify-center rounded-lg cursor-pointer;
+    @apply text-gray-400 dark:text-neutral-500;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    background: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.toast-dismiss:hover {
+    @apply bg-gray-100 text-gray-600;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
+}
+
+/* Progress bar for auto-dismiss countdown */
+.toast-progress {
+    @apply block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    border-radius: 0 0 0.75rem 0.75rem;
+    animation: toast-progress var(--toast-duration, 5s) linear forwards;
+}
+
+/* Variant: Success */
+.toast-success {
+    @apply bg-success-50 border-success-200 dark:bg-success-900/20 dark:border-success-800;
+}
+
+.toast-success .toast-icon {
+    @apply text-success-600 dark:text-success-400;
+}
+
+.toast-success .toast-title {
+    @apply text-success-800 dark:text-success-300;
+}
+
+.toast-success .toast-description {
+    @apply text-success-700 dark:text-success-400;
+}
+
+.toast-success .toast-progress {
+    @apply bg-success-500;
+}
+
+/* Variant: Warning */
+.toast-warning {
+    @apply bg-warning-50 border-warning-200 dark:bg-warning-900/20 dark:border-warning-800;
+}
+
+.toast-warning .toast-icon {
+    @apply text-warning-600 dark:text-warning-400;
+}
+
+.toast-warning .toast-title {
+    @apply text-warning-800 dark:text-warning-300;
+}
+
+.toast-warning .toast-description {
+    @apply text-warning-700 dark:text-warning-400;
+}
+
+.toast-warning .toast-progress {
+    @apply bg-warning-500;
+}
+
+/* Variant: Error */
+.toast-error {
+    @apply bg-error-50 border-error-200 dark:bg-error-900/20 dark:border-error-800;
+}
+
+.toast-error .toast-icon {
+    @apply text-error-600 dark:text-error-400;
+}
+
+.toast-error .toast-title {
+    @apply text-error-800 dark:text-error-300;
+}
+
+.toast-error .toast-description {
+    @apply text-error-700 dark:text-error-400;
+}
+
+.toast-error .toast-progress {
+    @apply bg-error-500;
+}
+
+/* Variant: Info */
+.toast-info {
+    @apply bg-info-50 border-info-200 dark:bg-info-900/20 dark:border-info-800;
+}
+
+.toast-info .toast-icon {
+    @apply text-info-600 dark:text-info-400;
+}
+
+.toast-info .toast-title {
+    @apply text-info-800 dark:text-info-300;
+}
+
+.toast-info .toast-description {
+    @apply text-info-700 dark:text-info-400;
+}
+
+.toast-info .toast-progress {
+    @apply bg-info-500;
+}
+
+/* Keyframes */
+@keyframes toast-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toast-fade-out {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(30%);
+    }
+}
+
+@keyframes toast-progress {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}

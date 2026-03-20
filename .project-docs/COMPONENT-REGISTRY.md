@@ -103,7 +103,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Alert Stripe | `pages/alerts.html` | built | Full-height icon column |
 | Alert Inset | `pages/alerts.html` | built | Mobile card list variant |
 | Alert Warning Btn | `pages/alerts.html` | built | Contextual button inside warning alert |
-| Toast | `pages/toast.html` | missing | Transient notification — 4 variants, enter/exit animation |
+| Toast | `pages/toast.html` | built | Transient notification — 4 variants, enter/exit animation |
 
 ---
 

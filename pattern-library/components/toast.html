@@ -1,0 +1,169 @@
+<!--
+  @component-meta
+  name: Toast
+  category: Alerts
+  file: toast.html
+  classes: toast-container, toast, toast-icon, toast-content, toast-title, toast-description, toast-dismiss, toast-progress, toast-success, toast-warning, toast-error, toast-info
+  when-to-use: Transient feedback after user actions — operation confirmations, error alerts, background notifications. Appears top-right and auto-dismisses or is manually dismissed.
+  do-not-use-when: Feedback needs to persist on page — use an inline alert instead.
+  preline-required: no
+  notes: JS required — src/scripts/components/toast.js. Use HavenToast.show() to create toasts programmatically. Icons match alert variants. Progress bar variant for auto-dismiss countdown.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Toast Notifications</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Transient notifications for operation confirmations, error alerts, and background events. Fixed top-right with enter/exit animations.
+  </p>
+
+  <!-- Static examples (inline, not fixed) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Variants</h4>
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mb-4">Static previews — in production these appear fixed in the top-right corner.</p>
+
+    <div class="flex flex-col gap-4 max-w-sm">
+
+      <!-- @component: toast-success -->
+      <div class="toast toast-success" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Patient updated</div>
+          <div class="toast-description">Maria Rivera's care plan has been saved.</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: toast-warning -->
+      <div class="toast toast-warning" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Allergy conflict</div>
+          <div class="toast-description">Selected meal contains a flagged allergen. Review before confirming.</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: toast-error -->
+      <div class="toast toast-error" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Save failed</div>
+          <div class="toast-description">Unable to update patient record. Please try again.</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: toast-info -->
+      <div class="toast toast-info" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-circle-info"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Session ending</div>
+          <div class="toast-description">Your session will expire in 5 minutes.</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <!-- /component -->
+
+    </div>
+  </div>
+
+  <!-- Minimal (title only) -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Minimal — Title Only</h4>
+
+    <div class="flex flex-col gap-4 max-w-sm">
+
+      <!-- @component: toast-success-minimal -->
+      <div class="toast toast-success" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Meal plan confirmed</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: toast-error-minimal -->
+      <div class="toast toast-error" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Connection lost</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <!-- /component -->
+
+    </div>
+  </div>
+
+  <!-- With progress bar -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Progress Bar (Auto-Dismiss Countdown)</h4>
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mb-4">Progress bar shrinks over the auto-dismiss duration. Use the interactive demo below to see it in action.</p>
+
+    <div class="flex flex-col gap-4 max-w-sm">
+
+      <!-- @component: toast-success-progress -->
+      <div class="toast toast-success" role="status" style="animation: none; position: relative;">
+        <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-content">
+          <div class="toast-title">Changes saved</div>
+          <div class="toast-description">Patient preferences updated successfully.</div>
+        </div>
+        <button type="button" class="toast-dismiss" aria-label="Dismiss">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+        <div class="toast-progress" style="--toast-duration: 5s; animation-play-state: paused; width: 65%;"></div>
+      </div>
+      <!-- /component -->
+
+    </div>
+  </div>
+
+  <!-- Interactive demo -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Interactive Demo</h4>
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mb-4">Click a button to trigger a live toast notification in the top-right corner.</p>
+
+    <div class="flex flex-wrap gap-3">
+      <button type="button" class="btn-primary btn-sm"
+        onclick="HavenToast.show({ variant: 'success', title: 'Patient updated', description: 'Maria Rivera\'s care plan has been saved.', duration: 5000 })">
+        Success Toast
+      </button>
+      <button type="button" class="btn-outline btn-sm"
+        onclick="HavenToast.show({ variant: 'warning', title: 'Allergy conflict', description: 'Selected meal contains a flagged allergen.', duration: 5000 })">
+        Warning Toast
+      </button>
+      <button type="button" class="btn-danger btn-sm"
+        onclick="HavenToast.show({ variant: 'error', title: 'Save failed', description: 'Unable to update patient record. Please try again.', duration: 5000 })">
+        Error Toast
+      </button>
+      <button type="button" class="btn-secondary btn-sm"
+        onclick="HavenToast.show({ variant: 'info', title: 'Session ending', description: 'Your session will expire in 5 minutes.', duration: 5000 })">
+        Info Toast
+      </button>
+      <button type="button" class="btn-outline btn-sm"
+        onclick="HavenToast.show({ variant: 'success', title: 'Meal plan confirmed', duration: 0 })">
+        Manual Dismiss Only
+      </button>
+    </div>
+  </div>
+
+</section>
