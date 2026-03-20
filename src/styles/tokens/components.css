@@ -3649,6 +3649,119 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 /* ===================================
+   STEPPER — Horizontal step indicator
+   =================================== */
+
+/* Container wrapping nav + content + actions */
+.stepper {
+    @apply block;
+}
+
+/* Step indicator list (horizontal) */
+.stepper-nav {
+    @apply flex items-center gap-x-2 mb-6;
+}
+
+/* Individual step item — flex row with line */
+.stepper-nav-item {
+    @apply flex items-center gap-x-2 shrink-0;
+}
+
+/* Connecting line between steps */
+.stepper-nav-line {
+    @apply block h-px flex-1 bg-gray-200;
+    @apply dark:bg-neutral-700;
+    min-width: 2rem;
+}
+
+/* Step number/icon circle — default (inactive) */
+.stepper-nav-icon {
+    @apply inline-flex items-center justify-center w-8 h-8 rounded-full
+           bg-gray-200 text-gray-600 text-sm font-semibold shrink-0
+           transition-colors;
+    @apply dark:bg-neutral-700 dark:text-neutral-400;
+}
+
+/* Active step — Preline adds hs-stepper-active: variant */
+[data-hs-stepper-nav-item].active .stepper-nav-icon,
+.stepper-nav-item.active .stepper-nav-icon {
+    @apply bg-primary-600 text-white;
+}
+
+/* Completed step */
+[data-hs-stepper-nav-item].success .stepper-nav-icon,
+.stepper-nav-item.completed .stepper-nav-icon {
+    @apply bg-teal-600 text-white;
+}
+
+/* Completed line */
+.stepper-nav-line.completed {
+    @apply bg-teal-600;
+    @apply dark:bg-teal-500;
+}
+
+/* Step label text */
+.stepper-nav-label {
+    @apply text-sm font-medium text-gray-500 whitespace-nowrap;
+    @apply dark:text-neutral-400;
+}
+
+/* Active step label */
+[data-hs-stepper-nav-item].active .stepper-nav-label,
+.stepper-nav-item.active .stepper-nav-label {
+    @apply text-gray-800 font-semibold;
+    @apply dark:text-neutral-200;
+}
+
+/* Completed step label */
+[data-hs-stepper-nav-item].success .stepper-nav-label,
+.stepper-nav-item.completed .stepper-nav-label {
+    @apply text-teal-700;
+    @apply dark:text-teal-400;
+}
+
+/* Step description (optional subtitle under label) */
+.stepper-nav-description {
+    @apply text-xs text-gray-400 mt-0.5;
+    @apply dark:text-neutral-500;
+}
+
+/* Content panel area */
+.stepper-content {
+    @apply block mb-6;
+}
+
+/* Individual content panel — hidden by default */
+.stepper-content-item {
+    @apply hidden;
+}
+
+/* Preline sets display via data attr; also support .active for static demos */
+.stepper-content-item.active {
+    @apply block;
+}
+
+/* Prev / Next / Finish button row */
+.stepper-actions {
+    @apply flex items-center justify-between pt-4 border-t border-gray-200;
+    @apply dark:border-neutral-700;
+}
+
+/* Vertical variant */
+.stepper-nav-vertical {
+    @apply flex flex-col gap-y-1 mb-6;
+}
+
+.stepper-nav-vertical .stepper-nav-item {
+    @apply flex items-start gap-x-3;
+}
+
+.stepper-nav-vertical .stepper-nav-line {
+    @apply w-px h-6 flex-none ml-4 mt-1 mb-1;
+    min-width: 0;
+}
+
+/* ===================================
    PATIENT APP — MEAL CARD
    =================================== */
 

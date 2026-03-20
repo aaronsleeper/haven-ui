@@ -152,7 +152,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Stratification Bar | `pages/navigation.html` | built | |
 | Navbar / Top Bar | `pages/nav-topbar.html` | built | Top application bar — logo, nav links, actions |
 | Pagination | `pages/pagination.html` | built | |
-| Stepper | `pages/stepper.html` | missing | Horizontal step indicator — Preline HsStepper |
+| Stepper | `pages/stepper.html` | built | Horizontal step indicator — Preline HsStepper |
 | Mobile Bottom Nav | `pages/layout-mobile-bottom-nav.html` | built | Patient app only |
 
 ---

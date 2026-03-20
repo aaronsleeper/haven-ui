@@ -1,0 +1,408 @@
+<!--
+  @component-meta
+  name: Stepper
+  category: Navigation
+  file: nav-stepper.html
+  classes: stepper, stepper-nav, stepper-nav-item, stepper-nav-icon, stepper-nav-label, stepper-nav-line, stepper-nav-description, stepper-content, stepper-content-item, stepper-actions, stepper-nav-vertical
+  when-to-use: Multi-step workflows where users must complete sequential stages — onboarding, checkout, form wizards.
+  preline-required: yes — HsStepper
+  notes: Preline drives step transitions via data-hs-stepper attributes. Completed steps get .success class from Preline. Use stepper-nav-vertical for vertical orientation.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Stepper</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Horizontal step indicator for multi-step workflows. Preline HsStepper drives step transitions.
+  </p>
+
+  <!-- ==========================================
+       BASIC STEPPER
+       ========================================== -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic Stepper</h4>
+
+    <!-- @component: stepper-basic -->
+    <div class="card p-6">
+      <div class="stepper" data-hs-stepper>
+
+        <!-- Step nav -->
+        <ul class="stepper-nav">
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 1 }'>
+            <span class="stepper-nav-icon">1</span>
+            <span class="stepper-nav-label">Account</span>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 2 }'>
+            <span class="stepper-nav-icon">2</span>
+            <span class="stepper-nav-label">Details</span>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 3 }'>
+            <span class="stepper-nav-icon">3</span>
+            <span class="stepper-nav-label">Confirmation</span>
+          </li>
+        </ul>
+
+        <!-- Content panels -->
+        <div class="stepper-content">
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 1 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Create your account</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Enter your email address and choose a password to get started.</p>
+              <div class="mt-4 space-y-3">
+                <div>
+                  <label class="text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1 block">Email</label>
+                  <input type="email" placeholder="maria.rivera@example.com" class="w-full">
+                </div>
+                <div>
+                  <label class="text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1 block">Password</label>
+                  <input type="password" placeholder="Choose a password" class="w-full">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 2 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Personal details</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Tell us a bit about yourself so we can personalize your experience.</p>
+              <div class="mt-4 space-y-3">
+                <div>
+                  <label class="text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1 block">Full name</label>
+                  <input type="text" placeholder="Maria Rivera" class="w-full">
+                </div>
+                <div>
+                  <label class="text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1 block">Phone</label>
+                  <input type="tel" placeholder="(555) 234-5678" class="w-full">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 3 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Review and confirm</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Please review your information before submitting. You can go back to make changes.</p>
+              <div class="alert alert-success mt-4">
+                <i class="fa-solid fa-circle-check alert-icon"></i>
+                <div><span class="font-medium">All set!</span> Your information looks complete.</div>
+              </div>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "isFinal": true }'>
+            <div class="card p-5 text-center">
+              <i class="fa-solid fa-circle-check text-4xl text-teal-600 dark:text-teal-400 mb-3"></i>
+              <h4 class="card-title mb-2">Setup complete</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Your account has been created successfully.</p>
+              <button type="button" class="btn-primary mt-4" data-hs-stepper-reset-btn>Start over</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="stepper-actions">
+          <button type="button" class="btn-outline" data-hs-stepper-back-btn>
+            <i class="fa-solid fa-arrow-left text-xs"></i> Back
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-next-btn>
+            Next <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-finish-btn style="display: none;">
+            Finish <i class="fa-solid fa-check text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ==========================================
+       STEPPER WITH ICONS
+       ========================================== -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Icons</h4>
+
+    <!-- @component: stepper-icons -->
+    <div class="card p-6">
+      <div class="stepper" data-hs-stepper>
+
+        <ul class="stepper-nav">
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 1 }'>
+            <span class="stepper-nav-icon"><i class="fa-solid fa-user text-sm"></i></span>
+            <span class="stepper-nav-label">Patient Info</span>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 2 }'>
+            <span class="stepper-nav-icon"><i class="fa-solid fa-stethoscope text-sm"></i></span>
+            <span class="stepper-nav-label">Clinical Review</span>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 3 }'>
+            <span class="stepper-nav-icon"><i class="fa-solid fa-file-medical text-sm"></i></span>
+            <span class="stepper-nav-label">Care Plan</span>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 4 }'>
+            <span class="stepper-nav-icon"><i class="fa-solid fa-circle-check text-sm"></i></span>
+            <span class="stepper-nav-label">Complete</span>
+          </li>
+        </ul>
+
+        <div class="stepper-content">
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 1 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Patient information</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Verify demographics, allergies, and dietary restrictions for Maria Rivera (MRN PT-2024-0847).</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 2 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Clinical review</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Review active diagnoses (Type 2 Diabetes) and current medications to identify nutritional considerations.</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 3 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Care plan</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Configure meal plan frequency, caloric targets, and macro distribution based on clinical needs.</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 4 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Plan activated</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Meal plan has been created and assigned. The kitchen team will begin preparation for the next delivery cycle.</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "isFinal": true }'>
+            <div class="card p-5 text-center">
+              <i class="fa-solid fa-circle-check text-4xl text-teal-600 dark:text-teal-400 mb-3"></i>
+              <h4 class="card-title mb-2">All steps completed</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Care plan workflow is finished.</p>
+              <button type="button" class="btn-primary mt-4" data-hs-stepper-reset-btn>Start over</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stepper-actions">
+          <button type="button" class="btn-outline" data-hs-stepper-back-btn>
+            <i class="fa-solid fa-arrow-left text-xs"></i> Back
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-next-btn>
+            Next <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-finish-btn style="display: none;">
+            Finish <i class="fa-solid fa-check text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ==========================================
+       STEPPER WITH DESCRIPTIONS
+       ========================================== -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Descriptions</h4>
+
+    <!-- @component: stepper-descriptions -->
+    <div class="card p-6">
+      <div class="stepper" data-hs-stepper>
+
+        <ul class="stepper-nav">
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 1 }'>
+            <span class="stepper-nav-icon">1</span>
+            <div>
+              <span class="stepper-nav-label">Intake</span>
+              <span class="stepper-nav-description">Patient demographics</span>
+            </div>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 2 }'>
+            <span class="stepper-nav-icon">2</span>
+            <div>
+              <span class="stepper-nav-label">Assessment</span>
+              <span class="stepper-nav-description">Clinical evaluation</span>
+            </div>
+          </li>
+          <span class="stepper-nav-line"></span>
+          <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 3 }'>
+            <span class="stepper-nav-icon">3</span>
+            <div>
+              <span class="stepper-nav-label">Plan</span>
+              <span class="stepper-nav-description">Treatment goals</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="stepper-content">
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 1 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Patient intake</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Collect insurance, address, emergency contact, and primary language preference.</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 2 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Clinical assessment</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Record vitals, current symptoms, and functional status score.</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 3 }'>
+            <div class="card p-5">
+              <h4 class="card-title mb-2">Treatment plan</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Define care goals, assign providers, and set follow-up schedule.</p>
+            </div>
+          </div>
+          <div class="stepper-content-item" data-hs-stepper-content-item='{ "isFinal": true }'>
+            <div class="card p-5 text-center">
+              <i class="fa-solid fa-circle-check text-4xl text-teal-600 dark:text-teal-400 mb-3"></i>
+              <h4 class="card-title mb-2">Intake complete</h4>
+              <p class="text-sm text-gray-500 dark:text-neutral-400">Patient record has been created.</p>
+              <button type="button" class="btn-primary mt-4" data-hs-stepper-reset-btn>Start over</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stepper-actions">
+          <button type="button" class="btn-outline" data-hs-stepper-back-btn>
+            <i class="fa-solid fa-arrow-left text-xs"></i> Back
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-next-btn>
+            Next <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-finish-btn style="display: none;">
+            Finish <i class="fa-solid fa-check text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ==========================================
+       VERTICAL STEPPER
+       ========================================== -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Vertical</h4>
+
+    <!-- @component: stepper-vertical -->
+    <div class="card p-6">
+      <div class="stepper" data-hs-stepper>
+
+        <div class="flex gap-6">
+          <!-- Vertical nav -->
+          <ul class="stepper-nav-vertical">
+            <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 1 }'>
+              <span class="stepper-nav-icon">1</span>
+              <div>
+                <span class="stepper-nav-label">Eligibility</span>
+                <span class="stepper-nav-description">Verify coverage</span>
+              </div>
+            </li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 2 }'>
+              <span class="stepper-nav-icon">2</span>
+              <div>
+                <span class="stepper-nav-label">Enrollment</span>
+                <span class="stepper-nav-description">Sign consent forms</span>
+              </div>
+            </li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item" data-hs-stepper-nav-item='{ "index": 3 }'>
+              <span class="stepper-nav-icon">3</span>
+              <div>
+                <span class="stepper-nav-label">Activation</span>
+                <span class="stepper-nav-description">Start services</span>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Content -->
+          <div class="stepper-content flex-1">
+            <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 1 }'>
+              <div class="card p-5">
+                <h4 class="card-title mb-2">Eligibility verification</h4>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">Check insurance coverage, Medicaid eligibility, and program qualification criteria.</p>
+              </div>
+            </div>
+            <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 2 }'>
+              <div class="card p-5">
+                <h4 class="card-title mb-2">Enrollment documents</h4>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">Collect signed consent forms, HIPAA authorization, and program agreement.</p>
+              </div>
+            </div>
+            <div class="stepper-content-item" data-hs-stepper-content-item='{ "index": 3 }'>
+              <div class="card p-5">
+                <h4 class="card-title mb-2">Service activation</h4>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">Assign care team, schedule initial visit, and activate meal delivery.</p>
+              </div>
+            </div>
+            <div class="stepper-content-item" data-hs-stepper-content-item='{ "isFinal": true }'>
+              <div class="card p-5 text-center">
+                <i class="fa-solid fa-circle-check text-4xl text-teal-600 dark:text-teal-400 mb-3"></i>
+                <h4 class="card-title mb-2">Patient enrolled</h4>
+                <p class="text-sm text-gray-500 dark:text-neutral-400">All enrollment steps are complete.</p>
+                <button type="button" class="btn-primary mt-4" data-hs-stepper-reset-btn>Start over</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stepper-actions">
+          <button type="button" class="btn-outline" data-hs-stepper-back-btn>
+            <i class="fa-solid fa-arrow-left text-xs"></i> Back
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-next-btn>
+            Next <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+          <button type="button" class="btn-primary" data-hs-stepper-finish-btn style="display: none;">
+            Finish <i class="fa-solid fa-check text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ==========================================
+       STATIC COMPLETED STATE
+       ========================================== -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Completed State (Static)</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+      Shows how completed and active steps look. Static demo — no Preline interaction.
+    </p>
+
+    <!-- @component: stepper-completed-state -->
+    <div class="card p-6">
+      <ul class="stepper-nav">
+        <li class="stepper-nav-item completed">
+          <span class="stepper-nav-icon"><i class="fa-solid fa-check text-sm"></i></span>
+          <span class="stepper-nav-label">Account</span>
+        </li>
+        <span class="stepper-nav-line completed"></span>
+        <li class="stepper-nav-item completed">
+          <span class="stepper-nav-icon"><i class="fa-solid fa-check text-sm"></i></span>
+          <span class="stepper-nav-label">Details</span>
+        </li>
+        <span class="stepper-nav-line"></span>
+        <li class="stepper-nav-item active">
+          <span class="stepper-nav-icon">3</span>
+          <span class="stepper-nav-label">Confirmation</span>
+        </li>
+        <span class="stepper-nav-line"></span>
+        <li class="stepper-nav-item">
+          <span class="stepper-nav-icon">4</span>
+          <span class="stepper-nav-label">Done</span>
+        </li>
+      </ul>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

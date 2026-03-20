@@ -149,6 +149,7 @@ before creating any new component or semantic class.
 | Stratification Bar | `nav-stratification-bar.html` | `stratification-bar`, `stratification-bar-label`, `stratification-bar-item` | no | Filter by cohort/segment |
 | Navbar / Top Bar | `nav-topbar.html` | `navbar`, `navbar-compact`, `navbar-transparent`, `navbar-brand`, `navbar-nav`, `navbar-nav-item`, `navbar-actions`, `navbar-action-btn`, `navbar-user`, `navbar-user-name`, `navbar-user-role`, `navbar-mobile-toggle`, `navbar-mobile-menu`, `navbar-divider` | yes — hs-dropdown, hs-collapse | Top application bar — logo, nav links, user dropdown. Mobile hamburger via hs-collapse. |
 | Tab Nav | `nav-tabs.html` | `tab-nav`, `tab-nav-item` | yes | Preline `hs-tab-active` class on active item |
+| Stepper | `nav-stepper.html` | `stepper`, `stepper-nav`, `stepper-nav-item`, `stepper-nav-icon`, `stepper-nav-label`, `stepper-nav-line`, `stepper-nav-description`, `stepper-content`, `stepper-content-item`, `stepper-actions`, `stepper-nav-vertical` | yes — HsStepper | Horizontal/vertical step indicator. Preline drives transitions. `.completed` / `.active` for static state demos. |
 | Sub-Nav (sidebar) | *(inside App Shell)* | `sidebar-subnav-list`, `sidebar-subnav-item` | no | Indented sub-items in sidebar accordion |
 
 ---
