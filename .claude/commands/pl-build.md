@@ -6,7 +6,12 @@ Run repeatedly until all components are built.
 ## Step 1: Find the next component
 
 Read `.project-docs/COMPONENT-REGISTRY.md`.
-Find the **first row** where Status = `missing`.
+
+First check for any row with Status = `in-progress`. If one exists, a previous session
+was interrupted mid-build. Reset it to `missing` before proceeding — do not attempt
+to resume partial work.
+
+Then find the **first row** where Status = `missing`.
 Note the component name, PL page path, and any notes.
 
 If no `missing` rows remain, output:
