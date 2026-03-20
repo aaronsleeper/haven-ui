@@ -1,0 +1,192 @@
+<!--
+  @component-meta
+  name: Context Menu
+  category: Overlays
+  file: overlay-context-menu.html
+  classes: ctx-menu, ctx-menu-item, ctx-menu-item-danger, ctx-menu-divider, ctx-menu-label, ctx-menu-shortcut, ctx-menu-icon, ctx-menu-backdrop
+  when-to-use: Right-click or long-press menus for contextual actions on a specific element (table row, card, canvas area).
+  preline-required: no
+  notes: Vanilla JS — no Preline plugin. Trigger via data-ctx-menu="<menu-id>". JS handles positioning, viewport clamping, keyboard nav, and dismiss. Include context-menu.js on the page.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Context Menu</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Right-click or long-press menus for contextual actions. Vanilla JS, no Preline dependency.
+  </p>
+
+  <!-- Basic -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic</h4>
+    <!-- @component: ctx-menu-basic -->
+    <div data-ctx-menu="ctx-basic" class="card card-body flex items-center justify-center h-32 cursor-context-menu">
+      <span class="text-sm text-gray-500 dark:text-neutral-400">Right-click this area</span>
+    </div>
+
+    <div id="ctx-basic-backdrop" class="ctx-menu-backdrop"></div>
+    <div id="ctx-basic" class="ctx-menu" role="menu">
+      <button class="ctx-menu-item" role="menuitem">Cut</button>
+      <button class="ctx-menu-item" role="menuitem">Copy</button>
+      <button class="ctx-menu-item" role="menuitem">Paste</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Icons -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Icons</h4>
+    <!-- @component: ctx-menu-icons -->
+    <div data-ctx-menu="ctx-icons" class="card card-body flex items-center justify-center h-32 cursor-context-menu">
+      <span class="text-sm text-gray-500 dark:text-neutral-400">Right-click for icon menu</span>
+    </div>
+
+    <div id="ctx-icons-backdrop" class="ctx-menu-backdrop"></div>
+    <div id="ctx-icons" class="ctx-menu" role="menu">
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-pen-to-square ctx-menu-icon"></i>
+        Edit
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-copy ctx-menu-icon"></i>
+        Duplicate
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-arrow-up-right-from-square ctx-menu-icon"></i>
+        Open in new tab
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Keyboard Shortcuts -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Keyboard Shortcuts</h4>
+    <!-- @component: ctx-menu-shortcuts -->
+    <div data-ctx-menu="ctx-shortcuts" class="card card-body flex items-center justify-center h-32 cursor-context-menu">
+      <span class="text-sm text-gray-500 dark:text-neutral-400">Right-click for shortcut menu</span>
+    </div>
+
+    <div id="ctx-shortcuts-backdrop" class="ctx-menu-backdrop"></div>
+    <div id="ctx-shortcuts" class="ctx-menu" role="menu">
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-scissors ctx-menu-icon"></i>
+        Cut
+        <span class="ctx-menu-shortcut">Ctrl+X</span>
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-copy ctx-menu-icon"></i>
+        Copy
+        <span class="ctx-menu-shortcut">Ctrl+C</span>
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-paste ctx-menu-icon"></i>
+        Paste
+        <span class="ctx-menu-shortcut">Ctrl+V</span>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Dividers & Groups -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Dividers &amp; Groups</h4>
+    <!-- @component: ctx-menu-dividers -->
+    <div data-ctx-menu="ctx-dividers" class="card card-body flex items-center justify-center h-32 cursor-context-menu">
+      <span class="text-sm text-gray-500 dark:text-neutral-400">Right-click for grouped menu</span>
+    </div>
+
+    <div id="ctx-dividers-backdrop" class="ctx-menu-backdrop"></div>
+    <div id="ctx-dividers" class="ctx-menu" role="menu">
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-pen-to-square ctx-menu-icon"></i>
+        Edit
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-copy ctx-menu-icon"></i>
+        Duplicate
+      </button>
+      <span class="ctx-menu-divider"></span>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-file-export ctx-menu-icon"></i>
+        Export
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-share-nodes ctx-menu-icon"></i>
+        Share
+      </button>
+      <span class="ctx-menu-divider"></span>
+      <button class="ctx-menu-item ctx-menu-item-danger" role="menuitem">
+        <i class="fa-solid fa-trash-can ctx-menu-icon"></i>
+        Delete
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Section Labels -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Section Labels</h4>
+    <!-- @component: ctx-menu-labels -->
+    <div data-ctx-menu="ctx-labels" class="card card-body flex items-center justify-center h-32 cursor-context-menu">
+      <span class="text-sm text-gray-500 dark:text-neutral-400">Right-click for labeled menu</span>
+    </div>
+
+    <div id="ctx-labels-backdrop" class="ctx-menu-backdrop"></div>
+    <div id="ctx-labels" class="ctx-menu" role="menu">
+      <span class="ctx-menu-label">Actions</span>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-pen-to-square ctx-menu-icon"></i>
+        Edit record
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-clock-rotate-left ctx-menu-icon"></i>
+        View history
+      </button>
+      <span class="ctx-menu-divider"></span>
+      <span class="ctx-menu-label">Export</span>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-file-csv ctx-menu-icon"></i>
+        Download CSV
+      </button>
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-print ctx-menu-icon"></i>
+        Print
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled Items -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled Items</h4>
+    <!-- @component: ctx-menu-disabled -->
+    <div data-ctx-menu="ctx-disabled" class="card card-body flex items-center justify-center h-32 cursor-context-menu">
+      <span class="text-sm text-gray-500 dark:text-neutral-400">Right-click — some items disabled</span>
+    </div>
+
+    <div id="ctx-disabled-backdrop" class="ctx-menu-backdrop"></div>
+    <div id="ctx-disabled" class="ctx-menu" role="menu">
+      <button class="ctx-menu-item" role="menuitem">
+        <i class="fa-solid fa-pen-to-square ctx-menu-icon"></i>
+        Edit
+      </button>
+      <button class="ctx-menu-item disabled" role="menuitem" aria-disabled="true">
+        <i class="fa-solid fa-copy ctx-menu-icon"></i>
+        Duplicate
+      </button>
+      <button class="ctx-menu-item disabled" role="menuitem" aria-disabled="true">
+        <i class="fa-solid fa-paste ctx-menu-icon"></i>
+        Paste
+      </button>
+      <span class="ctx-menu-divider"></span>
+      <button class="ctx-menu-item ctx-menu-item-danger" role="menuitem">
+        <i class="fa-solid fa-trash-can ctx-menu-icon"></i>
+        Delete
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

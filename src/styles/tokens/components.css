@@ -1463,6 +1463,76 @@ a.btn-danger {
 }
 
 /* ===================================
+   CONTEXT MENU
+   Right-click / long-press menu.
+   Vanilla JS — no Preline dependency.
+   Trigger: [data-ctx-menu="<menu-id>"]
+   Menu:    #<menu-id>.ctx-menu
+   =================================== */
+
+.ctx-menu {
+    @apply fixed min-w-44 bg-white border border-gray-200 shadow-lg rounded-lg p-1 z-50;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    display: none;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.ctx-menu.open {
+    @apply block;
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.ctx-menu-item {
+    @apply flex items-center gap-x-3 py-1.5 px-3 text-sm text-gray-700 cursor-pointer rounded-md;
+    @apply hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800;
+    text-decoration: none;
+    width: 100%;
+}
+
+.ctx-menu-item.disabled {
+    @apply opacity-40 pointer-events-none;
+}
+
+.ctx-menu-item.ctx-menu-item-danger {
+    @apply text-error-600 dark:text-error-400;
+    @apply hover:bg-error-50 dark:hover:bg-error-900/20;
+}
+
+.ctx-menu-divider {
+    @apply block my-1 border-t border-gray-200 dark:border-neutral-700;
+}
+
+.ctx-menu-label {
+    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-neutral-500;
+}
+
+.ctx-menu-shortcut {
+    @apply ml-auto text-xs text-gray-400 dark:text-neutral-500;
+}
+
+.ctx-menu-icon {
+    @apply w-4 text-center text-gray-500 dark:text-neutral-400;
+}
+
+.ctx-menu-item.ctx-menu-item-danger .ctx-menu-icon {
+    @apply text-error-500 dark:text-error-400;
+}
+
+.ctx-menu-backdrop {
+    @apply fixed inset-0 z-40;
+    display: none;
+}
+
+.ctx-menu-backdrop.open {
+    @apply block;
+    display: block;
+}
+
+/* ===================================
    TOOLBAR
    =================================== */
 
