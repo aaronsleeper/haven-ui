@@ -133,7 +133,7 @@ visible at localhost:5173/pattern-library/pages/.
 | File Upload | `pages/forms-file-upload.html` | built | Drag-drop zone, file list, progress |
 | Date Picker | `pages/forms-datepicker.html` | built | Preline HSDatepicker |
 | Time Picker | `pages/forms-timepicker.html` | built | Scroll-column picker on hs-dropdown. 12h/24h variants. JS: timepicker.js |
-| Tags Input | `pages/forms-tags-input.html` | missing | Free-entry tag chips — Preline HSTagsInput |
+| Tags Input | `pages/forms-tags-input.html` | built | Free-entry tag chips — vanilla JS (no Preline plugin) |
 | Color Picker | `pages/forms-color-picker.html` | missing | Swatch selector for meal type / status |
 | Combobox | `pages/forms-combobox.html` | missing | Autocomplete with open dropdown — Preline HSCombobox |
 

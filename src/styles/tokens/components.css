@@ -5445,3 +5445,126 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply focus:outline-none focus:bg-primary-700;
     @apply dark:bg-primary-500 dark:hover:bg-primary-600;
 }
+
+/* ===================================
+   TAGS INPUT
+   Free-entry tag chips inside an input-like container.
+   JS: src/scripts/components/tags-input.js
+   =================================== */
+
+/* Wrapper — looks like an input field, wraps tags + inline text input */
+.tags-input {
+    @apply flex flex-wrap items-center gap-1.5 py-2 px-3 rounded-lg;
+    @apply border border-gray-200 bg-white;
+    @apply text-sm;
+    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    cursor: text;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Focus state — applied by JS when the inner input is focused */
+.tags-input-focused {
+    @apply border-primary-500 ring-4 ring-primary-500/10;
+    @apply dark:border-primary-400 dark:ring-primary-400/10;
+}
+
+/* Disabled state */
+.tags-input-disabled {
+    @apply opacity-50 pointer-events-none bg-gray-50;
+    @apply dark:bg-neutral-800;
+}
+
+/* Validation states */
+.tags-input-error {
+    @apply border-error-500;
+    @apply dark:border-error-400;
+}
+.tags-input-error.tags-input-focused {
+    @apply border-error-500 ring-4 ring-error-500/10;
+    @apply dark:border-error-400 dark:ring-error-400/10;
+}
+
+.tags-input-success {
+    @apply border-success-500;
+    @apply dark:border-success-400;
+}
+.tags-input-success.tags-input-focused {
+    @apply border-success-500 ring-4 ring-success-500/10;
+    @apply dark:border-success-400 dark:ring-success-400/10;
+}
+
+.tags-input-warning {
+    @apply border-warning-500;
+    @apply dark:border-warning-400;
+}
+.tags-input-warning.tags-input-focused {
+    @apply border-warning-500 ring-4 ring-warning-500/10;
+    @apply dark:border-warning-400 dark:ring-warning-400/10;
+}
+
+/* Individual tag chip */
+.tags-input-tag {
+    @apply inline-flex items-center gap-x-1 py-0.5 px-2 rounded-full;
+    @apply text-xs font-medium;
+    @apply bg-primary-100 text-primary-700 border border-primary-200;
+    @apply dark:bg-primary-900/30 dark:text-primary-300 dark:border-primary-700;
+}
+
+/* Remove button on a tag */
+.tags-input-tag-remove {
+    @apply block; /* keeps rule alive through Tailwind v4 tree-shaking */
+    appearance: none;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0;
+    line-height: 1;
+    font-size: 0.625rem;
+    cursor: pointer;
+    color: var(--color-primary-500);
+    opacity: 0.6;
+    transition: opacity 0.15s ease;
+}
+.tags-input-tag-remove:hover {
+    @apply block;
+    opacity: 1;
+}
+.tags-input-tag-remove:focus {
+    @apply block;
+    outline: none;
+    opacity: 1;
+}
+
+/* The actual text input — unstyled, grows to fill remaining space */
+.tags-input-field {
+    @apply block;
+    flex: 1 1 4rem;
+    min-width: 4rem;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    margin: 0;
+    background: transparent !important;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-sand-900);
+}
+.tags-input-field::placeholder {
+    @apply block;
+    color: var(--color-sand-400);
+}
+@media (prefers-color-scheme: dark) {
+    .dark .tags-input-field {
+        color: var(--color-neutral-100);
+    }
+    .dark .tags-input-field::placeholder {
+        color: var(--color-neutral-500);
+    }
+}
+
+/* Tag count / limit indicator */
+.tags-input-count {
+    @apply text-xs text-gray-400;
+    @apply dark:text-neutral-500;
+}

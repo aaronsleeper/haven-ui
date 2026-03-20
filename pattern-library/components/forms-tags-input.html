@@ -1,0 +1,113 @@
+<!--
+  @component-meta
+  name: Tags Input
+  category: Forms
+  file: forms-tags-input.html
+  classes: tags-input, tags-input-focused, tags-input-disabled, tags-input-tag, tags-input-tag-remove, tags-input-field, tags-input-error, tags-input-success, tags-input-warning, tags-input-count
+  when-to-use: Free-entry tag fields — dietary restrictions, allergy labels, skill tags, or any multi-value text input where users type and press Enter to add chips.
+  preline-required: no
+  notes: JS required (tags-input.js). Uses data-tags-input to auto-init. data-max for limit, data-initial for pre-populated tags. Tags added on Enter, comma, or blur. Backspace removes last tag.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Tags Input</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Free-entry tag chip input. Type a value and press Enter or comma to add a tag. Click the X to remove. Backspace removes the last tag when the input is empty.
+  </p>
+
+  <!-- Basic -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Empty tags input. Type and press Enter to add tags.</p>
+    <!-- @component: tags-input-basic -->
+    <div class="max-w-md">
+      <label class="field-label mb-1.5">Tags</label>
+      <div class="tags-input" data-tags-input>
+        <input type="text" class="tags-input-field" placeholder="Type and press Enter">
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Initial Tags -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Initial Tags</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Pre-populated via <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">data-initial</code> attribute.</p>
+    <!-- @component: tags-input-initial -->
+    <div class="max-w-md">
+      <label class="field-label mb-1.5">Dietary restrictions</label>
+      <div class="tags-input" data-tags-input data-initial="Gluten-free,Low sodium,Dairy-free">
+        <input type="text" class="tags-input-field" placeholder="Add restriction">
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Max Limit -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Max Tag Limit</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Limited to 5 tags. Input hides when the limit is reached. Counter shows current / max.</p>
+    <!-- @component: tags-input-max -->
+    <div class="max-w-md">
+      <label class="field-label mb-1.5">Allergies</label>
+      <div class="tags-input" data-tags-input data-max="5" data-initial="Peanuts,Shellfish">
+        <input type="text" class="tags-input-field" placeholder="Add allergy">
+      </div>
+      <span class="tags-input-count mt-1 inline-block">2 / 5</span>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Disabled -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Non-interactive state. Tags cannot be added or removed.</p>
+    <!-- @component: tags-input-disabled -->
+    <div class="max-w-md">
+      <label class="field-label mb-1.5">Assigned conditions</label>
+      <div class="tags-input tags-input-disabled" data-tags-input data-initial="Type 2 Diabetes,Hypertension">
+        <input type="text" class="tags-input-field" placeholder="Add condition" disabled>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Validation States -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Validation States</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Error, success, and warning borders. Combine with field-error or field-help for messages.</p>
+
+    <!-- @component: tags-input-error -->
+    <div class="max-w-md mb-6">
+      <label class="field-label mb-1.5">Required tags</label>
+      <div class="tags-input tags-input-error" data-tags-input>
+        <input type="text" class="tags-input-field" placeholder="At least one tag required">
+      </div>
+      <p class="field-error mt-1"><i class="fa-solid fa-circle-exclamation"></i> Please add at least one tag.</p>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: tags-input-success -->
+    <div class="max-w-md mb-6">
+      <label class="field-label mb-1.5">Verified skills</label>
+      <div class="tags-input tags-input-success" data-tags-input data-initial="Nutrition counseling,Care coordination">
+        <input type="text" class="tags-input-field" placeholder="Add skill">
+      </div>
+      <p class="field-help mt-1 text-success-600 dark:text-success-400"><i class="fa-solid fa-circle-check"></i> Skills verified.</p>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: tags-input-warning -->
+    <div class="max-w-md mb-6">
+      <label class="field-label mb-1.5">Pending review</label>
+      <div class="tags-input tags-input-warning" data-tags-input data-initial="Wound care">
+        <input type="text" class="tags-input-field" placeholder="Add certification">
+      </div>
+      <p class="field-help mt-1 text-warning-600 dark:text-warning-400"><i class="fa-solid fa-triangle-exclamation"></i> Certifications pending verification.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
