@@ -6210,10 +6210,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* --- Size variants --- */
 
 .progress-sm {
+    @apply block;
     height: 0.375rem;
 }
 
 .progress-lg {
+    @apply block;
     height: 1rem;
 }
 
