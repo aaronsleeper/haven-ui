@@ -253,7 +253,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Chat Interface | `pages/complex.html` | built | Bubble layout |
 | Stepped Form | `pages/forms-stepped.html` | built | |
 | Issues Sidebar | `pages/complex.html` | built | |
-| Notification Center | `pages/complex-notifications.html` | missing | Grouped notification list with dismiss |
+| Notification Center | `pages/complex-notifications.html` | built | Grouped notification list with dismiss |
 | Command Palette | `pages/complex-command-palette.html` | missing | Keyboard-driven search/action launcher |
 
 ---

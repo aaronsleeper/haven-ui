@@ -1,0 +1,312 @@
+<!--
+  @component-meta
+  name: Notification Center
+  category: Complex / Composite
+  file: complex-notification-center.html
+  classes: notif-center, notif-center-header, notif-center-title, notif-center-count, notif-center-mark-read, notif-center-tabs, notif-center-tab, notif-center-body, notif-center-empty, notif-center-empty-icon, notif-center-empty-text, notif-group-label, notif-item, notif-item-unread, notif-item-icon, notif-item-icon-success, notif-item-icon-warning, notif-item-icon-error, notif-item-icon-info, notif-item-icon-default, notif-item-content, notif-item-title, notif-item-description, notif-item-time, notif-item-dismiss, notif-center-footer
+  when-to-use: Grouped notification list panel — typically triggered from a bell icon in the navbar. Shows grouped (by date) notifications with unread indicators and dismiss actions.
+  preline-required: yes — hs-dropdown (for bell-trigger demo)
+  notes: JS required — src/scripts/components/notification-center.js for dismiss and mark-all-read. Dismiss button appears on hover.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Notification Center</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Grouped notification list with unread indicators, date sections, and dismiss actions. Typically opened from a bell icon in the navbar.
+  </p>
+
+  <!-- Default — mixed read/unread -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default — Mixed Read / Unread</h4>
+
+    <!-- @component: notif-center-default -->
+    <div class="notif-center">
+
+      <div class="notif-center-header">
+        <div class="flex items-center">
+          <span class="notif-center-title">Notifications</span>
+          <span class="notif-center-count">3</span>
+        </div>
+        <button type="button" class="notif-center-mark-read" data-notif-mark-all>Mark all read</button>
+      </div>
+
+      <div class="notif-center-tabs">
+        <button type="button" class="notif-center-tab active" data-notif-tab="all">All</button>
+        <button type="button" class="notif-center-tab" data-notif-tab="unread">Unread</button>
+      </div>
+
+      <div class="notif-center-body">
+
+        <span class="notif-group-label">Today</span>
+
+        <div class="notif-item notif-item-unread" data-notif-id="1">
+          <div class="notif-item-icon notif-item-icon-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">Allergy conflict detected</div>
+            <div class="notif-item-description">Maria Rivera's Tuesday lunch contains a flagged allergen. Review before confirming.</div>
+            <div class="notif-item-time">12 min ago</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <div class="notif-item notif-item-unread" data-notif-id="2">
+          <div class="notif-item-icon notif-item-icon-success">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">Care plan approved</div>
+            <div class="notif-item-description">Dr. Patel approved the updated care plan for Maria Rivera.</div>
+            <div class="notif-item-time">45 min ago</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <div class="notif-item" data-notif-id="3">
+          <div class="notif-item-icon notif-item-icon-info">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">Shift schedule updated</div>
+            <div class="notif-item-description">Tomorrow's kitchen shifts have been revised. Check the schedule.</div>
+            <div class="notif-item-time">2 hours ago</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <span class="notif-group-label">Yesterday</span>
+
+        <div class="notif-item notif-item-unread" data-notif-id="4">
+          <div class="notif-item-icon notif-item-icon-error">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">Delivery failed</div>
+            <div class="notif-item-description">Room 412 meal delivery was not completed. Reassign or retry.</div>
+            <div class="notif-item-time">Yesterday at 4:32 PM</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <div class="notif-item" data-notif-id="5">
+          <div class="notif-item-icon notif-item-icon-default">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">New patient admitted</div>
+            <div class="notif-item-description">James Chen (MRN PT-2024-1203) has been admitted to Unit 3B.</div>
+            <div class="notif-item-time">Yesterday at 10:15 AM</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <span class="notif-group-label">Earlier</span>
+
+        <div class="notif-item" data-notif-id="6">
+          <div class="notif-item-icon notif-item-icon-success">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">Weekly report ready</div>
+            <div class="notif-item-description">The patient satisfaction report for March 10-16 is now available.</div>
+            <div class="notif-item-time">Mar 16</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="notif-center-footer">
+        <a href="#">View all notifications</a>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Empty state -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Empty State</h4>
+
+    <!-- @component: notif-center-empty -->
+    <div class="notif-center">
+
+      <div class="notif-center-header">
+        <div class="flex items-center">
+          <span class="notif-center-title">Notifications</span>
+        </div>
+      </div>
+
+      <div class="notif-center-body">
+        <div class="notif-center-empty">
+          <div class="notif-center-empty-icon">
+            <i class="fa-regular fa-bell-slash"></i>
+          </div>
+          <div class="notif-center-empty-text">No notifications right now.</div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- All read -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">All Read</h4>
+
+    <!-- @component: notif-center-all-read -->
+    <div class="notif-center">
+
+      <div class="notif-center-header">
+        <div class="flex items-center">
+          <span class="notif-center-title">Notifications</span>
+        </div>
+      </div>
+
+      <div class="notif-center-tabs">
+        <button type="button" class="notif-center-tab active" data-notif-tab="all">All</button>
+        <button type="button" class="notif-center-tab" data-notif-tab="unread">Unread</button>
+      </div>
+
+      <div class="notif-center-body">
+
+        <span class="notif-group-label">Today</span>
+
+        <div class="notif-item">
+          <div class="notif-item-icon notif-item-icon-success">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">Meal plan confirmed</div>
+            <div class="notif-item-description">All meals for Tuesday have been confirmed and sent to kitchen.</div>
+            <div class="notif-item-time">1 hour ago</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <div class="notif-item">
+          <div class="notif-item-icon notif-item-icon-info">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+          <div class="notif-item-content">
+            <div class="notif-item-title">System maintenance complete</div>
+            <div class="notif-item-description">Scheduled maintenance has finished. All services are operational.</div>
+            <div class="notif-item-time">3 hours ago</div>
+          </div>
+          <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="notif-center-footer">
+        <a href="#">View all notifications</a>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Interactive demo — dropdown trigger -->
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Interactive Demo — Dropdown Trigger</h4>
+    <p class="text-xs text-gray-400 dark:text-neutral-500 mb-4">Click the bell icon to open the notification center as a dropdown panel.</p>
+
+    <!-- @component: notif-center-dropdown -->
+    <div class="hs-dropdown relative inline-flex">
+      <button type="button" class="hs-dropdown-toggle btn-icon relative">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notif-center-count" style="position:absolute;top:0;right:0;transform:translate(25%,-25%);">3</span>
+      </button>
+
+      <div class="hs-dropdown-menu notif-center" role="menu">
+
+        <div class="notif-center-header">
+          <div class="flex items-center">
+            <span class="notif-center-title">Notifications</span>
+            <span class="notif-center-count">3</span>
+          </div>
+          <button type="button" class="notif-center-mark-read" data-notif-mark-all>Mark all read</button>
+        </div>
+
+        <div class="notif-center-tabs">
+          <button type="button" class="notif-center-tab active" data-notif-tab="all">All</button>
+          <button type="button" class="notif-center-tab" data-notif-tab="unread">Unread</button>
+        </div>
+
+        <div class="notif-center-body">
+
+          <span class="notif-group-label">Today</span>
+
+          <div class="notif-item notif-item-unread" data-notif-id="d1">
+            <div class="notif-item-icon notif-item-icon-warning">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="notif-item-content">
+              <div class="notif-item-title">Allergy conflict detected</div>
+              <div class="notif-item-description">Maria Rivera's Tuesday lunch contains a flagged allergen.</div>
+              <div class="notif-item-time">12 min ago</div>
+            </div>
+            <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+              <i class="fa-solid fa-xmark text-xs"></i>
+            </button>
+          </div>
+
+          <div class="notif-item notif-item-unread" data-notif-id="d2">
+            <div class="notif-item-icon notif-item-icon-success">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="notif-item-content">
+              <div class="notif-item-title">Care plan approved</div>
+              <div class="notif-item-description">Dr. Patel approved the updated care plan.</div>
+              <div class="notif-item-time">45 min ago</div>
+            </div>
+            <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+              <i class="fa-solid fa-xmark text-xs"></i>
+            </button>
+          </div>
+
+          <div class="notif-item notif-item-unread" data-notif-id="d3">
+            <div class="notif-item-icon notif-item-icon-error">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="notif-item-content">
+              <div class="notif-item-title">Delivery failed</div>
+              <div class="notif-item-description">Room 412 meal was not delivered. Reassign or retry.</div>
+              <div class="notif-item-time">2 hours ago</div>
+            </div>
+            <button type="button" class="notif-item-dismiss" aria-label="Dismiss notification" data-notif-dismiss>
+              <i class="fa-solid fa-xmark text-xs"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <div class="notif-center-footer">
+          <a href="#">View all notifications</a>
+        </div>
+
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
