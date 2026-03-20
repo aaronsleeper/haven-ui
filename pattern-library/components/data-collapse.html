@@ -1,0 +1,172 @@
+<!--
+  @component-meta
+  name: Collapse
+  category: Data Display
+  file: data-collapse.html
+  classes: collapse-toggle, collapse-chevron, collapse-content, collapse-card, collapse-card-toggle, collapse-card-content, collapse-inline-toggle, collapse-inline-content
+  when-to-use: Single inline show/hide toggle for supplementary content — use instead of accordion when there is only one collapsible region and no group behavior is needed.
+  preline-required: yes — HSCollapse
+  notes: Uses data-hs-collapse="#target-id" on the toggle and hs-collapse + hidden on the content. Preline manages adding/removing hidden class. Chevron rotation driven by aria-expanded via CSS.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Collapse</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Single inline show/hide toggle. Powered by Preline HSCollapse — click the trigger to reveal or hide content.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: collapse-default -->
+    <button type="button" class="collapse-toggle"
+      data-hs-collapse="#collapse-default" aria-expanded="false" aria-controls="collapse-default">
+      <span>View additional details</span>
+      <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+    </button>
+    <div id="collapse-default" class="collapse-content hs-collapse hidden">
+      <p>Cena Health provides medically tailored meals, nutrition counseling, and care coordination services for patients with chronic conditions. Our team works directly with healthcare providers to ensure dietary plans align with each patient's clinical needs.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Initially Open -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Initially Open</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Omit the <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">hidden</code> class to show content on load.</p>
+    <!-- @component: collapse-open -->
+    <button type="button" class="collapse-toggle"
+      data-hs-collapse="#collapse-open" aria-expanded="true" aria-controls="collapse-open">
+      <span>Enrollment requirements</span>
+      <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+    </button>
+    <div id="collapse-open" class="collapse-content hs-collapse">
+      <p>Patients must be referred by a participating healthcare provider. The referral includes diagnosis codes, dietary restrictions, and the prescribed meal plan duration. All referrals are reviewed within 48 hours.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Icon -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Icon</h4>
+    <!-- @component: collapse-icon -->
+    <button type="button" class="collapse-toggle"
+      data-hs-collapse="#collapse-icon" aria-expanded="false" aria-controls="collapse-icon">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Insurance and billing information</span>
+      <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+    </button>
+    <div id="collapse-icon" class="collapse-content hs-collapse hidden">
+      <p>Cena Health works with Medicaid, Medicare, and select commercial insurance plans. Billing is handled directly with the payer — patients are never billed out of pocket for covered services.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Card Variant -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Card Variant</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Collapse inside a bordered card container. Use for structured settings panels or detail sections.</p>
+    <!-- @component: collapse-card -->
+    <div class="collapse-card">
+      <button type="button" class="collapse-card-toggle"
+        data-hs-collapse="#collapse-card" aria-expanded="false" aria-controls="collapse-card">
+        <span class="flex items-center gap-3">
+          <i class="fa-solid fa-file-medical text-gray-400 dark:text-neutral-500"></i>
+          <span>Care plan details</span>
+        </span>
+        <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+      </button>
+      <div id="collapse-card" class="collapse-card-content hs-collapse hidden">
+        <p>Maria Rivera — MRN PT-2024-0847. Primary diagnosis: Type 2 Diabetes. Current A1C: 7.2%. Last lab draw: March 12, 2026. Care plan includes medically tailored meals and monthly nutrition counseling sessions with a registered dietitian.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Card Variant — Initially Open -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Card Variant — Initially Open</h4>
+    <!-- @component: collapse-card-open -->
+    <div class="collapse-card">
+      <button type="button" class="collapse-card-toggle"
+        data-hs-collapse="#collapse-card-open" aria-expanded="true" aria-controls="collapse-card-open">
+        <span class="flex items-center gap-3">
+          <i class="fa-solid fa-truck text-gray-400 dark:text-neutral-500"></i>
+          <span>Delivery schedule</span>
+        </span>
+        <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+      </button>
+      <div id="collapse-card-open" class="collapse-card-content hs-collapse">
+        <p>Weekly delivery on Tuesdays, 9:00 AM – 12:00 PM. Address on file: 1847 Cedar Lane, Apt 3B. Special instructions: Leave with front desk if patient is not home. Next delivery: March 24, 2026.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Inline "Show More" -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Inline — Show More</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Minimal text-link style for revealing supplementary content inline.</p>
+    <!-- @component: collapse-inline -->
+    <div class="card">
+      <div class="card-body">
+        <p class="text-sm text-gray-700 dark:text-neutral-300">Patient has completed 3 of 4 required nutrition counseling sessions. Next session scheduled for March 28, 2026.</p>
+        <button type="button" class="collapse-inline-toggle mt-2"
+          data-hs-collapse="#collapse-inline" aria-expanded="false" aria-controls="collapse-inline">
+          <span>Show more</span>
+          <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+        </button>
+        <div id="collapse-inline" class="collapse-inline-content hs-collapse hidden">
+          <p>Session 1 (Jan 15): Initial assessment and goal setting. Session 2 (Feb 5): Carb counting education, reviewed meal prep strategies. Session 3 (Mar 1): Progress review — A1C improved from 7.8% to 7.2%. Session 4 (Mar 28): Scheduled — long-term maintenance planning.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Multiple Independent -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Multiple Independent</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Each collapse operates independently — no group behavior.</p>
+    <!-- @component: collapse-multiple -->
+    <div class="space-y-3">
+      <div>
+        <button type="button" class="collapse-toggle"
+          data-hs-collapse="#collapse-multi-1" aria-expanded="false" aria-controls="collapse-multi-1">
+          <i class="fa-solid fa-stethoscope"></i>
+          <span>Clinical notes</span>
+          <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+        </button>
+        <div id="collapse-multi-1" class="collapse-content hs-collapse hidden">
+          <p>Patient reports improved energy levels and reduced post-meal blood sugar spikes since starting the meal plan. Continue current dietary protocol and reassess at next visit.</p>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="collapse-toggle"
+          data-hs-collapse="#collapse-multi-2" aria-expanded="false" aria-controls="collapse-multi-2">
+          <i class="fa-solid fa-pills"></i>
+          <span>Current medications</span>
+          <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+        </button>
+        <div id="collapse-multi-2" class="collapse-content hs-collapse hidden">
+          <p>Metformin 500mg twice daily. Lisinopril 10mg once daily. No known drug-nutrient interactions flagged. Next medication review: April 2, 2026.</p>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="collapse-toggle"
+          data-hs-collapse="#collapse-multi-3" aria-expanded="false" aria-controls="collapse-multi-3">
+          <i class="fa-solid fa-people-group"></i>
+          <span>Care team contacts</span>
+          <i class="fa-solid fa-chevron-down collapse-chevron"></i>
+        </button>
+        <div id="collapse-multi-3" class="collapse-content hs-collapse hidden">
+          <p>Primary care: Dr. Sarah Chen. Care coordinator: James Wilson. Dietitian: Ana Gutierrez, RD. Last care team meeting: March 8, 2026.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

@@ -6478,3 +6478,72 @@ a.list-group-item-action {
     @apply bg-gray-50;
     @apply dark:bg-neutral-800/50;
 }
+
+
+/* ===================================
+   COLLAPSE
+   =================================== */
+
+/* Toggle button — inline flex with chevron rotation */
+.collapse-toggle {
+    @apply inline-flex items-center gap-2 text-sm font-medium cursor-pointer;
+    @apply text-primary-600 hover:text-primary-700;
+    @apply dark:text-primary-400 dark:hover:text-primary-300;
+    @apply transition-colors;
+}
+
+.collapse-toggle[aria-expanded="true"] .collapse-chevron {
+    @apply rotate-180;
+}
+
+/* Chevron icon inside toggle — animates rotation */
+.collapse-chevron {
+    @apply text-xs transition-transform duration-200;
+}
+
+/* Content area — Preline manages hidden/block */
+.collapse-content {
+    @apply mt-3 text-sm text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+/* Card variant wrapper */
+.collapse-card {
+    @apply bg-white border border-gray-200 rounded-xl shadow-2xs;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
+}
+
+/* Card variant toggle — full-width padded row */
+.collapse-card-toggle {
+    @apply flex items-center justify-between w-full px-4 py-3 text-sm font-medium cursor-pointer;
+    @apply text-gray-800 hover:bg-gray-50 rounded-xl;
+    @apply dark:text-neutral-200 dark:hover:bg-neutral-700/50;
+    @apply transition-colors;
+}
+
+.collapse-card-toggle[aria-expanded="true"] .collapse-chevron {
+    @apply rotate-180;
+}
+
+/* Card variant content — padded, with top border */
+.collapse-card-content {
+    @apply px-4 pb-4 text-sm text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+/* Inline "show more" variant — minimal text link style */
+.collapse-inline-toggle {
+    @apply inline-flex items-center gap-1 text-xs font-medium cursor-pointer;
+    @apply text-gray-500 hover:text-gray-700;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-200;
+    @apply transition-colors;
+}
+
+.collapse-inline-toggle[aria-expanded="true"] .collapse-chevron {
+    @apply rotate-180;
+}
+
+.collapse-inline-content {
+    @apply mt-2 text-sm text-gray-600;
+    @apply dark:text-neutral-400;
+}
