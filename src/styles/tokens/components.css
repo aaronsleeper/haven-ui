@@ -5896,6 +5896,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:bg-transparent dark:border-transparent;
 }
 
+.navbar-transparent .navbar-brand {
+    @apply text-white;
+}
+
+.navbar-transparent .navbar-nav-item {
+    @apply text-white/80 hover:text-white hover:bg-white/10;
+}
+
+.navbar-transparent .btn-outline {
+    @apply text-white border-white/30 hover:bg-white/10;
+}
+
 /* Brand / logo area */
 .navbar-brand {
     @apply flex items-center gap-2 text-lg font-semibold tracking-tight;
