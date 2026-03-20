@@ -7,7 +7,7 @@
   when-to-use: Reference this page before choosing any color class. All Haven colors are semantic aliases defined in haven.css.
   do-not-use-when: N/A
   preline-required: no
-  notes: Primary=Teal, Secondary=Sand, Neutral=Gray(aliased to Sand), Success=Green, Warning=Amber, Error=Red, Info=Cyan, Accent=Violet. Use semantic names (primary, success, etc.) not raw palette names (teal, green) in application code.
+  notes: Primary=Teal, Sage=Warm Green (hue-shift family), Secondary=Sand, Neutral=Gray(aliased to Sand), Success=Green, Warning=Amber, Error=Red, Info=Cyan, Accent=Violet. Status colors are brand-calibrated (warm, desaturated). Locked logo values marked with ring indicators.
   @end-meta
 -->
 
@@ -15,7 +15,7 @@
 <section id="colors">
 
   <h2>Colors</h2>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+  <p class="text-sm text-gray-600 dark:text-neutral-400 mb-8">
     Haven maps raw palette colors to semantic roles. Always use the semantic name in application code.
   </p>
 
@@ -26,6 +26,7 @@
     <h3 class="card-title text-base mb-3">Color Role Guide</h3>
     <table class="kv-table">
       <tr><td>Primary (Teal)</td><td>Brand actions, links, active states, focus rings</td></tr>
+      <tr><td>Sage (Warm Green)</td><td>Patient-facing, nutrition, food, community — the brand's hue-shift family</td></tr>
       <tr><td>Secondary (Sand)</td><td>Neutral backgrounds, secondary buttons, subtle borders</td></tr>
       <tr><td>Success (Green)</td><td>Active/enrolled status, positive outcomes, confirmed states</td></tr>
       <tr><td>Warning (Amber)</td><td>Pending actions, approaching thresholds, caution states</td></tr>
@@ -39,53 +40,75 @@
   <div class="mb-8">
     <h3 class="section-title mb-3">Primary <span class="text-sm font-normal text-gray-400">(Teal)</span></h3>
     <div class="grid grid-cols-11 gap-1.5">
-      <div><div class="h-12 rounded-lg bg-primary-50"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">50</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-100"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">100</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-200"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">200</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-300"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">300</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-400"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">400</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-500"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">500</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-600"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">600</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-700"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">700</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-800"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">800</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-900"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">900</p></div>
-      <div><div class="h-12 rounded-lg bg-primary-950"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">950</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-50"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">50</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-100"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">100</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-200"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">200</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-300"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">300</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-400 ring-2 ring-primary-500 ring-offset-2"></div><p class="text-xs text-center mt-1 font-semibold text-primary-700 dark:text-primary-400">400*</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-500 ring-2 ring-primary-500 ring-offset-2"></div><p class="text-xs text-center mt-1 font-semibold text-primary-700 dark:text-primary-400">500*</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-600"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">600</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-700"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">700</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-800 ring-2 ring-primary-500 ring-offset-2"></div><p class="text-xs text-center mt-1 font-semibold text-primary-700 dark:text-primary-400">800*</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-900"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">900</p></div>
+      <div><div class="h-12 rounded-lg bg-primary-950"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">950</p></div>
     </div>
   </div>
+
+  <p class="text-xs text-gray-600 dark:text-neutral-400 -mt-5 mb-8">* Locked to logo SVG — these values cannot change</p>
 
   <!-- Secondary -->
   <div class="mb-8">
     <h3 class="section-title mb-3">Secondary <span class="text-sm font-normal text-gray-400">(Sand)</span></h3>
     <div class="grid grid-cols-11 gap-1.5">
-      <div><div class="h-12 rounded-lg bg-secondary-50"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">50</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-100"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">100</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-200"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">200</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-300"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">300</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-400"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">400</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-500"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">500</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-600"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">600</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-700"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">700</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-800"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">800</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-900"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">900</p></div>
-      <div><div class="h-12 rounded-lg bg-secondary-950"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">950</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-50"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">50</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-100"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">100</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-200"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">200</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-300"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">300</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-400"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">400</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-500"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">500</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-600"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">600</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-700"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">700</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-800"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">800</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-900"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">900</p></div>
+      <div><div class="h-12 rounded-lg bg-secondary-950"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">950</p></div>
     </div>
+  </div>
+
+  <!-- Sage (brand hue-shift family) -->
+  <div class="mb-8">
+    <h3 class="section-title mb-3">Sage <span class="text-sm font-normal text-gray-400">(Warm Green — brand hue shift)</span></h3>
+    <p class="text-xs text-gray-600 dark:text-neutral-400 mb-3">The teal-to-sage hue shift (H:181→H:145) is the brand's signature visual move. Step 300 is locked to the logo's inner ring.</p>
+    <div class="grid grid-cols-11 gap-1.5">
+      <div><div class="h-12 rounded-lg bg-sage-50"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">50</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-100"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">100</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-200"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">200</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-300 ring-2 ring-primary-500 ring-offset-2"></div><p class="text-xs text-center mt-1 font-semibold text-primary-700 dark:text-primary-400">300*</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-400"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">400</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-500"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">500</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-600"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">600</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-700"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">700</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-800"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">800</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-900"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">900</p></div>
+      <div><div class="h-12 rounded-lg bg-sage-950"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">950</p></div>
+    </div>
+    <p class="text-xs text-gray-600 dark:text-neutral-400 mt-2">* Locked to logo SVG</p>
   </div>
 
   <!-- Neutral (Gray) -->
   <div class="mb-8">
     <h3 class="section-title mb-3">Neutral <span class="text-sm font-normal text-gray-400">(Gray / Sand alias)</span></h3>
     <div class="grid grid-cols-11 gap-1.5">
-      <div><div class="h-12 rounded-lg bg-gray-50"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">50</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-100"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">100</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-200"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">200</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-300"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">300</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-400"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">400</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-500"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">500</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-600"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">600</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-700"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">700</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-800"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">800</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-900"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">900</p></div>
-      <div><div class="h-12 rounded-lg bg-gray-950"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">950</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-50"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">50</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-100"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">100</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-200"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">200</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-300"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">300</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-400"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">400</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-500"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">500</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-600"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">600</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-700"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">700</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-800"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">800</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-900"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">900</p></div>
+      <div><div class="h-12 rounded-lg bg-gray-950"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">950</p></div>
     </div>
   </div>
 
@@ -94,7 +117,7 @@
     <h3 class="section-title mb-3">Semantic Status Colors</h3>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Success (Green)</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Success (Green)</p>
         <div class="grid grid-cols-5 gap-1">
           <div><div class="h-8 rounded bg-success-100"></div></div>
           <div><div class="h-8 rounded bg-success-300"></div></div>
@@ -104,7 +127,7 @@
         </div>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Warning (Amber)</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Warning (Amber)</p>
         <div class="grid grid-cols-5 gap-1">
           <div><div class="h-8 rounded bg-warning-100"></div></div>
           <div><div class="h-8 rounded bg-warning-300"></div></div>
@@ -114,7 +137,7 @@
         </div>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Error (Red)</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Error (Red)</p>
         <div class="grid grid-cols-5 gap-1">
           <div><div class="h-8 rounded bg-error-100"></div></div>
           <div><div class="h-8 rounded bg-error-300"></div></div>
@@ -124,7 +147,7 @@
         </div>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Info (Cyan)</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">Info (Cyan)</p>
         <div class="grid grid-cols-5 gap-1">
           <div><div class="h-8 rounded bg-info-100"></div></div>
           <div><div class="h-8 rounded bg-info-300"></div></div>
@@ -140,17 +163,55 @@
   <div class="mb-8">
     <h3 class="section-title mb-3">Accent <span class="text-sm font-normal text-gray-400">(Violet)</span></h3>
     <div class="grid grid-cols-11 gap-1.5">
-      <div><div class="h-12 rounded-lg bg-accent-50"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">50</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-100"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">100</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-200"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">200</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-300"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">300</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-400"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">400</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-500"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">500</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-600"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">600</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-700"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">700</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-800"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">800</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-900"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">900</p></div>
-      <div><div class="h-12 rounded-lg bg-accent-950"></div><p class="text-xs text-center mt-1 text-gray-500 dark:text-neutral-400">950</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-50"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">50</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-100"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">100</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-200"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">200</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-300"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">300</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-400"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">400</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-500"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">500</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-600"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">600</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-700"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">700</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-800"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">800</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-900"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">900</p></div>
+      <div><div class="h-12 rounded-lg bg-accent-950"></div><p class="text-xs text-center mt-1 text-gray-600 dark:text-neutral-400">950</p></div>
+    </div>
+  </div>
+
+  <!-- Semantic Surfaces -->
+  <div class="mb-8">
+    <h3 class="section-title mb-3">Semantic Surfaces</h3>
+    <p class="text-xs text-gray-600 dark:text-neutral-400 mb-3">Named surface tokens control the warm-ground mechanism. Surface-page (#FBFAF8) is never pure white.</p>
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+      <div>
+        <div class="h-16 rounded-lg bg-sand-50 border border-gray-200"></div>
+        <p class="text-xs font-semibold mt-2 text-gray-700 dark:text-neutral-300">surface-page</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">sand-50 · #FBFAF8</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">Page background</p>
+      </div>
+      <div>
+        <div class="h-16 rounded-lg bg-sand-100 border border-gray-200"></div>
+        <p class="text-xs font-semibold mt-2 text-gray-700 dark:text-neutral-300">surface-primary</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">sand-100 · #F3F1EE</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">Cards, panels</p>
+      </div>
+      <div>
+        <div class="h-16 rounded-lg bg-sand-200 border border-gray-200"></div>
+        <p class="text-xs font-semibold mt-2 text-gray-700 dark:text-neutral-300">surface-secondary</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">sand-200 · #E7E4DF</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">Sidebar, grouped</p>
+      </div>
+      <div>
+        <div class="h-16 rounded-lg bg-teal-50 border border-gray-200"></div>
+        <p class="text-xs font-semibold mt-2 text-gray-700 dark:text-neutral-300">surface-teal</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">teal-50 · #E9F5F2</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">Brand callouts</p>
+      </div>
+      <div>
+        <div class="h-16 rounded-lg bg-sage-50 border border-gray-200"></div>
+        <p class="text-xs font-semibold mt-2 text-gray-700 dark:text-neutral-300">surface-sage</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">sage-50 · #E7F2E8</p>
+        <p class="text-xs text-gray-600 dark:text-neutral-400">Patient, nutrition</p>
+      </div>
     </div>
   </div>
 

@@ -2,18 +2,20 @@
 
   /* Color styles */
 
-  /* Amber */
-  --color-amber-50: hsla(39, 50%, 89%, 1);
-  --color-amber-100: hsla(41, 47.7%, 79%, 1);
-  --color-amber-200: hsla(43, 41.6%, 69.8%, 1);
-  --color-amber-300: hsla(46, 33.3%, 61.2%, 1);
-  --color-amber-400: hsla(49, 26.1%, 53.3%, 1);
-  --color-amber-500: hsla(54, 23.9%, 45.9%, 1);
-  --color-amber-600: hsla(58, 24%, 39.2%, 1);
-  --color-amber-700: hsla(63, 25%, 32.9%, 1);
-  --color-amber-800: hsla(68, 25.7%, 27.5%, 1);
-  --color-amber-900: hsla(72, 26.8%, 22%, 1);
-  --color-amber-950: hsla(77, 28.6%, 16.5%, 1);
+  /* Amber — Warning / Caution (brand-calibrated, H:80-85 ochre-gold).
+     Key stops: 50=warning-bg, 400=warning-border, 500=warning-base, 700=warning-text.
+     All values are hex literals to avoid Tailwind cascade override. */
+  --color-amber-50:  #F4EAD5;
+  --color-amber-100: #EEDCB8;
+  --color-amber-200: #E3C88E;
+  --color-amber-300: #D8B46D;
+  --color-amber-400: #CEA861;
+  --color-amber-500: #B58B20;
+  --color-amber-600: #9A7518;
+  --color-amber-700: #754B00;
+  --color-amber-800: #5E3C00;
+  --color-amber-900: #472D00;
+  --color-amber-950: #301E00;
 
   /* Blue */
   --color-blue-50: hsla(197, 57.1%, 89%, 1);
@@ -28,18 +30,20 @@
   --color-blue-900: hsla(220, 39.2%, 29%, 1);
   --color-blue-950: hsla(224, 39.1%, 22.5%, 1);
 
-  /* Cyan */
-  --color-cyan-50: hsla(176, 73.3%, 91.2%, 1);
-  --color-cyan-100: hsla(181, 62.6%, 75.9%, 1);
-  --color-cyan-200: hsla(184, 65.7%, 64.5%, 1);
-  --color-cyan-300: hsla(187, 56.1%, 56.3%, 1);
-  --color-cyan-400: hsla(189, 47.6%, 49.4%, 1);
-  --color-cyan-500: hsla(191, 51.4%, 42.7%, 1);
-  --color-cyan-600: hsla(192, 54%, 36.7%, 1);
-  --color-cyan-700: hsla(195, 56.4%, 30.6%, 1);
-  --color-cyan-800: hsla(197, 60%, 24.5%, 1);
-  --color-cyan-900: hsla(199, 65.6%, 18.2%, 1);
-  --color-cyan-950: hsla(200, 73.8%, 12%, 1);
+  /* Cyan — Info / Informational (brand-calibrated, H:235 slate blue).
+     Key stops: 50=info-bg, 400=info-border, 500=info-base, 700=info-text.
+     All values are hex literals to avoid Tailwind cascade override. */
+  --color-cyan-50:  #DFEEF7;
+  --color-cyan-100: #C3DFEF;
+  --color-cyan-200: #9ECCE3;
+  --color-cyan-300: #78B6D5;
+  --color-cyan-400: #538EB0;
+  --color-cyan-500: #287AA3;
+  --color-cyan-600: #1E678A;
+  --color-cyan-700: #155572;
+  --color-cyan-800: #0B4E6C;
+  --color-cyan-900: #073B52;
+  --color-cyan-950: #042838;
 
   /* Emerald */
   --color-emerald-50: hsla(111, 46.7%, 94.1%, 1);
@@ -67,18 +71,20 @@
   --color-fuchsia-900: hsla(341, 26.3%, 29.8%, 1);
   --color-fuchsia-950: hsla(344, 28.2%, 22.9%, 1);
 
-  /* Green */
-  --color-green-50: hsla(74, 36.7%, 88.2%, 1);
-  --color-green-100: hsla(77, 35.2%, 78.8%, 1);
-  --color-green-200: hsla(83, 31.1%, 71%, 1);
-  --color-green-300: hsla(90, 26.1%, 63.9%, 1);
-  --color-green-400: hsla(97, 21.7%, 57.5%, 1);
-  --color-green-500: hsla(105, 17.7%, 51.4%, 1);
-  --color-green-600: hsla(114, 16.7%, 45.7%, 1);
-  --color-green-700: hsla(124, 16.8%, 39.6%, 1);
-  --color-green-800: hsla(133, 19.5%, 33.1%, 1);
-  --color-green-900: hsla(142, 22.1%, 26.7%, 1);
-  --color-green-950: hsla(148, 24.5%, 20.8%, 1);
+  /* Green — Success / Confirmation (brand-calibrated, H:160 desaturated green).
+     Key stops: 50=success-bg, 400=success-border, 500=success-base, 800=success-text.
+     All values are hex literals to avoid Tailwind cascade override. */
+  --color-green-50:  #DCF0E5;
+  --color-green-100: #C2E5D1;
+  --color-green-200: #A0D5B8;
+  --color-green-300: #7DC49F;
+  --color-green-400: #4F9870;
+  --color-green-500: #3A8E64;
+  --color-green-600: #2D7350;
+  --color-green-700: #215A3E;
+  --color-green-800: #174430;
+  --color-green-900: #0F3322;
+  --color-green-950: #082115;
 
   /* Indigo */
   --color-indigo-50: hsla(210, 47.6%, 91.8%, 1);
@@ -145,18 +151,20 @@
   --color-purple-900: hsla(276, 20.3%, 29%, 1);
   --color-purple-950: hsla(283, 21.8%, 21.6%, 1);
 
-  /* Red */
-  --color-red-50: hsla(343, 41.2%, 93.3%, 1);
-  --color-red-100: hsla(346, 43.3%, 86.9%, 1);
-  --color-red-200: hsla(349, 42.6%, 80.2%, 1);
-  --color-red-300: hsla(351, 39.7%, 73.3%, 1);
-  --color-red-400: hsla(355, 36.5%, 66.7%, 1);
-  --color-red-500: hsla(358, 32%, 59.6%, 1);
-  --color-red-600: hsla(2, 26%, 51.8%, 1);
-  --color-red-700: hsla(6, 27.4%, 43.7%, 1);
-  --color-red-800: hsla(9, 30.4%, 36.1%, 1);
-  --color-red-900: hsla(11, 32.9%, 28.6%, 1);
-  --color-red-950: hsla(14, 35.8%, 21.4%, 1);
+  /* Red — Error / Critical (brand-calibrated, H:25 warm red-orange).
+     Key stops: 50=error-bg, 400=error-border, 500=error-base, 700=error-text.
+     All values are hex literals to avoid Tailwind cascade override. */
+  --color-red-50:  #FCE5E3;
+  --color-red-100: #F8CCC8;
+  --color-red-200: #F0ADA7;
+  --color-red-300: #E48D86;
+  --color-red-400: #D87972;
+  --color-red-500: #C13C3B;
+  --color-red-600: #AB3433;
+  --color-red-700: #932B2A;
+  --color-red-800: #7A2221;
+  --color-red-900: #5E1918;
+  --color-red-950: #3F100F;
 
   /* Rose */
   --color-rose-50: hsla(320, 33.3%, 92.9%, 1);
@@ -265,6 +273,22 @@
   --color-sky-900: hsla(207, 53.8%, 25.5%, 1);
   --color-sky-950: hsla(210, 58%, 19.6%, 1);
 
+  /* Sage — Cena Health warm green palette (the brand's hue-shift family).
+     The teal-to-sage shift (H:181→H:145) is the brand's signature visual move.
+     50=lightest (#E7F2E8), 950=darkest (#060D07).
+     All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
+  --color-sage-50:  #E7F2E8;
+  --color-sage-100: #D0E5D1;
+  --color-sage-200: #ACCFAD;
+  --color-sage-300: #81B983; /* LOCKED — logo sage green (inner ring) */
+  --color-sage-400: #689B6A;
+  --color-sage-500: #507F53;
+  --color-sage-600: #3A643D;
+  --color-sage-700: #2A4C2D;
+  --color-sage-800: #1C351F;
+  --color-sage-900: #0F1F11;
+  --color-sage-950: #060D07;
+
   /* Teal — Cena Health brand teal palette.
      50=lightest (#E9F5F2), 950=darkest (#010F0C).
      All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
@@ -272,11 +296,11 @@
   --color-teal-100: #D0E7E2;
   --color-teal-200: #A8D1C9;
   --color-teal-300: #7CB9AD;
-  --color-teal-400: #52A395;
-  --color-teal-500: #3A8478;
+  --color-teal-400: #52A395; /* LOCKED — logo secondary teal (middle ring) */
+  --color-teal-500: #3A8478; /* LOCKED — logo primary teal (outer ring, "health" wordmark) */
   --color-teal-600: #1B685E;
   --color-teal-700: #124D45;
-  --color-teal-800: #0D322D;
+  --color-teal-800: #0D322D; /* LOCKED — logo anchor dark ("Cena" wordmark) */
   --color-teal-900: #04201C;
   --color-teal-950: #010F0C;
 

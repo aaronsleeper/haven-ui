@@ -31,7 +31,7 @@ visible at localhost:5173/pattern-library/pages/.
 
 | Component | PL Page | Status | Notes |
 |---|---|---|---|
-| Colors | `pages/foundations-colors.html` | built | Reference only |
+| Colors | `pages/foundations-colors.html` | brand-reviewed | Reference only |
 | Typography | `pages/foundations-typography.html` | built | Reference only — update to show Plus Jakarta Sans + Source Sans 3 |
 | Spacing | `pages/foundations-spacing.html` | built | Reference only |
 | Motion / Animation | `pages/foundations-motion.html` | built | Show all `--duration-*` and `--ease-*` tokens with live demos |

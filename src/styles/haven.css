@@ -9,7 +9,11 @@
      A calm, safe-harbor aesthetic
      ============================================ */
 
-  /* --- Primary (Teal) --- */
+  /* --- Primary (Teal) ---
+     NOTE: Haven numbering (50=light, 950=dark) is inverted from brand spec
+     (50=dark, 950=light). Hex values are identical — only step numbers differ.
+     Haven teal-600 (#1B685E) = brand-spec teal-400 (interactive fill).
+     Haven teal-500 (#3A8478) = brand-spec teal-500 (brand identity). */
   --color-primary-50: var(--color-teal-50);
   --color-primary-100: var(--color-teal-100);
   --color-primary-200: var(--color-teal-200);
@@ -34,6 +38,10 @@
   --color-secondary-800: var(--color-sand-800);
   --color-secondary-900: var(--color-sand-900);
   --color-secondary-950: var(--color-sand-950);
+
+  /* --- Sage is defined directly in colors.css as a raw palette family.
+     Use sage-* utilities (e.g. bg-sage-950, text-sage-700) in components.
+     No semantic alias needed — sage IS the brand's warm green identity. --- */
 
   /* --- Accent (Violet) --- */
   --color-accent-50: var(--color-violet-50);
@@ -147,10 +155,10 @@
   --primary-focus: var(--color-primary-700);
   --primary-active: var(--color-primary-700);
   --primary-checked: var(--color-primary-600);
-  --primary-foreground: var(--color-white);
+  --primary-foreground: var(--color-sand-50);
   --primary-line: transparent;
 
-  --sidebar: var(--color-white);
+  --sidebar: var(--color-sand-50);
   --sidebar-line: var(--color-gray-200);
   --sidebar-divider: var(--color-gray-200);
   --sidebar-nav-foreground: var(--color-gray-700);
