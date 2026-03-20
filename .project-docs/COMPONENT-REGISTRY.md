@@ -175,7 +175,7 @@ visible at localhost:5173/pattern-library/pages/.
 | Pipeline Bar | `pages/data-pipeline-bar.html` | built | |
 | Progress Bar | `pages/data-progress.html` | built | Linear progress — labeled, colored variants |
 | List Group | `pages/data-list-group.html` | built | Bordered list with optional actions — no Preline needed |
-| Accordion (data) | `pages/accordion.html` | missing | Content accordion — Preline HSAccordion |
+| Accordion (data) | `pages/accordion.html` | built | Content accordion — Preline HSAccordion |
 | Collapse | `pages/collapse.html` | missing | Single inline show/hide — Preline HSCollapse |
 
 ---

@@ -1,0 +1,321 @@
+<!--
+  @component-meta
+  name: Accordion
+  category: Data Display
+  file: data-accordion.html
+  classes: accordion, accordion-item, accordion-header, accordion-body, accordion-header-icon, accordion-flush, accordion-bordered
+  when-to-use: Collapsible content sections for FAQs, settings panels, or grouped detail views where users scan headings and expand selectively.
+  preline-required: yes — HSAccordion
+  notes: Uses Preline data-hs-accordion on the group wrapper. Single accordion does not need hs-accordion-group. Apply .hs-accordion-toggle to toggle buttons to neutralize Preline hover. Chevron icons use existing accordion-chevron-up/down pattern.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Accordion</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Collapsible content panels. Powered by Preline HSAccordion — click a header to expand its body.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Default</h4>
+    <!-- @component: accordion-default -->
+    <div class="accordion" data-hs-accordion-always-open>
+      <div class="hs-accordion active accordion-item" id="acc-default-1">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-default-1-body">
+          <span>What services does Cena Health provide?</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-default-1-body" class="accordion-body" role="region" aria-labelledby="acc-default-1">
+          <p>Cena Health provides medically tailored meals, nutrition counseling, and care coordination services for patients with chronic conditions. Our team works directly with healthcare providers to ensure dietary plans align with each patient's clinical needs.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-default-2">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-default-2-body">
+          <span>How are meal plans customized?</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-default-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-default-2">
+          <p>Meal plans are built from each patient's diagnosis, lab results, and dietary preferences. Our registered dietitians review clinical data and create plans that meet both nutritional requirements and personal taste preferences.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-default-3">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-default-3-body">
+          <span>Can patients request meal substitutions?</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-default-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-default-3">
+          <p>Yes. Patients can request substitutions through the app or by contacting their care coordinator. All substitutions are reviewed against the patient's dietary restrictions before approval.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Single open (mutual exclusion) -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Single Open (Mutual Exclusion)</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Only one panel open at a time. Omit <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">data-hs-accordion-always-open</code> for this behavior.</p>
+    <!-- @component: accordion-single -->
+    <div class="accordion">
+      <div class="hs-accordion active accordion-item" id="acc-single-1">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-single-1-body">
+          <span>Referral requirements</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-single-1-body" class="accordion-body" role="region" aria-labelledby="acc-single-1">
+          <p>Patients must be referred by a participating healthcare provider. The referral includes diagnosis codes, dietary restrictions, and the prescribed meal plan duration.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-single-2">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-single-2-body">
+          <span>Insurance and billing</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-single-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-single-2">
+          <p>Cena Health works with Medicaid, Medicare, and select commercial insurance plans. Billing is handled directly with the payer — patients are never billed out of pocket for covered services.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-single-3">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-single-3-body">
+          <span>Delivery schedule and areas</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-single-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-single-3">
+          <p>Meals are delivered on a weekly schedule. Delivery days vary by region. Patients receive a notification the day before each delivery with an estimated arrival window.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- With Icons -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Icons</h4>
+    <!-- @component: accordion-icons -->
+    <div class="accordion" data-hs-accordion-always-open>
+      <div class="hs-accordion active accordion-item" id="acc-icons-1">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-icons-1-body">
+          <span class="flex items-center gap-3">
+            <i class="fa-solid fa-stethoscope accordion-header-icon"></i>
+            <span>Clinical overview</span>
+          </span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-icons-1-body" class="accordion-body" role="region" aria-labelledby="acc-icons-1">
+          <p>Maria Rivera — MRN PT-2024-0847. Primary diagnosis: Type 2 Diabetes. Current A1C: 7.2%. Last lab draw: March 12, 2026. Care plan includes medically tailored meals and monthly nutrition counseling.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-icons-2">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-icons-2-body">
+          <span class="flex items-center gap-3">
+            <i class="fa-solid fa-truck accordion-header-icon"></i>
+            <span>Delivery details</span>
+          </span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-icons-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-icons-2">
+          <p>Weekly delivery on Tuesdays, 9:00 AM – 12:00 PM. Address on file: 1847 Cedar Lane, Apt 3B. Special instructions: Leave with front desk if patient is not home.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-icons-3">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-icons-3-body">
+          <span class="flex items-center gap-3">
+            <i class="fa-solid fa-pills accordion-header-icon"></i>
+            <span>Medications</span>
+          </span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-icons-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-icons-3">
+          <p>Metformin 500mg twice daily. Lisinopril 10mg once daily. No known drug-nutrient interactions flagged. Next medication review: April 2, 2026.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Flush -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Flush (No Border)</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Use inside cards or other bordered containers.</p>
+    <!-- @component: accordion-flush -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Patient Details</h3>
+      </div>
+      <div class="accordion accordion-flush" data-hs-accordion-always-open>
+        <div class="hs-accordion active accordion-item" id="acc-flush-1">
+          <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-flush-1-body">
+            <span>Demographics</span>
+            <span class="text-gray-400 dark:text-neutral-500">
+              <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+              <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+            </span>
+          </button>
+          <div id="acc-flush-1-body" class="accordion-body" role="region" aria-labelledby="acc-flush-1">
+            <p>Name: Maria Rivera. Date of birth: June 14, 1958. Preferred language: Spanish. Emergency contact: Carlos Rivera (son), 555-0147.</p>
+          </div>
+        </div>
+        <div class="hs-accordion accordion-item" id="acc-flush-2">
+          <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-flush-2-body">
+            <span>Dietary restrictions</span>
+            <span class="text-gray-400 dark:text-neutral-500">
+              <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+              <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+            </span>
+          </button>
+          <div id="acc-flush-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-flush-2">
+            <p>Low sodium (less than 2000mg daily). No shellfish (allergy). Prefers rice-based meals over bread. Lactose intolerant — use dairy alternatives.</p>
+          </div>
+        </div>
+        <div class="hs-accordion accordion-item" id="acc-flush-3">
+          <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-flush-3-body">
+            <span>Care team</span>
+            <span class="text-gray-400 dark:text-neutral-500">
+              <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+              <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+            </span>
+          </button>
+          <div id="acc-flush-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-flush-3">
+            <p>Primary care: Dr. Sarah Chen. Care coordinator: James Wilson. Dietitian: Ana Gutierrez, RD. Last care team meeting: March 8, 2026.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Bordered -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Bordered (Card-like Items)</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Each item has its own border and spacing — use for standalone accordion groups.</p>
+    <!-- @component: accordion-bordered -->
+    <div class="accordion accordion-bordered" data-hs-accordion-always-open>
+      <div class="hs-accordion active accordion-item" id="acc-bordered-1">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-bordered-1-body">
+          <span>Enrollment status</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-bordered-1-body" class="accordion-body" role="region" aria-labelledby="acc-bordered-1">
+          <p>Active since January 15, 2026. Current program: Medically Tailored Meals — Diabetes Management. Renewal date: July 15, 2026. Authorization: approved through Q2 2026.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-bordered-2">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-bordered-2-body">
+          <span>Compliance notes</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-bordered-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-bordered-2">
+          <p>Patient has completed 3 of 4 required nutrition counseling sessions. Next session scheduled for March 28, 2026. No missed deliveries in the last 30 days.</p>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-bordered-3">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-bordered-3-body">
+          <span>Escalation history</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-bordered-3-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-bordered-3">
+          <p>Feb 20, 2026 — Delivery missed due to weather. Rescheduled to Feb 22. Feb 5, 2026 — Patient reported meal did not match restrictions. Investigated and corrected on next order.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Nested -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Nested</h4>
+    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">Accordion inside an accordion. Inner accordion uses flush styling.</p>
+    <!-- @component: accordion-nested -->
+    <div class="accordion" data-hs-accordion-always-open>
+      <div class="hs-accordion active accordion-item" id="acc-nested-1">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-nested-1-body">
+          <span>Week of March 17, 2026</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-nested-1-body" class="accordion-body" role="region" aria-labelledby="acc-nested-1">
+          <div class="accordion accordion-flush" data-hs-accordion-always-open>
+            <div class="hs-accordion active accordion-item" id="acc-nested-1a">
+              <button class="hs-accordion-toggle accordion-header" aria-expanded="true" aria-controls="acc-nested-1a-body">
+                <span>Monday — Breakfast</span>
+                <span class="text-gray-400 dark:text-neutral-500">
+                  <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+                  <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+                </span>
+              </button>
+              <div id="acc-nested-1a-body" class="accordion-body" role="region" aria-labelledby="acc-nested-1a">
+                <p>Oatmeal with fresh berries, turkey sausage, and herbal tea. 420 cal, 18g protein, 52g carbs, 14g fat. Sodium: 380mg.</p>
+              </div>
+            </div>
+            <div class="hs-accordion accordion-item" id="acc-nested-1b">
+              <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-nested-1b-body">
+                <span>Monday — Lunch</span>
+                <span class="text-gray-400 dark:text-neutral-500">
+                  <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+                  <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+                </span>
+              </button>
+              <div id="acc-nested-1b-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-nested-1b">
+                <p>Grilled chicken with brown rice and steamed broccoli. Side of black beans. 550 cal, 38g protein, 62g carbs, 12g fat. Sodium: 520mg.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hs-accordion accordion-item" id="acc-nested-2">
+        <button class="hs-accordion-toggle accordion-header" aria-expanded="false" aria-controls="acc-nested-2-body">
+          <span>Week of March 10, 2026</span>
+          <span class="text-gray-400 dark:text-neutral-500">
+            <i class="fa-solid fa-chevron-up accordion-chevron-up text-xs"></i>
+            <i class="fa-solid fa-chevron-down accordion-chevron-down text-xs"></i>
+          </span>
+        </button>
+        <div id="acc-nested-2-body" class="accordion-body" style="display: none;" role="region" aria-labelledby="acc-nested-2">
+          <p>5 meals delivered. All accepted. No substitutions requested. Average daily intake: 1,680 cal.</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
