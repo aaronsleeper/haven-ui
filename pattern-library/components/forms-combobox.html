@@ -1,0 +1,302 @@
+<!--
+  @component-meta
+  name: Combobox
+  category: Forms
+  file: forms-combobox.html
+  classes: combobox, combobox-input, combobox-toggle, combobox-close, combobox-output, combobox-item, combobox-item-check, combobox-group-title, combobox-empty, combobox-disabled, combobox-item-description
+  when-to-use: Autocomplete search input with dropdown suggestions — use instead of native select when options exceed ~10 or need search filtering.
+  preline-required: yes — HSCombobox
+  notes: Preline controls open/close via inline display style on output panel. Wrapper gets .active when open, items get .selected when chosen. Do not add transition utilities to output — opacity transition is in components.css.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Combobox</h3>
+  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+    Autocomplete input with filterable dropdown. Powered by Preline HSCombobox.
+  </p>
+
+  <!-- ============================================================
+       BASIC
+       ============================================================ -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Basic</h4>
+    <div class="max-w-sm">
+      <!-- @component: combobox-basic -->
+      <label class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1.5">Provider</label>
+      <div class="combobox" data-hs-combo-box='{
+        "groupingType": "default",
+        "isOpenOnFocus": true
+      }'>
+        <div class="relative">
+          <input class="combobox-input" type="text" role="combobox" aria-expanded="false"
+            placeholder="Search providers..."
+            data-hs-combo-box-input>
+          <button type="button" class="combobox-toggle" aria-label="Toggle dropdown"
+            data-hs-combo-box-toggle>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+          <button type="button" class="combobox-close" aria-label="Clear selection"
+            data-hs-combo-box-close>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+        <div class="combobox-output" data-hs-combo-box-output>
+          <div data-hs-combo-box-output-items-wrapper>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Sarah Chen</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Michael Torres</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Lisa Patel</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. James Okafor</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Ana Martinez</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+          </div>
+          <div class="combobox-empty" style="display: none;" data-hs-combo-box-output-empty-template>
+            No providers found
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       WITH DESCRIPTION
+       ============================================================ -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">With Description</h4>
+    <div class="max-w-sm">
+      <!-- @component: combobox-description -->
+      <label class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1.5">Assign care coordinator</label>
+      <div class="combobox" data-hs-combo-box='{
+        "groupingType": "default",
+        "isOpenOnFocus": true
+      }'>
+        <div class="relative">
+          <input class="combobox-input" type="text" role="combobox" aria-expanded="false"
+            placeholder="Search team members..."
+            data-hs-combo-box-input>
+          <button type="button" class="combobox-toggle" aria-label="Toggle dropdown"
+            data-hs-combo-box-toggle>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+          <button type="button" class="combobox-close" aria-label="Clear selection"
+            data-hs-combo-box-close>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+        <div class="combobox-output" data-hs-combo-box-output>
+          <div data-hs-combo-box-output-items-wrapper>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <div>
+                <span data-hs-combo-box-search-text data-hs-combo-box-value>Rachel Kim</span>
+                <p class="combobox-item-description">Lead care coordinator, East region</p>
+              </div>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <div>
+                <span data-hs-combo-box-search-text data-hs-combo-box-value>Marcus Johnson</span>
+                <p class="combobox-item-description">Care coordinator, West region</p>
+              </div>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <div>
+                <span data-hs-combo-box-search-text data-hs-combo-box-value>Priya Sharma</span>
+                <p class="combobox-item-description">Care coordinator, Central region</p>
+              </div>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+          </div>
+          <div class="combobox-empty" style="display: none;" data-hs-combo-box-output-empty-template>
+            No team members found
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GROUPED OPTIONS
+       ============================================================ -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Grouped Options</h4>
+    <div class="max-w-sm">
+      <!-- @component: combobox-grouped -->
+      <label class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1.5">Diagnosis</label>
+      <div class="combobox" data-hs-combo-box='{
+        "groupingType": "default",
+        "isOpenOnFocus": true
+      }'>
+        <div class="relative">
+          <input class="combobox-input" type="text" role="combobox" aria-expanded="false"
+            placeholder="Search diagnoses..."
+            data-hs-combo-box-input>
+          <button type="button" class="combobox-toggle" aria-label="Toggle dropdown"
+            data-hs-combo-box-toggle>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+          <button type="button" class="combobox-close" aria-label="Clear selection"
+            data-hs-combo-box-close>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+        <div class="combobox-output" data-hs-combo-box-output>
+          <div data-hs-combo-box-output-items-wrapper>
+            <div data-hs-combo-box-group-title="Endocrine">
+              <span class="combobox-group-title">Endocrine</span>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Endocrine", "title": "Endocrine"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Type 2 Diabetes Mellitus</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Endocrine", "title": "Endocrine"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Type 1 Diabetes Mellitus</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Endocrine", "title": "Endocrine"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Hypothyroidism</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+
+            <div data-hs-combo-box-group-title="Cardiovascular">
+              <span class="combobox-group-title">Cardiovascular</span>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Cardiovascular", "title": "Cardiovascular"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Hypertension</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Cardiovascular", "title": "Cardiovascular"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Congestive Heart Failure</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+
+            <div data-hs-combo-box-group-title="Renal">
+              <span class="combobox-group-title">Renal</span>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Renal", "title": "Renal"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Chronic Kidney Disease</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item='{"group": {"name": "Renal", "title": "Renal"}}'>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>End-Stage Renal Disease</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+          </div>
+          <div class="combobox-empty" style="display: none;" data-hs-combo-box-output-empty-template>
+            No diagnoses found
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       DISABLED
+       ============================================================ -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Disabled</h4>
+    <div class="max-w-sm">
+      <!-- @component: combobox-disabled -->
+      <label class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1.5">Provider</label>
+      <div class="combobox combobox-disabled" data-hs-combo-box='{
+        "groupingType": "default",
+        "preventVisibility": true
+      }'>
+        <div class="relative">
+          <input class="combobox-input" type="text" role="combobox" aria-expanded="false"
+            placeholder="Search providers..."
+            disabled
+            data-hs-combo-box-input>
+          <button type="button" class="combobox-toggle" aria-label="Toggle dropdown" disabled
+            data-hs-combo-box-toggle>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+        </div>
+        <div class="combobox-output" data-hs-combo-box-output>
+          <div data-hs-combo-box-output-items-wrapper>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Sarah Chen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PRE-SELECTED VALUE
+       ============================================================ -->
+  <div class="mb-12">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Pre-Selected Value</h4>
+    <div class="max-w-sm">
+      <!-- @component: combobox-preselected -->
+      <label class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-1.5">Primary physician</label>
+      <div class="combobox has-value" data-hs-combo-box='{
+        "groupingType": "default",
+        "isOpenOnFocus": true
+      }'>
+        <div class="relative">
+          <input class="combobox-input" type="text" role="combobox" aria-expanded="false"
+            value="Dr. Sarah Chen"
+            data-hs-combo-box-input>
+          <button type="button" class="combobox-toggle" aria-label="Toggle dropdown"
+            data-hs-combo-box-toggle>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </button>
+          <button type="button" class="combobox-close" aria-label="Clear selection"
+            data-hs-combo-box-close>
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+        <div class="combobox-output" data-hs-combo-box-output>
+          <div data-hs-combo-box-output-items-wrapper>
+            <div class="combobox-item selected" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Sarah Chen</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Michael Torres</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Lisa Patel</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. James Okafor</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+            <div class="combobox-item" data-hs-combo-box-output-item>
+              <span data-hs-combo-box-search-text data-hs-combo-box-value>Dr. Ana Martinez</span>
+              <i class="fa-solid fa-check combobox-item-check"></i>
+            </div>
+          </div>
+          <div class="combobox-empty" style="display: none;" data-hs-combo-box-output-empty-template>
+            No providers found
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+
+</section>
