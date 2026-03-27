@@ -13,13 +13,13 @@
 <!-- DEMO WRAPPER: visual context only, do not copy -->
 <section>
   <h3 class="section-title mb-4">Segmented Control</h3>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+  <p class="pl-description">
     Mutually exclusive toggle for 2-3 view options.
   </p>
 
     <!-- @component: nav-segmented-control -->
     <div>
-      <p class="text-xs text-gray-400 dark:text-neutral-500 mb-2">.segmented-control</p>
+      <p class="text-xs text-gray-600 dark:text-neutral-500 mb-2">.segmented-control</p>
       <div class="segmented-control">
         <button class="segmented-control-btn active">Day</button>
         <button class="segmented-control-btn">Week</button>
@@ -29,10 +29,10 @@
 
     <!-- @component: nav-view-toggle -->
     <div>
-      <p class="text-xs text-gray-400 dark:text-neutral-500 mb-2">.view-toggle (alias with icons)</p>
+      <p class="text-xs text-gray-600 dark:text-neutral-500 mb-2">.view-toggle (alias with icons)</p>
       <div class="view-toggle">
-        <button class="view-toggle-btn active"><i class="fa-solid fa-list"></i></button>
-        <button class="view-toggle-btn"><i class="fa-solid fa-grip"></i></button>
+        <button class="view-toggle-btn active" aria-label="List view"><i class="fa-solid fa-list"></i></button>
+        <button class="view-toggle-btn" aria-label="Grid view"><i class="fa-solid fa-grip"></i></button>
       </div>
     </div>
     <!-- /component -->

@@ -14,46 +14,46 @@
 <!-- DEMO WRAPPER: visual context only, do not copy -->
 <section>
   <h3 class="section-title mb-4">Indicator / Dot</h3>
-  <p class="text-sm text-gray-500 dark:text-neutral-400 mb-8">
+  <p class="pl-description">
     Small status dots for presence, severity, and real-time state. Used on provider listings, session panels, and alert tables.
   </p>
 
   <!-- Status Variants -->
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Status Variants</h4>
+    <p class="pl-variant-title">Status Variants</p>
     <div class="flex items-center gap-6">
       <!-- @component: indicator-default -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Default</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Default</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-online -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-online"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Online</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Online</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-offline -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-offline"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Offline</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Offline</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-busy -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-busy"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Busy</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Busy</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-away -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-away"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Away</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Away</span>
       </div>
       <!-- /component -->
     </div>
@@ -61,26 +61,26 @@
 
   <!-- Size Variants -->
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Size Variants</h4>
+    <p class="pl-variant-title">Size Variants</p>
     <div class="flex items-center gap-8">
       <!-- @component: indicator-sm -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-online indicator-sm"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Small (6px)</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Small (6px)</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-default-size -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-online"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Default (8px)</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Default (8px)</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-lg -->
       <div class="flex flex-col items-center gap-2">
         <span class="indicator indicator-online indicator-lg"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Large (12px)</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Large (12px)</span>
       </div>
       <!-- /component -->
     </div>
@@ -88,36 +88,36 @@
 
   <!-- Pulse / Ping Animation -->
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Pulse Animation</h4>
-    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    <p class="pl-variant-title">Pulse Animation</p>
+    <p class="pl-description">
       Add <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">indicator-pulse</code> for live/active status. The ring inherits the dot color.
     </p>
     <div class="flex items-center gap-8">
       <!-- @component: indicator-pulse-online -->
       <div class="flex flex-col items-center gap-3">
         <span class="indicator indicator-online indicator-pulse"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Online (pulse)</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Online (pulse)</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-pulse-busy -->
       <div class="flex flex-col items-center gap-3">
         <span class="indicator indicator-busy indicator-pulse"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Busy (pulse)</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Busy (pulse)</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-pulse-away -->
       <div class="flex flex-col items-center gap-3">
         <span class="indicator indicator-away indicator-pulse"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Away (pulse)</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Away (pulse)</span>
       </div>
       <!-- /component -->
 
       <!-- @component: indicator-pulse-lg -->
       <div class="flex flex-col items-center gap-3">
         <span class="indicator indicator-online indicator-lg indicator-pulse"></span>
-        <span class="text-xs text-gray-500 dark:text-neutral-400">Large + pulse</span>
+        <span class="text-xs text-gray-600 dark:text-neutral-400">Large + pulse</span>
       </div>
       <!-- /component -->
     </div>
@@ -125,7 +125,7 @@
 
   <!-- Indicator with Label -->
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Indicator with Label</h4>
+    <p class="pl-variant-title">Indicator with Label</p>
     <div class="flex flex-col gap-3">
       <!-- @component: indicator-label-online -->
       <span class="indicator-label">
@@ -159,8 +159,8 @@
 
   <!-- Positioned on Avatar -->
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Positioned on Avatar / Icon</h4>
-    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    <p class="pl-variant-title">Positioned on Avatar / Icon</p>
+    <p class="pl-description">
       Wrap an avatar or icon with <code class="text-xs bg-gray-100 dark:bg-neutral-800 px-1 py-0.5 rounded">indicator-positioned</code>. The dot anchors to the bottom-right corner with a border ring matching the surface.
     </p>
     <div class="flex items-center gap-8">
@@ -198,8 +198,8 @@
 
   <!-- Healthcare Context Examples -->
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-5">Healthcare Context</h4>
-    <p class="text-sm text-gray-500 dark:text-neutral-400 mb-4">
+    <p class="pl-variant-title">Healthcare Context</p>
+    <p class="pl-description">
       Common usage patterns in Cena Health: provider presence on care team lists, session activity on patient dashboards, and alert severity in triage views.
     </p>
     <div class="card">

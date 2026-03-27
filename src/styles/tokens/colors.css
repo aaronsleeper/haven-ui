@@ -195,70 +195,70 @@
   --color-sand-950: #0E0A08;
 
   /* Neutral Mappings (Aliased to Sand) */
-  /* Slate */
-  --color-slate-50: var(--color-sand-50);
-  --color-slate-100: var(--color-sand-100);
-  --color-slate-200: var(--color-sand-200);
-  --color-slate-300: var(--color-sand-300);
-  --color-slate-400: var(--color-sand-400);
-  --color-slate-500: var(--color-sand-500);
-  --color-slate-600: var(--color-sand-600);
-  --color-slate-700: var(--color-sand-700);
-  --color-slate-800: var(--color-sand-800);
-  --color-slate-900: var(--color-sand-900);
-  --color-slate-950: var(--color-sand-950);
+  /* Slate — alias to sand (hex literals to survive Tailwind v4 cascade override) */
+  --color-slate-50:  #FBFAF8;
+  --color-slate-100: #F3F1EE;
+  --color-slate-200: #E7E4DF;
+  --color-slate-300: #D1CDC6;
+  --color-slate-400: #B3ADA4;
+  --color-slate-500: #958E85;
+  --color-slate-600: #787066;
+  --color-slate-700: #5B544C;
+  --color-slate-800: #3F3933;
+  --color-slate-900: #25211D;
+  --color-slate-950: #0E0A08;
 
-  /* Gray */
-  --color-gray-50: var(--color-sand-50);
-  --color-gray-100: var(--color-sand-100);
-  --color-gray-200: var(--color-sand-200);
-  --color-gray-300: var(--color-sand-300);
-  --color-gray-400: var(--color-sand-400);
-  --color-gray-500: var(--color-sand-500);
-  --color-gray-600: var(--color-sand-600);
-  --color-gray-700: var(--color-sand-700);
-  --color-gray-800: var(--color-sand-800);
-  --color-gray-900: var(--color-sand-900);
-  --color-gray-950: var(--color-sand-950);
+  /* Gray — alias to sand (hex literals to survive Tailwind v4 cascade override) */
+  --color-gray-50:  #FBFAF8;
+  --color-gray-100: #F3F1EE;
+  --color-gray-200: #E7E4DF;
+  --color-gray-300: #D1CDC6;
+  --color-gray-400: #B3ADA4;
+  --color-gray-500: #958E85;
+  --color-gray-600: #787066;
+  --color-gray-700: #5B544C;
+  --color-gray-800: #3F3933;
+  --color-gray-900: #25211D;
+  --color-gray-950: #0E0A08;
 
-  /* Zinc */
-  --color-zinc-50: var(--color-sand-50);
-  --color-zinc-100: var(--color-sand-100);
-  --color-zinc-200: var(--color-sand-200);
-  --color-zinc-300: var(--color-sand-300);
-  --color-zinc-400: var(--color-sand-400);
-  --color-zinc-500: var(--color-sand-500);
-  --color-zinc-600: var(--color-sand-600);
-  --color-zinc-700: var(--color-sand-700);
-  --color-zinc-800: var(--color-sand-800);
-  --color-zinc-900: var(--color-sand-900);
-  --color-zinc-950: var(--color-sand-950);
+  /* Zinc — alias to sand (hex literals to survive Tailwind v4 cascade override) */
+  --color-zinc-50:  #FBFAF8;
+  --color-zinc-100: #F3F1EE;
+  --color-zinc-200: #E7E4DF;
+  --color-zinc-300: #D1CDC6;
+  --color-zinc-400: #B3ADA4;
+  --color-zinc-500: #958E85;
+  --color-zinc-600: #787066;
+  --color-zinc-700: #5B544C;
+  --color-zinc-800: #3F3933;
+  --color-zinc-900: #25211D;
+  --color-zinc-950: #0E0A08;
 
-  /* Neutral */
-  --color-neutral-50: var(--color-sand-50);
-  --color-neutral-100: var(--color-sand-100);
-  --color-neutral-200: var(--color-sand-200);
-  --color-neutral-300: var(--color-sand-300);
-  --color-neutral-400: var(--color-sand-400);
-  --color-neutral-500: var(--color-sand-500);
-  --color-neutral-600: var(--color-sand-600);
-  --color-neutral-700: var(--color-sand-700);
-  --color-neutral-800: var(--color-sand-800);
-  --color-neutral-900: var(--color-sand-900);
-  --color-neutral-950: var(--color-sand-950);
+  /* Neutral — alias to sand (hex literals to survive Tailwind v4 cascade override) */
+  --color-neutral-50:  #FBFAF8;
+  --color-neutral-100: #F3F1EE;
+  --color-neutral-200: #E7E4DF;
+  --color-neutral-300: #D1CDC6;
+  --color-neutral-400: #B3ADA4;
+  --color-neutral-500: #958E85;
+  --color-neutral-600: #787066;
+  --color-neutral-700: #5B544C;
+  --color-neutral-800: #3F3933;
+  --color-neutral-900: #25211D;
+  --color-neutral-950: #0E0A08;
 
-  /* Stone */
-  --color-stone-50: var(--color-sand-50);
-  --color-stone-100: var(--color-sand-100);
-  --color-stone-200: var(--color-sand-200);
-  --color-stone-300: var(--color-sand-300);
-  --color-stone-400: var(--color-sand-400);
-  --color-stone-500: var(--color-sand-500);
-  --color-stone-600: var(--color-sand-600);
-  --color-stone-700: var(--color-sand-700);
-  --color-stone-800: var(--color-sand-800);
-  --color-stone-900: var(--color-sand-900);
-  --color-stone-950: var(--color-sand-950);
+  /* Stone — alias to sand (hex literals to survive Tailwind v4 cascade override) */
+  --color-stone-50:  #FBFAF8;
+  --color-stone-100: #F3F1EE;
+  --color-stone-200: #E7E4DF;
+  --color-stone-300: #D1CDC6;
+  --color-stone-400: #B3ADA4;
+  --color-stone-500: #958E85;
+  --color-stone-600: #787066;
+  --color-stone-700: #5B544C;
+  --color-stone-800: #3F3933;
+  --color-stone-900: #25211D;
+  --color-stone-950: #0E0A08;
 
   /* Sky */
   --color-sky-50: hsla(189, 70.1%, 86.9%, 1);
