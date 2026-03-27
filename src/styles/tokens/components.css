@@ -64,6 +64,17 @@ section {
     @apply mb-8;
 }
 
+/* Pattern library demo chrome — not copied into app pages */
+.pl-variant-title {
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-600 mb-4;
+    @apply dark:text-neutral-400;
+}
+
+.pl-description {
+    @apply text-sm text-gray-600 mb-6;
+    @apply dark:text-neutral-400;
+}
+
 /* Form layout helpers */
 form > div {
     @apply mb-4;
@@ -74,13 +85,13 @@ form > div {
    =================================== */
 
 .sidebar-toggle-bar {
-    @apply sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden;
+    @apply sticky top-0 inset-x-0 z-20 bg-gray-50 border-y px-4 sm:px-6 md:px-8 lg:hidden;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
 }
 
 .sidebar-toggle-btn {
     @apply text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300;
-    @apply dark:text-gray-400 dark:hover:text-gray-300;
+    @apply dark:text-gray-500 dark:hover:text-gray-300;
 }
 
 /* ===================================
@@ -113,7 +124,7 @@ form > div {
 /* Fixed top bar containing the language toggle.
    Present on all patient app screens. */
 .mobile-i18n-bar {
-  @apply fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 bg-white border-b border-gray-100;
+  @apply fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 bg-gray-50 border-b border-gray-100;
   height: 40px;
   max-width: 430px;
   margin-inline: auto;
@@ -151,7 +162,7 @@ form > div {
 
 /* Fixed four-tab bar — present on all post-onboarding screens */
 .mobile-bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 bg-white border-t border-gray-200 shadow-lg;
+  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 bg-gray-50 border-t border-gray-200 shadow-lg;
   max-width: 430px;
   margin-inline: auto;
   padding-bottom: env(safe-area-inset-bottom);
@@ -160,7 +171,7 @@ form > div {
 
 /* Individual tab item — <a> or <button> */
 .mobile-bottom-nav-tab {
-  @apply flex flex-col items-center justify-center gap-1 py-2 text-gray-400 text-xs font-medium;
+  @apply flex flex-col items-center justify-center gap-1 py-2 text-gray-600 text-xs font-medium;
   @apply hover:text-primary-600 dark:text-neutral-500 dark:hover:text-primary-400;
   min-height: 64px;
   text-decoration: none;
@@ -307,7 +318,7 @@ input[type='radio'] {
 
 /* Radio button with label wrapper */
 .radio-label {
-    @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
+    @apply flex p-3 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     cursor: pointer;
@@ -334,7 +345,7 @@ input[type='checkbox'] {
 
 /* Checkbox with label wrapper */
 .checkbox-label {
-    @apply flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm;
+    @apply flex p-3 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     cursor: pointer;
@@ -554,7 +565,7 @@ a.btn-danger {
 
 /* Card component */
 .card {
-    @apply flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
+    @apply flex flex-col bg-gray-50 border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
 }
 
 .card-header {
@@ -648,11 +659,11 @@ a.btn-danger {
 }
 
 .stat-label {
-    @apply text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-neutral-500;
+    @apply text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-neutral-500;
 }
 
 .stat-value {
-    @apply text-3xl font-bold text-gray-900 dark:text-neutral-100 leading-none;
+    @apply text-3xl font-bold text-primary-950 font-display dark:text-neutral-100 leading-none;
 }
 
 /* Space between sibling fieldsets and other block elements inside card body.
@@ -716,7 +727,7 @@ a.btn-danger {
 
 /* Help text below input */
 .field-help {
-    @apply text-xs text-gray-500 mt-1 dark:text-neutral-400;
+    @apply text-xs text-gray-600 mt-1 dark:text-neutral-400;
 }
 
 /* Error message below input */
@@ -868,7 +879,7 @@ a.btn-danger {
 }
 
 .breadcrumb-separator {
-    @apply mx-2 text-gray-400;
+    @apply mx-2 text-gray-500;
     @apply dark:text-neutral-500;
 }
 
@@ -911,7 +922,7 @@ a.btn-danger {
 }
 
 .data-table th {
-    @apply px-4 py-3 text-start text-xs font-medium text-gray-500 tracking-wide;
+    @apply px-4 py-3 text-start text-xs font-medium text-gray-600 tracking-wide;
     @apply dark:text-neutral-400;
     overflow: visible;
 }
@@ -946,7 +957,7 @@ a.btn-danger {
 }
 
 .data-table tbody tr {
-    @apply bg-white border-b border-gray-100;
+    @apply bg-gray-50 border-b border-gray-100;
     @apply hover:bg-gray-50;
     @apply dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700;
 }
@@ -962,7 +973,7 @@ a.btn-danger {
 }
 
 .data-table tbody tr.section-header td {
-    @apply text-xs font-semibold uppercase tracking-wider text-gray-500 py-2;
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-600 py-2;
 }
 
 /* Sortable column header */
@@ -987,7 +998,7 @@ a.btn-danger {
     position: sticky;
     left: 0;
     z-index: 10;
-    @apply bg-white;
+    @apply bg-gray-50;
     @apply dark:bg-neutral-800;
 }
 
@@ -1039,11 +1050,11 @@ a.btn-danger {
 .file-list-input {
     @apply flex-1 py-2 px-3 text-sm border-gray-200 rounded-lg bg-gray-50;
     @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-200;
-    @apply focus:border-blue-500 focus:ring-blue-500 focus:bg-white dark:focus:bg-neutral-800;
+    @apply focus:border-primary-500 focus:ring-primary-500 focus:bg-gray-50 dark:focus:bg-neutral-800;
 }
 
 .file-list-action {
-    @apply flex items-center justify-center size-9 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg border border-gray-200 bg-white transition-colors cursor-pointer;
+    @apply flex items-center justify-center size-9 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg border border-gray-200 bg-gray-50 transition-colors cursor-pointer;
     @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:border-neutral-700;
 }
 
@@ -1058,7 +1069,7 @@ a.btn-danger {
 }
 
 .file-list-description {
-    @apply text-xs text-gray-500 mb-3;
+    @apply text-xs text-gray-600 mb-3;
     @apply dark:text-neutral-400;
 }
 
@@ -1158,7 +1169,7 @@ a.btn-danger {
 }
 
 .accordion-header-icon {
-    @apply shrink-0 text-gray-400 mr-3;
+    @apply shrink-0 text-gray-500 mr-3;
     @apply dark:text-neutral-500;
     font-size: 1rem;
     width: 1rem;
@@ -1209,7 +1220,7 @@ a.btn-danger {
 
 /* Accordion chevrons for data accordion (reuses existing pattern) */
 .accordion-chevron-wrap {
-    @apply text-gray-400;
+    @apply text-gray-500;
     @apply dark:text-neutral-500;
 }
 
@@ -1404,7 +1415,7 @@ a.btn-danger {
 }
 
 .pagination-btn {
-    @apply inline-flex items-center justify-center size-8 text-sm rounded-lg;
+    @apply inline-flex items-center justify-center size-11 text-sm rounded-lg;
     @apply text-gray-500 hover:bg-gray-100;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:text-neutral-400 dark:hover:bg-neutral-700;
@@ -1422,7 +1433,7 @@ a.btn-danger {
    =================================== */
 
 .hs-dropdown-menu {
-    @apply min-w-40 bg-white border border-gray-200 shadow-md rounded-lg p-1 mt-1 z-10;
+    @apply min-w-40 bg-gray-50 border border-gray-200 shadow-md rounded-lg p-1 mt-1 z-10;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     /* Hidden by default; Preline adds 'block' when open, 'hidden' (display:none) when closed */
     display: none;
@@ -1471,7 +1482,7 @@ a.btn-danger {
    =================================== */
 
 .ctx-menu {
-    @apply fixed min-w-44 bg-white border border-gray-200 shadow-lg rounded-lg p-1 z-50;
+    @apply fixed min-w-44 bg-gray-50 border border-gray-200 shadow-lg rounded-lg p-1 z-50;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     display: none;
     opacity: 0;
@@ -1507,11 +1518,11 @@ a.btn-danger {
 }
 
 .ctx-menu-label {
-    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-neutral-500;
+    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-neutral-500;
 }
 
 .ctx-menu-shortcut {
-    @apply ml-auto text-xs text-gray-400 dark:text-neutral-500;
+    @apply ml-auto text-xs text-gray-600 dark:text-neutral-500;
 }
 
 .ctx-menu-icon {
@@ -1561,9 +1572,10 @@ a.btn-danger {
    =================================== */
 
 .filter-pill {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm;
-    @apply bg-white border border-gray-200 text-gray-600;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm min-h-11;
+    @apply bg-gray-50 border border-gray-200 text-gray-600;
     @apply hover:bg-gray-50 cursor-pointer transition-colors;
+    @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
 }
 
 .filter-pill.active {
@@ -1575,16 +1587,41 @@ a.btn-danger {
    =================================== */
 
 .prompt-input-container {
-    @apply border border-gray-200 rounded-xl bg-white overflow-hidden;
+    @apply border border-gray-200 rounded-xl bg-gray-50 overflow-hidden;
+    @apply shadow-xs transition-shadow duration-200;
     @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
 }
 
+.prompt-input-container:focus-within {
+    @apply ring-2 ring-primary-500/20 border-primary-500;
+    @apply dark:border-primary-500 dark:ring-primary-500/20;
+}
+
 .prompt-textarea {
     @apply w-full p-4 border-0 bg-transparent text-sm resize-none;
+    @apply overflow-hidden max-h-[300px] outline-none;
     @apply placeholder-gray-400 text-gray-900;
     @apply focus:ring-0 focus:outline-none;
     @apply dark:text-neutral-200 dark:placeholder-neutral-500;
+    field-sizing: content;
+    /* Modern auto-resize */
+}
+
+/* Remove default textarea border/ring when inside prompt container.
+   Uses !important because global textarea rule has competing specificity. */
+.prompt-input-container textarea {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+}
+
+.prompt-input-container textarea:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    --tw-ring-shadow: none !important;
 }
 
 /* ===================================
@@ -1595,7 +1632,7 @@ a.btn-danger {
    On non-mobile pages (no bottom nav), bottom: 64px leaves a gap;
    those pages don't use .sticky-footer so this is fine. */
 .sticky-footer {
-    @apply fixed left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-30;
+    @apply fixed left-0 right-0 bg-gray-50 border-t border-gray-200 shadow-lg z-30;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     bottom: 64px; /* clear the 64px mobile-bottom-nav */
     max-width: 430px;
@@ -1655,7 +1692,7 @@ a.btn-danger {
 }
 
 .ai-field-confirmed-label {
-    @apply text-xs text-gray-400;
+    @apply text-xs text-gray-600;
     @apply dark:text-neutral-500;
 }
 
@@ -1737,7 +1774,7 @@ input[type='number'].nutrition-input:focus {
 
 /* Unit suffix label inside the group */
 .nutrition-unit {
-    @apply text-xs text-gray-400 pe-1.5 ps-0.5 select-none pointer-events-none;
+    @apply text-xs text-gray-600 pe-1.5 ps-0.5 select-none pointer-events-none;
     @apply dark:text-neutral-500;
 }
 
@@ -1771,6 +1808,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply flex items-start gap-2 py-2 px-3 -mx-3 rounded-md cursor-pointer transition-colors;
     @apply hover:bg-gray-50;
     @apply dark:hover:bg-neutral-800;
+    @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
 }
 
 .issue-item-icon {
@@ -1787,12 +1825,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .issue-item-action {
-    @apply text-xs text-gray-500 mt-0.5;
+    @apply text-xs text-gray-600 mt-0.5;
     @apply dark:text-neutral-400;
 }
 
 .issue-item-resolved .issue-item-description {
-    @apply text-gray-400 line-through;
+    @apply text-gray-500 line-through;
     @apply dark:text-neutral-500;
 }
 
@@ -1822,7 +1860,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Mobile: sidebar slides off-screen right */
 @media (max-width: 63.9375rem) {
     .issues-layout-aside {
-        @apply fixed top-0 right-0 bottom-0 z-40 w-80 translate-x-full bg-white shadow-xl p-4 overflow-y-auto;
+        @apply fixed top-0 right-0 bottom-0 z-40 w-80 translate-x-full bg-gray-50 shadow-xl p-4 overflow-y-auto;
         @apply dark:bg-neutral-900;
     }
     .issues-layout-aside.open {
@@ -1833,7 +1871,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Toggle button for mobile sidebar */
 .issues-layout-toggle {
     @apply inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg;
-    @apply bg-white border border-gray-200 text-gray-700 shadow-sm;
+    @apply bg-gray-50 border border-gray-200 text-gray-700 shadow-sm;
     @apply hover:bg-gray-50;
     @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300;
     @apply dark:hover:bg-neutral-700;
@@ -1858,7 +1896,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .tag-group-label {
-    @apply text-xs uppercase tracking-wide text-gray-500 font-medium min-w-[7rem];
+    @apply text-xs uppercase tracking-wide text-gray-600 font-medium min-w-[7rem];
     @apply dark:text-neutral-400;
 }
 
@@ -1894,19 +1932,20 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-label-cold {
-    @apply text-blue-700;
+    @apply text-cyan-700;
     @apply dark:text-cyan-400;
 }
 
 .meal-label-cold .meal-type-icon {
-    @apply text-blue-500 me-1.5;
+    @apply text-cyan-500 me-1.5;
     @apply dark:text-cyan-400;
 }
 
 /* Hot/Cold toggle button group */
 .meal-type-toggle {
-    @apply px-2.5 py-1 text-xs font-medium text-gray-400 cursor-pointer transition-colors;
+    @apply px-2.5 py-1 text-xs font-medium text-gray-600 cursor-pointer transition-colors;
     @apply dark:text-neutral-500;
+    @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
     background: transparent;
 }
 
@@ -1924,7 +1963,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-type-toggle-cold.active {
-    @apply text-blue-700 bg-blue-50;
+    @apply text-cyan-700 bg-cyan-50;
     @apply dark:text-cyan-400 dark:bg-cyan-900/20;
 }
 
@@ -1939,7 +1978,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-column {
-    @apply bg-white rounded-md p-4;
+    @apply bg-gray-50 rounded-md p-4;
     @apply dark:bg-neutral-900;
 }
 
@@ -1949,7 +1988,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-column-header {
-    @apply text-xs uppercase tracking-wide text-gray-500 font-medium mb-3;
+    @apply text-xs uppercase tracking-wide text-gray-600 font-medium mb-3;
     @apply dark:text-neutral-400;
 }
 
@@ -1975,7 +2014,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-meta {
-    @apply text-xs text-gray-400 mt-2;
+    @apply text-xs text-gray-600 mt-2;
     @apply dark:text-neutral-500;
 }
 
@@ -1994,7 +2033,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-row-label {
-    @apply text-xs font-medium uppercase tracking-wide text-gray-400;
+    @apply text-xs font-medium uppercase tracking-wide text-gray-600;
     @apply dark:text-neutral-500;
 }
 
@@ -2069,13 +2108,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sidebar-nav-item {
     @apply flex items-center gap-x-3.5 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100;
-    @apply dark:text-gray-400 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
+    @apply dark:text-gray-500 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
     min-height: 3.15em; /* ~44px at 14px (text-sm), scales with font-size */
     padding-block: 0.575em;
 }
 
 .sidebar-nav-item:focus-visible {
-    @apply outline-none ring-2 ring-gray-300 dark:ring-neutral-600;
+    @apply outline-none ring-2 ring-primary-500 dark:ring-primary-400;
 }
 
 .sidebar-nav-item.active,
@@ -2085,7 +2124,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .sidebar-nav-section {
-    @apply block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-2.5 mt-5;
+    @apply block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2 ml-2.5 mt-5;
     @apply dark:text-neutral-500;
 }
 
@@ -2155,42 +2194,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     display: block !important;
 }
 
-/* ===================================
-   PROMPT INPUT COMPONENT
-   =================================== */
-
-.prompt-input-container {
-    @apply shadow-xs transition-shadow duration-200;
-    overflow: hidden;
-}
-
-.prompt-input-container:focus-within {
-    @apply ring-2 ring-primary-500/20 border-primary-500;
-    @apply dark:border-primary-500 dark:ring-primary-500/20;
-}
-
-.prompt-textarea {
-    @apply resize-none overflow-hidden max-h-[300px] outline-none;
-    field-sizing: content;
-    /* Modern auto-resize */
-}
-
-/* Remove default textarea border when inside prompt container */
-/* Remove default textarea border/ring when inside prompt container.
-   Uses !important because global textarea rule has competing specificity. */
-.prompt-input-container textarea {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    border-radius: 0 !important;
-}
-
-.prompt-input-container textarea:focus {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    --tw-ring-shadow: none !important;
-}
 
 .prompt-toolbar {
     @apply rounded-b-xl;
@@ -2221,7 +2224,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .chat-bubble-ai {
-    @apply bg-white border border-gray-200 p-4 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm;
+    @apply bg-gray-50 border border-gray-200 p-4 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm;
     @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-gray-200;
 }
 
@@ -2239,9 +2242,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply p-0 bg-transparent text-gray-500 border-transparent;
 
     /* Icon button specific styles */
-    @apply inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg transition-colors;
+    @apply inline-flex flex-shrink-0 justify-center items-center size-11 rounded-lg transition-colors;
     @apply hover:bg-gray-100;
-    @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-gray-200;
+    @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
     @apply dark:text-neutral-500 dark:hover:bg-neutral-800 dark:focus:ring-neutral-700;
 }
 
@@ -2293,7 +2296,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* The sliding thumb */
 .pl-theme-toggle-thumb {
-    @apply absolute w-[22px] h-[22px] rounded-full bg-white shadow-sm transition-transform duration-200;
+    @apply absolute w-[22px] h-[22px] rounded-full bg-gray-50 shadow-sm transition-transform duration-200;
     left: 3px;
     top: 3px;
 }
@@ -2347,7 +2350,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .btn-model-selector,
 .dropdown-btn {
     /* Reset base button styles */
-    @apply py-2 px-3 bg-white text-gray-800 border-gray-200;
+    @apply py-2 px-3 bg-gray-50 text-gray-800 border-gray-200;
 
     /* Selector styles */
     @apply inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border shadow-sm transition-colors;
@@ -2362,7 +2365,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dropdown-menu {
     transition-property: opacity, margin;
-    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2;
+    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-gray-50 shadow-md rounded-lg p-2 mt-2;
     @apply dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700;
 }
 
@@ -2390,7 +2393,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .calendar-day {
-    @apply w-full bg-white text-gray-800 text-sm font-semibold text-center py-0.5;
+    @apply w-full bg-gray-50 text-gray-800 text-sm font-semibold text-center py-0.5;
 }
 
 /* ===================================
@@ -2414,7 +2417,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Icon element inside .search-input (e.g. <i class="fa-solid fa-magnifying-glass search-input-icon">) */
 .search-input-icon {
-    @apply absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none;
+    @apply absolute start-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none;
     @apply dark:text-neutral-500;
 }
 
@@ -2438,7 +2441,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .select-haven {
     @apply block w-full py-2.5 sm:py-3 px-4 text-sm rounded-lg;
-    @apply border-gray-200 bg-white text-gray-900;
+    @apply border-gray-200 bg-gray-50 text-gray-900;
     @apply focus:border-primary-500 focus:ring-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
@@ -2549,11 +2552,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .assignment-select {
     @apply block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
     @apply py-2 px-3;
-    @apply focus:border-blue-500 focus:ring-blue-500;
+    @apply focus:border-primary-500 focus:ring-primary-500;
 }
 
 .assignment-select.assignment-modified {
-    @apply border-orange-200 bg-orange-50 text-orange-800 dark:bg-orange-900/20 dark:border-orange-800 dark:text-orange-300;
+    @apply border-amber-200 bg-amber-50 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300;
 }
 
 /* ===================================
@@ -2561,11 +2564,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .assignment-filter-tag {
-    @apply inline-flex items-center gap-x-2 py-1.5 px-3 rounded-full text-sm font-medium border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700;
+    @apply inline-flex items-center gap-x-2 py-1.5 px-3 rounded-full text-sm font-medium border border-gray-200 bg-gray-50 text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700;
 }
 
 .assignment-filter-tag.active {
-    @apply border-blue-600 bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700 dark:border-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600;
+    @apply border-primary-600 bg-primary-600 text-white hover:bg-primary-700 focus:bg-primary-700 dark:border-primary-500 dark:bg-primary-500 dark:hover:bg-primary-600;
 }
 
 .assignment-filter-count {
@@ -2696,7 +2699,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     min-width: 10rem;
     max-width: 16rem;
     display: none;
-    @apply bg-white border border-gray-200 rounded-md p-2;
+    @apply bg-gray-50 border border-gray-200 rounded-md p-2;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
     border-top: 2px solid var(--color-primary-400);
     border-radius: 0 0 0.375rem 0.375rem;
@@ -2785,7 +2788,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Meal column meta (temp icon + total) */
 .meal-col-meta {
-    @apply flex items-center gap-1 mt-1 text-xs text-gray-500;
+    @apply flex items-center gap-1 mt-1 text-xs text-gray-600;
 }
 
 .meal-col-total {
@@ -2810,8 +2813,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-temp-tag--cold {
-    background-color: var(--color-blue-100);
-    color: var(--color-blue-700);
+    background-color: var(--color-cyan-100);
+    color: var(--color-cyan-700);
 }
 
 /* Meal quantity cell — spreadsheet style.
@@ -2898,7 +2901,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     border: none !important;
     border-radius: 0 !important;
     cursor: pointer;
-    color: var(--color-gray-400);
+    color: var(--color-gray-600);
     font-size: 0.6875rem;
     align-self: stretch;
     min-height: 0;
@@ -2968,7 +2971,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 */
 
 .alert-category-card {
-    @apply flex flex-col gap-1 p-4 bg-white rounded-xl;
+    @apply flex flex-col gap-1 p-4 bg-gray-50 rounded-xl;
     @apply border-t border-r border-b border-gray-200;
     @apply border-l-4;
     border-left-color: var(--alert-accent, var(--color-gray-200));
@@ -2977,7 +2980,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .alert-category-label {
-    @apply inline-flex items-center text-xs font-semibold uppercase tracking-wider text-gray-500;
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-wider text-gray-600;
     @apply dark:text-neutral-400;
 }
 
@@ -2986,7 +2989,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .clinical-metric-card {
-    @apply flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-xl cursor-pointer;
+    @apply flex flex-col gap-2 p-4 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer;
     @apply hover:bg-gray-50 transition-colors;
     @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
 }
@@ -3019,7 +3022,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .trend-flat {
-    @apply inline-flex items-center gap-1 text-xs font-medium text-gray-400;
+    @apply inline-flex items-center gap-1 text-xs font-medium text-gray-600;
     @apply dark:text-neutral-500;
 }
 
@@ -3070,7 +3073,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .segmented-control-btn,
 .view-toggle-btn {
-    @apply px-3 py-1.5 text-sm text-gray-600 bg-white transition-colors cursor-pointer;
+    @apply px-3 py-1.5 text-sm text-gray-600 bg-gray-50 transition-colors cursor-pointer;
     @apply hover:bg-gray-50;
     @apply focus:outline-none focus:z-10 focus:ring-2 focus:ring-inset focus:ring-primary-500;
     @apply dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700;
@@ -3101,7 +3104,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .patient-card {
-    @apply flex flex-col gap-3 p-4 bg-white rounded-xl cursor-pointer;
+    @apply flex flex-col gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer;
     @apply border-t border-r border-b border-l border-gray-200;
     @apply hover:bg-gray-50 transition-colors;
     @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
@@ -3182,7 +3185,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .medication-row-dose {
-    @apply text-xs text-gray-500 ml-1.5;
+    @apply text-xs text-gray-600 ml-1.5;
     @apply dark:text-neutral-400;
 }
 
@@ -3202,7 +3205,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .alert-summary-row-meta {
-    @apply text-xs text-gray-400 shrink-0;
+    @apply text-xs text-gray-600 shrink-0;
     @apply dark:text-neutral-500;
 }
 
@@ -3230,7 +3233,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .section-nav {
-    @apply bg-white border-b border-gray-100;
+    @apply bg-gray-50 border-b border-gray-100;
 }
 
 .section-nav-item {
@@ -3252,12 +3255,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .stratification-bar-label {
-    @apply text-xs font-medium text-gray-500 shrink-0;
+    @apply text-xs font-medium text-gray-600 shrink-0;
 }
 
 .stratification-bar-item {
     @apply px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap;
-    @apply bg-white text-gray-600 border-gray-200;
+    @apply bg-gray-50 text-gray-600 border-gray-200;
     @apply hover:bg-gray-50 transition-colors cursor-pointer;
 }
 
@@ -3296,7 +3299,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .hedis-stat-label {
-    @apply text-xs font-medium text-gray-500 uppercase tracking-wide mb-1;
+    @apply text-xs font-medium text-gray-600 uppercase tracking-wide mb-1;
 }
 
 .hedis-stat-value {
@@ -3304,7 +3307,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .hedis-stat-detail {
-    @apply text-xs text-gray-500 mt-0.5;
+    @apply text-xs text-gray-600 mt-0.5;
 }
 
 /* ===================================
@@ -3324,7 +3327,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .roi-result-label {
-    @apply text-xs text-gray-500 mt-0.5;
+    @apply text-xs text-gray-600 mt-0.5;
 }
 
 /* ===================================
@@ -3400,7 +3403,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .timeline-event-actor {
-    @apply text-xs text-gray-400;
+    @apply text-xs text-gray-600;
 }
 
 /* ===================================
@@ -3411,6 +3414,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply flex items-center gap-3 px-4 py-3 cursor-pointer;
     @apply border-b border-gray-100 last:border-b-0;
     @apply hover:bg-gray-50 transition-colors;
+    @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
 }
 
 .partner-list-item.active {
@@ -3426,7 +3430,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .performance-metric-label {
-    @apply text-xs font-medium text-gray-500 uppercase tracking-wide mb-1;
+    @apply text-xs font-medium text-gray-600 uppercase tracking-wide mb-1;
 }
 
 .performance-metric-value {
@@ -3434,7 +3438,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .performance-metric-detail {
-    @apply text-xs text-gray-500 mt-0.5;
+    @apply text-xs text-gray-600 mt-0.5;
 }
 
 /* ===================================
@@ -3452,7 +3456,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .btn-danger-outline {
     @apply py-2 px-3 gap-x-1.5 bg-transparent border border-error-300 text-error-600;
     @apply hover:bg-error-50 hover:border-error-400;
-    @apply focus:ring-error-500;
+    @apply focus:ring-2 focus:ring-offset-2 focus:ring-error-500;
     @apply dark:border-error-700 dark:text-error-400 dark:hover:bg-error-900/20;
 }
 
@@ -3721,6 +3725,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    Applied to rows in alert resolution tables where avg time exceeds target.
    =================================== */
 
+/* A11Y note: .sla-warning should be paired with a warning icon (e.g. fa-triangle-exclamation)
+   in HTML to provide a dual-cue (color + icon) for colorblind users. */
 .sla-warning {
     @apply text-warning-700 font-medium;
     @apply dark:text-warning-400;
@@ -3732,7 +3738,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .table-section-divider td {
-    @apply px-4 py-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider;
+    @apply px-4 py-1.5 text-xs font-semibold text-gray-600 uppercase tracking-wider;
     @apply bg-gray-50 border-t-2 border-gray-200;
     @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-500;
 }
@@ -3752,7 +3758,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .performance-stat-compact-label {
-    @apply text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-0.5;
+    @apply text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-0.5;
     @apply dark:text-neutral-500;
 }
 
@@ -3762,7 +3768,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .performance-stat-compact-detail {
-    @apply text-[10px] text-gray-400 mt-0.5;
+    @apply text-[10px] text-gray-600 mt-0.5;
     @apply dark:text-neutral-500;
 }
 
@@ -3997,7 +4003,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Step description (optional subtitle under label) */
 .stepper-nav-description {
-    @apply text-xs text-gray-400 mt-0.5;
+    @apply text-xs text-gray-600 mt-0.5;
     @apply dark:text-neutral-500;
 }
 
@@ -4046,7 +4052,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .meal-card {
-  @apply flex items-center gap-3 bg-white border border-gray-200 rounded-xl p-3 shadow-2xs;
+  @apply flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl p-3 shadow-2xs;
   @apply dark:bg-neutral-900 dark:border-neutral-700;
   @apply hover:bg-gray-50 transition-colors;
   background-color: white !important; /* suppress button hover inheritance */
@@ -4081,7 +4087,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-card-day {
-  @apply text-xs text-gray-500;
+  @apply text-xs text-gray-600;
   @apply dark:text-neutral-400;
 }
 
@@ -4134,7 +4140,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .delivery-status-card {
-  @apply flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl mx-4;
+  @apply flex flex-col bg-gray-50 border border-gray-200 shadow-2xs rounded-xl mx-4;
   @apply dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
 }
 
@@ -4167,7 +4173,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .delivery-summary-label {
-  @apply text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1;
+  @apply text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1;
   @apply dark:text-neutral-400;
 }
 
@@ -4217,19 +4223,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Sender label — appears above first bubble in a consecutive group */
 .message-sender-label {
-  @apply text-xs text-gray-500 mb-1;
+  @apply text-xs text-gray-600 mb-1;
   @apply dark:text-neutral-400;
 }
 
 /* Date separator between day groups */
 .message-date-sep {
-  @apply text-xs text-gray-400 text-center py-2;
+  @apply text-xs text-gray-600 text-center py-2;
   @apply dark:text-neutral-500;
 }
 
 /* Timestamp below a bubble */
 .message-timestamp {
-  @apply text-xs text-gray-400 mt-1;
+  @apply text-xs text-gray-600 mt-1;
   @apply dark:text-neutral-500;
 }
 
@@ -4254,7 +4260,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual rating option card — wraps a sr-only radio input */
 .feedback-rating-card {
-  @apply flex flex-col items-center justify-center gap-2 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer;
+  @apply flex flex-col items-center justify-center gap-2 p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer;
   @apply hover:border-primary-300 hover:bg-primary-50;
   @apply dark:bg-neutral-900 dark:border-neutral-700;
   min-height: 80px;
@@ -4272,7 +4278,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .feedback-rating-card i {
-  @apply text-2xl text-gray-400;
+  @apply text-2xl text-gray-500;
 }
 
 .feedback-rating-card:has(input:checked) i {
@@ -4412,7 +4418,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Wrapper label — shared base for both radio and checkbox rows */
 .pref-row {
-  @apply flex items-center gap-3 w-full p-3 bg-white border border-gray-200 rounded-xl cursor-pointer;
+  @apply flex items-center gap-3 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer;
   @apply hover:border-primary-300 hover:bg-primary-50 transition-colors;
   @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
   @apply dark:bg-neutral-900 dark:border-neutral-700;
@@ -4462,13 +4468,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual icon display card — centered icon + label */
 .icon-demo-card {
-  @apply flex flex-col items-center justify-center gap-2 p-4 rounded-lg border border-gray-200 bg-white;
+  @apply flex flex-col items-center justify-center gap-2 p-4 rounded-lg border border-gray-200 bg-gray-50;
   @apply dark:border-neutral-700 dark:bg-neutral-800;
 }
 
 /* Icon name label below demo icon */
 .icon-demo-label {
-  @apply block text-xs font-mono text-gray-500 text-center;
+  @apply block text-xs font-mono text-gray-600 text-center;
   @apply dark:text-neutral-400;
 }
 
@@ -4492,7 +4498,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Section heading rendered above each grouped card */
 .profile-section-heading {
-    @apply block text-xs font-semibold uppercase tracking-wide text-gray-400 px-1 mb-2 mt-6;
+    @apply block text-xs font-semibold uppercase tracking-wide text-gray-600 px-1 mb-2 mt-6;
 }
 
 /* Read-only display row for personal info fields */
@@ -4588,7 +4594,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-meal-chip-day {
-    @apply text-xs text-gray-400 font-medium;
+    @apply text-xs text-gray-600 font-medium;
 }
 
 .dashboard-meal-chip-name {
@@ -4624,12 +4630,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-message-preview-time {
-    @apply text-xs text-gray-400 shrink-0;
+    @apply text-xs text-gray-600 shrink-0;
     @apply dark:text-neutral-500;
 }
 
 .dashboard-message-preview-text {
-    @apply text-xs text-gray-500 truncate;
+    @apply text-xs text-gray-600 truncate;
     @apply dark:text-neutral-400;
     line-height: 1.2;
     margin: 0;
@@ -4681,7 +4687,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .divider-label {
-    @apply text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap;
+    @apply text-xs font-medium text-gray-600 uppercase tracking-wider whitespace-nowrap;
     @apply dark:text-neutral-400;
 }
 
@@ -4804,7 +4810,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Base toast */
 .toast {
     @apply flex items-start gap-3 text-sm rounded-xl p-4 shadow-lg;
-    @apply bg-white border border-gray-200;
+    @apply bg-gray-50 border border-gray-200;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
     pointer-events: auto;
     position: relative;
@@ -4836,7 +4842,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .toast-dismiss {
     @apply shrink-0 inline-flex items-center justify-center rounded-lg cursor-pointer;
-    @apply text-gray-400 dark:text-neutral-500;
+    @apply text-gray-500 dark:text-neutral-500;
     width: 1.75rem;
     height: 1.75rem;
     border: none;
@@ -4995,7 +5001,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* The sliding thumb (pseudo on the track) */
 .toggle-track::after {
     content: '';
-    @apply absolute rounded-full bg-white shadow-sm transition-transform duration-200;
+    @apply absolute rounded-full bg-gray-50 shadow-sm transition-transform duration-200;
     width: 18px;
     height: 18px;
     left: 3px;
@@ -5191,12 +5197,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-dropzone-icon {
-    @apply text-3xl text-gray-400;
+    @apply text-3xl text-gray-500;
     @apply dark:text-neutral-500;
 }
 
 .file-upload-dropzone-compact .file-upload-dropzone-icon {
-    @apply text-xl text-gray-400;
+    @apply text-xl text-gray-500;
     @apply dark:text-neutral-500;
 }
 
@@ -5206,7 +5212,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-dropzone-hint {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-gray-600;
     @apply dark:text-neutral-400;
 }
 
@@ -5222,7 +5228,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual file item row */
 .file-upload-item {
-    @apply flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-white;
+    @apply flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-gray-50;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
 }
 
@@ -5261,12 +5267,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-size {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-gray-600;
     @apply dark:text-neutral-400;
 }
 
 .file-upload-item-status {
-    @apply text-xs font-medium text-gray-500;
+    @apply text-xs font-medium text-gray-600;
     @apply dark:text-neutral-400;
 }
 
@@ -5313,7 +5319,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-remove {
-    @apply flex items-center justify-center size-7 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-pointer transition-colors shrink-0;
+    @apply flex items-center justify-center size-7 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 cursor-pointer transition-colors shrink-0;
     @apply dark:text-neutral-500 dark:hover:text-neutral-300 dark:hover:bg-neutral-700;
 }
 
@@ -5332,7 +5338,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .datepicker-wrapper .datepicker-icon {
-    @apply absolute top-1/2 end-3 -translate-y-1/2 text-gray-400 pointer-events-none text-sm;
+    @apply absolute top-1/2 end-3 -translate-y-1/2 text-gray-500 pointer-events-none text-sm;
     @apply dark:text-neutral-500;
 }
 
@@ -5746,7 +5752,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Clock icon trigger button (absolute end of input) */
 .timepicker-icon-btn {
-    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-gray-400 cursor-pointer;
+    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-gray-500 cursor-pointer;
     @apply hover:bg-gray-100 hover:text-gray-600;
     @apply focus:outline-none focus:bg-gray-100;
     @apply dark:text-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-neutral-300 dark:focus:bg-neutral-800;
@@ -5848,7 +5854,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Wrapper — looks like an input field, wraps tags + inline text input */
 .tags-input {
     @apply flex flex-wrap items-center gap-1.5 py-2 px-3 rounded-lg;
-    @apply border border-gray-200 bg-white;
+    @apply border border-gray-200 bg-gray-50;
     @apply text-sm;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     cursor: text;
@@ -5962,7 +5968,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Tag count / limit indicator */
 .tags-input-count {
-    @apply text-xs text-gray-400;
+    @apply text-xs text-gray-600;
     @apply dark:text-neutral-500;
 }
 
@@ -5985,7 +5991,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .color-picker-swatch {
-    @apply block;
+    @apply block relative;
     width: 2rem;
     height: 2rem;
     border-radius: 9999px;
@@ -6029,7 +6035,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Small swatch variant */
 .color-picker-swatch-sm {
-    @apply block;
+    @apply block relative;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 9999px;
@@ -6132,7 +6138,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Check icon overlay inside active swatch */
 .color-picker-check {
-    @apply absolute inset-0 flex items-center justify-center text-white text-xs;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.75rem;
+    line-height: 1;
+    z-index: 1;
 }
 
 /* Disabled state */
@@ -6158,7 +6171,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Input field inside combobox — extra right padding for toggle/close buttons */
 .combobox-input {
     @apply block w-full py-2.5 sm:py-3 text-sm rounded-lg;
-    @apply border-gray-200 bg-white text-gray-900;
+    @apply border-gray-200 bg-gray-50 text-gray-900;
     @apply focus:border-primary-500 focus:ring-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
@@ -6168,13 +6181,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .combobox-input::placeholder {
-    @apply text-gray-400 dark:text-neutral-500;
+    @apply text-gray-500 dark:text-neutral-500;
 }
 
 /* Toggle chevron button — sits inside the input, right side */
 .combobox-toggle {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
-    @apply text-gray-400 cursor-pointer;
+    @apply text-gray-500 cursor-pointer;
     @apply hover:text-gray-600 dark:text-neutral-500 dark:hover:text-neutral-300;
     right: 2rem;
     width: 1.5rem;
@@ -6187,7 +6200,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Close / clear button — right of toggle */
 .combobox-close {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
-    @apply text-gray-400 cursor-pointer;
+    @apply text-gray-500 cursor-pointer;
     @apply hover:text-gray-600 dark:text-neutral-500 dark:hover:text-neutral-300;
     right: 0.5rem;
     width: 1.5rem;
@@ -6204,7 +6217,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Dropdown output panel — hidden by default, Preline sets display:block inline */
 .combobox-output {
-    @apply absolute z-50 w-full bg-white border border-gray-200 rounded-md shadow-lg;
+    @apply absolute z-50 w-full bg-gray-50 border border-gray-200 rounded-md shadow-lg;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
     @apply overflow-hidden overflow-y-auto;
     max-height: 16rem;
@@ -6246,7 +6259,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Group title heading */
 .combobox-group-title {
     @apply block px-3 py-1.5 text-xs font-semibold uppercase tracking-wider;
-    @apply text-gray-400 dark:text-neutral-500;
+    @apply text-gray-500 dark:text-neutral-500;
 }
 
 /* No results / empty state */
@@ -6262,7 +6275,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Description text below an option label */
 .combobox-item-description {
-    @apply text-xs text-gray-500 dark:text-neutral-400;
+    @apply text-xs text-gray-600 dark:text-neutral-400;
 }
 
 /* ===================================
@@ -6274,7 +6287,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply sticky top-0 z-50 w-full;
     @apply flex items-center justify-between;
     @apply px-4 sm:px-6 lg:px-8 py-3;
-    @apply bg-white border-b border-gray-200;
+    @apply bg-gray-50 border-b border-gray-200;
     @apply dark:bg-neutral-900 dark:border-neutral-700;
 }
 
@@ -6550,7 +6563,7 @@ a.list-group-item-action {
 }
 
 .list-group-item-icon {
-    @apply text-gray-400 text-base flex-shrink-0;
+    @apply text-gray-500 text-base flex-shrink-0;
     @apply dark:text-neutral-500;
 }
 
@@ -6564,7 +6577,7 @@ a.list-group-item-action {
 }
 
 .list-group-item-description {
-    @apply text-xs text-gray-500 mt-0.5 truncate;
+    @apply text-xs text-gray-600 mt-0.5 truncate;
     @apply dark:text-neutral-400;
 }
 
@@ -6614,7 +6627,7 @@ a.list-group-item-action {
 
 /* Card variant wrapper */
 .collapse-card {
-    @apply bg-white border border-gray-200 rounded-xl shadow-2xs;
+    @apply bg-gray-50 border border-gray-200 rounded-xl shadow-2xs;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
 }
 
@@ -6662,7 +6675,7 @@ a.list-group-item-action {
 .bottom-sheet-panel {
     @apply fixed inset-x-0 bottom-0 z-[80];
     @apply w-full max-h-[85vh];
-    @apply bg-white rounded-t-2xl shadow-lg;
+    @apply bg-gray-50 rounded-t-2xl shadow-lg;
     @apply flex flex-col;
     @apply opacity-0 transition-all duration-300 ease-out;
     @apply dark:bg-neutral-800;
@@ -6712,7 +6725,7 @@ a.list-group-item-action {
 
 /* Panel container — typically inside an hs-dropdown or standalone */
 .notif-center {
-    @apply flex flex-col bg-white border border-gray-200 rounded-xl shadow-lg;
+    @apply flex flex-col bg-gray-50 border border-gray-200 rounded-xl shadow-lg;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
     width: 24rem;
     max-width: calc(100vw - 2rem);
@@ -6808,7 +6821,7 @@ a.list-group-item-action {
 /* Date group heading */
 .notif-group-label {
     @apply block text-xs font-semibold uppercase tracking-wider px-4 py-2;
-    @apply text-gray-400 bg-gray-50;
+    @apply text-gray-500 bg-gray-50;
     @apply dark:text-neutral-500 dark:bg-neutral-800/50;
 }
 
@@ -6894,18 +6907,18 @@ a.list-group-item-action {
 }
 
 .notif-item-description {
-    @apply text-xs text-gray-500 dark:text-neutral-400 mt-0.5;
+    @apply text-xs text-gray-600 dark:text-neutral-400 mt-0.5;
     line-height: 1.4;
 }
 
 .notif-item-time {
-    @apply text-xs text-gray-400 dark:text-neutral-500 mt-1;
+    @apply text-xs text-gray-600 dark:text-neutral-500 mt-1;
 }
 
 /* Dismiss button */
 .notif-item-dismiss {
     @apply shrink-0 inline-flex items-center justify-center rounded-md cursor-pointer;
-    @apply text-gray-400 dark:text-neutral-500;
+    @apply text-gray-500 dark:text-neutral-500;
     width: 1.5rem;
     height: 1.5rem;
     border: none;
@@ -6981,7 +6994,7 @@ a.list-group-item-action {
 
 /* Main panel — centered card */
 .cmd-palette-panel {
-    @apply relative flex flex-col bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden;
+    @apply relative flex flex-col bg-gray-50 border border-gray-200 rounded-xl shadow-2xl overflow-hidden;
     @apply dark:bg-neutral-800 dark:border-neutral-700;
     width: 36rem;
     max-width: calc(100vw - 2rem);
@@ -6996,7 +7009,7 @@ a.list-group-item-action {
 }
 
 .cmd-palette-search i {
-    @apply text-gray-400 text-base shrink-0;
+    @apply text-gray-500 text-base shrink-0;
     @apply dark:text-neutral-500;
 }
 
@@ -7010,13 +7023,13 @@ a.list-group-item-action {
 }
 
 .cmd-palette-input::placeholder {
-    @apply text-gray-400;
+    @apply text-gray-500;
     @apply dark:text-neutral-500;
 }
 
 /* Keyboard shortcut badge (e.g. "Cmd K") */
 .cmd-palette-shortcut {
-    @apply inline-flex items-center gap-0.5 text-[10px] font-medium text-gray-400 shrink-0;
+    @apply inline-flex items-center gap-0.5 text-[10px] font-medium text-gray-600 shrink-0;
     @apply dark:text-neutral-500;
 }
 
@@ -7039,7 +7052,7 @@ a.list-group-item-action {
 /* Empty / no-results state */
 .cmd-palette-empty {
     @apply flex flex-col items-center justify-center py-10 px-4;
-    @apply text-sm text-gray-400;
+    @apply text-sm text-gray-500;
     @apply dark:text-neutral-500;
 }
 
@@ -7060,7 +7073,7 @@ a.list-group-item-action {
 
 /* Group heading */
 .cmd-palette-group-title {
-    @apply text-[11px] font-semibold uppercase tracking-wider text-gray-400 px-2 py-1.5;
+    @apply text-[11px] font-semibold uppercase tracking-wider text-gray-600 px-2 py-1.5;
     @apply dark:text-neutral-500;
 }
 
@@ -7080,7 +7093,7 @@ a.list-group-item-action {
 
 /* Leading icon */
 .cmd-palette-item-icon {
-    @apply text-gray-400 text-sm w-5 text-center shrink-0;
+    @apply text-gray-500 text-sm w-5 text-center shrink-0;
     @apply dark:text-neutral-500;
 }
 
@@ -7102,7 +7115,7 @@ a.list-group-item-action {
 
 /* Secondary description */
 .cmd-palette-item-description {
-    @apply block text-xs text-gray-400 truncate mt-0.5;
+    @apply block text-xs text-gray-600 truncate mt-0.5;
     @apply dark:text-neutral-500;
 }
 
@@ -7119,7 +7132,7 @@ a.list-group-item-action {
 
 .cmd-palette-item-shortcut kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-100 border border-gray-200 text-gray-400;
+    @apply bg-gray-100 border border-gray-200 text-gray-500;
     @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-500;
     font-family: inherit;
     font-size: 10px;
@@ -7141,16 +7154,315 @@ a.list-group-item-action {
 }
 
 .cmd-palette-footer-hint {
-    @apply flex items-center gap-1.5 text-[11px] text-gray-400;
+    @apply flex items-center gap-1.5 text-[11px] text-gray-600;
     @apply dark:text-neutral-500;
 }
 
 .cmd-palette-footer-hint kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-white border border-gray-200 text-gray-500;
+    @apply bg-gray-50 border border-gray-200 text-gray-500;
     @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
     min-width: 1.25rem;
+}
+
+/* ================================================================
+   QUEUE COMPONENTS (Care Coordinator)
+   ================================================================ */
+
+.queue-item {
+    @apply block px-3 py-2.5 cursor-pointer;
+    border-left: 3px solid var(--color-gray-200);
+    @apply hover:bg-gray-50 transition-colors duration-100;
+    @apply dark:hover:bg-neutral-800;
+}
+
+.queue-item.is-urgent {
+    border-left-color: var(--color-red-500);
+}
+
+.queue-item.is-attention {
+    border-left-color: var(--color-amber-400);
+}
+
+.queue-item.is-info {
+    border-left-color: var(--color-gray-200);
+    @apply opacity-80;
+    @apply dark:opacity-70;
+}
+
+.queue-item.active {
+    @apply bg-primary-50;
+    @apply dark:bg-primary-900/20;
+}
+
+.queue-item-header {
+    @apply flex items-center justify-between gap-2;
+}
+
+.queue-item-name {
+    @apply text-sm font-medium text-gray-900 truncate;
+    @apply dark:text-gray-100;
+}
+
+.queue-item-summary {
+    @apply text-xs text-gray-600 truncate mt-0.5;
+    @apply dark:text-gray-400;
+}
+
+.queue-item-meta {
+    @apply flex items-center justify-between text-xs text-gray-400 mt-1;
+    @apply dark:text-gray-500;
+}
+
+.queue-item-sla {
+    @apply flex items-center gap-1;
+}
+
+.queue-item-sla.is-warning {
+    @apply text-amber-600 font-medium;
+    @apply dark:text-amber-400;
+}
+
+.queue-item-sla.is-breached {
+    @apply text-red-600 font-medium;
+    @apply dark:text-red-400;
+}
+
+.queue-section-header {
+    @apply flex items-center gap-1.5 px-3 py-1.5;
+    @apply text-xs font-semibold uppercase tracking-wide;
+}
+
+.queue-section-header.is-urgent {
+    @apply text-red-700 bg-red-50;
+    @apply dark:text-red-400 dark:bg-red-900/20;
+}
+
+.queue-section-header.is-attention {
+    @apply text-amber-700;
+    @apply dark:text-amber-400;
+}
+
+.queue-section-header.is-info {
+    @apply text-gray-500;
+    @apply dark:text-gray-400;
+}
+
+/* ================================================================
+   THREAD MESSAGE COMPONENTS (Care Coordinator / Provider)
+   ================================================================ */
+
+/* System event — compact, muted */
+.thread-msg-system {
+    @apply flex items-center justify-between px-4 py-1.5;
+    @apply text-xs text-gray-400;
+    @apply dark:text-gray-500;
+}
+
+.thread-msg-time {
+    @apply text-xs text-gray-400 shrink-0 ml-2;
+    @apply dark:text-gray-500;
+}
+
+/* Agent tool call — icon + expandable payload */
+.thread-msg-tool {
+    @apply flex gap-2 px-4 py-2;
+}
+
+.thread-msg-tool-icon {
+    @apply w-6 h-6 rounded-full flex items-center justify-center shrink-0;
+    @apply bg-violet-100 text-violet-600 text-xs;
+    @apply dark:bg-violet-900/30 dark:text-violet-400;
+}
+
+.thread-msg-tool-content {
+    @apply flex-1 min-w-0;
+}
+
+.thread-msg-tool-name {
+    @apply text-xs text-gray-600;
+    font-family: var(--font-mono);
+    @apply dark:text-gray-400;
+}
+
+.thread-msg-tool-result {
+    @apply text-xs text-gray-500 ml-1;
+    font-family: var(--font-mono);
+    @apply dark:text-gray-500;
+}
+
+.thread-msg-tool-detail {
+    @apply mt-1 p-2 bg-gray-50 rounded-lg text-xs;
+    font-family: var(--font-mono);
+    @apply dark:bg-neutral-800;
+}
+
+/* Human message — right-aligned bubble */
+.thread-msg-human {
+    @apply flex flex-col items-end px-4 py-2;
+}
+
+.thread-msg-human-label {
+    @apply text-xs font-medium text-primary-600 mb-0.5;
+    @apply dark:text-primary-400;
+}
+
+.thread-msg-human-bubble {
+    @apply bg-primary-50 text-sm text-gray-900 px-3 py-2 rounded-xl;
+    border-top-right-radius: 0;
+    @apply max-w-[85%];
+    @apply dark:bg-primary-900/20 dark:text-gray-100;
+}
+
+/* Approval response — collapsed decision summary */
+.thread-msg-response {
+    @apply px-4 py-1.5;
+}
+
+.thread-msg-response-toggle {
+    @apply flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer;
+    @apply hover:text-gray-900 transition-colors;
+    @apply dark:text-gray-400 dark:hover:text-gray-200;
+}
+
+.thread-msg-response-toggle strong {
+    @apply font-medium;
+}
+
+.thread-msg-response.is-approved .thread-msg-response-toggle i {
+    @apply text-green-600;
+    @apply dark:text-green-400;
+}
+
+.thread-msg-response.is-rejected .thread-msg-response-toggle i {
+    @apply text-red-600;
+    @apply dark:text-red-400;
+}
+
+.thread-msg-response-detail {
+    @apply mt-2;
+}
+
+/* ================================================================
+   THREAD APPROVAL CARD (THE HERO COMPONENT)
+   ================================================================ */
+
+.thread-approval-card {
+    @apply rounded-xl shadow-sm;
+    @apply p-0 mx-3 my-2;
+    background-color: var(--color-amber-50);
+    border: 1px solid var(--color-amber-200);
+    border-left: 4px solid var(--color-primary-500);
+}
+
+@media (prefers-color-scheme: dark) {
+    .thread-approval-card {
+        background-color: color-mix(in srgb, var(--color-amber-900) 20%, transparent);
+        border-color: var(--color-amber-800);
+        border-left-color: var(--color-primary-400);
+    }
+}
+
+.thread-approval-card.is-urgent {
+    background-color: var(--color-red-50);
+    border-color: var(--color-red-200);
+    border-left-color: var(--color-red-500);
+}
+
+@media (prefers-color-scheme: dark) {
+    .thread-approval-card.is-urgent {
+        background-color: color-mix(in srgb, var(--color-red-900) 20%, transparent);
+        border-color: var(--color-red-800);
+        border-left-color: var(--color-red-400);
+    }
+}
+
+.thread-approval-header {
+    @apply flex items-center gap-2 px-4 pt-3 pb-2;
+    @apply text-sm font-semibold text-gray-900;
+    @apply dark:text-gray-100;
+}
+
+.thread-approval-header i {
+    @apply text-amber-600;
+    @apply dark:text-amber-400;
+}
+
+.thread-approval-body {
+    @apply px-4 pb-3 space-y-3;
+}
+
+.thread-approval-context {
+    @apply flex flex-col gap-0.5;
+}
+
+.thread-approval-context-title {
+    @apply text-sm font-medium text-gray-900;
+    @apply dark:text-gray-100;
+}
+
+.thread-approval-context-meta {
+    @apply text-xs text-gray-500;
+    @apply dark:text-gray-400;
+}
+
+.thread-approval-summary {
+    @apply text-sm text-gray-700 space-y-1;
+    @apply dark:text-gray-300;
+}
+
+.thread-approval-summary ul {
+    @apply list-disc list-inside text-sm text-gray-600 space-y-0.5;
+    @apply dark:text-gray-400;
+}
+
+.thread-approval-effects {
+    @apply pt-2 space-y-1;
+    border-top: 1px solid var(--color-amber-200);
+}
+
+@media (prefers-color-scheme: dark) {
+    .thread-approval-effects {
+        border-top-color: var(--color-amber-800);
+    }
+}
+
+.thread-approval-effects-label {
+    @apply text-xs font-medium text-gray-500;
+    @apply dark:text-gray-400;
+}
+
+.thread-approval-effects ul {
+    @apply list-disc list-inside text-xs text-gray-600;
+    @apply dark:text-gray-400;
+}
+
+.thread-approval-attachment {
+    @apply flex items-center gap-1.5 text-xs text-gray-500;
+    @apply dark:text-gray-400;
+}
+
+.thread-approval-actions {
+    @apply flex flex-wrap gap-2 px-4 py-3;
+    border-top: 1px solid var(--color-amber-200);
+}
+
+@media (prefers-color-scheme: dark) {
+    .thread-approval-actions {
+        border-top-color: var(--color-amber-800);
+    }
+}
+
+.thread-approval-note {
+    @apply px-4 pb-3;
+}
+
+.thread-approval-note textarea {
+    @apply w-full text-sm rounded-lg;
+    border-color: var(--color-gray-300);
+    @apply focus:ring-primary-500 focus:border-primary-500;
+    @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-gray-200;
 }

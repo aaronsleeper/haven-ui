@@ -1,0 +1,79 @@
+<!--
+@component-meta
+name: Queue Item
+category: Clinical / Healthcare
+classes: queue-item, queue-item-header, queue-item-name, queue-item-summary, queue-item-meta, queue-item-sla
+variants: is-urgent, is-attention, is-info, active
+preline: false
+notes: Care coordinator queue sidebar item. Left border indicates urgency. Truncates content at sidebar width.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queue Item — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Queue Item</h1>
+
+  <div class="max-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg">
+
+    <!-- Urgent + Active -->
+    <div class="queue-item is-urgent active">
+      <div class="queue-item-header">
+        <span class="queue-item-name">Maria Garcia</span>
+        <span class="badge badge-sm badge-pill">Care Plan</span>
+      </div>
+      <div class="queue-item-summary">Care plan ready for final approval</div>
+      <div class="queue-item-meta">
+        <span>2h ago</span>
+        <span class="queue-item-sla is-warning"><i class="fa-solid fa-clock"></i> Due in 1h</span>
+      </div>
+    </div>
+
+    <!-- Urgent + Breached -->
+    <div class="queue-item is-urgent">
+      <div class="queue-item-header">
+        <span class="queue-item-name">Robert Thompson</span>
+        <span class="badge badge-sm badge-pill">Eligibility</span>
+      </div>
+      <div class="queue-item-summary">Eligibility failed — alternative path available</div>
+      <div class="queue-item-meta">
+        <span>4h ago</span>
+        <span class="queue-item-sla is-breached"><i class="fa-solid fa-circle-exclamation"></i> 2h overdue</span>
+      </div>
+    </div>
+
+    <!-- Needs Attention -->
+    <div class="queue-item is-attention">
+      <div class="queue-item-header">
+        <span class="queue-item-name">Lisa Chen</span>
+        <span class="badge badge-sm badge-pill">Referral</span>
+      </div>
+      <div class="queue-item-summary">New referral from UConn Health</div>
+      <div class="queue-item-meta">
+        <span>45m ago</span>
+      </div>
+    </div>
+
+    <!-- Informational -->
+    <div class="queue-item is-info">
+      <div class="queue-item-header">
+        <span class="queue-item-name">Patricia Moore</span>
+        <span class="badge badge-sm badge-pill">Enrolled</span>
+      </div>
+      <div class="queue-item-summary">Enrolled successfully</div>
+      <div class="queue-item-meta">
+        <span>1h ago</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!--
+@component-meta
+name: Thread Tool Call
+category: Thread / Agent
+classes: thread-msg-tool, thread-msg-tool-icon, thread-msg-tool-content, thread-msg-tool-name, thread-msg-tool-result, thread-msg-tool-detail
+variants: none
+preline: yes — HSCollapse
+notes: Agent action with expandable payload. Click to show/hide full tool call detail.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thread Tool Call — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Thread Tool Call</h1>
+
+  <div class="max-w-[380px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg py-2">
+
+    <!-- Collapsed (default) -->
+    <div class="thread-msg-tool">
+      <div class="thread-msg-tool-icon">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <div class="thread-msg-tool-content">
+        <div class="hs-collapse-toggle cursor-pointer" id="tool-toggle-1" aria-expanded="false" data-hs-collapse="#tool-detail-1">
+          <span class="thread-msg-tool-name">◎ read_patient_assessment</span>
+          <span class="thread-msg-tool-result">→ { phq9: 7, sdoh: 3 }</span>
+          <span class="thread-msg-time ml-1">9:02am</span>
+        </div>
+        <div id="tool-detail-1" class="hs-collapse hidden thread-msg-tool-detail">
+          <pre class="whitespace-pre-wrap">{
+  "phq9_score": 7,
+  "gad7_score": 4,
+  "sdoh_risk": 3,
+  "dietary_restrictions": ["tree nuts"],
+  "cultural_preferences": ["Latin-inspired"],
+  "conditions": ["E11.65 — Type 2 DM"]
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Another tool call -->
+    <div class="thread-msg-tool">
+      <div class="thread-msg-tool-icon">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <div class="thread-msg-tool-content">
+        <div class="hs-collapse-toggle cursor-pointer" id="tool-toggle-2" aria-expanded="false" data-hs-collapse="#tool-detail-2">
+          <span class="thread-msg-tool-name">◎ generate_care_plan_draft</span>
+          <span class="thread-msg-tool-result">→ draft ready, 5 goals</span>
+          <span class="thread-msg-time ml-1">9:03am</span>
+        </div>
+        <div id="tool-detail-2" class="hs-collapse hidden thread-msg-tool-detail">
+          <pre class="whitespace-pre-wrap">{
+  "goals_count": 5,
+  "nutrition_plan": "generated",
+  "calories": "1600-1800",
+  "sodium": "&lt;1800mg"
+}</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!--
+@component-meta
+name: Thread Approval Response
+category: Thread / Agent
+classes: thread-msg-response, thread-msg-response-toggle, thread-msg-response-detail
+variants: is-approved, is-rejected
+preline: yes — HSCollapse
+notes: Collapsed decision summary. Click to expand read-only approval card. Modifiers: .is-approved, .is-rejected.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thread Approval Response — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Thread Approval Response</h1>
+
+  <div class="max-w-[380px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg py-2">
+
+    <!-- Approved -->
+    <div class="thread-msg-response is-approved">
+      <div class="thread-msg-response-toggle hs-collapse-toggle" data-hs-collapse="#response-detail-1" aria-expanded="false">
+        <i class="fa-solid fa-circle-check"></i>
+        <span><strong>Dr. Priya M.</strong> Approved nutrition plan — sodium target reduced to 1800mg · 9:47am</span>
+      </div>
+      <div id="response-detail-1" class="hs-collapse hidden thread-msg-response-detail">
+        <p class="text-xs text-gray-500 px-4 py-2 bg-gray-50 rounded-lg dark:bg-neutral-800 dark:text-gray-400">Read-only approval card would render here with the original context, summary, and decision.</p>
+      </div>
+    </div>
+
+    <!-- Rejected -->
+    <div class="thread-msg-response is-rejected">
+      <div class="thread-msg-response-toggle hs-collapse-toggle" data-hs-collapse="#response-detail-2" aria-expanded="false">
+        <i class="fa-solid fa-circle-xmark"></i>
+        <span><strong>Sarah K.</strong> Rejected — caloric target too aggressive for patient activity level · 10:12am</span>
+      </div>
+      <div id="response-detail-2" class="hs-collapse hidden thread-msg-response-detail">
+        <p class="text-xs text-gray-500 px-4 py-2 bg-gray-50 rounded-lg dark:bg-neutral-800 dark:text-gray-400">Read-only approval card would render here with rejection note and original context.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

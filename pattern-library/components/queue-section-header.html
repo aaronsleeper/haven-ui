@@ -1,0 +1,44 @@
+<!--
+@component-meta
+name: Queue Section Header
+category: Clinical / Healthcare
+classes: queue-section-header
+variants: is-urgent, is-attention, is-info
+preline: false
+notes: Urgency tier label with icon and count for queue sidebar sections.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queue Section Header — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Queue Section Header</h1>
+
+  <div class="max-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg space-y-1">
+
+    <div class="queue-section-header is-urgent">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Urgent · 2</span>
+    </div>
+
+    <div class="queue-section-header is-attention">
+      <i class="fa-solid fa-bell"></i>
+      <span>Needs Attention · 7</span>
+    </div>
+
+    <div class="queue-section-header is-info">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Informational · 3</span>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

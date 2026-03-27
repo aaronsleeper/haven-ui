@@ -1,0 +1,44 @@
+<!--
+@component-meta
+name: Thread System Message
+category: Thread / Agent
+classes: thread-msg-system, thread-msg-time
+variants: none
+preline: false
+notes: Compact system event with timestamp. Used between other thread message types.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thread System Message — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Thread System Message</h1>
+
+  <div class="max-w-[380px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg py-2">
+
+    <div class="thread-msg-system">
+      <span>Assessment complete. Initiating care plan.</span>
+      <span class="thread-msg-time">9:02am</span>
+    </div>
+
+    <div class="thread-msg-system">
+      <span>Care plan draft sent to RDN queue.</span>
+      <span class="thread-msg-time">9:03am</span>
+    </div>
+
+    <div class="thread-msg-system">
+      <span>RDN reviewed nutrition section.</span>
+      <span class="thread-msg-time">9:45am</span>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

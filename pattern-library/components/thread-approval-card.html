@@ -1,0 +1,131 @@
+<!--
+@component-meta
+name: Thread Approval Card
+category: Thread / Agent
+classes: thread-approval-card, thread-approval-header, thread-approval-body, thread-approval-context, thread-approval-context-title, thread-approval-context-meta, thread-approval-summary, thread-approval-effects, thread-approval-effects-label, thread-approval-attachment, thread-approval-actions, thread-approval-note
+variants: is-urgent, is-warning
+preline: false
+notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows context, downstream effects, optional note. Urgency variants change border and background.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thread Approval Card — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Thread Approval Card</h1>
+
+  <div class="max-w-[380px] space-y-6">
+
+    <!-- Standard variant (care plan approval) -->
+    <div>
+      <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Standard — Care Plan Approval</p>
+      <div class="thread-approval-card">
+        <div class="thread-approval-header">
+          <i class="fa-solid fa-hand"></i>
+          <span>Final Approval — Care Plan v1.0</span>
+        </div>
+        <div class="thread-approval-body">
+          <div class="thread-approval-context">
+            <span class="thread-approval-context-title">Care plan draft · Maria Garcia</span>
+            <span class="thread-approval-context-meta">All clinical sections approved · 3 min ago</span>
+          </div>
+          <div class="thread-approval-summary">
+            <p class="text-xs font-medium text-gray-500">Goals (2)</p>
+            <ul>
+              <li>HbA1c &lt; 8.0% within 6 months</li>
+              <li>Weight loss 5–8% within 6 months</li>
+            </ul>
+            <p class="text-xs mt-2">1800 cal/day · &lt;1800mg sodium · Diabetic-appropriate · Nut-free</p>
+          </div>
+          <div class="thread-approval-effects">
+            <span class="thread-approval-effects-label">Approving will:</span>
+            <ul>
+              <li>Set patient status to active</li>
+              <li>Start meal prescription matching</li>
+              <li>Schedule first RDN visit</li>
+              <li>Begin AVA check-in calls</li>
+              <li>Notify patient — welcome message</li>
+            </ul>
+          </div>
+          <div class="thread-approval-attachment">
+            <i class="fa-solid fa-paperclip"></i>
+            <span>1 attachment</span>
+            <a href="#" class="text-link text-xs">View</a>
+          </div>
+        </div>
+        <div class="thread-approval-actions">
+          <button class="btn-primary btn-sm">Approve</button>
+          <button class="btn-outline btn-sm">Edit first</button>
+          <button class="btn-outline btn-sm">Reject with note</button>
+          <button class="btn-outline btn-sm">Reassign</button>
+        </div>
+        <div class="thread-approval-note">
+          <textarea rows="2" placeholder="Add a note (optional)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Urgent variant (eligibility failure) -->
+    <div>
+      <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Urgent — Eligibility Issue</p>
+      <div class="thread-approval-card is-urgent">
+        <div class="thread-approval-header">
+          <i class="fa-solid fa-hand"></i>
+          <span>Eligibility Issue</span>
+        </div>
+        <div class="thread-approval-body">
+          <div class="thread-approval-context">
+            <span class="thread-approval-context-title">Robert Thompson — Anthem BCBS</span>
+            <span class="thread-approval-context-meta">FAM benefit not covered under current plan</span>
+          </div>
+          <div class="thread-approval-summary">
+            <p>Alternative path: PMPM contract with Anthem may cover this patient.</p>
+          </div>
+          <div class="thread-approval-effects">
+            <span class="thread-approval-effects-label">Pursuing alternative will:</span>
+            <ul>
+              <li>Initiate PMPM eligibility check</li>
+              <li>Notify partner of status change</li>
+            </ul>
+          </div>
+        </div>
+        <div class="thread-approval-actions">
+          <button class="btn-primary btn-sm">Pursue alternative</button>
+          <button class="btn-outline btn-sm">Decline — notify referral source</button>
+          <button class="btn-outline btn-sm">Hold — need more info</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Read-only variant (historical) -->
+    <div>
+      <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Read-only — Historical Decision</p>
+      <div class="thread-approval-card" style="opacity: 0.7;">
+        <div class="thread-approval-header">
+          <i class="fa-solid fa-hand"></i>
+          <span>RDN Review — Nutrition Plan</span>
+        </div>
+        <div class="thread-approval-body">
+          <div class="thread-approval-context">
+            <span class="thread-approval-context-title">Nutrition plan · Maria Garcia</span>
+            <span class="thread-approval-context-meta">Reviewed by Dr. Priya M. · Mar 26</span>
+          </div>
+          <div class="thread-approval-summary">
+            <p>Approved with edits — sodium target reduced to 1800mg.</p>
+          </div>
+        </div>
+        <!-- No actions section — read-only -->
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

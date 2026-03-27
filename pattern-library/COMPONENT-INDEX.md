@@ -265,6 +265,27 @@ components. They are tightly coupled to the kitchen app and must not be used in 
 
 ---
 
+## Queue (Care Coordinator)
+
+| Component | File | Classes | Preline | Notes |
+|---|---|---|---|---|
+| Queue Item | `queue-item.html` | `queue-item`, `queue-item-header`, `queue-item-name`, `queue-item-summary`, `queue-item-meta`, `queue-item-sla` | no | Urgency: `.is-urgent`, `.is-attention`, `.is-info`. State: `.active`. SLA: `.is-warning`, `.is-breached`. |
+| Queue Section Header | `queue-section-header.html` | `queue-section-header` | no | Urgency: `.is-urgent`, `.is-attention`, `.is-info`. |
+
+---
+
+## Thread / Agent
+
+| Component | File | Classes | Preline | Notes |
+|---|---|---|---|---|
+| Thread System Message | `thread-msg-system.html` | `thread-msg-system`, `thread-msg-time` | no | Compact system event with timestamp. |
+| Thread Tool Call | `thread-msg-tool-call.html` | `thread-msg-tool`, `thread-msg-tool-icon`, `thread-msg-tool-content`, `thread-msg-tool-name`, `thread-msg-tool-result`, `thread-msg-tool-detail` | yes — HSCollapse | Agent action with expandable payload. |
+| Thread Human Message | `thread-msg-human.html` | `thread-msg-human`, `thread-msg-human-label`, `thread-msg-human-bubble` | no | Right-aligned coordinator message. |
+| Thread Approval Response | `thread-msg-response.html` | `thread-msg-response`, `thread-msg-response-toggle`, `thread-msg-response-detail` | yes — HSCollapse | Collapsed decision summary. `.is-approved`, `.is-rejected`. |
+| Thread Approval Card | `thread-approval-card.html` | `thread-approval-card`, `thread-approval-header`, `thread-approval-body`, `thread-approval-context`, `thread-approval-context-title`, `thread-approval-context-meta`, `thread-approval-summary`, `thread-approval-effects`, `thread-approval-effects-label`, `thread-approval-attachment`, `thread-approval-actions`, `thread-approval-note` | no | THE HERO. Urgency: `.is-urgent`, `.is-warning`. Uses `.btn-primary btn-sm` + `.btn-outline btn-sm`. |
+
+---
+
 ## Adding New Components
 
 When you add a new component:
