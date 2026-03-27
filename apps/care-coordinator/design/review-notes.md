@@ -144,13 +144,13 @@ Can the coordinator spot patients who are falling through gaps? **Not covered in
 
 ---
 
-## Open Questions for Aaron
+## Decisions (Gate 2 — Aaron, 2026-03-27)
 
-1. **Sidebar width:** 240px or 280px? Trade-off is queue content readability vs. center panel space.
-2. **Tool call grouping:** Should consecutive agent tool calls collapse into a single expandable group, or remain individual messages?
-3. **Informational section:** Default collapsed or expanded?
-4. **Approval card undo behavior:** Immediate collapse with toast, or transitional dim state during the 5-second window?
-5. **Filter pills format:** Text labels, icon-only with tooltips, or a dropdown?
+1. **Sidebar width:** 240px. Accept truncation on longer names.
+2. **Tool call grouping:** Individual messages. Each tool call stays visible and expandable for transparency.
+3. **Informational section:** Expanded by default. No "happy path" actions hidden.
+4. **Approval card undo behavior:** Option A — immediate collapse + toast with undo.
+5. **Filter pills format:** 4 visible pills + "More" dropdown for overflow.
 
 ---
 
@@ -165,8 +165,8 @@ The following changes should be applied to the wireframe files before haven-mapp
 
 ### CC-02 Revisions
 - [REVISED] Approval card: add `shadow-sm` + `bg-amber-50` background for pending state
-- [REVISED] Approval card undo: transitional dim state during 5-second window, collapse after expiry
-- [REVISED] Consecutive tool calls: collapse into single expandable group
+- [REVISED] Approval card undo: immediate collapse + toast (Option A confirmed)
+- [KEPT] Tool calls remain individual messages — each expandable for transparency
 - [REVISED] Attachment indicator: "1 attachment · [View]" / "1 attachment · viewed ✓"
 - [REVISED] Thread input placeholder: "Message care team or ask the agent..."
 - [REVISED] Reject button label: "Reject with note"
