@@ -7539,6 +7539,11 @@ a.list-group-item-action {
     }
 }
 
+.queue-filter-btn {
+    @apply text-xs text-gray-600 hover:text-gray-900 cursor-pointer transition-colors;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-100;
+}
+
 .queue-list {
     @apply pl-1;
 }

@@ -42,17 +42,18 @@
         </div>
       </div>
 
-      <!-- Filter pills -->
-      <div class="flex items-center gap-1.5 px-3 py-1.5 overflow-x-auto flex-nowrap border-b border-gray-200 dark:border-neutral-700" role="tablist" aria-label="Filter queue by type">
-        <button class="filter-pill active" role="tab" aria-selected="true">All</button>
-        <button class="filter-pill" role="tab" aria-selected="false">Referrals</button>
-        <button class="filter-pill" role="tab" aria-selected="false">Care Plans</button>
-        <button class="filter-pill" role="tab" aria-selected="false">Clinical</button>
+      <!-- Queue filter -->
+      <div class="flex items-center justify-between px-3 py-1.5 border-b border-gray-200 dark:border-neutral-700">
+        <span class="text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-neutral-300">Queue</span>
         <div class="hs-dropdown relative inline-flex">
-          <button type="button" class="hs-dropdown-toggle filter-pill">
-            More <i class="fa-solid fa-chevron-down text-xs ml-0.5"></i>
+          <button type="button" class="hs-dropdown-toggle queue-filter-btn">
+            All types <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
           </button>
           <div class="hs-dropdown-menu" role="menu">
+            <a class="hs-dropdown-item" href="#">All types</a>
+            <a class="hs-dropdown-item" href="#">Referrals</a>
+            <a class="hs-dropdown-item" href="#">Care Plans</a>
+            <a class="hs-dropdown-item" href="#">Clinical</a>
             <a class="hs-dropdown-item" href="#">Eligibility</a>
             <a class="hs-dropdown-item" href="#">Discharge</a>
             <a class="hs-dropdown-item" href="#">Reports</a>
