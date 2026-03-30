@@ -189,7 +189,7 @@
 
   --sidebar: var(--color-neutral-800);
   --sidebar-line: var(--color-neutral-700);
-  --sidebar-nav-foreground: var(--color-neutral-400);
+  --sidebar-nav-foreground: var(--color-neutral-300);
   --sidebar-nav-hover: var(--color-neutral-700);
   --sidebar-nav-focus: var(--color-neutral-700);
   --sidebar-nav-active: var(--color-neutral-700);

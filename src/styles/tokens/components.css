@@ -67,12 +67,12 @@ section {
 /* Pattern library demo chrome — not copied into app pages */
 .pl-variant-title {
     @apply text-xs font-semibold uppercase tracking-wider text-gray-600 mb-4;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .pl-description {
     @apply text-sm text-gray-600 mb-6;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* Form layout helpers */
@@ -90,8 +90,8 @@ form > div {
 }
 
 .sidebar-toggle-btn {
-    @apply text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300;
-    @apply dark:text-gray-500 dark:hover:text-gray-300;
+    @apply text-gray-600 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300;
+    @apply dark:text-neutral-400 dark:hover:text-gray-300;
 }
 
 /* ===================================
@@ -172,7 +172,7 @@ form > div {
 /* Individual tab item — <a> or <button> */
 .mobile-bottom-nav-tab {
   @apply flex flex-col items-center justify-center gap-1 py-2 text-gray-600 text-xs font-medium;
-  @apply hover:text-primary-600 dark:text-neutral-500 dark:hover:text-primary-400;
+  @apply hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400;
   min-height: 64px;
   text-decoration: none;
   background: none;
@@ -206,8 +206,8 @@ form > div {
 
 /* "Step N of 3" indicator on onboarding screens */
 .onb-progress {
-  @apply block text-sm text-gray-500 text-center mt-4 mb-2;
-  @apply dark:text-neutral-400;
+  @apply block text-sm text-gray-600 text-center mt-4 mb-2;
+  @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -263,12 +263,12 @@ input[type='tel'],
 input[type='url'],
 select,
 textarea {
-    @apply py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500;
+    @apply py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500;
 }
 
 /* Search input - left padding accommodates the icon overlay */
 input[type='search'] {
-    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500;
+    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500;
 }
 
 /* Select specific padding + custom chevron (mirrors .select-haven) */
@@ -325,7 +325,7 @@ input[type='radio'] {
 }
 
 .radio-label span {
-    @apply text-sm text-gray-500 ms-3 dark:text-neutral-400;
+    @apply text-sm text-gray-600 ms-3 dark:text-neutral-300;
 }
 
 /* ===================================
@@ -352,7 +352,7 @@ input[type='checkbox'] {
 }
 
 .checkbox-label span {
-    @apply text-sm text-gray-500 ms-3 dark:text-neutral-400;
+    @apply text-sm text-gray-600 ms-3 dark:text-neutral-300;
 }
 
 /* Schedule checkbox - themed checkbox for weekly meal availability */
@@ -585,8 +585,8 @@ a.btn-danger {
 }
 
 .card-subtitle {
-    @apply text-sm text-gray-500 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600 mt-0.5;
+    @apply dark:text-neutral-300;
 }
 
 .card-body {
@@ -659,7 +659,7 @@ a.btn-danger {
 }
 
 .stat-label {
-    @apply text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-neutral-500;
+    @apply text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-neutral-400;
 }
 
 .stat-value {
@@ -727,7 +727,7 @@ a.btn-danger {
 
 /* Help text below input */
 .field-help {
-    @apply text-xs text-gray-600 mt-1 dark:text-neutral-400;
+    @apply text-xs text-gray-600 mt-1 dark:text-neutral-300;
 }
 
 /* Error message below input */
@@ -808,8 +808,8 @@ a.btn-danger {
 
 /* Addon (prefix or suffix) flanking an input */
 .field-addon {
-    @apply inline-flex items-center px-3 text-sm text-gray-500 bg-gray-50 border border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
+    @apply inline-flex items-center px-3 text-sm text-gray-600 bg-gray-50 border border-gray-200;
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300;
 }
 
 /* First child addon gets left rounding, last gets right rounding */
@@ -874,13 +874,13 @@ a.btn-danger {
 }
 
 .breadcrumb a {
-    @apply text-gray-500 hover:text-primary-600;
-    @apply dark:text-neutral-400 dark:hover:text-primary-400;
+    @apply text-gray-600 hover:text-primary-600;
+    @apply dark:text-neutral-300 dark:hover:text-primary-400;
 }
 
 .breadcrumb-separator {
-    @apply mx-2 text-gray-500;
-    @apply dark:text-neutral-500;
+    @apply mx-2 text-gray-600;
+    @apply dark:text-neutral-400;
 }
 
 .breadcrumb-current {
@@ -923,7 +923,7 @@ a.btn-danger {
 
 .data-table th {
     @apply px-4 py-3 text-start text-xs font-medium text-gray-600 tracking-wide;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
     overflow: visible;
 }
 
@@ -941,7 +941,7 @@ a.btn-danger {
 
 .data-table td {
     @apply px-4 py-3 text-sm text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* Primary cell (e.g. name column) - bolder text */
@@ -1054,13 +1054,13 @@ a.btn-danger {
 }
 
 .file-list-action {
-    @apply flex items-center justify-center size-9 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg border border-gray-200 bg-gray-50 transition-colors cursor-pointer;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:border-neutral-700;
+    @apply flex items-center justify-center size-9 text-gray-600 hover:text-gray-700 hover:bg-gray-100 rounded-lg border border-gray-200 bg-gray-50 transition-colors cursor-pointer;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:border-neutral-700;
 }
 
 .file-list-add {
     @apply inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 mt-2 px-1 cursor-pointer;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-200;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-200;
 }
 
 .file-list-heading {
@@ -1070,7 +1070,7 @@ a.btn-danger {
 
 .file-list-description {
     @apply text-xs text-gray-600 mb-3;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -1094,8 +1094,8 @@ a.btn-danger {
 }
 
 .empty-state p {
-    @apply text-sm text-gray-500 mb-6 max-w-sm;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600 mb-6 max-w-sm;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -1109,7 +1109,7 @@ a.btn-danger {
 
 .instruction-text {
     @apply text-sm text-gray-600 mt-1;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -1119,7 +1119,7 @@ a.btn-danger {
 .accordion-toggle {
     @apply inline-flex items-center gap-x-2 py-2 text-sm font-medium text-gray-600 hover:text-gray-800;
     @apply focus:outline-none focus:text-gray-800;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-200;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-200;
 }
 
 /* Data Accordion — content accordion using Preline HSAccordion */
@@ -1169,8 +1169,8 @@ a.btn-danger {
 }
 
 .accordion-header-icon {
-    @apply shrink-0 text-gray-500 mr-3;
-    @apply dark:text-neutral-500;
+    @apply shrink-0 text-gray-600 mr-3;
+    @apply dark:text-neutral-400;
     font-size: 1rem;
     width: 1rem;
 }
@@ -1182,7 +1182,7 @@ a.btn-danger {
 
 .accordion-body {
     @apply px-5 pb-4 text-sm text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* Flush — no outer border or rounding, for embedding in cards */
@@ -1220,8 +1220,8 @@ a.btn-danger {
 
 /* Accordion chevrons for data accordion (reuses existing pattern) */
 .accordion-chevron-wrap {
-    @apply text-gray-500;
-    @apply dark:text-neutral-500;
+    @apply text-gray-600;
+    @apply dark:text-neutral-400;
 }
 
 .accordion-header .accordion-chevron-up {
@@ -1406,8 +1406,8 @@ a.btn-danger {
 }
 
 .pagination-info {
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .pagination-controls {
@@ -1416,9 +1416,9 @@ a.btn-danger {
 
 .pagination-btn {
     @apply inline-flex items-center justify-center size-11 text-sm rounded-lg;
-    @apply text-gray-500 hover:bg-gray-100;
+    @apply text-gray-600 hover:bg-gray-100;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-700;
+    @apply dark:text-neutral-300 dark:hover:bg-neutral-700;
 }
 
 .pagination-btn.active {
@@ -1518,15 +1518,15 @@ a.btn-danger {
 }
 
 .ctx-menu-label {
-    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-neutral-500;
+    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-neutral-400;
 }
 
 .ctx-menu-shortcut {
-    @apply ml-auto text-xs text-gray-600 dark:text-neutral-500;
+    @apply ml-auto text-xs text-gray-600 dark:text-neutral-400;
 }
 
 .ctx-menu-icon {
-    @apply w-4 text-center text-gray-500 dark:text-neutral-400;
+    @apply w-4 text-center text-gray-600 dark:text-neutral-300;
 }
 
 .ctx-menu-item.ctx-menu-item-danger .ctx-menu-icon {
@@ -1645,7 +1645,7 @@ a.btn-danger {
 
 .sticky-footer-info {
     @apply flex flex-wrap items-center gap-2 text-sm text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .sticky-footer-actions {
@@ -1693,7 +1693,7 @@ a.btn-danger {
 
 .ai-field-confirmed-label {
     @apply text-xs text-gray-600;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* Callout for fields defaulted to zero - more prominent warning */
@@ -1775,7 +1775,7 @@ input[type='number'].nutrition-input:focus {
 /* Unit suffix label inside the group */
 .nutrition-unit {
     @apply text-xs text-gray-600 pe-1.5 ps-0.5 select-none pointer-events-none;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* Hide number input spinners */
@@ -1826,12 +1826,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .issue-item-action {
     @apply text-xs text-gray-600 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .issue-item-resolved .issue-item-description {
-    @apply text-gray-500 line-through;
-    @apply dark:text-neutral-500;
+    @apply text-gray-600 line-through;
+    @apply dark:text-neutral-400;
 }
 
 .issue-item-resolved .issue-item-action {
@@ -1897,7 +1897,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .tag-group-label {
     @apply text-xs uppercase tracking-wide text-gray-600 font-medium min-w-[7rem];
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* Removable badge - badge with an X close button */
@@ -1944,7 +1944,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Hot/Cold toggle button group */
 .meal-type-toggle {
     @apply px-2.5 py-1 text-xs font-medium text-gray-600 cursor-pointer transition-colors;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
     @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
     background: transparent;
 }
@@ -1984,12 +1984,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .comparison-intro {
     @apply text-sm text-gray-600 col-span-full mb-1;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .comparison-column-header {
     @apply text-xs uppercase tracking-wide text-gray-600 font-medium mb-3;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .comparison-title {
@@ -1998,8 +1998,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-subtitle {
-    @apply text-sm text-gray-500 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600 mt-0.5;
+    @apply dark:text-neutral-300;
 }
 
 /* Legacy alias — meal-specific variant */
@@ -2009,13 +2009,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-meal-details {
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .comparison-meta {
     @apply text-xs text-gray-600 mt-2;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .comparison-actions {
@@ -2034,7 +2034,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .comparison-row-label {
     @apply text-xs font-medium uppercase tracking-wide text-gray-600;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .comparison-row-value {
@@ -2108,7 +2108,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sidebar-nav-item {
     @apply flex items-center gap-x-3.5 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100;
-    @apply dark:text-gray-500 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
     min-height: 3.15em; /* ~44px at 14px (text-sm), scales with font-size */
     padding-block: 0.575em;
 }
@@ -2125,7 +2125,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sidebar-nav-section {
     @apply block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2 ml-2.5 mt-5;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* No top margin on the very first section label */
@@ -2239,13 +2239,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .btn-icon {
     /* Icon button base */
-    @apply p-0 bg-transparent text-gray-500 border-transparent;
+    @apply p-0 bg-transparent text-gray-600 border-transparent;
 
     /* Icon button specific styles */
     @apply inline-flex flex-shrink-0 justify-center items-center size-11 rounded-lg transition-colors;
     @apply hover:bg-gray-100;
     @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
-    @apply dark:text-neutral-500 dark:hover:bg-neutral-800 dark:focus:ring-neutral-700;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-neutral-700;
 }
 
 .btn-icon-primary {
@@ -2262,7 +2262,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .dark-mode-toggle {
     @apply p-2 rounded-full bg-transparent text-gray-600 transition-colors border-none;
     @apply hover:bg-gray-200;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-700;
+    @apply dark:text-neutral-300 dark:hover:bg-neutral-700;
 }
 
 /* ===================================
@@ -2308,7 +2308,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Sun icon — visible in light mode (right side of track, opposite thumb) */
 .pl-theme-icon-sun {
-    @apply absolute text-[15px] text-gray-500;
+    @apply absolute text-[15px] text-gray-600;
     right: 5px;
     z-index: 1;
     display: block !important;
@@ -2332,7 +2332,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Label text */
 .pl-theme-toggle-label {
-    @apply text-sm text-gray-600 dark:text-neutral-400;
+    @apply text-sm text-gray-600 dark:text-neutral-300;
 }
 
 .pl-theme-label-dark {
@@ -2377,7 +2377,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dropdown-item {
     @apply flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700;
+    @apply dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700;
 }
 
 /* ===================================
@@ -2417,8 +2417,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Icon element inside .search-input (e.g. <i class="fa-solid fa-magnifying-glass search-input-icon">) */
 .search-input-icon {
-    @apply absolute start-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none;
-    @apply dark:text-neutral-500;
+    @apply absolute start-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm pointer-events-none;
+    @apply dark:text-neutral-400;
 }
 
 /* The input inside .search-input — tighter gap so icon + text feel like one unit */
@@ -2429,7 +2429,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Legacy alias */
 .toolbar-search-input {
     @apply block w-full shadow-sm rounded-md border-gray-200 focus:border-primary-500 focus:ring-primary-500;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400;
+    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
     padding-inline-start: 2rem;
 }
 
@@ -2467,11 +2467,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .tab-nav-item {
     @apply py-3 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap;
     @apply border-b-2 border-transparent;
-    @apply text-gray-500;
+    @apply text-gray-600;
     @apply hover:text-primary-600 hover:border-gray-300;
     @apply focus:outline-none focus:text-primary-600;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:text-neutral-400 dark:hover:text-primary-400;
+    @apply dark:text-neutral-300 dark:hover:text-primary-400;
     background: transparent !important;
     border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
     border-top: none !important;
@@ -2542,7 +2542,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .confirm-dialog-body {
     @apply text-sm text-gray-600 text-center mt-2;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -2550,7 +2550,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .assignment-select {
-    @apply block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
+    @apply block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
     @apply py-2 px-3;
     @apply focus:border-primary-500 focus:ring-primary-500;
 }
@@ -2572,7 +2572,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .assignment-filter-count {
-    @apply inline-flex items-center justify-center size-5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-neutral-700 dark:text-neutral-400;
+    @apply inline-flex items-center justify-center size-5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-neutral-700 dark:text-neutral-300;
 }
 
 .assignment-filter-tag.active .assignment-filter-count {
@@ -2981,7 +2981,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .alert-category-label {
     @apply inline-flex items-center text-xs font-semibold uppercase tracking-wider text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -3023,7 +3023,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .trend-flat {
     @apply inline-flex items-center gap-1 text-xs font-medium text-gray-600;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* ===================================
@@ -3076,7 +3076,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply px-3 py-1.5 text-sm text-gray-600 bg-gray-50 transition-colors cursor-pointer;
     @apply hover:bg-gray-50;
     @apply focus:outline-none focus:z-10 focus:ring-2 focus:ring-inset focus:ring-primary-500;
-    @apply dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700;
+    @apply dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700;
     /* Square all corners — the container handles outer rounding via overflow-hidden */
     border-radius: 0;
     /* Separator between adjacent buttons */
@@ -3186,7 +3186,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .medication-row-dose {
     @apply text-xs text-gray-600 ml-1.5;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -3206,7 +3206,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .alert-summary-row-meta {
     @apply text-xs text-gray-600 shrink-0;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .alert-summary-row-status {
@@ -3238,7 +3238,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .section-nav-item {
     @apply px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap;
-    @apply text-gray-500 hover:text-gray-900 hover:bg-gray-100;
+    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
     @apply transition-colors no-underline;
 }
 
@@ -3383,7 +3383,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .timeline-icon-circle-careplan {
-    @apply bg-gray-100 text-gray-500;
+    @apply bg-gray-100 text-gray-600;
 }
 
 .timeline-event-body {
@@ -3480,8 +3480,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .severity-low {
-    @apply bg-gray-100 text-gray-500;
-    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    @apply bg-gray-100 text-gray-600;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
 }
 
 /* ===================================
@@ -3675,7 +3675,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply inline-flex items-center justify-center rounded-full font-semibold shrink-0;
     @apply w-10 h-10 text-xs;
     @apply bg-gray-100 text-gray-600 border-2 border-white;
-    @apply dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-900;
+    @apply dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-900;
     margin-left: -0.5rem;
 }
 
@@ -3740,7 +3740,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .table-section-divider td {
     @apply px-4 py-1.5 text-xs font-semibold text-gray-600 uppercase tracking-wider;
     @apply bg-gray-50 border-t-2 border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-500;
+    @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-400;
 }
 
 /* ===================================
@@ -3759,7 +3759,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .performance-stat-compact-label {
     @apply text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-0.5;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .performance-stat-compact-value {
@@ -3769,7 +3769,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .performance-stat-compact-detail {
     @apply text-[10px] text-gray-600 mt-0.5;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* ===================================
@@ -3785,7 +3785,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sidebar-subnav-item {
     @apply flex items-center gap-x-2.5 pe-2 text-[13px] text-gray-600 rounded-e-lg;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-200;
+    @apply dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-200;
     @apply cursor-pointer transition-colors no-underline;
     background: transparent !important;
     border-left: 3px solid transparent;
@@ -3839,7 +3839,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .kv-table td:first-child {
-    @apply py-2 pr-4 font-semibold text-gray-500 dark:text-neutral-400 text-sm;
+    @apply py-2 pr-4 font-semibold text-gray-600 dark:text-neutral-300 text-sm;
 }
 
 .kv-table td:last-child {
@@ -3865,7 +3865,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual step button */
 .step-nav-item {
-    @apply flex items-center gap-2.5 py-2.5 px-4 rounded-lg font-medium text-gray-500
+    @apply flex items-center gap-2.5 py-2.5 px-4 rounded-lg font-medium text-gray-600
            bg-transparent border-none cursor-pointer text-left whitespace-nowrap transition-colors;
     font-size: 0.8rem;
 }
@@ -3885,7 +3885,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Numbered circle inside step button */
 .step-num {
     @apply inline-flex items-center justify-center w-6 h-6 rounded-full font-bold bg-gray-200 text-gray-600 shrink-0;
-    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
     font-size: 0.7rem;
 }
 
@@ -3960,7 +3960,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply inline-flex items-center justify-center w-8 h-8 rounded-full
            bg-gray-200 text-gray-600 text-sm font-semibold shrink-0
            transition-colors;
-    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
 }
 
 /* Active step — Preline adds hs-stepper-active: variant */
@@ -3983,8 +3983,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Step label text */
 .stepper-nav-label {
-    @apply text-sm font-medium text-gray-500 whitespace-nowrap;
-    @apply dark:text-neutral-400;
+    @apply text-sm font-medium text-gray-600 whitespace-nowrap;
+    @apply dark:text-neutral-300;
 }
 
 /* Active step label */
@@ -4004,7 +4004,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Step description (optional subtitle under label) */
 .stepper-nav-description {
     @apply text-xs text-gray-600 mt-0.5;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* Content panel area */
@@ -4088,7 +4088,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .meal-card-day {
   @apply text-xs text-gray-600;
-  @apply dark:text-neutral-400;
+  @apply dark:text-neutral-300;
 }
 
 .meal-card-tags {
@@ -4159,8 +4159,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .delivery-status-timing {
-  @apply text-sm text-gray-500;
-  @apply dark:text-neutral-400;
+  @apply text-sm text-gray-600;
+  @apply dark:text-neutral-300;
 }
 
 .delivery-status-divider {
@@ -4174,7 +4174,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .delivery-summary-label {
   @apply text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1;
-  @apply dark:text-neutral-400;
+  @apply dark:text-neutral-300;
 }
 
 .delivery-summary-count {
@@ -4184,7 +4184,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .delivery-summary-list {
   @apply text-sm text-gray-600 space-y-0.5 list-none pl-0;
-  @apply dark:text-neutral-400;
+  @apply dark:text-neutral-300;
 }
 
 /* Delivery screen state variants */
@@ -4224,19 +4224,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Sender label — appears above first bubble in a consecutive group */
 .message-sender-label {
   @apply text-xs text-gray-600 mb-1;
-  @apply dark:text-neutral-400;
+  @apply dark:text-neutral-300;
 }
 
 /* Date separator between day groups */
 .message-date-sep {
   @apply text-xs text-gray-600 text-center py-2;
-  @apply dark:text-neutral-500;
+  @apply dark:text-neutral-400;
 }
 
 /* Timestamp below a bubble */
 .message-timestamp {
   @apply text-xs text-gray-600 mt-1;
-  @apply dark:text-neutral-500;
+  @apply dark:text-neutral-400;
 }
 
 /* Floating "new message" pill — sits above compose bar when new messages arrive */
@@ -4278,7 +4278,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .feedback-rating-card i {
-  @apply text-2xl text-gray-500;
+  @apply text-2xl text-gray-600;
 }
 
 .feedback-rating-card:has(input:checked) i {
@@ -4475,7 +4475,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Icon name label below demo icon */
 .icon-demo-label {
   @apply block text-xs font-mono text-gray-600 text-center;
-  @apply dark:text-neutral-400;
+  @apply dark:text-neutral-300;
 }
 
 /* Row showing the same icon across multiple FA styles */
@@ -4508,8 +4508,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .profile-field-label {
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .profile-field-value {
@@ -4631,12 +4631,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dashboard-message-preview-time {
     @apply text-xs text-gray-600 shrink-0;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .dashboard-message-preview-text {
     @apply text-xs text-gray-600 truncate;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
     line-height: 1.2;
     margin: 0;
 }
@@ -4688,7 +4688,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .divider-label {
     @apply text-xs font-medium text-gray-600 uppercase tracking-wider whitespace-nowrap;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .divider-vertical {
@@ -4774,7 +4774,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .spinner-label {
-    @apply text-sm font-medium text-gray-500 dark:text-neutral-400;
+    @apply text-sm font-medium text-gray-600 dark:text-neutral-300;
 }
 
 /* Full-section overlay spinner — centered in a positioned parent */
@@ -4837,12 +4837,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .toast-description {
-    @apply text-gray-600 dark:text-neutral-400 mt-0.5;
+    @apply text-gray-600 dark:text-neutral-300 mt-0.5;
 }
 
 .toast-dismiss {
     @apply shrink-0 inline-flex items-center justify-center rounded-lg cursor-pointer;
-    @apply text-gray-500 dark:text-neutral-500;
+    @apply text-gray-600 dark:text-neutral-400;
     width: 1.75rem;
     height: 1.75rem;
     border: none;
@@ -5145,8 +5145,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Description text */
 .toggle-description {
-    @apply text-sm text-gray-500 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-gray-600 mt-0.5;
+    @apply dark:text-neutral-300;
 }
 
 
@@ -5197,13 +5197,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-dropzone-icon {
-    @apply text-3xl text-gray-500;
-    @apply dark:text-neutral-500;
+    @apply text-3xl text-gray-600;
+    @apply dark:text-neutral-400;
 }
 
 .file-upload-dropzone-compact .file-upload-dropzone-icon {
-    @apply text-xl text-gray-500;
-    @apply dark:text-neutral-500;
+    @apply text-xl text-gray-600;
+    @apply dark:text-neutral-400;
 }
 
 .file-upload-dropzone-text {
@@ -5213,7 +5213,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .file-upload-dropzone-hint {
     @apply text-xs text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .file-upload-browse {
@@ -5243,8 +5243,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-icon {
-    @apply flex items-center justify-center size-9 rounded-md bg-gray-100 text-gray-500 text-sm shrink-0;
-    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    @apply flex items-center justify-center size-9 rounded-md bg-gray-100 text-gray-600 text-sm shrink-0;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
 }
 
 .file-upload-item.is-complete .file-upload-item-icon {
@@ -5268,12 +5268,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .file-upload-item-size {
     @apply text-xs text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .file-upload-item-status {
     @apply text-xs font-medium text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .file-upload-item.is-complete .file-upload-item-status {
@@ -5319,8 +5319,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-remove {
-    @apply flex items-center justify-center size-7 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 cursor-pointer transition-colors shrink-0;
-    @apply dark:text-neutral-500 dark:hover:text-neutral-300 dark:hover:bg-neutral-700;
+    @apply flex items-center justify-center size-7 rounded-md text-gray-600 hover:text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors shrink-0;
+    @apply dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:bg-neutral-700;
 }
 
 .file-upload-item.is-error .file-upload-item-remove {
@@ -5338,8 +5338,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .datepicker-wrapper .datepicker-icon {
-    @apply absolute top-1/2 end-3 -translate-y-1/2 text-gray-500 pointer-events-none text-sm;
-    @apply dark:text-neutral-500;
+    @apply absolute top-1/2 end-3 -translate-y-1/2 text-gray-600 pointer-events-none text-sm;
+    @apply dark:text-neutral-400;
 }
 
 /* When disabled, dim the icon */
@@ -5752,10 +5752,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Clock icon trigger button (absolute end of input) */
 .timepicker-icon-btn {
-    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-gray-500 cursor-pointer;
-    @apply hover:bg-gray-100 hover:text-gray-600;
+    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-gray-600 cursor-pointer;
+    @apply hover:bg-gray-100 hover:text-gray-700;
     @apply focus:outline-none focus:bg-gray-100;
-    @apply dark:text-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-neutral-300 dark:focus:bg-neutral-800;
+    @apply dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-300 dark:focus:bg-neutral-800;
 }
 
 /* Disabled wrapper dims the icon button */
@@ -5833,7 +5833,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply text-xs font-medium text-gray-600 cursor-pointer rounded-md;
     @apply hover:text-primary-600;
     @apply focus:outline-none focus:text-primary-600;
-    @apply dark:text-neutral-400 dark:hover:text-primary-400 dark:focus:text-primary-400;
+    @apply dark:text-neutral-300 dark:hover:text-primary-400 dark:focus:text-primary-400;
 }
 
 /* Primary "OK" button */
@@ -5969,7 +5969,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Tag count / limit indicator */
 .tags-input-count {
     @apply text-xs text-gray-600;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 
@@ -6133,7 +6133,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .color-picker-value {
     @apply text-sm text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* Check icon overlay inside active swatch */
@@ -6181,14 +6181,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .combobox-input::placeholder {
-    @apply text-gray-500 dark:text-neutral-500;
+    @apply text-gray-600 dark:text-neutral-400;
 }
 
 /* Toggle chevron button — sits inside the input, right side */
 .combobox-toggle {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
-    @apply text-gray-500 cursor-pointer;
-    @apply hover:text-gray-600 dark:text-neutral-500 dark:hover:text-neutral-300;
+    @apply text-gray-600 cursor-pointer;
+    @apply hover:text-gray-700 dark:text-neutral-400 dark:hover:text-neutral-300;
     right: 2rem;
     width: 1.5rem;
     height: 1.5rem;
@@ -6200,8 +6200,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Close / clear button — right of toggle */
 .combobox-close {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
-    @apply text-gray-500 cursor-pointer;
-    @apply hover:text-gray-600 dark:text-neutral-500 dark:hover:text-neutral-300;
+    @apply text-gray-600 cursor-pointer;
+    @apply hover:text-gray-700 dark:text-neutral-400 dark:hover:text-neutral-300;
     right: 0.5rem;
     width: 1.5rem;
     height: 1.5rem;
@@ -6259,13 +6259,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Group title heading */
 .combobox-group-title {
     @apply block px-3 py-1.5 text-xs font-semibold uppercase tracking-wider;
-    @apply text-gray-500 dark:text-neutral-500;
+    @apply text-gray-600 dark:text-neutral-400;
 }
 
 /* No results / empty state */
 .combobox-empty {
-    @apply py-4 px-3 text-sm text-center text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply py-4 px-3 text-sm text-center text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 /* Disabled combobox wrapper */
@@ -6275,7 +6275,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Description text below an option label */
 .combobox-item-description {
-    @apply text-xs text-gray-600 dark:text-neutral-400;
+    @apply text-xs text-gray-600 dark:text-neutral-300;
 }
 
 /* ===================================
@@ -6338,7 +6338,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .navbar-nav-item {
     @apply px-3 py-2 text-sm font-medium rounded-lg;
     @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
-    @apply dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800;
+    @apply dark:text-neutral-300 dark:hover:text-white dark:hover:bg-neutral-800;
     @apply transition-colors;
 }
 
@@ -6356,8 +6356,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .navbar-action-btn {
     @apply relative inline-flex items-center justify-center;
     @apply w-9 h-9 rounded-lg;
-    @apply text-gray-500 hover:text-gray-700 hover:bg-gray-100;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply text-gray-600 hover:text-gray-700 hover:bg-gray-100;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
     @apply transition-colors cursor-pointer;
 }
 
@@ -6380,15 +6380,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .navbar-user-role {
     @apply hidden sm:block text-xs;
-    @apply text-gray-500 dark:text-neutral-500;
+    @apply text-gray-600 dark:text-neutral-400;
 }
 
 /* Mobile hamburger toggle */
 .navbar-mobile-toggle {
     @apply inline-flex md:hidden items-center justify-center;
     @apply w-9 h-9 rounded-lg;
-    @apply text-gray-500 hover:text-gray-700 hover:bg-gray-100;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply text-gray-600 hover:text-gray-700 hover:bg-gray-100;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
     @apply transition-colors cursor-pointer;
 }
 
@@ -6441,8 +6441,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .progress-label-value {
-    @apply text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 /* --- Size variants --- */
@@ -6563,8 +6563,8 @@ a.list-group-item-action {
 }
 
 .list-group-item-icon {
-    @apply text-gray-500 text-base flex-shrink-0;
-    @apply dark:text-neutral-500;
+    @apply text-gray-600 text-base flex-shrink-0;
+    @apply dark:text-neutral-400;
 }
 
 .list-group-item-content {
@@ -6578,7 +6578,7 @@ a.list-group-item-action {
 
 .list-group-item-description {
     @apply text-xs text-gray-600 mt-0.5 truncate;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 .list-group-item-trailing {
@@ -6652,8 +6652,8 @@ a.list-group-item-action {
 /* Inline "show more" variant — minimal text link style */
 .collapse-inline-toggle {
     @apply inline-flex items-center gap-1 text-xs font-medium cursor-pointer;
-    @apply text-gray-500 hover:text-gray-700;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-200;
+    @apply text-gray-600 hover:text-gray-700;
+    @apply dark:text-neutral-300 dark:hover:text-neutral-200;
     @apply transition-colors;
 }
 
@@ -6663,7 +6663,7 @@ a.list-group-item-action {
 
 .collapse-inline-content {
     @apply mt-2 text-sm text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply dark:text-neutral-300;
 }
 
 /* ===================================
@@ -6783,7 +6783,7 @@ a.list-group-item-action {
 
 .notif-center-tab {
     @apply flex-1 text-center text-xs font-medium py-2 cursor-pointer;
-    @apply text-gray-500 dark:text-neutral-400;
+    @apply text-gray-600 dark:text-neutral-300;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -6815,14 +6815,14 @@ a.list-group-item-action {
 }
 
 .notif-center-empty-text {
-    @apply text-sm text-gray-500 dark:text-neutral-400;
+    @apply text-sm text-gray-600 dark:text-neutral-300;
 }
 
 /* Date group heading */
 .notif-group-label {
     @apply block text-xs font-semibold uppercase tracking-wider px-4 py-2;
-    @apply text-gray-500 bg-gray-50;
-    @apply dark:text-neutral-500 dark:bg-neutral-800/50;
+    @apply text-gray-600 bg-gray-50;
+    @apply dark:text-neutral-400 dark:bg-neutral-800/50;
 }
 
 /* Individual notification row */
@@ -6888,8 +6888,8 @@ a.list-group-item-action {
 }
 
 .notif-item-icon-default {
-    @apply bg-gray-100 text-gray-500;
-    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    @apply bg-gray-100 text-gray-600;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
 }
 
 /* Content area */
@@ -6907,18 +6907,18 @@ a.list-group-item-action {
 }
 
 .notif-item-description {
-    @apply text-xs text-gray-600 dark:text-neutral-400 mt-0.5;
+    @apply text-xs text-gray-600 dark:text-neutral-300 mt-0.5;
     line-height: 1.4;
 }
 
 .notif-item-time {
-    @apply text-xs text-gray-600 dark:text-neutral-500 mt-1;
+    @apply text-xs text-gray-600 dark:text-neutral-400 mt-1;
 }
 
 /* Dismiss button */
 .notif-item-dismiss {
     @apply shrink-0 inline-flex items-center justify-center rounded-md cursor-pointer;
-    @apply text-gray-500 dark:text-neutral-500;
+    @apply text-gray-600 dark:text-neutral-400;
     width: 1.5rem;
     height: 1.5rem;
     border: none;
@@ -7009,8 +7009,8 @@ a.list-group-item-action {
 }
 
 .cmd-palette-search i {
-    @apply text-gray-500 text-base shrink-0;
-    @apply dark:text-neutral-500;
+    @apply text-gray-600 text-base shrink-0;
+    @apply dark:text-neutral-400;
 }
 
 /* The search input — borderless, full-width */
@@ -7023,20 +7023,20 @@ a.list-group-item-action {
 }
 
 .cmd-palette-input::placeholder {
-    @apply text-gray-500;
-    @apply dark:text-neutral-500;
+    @apply text-gray-600;
+    @apply dark:text-neutral-400;
 }
 
 /* Keyboard shortcut badge (e.g. "Cmd K") */
 .cmd-palette-shortcut {
     @apply inline-flex items-center gap-0.5 text-[10px] font-medium text-gray-600 shrink-0;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .cmd-palette-shortcut kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-100 border border-gray-200 text-gray-500;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
+    @apply bg-gray-100 border border-gray-200 text-gray-600;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
@@ -7052,8 +7052,8 @@ a.list-group-item-action {
 /* Empty / no-results state */
 .cmd-palette-empty {
     @apply flex flex-col items-center justify-center py-10 px-4;
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-500;
+    @apply text-sm text-gray-600;
+    @apply dark:text-neutral-400;
 }
 
 .cmd-palette-empty i {
@@ -7074,7 +7074,7 @@ a.list-group-item-action {
 /* Group heading */
 .cmd-palette-group-title {
     @apply text-[11px] font-semibold uppercase tracking-wider text-gray-600 px-2 py-1.5;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 /* Individual result item */
@@ -7093,8 +7093,8 @@ a.list-group-item-action {
 
 /* Leading icon */
 .cmd-palette-item-icon {
-    @apply text-gray-500 text-sm w-5 text-center shrink-0;
-    @apply dark:text-neutral-500;
+    @apply text-gray-600 text-sm w-5 text-center shrink-0;
+    @apply dark:text-neutral-400;
 }
 
 .cmd-palette-item:hover .cmd-palette-item-icon,
@@ -7116,7 +7116,7 @@ a.list-group-item-action {
 /* Secondary description */
 .cmd-palette-item-description {
     @apply block text-xs text-gray-600 truncate mt-0.5;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .cmd-palette-item:hover .cmd-palette-item-description,
@@ -7132,8 +7132,8 @@ a.list-group-item-action {
 
 .cmd-palette-item-shortcut kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-100 border border-gray-200 text-gray-500;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-500;
+    @apply bg-gray-100 border border-gray-200 text-gray-600;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
@@ -7155,13 +7155,13 @@ a.list-group-item-action {
 
 .cmd-palette-footer-hint {
     @apply flex items-center gap-1.5 text-[11px] text-gray-600;
-    @apply dark:text-neutral-500;
+    @apply dark:text-neutral-400;
 }
 
 .cmd-palette-footer-hint kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-50 border border-gray-200 text-gray-500;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
+    @apply bg-gray-50 border border-gray-200 text-gray-600;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
@@ -7209,12 +7209,12 @@ a.list-group-item-action {
 
 .queue-item-summary {
     @apply text-xs text-gray-600 truncate mt-0.5;
-    @apply dark:text-gray-400;
+    @apply dark:text-neutral-300;
 }
 
 .queue-item-meta {
-    @apply flex items-center justify-between text-xs text-gray-400 mt-1;
-    @apply dark:text-gray-500;
+    @apply flex items-center justify-between text-xs text-gray-500 mt-1;
+    @apply dark:text-neutral-400;
 }
 
 .queue-item-sla {
@@ -7247,8 +7247,8 @@ a.list-group-item-action {
 }
 
 .queue-section-header.is-info {
-    @apply text-gray-500;
-    @apply dark:text-gray-400;
+    @apply text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 /* ================================================================
@@ -7258,13 +7258,13 @@ a.list-group-item-action {
 /* System event — compact, muted */
 .thread-msg-system {
     @apply flex items-center justify-between px-4 py-1.5;
-    @apply text-xs text-gray-400;
-    @apply dark:text-gray-500;
+    @apply text-xs text-gray-500;
+    @apply dark:text-neutral-400;
 }
 
 .thread-msg-time {
-    @apply text-xs text-gray-400 shrink-0 ml-2;
-    @apply dark:text-gray-500;
+    @apply text-xs text-gray-500 shrink-0 ml-2;
+    @apply dark:text-neutral-400;
 }
 
 /* Agent tool call — icon + expandable payload */
@@ -7285,13 +7285,13 @@ a.list-group-item-action {
 .thread-msg-tool-name {
     @apply text-xs text-gray-600;
     font-family: var(--font-mono);
-    @apply dark:text-gray-400;
+    @apply dark:text-neutral-300;
 }
 
 .thread-msg-tool-result {
-    @apply text-xs text-gray-500 ml-1;
+    @apply text-xs text-gray-600 ml-1;
     font-family: var(--font-mono);
-    @apply dark:text-gray-500;
+    @apply dark:text-neutral-400;
 }
 
 .thread-msg-tool-detail {
@@ -7325,7 +7325,7 @@ a.list-group-item-action {
 .thread-msg-response-toggle {
     @apply flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer;
     @apply hover:text-gray-900 transition-colors;
-    @apply dark:text-gray-400 dark:hover:text-gray-200;
+    @apply dark:text-neutral-300 dark:hover:text-gray-200;
 }
 
 .thread-msg-response-toggle strong {
@@ -7414,8 +7414,8 @@ a.list-group-item-action {
 }
 
 .thread-approval-context-meta {
-    @apply text-xs text-gray-500;
-    @apply dark:text-gray-400;
+    @apply text-xs text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .thread-approval-summary {
@@ -7425,7 +7425,7 @@ a.list-group-item-action {
 
 .thread-approval-summary ul {
     @apply list-disc list-inside text-sm text-gray-600 space-y-0.5;
-    @apply dark:text-gray-400;
+    @apply dark:text-neutral-300;
 }
 
 .thread-approval-effects {
@@ -7440,18 +7440,18 @@ a.list-group-item-action {
 }
 
 .thread-approval-effects-label {
-    @apply text-xs font-medium text-gray-500;
-    @apply dark:text-gray-400;
+    @apply text-xs font-medium text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .thread-approval-effects ul {
     @apply list-disc list-inside text-xs text-gray-600;
-    @apply dark:text-gray-400;
+    @apply dark:text-neutral-300;
 }
 
 .thread-approval-attachment {
-    @apply flex items-center gap-1.5 text-xs text-gray-500;
-    @apply dark:text-gray-400;
+    @apply flex items-center gap-1.5 text-xs text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .thread-approval-actions {
