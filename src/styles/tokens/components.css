@@ -7189,8 +7189,6 @@ a.list-group-item-action {
 
 .queue-item.is-info {
     border-left-color: var(--color-gray-200);
-    @apply opacity-80;
-    @apply dark:opacity-70;
 }
 
 .queue-item.active {
@@ -7213,8 +7211,8 @@ a.list-group-item-action {
 }
 
 .queue-item-meta {
-    @apply flex items-center justify-between text-xs text-gray-500 mt-1;
-    @apply dark:text-neutral-400;
+    @apply flex items-center justify-between text-xs text-gray-600 mt-1;
+    @apply dark:text-neutral-300;
 }
 
 .queue-item-sla {
@@ -7258,13 +7256,13 @@ a.list-group-item-action {
 /* System event — compact, muted */
 .thread-msg-system {
     @apply flex items-center justify-between px-4 py-1.5;
-    @apply text-xs text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .thread-msg-time {
-    @apply text-xs text-gray-500 shrink-0 ml-2;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-gray-600 shrink-0 ml-2;
+    @apply dark:text-neutral-300;
 }
 
 /* Agent tool call — icon + expandable payload */
