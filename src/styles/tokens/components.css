@@ -1572,9 +1572,9 @@ a.btn-danger {
    =================================== */
 
 .filter-pill {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm min-h-11;
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs whitespace-nowrap;
     @apply bg-gray-50 border border-gray-200 text-gray-600;
-    @apply hover:bg-gray-50 cursor-pointer transition-colors;
+    @apply hover:bg-gray-100 cursor-pointer transition-colors;
     @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
 }
 
