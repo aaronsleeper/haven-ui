@@ -7395,6 +7395,11 @@ a.list-group-item-action {
     @apply dark:text-amber-400;
 }
 
+.thread-approval-card.is-urgent .thread-approval-header i {
+    @apply text-red-600;
+    @apply dark:text-red-400;
+}
+
 .thread-approval-body {
     @apply px-4 pb-3 space-y-3;
 }

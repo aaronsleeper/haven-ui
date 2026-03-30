@@ -394,10 +394,34 @@
           <span class="thread-msg-time">9:47am</span>
         </div>
 
+        <!-- 8.5. Human message: coordinator question -->
+        <div class="thread-msg-human">
+          <span class="thread-msg-human-label">You</span>
+          <div class="thread-msg-human-bubble">
+            Confirm the tree nut allergy is reflected in the meal prescription before I approve.
+          </div>
+          <span class="thread-msg-time mt-0.5">9:48am</span>
+        </div>
+
+        <!-- 8.6. Tool call: verify allergy -->
+        <div class="thread-msg-tool">
+          <div class="thread-msg-tool-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="thread-msg-tool-content">
+            <div class="hs-collapse-toggle cursor-pointer" data-hs-collapse="#tc-4" aria-expanded="false">
+              <span class="thread-msg-tool-name">◎ verify_meal_constraints</span>
+              <span class="thread-msg-tool-result">→ tree nuts excluded ✓</span>
+              <span class="thread-msg-time ml-1">9:48am</span>
+            </div>
+            <div id="tc-4" class="hs-collapse hidden thread-msg-tool-detail">
+              <pre class="whitespace-pre-wrap">{ "allergens_excluded": ["tree nuts"], "meal_template": "diabetic-1800cal", "constraint_check": "pass" }</pre>
+            </div>
+          </div>
+        </div>
+
         <!-- 9. System: Ready for coordinator -->
         <div class="thread-msg-system">
           <span>Care plan ready for coordinator approval.</span>
-          <span class="thread-msg-time">9:48am</span>
+          <span class="thread-msg-time">9:49am</span>
         </div>
 
         <!-- 10. THE HERO: Pending approval card -->

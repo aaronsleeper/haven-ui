@@ -10,9 +10,9 @@
 - [GOV.UK, "Check Answers" pattern] — review-before-submission with concise statement rephrasing and "Change" links
 - [GOV.UK, "Warning Text" pattern] — downstream consequences communicated concretely, not abstractly
 
-## Overall Status: PASS WITH NOTES
+## Overall Status: PASS
 
-The build faithfully implements the wireframe specs and incorporates all pre-build review revisions. The three-panel shell, queue sidebar, thread panel, and morning summary card all match their specifications. Seven new components were built and registered. The approval card hero treatment (shadow + amber background + border) creates the intended visual weight. Four items on the punch list — two moderate, two minor — none blocking handoff.
+The build faithfully implements the wireframe specs and incorporates all pre-build review revisions. The three-panel shell, queue sidebar, thread panel, and morning summary card all match their specifications. Seven new components were built and registered. The approval card hero treatment (shadow + amber background + border) creates the intended visual weight. All punch list items resolved as of 2026-03-30.
 
 ---
 
@@ -151,7 +151,9 @@ Thread message components (system, tool call, human, approval response) will reu
 
 ## Punch List
 
-1. **[Moderate]** CC-02 Thread Panel: Inline `style="opacity: 0.7;"` on historical approval card (line 373). Replace with a semantic class `.is-historical` in components.css.
-2. **[Moderate]** CC-01 Queue Sidebar: ARIA roles on queue items (`role="option"` should be `role="listitem"` inside `role="list"`), filter pills (need `role="tablist"` / `role="tab"`), and SLA indicators (need descriptive `aria-label`).
-3. **[Minor]** CC-02 Thread Panel: Add `aria-label="Message to agent or care team"` to thread input textarea.
-4. **[Minor]** CC-01 Queue Sidebar: Add count badge to "Queue" nav item showing total queue count.
+1. ~~**[Moderate]** CC-02 Thread Panel: Inline `style="opacity: 0.7;"` on historical approval card. Replace with `.is-historical` class.~~ **FIXED** 2026-03-30 — pattern library updated to use `.is-historical`; app already used the class.
+2. ~~**[Moderate]** CC-01 Queue Sidebar: ARIA roles on queue items, filter pills, SLA indicators.~~ **FIXED** (app already had correct ARIA: `role="list"`/`role="listitem"`, `role="tablist"`/`role="tab"`, descriptive `aria-label` on SLAs).
+3. ~~**[Minor]** CC-02 Thread Panel: Add `aria-label` to thread input textarea.~~ **FIXED** (app already had `aria-label="Message to agent or care team"`).
+4. ~~**[Minor]** CC-01 Queue Sidebar: Add count badge to "Queue" nav item.~~ **FIXED** (app already had badge with "12").
+5. **[Moderate]** CC-02 Thread Panel: Urgent approval card icon stayed amber instead of switching to red. **FIXED** 2026-03-30 — added `.thread-approval-card.is-urgent .thread-approval-header i` rule.
+6. **[Minor]** CC-02 Thread Panel: No human message shown in demo thread. **FIXED** 2026-03-30 — added coordinator question + agent verify_meal_constraints tool call to show the ask-and-agent-acts loop.
