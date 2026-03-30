@@ -1,0 +1,73 @@
+<!--
+@component-meta
+name: Panel Splitter
+category: Layout
+classes: panel-splitter, queue-sidebar, queue-list
+variants: is-dragging
+preline: false
+notes: Drag-to-resize handle between panels. Uses data-panel-splitter to init. JS: panel-splitter.js. data-target="previous"|"next", data-min, data-max (px).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Splitter — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+
+  <h1 class="text-lg font-semibold mb-6">Panel Splitter</h1>
+
+  <div class="flex h-[400px] overflow-hidden rounded-lg border border-gray-200 dark:border-neutral-800">
+
+    <!-- Left panel (resizable) -->
+    <div class="w-60 shrink-0 queue-sidebar flex flex-col overflow-hidden" style="min-width: 180px; max-width: 400px;">
+      <div class="px-4 py-3 border-b border-gray-100 dark:border-neutral-800">
+        <span class="text-sm font-semibold text-gray-900 dark:text-white">Left Panel</span>
+      </div>
+      <div class="flex-1 overflow-y-auto queue-list" role="list">
+        <div class="queue-item is-urgent active" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Maria Garcia</span>
+            <span class="badge badge-sm badge-pill">Care Plan</span>
+          </div>
+          <div class="queue-item-summary">Care plan ready for final approval</div>
+          <div class="queue-item-meta"><span>2h ago</span></div>
+        </div>
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Lisa Chen</span>
+            <span class="badge badge-sm badge-pill">Referral</span>
+          </div>
+          <div class="queue-item-summary">New referral from UConn Health</div>
+          <div class="queue-item-meta"><span>45m ago</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Splitter (targets previous sibling) -->
+    <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="180" data-max="400"></div>
+
+    <!-- Center panel -->
+    <div class="flex-1 min-w-0 bg-gray-50 dark:bg-neutral-950 flex items-center justify-center">
+      <span class="text-sm text-gray-400">Center Panel (flex-grow)</span>
+    </div>
+
+    <!-- Splitter (targets next sibling) -->
+    <div class="panel-splitter" data-panel-splitter data-target="next" data-min="280" data-max="500"></div>
+
+    <!-- Right panel (resizable) -->
+    <div class="w-[380px] shrink-0 bg-white dark:bg-neutral-900 flex items-center justify-center" style="min-width: 280px; max-width: 500px;">
+      <span class="text-sm text-gray-400">Right Panel (380px default)</span>
+    </div>
+
+  </div>
+
+  <p class="text-xs text-gray-500 mt-4">Drag the vertical bars between panels to resize. Panels respect min/max constraints set via data attributes.</p>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+  <script src="/src/scripts/components/panel-splitter.js"></script>
+</body>
+</html>

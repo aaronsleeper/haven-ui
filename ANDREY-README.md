@@ -592,6 +592,61 @@ New `.alert-warning-btn` class for action buttons inside warning alerts (amber, 
 
 ---
 
+## Panel Splitter (Resizable Panels)
+
+Drag-to-resize handles between panels (VS Code / Obsidian-style). Used in the care coordinator three-panel layout and reusable across all multi-panel apps.
+
+### HTML
+
+Place a splitter `<div>` between sibling panels:
+
+```html
+<div class="flex h-screen overflow-hidden">
+  <aside class="w-60 shrink-0 queue-sidebar" style="min-width: 180px; max-width: 400px;">
+    <!-- left panel content -->
+  </aside>
+
+  <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="180" data-max="400"></div>
+
+  <main class="flex-1 min-w-0">
+    <!-- center panel content -->
+  </main>
+
+  <div class="panel-splitter" data-panel-splitter data-target="next" data-min="300" data-max="520"></div>
+
+  <aside class="w-[380px] shrink-0" style="min-width: 300px; max-width: 520px;">
+    <!-- right panel content -->
+  </aside>
+</div>
+```
+
+### Attributes
+
+| Attribute | Required | Values | Default |
+|---|---|---|---|
+| `data-panel-splitter` | yes | *(presence)* | — |
+| `data-target` | no | `previous`, `next` | `previous` |
+| `data-min` | no | px value | `120` |
+| `data-max` | no | px value | `600` |
+
+### Classes
+
+| Class | Purpose |
+|---|---|
+| `.panel-splitter` | 5px vertical drag handle with hover highlight |
+| `.queue-sidebar` | Warm tinted sidebar background (`sand-50`) |
+| `.queue-list` | Left padding on queue item container for urgency border visibility |
+
+### JS
+
+Load `src/scripts/components/panel-splitter.js` after `main.js`. It self-initializes on `[data-panel-splitter]` elements. No API — the drag behavior sets inline width/min-width/max-width on the target panel.
+
+### Angular integration
+
+Replace the vanilla JS with Angular `(mousedown)` binding or a directive. The CSS classes and data attributes remain the same. Store panel widths in user preferences if persistence is desired.
+
+---
+
 ## Questions / Updates
 
 If component HTML or class names change, the agent will update this file as part of the same task.

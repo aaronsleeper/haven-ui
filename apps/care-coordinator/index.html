@@ -14,8 +14,9 @@
     <!-- ============================================================
          LEFT PANEL: Queue Sidebar (240px)
          ============================================================ -->
-    <aside class="w-60 shrink-0 bg-white border-r border-gray-200 flex flex-col overflow-hidden dark:bg-neutral-900 dark:border-neutral-800"
-           role="complementary" aria-label="Queue sidebar">
+    <aside class="w-60 shrink-0 queue-sidebar flex flex-col overflow-hidden"
+           role="complementary" aria-label="Queue sidebar"
+           style="min-width: 180px; max-width: 400px;">
 
       <!-- Sidebar header -->
       <div class="px-4 py-3 border-b border-gray-100 dark:border-neutral-800">
@@ -60,7 +61,7 @@
       </div>
 
       <!-- Queue items (scrollable) -->
-      <div class="flex-1 overflow-y-auto" role="list" aria-label="Queue items">
+      <div class="flex-1 overflow-y-auto queue-list" role="list" aria-label="Queue items">
 
         <!-- Urgent section -->
         <div class="queue-section-header is-urgent" role="heading" aria-level="3">
@@ -204,6 +205,9 @@
       </nav>
     </aside>
 
+    <!-- Splitter: left ↔ center -->
+    <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="180" data-max="400"></div>
+
     <!-- ============================================================
          CENTER PANEL: Content (flex-grow)
          ============================================================ -->
@@ -286,11 +290,15 @@
       </div>
     </main>
 
+    <!-- Splitter: center ↔ right -->
+    <div class="panel-splitter" data-panel-splitter data-target="next" data-min="300" data-max="520"></div>
+
     <!-- ============================================================
          RIGHT PANEL: Thread (380px)
          ============================================================ -->
-    <aside class="w-[380px] shrink-0 bg-white border-l border-gray-200 flex flex-col overflow-hidden dark:bg-neutral-900 dark:border-neutral-800"
-           role="complementary" aria-label="Activity thread">
+    <aside class="w-[380px] shrink-0 bg-white flex flex-col overflow-hidden dark:bg-neutral-900"
+           role="complementary" aria-label="Activity thread"
+           style="min-width: 300px; max-width: 520px;">
 
       <!-- Thread header -->
       <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 dark:border-neutral-700">
@@ -484,5 +492,6 @@
   </div>
 
   <script type="module" src="/src/scripts/main.js"></script>
+  <script src="/src/scripts/components/panel-splitter.js"></script>
 </body>
 </html>
