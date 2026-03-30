@@ -7366,6 +7366,10 @@ a.list-group-item-action {
     }
 }
 
+.thread-approval-card.is-historical {
+    @apply opacity-70;
+}
+
 .thread-approval-card.is-urgent {
     background-color: var(--color-red-50);
     border-color: var(--color-red-200);
