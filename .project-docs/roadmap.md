@@ -38,6 +38,7 @@ Patient app MVP complete. All onboarding and main app screens built and committe
 ## Backlog
 
 - **Generalize pref-row to shared component** -- the circle/square inset-ring selection pattern is visually strong and worth applying to provider/patient profile settings screens. Currently scoped to patient onboarding only. When a second use case appears, promote to `components.css` and document in COMPONENT-INDEX.md.
+- **Patient assessments & self-report** — support assessments and patient self-report of relevant health data (e.g. symptoms, mood, intake). Eventually connect to wearables to pull biometric data. Needs full scoping and design.
 - Care coordinator interface (not yet designed)
 - Referral form multi-step wizard (meals + RDN, multi-step tab-style wizard)
 - Resolve Vanessa billing tool question: kitchen-facing portal vs. internal billing operations tool
