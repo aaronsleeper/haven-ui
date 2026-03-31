@@ -38,7 +38,21 @@ Patient app MVP complete. All onboarding and main app screens built and committe
 ## Backlog
 
 - **Generalize pref-row to shared component** -- the circle/square inset-ring selection pattern is visually strong and worth applying to provider/patient profile settings screens. Currently scoped to patient onboarding only. When a second use case appears, promote to `components.css` and document in COMPONENT-INDEX.md.
-- **Patient assessments & self-report** — UX architect complete (Gate 1 approved 2026-03-31). Standard behavioral (PHQ-2/9, GAD-2/7, AUDIT-C), SDOH (Hunger Vital Sign, PRAPARE, AHC HRSN), and dietary (MNA-SF, meal satisfaction, adherence) assessments. Markdown-defined assessment library with generic renderer. New "Health" bottom nav tab. Trends view required. See `apps/patient/design/assessments-use-cases.md`. Next step: wireframing.
+- **Patient assessments & self-report** — Wireframes and UX review complete (Gate 2 ready 2026-03-31). Tasks system on dashboard (top 3 tasks + "See all" link to full task list). "Health" bottom nav tab for trends. Markdown-defined assessment library with generic renderer. Prototype set: PHQ-2, mood check-in, Hunger Vital Sign. See `apps/patient/design/`. Next step: haven-mapper + dev-tasker (Gate 3).
+  - **Remaining assessments to build** (post-prototype):
+    - PHQ-9 (depression severity, triggered by PHQ-2)
+    - GAD-2 (anxiety screen)
+    - GAD-7 (anxiety severity, triggered by GAD-2)
+    - PHQ-4 (ultra-brief depression + anxiety combined)
+    - AUDIT-C (alcohol use)
+    - PRAPARE core — 5 domain sections (housing, food, transportation, safety, stress/social)
+    - AHC HRSN (Accountable Health Communities — housing, food, transportation, utilities, safety)
+    - MNA-SF (Mini Nutritional Assessment, elderly malnutrition risk)
+    - Meal satisfaction check-in (per-delivery)
+    - Dietary adherence self-report (weekly, configurable)
+    - General wellness check-in (daily, if enrolled)
+    - Symptom check (weekly)
+  - **Future task types** (Tasks system is extensible): measurements/vitals reporting, journal entries, appointment scheduling, documentation submission, meal ordering
 - **Wearable data integration** — placeholder "Connect a device" card in Health tab for v1. Future: OAuth/Health Connect/HealthKit setup flow, granular data-sharing toggles, passive data merged into trends view. Android must use Health Connect (Google Fit deprecated June 2025).
 - **Gamification / engagement indicators** — explore completion streaks, progress badges, and engagement indicators after core assessment functionality ships. Consider tone for elderly population.
 - Care coordinator interface (not yet designed)

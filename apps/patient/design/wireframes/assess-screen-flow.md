@@ -4,6 +4,7 @@
 
 | ID | Name | Route | Persona | Shell |
 |----|------|-------|---------|-------|
+| tasks-01 | Tasks (Full List) | `/apps/patient/tasks/index.html` | Patient | mobile-shell + bottom-nav |
 | assess-01 | My Health (Hub) | `/apps/patient/health/index.html` | Patient | mobile-shell + bottom-nav (Health active) |
 | assess-02 | Assessment Intro | `/apps/patient/health/assessment.html` | Patient | mobile-shell (no bottom nav — focused flow) |
 | assess-03 | Assessment Question | (same page, JS-driven step) | Patient | mobile-shell (no bottom nav) |
@@ -12,10 +13,11 @@
 
 ## Navigation Flows
 
-- Dashboard (home) → assessment prompt card → assess-02 (Intro)
+- Dashboard (home) → Tasks section → task card → assess-02 (Intro) for assessments
+- Dashboard (home) → Tasks section → "See all tasks" → tasks-01 (Full List)
 - Dashboard (home) → "View my health" link → assess-01 (Hub)
+- tasks-01 → task card → assess-02 (Intro) for assessments
 - Bottom nav: Health tab → assess-01 (Hub)
-- assess-01 → pending assessment card → assess-02 (Intro)
 - assess-01 → metric card → assess-05 (Metric Detail)
 - assess-02 → "Start" → assess-03 (first question)
 - assess-03 → "Next" → assess-03 (next question, same page)
@@ -40,13 +42,18 @@ Quick check-ins (1–5 questions) use the same assess-02/03/04 flow but:
 - `mobile-bottom-nav` — existing, needs "Health" tab added (5th tab)
 - `mobile-i18n-bar` — existing, no changes
 
-## Dashboard Integration
+## Dashboard Integration — Tasks Section
 
-The existing patient dashboard (`apps/patient/index.html`) will gain:
-- An assessment prompt card when assessments are pending
-- A "My Health" shortcut link
+The existing patient dashboard (`apps/patient/index.html`) gains a **Tasks** section:
+- Shows the top 3 most urgent outstanding tasks (overdue first, then nearest due date)
+- Each task is a card linking to its action (assessment, check-in, or future task types)
+- "See all tasks" link at bottom → navigates to `tasks/index.html` (full task list)
+- Task types in v1: assessments and check-ins. Future: measurements, journal entries, appointments, documentation, meal orders.
 
-These are modifications to an existing screen, not a new wireframe.
+New screens:
+- `apps/patient/tasks/index.html` — full outstanding task list
+
+These are a dashboard modification + one new page, covered in the wireframe set below.
 
 ## Out of Scope
 

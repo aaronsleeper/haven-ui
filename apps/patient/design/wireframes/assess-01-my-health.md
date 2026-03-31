@@ -27,29 +27,10 @@ The patient's health hub — the single place to see pending assessments, comple
 
 ### Content Zone
 
-#### Section 1: Pending Assessments (Action Items)
-Shown only when the patient has pending or overdue assessments. This is the primary action zone — it sits above trends to ensure assessments are completed before browsing.
-
-- Section label: `<p class="text-xs font-semibold text-sand-500 uppercase tracking-wide px-4 mb-2">` — "Your check-ins" / "Sus evaluaciones" [REVISED: warmer than "To do"]
-- Stack of assessment prompt cards: `<div class="space-y-3 px-4">`
-
-**Assessment Prompt Card:**
-- `.card` with left-accent border (category color via CSS variable)
-- `.card-body` — single row layout:
-  - Left: category icon in a colored circle (`avatar avatar-sm` with category-appropriate color)
-    - Behavioral: `fa-brain` in `avatar-primary`
-    - SDOH: `fa-people-group` in `avatar-secondary`
-    - Dietary: `fa-utensils` in `avatar-neutral`
-    - Check-in: `fa-face-smile` in `avatar-primary`
-  - Center: assessment name `<p class="text-sm font-medium">` + estimated time `<p class="text-xs text-sand-400">` ("About 2 min")
-  - Right: `fa-chevron-right text-sand-300`
-- Overdue card gets `.alert-warning` background tint and a `badge-warning badge-sm` label "Overdue" / "Atrasado"
-- Tap anywhere on the card → navigate to assess-02 (Intro) or directly to assess-03 for check-ins
-
-#### Section 2: Health Trends
+#### Section 1: Health Trends
 Shown when the patient has completed at least one assessment or check-in. Each tracked metric gets a trend card.
 
-- Section label: `<p class="text-xs font-semibold text-sand-500 uppercase tracking-wide px-4 mt-6 mb-2">` — "Your progress" / "Su progreso"
+- Section label: `<p class="text-xs font-semibold text-sand-500 uppercase tracking-wide px-4 mb-2">` — "Your progress" / "Su progreso"
 - Stack of trend cards: `<div class="space-y-3 px-4">`
 
 **Trend Card:**
@@ -94,19 +75,12 @@ No sticky footer on this screen.
 
 ## States
 
-### Empty State — No Assessments, No Trends
+### Empty State — No Trends Yet
 - `.empty-state` centered in content zone
-- Icon: `fa-heart-pulse` in `text-sand-200`
-- Heading: "Your health hub" / "Su centro de salud"
-- Message: "When your care team assigns check-ins, they'll show up here. You'll also see your health progress over time." / "Cuando su equipo de atención le asigne evaluaciones, aparecerán aquí. También verá su progreso de salud con el tiempo."
-- No CTA button (nothing for the patient to do — assessments are care-team-initiated)
-
-### Empty State — No Trends Yet (Assessments Pending)
-- Pending assessment cards shown in Section 1
-- Section 2 replaced with an encouraging message card:
-  - `.card mx-4 mt-6` with `bg-teal-50 border-teal-200`
-  - Icon: `fa-chart-line text-teal-400`
-  - Text: "Complete your first check-in to start tracking your progress." / "Complete su primera evaluación para comenzar a seguir su progreso."
+- Icon: `fa-chart-line` in `text-sand-200`
+- Heading: "Your progress will show up here" / "Su progreso aparecerá aquí"
+- Message: "After you complete your first check-in, you'll see your health trends over time." / "Después de completar su primera evaluación, verá sus tendencias de salud con el tiempo."
+- No CTA button (assessments are accessed via Tasks on the dashboard)
 
 ### Loading State
 - Section 1: two `skeleton` cards (height matching assessment prompt card)
@@ -134,9 +108,7 @@ No sticky footer on this screen.
 - "Overdue" / "Atrasado" — similar length, no layout concern
 
 ## New Components Flagged
-- `[NEW COMPONENT: assessment-prompt-card — card with left-accent border, category icon, assessment name, estimated time, chevron. Overdue variant with warning tint.]`
 - `[NEW COMPONENT: trend-card — card with metric label, trend-badge, and sparkline chart. Tappable. Variants for scored assessments, single-value check-ins, and future wearable metrics.]`
 
 ## Open Questions
-- Should the dashboard (`apps/patient/index.html`) show the top 1-2 pending assessments as a preview, or just a "You have N check-ins" link to the Health tab?
-- Should completed assessments (e.g., "PHQ-2 completed today") show briefly in Section 1 with a checkmark before disappearing, or should they immediately move to trends only?
+- Should completed assessments (e.g., "PHQ-2 completed today") show briefly as a checkmarked card before moving to trends only, or go straight to trends?

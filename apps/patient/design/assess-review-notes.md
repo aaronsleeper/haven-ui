@@ -142,8 +142,8 @@ The wireframes are well-structured and cover all use cases. The single-question-
 ### Bottom Nav — Health Tab
 The wireframes specify a new 5th tab: **Health** with `fa-heart-pulse`. This needs to be added to the `mobile-bottom-nav` partial (`src/partials/patient-bottom-nav.html`). The tab order Meals | Delivery | Health | Care Team | Profile puts Health in the center position — the thumb-zone sweet spot on mobile. Good placement for encouraging check-in completion.
 
-### Dashboard Integration
-The patient dashboard (`apps/patient/index.html`) needs a pending assessment card. Recommend showing the single most urgent pending assessment (overdue first, then nearest due date) as a compact card at the top of the dashboard, above the meals section. This creates a natural entry point without overloading the dashboard.
+### Dashboard Integration — Tasks Section
+The patient dashboard (`apps/patient/index.html`) gains a **Tasks** section at the top of the page. Shows the 3 most urgent outstanding tasks with a "See all" link when >3 exist. Tasks section is hidden when no tasks are pending (no empty state on the dashboard). Full task list lives at `tasks/index.html`. The Tasks pattern is extensible to future task types (measurements, appointments, documentation, meal orders). See `wireframes/dashboard-tasks-section.md` and `wireframes/tasks-01-task-list.md`.
 
 ### Assessment Definition Files
 The markdown assessment format defined in the use cases document is the data contract for the prototype. The wireframes assume this format for all bilingual text, question types, and scoring. These files need to exist in `src/data/patient/assessments/` before the build phase — at minimum: `phq-2.md`, `phq-9.md`, `hunger-vital-sign.md`, and `mood-checkin.md` for the prototype.
@@ -169,7 +169,7 @@ All copy in this review uses `data-i18n-en` / `data-i18n-es` attributes, consist
 
 ---
 
-## Open Questions for Aaron
+## Resolved Questions
 
-1. **Dashboard assessment card:** Show the top 1 pending assessment on the main dashboard, or just a count badge on the Health tab? Recommendation: show one card.
-2. **Prototype assessment set:** For the build, which assessments should have full dummy data? Recommend: PHQ-2, mood check-in, and Hunger Vital Sign as the minimum — covers behavioral, check-in, and SDOH.
+1. ~~**Dashboard assessment card**~~ → [RESOLVED: Tasks section on dashboard showing top 3 outstanding tasks with "See all" link. Extensible to future task types.]
+2. **Prototype assessment set:** PHQ-2, mood check-in, and Hunger Vital Sign confirmed. Full remaining assessment list tracked in roadmap.
