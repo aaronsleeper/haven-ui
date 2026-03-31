@@ -38,7 +38,9 @@ Patient app MVP complete. All onboarding and main app screens built and committe
 ## Backlog
 
 - **Generalize pref-row to shared component** -- the circle/square inset-ring selection pattern is visually strong and worth applying to provider/patient profile settings screens. Currently scoped to patient onboarding only. When a second use case appears, promote to `components.css` and document in COMPONENT-INDEX.md.
-- **Patient assessments & self-report** — support assessments and patient self-report of relevant health data (e.g. symptoms, mood, intake). Eventually connect to wearables to pull biometric data. Needs full scoping and design.
+- **Patient assessments & self-report** — UX architect complete (Gate 1 approved 2026-03-31). Standard behavioral (PHQ-2/9, GAD-2/7, AUDIT-C), SDOH (Hunger Vital Sign, PRAPARE, AHC HRSN), and dietary (MNA-SF, meal satisfaction, adherence) assessments. Markdown-defined assessment library with generic renderer. New "Health" bottom nav tab. Trends view required. See `apps/patient/design/assessments-use-cases.md`. Next step: wireframing.
+- **Wearable data integration** — placeholder "Connect a device" card in Health tab for v1. Future: OAuth/Health Connect/HealthKit setup flow, granular data-sharing toggles, passive data merged into trends view. Android must use Health Connect (Google Fit deprecated June 2025).
+- **Gamification / engagement indicators** — explore completion streaks, progress badges, and engagement indicators after core assessment functionality ships. Consider tone for elderly population.
 - Care coordinator interface (not yet designed)
 - Referral form multi-step wizard (meals + RDN, multi-step tab-style wizard)
 - Resolve Vanessa billing tool question: kitchen-facing portal vs. internal billing operations tool
