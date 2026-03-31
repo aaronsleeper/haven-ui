@@ -194,8 +194,36 @@ function renderFreeText(q) {
   `;
 }
 
+// ── Slide Transition ───────────────────────────────────────────
+function slideTransition(container, direction, callback) {
+  const outX = direction === 'forward' ? '-100%' : '100%';
+  const inX = direction === 'forward' ? '100%' : '-100%';
+  container.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+  container.style.transform = `translateX(${outX})`;
+  container.style.opacity = '0';
+  setTimeout(() => {
+    callback();
+    container.style.transition = 'none';
+    container.style.transform = `translateX(${inX})`;
+    requestAnimationFrame(() => {
+      container.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+      container.style.transform = 'translateX(0)';
+      container.style.opacity = '1';
+    });
+  }, 200);
+}
+
 // ── Render Question ────────────────────────────────────────────
-function renderQuestion(index) {
+function renderQuestion(index, direction) {
+  const doRender = () => renderQuestionContent(index);
+  if (direction && questionContainer.innerHTML) {
+    slideTransition(questionContainer, direction, doRender);
+  } else {
+    doRender();
+  }
+}
+
+function renderQuestionContent(index) {
   const q = currentAssessment.questions[index];
   const total = currentAssessment.questions.length;
 
@@ -381,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const total = currentAssessment.questions.length;
     if (currentQuestionIndex < total - 1) {
       currentQuestionIndex++;
-      renderQuestion(currentQuestionIndex);
+      renderQuestion(currentQuestionIndex, 'forward');
     } else {
       // Submit
       showComplete();
@@ -391,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnPrev.addEventListener('click', () => {
     if (currentQuestionIndex > 0) {
       currentQuestionIndex--;
-      renderQuestion(currentQuestionIndex);
+      renderQuestion(currentQuestionIndex, 'back');
     } else {
       // Back to intro (or health hub for check-ins)
       if (mode === 'checkin' || currentAssessment.isCheckin) {
