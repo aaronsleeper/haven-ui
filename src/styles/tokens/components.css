@@ -160,9 +160,9 @@ form > div {
    MOBILE BOTTOM NAV (Patient App)
    =================================== */
 
-/* Fixed four-tab bar — present on all post-onboarding screens */
+/* Fixed tab bar — present on all post-onboarding screens */
 .mobile-bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 bg-gray-50 border-t border-gray-200 shadow-lg;
+  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 bg-gray-50 border-t border-gray-200 shadow-lg;
   max-width: 430px;
   margin-inline: auto;
   padding-bottom: env(safe-area-inset-bottom);
