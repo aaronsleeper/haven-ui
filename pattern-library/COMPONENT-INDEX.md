@@ -252,6 +252,10 @@ before creating any new component or semantic class.
 | Message Bubble | `patient-message-bubble.html` | `message-bubble-out`, `message-bubble-in`, `message-sender-label`, `message-date-sep`, `message-timestamp`, `message-new-pill` | no | Right-align outgoing with `flex flex-col items-end`; left-align incoming with `items-start`. |
 | Feedback Rating Card | `patient-feedback-rating.html` | `feedback-rating-fieldset`, `feedback-rating-card` | no | Uses `:has(input:checked)` for selected state. Three cards in `grid grid-cols-3 gap-2`. |
 | Preference Image Card | `patient-pref-image-card.html` | `pref-image-card`, `pref-image-card-img-wrap`, `pref-image-card-img`, `pref-image-card-check`, `pref-image-card-label`, `pref-image-card-img-wrap-plain` | no | Mutual exclusivity JS: `src/scripts/components/pref-image-cards.js`. Grid: `grid grid-cols-2 gap-3`. |
+| Task Card | `patient-task-card.html` | `task-card`, `task-card-icon`, `task-card-content`, `task-card-name`, `task-card-meta`, `task-card-overdue`, `task-card-in-progress`, `task-card-completed` | no | Tappable task row. Overdue: left warning border + badge. In-progress: left teal border. Completed: muted + check icon. |
+| Trend Card | `patient-trend-card.html` | `trend-card`, `trend-card-header`, `trend-card-chart` | no | Metric summary + sparkline. Requires Chart.js. Tappable → metric detail. |
+| Emoji Scale | `patient-emoji-scale.html` | `emoji-scale`, `emoji-scale-option`, `emoji-scale-icon`, `emoji-scale-label` | no | Horizontal emoji/icon selector for assessments. `:has(input:checked)` pattern. 3–5 options. |
+| Assessment Slider | `patient-assess-slider.html` | `assess-slider`, `assess-slider-value`, `assess-slider-track`, `assess-slider-labels`, `assess-progress`, `assess-progress-bar`, `assess-progress-fill` | no | Styled range input + progress bar for question stepper. JS: `src/scripts/components/assess-slider.js`. |
 
 ---
 

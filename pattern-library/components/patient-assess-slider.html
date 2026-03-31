@@ -1,0 +1,71 @@
+<!--
+@component-meta
+name: Assessment Slider
+category: Patient App
+classes: assess-slider, assess-slider-value, assess-slider-track, assess-slider-labels, assess-progress, assess-progress-bar, assess-progress-fill
+preline: false
+description: Styled range input for visual analog scale questions (e.g., pain 0–10). Wraps native input[type=range] with Haven teal theme, 44px thumb for touch targets, fill gradient, and min/max labels. Requires assess-slider.js for fill gradient and value display updates. Also includes assess-progress bar for question stepper.
+-->
+
+<p class="pl-variant-title">Pain Scale (0–10)</p>
+<div class="max-w-[430px] px-6">
+
+  <div class="assess-slider">
+    <p class="assess-slider-value" aria-live="polite">5</p>
+    <input
+      type="range"
+      class="assess-slider-track"
+      min="0"
+      max="10"
+      value="5"
+      step="1"
+      aria-label="Pain level"
+    >
+    <div class="assess-slider-labels">
+      <span>No pain</span>
+      <span>Worst pain</span>
+    </div>
+  </div>
+
+</div>
+
+<p class="pl-variant-title mt-8">Energy Level (1–5)</p>
+<div class="max-w-[430px] px-6">
+
+  <div class="assess-slider">
+    <p class="assess-slider-value" aria-live="polite">3</p>
+    <input
+      type="range"
+      class="assess-slider-track"
+      min="1"
+      max="5"
+      value="3"
+      step="1"
+      aria-label="Energy level"
+    >
+    <div class="assess-slider-labels">
+      <span>Very low</span>
+      <span>Very high</span>
+    </div>
+  </div>
+
+</div>
+
+<p class="pl-variant-title mt-8">Assessment Progress Bar</p>
+<div class="max-w-[430px] px-6">
+
+  <div class="assess-progress" aria-label="Question 3 of 9">
+    Question 3 of 9
+    <span class="assess-progress-bar">
+      <span class="assess-progress-fill" style="width: 33%"></span>
+    </span>
+  </div>
+
+  <div class="assess-progress mt-4" aria-label="Question 7 of 9">
+    Question 7 of 9
+    <span class="assess-progress-bar">
+      <span class="assess-progress-fill" style="width: 78%"></span>
+    </span>
+  </div>
+
+</div>

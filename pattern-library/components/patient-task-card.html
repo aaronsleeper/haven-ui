@@ -1,0 +1,85 @@
+<!--
+@component-meta
+name: Task Card
+category: Patient App
+classes: task-card, task-card-icon, task-card-content, task-card-name, task-card-meta, task-card-overdue, task-card-in-progress, task-card-completed
+preline: false
+description: Tappable card for an outstanding patient task. Horizontal layout: type avatar, task name + metadata, trailing chevron. Overdue variant adds warning left border + badge. In-progress adds teal left border. Completed variant is muted with check icon. Used in dashboard Tasks section and full task list. Extensible to future task types.
+-->
+
+<p class="pl-variant-title">Default</p>
+<div class="max-w-[430px] space-y-2">
+
+  <a href="#" class="task-card">
+    <div class="task-card-icon">
+      <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-brain"></i></span>
+    </div>
+    <div class="task-card-content">
+      <p class="task-card-name">How have you been feeling?</p>
+      <p class="task-card-meta">About 2 min</p>
+    </div>
+    <i class="fa-solid fa-chevron-right text-sand-300"></i>
+  </a>
+
+  <a href="#" class="task-card">
+    <div class="task-card-icon">
+      <span class="avatar avatar-sm avatar-secondary"><i class="fa-solid fa-people-group"></i></span>
+    </div>
+    <div class="task-card-content">
+      <p class="task-card-name">Food and housing check-in</p>
+      <p class="task-card-meta">About 3 min · Due Apr 5</p>
+    </div>
+    <i class="fa-solid fa-chevron-right text-sand-300"></i>
+  </a>
+
+</div>
+
+<p class="pl-variant-title mt-8">Overdue</p>
+<div class="max-w-[430px]">
+
+  <a href="#" class="task-card task-card-overdue">
+    <div class="task-card-icon">
+      <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-face-smile"></i></span>
+    </div>
+    <div class="task-card-content">
+      <p class="task-card-name">Weekly mood check-in</p>
+      <p class="task-card-meta">
+        <span class="badge badge-warning badge-sm">Overdue</span> · About 1 min
+      </p>
+    </div>
+    <i class="fa-solid fa-chevron-right text-sand-300"></i>
+  </a>
+
+</div>
+
+<p class="pl-variant-title mt-8">In Progress</p>
+<div class="max-w-[430px]">
+
+  <a href="#" class="task-card task-card-in-progress">
+    <div class="task-card-icon">
+      <span class="avatar avatar-sm avatar-secondary"><i class="fa-solid fa-people-group"></i></span>
+    </div>
+    <div class="task-card-content">
+      <p class="task-card-name">Housing and safety questions</p>
+      <p class="task-card-meta" style="color: var(--color-teal-600);">In progress</p>
+    </div>
+    <i class="fa-solid fa-chevron-right text-sand-300"></i>
+  </a>
+
+</div>
+
+<p class="pl-variant-title mt-8">Completed</p>
+<div class="max-w-[430px]">
+
+  <div class="task-card task-card-completed">
+    <div class="task-card-icon">
+      <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-brain"></i></span>
+    </div>
+    <div class="task-card-content">
+      <p class="task-card-name">How have you been feeling?</p>
+      <p class="task-card-meta">Completed Mar 28</p>
+    </div>
+    <i class="fa-solid fa-circle-check text-success-500"></i>
+  </div>
+
+</div>

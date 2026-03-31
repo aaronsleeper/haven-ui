@@ -1,0 +1,74 @@
+<!--
+@component-meta
+name: Emoji Scale
+category: Patient App
+classes: emoji-scale, emoji-scale-option, emoji-scale-icon, emoji-scale-label
+preline: false
+description: Horizontal row of 3–5 tappable circular options with emoji and text label. Used for quick mood/satisfaction ratings in patient assessments. Uses :has(input:checked) pattern from feedback-rating-card. Native radio inputs (sr-only) for accessibility.
+-->
+
+<p class="pl-variant-title">5-Point Mood Scale</p>
+<div class="max-w-[430px] px-4">
+
+  <fieldset class="emoji-scale">
+    <legend class="sr-only">How are you feeling?</legend>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-mood" value="1" class="sr-only">
+      <span class="emoji-scale-icon">😫</span>
+      <span class="emoji-scale-label">Awful</span>
+    </label>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-mood" value="2" class="sr-only">
+      <span class="emoji-scale-icon">😔</span>
+      <span class="emoji-scale-label">Not great</span>
+    </label>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-mood" value="3" class="sr-only" checked>
+      <span class="emoji-scale-icon">😐</span>
+      <span class="emoji-scale-label">Okay</span>
+    </label>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-mood" value="4" class="sr-only">
+      <span class="emoji-scale-icon">🙂</span>
+      <span class="emoji-scale-label">Good</span>
+    </label>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-mood" value="5" class="sr-only">
+      <span class="emoji-scale-icon">😊</span>
+      <span class="emoji-scale-label">Great</span>
+    </label>
+  </fieldset>
+
+</div>
+
+<p class="pl-variant-title mt-8">3-Point Satisfaction Scale (with FA Icons)</p>
+<div class="max-w-[430px] px-4">
+
+  <fieldset class="emoji-scale" style="justify-content: center; gap: 1.5rem;">
+    <legend class="sr-only">How were your meals?</legend>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-sat" value="1" class="sr-only">
+      <span class="emoji-scale-icon"><i class="fa-solid fa-face-frown text-sand-400"></i></span>
+      <span class="emoji-scale-label">Not good</span>
+    </label>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-sat" value="2" class="sr-only">
+      <span class="emoji-scale-icon"><i class="fa-solid fa-face-meh text-sand-400"></i></span>
+      <span class="emoji-scale-label">Okay</span>
+    </label>
+
+    <label class="emoji-scale-option">
+      <input type="radio" name="demo-sat" value="3" class="sr-only">
+      <span class="emoji-scale-icon"><i class="fa-solid fa-face-smile text-sand-400"></i></span>
+      <span class="emoji-scale-label">Good</span>
+    </label>
+  </fieldset>
+
+</div>
