@@ -407,10 +407,10 @@ options:
 
 ---
 
-## Remaining Open Questions
+## Additional Decisions (2026-03-31)
 
-1. **PHQ-2 → PHQ-9 conditional flow:** When PHQ-2 scores ≥3, should the patient immediately see PHQ-9 in the same session, or should the system schedule it as a separate follow-up assessment? Immediate is better clinically but longer for the patient.
+1. **Follow-up assessments (e.g., PHQ-2 → PHQ-9):** When a screening assessment flags elevated, the follow-up is queued as the next assessment in the patient's list. Patient can complete it now or later. No special conditional branching — it's just the next thing in their queue.
 
-2. **PRAPARE sectioning:** The full PRAPARE is 15 questions across 5 domains. Should it be administered as one assessment or broken into domain-specific sections that can be completed across multiple sessions?
+2. **PRAPARE sectioning:** Broken into domain sections (housing, food, transportation, safety, stress) with natural stopping points. Patient can complete all sections in one sitting or stop and resume later. Progress saved per section.
 
-3. **Trend time ranges:** What default time window for trend charts? 30 days, 90 days, 6 months? Should the patient be able to toggle between ranges?
+3. **Trend time ranges:** Show all available data by default. No date range picker or filters in v1.
