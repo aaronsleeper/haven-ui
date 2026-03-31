@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Trend — Cena Health</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[64px]">
+
+    <load src="src/partials/patient-i18n-bar.html" />
+
+    <!-- Header -->
+    <div class="flex items-center px-4 pt-14 pb-2">
+      <a href="/apps/patient/health/index.html" class="btn-icon" aria-label="Go back">
+        <i class="fa-solid fa-chevron-left"></i>
+      </a>
+      <h1 class="text-lg font-display font-semibold ml-2" id="metric-title"
+          data-i18n-en="Mood" data-i18n-es="Estado de ánimo">Mood</h1>
+    </div>
+
+    <!-- Current status card -->
+    <div class="card mx-4 mt-4">
+      <div class="card-body flex items-center justify-between">
+        <div>
+          <p class="text-2xl font-semibold" id="metric-current-value">🙂 Good</p>
+          <p class="text-xs mt-1" id="metric-last-date" style="color: var(--color-sand-400);"
+             data-i18n-en="Last check-in: March 28" data-i18n-es="Último registro: 28 de marzo">Last check-in: March 28</p>
+        </div>
+        <span class="trend-badge trend-improving" id="metric-trend">
+          <i class="fa-solid fa-arrow-up text-[10px]"></i>
+          <span data-i18n-en="Improving" data-i18n-es="Mejorando">Improving</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Trend chart -->
+    <div class="px-4 mt-6">
+      <div class="chart-canvas-wrapper chart-line">
+        <canvas id="metric-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- History list -->
+    <div class="px-4 mt-6">
+      <p class="text-xs font-semibold uppercase tracking-wide mb-2" style="color: var(--color-sand-500);"
+         data-i18n-en="History" data-i18n-es="Historial">History</p>
+
+      <div id="history-list">
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">March 28, 2026</p>
+          <span>🙂 Good</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">March 21, 2026</p>
+          <span>🙂 Good</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">March 14, 2026</p>
+          <span>😐 Okay</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">March 7, 2026</p>
+          <span>😐 Okay</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">February 28, 2026</p>
+          <span>😔 Not great</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">February 21, 2026</p>
+          <span>😐 Okay</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">February 14, 2026</p>
+          <span>😔 Not great</span>
+        </div>
+        <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--color-sand-100);">
+          <p class="text-sm" style="color: var(--color-sand-600);">February 7, 2026</p>
+          <span>😫 Awful</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational card -->
+    <div class="card mx-4 mt-6 mb-4" style="background: var(--color-sand-50); border-color: var(--color-sand-200);">
+      <div class="card-body">
+        <div class="hs-accordion" id="about-accordion">
+          <button class="hs-accordion-toggle flex items-center justify-between w-full" aria-expanded="false" aria-controls="about-content">
+            <span class="text-xs font-semibold uppercase tracking-wide" style="color: var(--color-sand-500);"
+                  data-i18n-en="About this check-in" data-i18n-es="Sobre esta evaluación">About this check-in</span>
+            <i class="fa-solid fa-chevron-down text-sand-300 text-xs transition-transform hs-accordion-active:rotate-180"></i>
+          </button>
+          <div id="about-content" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region">
+            <p class="text-sm mt-2" style="color: var(--color-sand-600);"
+               data-i18n-en="This tracks how you've been feeling day to day. Your care team uses this to understand how you're doing between visits."
+               data-i18n-es="Esto rastrea cómo se ha sentido día a día. Su equipo de atención usa esto para entender cómo está entre visitas.">This tracks how you've been feeling day to day. Your care team uses this to understand how you're doing between visits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.mobile-shell -->
+
+  <load src="src/partials/patient-bottom-nav.html" />
+
+  <script src="/src/scripts/components/i18n.js"></script>
+  <script src="/src/scripts/components/patient-nav-active.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.1.0/chartjs-plugin-annotation.min.js"></script>
+  <script src="/src/scripts/env/haven-chart-config.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const moodData = [1, 2, 3, 3, 4, 4, 4, 5];
+      const labels = ['Feb 7', 'Feb 14', 'Feb 21', 'Feb 28', 'Mar 7', 'Mar 14', 'Mar 21', 'Mar 28'];
+      const emojiLabels = ['😫', '😔', '😐', '🙂', '😊'];
+
+      const ctx = document.getElementById('metric-chart');
+      if (!ctx) return;
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            data: moodData,
+            borderColor: HAVEN.primary[600],
+            backgroundColor: HAVEN.primary[100],
+            borderWidth: 2,
+            pointRadius: 5,
+            pointBackgroundColor: HAVEN.primary[600],
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            tension: 0.3,
+            fill: true,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => emojiLabels[ctx.parsed.y - 1] || ctx.parsed.y
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 }, color: HAVEN.sand[400] }
+            },
+            y: {
+              min: 1,
+              max: 5,
+              grid: { color: HAVEN.sand[100] },
+              ticks: {
+                stepSize: 1,
+                font: { size: 11 },
+                color: HAVEN.sand[400],
+                callback: (val) => emojiLabels[val - 1] || ''
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>

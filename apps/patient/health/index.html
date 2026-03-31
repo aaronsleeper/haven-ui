@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Health — Cena Health</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[64px]">
+
+    <load src="src/partials/patient-i18n-bar.html" />
+
+    <!-- Header -->
+    <div class="px-4 pt-20 pb-2">
+      <h1 data-i18n-en="My Health" data-i18n-es="Mi Salud">My Health</h1>
+      <p class="text-sm" style="color: var(--color-sand-500);"
+         data-i18n-en="Your check-ins and progress" data-i18n-es="Sus evaluaciones y progreso">Your check-ins and progress</p>
+    </div>
+
+    <!-- Trends section -->
+    <p class="text-xs font-semibold uppercase tracking-wide px-4 mt-4 mb-2" style="color: var(--color-sand-500);"
+       data-i18n-en="Your progress" data-i18n-es="Su progreso">Your progress</p>
+
+    <div class="space-y-3 px-4">
+
+      <!-- Mood trend card -->
+      <a href="/apps/patient/health/metric.html?id=mood" class="trend-card">
+        <div class="trend-card-header">
+          <div>
+            <p class="text-sm font-medium" data-i18n-en="Mood" data-i18n-es="Estado de ánimo">Mood</p>
+            <p class="text-xs" style="color: var(--color-sand-400);"
+               data-i18n-en="Last: Mar 28" data-i18n-es="Último: 28 mar">Last: Mar 28</p>
+          </div>
+          <span class="trend-badge trend-improving">
+            <i class="fa-solid fa-arrow-up text-[10px]"></i>
+            <span data-i18n-en="Improving" data-i18n-es="Mejorando">Improving</span>
+          </span>
+        </div>
+        <div class="trend-card-chart">
+          <div class="chart-canvas-wrapper chart-sparkline">
+            <canvas id="trend-mood"></canvas>
+          </div>
+        </div>
+      </a>
+
+      <!-- PHQ-2 trend card -->
+      <a href="/apps/patient/health/metric.html?id=phq2" class="trend-card">
+        <div class="trend-card-header">
+          <div>
+            <p class="text-sm font-medium" data-i18n-en="Depression Screen" data-i18n-es="Evaluación de depresión">Depression Screen</p>
+            <p class="text-xs" style="color: var(--color-sand-400);"
+               data-i18n-en="Last: Mar 20" data-i18n-es="Último: 20 mar">Last: Mar 20</p>
+          </div>
+          <span class="badge badge-success badge-sm" data-i18n-en="Low risk" data-i18n-es="Bajo riesgo">Low risk</span>
+        </div>
+        <p class="text-xs mt-3" style="color: var(--color-sand-400);"
+           data-i18n-en="Completed 2 check-ins" data-i18n-es="2 evaluaciones completadas">Completed 2 check-ins</p>
+      </a>
+
+      <!-- Food security trend card -->
+      <a href="/apps/patient/health/metric.html?id=hunger" class="trend-card">
+        <div class="trend-card-header">
+          <div>
+            <p class="text-sm font-medium" data-i18n-en="Food Security" data-i18n-es="Seguridad alimentaria">Food Security</p>
+            <p class="text-xs" style="color: var(--color-sand-400);"
+               data-i18n-en="Last: Mar 15" data-i18n-es="Último: 15 mar">Last: Mar 15</p>
+          </div>
+          <span class="trend-badge trend-flat">
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            <span data-i18n-en="Stable" data-i18n-es="Estable">Stable</span>
+          </span>
+        </div>
+        <div class="trend-card-chart">
+          <div class="chart-canvas-wrapper chart-sparkline">
+            <canvas id="trend-hunger"></canvas>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Wearable placeholder -->
+    <div class="card mx-4 mt-6" style="background: var(--color-sand-50); border-color: var(--color-sand-200); opacity: 0.7;">
+      <div class="card-body flex flex-col items-center text-center py-6">
+        <i class="fa-solid fa-watch text-2xl mb-2" style="color: var(--color-sand-300);"></i>
+        <p class="text-sm font-medium" style="color: var(--color-sand-500);"
+           data-i18n-en="Connect a health device" data-i18n-es="Conectar un dispositivo de salud">Connect a health device</p>
+        <p class="text-xs mt-1" style="color: var(--color-sand-400);"
+           data-i18n-en="Track steps, sleep, and more. Coming soon." data-i18n-es="Rastree pasos, sueño y más. Próximamente.">Track steps, sleep, and more. Coming soon.</p>
+      </div>
+    </div>
+
+  </div><!-- /.mobile-shell -->
+
+  <load src="src/partials/patient-bottom-nav.html" />
+
+  <script src="/src/scripts/components/i18n.js"></script>
+  <script src="/src/scripts/components/patient-nav-active.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="/src/scripts/env/haven-chart-config.js"></script>
+  <script>
+    // Sparkline charts for trend cards
+    document.addEventListener('DOMContentLoaded', () => {
+      const sparklineConfig = (data, color) => ({
+        type: 'line',
+        data: {
+          labels: data.map((_, i) => i),
+          datasets: [{
+            data,
+            borderColor: color || HAVEN.primary[600],
+            borderWidth: 2,
+            pointRadius: 0,
+            tension: 0.3,
+            fill: false,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { display: false },
+            y: { display: false }
+          }
+        }
+      });
+
+      // Mood sparkline (4 weeks, 1-5 scale)
+      const moodEl = document.getElementById('trend-mood');
+      if (moodEl) new Chart(moodEl, sparklineConfig([2, 3, 3, 4, 3, 4, 4, 5], HAVEN.primary[600]));
+
+      // Hunger Vital Sign sparkline (binary, shown as score 0/1/2)
+      const hungerEl = document.getElementById('trend-hunger');
+      if (hungerEl) new Chart(hungerEl, sparklineConfig([1, 1, 0, 0, 0, 0], HAVEN.sand[400]));
+    });
+  </script>
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>

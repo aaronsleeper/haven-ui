@@ -26,6 +26,55 @@
         </h1>
       </div>
 
+      <!-- Tasks section -->
+      <div id="tasks-section">
+        <div class="flex items-center justify-between mt-5 mb-2">
+          <p class="text-xs font-semibold uppercase tracking-wide" style="color: var(--color-sand-500);"
+             data-i18n-en="Tasks" data-i18n-es="Tareas">Tasks</p>
+          <a href="/apps/patient/tasks/index.html" class="text-link text-xs"
+             data-i18n-en="See all (3)" data-i18n-es="Ver todas (3)">See all (3)</a>
+        </div>
+        <div class="space-y-2">
+
+          <a href="/apps/patient/health/assessment.html?id=mood-checkin&mode=checkin" class="task-card task-card-overdue">
+            <div class="task-card-icon">
+              <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-face-smile"></i></span>
+            </div>
+            <div class="task-card-content">
+              <p class="task-card-name" data-i18n-en="Weekly mood check-in" data-i18n-es="Registro semanal de ánimo">Weekly mood check-in</p>
+              <p class="task-card-meta">
+                <span class="badge badge-warning badge-sm" data-i18n-en="Overdue" data-i18n-es="Atrasado">Overdue</span>
+                · <span data-i18n-en="About 1 min" data-i18n-es="Aprox. 1 min">About 1 min</span>
+              </p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+          <a href="/apps/patient/health/assessment.html?id=phq-2" class="task-card">
+            <div class="task-card-icon">
+              <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-brain"></i></span>
+            </div>
+            <div class="task-card-content">
+              <p class="task-card-name" data-i18n-en="How have you been feeling?" data-i18n-es="¿Cómo se ha sentido?">How have you been feeling?</p>
+              <p class="task-card-meta" data-i18n-en="About 2 min" data-i18n-es="Aprox. 2 min">About 2 min</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+          <a href="/apps/patient/health/assessment.html?id=hunger-vital-sign" class="task-card">
+            <div class="task-card-icon">
+              <span class="avatar avatar-sm avatar-secondary"><i class="fa-solid fa-people-group"></i></span>
+            </div>
+            <div class="task-card-content">
+              <p class="task-card-name" data-i18n-en="Food and housing check-in" data-i18n-es="Evaluación de alimentación y vivienda">Food and housing check-in</p>
+              <p class="task-card-meta" data-i18n-en="About 2 min · Due Apr 5" data-i18n-es="Aprox. 2 min · Vence 5 abr">About 2 min · Due Apr 5</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+        </div>
+      </div>
+
       <!-- Confirm meals callout -->
       <div class="alert alert-warning alert-stripe rounded-xl mt-4 dashboard-confirm-callout" role="alert">
         <div class="alert-stripe-icon" aria-hidden="true">

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment — Cena Health</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell">
+
+    <load src="src/partials/patient-i18n-bar.html" />
+
+    <!-- ========== INTRO STATE ========== -->
+    <div id="assess-intro" class="flex flex-col min-h-dvh pt-14">
+      <!-- Header -->
+      <div class="flex items-center px-4 pt-4 pb-2">
+        <a href="/apps/patient/health/index.html" class="btn-icon" aria-label="Go back">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+      </div>
+
+      <!-- Centered content -->
+      <div class="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <div class="avatar avatar-xl avatar-primary mb-4" id="intro-icon" aria-hidden="true">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <h1 class="text-xl font-display font-semibold" id="intro-title"
+            data-i18n-en="How have you been feeling?" data-i18n-es="¿Cómo se ha sentido?">How have you been feeling?</h1>
+        <p class="text-sm mt-2 max-w-xs" id="intro-description" style="color: var(--color-sand-500);"
+           data-i18n-en="Two quick questions about your mood over the past two weeks. Your answers help your care team support you."
+           data-i18n-es="Dos preguntas rápidas sobre su estado de ánimo en las últimas dos semanas. Sus respuestas ayudan a su equipo de atención a apoyarle.">Two quick questions about your mood over the past two weeks. Your answers help your care team support you.</p>
+        <p class="text-xs mt-3" style="color: var(--color-sand-400);">
+          <i class="fa-solid fa-clock"></i>
+          <span data-i18n-en="About 2 minutes" data-i18n-es="Aproximadamente 2 minutos">About 2 minutes</span>
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-6 pb-8">
+        <button class="btn-primary w-full" id="btn-start"
+                data-i18n-en="Start" data-i18n-es="Comenzar">Start</button>
+        <p class="text-xs text-center mt-3" style="color: var(--color-sand-400);"
+           data-i18n-en="Your answers are private and shared only with your care team."
+           data-i18n-es="Sus respuestas son privadas y se comparten solo con su equipo de atención.">Your answers are private and shared only with your care team.</p>
+      </div>
+    </div>
+
+    <!-- ========== QUESTION STATE ========== -->
+    <div id="assess-question" class="flex flex-col min-h-dvh pt-14" style="display: none;">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-4 pt-4 pb-2">
+        <button class="btn-icon" id="btn-prev" aria-label="Previous question">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="assess-progress flex-1 mx-4" id="question-progress" aria-label="Question 1 of 2">
+          Question 1 of 2
+          <span class="assess-progress-bar">
+            <span class="assess-progress-fill" id="progress-fill" style="width: 50%"></span>
+          </span>
+        </div>
+        <button class="btn-icon" id="btn-close" aria-label="Save and exit">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Question content (swapped by JS) -->
+      <div class="flex-1 px-6 pt-6" id="question-container">
+        <!-- Populated by assessment.js -->
+      </div>
+
+      <!-- Footer -->
+      <div class="sticky bottom-0 bg-white border-t px-6 py-4" style="border-color: var(--color-sand-200);">
+        <button class="btn-primary w-full" id="btn-next" disabled
+                data-i18n-en="Next" data-i18n-es="Siguiente">Next</button>
+      </div>
+    </div>
+
+    <!-- ========== COMPLETE STATE ========== -->
+    <div id="assess-complete" class="flex flex-col min-h-dvh pt-14" style="display: none;">
+      <!-- Centered content -->
+      <div class="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <i class="fa-solid fa-circle-check text-success-500 text-4xl" aria-hidden="true"></i>
+        <h1 class="text-xl font-display font-semibold mt-4"
+            data-i18n-en="Thank you" data-i18n-es="Gracias">Thank you</h1>
+        <p class="text-sm mt-2 max-w-xs" id="complete-message" style="color: var(--color-sand-500);"
+           data-i18n-en="Your care team will review your answers."
+           data-i18n-es="Su equipo de atención revisará sus respuestas.">Your care team will review your answers.</p>
+
+        <!-- Follow-up card (hidden by default) -->
+        <div class="card mx-4 mt-6 w-full max-w-xs" id="followup-card" style="display: none; background: var(--color-teal-50); border-color: var(--color-teal-200);">
+          <div class="card-body text-center">
+            <i class="fa-solid fa-clipboard-list mb-2" style="color: var(--color-teal-500);"></i>
+            <p class="text-sm" data-i18n-en="Your care team has one more check-in for you."
+               data-i18n-es="Su equipo de atención tiene otra evaluación para usted.">Your care team has one more check-in for you.</p>
+            <button class="btn-primary btn-sm mt-3" id="btn-followup"
+                    data-i18n-en="Continue" data-i18n-es="Continuar">Continue</button>
+          </div>
+        </div>
+
+        <!-- Reassurance card (hidden by default) -->
+        <div class="card mx-4 mt-4 w-full max-w-xs" id="reassurance-card" style="display: none; background: var(--color-teal-50); border-color: var(--color-teal-200);">
+          <div class="card-body text-center">
+            <i class="fa-solid fa-hand-holding-heart mb-2" style="color: var(--color-teal-500);"></i>
+            <p class="text-sm" data-i18n-en="Based on your answers, your care team will follow up with you."
+               data-i18n-es="Según sus respuestas, su equipo de atención se comunicará con usted.">Based on your answers, your care team will follow up with you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-6 pb-8">
+        <a href="/apps/patient/health/index.html" class="btn-primary w-full text-center" id="btn-done"
+           data-i18n-en="Done" data-i18n-es="Listo">Done</a>
+        <a href="/apps/patient/health/index.html" class="text-link text-sm text-center block mt-3" style="color: var(--color-sand-400);"
+           data-i18n-en="View my progress" data-i18n-es="Ver mi progreso">View my progress</a>
+      </div>
+    </div>
+
+  </div><!-- /.mobile-shell -->
+
+  <script src="/src/scripts/components/i18n.js"></script>
+  <script src="/src/scripts/components/assess-slider.js"></script>
+  <script src="/src/scripts/components/assessment.js"></script>
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>

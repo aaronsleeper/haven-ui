@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks — Cena Health</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[64px]">
+
+    <load src="src/partials/patient-i18n-bar.html" />
+
+    <!-- Header -->
+    <div class="flex items-center px-4 pt-14 pb-2">
+      <a href="/apps/patient/index.html" class="btn-icon" aria-label="Go back">
+        <i class="fa-solid fa-chevron-left"></i>
+      </a>
+      <h1 class="text-lg font-display font-semibold ml-2"
+          data-i18n-en="Tasks" data-i18n-es="Tareas">Tasks</h1>
+      <span class="badge badge-primary badge-pill badge-sm ml-auto">3</span>
+    </div>
+
+    <!-- Task list -->
+    <div class="space-y-2 px-4 mt-4">
+
+      <a href="/apps/patient/health/assessment.html?id=mood-checkin&mode=checkin" class="task-card task-card-overdue">
+        <div class="task-card-icon">
+          <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-face-smile"></i></span>
+        </div>
+        <div class="task-card-content">
+          <p class="task-card-name" data-i18n-en="Weekly mood check-in" data-i18n-es="Registro semanal de ánimo">Weekly mood check-in</p>
+          <p class="task-card-meta">
+            <span class="badge badge-warning badge-sm" data-i18n-en="Overdue" data-i18n-es="Atrasado">Overdue</span>
+            · <span data-i18n-en="About 1 min" data-i18n-es="Aprox. 1 min">About 1 min</span>
+          </p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-sand-300"></i>
+      </a>
+
+      <a href="/apps/patient/health/assessment.html?id=phq-2" class="task-card">
+        <div class="task-card-icon">
+          <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-brain"></i></span>
+        </div>
+        <div class="task-card-content">
+          <p class="task-card-name" data-i18n-en="How have you been feeling?" data-i18n-es="¿Cómo se ha sentido?">How have you been feeling?</p>
+          <p class="task-card-meta" data-i18n-en="About 2 min" data-i18n-es="Aprox. 2 min">About 2 min</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-sand-300"></i>
+      </a>
+
+      <a href="/apps/patient/health/assessment.html?id=hunger-vital-sign" class="task-card">
+        <div class="task-card-icon">
+          <span class="avatar avatar-sm avatar-secondary"><i class="fa-solid fa-people-group"></i></span>
+        </div>
+        <div class="task-card-content">
+          <p class="task-card-name" data-i18n-en="Food and housing check-in" data-i18n-es="Evaluación de alimentación y vivienda">Food and housing check-in</p>
+          <p class="task-card-meta" data-i18n-en="About 2 min · Due Apr 5" data-i18n-es="Aprox. 2 min · Vence 5 abr">About 2 min · Due Apr 5</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-sand-300"></i>
+      </a>
+
+    </div>
+
+    <!-- Completed section -->
+    <div class="px-4 mt-6">
+      <div class="hs-accordion" id="completed-accordion">
+        <button class="hs-accordion-toggle flex items-center justify-between w-full py-2" aria-expanded="false" aria-controls="completed-content">
+          <span class="text-xs font-semibold uppercase tracking-wide" style="color: var(--color-sand-500);"
+                data-i18n-en="Completed" data-i18n-es="Completados">Completed</span>
+          <i class="fa-solid fa-chevron-down text-sand-300 text-xs transition-transform hs-accordion-active:rotate-180"></i>
+        </button>
+        <div id="completed-content" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region">
+          <div class="space-y-2 pb-4">
+
+            <div class="task-card task-card-completed">
+              <div class="task-card-icon">
+                <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-face-smile"></i></span>
+              </div>
+              <div class="task-card-content">
+                <p class="task-card-name" data-i18n-en="Weekly mood check-in" data-i18n-es="Registro semanal de ánimo">Weekly mood check-in</p>
+                <p class="task-card-meta" data-i18n-en="Completed Mar 24" data-i18n-es="Completado 24 mar">Completed Mar 24</p>
+              </div>
+              <i class="fa-solid fa-circle-check text-success-500"></i>
+            </div>
+
+            <div class="task-card task-card-completed">
+              <div class="task-card-icon">
+                <span class="avatar avatar-sm avatar-neutral"><i class="fa-solid fa-utensils"></i></span>
+              </div>
+              <div class="task-card-content">
+                <p class="task-card-name" data-i18n-en="How were your meals?" data-i18n-es="¿Cómo estuvieron sus comidas?">How were your meals?</p>
+                <p class="task-card-meta" data-i18n-en="Completed Mar 22" data-i18n-es="Completado 22 mar">Completed Mar 22</p>
+              </div>
+              <i class="fa-solid fa-circle-check text-success-500"></i>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.mobile-shell -->
+
+  <load src="src/partials/patient-bottom-nav.html" />
+
+  <script src="/src/scripts/components/i18n.js"></script>
+  <script src="/src/scripts/components/patient-nav-active.js"></script>
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>
