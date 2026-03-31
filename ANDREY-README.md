@@ -39,6 +39,12 @@ All patient screens live under `apps/patient/`. Open them directly at:
 | Care team messages | http://localhost:5173/apps/patient/care-team/messages.html |
 | Care team feedback | http://localhost:5173/apps/patient/care-team/feedback.html |
 | Profile | http://localhost:5173/apps/patient/profile/index.html |
+| Tasks | http://localhost:5173/apps/patient/tasks/index.html |
+| My Health (trends) | http://localhost:5173/apps/patient/health/index.html |
+| Assessment: PHQ-2 | http://localhost:5173/apps/patient/health/assessment.html?id=phq-2 |
+| Assessment: Mood check-in | http://localhost:5173/apps/patient/health/assessment.html?id=mood-checkin&mode=checkin |
+| Assessment: Hunger Vital Sign | http://localhost:5173/apps/patient/health/assessment.html?id=hunger-vital-sign |
+| Metric Detail: Mood | http://localhost:5173/apps/patient/health/metric.html?id=mood |
 | Onboarding: Welcome | http://localhost:5173/apps/patient/onboarding/welcome.html |
 | Onboarding: Consent | http://localhost:5173/apps/patient/onboarding/consent.html |
 | Onboarding: Preferences | http://localhost:5173/apps/patient/onboarding/preferences.html |
@@ -310,36 +316,53 @@ Patient app screens use a mobile-first layout:
 
 ## Patient App: Bottom Navigation
 
-Fixed four-tab bar at the bottom of all post-onboarding patient screens.
+Fixed six-tab bar at the bottom of all post-onboarding patient screens.
 
 ### HTML Structure
 
 ```html
 <nav class="mobile-bottom-nav" aria-label="Main navigation">
+  <a href="/apps/patient/index.html"
+     class="mobile-bottom-nav-tab"
+     data-nav-tab="home"
+     aria-label="Home">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+  </a>
   <a href="/apps/patient/meals/index.html"
-     class="mobile-bottom-nav-tab active"
-     aria-current="page"
+     class="mobile-bottom-nav-tab"
+     data-nav-tab="meals"
      aria-label="Meals">
     <i class="fa-solid fa-bowl-food"></i>
     <span>Meals</span>
   </a>
   <a href="/apps/patient/deliveries/index.html"
      class="mobile-bottom-nav-tab"
+     data-nav-tab="deliveries"
      aria-label="Delivery">
     <i class="fa-solid fa-truck"></i>
     <span>Delivery</span>
   </a>
+  <a href="/apps/patient/health/index.html"
+     class="mobile-bottom-nav-tab"
+     data-nav-tab="health"
+     aria-label="Health">
+    <i class="fa-solid fa-heart-pulse"></i>
+    <span>Health</span>
+  </a>
   <a href="/apps/patient/care-team/messages.html"
      class="mobile-bottom-nav-tab"
-     aria-label="Care Team, 2 unread messages">
+     data-nav-tab="care-team"
+     aria-label="Care Team">
     <span class="relative inline-flex">
       <i class="fa-solid fa-comments"></i>
       <span class="mobile-bottom-nav-badge">2</span>
     </span>
-    <span>Care Team</span>
+    <span>Team</span>
   </a>
   <a href="/apps/patient/profile/index.html"
      class="mobile-bottom-nav-tab"
+     data-nav-tab="profile"
      aria-label="Profile">
     <i class="fa-solid fa-circle-user"></i>
     <span>Profile</span>
@@ -349,7 +372,7 @@ Fixed four-tab bar at the bottom of all post-onboarding patient screens.
 
 ### Active State
 
-Add `.active` to the `.mobile-bottom-nav-tab` for the current page and set `aria-current="page"`. In Angular, use `routerLinkActive="active"`.
+Active tab is set automatically by `src/scripts/components/patient-nav-active.js` based on the `data-nav-tab` attribute and the current pathname. In Angular, use `routerLinkActive="active"`.
 
 ### Unread Badge
 
@@ -359,7 +382,7 @@ The `.mobile-bottom-nav-badge` shows an unread count on the Care Team tab. Hide 
 
 | Class | Element | Purpose |
 |---|---|---|
-| `mobile-bottom-nav` | `<nav>` | Fixed bottom bar, 4-col grid, 430px max-width |
+| `mobile-bottom-nav` | `<nav>` | Fixed bottom bar, 6-col grid, 430px max-width |
 | `mobile-bottom-nav-tab` | `<a>` or `<button>` | Individual tab (icon + label, 64px min-height) |
 | `mobile-bottom-nav-tab.active` | same | Active tab highlight (primary color text) |
 | `mobile-bottom-nav-badge` | `<span>` | Absolute-positioned unread count badge (needs `relative` parent) |
@@ -644,6 +667,174 @@ Load `src/scripts/components/panel-splitter.js` after `main.js`. It self-initial
 ### Angular integration
 
 Replace the vanilla JS with Angular `(mousedown)` binding or a directive. The CSS classes and data attributes remain the same. Store panel widths in user preferences if persistence is desired.
+
+---
+
+## Patient App: Task Card
+
+Tappable card for outstanding patient tasks (assessments, check-ins, future task types).
+
+```html
+<a href="/apps/patient/health/assessment.html?id=phq-2" class="task-card">
+  <div class="task-card-icon">
+    <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-brain"></i></span>
+  </div>
+  <div class="task-card-content">
+    <p class="task-card-name">How have you been feeling?</p>
+    <p class="task-card-meta">About 2 min</p>
+  </div>
+  <i class="fa-solid fa-chevron-right text-sand-300"></i>
+</a>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `task-card` | `<a>` or `<div>` | Outer tappable row |
+| `task-card-icon` | `<div>` | Left icon container (wraps an `avatar`) |
+| `task-card-content` | `<div>` | Center column (name + metadata) |
+| `task-card-name` | `<p>` | Task title, truncated |
+| `task-card-meta` | `<p>` | Time estimate, due date, or status |
+| `task-card-overdue` | modifier | Left border in warning color — add overdue `badge-warning badge-sm` in metadata |
+| `task-card-in-progress` | modifier | Left border in teal |
+| `task-card-completed` | modifier | Muted opacity, replaces chevron with `fa-circle-check` |
+
+Category icons: `fa-brain` (behavioral), `fa-people-group` (SDOH), `fa-utensils` (dietary), `fa-face-smile` (check-in). Avatar colors: `avatar-primary`, `avatar-secondary`, `avatar-neutral`.
+
+---
+
+## Patient App: Trend Card
+
+Tappable card showing a health metric trend with sparkline chart.
+
+```html
+<a href="/apps/patient/health/metric.html?id=mood" class="trend-card">
+  <div class="trend-card-header">
+    <div>
+      <p class="text-sm font-medium">Mood</p>
+      <p class="text-xs text-sand-400">Last: Mar 28</p>
+    </div>
+    <span class="trend-badge trend-improving">
+      <i class="fa-solid fa-arrow-up text-[10px]"></i> Improving
+    </span>
+  </div>
+  <div class="trend-card-chart">
+    <div class="chart-canvas-wrapper chart-sparkline">
+      <canvas id="trend-mood"></canvas>
+    </div>
+  </div>
+</a>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `trend-card` | `<a>` | Tappable card wrapper |
+| `trend-card-header` | `<div>` | Flex row: metric label + trend badge |
+| `trend-card-chart` | `<div>` | Sparkline chart container |
+
+Requires Chart.js. Sparkline is rendered via JS using `HAVEN.primary[600]` for line color.
+
+---
+
+## Patient App: Emoji Scale
+
+Horizontal emoji/icon rating selector for assessment questions.
+
+```html
+<fieldset class="emoji-scale">
+  <legend class="sr-only">How are you feeling?</legend>
+  <label class="emoji-scale-option">
+    <input type="radio" name="mood" value="1" class="sr-only">
+    <span class="emoji-scale-icon">😫</span>
+    <span class="emoji-scale-label">Awful</span>
+  </label>
+  <!-- repeat for each option (3-5 total) -->
+</fieldset>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `emoji-scale` | `<fieldset>` | Horizontal flex row, no border |
+| `emoji-scale-option` | `<label>` | Tappable option (wraps sr-only radio) |
+| `emoji-scale-icon` | `<span>` | Emoji or FA icon |
+| `emoji-scale-label` | `<span>` | Text label below icon |
+
+Selected state uses `:has(input:checked)` — teal ring + bold label. No JS class toggle needed.
+
+---
+
+## Patient App: Assessment Slider
+
+Styled range input for visual analog scale questions (pain level, energy, etc.).
+
+```html
+<div class="assess-slider">
+  <p class="assess-slider-value" aria-live="polite">5</p>
+  <input type="range" class="assess-slider-track" min="0" max="10" value="5" step="1" aria-label="Pain level">
+  <div class="assess-slider-labels">
+    <span>No pain</span>
+    <span>Worst pain</span>
+  </div>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `assess-slider` | `<div>` | Outer wrapper |
+| `assess-slider-value` | `<p>` | Current value display (updated by JS) |
+| `assess-slider-track` | `<input>` | Styled range input, 44px thumb |
+| `assess-slider-labels` | `<div>` | Min/max endpoint labels |
+
+JS: `src/scripts/components/assess-slider.js` — updates the fill gradient and value display on input. Self-initializes on `.assess-slider-track` elements.
+
+---
+
+## Patient App: Assessment Progress Bar
+
+Question stepper progress indicator for multi-question assessments.
+
+```html
+<div class="assess-progress" aria-label="Question 3 of 9">
+  Question 3 of 9
+  <span class="assess-progress-bar">
+    <span class="assess-progress-fill" style="width: 33%"></span>
+  </span>
+</div>
+```
+
+| Class | Element | Purpose |
+|---|---|---|
+| `assess-progress` | `<div>` | Text label + progress bar wrapper |
+| `assess-progress-bar` | `<span>` | Track (sand background) |
+| `assess-progress-fill` | `<span>` | Fill bar (teal), width set via inline style or JS |
+
+Hidden for assessments with 1-2 questions (unnecessary chrome).
+
+---
+
+## Patient App: Assessment Flow
+
+The assessment flow (`health/assessment.html`) is a single-page JS-driven experience with three states: Intro → Questions → Complete.
+
+### JS Architecture
+
+`src/scripts/components/assessment.js` contains:
+- Assessment definitions (questions, options, scoring rules) as a JS object
+- Question type renderers: `radio`, `emoji-scale`, `slider`, `yes-no`, `free-text`
+- State machine: intro → question[n] → complete
+- Scoring logic: sum-based (PHQ-2) and flag-any-yes (Hunger Vital Sign)
+- Follow-up queuing: if PHQ-2 score ≥ 3, completion screen shows a "Continue" card linking to PHQ-9
+- Slide transitions between questions (CSS translateX, 200ms)
+
+### URL Parameters
+
+| Param | Values | Effect |
+|---|---|---|
+| `id` | `phq-2`, `mood-checkin`, `hunger-vital-sign` | Which assessment to load |
+| `mode` | `checkin` | Skips intro screen, goes straight to first question |
+
+### Angular Integration
+
+Replace the hardcoded `ASSESSMENTS` object with an API call to load assessment definitions. The renderer logic (question type → HTML template) maps directly to Angular template directives. Each question type is a natural Angular component.
 
 ---
 
