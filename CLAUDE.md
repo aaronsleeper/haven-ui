@@ -4,12 +4,13 @@ Read the full task before taking any action. Complete it fully before stopping.
 
 When done:
 1. List every file modified and every new semantic class added to `components.css`
-2. Run the following git commands from the repo root:
+2. Update `ANDREY-README.md` if any component, screen, nav, or JS changed (see ANDREY-README section)
+3. Run the following git commands from the repo root:
    ```
    git add -A
    git commit -m "[brief description of what was built]"
    ```
-3. Output the local server URL so Aaron can review:
+4. Output the local server URL so Aaron can review:
    - If `npm run dev` is already running: http://localhost:5173/[path/to/primary/file.html]
    - If not running: instruct Aaron to run `npm run dev` from the repo root, then visit the URL
 
@@ -327,7 +328,7 @@ After completing any build task:
 - [ ] Any new dummy data schema deltas documented in `src/data/_schema-notes.md`
 - [ ] Any new component has a file in `pattern-library/components/` with `@component-meta`
 - [ ] `pattern-library/COMPONENT-INDEX.md` updated if a new component was added
-- [ ] `ANDREY-README.md` updated if component HTML or class names changed
+- [ ] `ANDREY-README.md` updated (see ANDREY-README.md section below — this is mandatory, not optional)
 
 ---
 
@@ -359,9 +360,18 @@ After completing any build task:
 
 ## ANDREY-README.md
 
-`ANDREY-README.md` documents component HTML and integration notes for Angular handoff.
-If you add a new component or change any class names or HTML structure that Andrey would use,
-update `ANDREY-README.md` in the same task. Do not leave it stale.
+`ANDREY-README.md` is the Angular integration handoff document. It must stay in sync with every commit.
+
+**Update ANDREY-README.md in the same commit whenever any of these change:**
+- New screens added → add to the Patient App Screen Index table
+- New semantic classes or components → add HTML structure + class table
+- Existing component HTML structure changed → update the relevant section
+- Class names renamed or removed → update all references
+- New JS files that Andrey needs to know about → document the script and its purpose
+- Navigation changes (tabs added/removed, routing) → update nav section
+- New URL parameters or state conventions → document them
+
+**Do not defer this to a separate task.** ANDREY-README updates are part of the same commit as the code change. If you forget, the next agent to read the file will work from stale documentation.
 
 ---
 
