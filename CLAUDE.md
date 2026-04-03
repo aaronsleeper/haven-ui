@@ -59,7 +59,10 @@ haven-ui/
 │   ├── prompts/next-task.md      # Active agent prompt
 │   ├── decisions-log.md
 │   ├── roadmap.md
-│   └── prompts-library.md
+│   ├── prompts-library.md
+│   ├── cdn-resources.md          # Pinned CDN/asset versions
+│   ├── verification-checklist.md # Post-task QA checklist
+│   └── icon-reference.md         # FontAwesome icon mapping
 ├── CLAUDE.md
 ├── vite.config.js
 └── package.json
@@ -279,85 +282,6 @@ The `display: none` default is required to prevent the menu from occupying layou
 
 ---
 
-## CDN Resources (Use These Exact Versions)
-
-```html
-<!-- Haven UI compiled theme (always first) -->
-<link rel="stylesheet" href="/dist/assets/haven-ui.css">
-
-<!-- FontAwesome Pro (local) -->
-<link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
-
-<!-- Preline JS is loaded via Vite module (src/scripts/main.js) — do NOT add a CDN script tag -->
-
-<!-- Chart.js v4 (only on pages with charts) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-<!-- Chart.js annotation plugin (only on pages with zone bands / reference lines) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.1.0/chartjs-plugin-annotation.min.js"></script>
-
-<!-- Leaflet CSS (only on pages with a map) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-
-<!-- Leaflet JS (only on pages with a map) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-
-<!-- Haven chart config (after Chart.js, before page chart scripts) -->
-<script src="/src/scripts/env/haven-chart-config.js"></script>
-```
-
-Only include Chart.js, annotation plugin, and Leaflet on pages that actually use them.
-
----
-
-## Verification Checklist
-
-After completing any build task:
-
-- [ ] Verified at `http://localhost:5173` (not any other port)
-- [ ] HTML classes are semantic — no utility chains
-- [ ] Layout-only utilities are acceptable in HTML (one-off template layout)
-- [ ] All new classes added to `src/styles/tokens/components.css` with `@apply` definitions
-- [ ] No `style="..."` attributes (except data-driven flex values on pipeline segments)
-- [ ] No `<script>` blocks in HTML files
-- [ ] All JS in external files under `src/scripts/`
-- [ ] Chart.js colors use `HAVEN.*` constants, no hardcoded hex
-- [ ] Preline interactive components open/close correctly
-- [ ] Layout holds at ~768px width
-- [ ] No files edited in `dist/`
-- [ ] Any new dummy data schema deltas documented in `src/data/_schema-notes.md`
-- [ ] Any new component has a file in `pattern-library/components/` with `@component-meta`
-- [ ] `pattern-library/COMPONENT-INDEX.md` updated if a new component was added
-- [ ] `ANDREY-README.md` updated (see ANDREY-README.md section below — this is mandatory, not optional)
-
----
-
-## Common Icon Reference
-
-| Concept | Icon | Style |
-|---------|------|-------|
-| Alert / Warning | `fa-triangle-exclamation` | solid |
-| Clinical | `fa-stethoscope` | solid |
-| Delivery | `fa-truck` | solid |
-| Social | `fa-people-group` | solid |
-| Safety | `fa-shield-halved` | solid |
-| Patient | `fa-user` | solid |
-| Check / Resolved | `fa-circle-check` | solid |
-| Unresolved | `fa-circle-exclamation` | solid |
-| Chart / Reports | `fa-chart-line` | solid |
-| Escalate | `fa-arrow-up-right-from-square` | solid |
-| Session / Visit | `fa-circle-play` | solid |
-| Timeline | `fa-clock-rotate-left` | solid |
-| Care Plan | `fa-file-medical` | solid |
-| Medication | `fa-pills` | solid |
-| AI Insight | `fa-bolt` | solid |
-| Print | `fa-print` | solid |
-| Export | `fa-file-csv` | solid |
-| Filter | `fa-filter` | solid |
-| Sort | `fa-sort` | solid |
-
----
-
 ## ANDREY-README.md
 
 `ANDREY-README.md` is the Angular integration handoff document. It must stay in sync with every commit.
@@ -380,6 +304,14 @@ After completing any build task:
 - **Tailwind:** https://tailwindcss.com/docs
 - **Preline:** https://preline.co/docs/index.html
 - **Chart.js:** https://www.chartjs.org/docs/latest/
+
+---
+
+## References
+
+**CDN versions:** See [.project-docs/cdn-resources.md] — pinned versions for Chart.js, Leaflet, FontAwesome.
+**Build verification:** Run the checklist in [.project-docs/verification-checklist.md] after every task.
+**Icon mapping:** See [.project-docs/icon-reference.md] — concept-to-icon-name table for FontAwesome.
 
 ---
 
