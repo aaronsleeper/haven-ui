@@ -8013,3 +8013,792 @@ a.list-group-item-action {
     @apply flex-1 overflow-y-auto;
     padding: 1rem;
 }
+
+/* ============================================================
+   Agentic Components — Content Cards
+   ============================================================ */
+
+/* MealCard — image + content + price + action */
+.meal-card {
+    @apply flex gap-4 items-start;
+}
+
+.meal-card-image {
+    @apply flex-shrink-0 rounded-lg overflow-hidden bg-gray-100;
+    width: 80px;
+    height: 80px;
+    @apply dark:bg-neutral-800;
+}
+
+.meal-card-image img {
+    @apply w-full h-full object-cover;
+}
+
+.meal-card-image .meal-card-placeholder {
+    @apply w-full h-full flex items-center justify-center text-gray-400;
+    font-size: 1.5rem;
+    @apply dark:text-neutral-600;
+}
+
+.meal-card-content {
+    @apply flex-1 min-w-0;
+}
+
+.meal-card-name {
+    @apply font-semibold text-gray-900;
+    font-size: 0.9375rem;
+    @apply dark:text-neutral-100;
+}
+
+.meal-card-description {
+    font-size: 0.8125rem;
+    color: var(--color-sand-500);
+    margin-top: 0.125rem;
+}
+
+.meal-card-footer {
+    @apply flex justify-between items-center;
+    margin-top: 0.5rem;
+}
+
+.meal-card-price {
+    @apply font-semibold;
+    color: var(--color-teal-700);
+}
+
+.meal-card-tags {
+    @apply flex flex-wrap gap-1 mt-1;
+}
+
+/* PatientSummary — quick-glance patient record */
+.patient-summary-header {
+    @apply flex items-center gap-3 mb-3;
+}
+
+.patient-summary-avatar {
+    @apply flex-shrink-0 flex items-center justify-center rounded-full bg-gray-200 font-semibold text-gray-600;
+    width: 40px;
+    height: 40px;
+    @apply dark:bg-neutral-700 dark:text-neutral-300;
+}
+
+.patient-summary-name {
+    @apply text-lg font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.patient-summary-subtitle {
+    @apply text-sm text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.patient-summary-flags {
+    @apply flex flex-wrap gap-1.5 mt-2;
+}
+
+.patient-summary-stats {
+    @apply grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-100;
+    @apply dark:border-neutral-800;
+}
+
+.patient-summary-stat-label {
+    @apply text-xs text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.patient-summary-stat-value {
+    @apply text-sm font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+/* ============================================================
+   Agentic Components — Lists
+   ============================================================ */
+
+/* MenuGrid — grid of meal cards */
+.menu-grid-header {
+    @apply flex items-center justify-between mb-3;
+}
+
+.menu-grid-title {
+    @apply font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.menu-grid-subtitle {
+    @apply text-sm text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.menu-grid {
+    @apply flex flex-col gap-3;
+}
+
+/* BasketReview — line items + totals */
+.basket-items {
+    @apply flex flex-col;
+}
+
+.basket-item {
+    @apply flex items-center justify-between py-2.5;
+    border-bottom: 1px solid var(--color-sand-100);
+}
+
+.basket-item:last-child {
+    border-bottom: none;
+}
+
+.basket-item-name {
+    @apply text-sm text-gray-800;
+    @apply dark:text-neutral-200;
+}
+
+.basket-item-qty {
+    @apply text-xs text-gray-500 ml-1;
+    @apply dark:text-neutral-400;
+}
+
+.basket-item-price {
+    @apply text-sm font-medium text-gray-900 tabular-nums;
+    @apply dark:text-neutral-100;
+}
+
+.basket-totals {
+    @apply mt-3 pt-3 flex flex-col gap-1.5;
+    border-top: 2px solid var(--color-sand-200);
+}
+
+.basket-total-row {
+    @apply flex justify-between text-sm;
+}
+
+.basket-total-row.is-primary {
+    @apply font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.basket-budget-remaining {
+    @apply flex justify-between text-sm font-semibold mt-2 pt-2;
+    border-top: 1px solid var(--color-sand-100);
+    color: var(--color-teal-700);
+}
+
+/* QueueList — agentic variant */
+.agentic-queue {
+    @apply flex flex-col;
+}
+
+.agentic-queue-item {
+    @apply flex flex-col gap-0.5 px-3 py-2.5 rounded-lg cursor-pointer;
+    transition: background 0.15s;
+}
+
+.agentic-queue-item:hover {
+    background: var(--color-sand-100);
+}
+
+.agentic-queue-item.is-urgent {
+    border-left: 3px solid var(--color-red-500);
+    padding-left: calc(0.75rem - 3px);
+}
+
+.agentic-queue-item-title {
+    @apply text-sm font-medium text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.agentic-queue-item-subtitle {
+    @apply text-xs text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.agentic-queue-item-meta {
+    @apply flex items-center gap-2 text-xs text-gray-400 mt-0.5;
+    @apply dark:text-neutral-500;
+}
+
+/* DataTable extensions for agentic UI */
+.data-table-striped tbody tr:nth-child(even) {
+    @apply bg-white;
+    @apply dark:bg-neutral-900;
+}
+
+.data-table-striped tbody tr:nth-child(odd) {
+    background: var(--color-sand-50);
+    @apply dark:bg-neutral-800;
+}
+
+.data-table .cell-mono {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+}
+
+.data-table-compact th,
+.data-table-compact td {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.data-table tbody tr.row-clickable {
+    @apply cursor-pointer;
+}
+
+.data-table tbody tr.row-clickable:hover {
+    background: var(--color-teal-50);
+    @apply dark:bg-teal-950/20;
+}
+
+/* ============================================================
+   Agentic Components — Data Visualization
+   ============================================================ */
+
+/* StatGroup — row of key metrics with optional delta/trend */
+.stat-group {
+    @apply grid gap-3;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.stat-group-item {
+    @apply flex flex-col gap-0.5;
+}
+
+.stat-group-label {
+    @apply text-xs font-medium text-gray-500 uppercase tracking-wide;
+    @apply dark:text-neutral-400;
+}
+
+.stat-group-value {
+    @apply text-xl font-bold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.stat-group-delta {
+    @apply text-xs font-medium;
+}
+
+.stat-group-delta.trend-up {
+    color: var(--color-green-600);
+}
+
+.stat-group-delta.trend-down {
+    color: var(--color-red-500);
+}
+
+.stat-group-delta.trend-flat {
+    color: var(--color-sand-500);
+}
+
+.stat-group-icon {
+    @apply text-gray-400 mr-1;
+    font-size: 0.75rem;
+    @apply dark:text-neutral-500;
+}
+
+/* TrendChart — container for Chart.js */
+.trend-chart {
+    @apply flex flex-col;
+}
+
+.trend-chart-header {
+    @apply flex items-center justify-between mb-2;
+}
+
+.trend-chart-title {
+    @apply text-sm font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.trend-chart-metric {
+    @apply text-xs text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.trend-chart-canvas {
+    @apply w-full;
+    height: 200px;
+}
+
+/* ComparisonBar — labeled progress bars for comparing values */
+.comparison-bar-group {
+    @apply flex flex-col gap-3;
+}
+
+.comparison-bar {
+    @apply flex flex-col gap-1;
+}
+
+.comparison-bar-label {
+    @apply flex justify-between text-sm;
+}
+
+.comparison-bar-label-text {
+    @apply text-gray-700;
+    @apply dark:text-neutral-300;
+}
+
+.comparison-bar-label-value {
+    @apply font-medium text-gray-900 tabular-nums;
+    @apply dark:text-neutral-100;
+}
+
+.comparison-bar-track {
+    @apply w-full rounded-full overflow-hidden;
+    height: 8px;
+    background: var(--color-sand-100);
+    @apply dark:bg-neutral-800;
+}
+
+.comparison-bar-fill {
+    @apply h-full rounded-full transition-all;
+    background: var(--color-teal-500);
+}
+
+/* ============================================================
+   Agentic Components — Forms and Input
+   ============================================================ */
+
+/* ChoicePicker — selectable option cards */
+.choice-picker {
+    @apply flex flex-col gap-2;
+}
+
+.choice-picker-option {
+    @apply flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors;
+    border-color: var(--color-sand-200);
+    @apply dark:border-neutral-700;
+}
+
+.choice-picker-option:hover {
+    background: var(--color-sand-50);
+    @apply dark:bg-neutral-800;
+}
+
+.choice-picker-option.selected {
+    border-color: var(--color-teal-500);
+    background: var(--color-teal-50);
+    @apply dark:bg-teal-950/20 dark:border-teal-600;
+}
+
+.choice-picker-option.disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+.choice-picker-icon {
+    @apply flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-500;
+    font-size: 0.875rem;
+    @apply dark:bg-neutral-700 dark:text-neutral-400;
+}
+
+.choice-picker-option.selected .choice-picker-icon {
+    background: var(--color-teal-100);
+    color: var(--color-teal-700);
+    @apply dark:bg-teal-900/40 dark:text-teal-400;
+}
+
+.choice-picker-label {
+    @apply text-sm font-medium text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.choice-picker-description {
+    @apply text-xs text-gray-500 mt-0.5;
+    @apply dark:text-neutral-400;
+}
+
+/* ConfirmAction — approval card */
+.confirm-action {
+    @apply flex flex-col gap-4;
+}
+
+.confirm-action-title {
+    @apply text-base font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.confirm-action-description {
+    @apply text-sm text-gray-600 leading-relaxed;
+    @apply dark:text-neutral-300;
+}
+
+.confirm-action-details {
+    @apply flex flex-col gap-1.5 p-3 rounded-lg;
+    background: var(--color-sand-50);
+    @apply dark:bg-neutral-800;
+}
+
+.confirm-action-detail-row {
+    @apply flex justify-between text-sm;
+}
+
+.confirm-action-detail-label {
+    @apply text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.confirm-action-detail-value {
+    @apply font-medium text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.confirm-action-warning {
+    @apply flex items-start gap-2 text-sm p-3 rounded-lg;
+    background: var(--color-amber-50);
+    color: var(--color-amber-700);
+    @apply dark:bg-amber-950/30 dark:text-amber-300;
+}
+
+.confirm-action-buttons {
+    @apply flex gap-2 justify-end pt-2;
+    border-top: 1px solid var(--color-sand-100);
+    @apply dark:border-neutral-800;
+}
+
+/* ============================================================
+   Agentic Components — Status and Feedback
+   ============================================================ */
+
+/* Receipt — completion confirmation */
+.receipt {
+    @apply flex flex-col items-center text-center gap-3 py-4;
+}
+
+.receipt-icon {
+    @apply flex items-center justify-center w-12 h-12 rounded-full;
+    background: var(--color-green-50);
+    color: var(--color-green-500);
+    font-size: 1.5rem;
+    @apply dark:bg-green-950/30 dark:text-green-400;
+}
+
+.receipt-title {
+    @apply text-lg font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.receipt-reference {
+    @apply text-sm text-gray-500;
+    font-family: 'Source Code Pro', monospace;
+    @apply dark:text-neutral-400;
+}
+
+.receipt-summary {
+    @apply w-full flex flex-col gap-1.5 text-left mt-2 p-3 rounded-lg;
+    background: var(--color-sand-50);
+    @apply dark:bg-neutral-800;
+}
+
+.receipt-summary-row {
+    @apply flex justify-between text-sm;
+}
+
+.receipt-summary-label {
+    @apply text-gray-500;
+    @apply dark:text-neutral-400;
+}
+
+.receipt-summary-value {
+    @apply font-medium text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.receipt-timestamp {
+    @apply text-xs text-gray-400 mt-1;
+    @apply dark:text-neutral-500;
+}
+
+.receipt-actions {
+    @apply flex gap-2 mt-3;
+}
+
+/* ProgressTracker — multi-step horizontal indicator */
+.progress-tracker {
+    @apply flex items-start gap-0;
+}
+
+.progress-tracker-step {
+    @apply flex flex-col items-center flex-1 relative;
+}
+
+.progress-tracker-dot {
+    @apply flex items-center justify-center w-8 h-8 rounded-full border-2 text-xs font-semibold z-10;
+    border-color: var(--color-sand-300);
+    color: var(--color-sand-400);
+    background: white;
+    @apply dark:bg-neutral-900 dark:border-neutral-600 dark:text-neutral-500;
+}
+
+.progress-tracker-step.is-complete .progress-tracker-dot {
+    border-color: var(--color-teal-500);
+    background: var(--color-teal-500);
+    color: white;
+}
+
+.progress-tracker-step.is-active .progress-tracker-dot {
+    border-color: var(--color-teal-500);
+    color: var(--color-teal-700);
+    @apply dark:text-teal-400;
+}
+
+.progress-tracker-label {
+    @apply text-xs text-center mt-1.5;
+    color: var(--color-sand-500);
+    max-width: 80px;
+}
+
+.progress-tracker-step.is-active .progress-tracker-label {
+    @apply font-semibold;
+    color: var(--color-teal-700);
+    @apply dark:text-teal-400;
+}
+
+.progress-tracker-step.is-complete .progress-tracker-label {
+    color: var(--color-sand-600);
+}
+
+.progress-tracker-detail {
+    @apply text-xs text-center mt-0.5;
+    color: var(--color-sand-400);
+    max-width: 80px;
+}
+
+/* Connector line between steps */
+.progress-tracker-step:not(:last-child)::after {
+    content: '';
+    @apply absolute top-4;
+    left: calc(50% + 16px);
+    right: calc(-50% + 16px);
+    height: 2px;
+    background: var(--color-sand-200);
+    @apply dark:bg-neutral-700;
+}
+
+.progress-tracker-step.is-complete:not(:last-child)::after {
+    background: var(--color-teal-500);
+}
+
+/* AlertBanner — reuses existing alert-* for type styling */
+.alert-banner-agentic {
+    @apply flex items-start gap-3 p-3 rounded-lg text-sm;
+}
+
+.alert-banner-agentic.is-success {
+    background: var(--color-green-50);
+    color: var(--color-green-800);
+    @apply dark:bg-green-950/30 dark:text-green-300;
+}
+
+.alert-banner-agentic.is-warning {
+    background: var(--color-amber-50);
+    color: var(--color-amber-700);
+    @apply dark:bg-amber-950/30 dark:text-amber-300;
+}
+
+.alert-banner-agentic.is-error {
+    background: var(--color-red-50);
+    color: var(--color-red-700);
+    @apply dark:bg-red-950/30 dark:text-red-300;
+}
+
+.alert-banner-agentic.is-info {
+    background: var(--color-cyan-50);
+    color: var(--color-cyan-700);
+    @apply dark:bg-cyan-950/30 dark:text-cyan-300;
+}
+
+.alert-banner-agentic-icon {
+    @apply flex-shrink-0 mt-0.5;
+}
+
+.alert-banner-agentic-content {
+    @apply flex-1;
+}
+
+.alert-banner-agentic-title {
+    @apply font-semibold;
+}
+
+.alert-banner-agentic-message {
+    @apply mt-0.5 opacity-80;
+}
+
+.alert-banner-agentic-dismiss {
+    @apply flex-shrink-0 opacity-50 cursor-pointer;
+    transition: opacity 0.15s;
+}
+
+.alert-banner-agentic-dismiss:hover {
+    @apply opacity-100;
+}
+
+/* ============================================================
+   Agentic Components — Rich Content
+   ============================================================ */
+
+/* CodeView — preformatted text with copy button */
+.code-view {
+    @apply flex flex-col rounded-lg overflow-hidden border;
+    border-color: var(--color-sand-200);
+    @apply dark:border-neutral-700;
+}
+
+.code-view-header {
+    @apply flex items-center justify-between px-3 py-2 text-xs;
+    background: var(--color-sand-100);
+    border-bottom: 1px solid var(--color-sand-200);
+    color: var(--color-sand-600);
+    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
+}
+
+.code-view-title {
+    @apply font-medium;
+}
+
+.code-view-copy {
+    @apply flex items-center gap-1 cursor-pointer px-2 py-1 rounded;
+    transition: background 0.15s, color 0.15s;
+    @apply hover:bg-gray-200;
+    @apply dark:hover:bg-neutral-700;
+}
+
+.code-view-copy.copied {
+    color: var(--color-green-600);
+}
+
+.code-view-body {
+    @apply overflow-auto p-3;
+    background: var(--color-sand-50);
+    @apply dark:bg-neutral-900;
+}
+
+.code-view-body pre {
+    @apply m-0 text-sm leading-relaxed;
+    font-family: 'Source Code Pro', monospace;
+    color: var(--color-sand-800);
+    @apply dark:text-neutral-200;
+}
+
+.code-view-body.wrap-lines pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* InfoPanel — prose content card */
+.info-panel {
+    @apply flex flex-col gap-3;
+}
+
+.info-panel-title {
+    @apply text-base font-semibold text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.info-panel-body {
+    @apply text-sm text-gray-700 leading-relaxed;
+    @apply dark:text-neutral-300;
+}
+
+.info-panel-body p + p {
+    @apply mt-2;
+}
+
+.info-panel-body ul,
+.info-panel-body ol {
+    @apply mt-2 ml-4;
+}
+
+.info-panel-body li {
+    @apply mt-1;
+}
+
+.info-panel-image {
+    @apply w-full rounded-lg overflow-hidden;
+}
+
+.info-panel-image img {
+    @apply w-full h-auto;
+}
+
+.info-panel-source {
+    @apply text-xs text-gray-400 italic;
+    @apply dark:text-neutral-500;
+}
+
+.info-panel-actions {
+    @apply flex gap-2 pt-2;
+    border-top: 1px solid var(--color-sand-100);
+    @apply dark:border-neutral-800;
+}
+
+/* Timeline — agentic variant (extends existing timeline-*) */
+.agentic-timeline {
+    @apply flex flex-col;
+}
+
+.agentic-timeline-event {
+    @apply flex gap-3 relative pb-4;
+}
+
+.agentic-timeline-event:last-child {
+    @apply pb-0;
+}
+
+/* Vertical connector line */
+.agentic-timeline-event:not(:last-child)::before {
+    content: '';
+    @apply absolute;
+    left: 13px;
+    top: 28px;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-sand-200);
+    @apply dark:bg-neutral-700;
+}
+
+.agentic-timeline-icon {
+    @apply flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full text-xs z-10;
+    background: var(--color-sand-100);
+    color: var(--color-sand-500);
+    @apply dark:bg-neutral-800 dark:text-neutral-400;
+}
+
+.agentic-timeline-event[data-type="agent"] .agentic-timeline-icon {
+    background: var(--color-teal-100);
+    color: var(--color-teal-600);
+    @apply dark:bg-teal-950/30 dark:text-teal-400;
+}
+
+.agentic-timeline-event[data-type="human"] .agentic-timeline-icon {
+    background: var(--color-blue-100);
+    color: var(--color-blue-600);
+    @apply dark:bg-blue-950/30 dark:text-blue-400;
+}
+
+.agentic-timeline-event[data-type="system"] .agentic-timeline-icon {
+    background: var(--color-sand-100);
+    color: var(--color-sand-400);
+    @apply dark:bg-neutral-800 dark:text-neutral-500;
+}
+
+.agentic-timeline-body {
+    @apply flex-1 min-w-0;
+}
+
+.agentic-timeline-title {
+    @apply text-sm font-medium text-gray-900;
+    @apply dark:text-neutral-100;
+}
+
+.agentic-timeline-detail {
+    @apply text-xs text-gray-500 mt-0.5;
+    @apply dark:text-neutral-400;
+}
+
+.agentic-timeline-meta {
+    @apply flex items-center gap-2 text-xs text-gray-400 mt-1;
+    @apply dark:text-neutral-500;
+}
+
+.agentic-timeline-actor {
+    @apply font-medium;
+}
