@@ -55,6 +55,10 @@ before creating any new component or semantic class.
 | Divider | `layout-divider.html` | `divider`, `divider-compact`, `divider-spacious`, `divider-labeled`, `divider-label`, `divider-vertical` | no | Horizontal rule, labeled divider, vertical divider. Spacing variants: compact/default/spacious. |
 | Issues Sidebar Layout | `(layout page only)` | `issues-layout`, `issues-layout-main`, `issues-layout-aside`, `issues-layout-toggle`, `issues-layout-backdrop` | no | 2-column layout with persistent right issues panel. Mobile: slides off-screen, toggled via `[data-issues-toggle]`. JS: `issues-sidebar-toggle.js`. |
 | Field Row | `layout-field-row.html` | `field-row`, `field-row-horizontal`, `field-label`, `field-body`, `field-help`, `field-error`, `field-row-error`, `field-input-group`, `field-addon` | no | Stacked label+input row. Horizontal variant at sm+. Prefix/suffix addons. Error state uses `!important` on input border. |
+| Agentic Shell | `(prototype only)` | `agentic-shell`, `panel-nav`, `panel-chat`, `panel-content`, `btn-panel-toggle` | no | 3-panel flex layout (nav, chat, content). Nav collapsible via `.collapsed`. Content hideable via `.hidden`. Thin splitters (1px default, 3px teal-500 on hover). |
+| Agentic Nav | `(prototype only)` | `nav-header`, `nav-logo`, `nav-section`, `nav-section-label`, `nav-item` | no | Sidebar nav for agentic shell. `.nav-item.active` for current selection. Collapses to icon-only when parent `.panel-nav.collapsed`. |
+| Agentic Chat | `(prototype only)` | `chat-thread`, `chat-thread-inner`, `chat-input-area`, `message-agent`, `message-user`, `message-meta`, `message-avatar`, `message-name`, `message-body`, `tool-call` | no | Agent chat thread with centered 720px inner wrapper. User bubbles right-align. Tool-call indicators use monospace. |
+| Content Panel | `(prototype only)` | `content-header`, `content-header-title`, `content-body` | no | Right-side content/artifact panel header and scrollable body. |
 
 ---
 
