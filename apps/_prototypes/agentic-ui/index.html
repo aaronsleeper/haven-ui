@@ -34,8 +34,8 @@
       display: flex;
       flex-direction: column;
       width: 240px;
-      min-width: 180px;
-      max-width: 360px;
+      min-width: 140px;
+      max-width: 480px;
       flex-shrink: 0;
       border-right: none;
       background: var(--color-sand-50);
@@ -62,8 +62,8 @@
       display: flex;
       flex-direction: column;
       width: 420px;
-      min-width: 280px;
-      max-width: 560px;
+      min-width: 240px;
+      max-width: 720px;
       flex-shrink: 0;
       border-left: none;
       background: var(--color-sand-50);
@@ -175,13 +175,6 @@
       height: 28px;
     }
 
-    .nav-logo-text {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--color-teal-800);
-    }
-
     .nav-section {
       padding: 1rem;
     }
@@ -273,15 +266,26 @@
       color: var(--color-sand-500);
     }
 
+    /* Splitter overrides — thinner, lower contrast until hovered */
+    .agentic-shell .panel-splitter {
+      width: 1px;
+      background-color: var(--color-sand-200);
+    }
+
+    .agentic-shell .panel-splitter:hover,
+    .agentic-shell .panel-splitter.is-dragging {
+      width: 3px;
+      margin-left: -1px;
+      margin-right: -1px;
+    }
+
     /* Nav collapse state */
     .panel-nav.collapsed .nav-section-label,
-    .panel-nav.collapsed .nav-item span,
-    .panel-nav.collapsed .nav-logo-text { display: none; }
+    .panel-nav.collapsed .nav-item span { display: none; }
     .panel-nav.collapsed .nav-item { justify-content: center; padding: 0.625rem; }
     .panel-nav.collapsed .nav-header { justify-content: center; padding: 0.75rem; }
     .panel-nav.collapsed .nav-item i { width: auto; }
     .panel-nav.collapsed .nav-logo { justify-content: center; }
-    .panel-nav.collapsed .btn-panel-toggle { display: none; }
   </style>
 </head>
 
@@ -295,11 +299,7 @@
       <div class="nav-header">
         <div class="nav-logo">
           <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health">
-          <span class="nav-logo-text">Cena Health</span>
         </div>
-        <button class="btn-panel-toggle" onclick="toggleNav()" title="Collapse navigation">
-          <i class="fa-solid fa-sidebar"></i>
-        </button>
       </div>
 
       <div class="nav-section">
@@ -319,10 +319,6 @@
       </div>
 
       <div class="nav-section" style="margin-top: auto; border-top: 1px solid var(--color-sand-200);">
-        <div class="nav-item" onclick="toggleNav()" style="cursor: pointer;">
-          <i class="fa-solid fa-sidebar"></i>
-          <span>Collapse</span>
-        </div>
         <div class="nav-item">
           <i class="fa-solid fa-gear"></i>
           <span>Settings</span>
@@ -332,21 +328,17 @@
     <!-- End Panel 1 -->
 
     <!-- Splitter: nav ↔ chat -->
-    <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="180" data-max="360"></div>
+    <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="140" data-max="480"></div>
 
     <!-- Panel 2: Chat -->
     <main class="panel-chat">
 
       <!-- Chat header with panel controls -->
       <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 1rem; border-bottom: 1px solid var(--color-sand-100);">
-        <!-- Left: expand nav when collapsed -->
-        <button id="nav-expand-btn" class="btn-panel-toggle" onclick="toggleNav()" title="Expand navigation" style="display: none;">
+        <!-- Left: toggle nav panel -->
+        <button class="btn-panel-toggle" onclick="toggleNav()" title="Toggle navigation">
           <i class="fa-solid fa-sidebar"></i>
         </button>
-        <div id="nav-expand-spacer"></div>
-
-        <!-- Center: empty for now -->
-        <div></div>
 
         <!-- Right: toggle content panel -->
         <button class="btn-panel-toggle" onclick="toggleContent()" title="Toggle content panel">
@@ -436,7 +428,7 @@
     <!-- End Panel 2 -->
 
     <!-- Splitter: chat ↔ content -->
-    <div id="content-splitter" class="panel-splitter" data-panel-splitter data-target="next" data-min="280" data-max="560"></div>
+    <div id="content-splitter" class="panel-splitter" data-panel-splitter data-target="next" data-min="240" data-max="720"></div>
 
     <!-- Panel 3: Content / Artifact -->
     <aside id="panel-content" class="panel-content">
@@ -538,13 +530,7 @@
 
   <script>
     function toggleNav() {
-      var nav = document.getElementById('panel-nav');
-      var expandBtn = document.getElementById('nav-expand-btn');
-      var spacer = document.getElementById('nav-expand-spacer');
-      nav.classList.toggle('collapsed');
-      var isCollapsed = nav.classList.contains('collapsed');
-      expandBtn.style.display = isCollapsed ? '' : 'none';
-      spacer.style.display = isCollapsed ? 'none' : '';
+      document.getElementById('panel-nav').classList.toggle('collapsed');
     }
 
     function toggleContent() {
@@ -553,12 +539,6 @@
       panel.classList.toggle('hidden');
       splitter.style.display = panel.classList.contains('hidden') ? 'none' : '';
     }
-
-    // Start with content panel visible
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('nav-expand-spacer').style.display = '';
-      document.getElementById('nav-expand-btn').style.display = 'none';
-    });
   </script>
 
 </body>
