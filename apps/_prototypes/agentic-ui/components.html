@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic UI — Component Showcase</title>
+
+  <link rel="icon" type="image/svg+xml" href="/src/assets/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+
+  <style>
+    body {
+      background: var(--color-sand-50);
+      padding: 2rem;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .showcase {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .showcase-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .showcase-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-sand-400);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-sand-200);
+    }
+
+    .showcase-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-sand-600);
+      margin-bottom: 0.25rem;
+    }
+
+    .showcase-card {
+      background: white;
+      border: 1px solid var(--color-sand-200);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+
+    .showcase-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .page-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-sand-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-sand-500);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="showcase">
+
+    <div>
+      <div class="page-title">Agentic UI Components</div>
+      <div class="page-subtitle">Visual reference for all components the agent can render in the content panel.
+        <a href="index.html" style="color: var(--color-teal-600);">View shell prototype</a>
+      </div>
+    </div>
+
+    <!-- ========================================
+         CONTENT CARDS
+         ======================================== -->
+
+    <div class="showcase-section">
+      <div class="showcase-heading">Content Cards</div>
+
+      <!-- MealCard -->
+      <div class="showcase-label">MealCard</div>
+      <div class="showcase-card">
+        <div class="meal-card">
+          <div class="meal-card-image">
+            <div class="meal-card-placeholder"><i class="fa-solid fa-bowl-food"></i></div>
+          </div>
+          <div class="meal-card-content">
+            <div class="meal-card-name">Pollo Guisado</div>
+            <div class="meal-card-description">Braised chicken, rice, beans, tostones</div>
+            <div class="meal-card-tags">
+              <span class="badge badge-sm badge-neutral">gluten-free</span>
+              <span class="badge badge-sm badge-neutral">halal</span>
+            </div>
+            <div class="meal-card-footer">
+              <span class="meal-card-price">$12.50</span>
+              <button class="btn-sm btn-outline">Add to basket</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PatientSummary -->
+      <div class="showcase-label">PatientSummary</div>
+      <div class="showcase-card">
+        <div class="patient-summary-header">
+          <div class="patient-summary-avatar">MG</div>
+          <div>
+            <div class="patient-summary-name">Maria Garcia</div>
+            <div class="patient-summary-subtitle">Age 67 &middot; Spanish preferred &middot; (860) 555-0142</div>
+          </div>
+        </div>
+        <div class="patient-summary-flags">
+          <span class="badge badge-sm badge-warning">diabetic</span>
+          <span class="badge badge-sm badge-info">low-sodium</span>
+          <span class="badge badge-sm badge-neutral">lactose-free</span>
+        </div>
+        <div class="patient-summary-stats">
+          <div>
+            <div class="patient-summary-stat-label">Provider</div>
+            <div class="patient-summary-stat-value">Dr. Patel</div>
+          </div>
+          <div>
+            <div class="patient-summary-stat-label">Weekly budget</div>
+            <div class="patient-summary-stat-value">$75.00</div>
+          </div>
+          <div>
+            <div class="patient-summary-stat-label">Meals this week</div>
+            <div class="patient-summary-stat-value">2 of 5</div>
+          </div>
+          <div>
+            <div class="patient-summary-stat-label">Last order</div>
+            <div class="patient-summary-stat-value">Apr 3, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OrderCard (uses card + custom layout) -->
+      <div class="showcase-label">OrderCard</div>
+      <div class="showcase-card">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+          <div>
+            <div style="font-weight: 600; color: var(--color-sand-900);">Order #CH-20260408-003</div>
+            <div style="font-size: 0.8125rem; color: var(--color-sand-500);">Cocina Abuela &middot; Apr 8, 2026</div>
+          </div>
+          <span class="badge badge-sm badge-success">confirmed</span>
+        </div>
+        <div class="basket-items">
+          <div class="basket-item">
+            <span class="basket-item-name">Pollo Guisado <span class="basket-item-qty">&times;1</span></span>
+            <span class="basket-item-price">$12.50</span>
+          </div>
+          <div class="basket-item">
+            <span class="basket-item-name">Arroz con Pollo <span class="basket-item-qty">&times;1</span></span>
+            <span class="basket-item-price">$11.75</span>
+          </div>
+        </div>
+        <div class="basket-totals">
+          <div class="basket-total-row is-primary">
+            <span>Total</span>
+            <span>$24.25</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         LISTS
+         ======================================== -->
+
+    <div class="showcase-section">
+      <div class="showcase-heading">Lists</div>
+
+      <!-- MenuGrid -->
+      <div class="showcase-label">MenuGrid</div>
+      <div class="showcase-card">
+        <div class="menu-grid-header">
+          <div class="menu-grid-title">Cocina Abuela</div>
+          <div class="menu-grid-subtitle">Apr 7 &ndash; 11</div>
+        </div>
+        <div class="menu-grid">
+          <div class="meal-card">
+            <div class="meal-card-image"><div class="meal-card-placeholder"><i class="fa-solid fa-bowl-food"></i></div></div>
+            <div class="meal-card-content">
+              <div class="meal-card-name">Carne Guisada</div>
+              <div class="meal-card-description">Beef stew, white rice, avocado salad</div>
+              <div class="meal-card-footer">
+                <span class="meal-card-price">$14.00</span>
+                <button class="btn-sm btn-outline">Add to basket</button>
+              </div>
+            </div>
+          </div>
+          <div class="meal-card">
+            <div class="meal-card-image"><div class="meal-card-placeholder"><i class="fa-solid fa-bowl-food"></i></div></div>
+            <div class="meal-card-content">
+              <div class="meal-card-name">Pernil al Horno</div>
+              <div class="meal-card-description">Roast pork, yuca, gandules, maduros</div>
+              <div class="meal-card-footer">
+                <span class="meal-card-price">$15.25</span>
+                <button class="btn-sm btn-outline">Add to basket</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BasketReview -->
+      <div class="showcase-label">BasketReview</div>
+      <div class="showcase-card">
+        <div class="basket-items">
+          <div class="basket-item">
+            <span class="basket-item-name">Pollo Guisado <span class="basket-item-qty">&times;1</span></span>
+            <span class="basket-item-price">$12.50</span>
+          </div>
+          <div class="basket-item">
+            <span class="basket-item-name">Arroz con Pollo <span class="basket-item-qty">&times;1</span></span>
+            <span class="basket-item-price">$11.75</span>
+          </div>
+          <div class="basket-item">
+            <span class="basket-item-name">Carne Guisada <span class="basket-item-qty">&times;1</span></span>
+            <span class="basket-item-price">$14.00</span>
+          </div>
+        </div>
+        <div class="basket-totals">
+          <div class="basket-total-row">
+            <span>Subtotal</span>
+            <span>$38.25</span>
+          </div>
+          <div class="basket-total-row is-primary">
+            <span>Total</span>
+            <span>$38.25</span>
+          </div>
+        </div>
+        <div class="basket-budget-remaining">
+          <span>Budget remaining</span>
+          <span>$36.75</span>
+        </div>
+        <div style="margin-top: 1rem;">
+          <button class="btn btn-primary" style="width: 100%;">Place order</button>
+        </div>
+      </div>
+
+      <!-- QueueList -->
+      <div class="showcase-label">QueueList</div>
+      <div class="showcase-card">
+        <div class="agentic-queue">
+          <div class="agentic-queue-item is-urgent">
+            <div class="agentic-queue-item-title">Maria Garcia — Care plan approval</div>
+            <div class="agentic-queue-item-subtitle">Care plan ready for final review</div>
+            <div class="agentic-queue-item-meta">
+              <span><i class="fa-solid fa-robot" style="margin-right: 0.25rem;"></i>Care Agent</span>
+              <span>&middot;</span>
+              <span>2h ago</span>
+            </div>
+          </div>
+          <div class="agentic-queue-item">
+            <div class="agentic-queue-item-title">Lisa Chen — New referral</div>
+            <div class="agentic-queue-item-subtitle">Referral from UConn Health, pending intake</div>
+            <div class="agentic-queue-item-meta">
+              <span><i class="fa-solid fa-robot" style="margin-right: 0.25rem;"></i>Intake Agent</span>
+              <span>&middot;</span>
+              <span>45m ago</span>
+            </div>
+          </div>
+          <div class="agentic-queue-item">
+            <div class="agentic-queue-item-title">James Wilson — Budget exception</div>
+            <div class="agentic-queue-item-subtitle">Requesting $15 overage for medical dietary needs</div>
+            <div class="agentic-queue-item-meta">
+              <span><i class="fa-solid fa-robot" style="margin-right: 0.25rem;"></i>Budget Agent</span>
+              <span>&middot;</span>
+              <span>1h ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DataTable -->
+      <div class="showcase-label">DataTable (striped, with mono cells)</div>
+      <div class="showcase-card" style="padding: 0; overflow: hidden;">
+        <div class="data-table data-table-striped">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Patient</th>
+                <th>Kitchen</th>
+                <th>Status</th>
+                <th class="text-end">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-clickable">
+                <td class="cell-mono">CH-0408-001</td>
+                <td>Maria Garcia</td>
+                <td>Cocina Abuela</td>
+                <td><span class="badge badge-sm badge-success">confirmed</span></td>
+                <td class="text-end cell-mono">$24.25</td>
+              </tr>
+              <tr class="row-clickable">
+                <td class="cell-mono">CH-0408-002</td>
+                <td>Lisa Chen</td>
+                <td>Golden Wok</td>
+                <td><span class="badge badge-sm badge-warning">pending</span></td>
+                <td class="text-end cell-mono">$18.50</td>
+              </tr>
+              <tr class="row-clickable">
+                <td class="cell-mono">CH-0407-015</td>
+                <td>James Wilson</td>
+                <td>Soul Kitchen</td>
+                <td><span class="badge badge-sm badge-neutral">delivered</span></td>
+                <td class="text-end cell-mono">$31.00</td>
+              </tr>
+              <tr class="row-clickable">
+                <td class="cell-mono">CH-0407-014</td>
+                <td>Rosa Martinez</td>
+                <td>Cocina Abuela</td>
+                <td><span class="badge badge-sm badge-neutral">delivered</span></td>
+                <td class="text-end cell-mono">$22.75</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         DATA VISUALIZATION
+         ======================================== -->
+
+    <div class="showcase-section">
+      <div class="showcase-heading">Data Visualization</div>
+
+      <!-- StatGroup -->
+      <div class="showcase-label">StatGroup</div>
+      <div class="showcase-card">
+        <div class="stat-group">
+          <div class="stat-group-item">
+            <div class="stat-group-label"><i class="fa-solid fa-dollar-sign stat-group-icon"></i>Budget used</div>
+            <div class="stat-group-value">$38.25</div>
+            <div class="stat-group-delta trend-up"><i class="fa-solid fa-arrow-up" style="font-size: 0.625rem; margin-right: 0.125rem;"></i>12% vs last week</div>
+          </div>
+          <div class="stat-group-item">
+            <div class="stat-group-label"><i class="fa-solid fa-utensils stat-group-icon"></i>Meals ordered</div>
+            <div class="stat-group-value">3</div>
+            <div class="stat-group-delta trend-flat">same as last week</div>
+          </div>
+          <div class="stat-group-item">
+            <div class="stat-group-label"><i class="fa-solid fa-users stat-group-icon"></i>Active patients</div>
+            <div class="stat-group-value">142</div>
+            <div class="stat-group-delta trend-up"><i class="fa-solid fa-arrow-up" style="font-size: 0.625rem; margin-right: 0.125rem;"></i>8 new this week</div>
+          </div>
+          <div class="stat-group-item">
+            <div class="stat-group-label"><i class="fa-solid fa-clock stat-group-icon"></i>Avg response</div>
+            <div class="stat-group-value">2.4s</div>
+            <div class="stat-group-delta trend-down"><i class="fa-solid fa-arrow-down" style="font-size: 0.625rem; margin-right: 0.125rem;"></i>0.8s faster</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ComparisonBar -->
+      <div class="showcase-label">ComparisonBar</div>
+      <div class="showcase-card">
+        <div class="comparison-bar-group">
+          <div class="comparison-bar">
+            <div class="comparison-bar-label">
+              <span class="comparison-bar-label-text">Budget used</span>
+              <span class="comparison-bar-label-value">$38.25 / $75.00</span>
+            </div>
+            <div class="comparison-bar-track">
+              <div class="comparison-bar-fill" style="width: 51%;"></div>
+            </div>
+          </div>
+          <div class="comparison-bar">
+            <div class="comparison-bar-label">
+              <span class="comparison-bar-label-text">Meals ordered</span>
+              <span class="comparison-bar-label-value">3 / 5</span>
+            </div>
+            <div class="comparison-bar-track">
+              <div class="comparison-bar-fill" style="width: 60%;"></div>
+            </div>
+          </div>
+          <div class="comparison-bar">
+            <div class="comparison-bar-label">
+              <span class="comparison-bar-label-text">Protein target</span>
+              <span class="comparison-bar-label-value">68g / 80g</span>
+            </div>
+            <div class="comparison-bar-track">
+              <div class="comparison-bar-fill" style="width: 85%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TrendChart (placeholder) -->
+      <div class="showcase-label">TrendChart (container only — Chart.js renders here)</div>
+      <div class="showcase-card">
+        <div class="trend-chart">
+          <div class="trend-chart-header">
+            <div class="trend-chart-title">Weekly spend</div>
+            <div class="trend-chart-metric">Last 8 weeks &middot; USD</div>
+          </div>
+          <div class="trend-chart-canvas" style="background: var(--color-sand-50); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: var(--color-sand-400); font-size: 0.875rem;">
+            <i class="fa-solid fa-chart-line" style="margin-right: 0.5rem;"></i> Chart.js renders here
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         FORMS AND INPUT
+         ======================================== -->
+
+    <div class="showcase-section">
+      <div class="showcase-heading">Forms and Input</div>
+
+      <!-- ChoicePicker -->
+      <div class="showcase-label">ChoicePicker</div>
+      <div class="showcase-card">
+        <div style="font-weight: 600; color: var(--color-sand-800); margin-bottom: 0.25rem;">Dietary preferences</div>
+        <div style="font-size: 0.8125rem; color: var(--color-sand-500); margin-bottom: 0.75rem;">Select all that apply to this patient.</div>
+        <div class="choice-picker">
+          <div class="choice-picker-option selected">
+            <div class="choice-picker-icon"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i></div>
+            <div>
+              <div class="choice-picker-label">Gluten-free</div>
+              <div class="choice-picker-description">No wheat, barley, rye, or derivatives</div>
+            </div>
+          </div>
+          <div class="choice-picker-option selected">
+            <div class="choice-picker-icon"><i class="fa-solid fa-droplet-slash"></i></div>
+            <div>
+              <div class="choice-picker-label">Low-sodium</div>
+              <div class="choice-picker-description">Under 600mg sodium per meal</div>
+            </div>
+          </div>
+          <div class="choice-picker-option">
+            <div class="choice-picker-icon"><i class="fa-solid fa-cow"></i></div>
+            <div>
+              <div class="choice-picker-label">Dairy-free</div>
+              <div class="choice-picker-description">No milk, cheese, or dairy products</div>
+            </div>
+          </div>
+          <div class="choice-picker-option disabled">
+            <div class="choice-picker-icon"><i class="fa-solid fa-leaf"></i></div>
+            <div>
+              <div class="choice-picker-label">Vegetarian</div>
+              <div class="choice-picker-description">Not available with current kitchen selection</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+          <button class="btn btn-primary btn-sm">Save preferences</button>
+        </div>
+      </div>
+
+      <!-- ConfirmAction -->
+      <div class="showcase-label">ConfirmAction</div>
+      <div class="showcase-card">
+        <div class="confirm-action">
+          <div class="confirm-action-title">Confirm order</div>
+          <div class="confirm-action-description">
+            The agent will place the following order with Cocina Abuela and charge Maria Garcia's weekly budget.
+          </div>
+          <div class="confirm-action-details">
+            <div class="confirm-action-detail-row">
+              <span class="confirm-action-detail-label">Patient</span>
+              <span class="confirm-action-detail-value">Maria Garcia</span>
+            </div>
+            <div class="confirm-action-detail-row">
+              <span class="confirm-action-detail-label">Kitchen</span>
+              <span class="confirm-action-detail-value">Cocina Abuela</span>
+            </div>
+            <div class="confirm-action-detail-row">
+              <span class="confirm-action-detail-label">Items</span>
+              <span class="confirm-action-detail-value">3 meals</span>
+            </div>
+            <div class="confirm-action-detail-row">
+              <span class="confirm-action-detail-label">Total</span>
+              <span class="confirm-action-detail-value">$38.25</span>
+            </div>
+            <div class="confirm-action-detail-row">
+              <span class="confirm-action-detail-label">Budget remaining</span>
+              <span class="confirm-action-detail-value">$36.75</span>
+            </div>
+          </div>
+          <div class="confirm-action-warning">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>This will leave Maria with $36.75 for 2 remaining meals this week.</span>
+          </div>
+          <div class="confirm-action-buttons">
+            <button class="btn btn-sm btn-outline">Cancel</button>
+            <button class="btn btn-sm btn-primary">Confirm order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         STATUS AND FEEDBACK
+         ======================================== -->
+
+    <div class="showcase-section">
+      <div class="showcase-heading">Status and Feedback</div>
+
+      <!-- Receipt -->
+      <div class="showcase-label">Receipt</div>
+      <div class="showcase-card">
+        <div class="receipt">
+          <div class="receipt-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="receipt-title">Order confirmed</div>
+          <div class="receipt-reference">CH-20260408-003</div>
+          <div class="receipt-summary">
+            <div class="receipt-summary-row">
+              <span class="receipt-summary-label">Patient</span>
+              <span class="receipt-summary-value">Maria Garcia</span>
+            </div>
+            <div class="receipt-summary-row">
+              <span class="receipt-summary-label">Kitchen</span>
+              <span class="receipt-summary-value">Cocina Abuela</span>
+            </div>
+            <div class="receipt-summary-row">
+              <span class="receipt-summary-label">Items</span>
+              <span class="receipt-summary-value">3 meals</span>
+            </div>
+            <div class="receipt-summary-row">
+              <span class="receipt-summary-label">Total</span>
+              <span class="receipt-summary-value">$38.25</span>
+            </div>
+            <div class="receipt-summary-row">
+              <span class="receipt-summary-label">Delivery</span>
+              <span class="receipt-summary-value">Apr 9, 2026</span>
+            </div>
+          </div>
+          <div class="receipt-timestamp">Confirmed Apr 8, 2026 at 3:42 PM</div>
+          <div class="receipt-actions">
+            <button class="btn btn-sm btn-outline">View order</button>
+            <button class="btn btn-sm btn-outline">Back to menu</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ProgressTracker -->
+      <div class="showcase-label">ProgressTracker</div>
+      <div class="showcase-card">
+        <div class="progress-tracker">
+          <div class="progress-tracker-step is-complete">
+            <div class="progress-tracker-dot"><i class="fa-solid fa-check" style="font-size: 0.625rem;"></i></div>
+            <div class="progress-tracker-label">Order placed</div>
+            <div class="progress-tracker-detail">Apr 8</div>
+          </div>
+          <div class="progress-tracker-step is-complete">
+            <div class="progress-tracker-dot"><i class="fa-solid fa-check" style="font-size: 0.625rem;"></i></div>
+            <div class="progress-tracker-label">Kitchen confirmed</div>
+            <div class="progress-tracker-detail">Apr 8</div>
+          </div>
+          <div class="progress-tracker-step is-active">
+            <div class="progress-tracker-dot">3</div>
+            <div class="progress-tracker-label">Preparing</div>
+            <div class="progress-tracker-detail">In progress</div>
+          </div>
+          <div class="progress-tracker-step">
+            <div class="progress-tracker-dot">4</div>
+            <div class="progress-tracker-label">Out for delivery</div>
+          </div>
+          <div class="progress-tracker-step">
+            <div class="progress-tracker-dot">5</div>
+            <div class="progress-tracker-label">Delivered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AlertBanner variants -->
+      <div class="showcase-label">AlertBanner</div>
+      <div class="showcase-card" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div class="alert-banner-agentic is-success">
+          <div class="alert-banner-agentic-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="alert-banner-agentic-content">
+            <div class="alert-banner-agentic-title">Order placed successfully</div>
+            <div class="alert-banner-agentic-message">Cocina Abuela will deliver 3 meals on Apr 9.</div>
+          </div>
+          <div class="alert-banner-agentic-dismiss"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="alert-banner-agentic is-warning">
+          <div class="alert-banner-agentic-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="alert-banner-agentic-content">
+            <div class="alert-banner-agentic-title">Budget running low</div>
+            <div class="alert-banner-agentic-message">Maria has $12.50 left for 2 remaining meals.</div>
+          </div>
+        </div>
+        <div class="alert-banner-agentic is-error">
+          <div class="alert-banner-agentic-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+          <div class="alert-banner-agentic-content">
+            <div class="alert-banner-agentic-title">Kitchen unavailable</div>
+            <div class="alert-banner-agentic-message">Golden Wok is closed this week. Choose another kitchen.</div>
+          </div>
+        </div>
+        <div class="alert-banner-agentic is-info">
+          <div class="alert-banner-agentic-icon"><i class="fa-solid fa-circle-info"></i></div>
+          <div class="alert-banner-agentic-content">
+            <div class="alert-banner-agentic-title">New kitchen available</div>
+            <div class="alert-banner-agentic-message">Soul Kitchen now delivers to Maria's area.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         RICH CONTENT
+         ======================================== -->
+
+    <div class="showcase-section">
+      <div class="showcase-heading">Rich Content</div>
+
+      <!-- CodeView -->
+      <div class="showcase-label">CodeView</div>
+      <div class="showcase-card" style="padding: 0; overflow: hidden; border: none;">
+        <div class="code-view">
+          <div class="code-view-header">
+            <span class="code-view-title">Patient record — Maria Garcia</span>
+            <div class="code-view-copy"><i class="fa-regular fa-clipboard"></i> Copy</div>
+          </div>
+          <div class="code-view-body">
+<pre>## Maria Garcia
+- **DOB:** 1959-03-14 (age 67)
+- **Language:** Spanish (preferred)
+- **Phone:** (860) 555-0142
+
+### Dietary Restrictions
+- Diabetic (Type 2)
+- Low-sodium (&lt;600mg/meal)
+- Lactose-free
+
+### Current Care Plan
+- Provider: Dr. Patel
+- Weekly budget: $75.00
+- Meals/week: 5
+- Kitchen: Cocina Abuela (primary)</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- InfoPanel -->
+      <div class="showcase-label">InfoPanel</div>
+      <div class="showcase-card">
+        <div class="info-panel">
+          <div class="info-panel-title">Managing sodium intake</div>
+          <div class="info-panel-body">
+            <p>For patients with hypertension or heart disease, daily sodium should stay below 2,300mg. Each meal in Maria's plan is capped at 600mg.</p>
+            <p>When ordering, look for meals tagged <strong>low-sodium</strong>. The agent automatically filters high-sodium options from Maria's menu.</p>
+          </div>
+          <div class="info-panel-source">Source: American Heart Association dietary guidelines</div>
+          <div class="info-panel-actions">
+            <button class="btn btn-sm btn-outline">View full guidelines</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="showcase-label">Timeline</div>
+      <div class="showcase-card">
+        <div class="agentic-timeline">
+          <div class="agentic-timeline-event" data-type="agent">
+            <div class="agentic-timeline-icon"><i class="fa-solid fa-robot"></i></div>
+            <div class="agentic-timeline-body">
+              <div class="agentic-timeline-title">Order placed with Cocina Abuela</div>
+              <div class="agentic-timeline-detail">3 meals, $38.25 total</div>
+              <div class="agentic-timeline-meta">
+                <span class="agentic-timeline-actor">Order Agent</span>
+                <span>&middot;</span>
+                <span>3:42 PM</span>
+              </div>
+            </div>
+          </div>
+          <div class="agentic-timeline-event" data-type="human">
+            <div class="agentic-timeline-icon"><i class="fa-solid fa-user"></i></div>
+            <div class="agentic-timeline-body">
+              <div class="agentic-timeline-title">Order approved by care coordinator</div>
+              <div class="agentic-timeline-detail">Sarah K. reviewed and confirmed</div>
+              <div class="agentic-timeline-meta">
+                <span class="agentic-timeline-actor">Sarah Kim</span>
+                <span>&middot;</span>
+                <span>3:38 PM</span>
+              </div>
+            </div>
+          </div>
+          <div class="agentic-timeline-event" data-type="agent">
+            <div class="agentic-timeline-icon"><i class="fa-solid fa-robot"></i></div>
+            <div class="agentic-timeline-body">
+              <div class="agentic-timeline-title">Budget check passed</div>
+              <div class="agentic-timeline-detail">$38.25 of $75.00 weekly budget</div>
+              <div class="agentic-timeline-meta">
+                <span class="agentic-timeline-actor">Budget Agent</span>
+                <span>&middot;</span>
+                <span>3:37 PM</span>
+              </div>
+            </div>
+          </div>
+          <div class="agentic-timeline-event" data-type="system">
+            <div class="agentic-timeline-icon"><i class="fa-solid fa-gear"></i></div>
+            <div class="agentic-timeline-body">
+              <div class="agentic-timeline-title">Menu loaded for Cocina Abuela</div>
+              <div class="agentic-timeline-meta">
+                <span class="agentic-timeline-actor">System</span>
+                <span>&middot;</span>
+                <span>3:35 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>
