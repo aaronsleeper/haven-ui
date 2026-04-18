@@ -7358,18 +7358,56 @@ a.list-group-item-action {
    QUEUE COMPONENTS (Care Coordinator)
    ================================================================ */
 
+/* Queue sidebar shell — the 240px fixed-width left panel of the 3-panel app. */
+.queue-sidebar {
+    @apply flex flex-col w-60 h-screen overflow-y-auto bg-white border-r border-gray-200;
+    @apply dark:bg-neutral-900 dark:border-neutral-800;
+}
+
+.queue-sidebar-brand {
+    @apply flex items-center gap-2 px-3 py-3 text-sm font-semibold border-b border-gray-200;
+    @apply text-gray-900 dark:text-gray-100 dark:border-neutral-800;
+}
+
+.queue-sidebar-brand i {
+    @apply text-primary-600 dark:text-primary-400;
+}
+
+.queue-sidebar-body {
+    @apply flex-1 p-2 space-y-3;
+}
+
+/* Unordered-list reset for queue item lists (and any similar in-sidebar list). */
+.queue-list {
+    @apply list-none p-0 m-0 space-y-0.5;
+}
+
 .queue-item {
-    @apply block px-3 py-2.5 cursor-pointer;
+    @apply block w-full text-left px-3 py-2.5;
     border-left: 3px solid var(--color-gray-200);
     border-bottom: 1px solid var(--color-sand-200);
+    background: transparent;
     @apply hover:bg-sand-50 transition-colors duration-100;
     @apply dark:hover:bg-neutral-700;
+}
+
+/* Honor users who opt out of motion. */
+@media (prefers-reduced-motion: reduce) {
+    .queue-item {
+        transition: none;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     .queue-item {
         border-bottom-color: var(--color-neutral-700);
     }
+}
+
+/* Focus ring — visually distinct from hover (sand-50) and active (primary-50). */
+.queue-item:focus-visible {
+    @apply outline-none ring-2 ring-inset ring-primary-600;
+    @apply dark:ring-primary-400;
 }
 
 .queue-item.is-urgent {
@@ -7399,7 +7437,7 @@ a.list-group-item-action {
 }
 
 .queue-item-summary {
-    @apply text-xs text-gray-600 truncate mt-0.5;
+    @apply block text-xs text-gray-600 truncate mt-0.5;
     @apply dark:text-neutral-300;
 }
 
@@ -7409,21 +7447,22 @@ a.list-group-item-action {
 }
 
 .queue-item-sla {
-    @apply flex items-center gap-1;
+    @apply inline-flex items-center gap-1;
 }
 
+/* Bumped from amber-600 (3.37:1) to amber-700 (4.8:1) for WCAG 1.4.3 AA. */
 .queue-item-sla.is-warning {
-    @apply text-amber-600 font-medium;
+    @apply text-amber-700 font-medium;
     @apply dark:text-amber-400;
 }
 
 .queue-item-sla.is-breached {
-    @apply text-red-600 font-medium;
+    @apply text-red-700 font-medium;
     @apply dark:text-red-400;
 }
 
 .queue-section-header {
-    @apply flex items-center gap-1.5 px-3 py-1.5;
+    @apply flex items-center gap-1.5 px-3 py-1.5 m-0;
     @apply text-xs font-semibold uppercase tracking-wide;
 }
 

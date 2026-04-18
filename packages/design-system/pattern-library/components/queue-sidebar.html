@@ -1,0 +1,133 @@
+<!--
+  @component-meta
+  name: Queue Sidebar
+  category: Clinical / Healthcare
+  file: queue-sidebar.html
+  classes: queue-sidebar, queue-sidebar-brand, queue-sidebar-body, queue-list
+  variants: none
+  when-to-use: The persistent left panel of the three-panel shell (Admin / Coordinator / Provider apps). Holds the coordinator's urgency-sorted queue.
+  preline-required: no
+  notes: 240px fixed width, full viewport height, independent vertical scroll. Contains the brand header, sectioned queue lists, and optional filters. Landmark element — use <aside aria-label="Queue sidebar">.
+
+  interactive-usage: none
+
+  @end-meta
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queue Sidebar — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="bg-gray-50 dark:bg-neutral-950">
+
+  <aside class="queue-sidebar" aria-label="Queue sidebar">
+    <header class="queue-sidebar-brand">
+      <i class="fa-solid fa-circle-nodes" aria-hidden="true"></i>
+      <span>Ava</span>
+    </header>
+
+    <div class="queue-sidebar-body">
+
+      <section aria-labelledby="queue-tier-urgent">
+        <h2 id="queue-tier-urgent" class="queue-section-header is-urgent">
+          <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+          <span>Urgent · 2</span>
+        </h2>
+        <ul class="queue-list">
+          <li>
+            <button type="button" class="queue-item is-urgent active" aria-current="true">
+              <span class="queue-item-header">
+                <span class="queue-item-name">Maria Garcia</span>
+                <span class="badge badge-sm badge-pill">Care Plan</span>
+              </span>
+              <span class="queue-item-summary">Care plan ready for final approval</span>
+              <span class="queue-item-meta">
+                <span>2h ago</span>
+                <span class="queue-item-sla is-warning" aria-label="SLA warning: due in 1 hour">
+                  <i class="fa-solid fa-clock" aria-hidden="true"></i> Due in 1h
+                </span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="queue-item is-urgent">
+              <span class="queue-item-header">
+                <span class="queue-item-name">Robert Thompson</span>
+                <span class="badge badge-sm badge-pill">Eligibility</span>
+              </span>
+              <span class="queue-item-summary">Eligibility failed — alternative path available</span>
+              <span class="queue-item-meta">
+                <span>4h ago</span>
+                <span class="queue-item-sla is-breached" aria-label="SLA breached: 2 hours overdue">
+                  <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 2h overdue
+                </span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="queue-tier-attention">
+        <h2 id="queue-tier-attention" class="queue-section-header is-attention">
+          <i class="fa-solid fa-bell" aria-hidden="true"></i>
+          <span>Needs Attention · 2</span>
+        </h2>
+        <ul class="queue-list">
+          <li>
+            <button type="button" class="queue-item is-attention">
+              <span class="queue-item-header">
+                <span class="queue-item-name">Lisa Chen</span>
+                <span class="badge badge-sm badge-pill">Referral</span>
+              </span>
+              <span class="queue-item-summary">New referral from UConn Health</span>
+              <span class="queue-item-meta">
+                <span>45m ago</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="queue-item is-attention">
+              <span class="queue-item-header">
+                <span class="queue-item-name">David Kim</span>
+                <span class="badge badge-sm badge-pill">Clinical</span>
+              </span>
+              <span class="queue-item-summary">RDN note awaiting review</span>
+              <span class="queue-item-meta">
+                <span>1h ago</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="queue-tier-info">
+        <h2 id="queue-tier-info" class="queue-section-header is-info">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Informational · 1</span>
+        </h2>
+        <ul class="queue-list">
+          <li>
+            <button type="button" class="queue-item is-info">
+              <span class="queue-item-header">
+                <span class="queue-item-name">Patricia Moore</span>
+                <span class="badge badge-sm badge-pill">Enrolled</span>
+              </span>
+              <span class="queue-item-summary">Enrolled successfully</span>
+              <span class="queue-item-meta">
+                <span>1h ago</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </aside>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

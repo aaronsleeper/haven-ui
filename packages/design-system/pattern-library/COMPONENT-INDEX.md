@@ -295,8 +295,9 @@ components. They are tightly coupled to the kitchen app and must not be used in 
 
 | Component | File | Classes | Preline | Notes |
 |---|---|---|---|---|
-| Queue Item | `queue-item.html` | `queue-item`, `queue-item-header`, `queue-item-name`, `queue-item-summary`, `queue-item-meta`, `queue-item-sla` | no | Urgency: `.is-urgent`, `.is-attention`, `.is-info`. State: `.active`. SLA: `.is-warning`, `.is-breached`. |
-| Queue Section Header | `queue-section-header.html` | `queue-section-header` | no | Urgency: `.is-urgent`, `.is-attention`, `.is-info`. |
+| Queue Item | `queue-item.html` | `queue-item`, `queue-item-header`, `queue-item-name`, `queue-item-summary`, `queue-item-meta`, `queue-item-sla` | no | Root is `<button>` inside `<li>`. Urgency: `.is-urgent`, `.is-attention`, `.is-info`. State: `.active` (sets `aria-current="true"`). SLA: `.is-warning`, `.is-breached`. Decorative SLA icon carries `aria-hidden="true"`; SLA span carries `aria-label` naming the state. |
+| Queue Section Header | `queue-section-header.html` | `queue-section-header` | no | Rendered as `<h2>` (or matching heading level). Urgency: `.is-urgent`, `.is-attention`, `.is-info`. Icon is `aria-hidden="true"`. |
+| Queue Sidebar | `queue-sidebar.html` | `queue-sidebar`, `queue-sidebar-brand`, `queue-sidebar-body`, `queue-list` | no | Left-panel shell for three-panel apps. `<aside aria-label="Queue sidebar">` with brand header, body (sections of `queue-section-header` + `queue-list` of `queue-item`). 240px fixed width, full-height scroll. |
 
 ---
 

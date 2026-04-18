@@ -1,11 +1,27 @@
 <!--
-@component-meta
-name: Queue Item
-category: Clinical / Healthcare
-classes: queue-item, queue-item-header, queue-item-name, queue-item-summary, queue-item-meta, queue-item-sla
-variants: is-urgent, is-attention, is-info, active
-preline: false
-notes: Care coordinator queue sidebar item. Left border indicates urgency. Truncates content at sidebar width.
+  @component-meta
+  name: Queue Item
+  category: Clinical / Healthcare
+  file: queue-item.html
+  classes: queue-item, queue-item-header, queue-item-name, queue-item-summary, queue-item-meta, queue-item-sla
+  variants: is-urgent, is-attention, is-info, active, is-warning, is-breached
+  when-to-use: One row in the coordinator's urgency-sorted queue sidebar; clicking loads the relevant record and thread.
+  preline-required: no
+  notes: Left border indicates urgency tier. Truncates content at sidebar width. Clickable via the button root.
+
+  interactive-usage: required
+
+  interactive:
+    role: button
+    keyboard: Enter and Space activate (native via <button>); Tab reaches; Shift+Tab exits
+    aria:
+      current: true when .active (the active row in the queue)
+      label-needed: true — the SLA span uses aria-label to name the state in words (e.g., "SLA breached: 2 hours overdue")
+      hidden-icons: .queue-item-sla i (SLA icon is decorative; meaning carried by adjacent text + aria-label)
+    focus:
+      visible: .queue-item:focus-visible (see components.css focus-ring rule)
+
+  @end-meta
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -20,59 +36,71 @@ notes: Care coordinator queue sidebar item. Left border indicates urgency. Trunc
 
   <h1 class="text-lg font-semibold mb-6">Queue Item</h1>
 
-  <div class="max-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg">
+  <ul class="queue-list max-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg">
 
     <!-- Urgent + Active -->
-    <div class="queue-item is-urgent active">
-      <div class="queue-item-header">
-        <span class="queue-item-name">Maria Garcia</span>
-        <span class="badge badge-sm badge-pill">Care Plan</span>
-      </div>
-      <div class="queue-item-summary">Care plan ready for final approval</div>
-      <div class="queue-item-meta">
-        <span>2h ago</span>
-        <span class="queue-item-sla is-warning"><i class="fa-solid fa-clock"></i> Due in 1h</span>
-      </div>
-    </div>
+    <li>
+      <button type="button" class="queue-item is-urgent active" aria-current="true">
+        <span class="queue-item-header">
+          <span class="queue-item-name">Maria Garcia</span>
+          <span class="badge badge-sm badge-pill">Care Plan</span>
+        </span>
+        <span class="queue-item-summary">Care plan ready for final approval</span>
+        <span class="queue-item-meta">
+          <span>2h ago</span>
+          <span class="queue-item-sla is-warning" aria-label="SLA warning: due in 1 hour">
+            <i class="fa-solid fa-clock" aria-hidden="true"></i> Due in 1h
+          </span>
+        </span>
+      </button>
+    </li>
 
     <!-- Urgent + Breached -->
-    <div class="queue-item is-urgent">
-      <div class="queue-item-header">
-        <span class="queue-item-name">Robert Thompson</span>
-        <span class="badge badge-sm badge-pill">Eligibility</span>
-      </div>
-      <div class="queue-item-summary">Eligibility failed — alternative path available</div>
-      <div class="queue-item-meta">
-        <span>4h ago</span>
-        <span class="queue-item-sla is-breached"><i class="fa-solid fa-circle-exclamation"></i> 2h overdue</span>
-      </div>
-    </div>
+    <li>
+      <button type="button" class="queue-item is-urgent">
+        <span class="queue-item-header">
+          <span class="queue-item-name">Robert Thompson</span>
+          <span class="badge badge-sm badge-pill">Eligibility</span>
+        </span>
+        <span class="queue-item-summary">Eligibility failed — alternative path available</span>
+        <span class="queue-item-meta">
+          <span>4h ago</span>
+          <span class="queue-item-sla is-breached" aria-label="SLA breached: 2 hours overdue">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 2h overdue
+          </span>
+        </span>
+      </button>
+    </li>
 
     <!-- Needs Attention -->
-    <div class="queue-item is-attention">
-      <div class="queue-item-header">
-        <span class="queue-item-name">Lisa Chen</span>
-        <span class="badge badge-sm badge-pill">Referral</span>
-      </div>
-      <div class="queue-item-summary">New referral from UConn Health</div>
-      <div class="queue-item-meta">
-        <span>45m ago</span>
-      </div>
-    </div>
+    <li>
+      <button type="button" class="queue-item is-attention">
+        <span class="queue-item-header">
+          <span class="queue-item-name">Lisa Chen</span>
+          <span class="badge badge-sm badge-pill">Referral</span>
+        </span>
+        <span class="queue-item-summary">New referral from UConn Health</span>
+        <span class="queue-item-meta">
+          <span>45m ago</span>
+        </span>
+      </button>
+    </li>
 
     <!-- Informational -->
-    <div class="queue-item is-info">
-      <div class="queue-item-header">
-        <span class="queue-item-name">Patricia Moore</span>
-        <span class="badge badge-sm badge-pill">Enrolled</span>
-      </div>
-      <div class="queue-item-summary">Enrolled successfully</div>
-      <div class="queue-item-meta">
-        <span>1h ago</span>
-      </div>
-    </div>
+    <li>
+      <button type="button" class="queue-item is-info">
+        <span class="queue-item-header">
+          <span class="queue-item-name">Patricia Moore</span>
+          <span class="badge badge-sm badge-pill">Enrolled</span>
+        </span>
+        <span class="queue-item-summary">Enrolled successfully</span>
+        <span class="queue-item-meta">
+          <span>1h ago</span>
+        </span>
+      </button>
+    </li>
 
-  </div>
+  </ul>
 
   <script type="module" src="/src/scripts/main.js"></script>
 </body>

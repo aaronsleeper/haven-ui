@@ -1,11 +1,17 @@
 <!--
-@component-meta
-name: Queue Section Header
-category: Clinical / Healthcare
-classes: queue-section-header
-variants: is-urgent, is-attention, is-info
-preline: false
-notes: Urgency tier label with icon and count for queue sidebar sections.
+  @component-meta
+  name: Queue Section Header
+  category: Clinical / Healthcare
+  file: queue-section-header.html
+  classes: queue-section-header
+  variants: is-urgent, is-attention, is-info
+  when-to-use: Labels an urgency tier and its item count at the top of each section of the queue sidebar.
+  preline-required: no
+  notes: Renders as an h2 so the queue sidebar has proper heading hierarchy. Icon is decorative; meaning is in the text.
+
+  interactive-usage: none
+
+  @end-meta
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -22,20 +28,20 @@ notes: Urgency tier label with icon and count for queue sidebar sections.
 
   <div class="max-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-lg space-y-1">
 
-    <div class="queue-section-header is-urgent">
-      <i class="fa-solid fa-circle-exclamation"></i>
+    <h2 class="queue-section-header is-urgent">
+      <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
       <span>Urgent · 2</span>
-    </div>
+    </h2>
 
-    <div class="queue-section-header is-attention">
-      <i class="fa-solid fa-bell"></i>
+    <h2 class="queue-section-header is-attention">
+      <i class="fa-solid fa-bell" aria-hidden="true"></i>
       <span>Needs Attention · 7</span>
-    </div>
+    </h2>
 
-    <div class="queue-section-header is-info">
-      <i class="fa-solid fa-circle-info"></i>
+    <h2 class="queue-section-header is-info">
+      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
       <span>Informational · 3</span>
-    </div>
+    </h2>
 
   </div>
 

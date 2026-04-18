@@ -16,3 +16,12 @@ export type {
   QueueSectionHeaderProps,
   QueueSectionTier,
 } from './components/QueueSectionHeader';
+
+export { QueueSidebar } from './components/QueueSidebar';
+export type { QueueSidebarProps } from './components/QueueSidebar';
+
+export { QueueSidebarBrand } from './components/QueueSidebarBrand';
+export type { QueueSidebarBrandProps } from './components/QueueSidebarBrand';
+
+export { QueueSidebarBody } from './components/QueueSidebarBody';
+export type { QueueSidebarBodyProps } from './components/QueueSidebarBody';

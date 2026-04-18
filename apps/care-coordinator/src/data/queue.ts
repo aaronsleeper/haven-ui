@@ -3,9 +3,11 @@
 
 import type { QueueItemProps } from '@haven/ui-react';
 
-type Entry = Omit<QueueItemProps, 'className'> & { id: string };
+export type QueueEntry = Omit<QueueItemProps, 'className' | 'active' | 'onClick'> & {
+  id: string;
+};
 
-export const urgent: Entry[] = [
+export const urgent: QueueEntry[] = [
   {
     id: 'q-maria-garcia',
     urgency: 'urgent',
@@ -13,7 +15,11 @@ export const urgent: Entry[] = [
     category: 'Care Plan',
     summary: 'Care plan ready for final approval',
     time: '2h ago',
-    sla: { status: 'warning', text: 'Due in 1h' },
+    sla: {
+      status: 'warning',
+      text: 'Due in 1h',
+      label: 'SLA warning: due in 1 hour',
+    },
   },
   {
     id: 'q-robert-thompson',
@@ -22,11 +28,15 @@ export const urgent: Entry[] = [
     category: 'Eligibility',
     summary: 'Eligibility failed — alternative path available',
     time: '4h ago',
-    sla: { status: 'breached', text: '2h overdue' },
+    sla: {
+      status: 'breached',
+      text: '2h overdue',
+      label: 'SLA breached: 2 hours overdue',
+    },
   },
 ];
 
-export const attention: Entry[] = [
+export const attention: QueueEntry[] = [
   {
     id: 'q-lisa-chen',
     urgency: 'attention',
@@ -45,7 +55,7 @@ export const attention: Entry[] = [
   },
 ];
 
-export const info: Entry[] = [
+export const info: QueueEntry[] = [
   {
     id: 'q-patricia-moore',
     urgency: 'info',
