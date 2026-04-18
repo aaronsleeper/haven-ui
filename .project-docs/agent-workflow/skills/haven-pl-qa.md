@@ -8,11 +8,11 @@ description: QA a completed haven-ui pattern library component. Run after haven-
 ## When to invoke
 
 After `haven-pl-builder` completes all files and before any commit:
-- `src/styles/tokens/components.css` updated
-- `pattern-library/components/{name}.html` created
-- `pattern-library/pages/{name}.html` created
-- `pattern-library/partials/pl-nav.html` updated
-- `pattern-library/COMPONENT-INDEX.md` updated
+- `packages/design-system/src/styles/tokens/components.css` updated
+- `packages/design-system/pattern-library/components/{name}.html` created
+- `packages/design-system/pattern-library/pages/{name}.html` created
+- `packages/design-system/pattern-library/partials/pl-nav.html` updated
+- `packages/design-system/pattern-library/COMPONENT-INDEX.md` updated
 - Dev server running at `http://localhost:5173`
 
 ---
@@ -24,7 +24,7 @@ Work through every check. Record PASS, FAIL, or N/A with a specific note.
 ### CSS checks
 
 **CSS-01: No new CSS files created**
-All new classes must be in `src/styles/tokens/components.css`. No separate component CSS file.
+All new classes must be in `packages/design-system/src/styles/tokens/components.css`. No separate component CSS file.
 - PASS: No new CSS file created
 - FAIL: Name the file that was incorrectly created
 
@@ -118,7 +118,7 @@ Component loaded via `<load src="../components/{name}.html" />` — not inlined.
 - FAIL: Component markup inlined directly
 
 **INT-05: Dev server renders without error**
-Visit `http://localhost:5173/pattern-library/pages/{name}.html`. Page loads, no JS console errors, Preline components initialize correctly.
+Visit `http://localhost:5173/packages/design-system/pattern-library/pages/{name}.html`. Page loads, no JS console errors, Preline components initialize correctly.
 - PASS: Page renders
 - FAIL: Describe the error
 

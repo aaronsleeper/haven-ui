@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Ava · Cena Health</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="bg-gray-50 dark:bg-neutral-900">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- ============================================================
+         LEFT PANEL: Queue Sidebar (240px)
+         ============================================================ -->
+    <aside class="w-60 shrink-0 queue-sidebar flex flex-col overflow-hidden"
+           role="complementary" aria-label="Queue sidebar"
+           style="min-width: 180px; max-width: 560px;">
+
+      <!-- Sidebar header -->
+      <div class="px-4 py-3 border-b border-gray-200 dark:border-neutral-700">
+        <div class="flex items-center gap-2">
+          <img src="/src/assets/images/logo-cenahealth-teal.svg" class="size-6" alt="Cena Health">
+          <span class="text-sm font-semibold text-gray-900 dark:text-white">Ava</span>
+        </div>
+      </div>
+
+      <!-- Queue summary bar -->
+      <div class="flex items-center justify-around px-3 py-2 border-b border-gray-200 dark:border-neutral-700">
+        <div class="text-center">
+          <div class="text-xl font-bold text-red-600 dark:text-red-400">2</div>
+          <div class="text-xs text-gray-600">Urgent</div>
+        </div>
+        <div class="text-center">
+          <div class="text-xl font-bold text-amber-600 dark:text-amber-400">7</div>
+          <div class="text-xs text-gray-600">Attention</div>
+        </div>
+        <div class="text-center">
+          <div class="text-xl font-bold text-gray-600">3</div>
+          <div class="text-xs text-gray-600">Info</div>
+        </div>
+      </div>
+
+      <!-- Queue filter -->
+      <div class="flex items-center justify-between px-3 py-1.5 border-b border-gray-200 dark:border-neutral-700">
+        <span class="text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-neutral-300">Queue</span>
+        <div class="hs-dropdown relative inline-flex">
+          <button type="button" class="hs-dropdown-toggle queue-filter-btn">
+            All types <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
+          </button>
+          <div class="hs-dropdown-menu" role="menu">
+            <a class="hs-dropdown-item" href="#">All types</a>
+            <a class="hs-dropdown-item" href="#">Referrals</a>
+            <a class="hs-dropdown-item" href="#">Care Plans</a>
+            <a class="hs-dropdown-item" href="#">Clinical</a>
+            <a class="hs-dropdown-item" href="#">Eligibility</a>
+            <a class="hs-dropdown-item" href="#">Discharge</a>
+            <a class="hs-dropdown-item" href="#">Reports</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Queue items (scrollable) -->
+      <div class="flex-1 overflow-y-auto queue-list" role="list" aria-label="Queue items">
+
+        <!-- Urgent section -->
+        <div class="queue-section-header is-urgent" role="heading" aria-level="3">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span>Urgent · 2</span>
+        </div>
+
+        <div class="queue-item is-urgent active" role="listitem" aria-current="true" aria-label="Urgent: Maria Garcia, care plan approval">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Maria Garcia</span>
+            <span class="badge badge-sm badge-pill">Care Plan</span>
+          </div>
+          <div class="queue-item-summary">Care plan ready for final approval</div>
+          <div class="queue-item-meta">
+            <span>2h ago</span>
+            <span class="queue-item-sla is-warning" aria-label="SLA warning, due in 1 hour"><i class="fa-solid fa-clock"></i> Due in 1h</span>
+          </div>
+        </div>
+
+        <div class="queue-item is-urgent" role="listitem" aria-label="Urgent: Robert Thompson, eligibility failure">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Robert Thompson</span>
+            <span class="badge badge-sm badge-pill">Eligibility</span>
+          </div>
+          <div class="queue-item-summary">Eligibility failed — alternative path available</div>
+          <div class="queue-item-meta">
+            <span>4h ago</span>
+            <span class="queue-item-sla is-breached" aria-label="SLA breached, 2 hours overdue"><i class="fa-solid fa-circle-exclamation"></i> 2h overdue</span>
+          </div>
+        </div>
+
+        <!-- Needs Attention section -->
+        <div class="queue-section-header is-attention" role="heading" aria-level="3">
+          <i class="fa-solid fa-bell"></i>
+          <span>Needs Attention · 7</span>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Lisa Chen</span>
+            <span class="badge badge-sm badge-pill">Referral</span>
+          </div>
+          <div class="queue-item-summary">New referral from UConn Health</div>
+          <div class="queue-item-meta"><span>45m ago</span></div>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">James Wilson</span>
+            <span class="badge badge-sm badge-pill">Care Plan</span>
+          </div>
+          <div class="queue-item-summary">Care plan update — HbA1c reversal</div>
+          <div class="queue-item-meta"><span>1h ago</span></div>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Angela Davis</span>
+            <span class="badge badge-sm badge-pill">Discharge</span>
+          </div>
+          <div class="queue-item-summary">Program term end — discharge review</div>
+          <div class="queue-item-meta"><span>3h ago</span></div>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">David Park</span>
+            <span class="badge badge-sm badge-pill">Referral</span>
+          </div>
+          <div class="queue-item-summary">New referral from Cedars</div>
+          <div class="queue-item-meta"><span>3h ago</span></div>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Carmen Ruiz</span>
+            <span class="badge badge-sm badge-pill">Report</span>
+          </div>
+          <div class="queue-item-summary">Outbound partner report pending</div>
+          <div class="queue-item-meta"><span>5h ago</span></div>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Michael Brown</span>
+            <span class="badge badge-sm badge-pill">Clinical</span>
+          </div>
+          <div class="queue-item-summary">3 missed check-ins — outreach needed</div>
+          <div class="queue-item-meta"><span>6h ago</span></div>
+        </div>
+
+        <div class="queue-item is-attention" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Sarah Kim</span>
+            <span class="badge badge-sm badge-pill">Referral</span>
+          </div>
+          <div class="queue-item-summary">Referral — missing insurance info</div>
+          <div class="queue-item-meta"><span>8h ago</span></div>
+        </div>
+
+        <!-- Informational section -->
+        <div class="queue-section-header is-info" role="heading" aria-level="3">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Informational · 3</span>
+        </div>
+
+        <div class="queue-item is-info" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Patricia Moore</span>
+          </div>
+          <div class="queue-item-summary">Enrolled successfully</div>
+          <div class="queue-item-meta"><span>1h ago</span></div>
+        </div>
+
+        <div class="queue-item is-info" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Thomas Lee</span>
+          </div>
+          <div class="queue-item-summary">Delivery confirmed</div>
+          <div class="queue-item-meta"><span>2h ago</span></div>
+        </div>
+
+        <div class="queue-item is-info" role="listitem">
+          <div class="queue-item-header">
+            <span class="queue-item-name">Nancy White</span>
+          </div>
+          <div class="queue-item-summary">Lab results imported</div>
+          <div class="queue-item-meta"><span>3h ago</span></div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar navigation (bottom) -->
+      <nav class="border-t border-gray-100 dark:border-neutral-800">
+        <ul class="sidebar-nav-list py-2 px-3">
+          <li><a class="sidebar-nav-item active" href="#"><i class="fa-solid fa-inbox fa-fw"></i> Queue <span class="badge badge-sm badge-pill">12</span></a></li>
+          <li><a class="sidebar-nav-item" href="#"><i class="fa-solid fa-users fa-fw"></i> Patients</a></li>
+          <li><a class="sidebar-nav-item" href="#"><i class="fa-solid fa-chart-line fa-fw"></i> Reports</a></li>
+          <li><a class="sidebar-nav-item" href="#"><i class="fa-solid fa-gear fa-fw"></i> Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Splitter: left ↔ center -->
+    <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="180" data-max="560"></div>
+
+    <!-- ============================================================
+         CENTER PANEL: Content (flex-grow)
+         ============================================================ -->
+    <main class="flex-1 min-w-0 overflow-y-auto bg-white dark:bg-neutral-950"
+          role="main" aria-label="Main content">
+
+      <!-- Morning Summary Card -->
+      <div class="max-w-3xl mx-auto px-8 py-6">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="card-title text-lg">Good morning, Sarah</h1>
+            <p class="card-subtitle">Thursday, March 27</p>
+          </div>
+          <div class="card-body space-y-6">
+
+            <!-- Queue counts -->
+            <div class="grid grid-cols-3 gap-4">
+              <div class="card-stat">
+                <div class="stat-value text-2xl text-red-600 dark:text-red-400">2</div>
+                <div class="stat-label">Urgent</div>
+              </div>
+              <div class="card-stat">
+                <div class="stat-value text-2xl text-amber-600 dark:text-amber-400">7</div>
+                <div class="stat-label">Needs attention</div>
+              </div>
+              <div class="card-stat">
+                <div class="stat-value text-2xl text-gray-400">3</div>
+                <div class="stat-label">Informational</div>
+              </div>
+            </div>
+
+            <!-- Urgent items preview -->
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wide text-red-700 dark:text-red-400 mb-2">Urgent items</p>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item list-group-item-action">
+                  <div class="list-group-item-content">
+                    <div class="list-group-item-title">Maria Garcia — Care Plan</div>
+                    <div class="list-group-item-description">Care plan ready for final approval</div>
+                  </div>
+                  <div class="list-group-item-trailing">
+                    <span class="text-xs text-amber-600 font-medium dark:text-amber-400">Due in 1h</span>
+                  </div>
+                </div>
+                <div class="list-group-item list-group-item-action">
+                  <div class="list-group-item-content">
+                    <div class="list-group-item-title">Robert Thompson — Eligibility</div>
+                    <div class="list-group-item-description">Eligibility failed — alternative path available</div>
+                  </div>
+                  <div class="list-group-item-trailing">
+                    <span class="text-xs text-red-600 font-medium dark:text-red-400">2h overdue</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider-compact"></div>
+
+            <!-- Today's scheduled items -->
+            <div>
+              <h3 class="section-title">Today</h3>
+              <div class="space-y-2 mt-2">
+                <div class="flex items-center gap-3">
+                  <span class="text-sm font-medium text-gray-500 dark:text-gray-400 w-16 shrink-0">10:00am</span>
+                  <span class="text-sm text-gray-900 dark:text-gray-100">RDN visit — Maria Garcia</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm font-medium text-gray-500 dark:text-gray-400 w-16 shrink-0">2:00pm</span>
+                  <span class="text-sm text-gray-900 dark:text-gray-100">Partner call — UConn Health check-in</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm font-medium text-gray-500 dark:text-gray-400 w-16 shrink-0">4:00pm</span>
+                  <span class="text-sm text-gray-900 dark:text-gray-100">Report review — Q1 outcomes (Cedars)</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Splitter: center ↔ right -->
+    <div class="panel-splitter" data-panel-splitter data-target="next" data-min="300" data-max="720"></div>
+
+    <!-- ============================================================
+         RIGHT PANEL: Thread (380px)
+         ============================================================ -->
+    <aside class="w-[380px] shrink-0 thread-panel flex flex-col overflow-hidden"
+           role="complementary" aria-label="Activity thread"
+           style="min-width: 300px; max-width: 720px;">
+
+      <!-- Thread header -->
+      <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 dark:border-neutral-700">
+        <span class="text-sm font-semibold text-gray-900 dark:text-white">Thread · Maria Garcia</span>
+      </div>
+
+      <!-- Thread messages (scrollable) -->
+      <div class="flex-1 overflow-y-auto py-2" role="log" aria-live="polite">
+
+        <!-- 1. System: Assessment complete -->
+        <div class="thread-msg-system">
+          <span>Assessment complete. Initiating care plan.</span>
+          <span class="thread-msg-time">9:02am</span>
+        </div>
+
+        <!-- 2. Tool call: read_patient_assessment -->
+        <div class="thread-msg-tool">
+          <div class="thread-msg-tool-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="thread-msg-tool-content">
+            <div class="hs-collapse-toggle cursor-pointer" data-hs-collapse="#tc-1" aria-expanded="false">
+              <span class="thread-msg-tool-name">◎ read_patient_assessment</span>
+              <span class="thread-msg-tool-result">→ { phq9: 7, sdoh: 3 }</span>
+              <span class="thread-msg-time ml-1">9:02am</span>
+            </div>
+            <div id="tc-1" class="hs-collapse hidden thread-msg-tool-detail">
+              <pre class="whitespace-pre-wrap">{ "phq9_score": 7, "gad7_score": 4, "sdoh_risk": 3, "allergies": ["tree nuts"], "dx": "E11.65" }</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Tool call: query_clinical_guidelines -->
+        <div class="thread-msg-tool">
+          <div class="thread-msg-tool-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="thread-msg-tool-content">
+            <div class="hs-collapse-toggle cursor-pointer" data-hs-collapse="#tc-2" aria-expanded="false">
+              <span class="thread-msg-tool-name">◎ query_clinical_guidelines</span>
+              <span class="thread-msg-tool-result">→ ADA nutrition therapy, T2DM + obesity</span>
+              <span class="thread-msg-time ml-1">9:02am</span>
+            </div>
+            <div id="tc-2" class="hs-collapse hidden thread-msg-tool-detail">
+              <pre class="whitespace-pre-wrap">{ "guideline": "ADA 2024 Standards of Care", "section": "Nutrition Therapy", "applicable": ["T2DM", "obesity", "hypertension"] }</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Tool call: generate_care_plan_draft -->
+        <div class="thread-msg-tool">
+          <div class="thread-msg-tool-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="thread-msg-tool-content">
+            <div class="hs-collapse-toggle cursor-pointer" data-hs-collapse="#tc-3" aria-expanded="false">
+              <span class="thread-msg-tool-name">◎ generate_care_plan_draft</span>
+              <span class="thread-msg-tool-result">→ draft ready, 5 goals</span>
+              <span class="thread-msg-time ml-1">9:03am</span>
+            </div>
+            <div id="tc-3" class="hs-collapse hidden thread-msg-tool-detail">
+              <pre class="whitespace-pre-wrap">{ "version": "v1.0", "goals": 5, "nutrition": { "calories": "1600-1800", "sodium_max_mg": 1800, "allergens": ["tree nuts"] }, "visits": { "rdn_initial": "within 7 days" } }</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. System: Draft sent to RDN -->
+        <div class="thread-msg-system">
+          <span>Care plan draft sent to RDN queue.</span>
+          <span class="thread-msg-time">9:03am</span>
+        </div>
+
+        <!-- 6. System: RDN reviewed -->
+        <div class="thread-msg-system">
+          <span>RDN reviewed nutrition section.</span>
+          <span class="thread-msg-time">9:45am</span>
+        </div>
+
+        <!-- 7. Approval response: RDN approved -->
+        <div class="thread-msg-response is-approved">
+          <div class="thread-msg-response-toggle hs-collapse-toggle" data-hs-collapse="#resp-1" aria-expanded="false">
+            <i class="fa-solid fa-circle-check"></i>
+            <span><strong>Dr. Priya M.</strong> Approved nutrition plan — sodium target reduced to 1800mg · 9:47am</span>
+          </div>
+          <div id="resp-1" class="hs-collapse hidden thread-msg-response-detail">
+            <div class="thread-approval-card is-historical mx-0 my-1">
+              <div class="thread-approval-header">
+                <i class="fa-solid fa-hand"></i>
+                <span>RDN Review — Nutrition Plan</span>
+              </div>
+              <div class="thread-approval-body">
+                <div class="thread-approval-context">
+                  <span class="thread-approval-context-title">Nutrition plan · Maria Garcia</span>
+                  <span class="thread-approval-context-meta">Approved with edits by Dr. Priya M.</span>
+                </div>
+                <div class="thread-approval-summary">
+                  <p>Sodium target reduced from 2300mg to 1800mg. All other parameters approved.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. System: BHN not required -->
+        <div class="thread-msg-system">
+          <span>BHN review not required (PHQ-9: 7, below threshold).</span>
+          <span class="thread-msg-time">9:47am</span>
+        </div>
+
+        <!-- 8.5. Human message: coordinator question -->
+        <div class="thread-msg-human">
+          <span class="thread-msg-human-label">You</span>
+          <div class="thread-msg-human-bubble">
+            Confirm the tree nut allergy is reflected in the meal prescription before I approve.
+          </div>
+          <span class="thread-msg-time mt-0.5">9:48am</span>
+        </div>
+
+        <!-- 8.6. Tool call: verify allergy -->
+        <div class="thread-msg-tool">
+          <div class="thread-msg-tool-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="thread-msg-tool-content">
+            <div class="hs-collapse-toggle cursor-pointer" data-hs-collapse="#tc-4" aria-expanded="false">
+              <span class="thread-msg-tool-name">◎ verify_meal_constraints</span>
+              <span class="thread-msg-tool-result">→ tree nuts excluded ✓</span>
+              <span class="thread-msg-time ml-1">9:48am</span>
+            </div>
+            <div id="tc-4" class="hs-collapse hidden thread-msg-tool-detail">
+              <pre class="whitespace-pre-wrap">{ "allergens_excluded": ["tree nuts"], "meal_template": "diabetic-1800cal", "constraint_check": "pass" }</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. System: Ready for coordinator -->
+        <div class="thread-msg-system">
+          <span>Care plan ready for coordinator approval.</span>
+          <span class="thread-msg-time">9:49am</span>
+        </div>
+
+        <!-- 10. THE HERO: Pending approval card -->
+        <div class="thread-approval-card">
+          <div class="thread-approval-header">
+            <i class="fa-solid fa-hand"></i>
+            <span>Final Approval — Care Plan v1.0</span>
+          </div>
+          <div class="thread-approval-body">
+            <div class="thread-approval-context">
+              <span class="thread-approval-context-title">Care plan draft · Maria Garcia</span>
+              <span class="thread-approval-context-meta">All clinical sections approved · 3 min ago</span>
+            </div>
+            <div class="thread-approval-summary">
+              <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Goals (2)</p>
+              <ul>
+                <li>HbA1c below 8.0% within 6 months</li>
+                <li>Weight loss 5–8% within 6 months</li>
+              </ul>
+              <p class="text-xs mt-2">1800 cal/day · 1800mg sodium max · Diabetic-appropriate · Nut-free</p>
+            </div>
+            <div class="thread-approval-effects">
+              <span class="thread-approval-effects-label">Approving will:</span>
+              <ul>
+                <li>Set patient status to active</li>
+                <li>Start meal prescription matching</li>
+                <li>Schedule first RDN visit</li>
+                <li>Begin AVA check-in calls</li>
+                <li>Notify patient — welcome message</li>
+              </ul>
+            </div>
+            <div class="thread-approval-attachment">
+              <i class="fa-solid fa-paperclip"></i>
+              <span>1 attachment</span>
+              <a href="#" class="text-link text-xs">View</a>
+            </div>
+          </div>
+          <div class="thread-approval-actions">
+            <button class="btn-primary">Approve</button>
+            <button class="btn-outline">Edit first</button>
+            <button class="btn-outline">Reject with note</button>
+            <button class="btn-outline">Reassign</button>
+          </div>
+          <div class="thread-approval-note">
+            <textarea rows="2" placeholder="Add a note (optional)"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Thread input (fixed at bottom) -->
+      <div class="border-t border-gray-200 p-3 dark:border-neutral-700">
+        <div class="flex items-center gap-2">
+          <textarea class="flex-1 text-sm rounded-lg border-gray-300 dark:bg-neutral-800 dark:border-neutral-600 dark:text-gray-200 focus:ring-primary-500 focus:border-primary-500" rows="1" placeholder="Message care team or ask the agent..." aria-label="Message to agent or care team"></textarea>
+          <button class="btn-icon btn-icon-primary shrink-0"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+  <script src="/src/scripts/components/panel-splitter.js"></script>
+</body>
+</html>

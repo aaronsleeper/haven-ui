@@ -11,11 +11,11 @@ You are a UX architect specializing in healthcare platform design for underserve
 
 - **App design artifacts:** `apps/[persona]/design/` (e.g., `apps/provider/design/`)
 - **Wireframes:** `apps/[persona]/design/wireframes/[screen-name].md`
-- **Personas:** `src/data/personas/[persona]/`
-- **Shared references:** `src/data/shared/`
-- **Cena context:** `src/data/shared/cena-context.md`
-- **IA map:** `src/data/shared/ia-map.md`
-- **Pattern library:** `pattern-library/COMPONENT-INDEX.md`
+- **Personas:** `packages/design-system/src/data/personas/[persona]/`
+- **Shared references:** `packages/design-system/src/data/shared/`
+- **Cena context:** `packages/design-system/src/data/shared/cena-context.md`
+- **IA map:** `packages/design-system/src/data/shared/ia-map.md`
+- **Pattern library:** `packages/design-system/pattern-library/COMPONENT-INDEX.md`
 
 ## Your Design Philosophy
 
@@ -46,15 +46,15 @@ When invoked as part of the UX workflow, execute three phases sequentially befor
 
 ### Phase 1: Discovery
 
-1. Read `src/data/shared/cena-context.md` for domain context (if it exists).
-2. Read relevant persona files from `src/data/personas/`.
+1. Read `packages/design-system/src/data/shared/cena-context.md` for domain context (if it exists).
+2. Read relevant persona files from `packages/design-system/src/data/personas/`.
 3. Check `apps/[persona]/design/` for existing work related to this feature.
-4. Read `src/data/shared/` for established patterns and design decisions.
+4. Read `packages/design-system/src/data/shared/` for established patterns and design decisions.
 5. **Search for current UX research** on the specific domain:
    - Nielsen Norman Group (nngroup.com)
    - Baymard Institute (baymard.com) for form/flow patterns
    - Healthcare-specific UX publications and .gov accessibility guidance
-6. Identify or confirm relevant user personas. Create new persona files in `src/data/personas/[persona]/` if needed.
+6. Identify or confirm relevant user personas. Create new persona files in `packages/design-system/src/data/personas/[persona]/` if needed.
 7. Define user goals per persona for this feature.
 8. Write use cases.
 9. Document constraints: device context, accessibility, bilingual needs, HIPAA, technical limits.
@@ -81,14 +81,14 @@ For each use case, define:
 
 ### Phase 3: Information Architecture
 
-1. Read `src/data/shared/ia-map.md` for current application structure (create if missing).
+1. Read `packages/design-system/src/data/shared/ia-map.md` for current application structure (create if missing).
 2. Group functions from Phase 2 into screens/views.
 3. Prioritize by frequency of use.
 4. Define where screens live in the application navigation.
 5. Consider cognitive load: key action reachable in 2 clicks from the most common entry point.
-6. Quick-check Haven component availability using `pattern-library/COMPONENT-INDEX.md`. Flag potential gaps early.
+6. Quick-check Haven component availability using `packages/design-system/pattern-library/COMPONENT-INDEX.md`. Flag potential gaps early.
 
-**Output:** IA section in the use case file, or `apps/[persona]/design/[feature]-ia.md` for complex features. Update `src/data/shared/ia-map.md` if the application structure changed.
+**Output:** IA section in the use case file, or `apps/[persona]/design/[feature]-ia.md` for complex features. Update `packages/design-system/src/data/shared/ia-map.md` if the application structure changed.
 
 **Output includes:**
 - Screen inventory (name, purpose, primary persona, primary actions)
@@ -127,7 +127,7 @@ Present the Gate 1 summary per `ux-workflow.md` format. Wait for Aaron's confirm
 ## Knowledge Base Management
 
 After significant design work, update:
-- `src/data/shared/ia-map.md` if the application structure changed
+- `packages/design-system/src/data/shared/ia-map.md` if the application structure changed
 - `.project-docs/decisions-log.md` with the decision, rationale, and date
 
 ## Relationship to Other Skills

@@ -8,7 +8,7 @@ description: Build a new pattern library component for haven-ui. Read this skill
 ## When to invoke
 
 Read this skill before building any pattern library component. Applies to:
-- Adding a new component to `pattern-library/components/`
+- Adding a new component to `packages/design-system/pattern-library/components/`
 - Promoting a `missing` entry in `COMPONENT-REGISTRY.md` to `built`
 - Adding a new variant to an existing component page
 
@@ -21,10 +21,10 @@ Do not write any file until Steps 1–3 are complete.
 In this exact order:
 
 1. `CLAUDE.md` — all rules. Extract every "Rule to follow in future prompts" from `decisions-log.md`.
-2. `pattern-library/COMPONENT-INDEX.md` — confirm the component does not already exist.
+2. `packages/design-system/pattern-library/COMPONENT-INDEX.md` — confirm the component does not already exist.
 3. `.project-docs/COMPONENT-REGISTRY.md` — find the target row, confirm status is `missing`.
-4. `src/styles/tokens/components.css` — scan for any existing related classes.
-5. `pattern-library/components/alert.html` — this is the canonical structure model.
+4. `packages/design-system/src/styles/tokens/components.css` — scan for any existing related classes.
+5. `packages/design-system/pattern-library/components/alert.html` — this is the canonical structure model.
 6. The relevant Preline docs page (if Preline is involved) — use Context7 MCP or https://preline.co/docs/
 
 ---
@@ -50,11 +50,11 @@ In this exact order:
 [yes — {what interaction} / no]
 
 ### Files to create or modify
-- [ ] `src/styles/tokens/components.css` — add classes
-- [ ] `pattern-library/components/{name}.html` — create
-- [ ] `pattern-library/pages/{name}.html` — create
-- [ ] `pattern-library/partials/pl-nav.html` — add nav link
-- [ ] `pattern-library/COMPONENT-INDEX.md` — add row(s)
+- [ ] `packages/design-system/src/styles/tokens/components.css` — add classes
+- [ ] `packages/design-system/pattern-library/components/{name}.html` — create
+- [ ] `packages/design-system/pattern-library/pages/{name}.html` — create
+- [ ] `packages/design-system/pattern-library/partials/pl-nav.html` — add nav link
+- [ ] `packages/design-system/pattern-library/COMPONENT-INDEX.md` — add row(s)
 - [ ] `.project-docs/COMPONENT-REGISTRY.md` — mark built
 
 ### Known constraints from decisions-log.md that apply
@@ -67,7 +67,7 @@ In this exact order:
 
 ### CSS rules
 
-- All new classes go in `src/styles/tokens/components.css` using `@apply`
+- All new classes go in `packages/design-system/src/styles/tokens/components.css` using `@apply`
 - Never create a separate CSS file per component
 - First line of any class using only raw CSS (no `@apply`) must be `@apply block;`
 - Never `@apply` a semantic class inside another semantic class
@@ -148,7 +148,7 @@ In this exact order:
 ### Preline components
 
 - Use `data-hs-*` attributes for all Preline JS behavior
-- Never add CDN Preline script tags — Preline loads via `src/partials/pl-scripts.html`
+- Never add CDN Preline script tags — Preline loads via `packages/design-system/src/partials/pl-scripts.html`
 - For dropdowns: use exactly `.hs-dropdown`, `.hs-dropdown-toggle`, `.hs-dropdown-menu`, `.hs-dropdown-item` — no extras
 - Overlay open state is driven by `.hs-overlay.open` — never `hs-dropdown-open:*` variants
 

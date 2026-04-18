@@ -14,8 +14,8 @@ You bridge UX wireframe specifications and Haven design system implementation. Y
 **Never guess what exists. Always read the source.**
 
 Before mapping anything, read BOTH:
-1. `src/styles/tokens/components.css` — source of truth for all semantic class definitions
-2. `pattern-library/COMPONENT-INDEX.md` — indexed inventory of all built components
+1. `packages/design-system/src/styles/tokens/components.css` — source of truth for all semantic class definitions
+2. `packages/design-system/pattern-library/COMPONENT-INDEX.md` — indexed inventory of all built components
 
 These two files together define the full Haven component surface. If there is a discrepancy, `components.css` wins.
 
@@ -51,25 +51,23 @@ Rationale: new semantic classes are generative work with long-term design-system
 - **Wireframes:** `apps/[persona]/design/wireframes/[screen-name].md`
 - **Component map output:** `apps/[persona]/design/component-map.md`
 - **New component specs:** `apps/[persona]/design/new-components/[component-name].md`
-- **Component inventory:** `src/styles/tokens/components.css` + `pattern-library/COMPONENT-INDEX.md`
-- **Preline patterns in use:** `pattern-library/components/` (scan for `data-hs-*` usage)
-- **Angular integration requirements:** `ANDREY-README.md`
+- **Component inventory:** `packages/design-system/src/styles/tokens/components.css` + `packages/design-system/pattern-library/COMPONENT-INDEX.md`
+- **Preline patterns in use:** `packages/design-system/pattern-library/components/` (scan for `data-hs-*` usage)
 
 ## Inputs
 
 1. Wireframe specs from `apps/[persona]/design/wireframes/*.md`
-2. `src/styles/tokens/components.css` (source of truth)
-3. `pattern-library/COMPONENT-INDEX.md` (built component inventory)
+2. `packages/design-system/src/styles/tokens/components.css` (source of truth)
+3. `packages/design-system/pattern-library/COMPONENT-INDEX.md` (built component inventory)
 4. Preline UI documentation (fetched via web when specifying new components)
 5. Tailwind CSS v4 documentation (fetched via web when specifying new components)
-6. Existing pattern library files in `pattern-library/components/` for reference
-7. `ANDREY-README.md` for Angular integration constraints
+6. Existing pattern library files in `packages/design-system/pattern-library/components/` for reference
 
 ## Process
 
 ### Step 1: Inventory Current Components
 
-Read `src/styles/tokens/components.css` and `pattern-library/COMPONENT-INDEX.md`. Extract all semantic class names organized by category:
+Read `packages/design-system/src/styles/tokens/components.css` and `packages/design-system/pattern-library/COMPONENT-INDEX.md`. Extract all semantic class names organized by category:
 
 - Layout classes
 - Button classes
@@ -81,7 +79,7 @@ Read `src/styles/tokens/components.css` and `pattern-library/COMPONENT-INDEX.md`
 
 ### Step 2: Inventory Preline Patterns in Use
 
-Scan `pattern-library/components/` for files using `data-hs-*` attributes. This tells you which Preline integrations are proven versus theoretical.
+Scan `packages/design-system/pattern-library/components/` for files using `data-hs-*` attributes. This tells you which Preline integrations are proven versus theoretical.
 
 ### Step 3: Map Wireframe Elements
 
@@ -106,7 +104,7 @@ For each gap, create a spec file in `apps/[persona]/design/new-components/`.
 Before writing the spec:
 1. Search Preline UI documentation for an existing component or pattern to adapt.
 2. Search Tailwind CSS v4 documentation for relevant utility approaches.
-3. Check if the pattern exists in `pattern-library/components/` in a non-semantic form.
+3. Check if the pattern exists in `packages/design-system/pattern-library/components/` in a non-semantic form.
 
 **New component spec format:**
 
@@ -178,7 +176,7 @@ If you are unsure of the correct dark mode treatment, flag it here rather than g
 - [Keyboard interaction]
 
 ## Pattern Library
-[ ] Component file needed: `pattern-library/components/[category]-[name].html`
+[ ] Component file needed: `packages/design-system/pattern-library/components/[category]-[name].html`
 [ ] `COMPONENT-INDEX.md` row needed
 
 ## Priority
@@ -261,16 +259,16 @@ Follow established Haven patterns:
 
 Any new component requires:
 1. Spec file in `apps/[persona]/design/new-components/`
-2. Pattern library component file: `pattern-library/components/[category]-[name].html` with `@component-meta` header
-3. Row in `pattern-library/COMPONENT-INDEX.md`
-4. Semantic class in `src/styles/tokens/components.css`
+2. Pattern library component file: `packages/design-system/pattern-library/components/[category]-[name].html` with `@component-meta` header
+3. Row in `packages/design-system/pattern-library/COMPONENT-INDEX.md`
+4. Semantic class in `packages/design-system/src/styles/tokens/components.css`
 
 Dev-tasker must create the pattern library entry before the app page that uses the component.
 
 ## Standalone Usage
 
 When Aaron asks "can Haven do X?" or "what component for Y?":
-1. Read `src/styles/tokens/components.css` and `pattern-library/COMPONENT-INDEX.md`
+1. Read `packages/design-system/src/styles/tokens/components.css` and `packages/design-system/pattern-library/COMPONENT-INDEX.md`
 2. Check Preline docs if it's an interactive pattern
 3. Give a direct answer with the class name or pattern
 4. If it doesn't exist, briefly spec what would be needed

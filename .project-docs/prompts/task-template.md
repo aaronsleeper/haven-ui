@@ -75,7 +75,6 @@ After all prompts complete, confirm:
 - [ ] Dark mode variants present for all color, bg, border, and text on any new or modified component class (yes / no / not applicable)
 - [ ] Pattern library component file created with `@component-meta` header (if new component was added)
 - [ ] `COMPONENT-INDEX.md` updated (if new component was added)
-- [ ] `ANDREY-README.md` updated if component HTML structure or class names changed (yes / no / not applicable)
 - [ ] `src/data/_schema-notes.md` updated if dummy data deviates from Firebase schema (yes / no / not applicable)
 - [ ] Committed
 
@@ -93,7 +92,6 @@ After verification passes and before running the git commit, output this report:
 - Pattern library files created or updated: [list, or "none"]
 - Judgment calls (anything not explicitly specified in the prompt): [list, or "none"]
 - Dark mode added: [yes / no / not applicable]
-- ANDREY-README.md updated: [yes / no / not applicable]
 - Schema delta logged: [yes / no / not applicable]
 - Items deferred or incomplete: [list, or "none"]
 ```

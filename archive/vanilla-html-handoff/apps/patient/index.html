@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Cena Health</title>
+  <!-- Vite will process this in dev mode -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <!-- FontAwesome Pro v7.1.0 -->
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body class="mobile-app">
+  <div class="mobile-shell pb-[128px]">
+
+    <load src="src/partials/patient-i18n-bar.html" />
+
+    <main class="px-4 pt-20 pb-4">
+
+      <!-- Greeting -->
+      <div class="mb-1">
+        <p class="text-sm text-gray-400" id="dashboard-time-greeting">
+          <span data-i18n-en="Good morning" data-i18n-es="Buenos días">Good morning</span>
+        </p>
+        <h1 class="dashboard-greeting">
+          <span data-i18n-en="Maria" data-i18n-es="Maria">Maria</span>
+        </h1>
+      </div>
+
+      <!-- Tasks section -->
+      <div id="tasks-section">
+        <div class="flex items-center justify-between mt-5 mb-2">
+          <p class="text-xs font-semibold uppercase tracking-wide" style="color: var(--color-sand-500);"
+             data-i18n-en="Tasks" data-i18n-es="Tareas">Tasks</p>
+          <a href="/apps/patient/tasks/index.html" class="text-link text-xs"
+             data-i18n-en="See all (3)" data-i18n-es="Ver todas (3)">See all (3)</a>
+        </div>
+        <div class="space-y-2">
+
+          <a href="/apps/patient/health/assessment.html?id=mood-checkin&mode=checkin" class="task-card task-card-overdue">
+            <div class="task-card-icon">
+              <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-face-smile"></i></span>
+            </div>
+            <div class="task-card-content">
+              <p class="task-card-name" data-i18n-en="Weekly mood check-in" data-i18n-es="Registro semanal de ánimo">Weekly mood check-in</p>
+              <p class="task-card-meta">
+                <span class="badge badge-warning badge-sm" data-i18n-en="Overdue" data-i18n-es="Atrasado">Overdue</span>
+                · <span data-i18n-en="About 1 min" data-i18n-es="Aprox. 1 min">About 1 min</span>
+              </p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+          <a href="/apps/patient/health/assessment.html?id=phq-2" class="task-card">
+            <div class="task-card-icon">
+              <span class="avatar avatar-sm avatar-primary"><i class="fa-solid fa-brain"></i></span>
+            </div>
+            <div class="task-card-content">
+              <p class="task-card-name" data-i18n-en="How have you been feeling?" data-i18n-es="¿Cómo se ha sentido?">How have you been feeling?</p>
+              <p class="task-card-meta" data-i18n-en="About 2 min" data-i18n-es="Aprox. 2 min">About 2 min</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+          <a href="/apps/patient/health/assessment.html?id=hunger-vital-sign" class="task-card">
+            <div class="task-card-icon">
+              <span class="avatar avatar-sm avatar-secondary"><i class="fa-solid fa-people-group"></i></span>
+            </div>
+            <div class="task-card-content">
+              <p class="task-card-name" data-i18n-en="Food and housing check-in" data-i18n-es="Evaluación de alimentación y vivienda">Food and housing check-in</p>
+              <p class="task-card-meta" data-i18n-en="About 2 min · Due Apr 5" data-i18n-es="Aprox. 2 min · Vence 5 abr">About 2 min · Due Apr 5</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Confirm meals callout -->
+      <div class="alert alert-warning alert-stripe rounded-xl mt-4 dashboard-confirm-callout" role="alert">
+        <div class="alert-stripe-icon" aria-hidden="true">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </div>
+        <div class="alert-stripe-body flex items-center justify-between gap-3">
+          <span class="text-sm" data-i18n-en="Confirm your meals by Thursday at 5pm" data-i18n-es="Confirma tus comidas antes del jueves a las 5pm">Confirm your meals by Thursday at 5pm</span>
+          <a href="/apps/patient/meals/index.html" class="alert-warning-btn shrink-0">
+            <span data-i18n-en="Confirm" data-i18n-es="Confirmar">Confirm</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Delivery snapshot -->
+      <div class="dashboard-section-header">
+        <h2 data-i18n-en="Delivery" data-i18n-es="Entrega">Delivery</h2>
+        <a href="/apps/patient/deliveries/index.html" data-i18n-en="Details" data-i18n-es="Detalles">Details</a>
+      </div>
+      <div class="card card-icon-stripe-layout">
+        <div class="card-icon-stripe">
+          <i class="fa-solid fa-bowl-food text-primary-500 text-base" aria-hidden="true"></i>
+        </div>
+        <div class="card-icon-stripe-body">
+          <p class="text-sm font-semibold text-gray-900" data-i18n-en="Getting your meals ready" data-i18n-es="Preparando tus comidas">Getting your meals ready</p>
+          <p class="text-xs text-gray-400" data-i18n-en="Arriving Thursday, March 19 · 11am–1pm" data-i18n-es="Llegando el jueves 19 de marzo · 11am–1pm">Arriving Thursday, March 19 · 11am–1pm</p>
+        </div>
+      </div>
+
+      <!-- This week's meals -->
+      <div class="dashboard-section-header">
+        <h2 data-i18n-en="This week's meals" data-i18n-es="Tus comidas de esta semana">This week's meals</h2>
+        <a href="/apps/patient/meals/index.html" data-i18n-en="See all" data-i18n-es="Ver todas">See all</a>
+      </div>
+      <div class="dashboard-meal-scroll">
+
+        <div class="dashboard-meal-chip">
+          <div class="dashboard-meal-chip-img-wrap">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop&q=80"
+                 alt="Chicken Verde Rice Bowl" loading="lazy">
+          </div>
+          <span class="dashboard-meal-chip-day" data-i18n-en="Mon" data-i18n-es="Lun">Mon</span>
+          <span class="dashboard-meal-chip-name">Chicken Verde Rice Bowl</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <div class="dashboard-meal-chip-img-wrap">
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&h=200&fit=crop&q=80"
+                 alt="Black Bean Tacos" loading="lazy">
+          </div>
+          <span class="dashboard-meal-chip-day" data-i18n-en="Tue" data-i18n-es="Mar">Tue</span>
+          <span class="dashboard-meal-chip-name">Black Bean Tacos</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <div class="dashboard-meal-chip-img-wrap">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=200&h=200&fit=crop&q=80"
+                 alt="Lemon Herb Salmon" loading="lazy">
+          </div>
+          <span class="dashboard-meal-chip-day" data-i18n-en="Wed" data-i18n-es="Mié">Wed</span>
+          <span class="dashboard-meal-chip-name">Lemon Herb Salmon</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <div class="dashboard-meal-chip-img-wrap">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&h=200&fit=crop&q=80"
+                 alt="Turkey Sofrito Bowl" loading="lazy">
+          </div>
+          <span class="dashboard-meal-chip-day" data-i18n-en="Thu" data-i18n-es="Jue">Thu</span>
+          <span class="dashboard-meal-chip-name">Turkey Sofrito Bowl</span>
+        </div>
+
+        <div class="dashboard-meal-chip">
+          <div class="dashboard-meal-chip-img-wrap">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop&q=80"
+                 alt="Veggie Stir-Fry" loading="lazy">
+          </div>
+          <span class="dashboard-meal-chip-day" data-i18n-en="Fri" data-i18n-es="Vie">Fri</span>
+          <span class="dashboard-meal-chip-name">Veggie Stir-Fry</span>
+        </div>
+
+      </div>
+
+      <!-- Care team messages -->
+      <div class="dashboard-section-header">
+        <h2 data-i18n-en="Care Team" data-i18n-es="Equipo de cuidado">Care Team</h2>
+        <a href="/apps/patient/care-team/messages.html" data-i18n-en="Open" data-i18n-es="Abrir">Open</a>
+      </div>
+      <div class="card">
+        <div class="card-body-sm">
+
+          <div class="dashboard-message-preview">
+            <div class="dashboard-message-preview-body">
+              <div class="dashboard-message-preview-header">
+                <p class="dashboard-message-preview-sender">Maria Chen, RD</p>
+                <span class="dashboard-message-preview-time">2:14 PM</span>
+              </div>
+              <p class="dashboard-message-preview-text" data-i18n-en="I've set up your meal plan for next week." data-i18n-es="He preparado tu plan de comidas para la semana.">I've set up your meal plan for next week.</p>
+            </div>
+            <i class="fa-solid fa-chevron-right dashboard-message-preview-chevron" aria-hidden="true"></i>
+          </div>
+
+          <div class="dashboard-message-preview">
+            <div class="dashboard-message-preview-body">
+              <div class="dashboard-message-preview-header">
+                <p class="dashboard-message-preview-sender">James Rivera</p>
+                <span class="dashboard-message-preview-time">8:02 AM</span>
+              </div>
+              <p class="dashboard-message-preview-text" data-i18n-en="Your delivery window is Thursday 11am–1pm." data-i18n-es="Tu ventana de entrega es el jueves 11am–1pm.">Your delivery window is Thursday 11am–1pm.</p>
+            </div>
+            <i class="fa-solid fa-chevron-right dashboard-message-preview-chevron" aria-hidden="true"></i>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- /.mobile-shell -->
+
+  <load src="src/partials/patient-bottom-nav.html" />
+
+  <!-- i18n script -->
+  <script src="/src/scripts/components/i18n.js"></script>
+  <!-- Patient nav active state -->
+  <script src="/src/scripts/components/patient-nav-active.js"></script>
+  <!-- Dashboard interaction -->
+  <script src="/src/scripts/components/dashboard.js"></script>
+  <!-- Preline autoInit (must be last) -->
+  <script src="/src/scripts/main.js" type="module"></script>
+</body>
+</html>

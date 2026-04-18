@@ -1,24 +1,13 @@
 <!doctype html>
 <html lang="en">
-<load src="src/partials/head.html" />
-<body>
-  <load src="src/partials/header.html" />
-  <main class="container py-8">
-    <h1>Provider Portal</h1>
-    <p class="mt-2">Pages in the provider app.</p>
-    <ul class="mt-6 space-y-2">
-      <li><a href="/apps/provider/dashboard.html" class="link">Dashboard</a></li>
-      <li><a href="/apps/provider/patients.html" class="link">Patients</a></li>
-      <li><a href="/apps/provider/patients/detail.html" class="link">Patient Detail</a></li>
-      <li><a href="/apps/provider/alerts.html" class="link">Alerts</a></li>
-      <li><a href="/apps/provider/partners.html" class="link">Partners</a></li>
-      <li><a href="/apps/provider/program.html" class="link">Program</a></li>
-      <li><a href="/apps/provider/reports.html" class="link">Reports</a></li>
-    </ul>
-    <div class="mt-6">
-      <a href="/apps/" class="btn-outline">Back to Apps</a>
-    </div>
-  </main>
-  <load src="src/partials/scripts.html" />
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haven — uprovider</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

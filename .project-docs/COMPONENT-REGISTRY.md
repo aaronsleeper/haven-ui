@@ -26,7 +26,7 @@ Status values (progression is left-to-right; later states imply earlier ones):
 6. Repeat
 
 Never mark a row `built` until the QA checklist passes and the component is
-visible at localhost:5173/pattern-library/pages/.
+visible at localhost:5173/packages/design-system/pattern-library/pages/.
 
 ---
 

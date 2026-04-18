@@ -41,13 +41,12 @@ The skills were written against `cena-health-spark/` paths. In haven-ui:
 | Old path | haven-ui equivalent |
 |----------|---------------------|
 | `design/[app]-app/` | `apps/[persona]/` |
-| `design/personas/` | `src/data/personas/` |
-| `design/references/` | `src/data/shared/` |
-| `haven-tailwind-theme/styles/tokens/components.css` | `src/styles/tokens/components.css` |
-| `haven-tailwind-theme/ANDREY-README.md` | `ANDREY-README.md` |
+| `design/personas/` | `packages/design-system/src/data/personas/` |
+| `design/references/` | `packages/design-system/src/data/shared/` |
+| `haven-tailwind-theme/styles/tokens/components.css` | `packages/design-system/src/styles/tokens/components.css` |
 | `haven-tailwind-theme/CLAUDE.md` | `CLAUDE.md` |
 | `.project-docs/prompts/next-task.md` | `.project-docs/prompts/next-task.md` (same) |
-| `haven-tailwind-theme/examples/` | `pattern-library/components/` |
+| `haven-tailwind-theme/examples/` | `packages/design-system/pattern-library/components/` |
 
 ## How to Invoke
 

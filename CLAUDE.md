@@ -1,17 +1,10 @@
 # haven-ui — Agent Rules
 
-## ⚠️ Scope change in progress (2026-04-18)
+haven-ui is a React monorepo that owns the full Cena Health frontend. AD-08 (React 19 + Vite) and AD-09 (Turborepo + pnpm workspaces) are locked. See `planning/decisions.md` and `planning/team/proposals/stack-recommendations.md`.
 
-haven-ui is pivoting from "vanilla HTML + CSS delivered to Andrey for Angular translation" to a React monorepo that owns the full frontend. Decisions locked: AD-08 (React 19 + Vite), AD-09 (Turborepo + pnpm workspaces). See `planning/decisions.md` and `planning/team/proposals/stack-recommendations.md`.
+**Load-bearing rules:** pattern-library-first ("copy, don't generate"), semantic classes in `components.css`, `@apply` over utility soup, `pattern-library/COMPONENT-INDEX.md` as ground truth, scope declaration per task. Every React component in `packages/ui-react/` is a 1:1 mechanical port of its pattern-library HTML entry (see `.project-docs/agent-workflow/skills/ui-react-porter.md`).
 
-**What this means for agents working here right now:**
-
-- The restructure (Commit B in the rollout plan at `~/.claude/plans/haven-ui-stack-and-workflow-consult.md`) has not landed yet. Until it does, this file's existing conventions still describe the current tree — vanilla HTML + Tailwind 4 + Preline, single-app Vite, pattern-library-first discipline.
-- The ANDREY-README.md handoff mandate (below) is superseded. ANDREY-README will move to archive in Commit B. Do not update it in new work.
-- The "No React, Vue, Angular" ban in the Framework Usage section is superseded — React is now the target, not a prohibited tool. But until the monorepo restructure lands, new React code has no home; wait for the scaffold.
-- **Load-bearing rules that survive the transition:** pattern-library-first ("copy, don't generate"), semantic classes in `components.css`, `@apply` over utility soup, COMPONENT-INDEX.md as ground truth, scope declaration ("PL only / app only / both") per task. Every React component built after Commit B will be a 1:1 mechanical port of its pattern-library HTML entry.
-
-The rest of this file describes the current state. Treat it as authoritative for vanilla work and informational for planning the React migration.
+The handoff-to-Andrey model has been retired. The vanilla HTML composites from that era live at `archive/vanilla-html-handoff/` for reference only; do not modify them.
 
 ---
 
@@ -19,15 +12,15 @@ Read the full task before taking any action. Complete it fully before stopping.
 
 When done:
 1. List every file modified and every new semantic class added to `components.css`
-2. Update `ANDREY-README.md` if any component, screen, nav, or JS changed (see ANDREY-README section)
-3. Run the following git commands from the repo root:
+2. Run the following git commands from the repo root:
    ```
-   git add -A
+   git add [specific files]
    git commit -m "[brief description of what was built]"
    ```
-4. Output the local server URL so Aaron can review:
-   - If `npm run dev` is already running: http://localhost:5173/[path/to/primary/file.html]
-   - If not running: instruct Aaron to run `npm run dev` from the repo root, then visit the URL
+3. Output the local server URL so Aaron can review:
+   - Pattern-library spec server: `pnpm --filter @haven/design-system dev` → http://localhost:5173
+   - App dev servers: `pnpm --filter @haven/app-care-coordinator dev` (5174), `@haven/app-kitchen` (5175), `@haven/app-patient` (5176), `@haven/app-provider` (5177)
+   - All at once: `pnpm dev` (turbo runs every dev script in parallel)
 
 Do not proceed to the next task — wait for review.
 
@@ -35,52 +28,64 @@ Do not proceed to the next task — wait for review.
 
 ## Project Structure
 
-haven-ui is the design system and UI prototype layer for Cena Health.
-It produces static HTML/CSS that is the primary handoff format to Andrey for Angular integration.
-
 ```
 haven-ui/
-├── src/
-│   ├── styles/
-│   │   ├── main.css              # Entry: imports tokens + haven + components + preline
-│   │   ├── haven.css             # Tailwind theme + Preline token overrides
-│   │   └── tokens/
-│   │       ├── colors.css        # All color tokens (@theme)
-│   │       ├── typography.css    # Fonts, sizes, heading/body defaults
-│   │       ├── spacing.css       # Spacing scalar
-│   │       ├── defaults.css      # Form element defaults, shadows, surface vars
-│   │       └── components.css    # ALL semantic component classes — edit here
-│   ├── partials/                 # Shared HTML fragments (head, scripts, etc.)
-│   ├── scripts/
-│   │   ├── env/                  # Environment functions: data loading, chart config
-│   │   └── components/           # Component-scoped interaction JS
-│   └── data/                     # Dummy data as markdown (Firebase-schema-conformant)
-│       ├── _schema-notes.md      # Delta log: deviations from Firebase schema
-│       ├── shared/
-│       └── personas/
-│           ├── provider/
-│           ├── kitchen/
-│           ├── patient/
-│           └── care-coordinator/
-├── apps/
-│   ├── provider/
-│   ├── kitchen/
-│   ├── patient/
-│   ├── care-coordinator/
-│   └── _prototypes/              # Exploratory work not tied to a persona
-├── pattern-library/
-├── dist/                         # Build output — NEVER edit directly
+├── package.json                       # pnpm workspace root
+├── pnpm-workspace.yaml
+├── turbo.json
+├── tsconfig.base.json
+├── packages/
+│   ├── design-system/                 # The authoritative spec — tokens + pattern library HTML
+│   │   ├── package.json               # @haven/design-system
+│   │   ├── vite.config.ts
+│   │   ├── index.html                 # pattern-library browser entry
+│   │   ├── src/
+│   │   │   ├── styles/
+│   │   │   │   ├── main.css           # Entry: imports tokens + haven + components + preline
+│   │   │   │   ├── haven.css          # Tailwind theme + Preline token overrides
+│   │   │   │   └── tokens/
+│   │   │   │       ├── colors.css
+│   │   │   │       ├── typography.css
+│   │   │   │       ├── spacing.css
+│   │   │   │       ├── defaults.css
+│   │   │   │       └── components.css # ALL semantic component classes — edit here
+│   │   │   ├── partials/              # Shared HTML fragments (pattern-library pages)
+│   │   │   ├── scripts/env/           # Data loading, chart config
+│   │   │   ├── vendor/fontawesome/    # FA Pro (gitignored)
+│   │   │   └── data/                  # Dummy data (Firebase-schema-conformant)
+│   │   │       ├── _schema-notes.md
+│   │   │       ├── shared/
+│   │   │       └── personas/{provider,kitchen,patient,care-coordinator}/
+│   │   └── pattern-library/
+│   │       ├── COMPONENT-INDEX.md     # Ground truth for built components
+│   │       ├── components/            # Component HTML with @component-meta headers
+│   │       └── pages/                 # Browsable pattern-library pages
+│   └── ui-react/                      # React components mirroring pattern-library 1:1
+│       ├── package.json               # @haven/ui-react
+│       └── src/
+│           ├── index.ts               # Barrel export (populated by ui-react-porter)
+│           └── components/            # One file per ported pattern-library entry
+├── apps/                              # React + Vite apps per persona
+│   ├── care-coordinator/              # port 5174 (@haven/app-care-coordinator)
+│   ├── kitchen/                       # port 5175
+│   ├── patient/                       # port 5176
+│   ├── provider/                      # port 5177
+│   │   └── (each has: package.json, vite.config.ts, tsconfig.json, index.html, src/main.tsx, src/App.tsx, design/)
+│   └── [app]/design/                  # Planning material: wireframes, use-cases, component-map, validation
+├── archive/
+│   └── vanilla-html-handoff/          # Historical handoff artifacts (ANDREY-README, composite HTMLs)
+├── planning/                          # Product / UX / architecture (imported from Ava)
 ├── .project-docs/
-│   ├── prompts/next-task.md      # Active agent prompt
+│   ├── prompts/next-task.md           # Active agent prompt
 │   ├── decisions-log.md
 │   ├── roadmap.md
 │   ├── prompts-library.md
-│   ├── cdn-resources.md          # Pinned CDN/asset versions
-│   ├── verification-checklist.md # Post-task QA checklist
-│   └── icon-reference.md         # FontAwesome icon mapping
-├── CLAUDE.md
-├── vite.config.js
-└── package.json
+│   ├── cdn-resources.md
+│   ├── verification-checklist.md
+│   ├── icon-reference.md
+│   ├── COMPONENT-REGISTRY.md
+│   └── agent-workflow/                # The design-to-build skill pipeline
+└── CLAUDE.md
 ```
 
 ---
@@ -93,21 +98,23 @@ haven-ui/
 
 | What you want to change | Edit this file |
 |---|---|
-| Colors, tokens | `src/styles/tokens/colors.css` |
-| Semantic component classes | `src/styles/tokens/components.css` |
-| Typography | `src/styles/tokens/typography.css` — fonts: Plus Jakarta Sans (display), Source Sans 3 (body/sans), Source Code Pro (mono). `--font-serif` / Lora no longer exists. |
-| Spacing | `src/styles/tokens/spacing.css` |
-| Theme + Preline overrides | `src/styles/haven.css` |
-| Page HTML | `apps/[persona]/**/*.html` |
-| Shared partials | `src/partials/*.html` |
+| Colors, tokens | `packages/design-system/src/styles/tokens/colors.css` |
+| Semantic component classes | `packages/design-system/src/styles/tokens/components.css` |
+| Typography | `packages/design-system/src/styles/tokens/typography.css` — fonts: Plus Jakarta Sans (display), Source Sans 3 (body/sans), Source Code Pro (mono). `--font-serif` / Lora no longer exists. |
+| Spacing | `packages/design-system/src/styles/tokens/spacing.css` |
+| Theme + Preline overrides | `packages/design-system/src/styles/haven.css` |
+| Pattern-library HTML (the spec) | `packages/design-system/pattern-library/components/[category]-[name].html` |
+| React component (1:1 port of PL entry) | `packages/ui-react/src/components/[Name].tsx` |
+| App shell or composition | `apps/[persona]/src/App.tsx` (or child components local to that app) |
+| Shared partials (pattern-library pages only) | `packages/design-system/src/partials/*.html` |
 
 ### Dev server and verification
 
-- `npm run dev` runs Vite on `http://localhost:5173`, watching source files directly
+- `pnpm dev` at the repo root runs all dev servers in parallel via turbo
+- Per-package: `pnpm --filter @haven/design-system dev` (pattern library, port 5173), `pnpm --filter @haven/app-care-coordinator dev` (port 5174), etc.
 - Changes to source CSS appear instantly via hot reload — no build step needed
-- `npm run build` is only needed for Angular handoff, not for visual verification
-- **Always verify at `http://localhost:5173` — not any other port.**
-  `vite.config.js` uses `strictPort: true`. If 5173 is taken, Vite will fail loudly.
+- All Vite servers use `strictPort: true`. If the port is taken, Vite fails loudly rather than drifting.
+- When verifying a React component built via `ui-react-porter`, compare visually against the corresponding pattern-library page at `http://localhost:5173/pattern-library/pages/[category]-[name].html`. Parity with the spec is the test.
 
 ---
 
@@ -115,8 +122,7 @@ haven-ui/
 
 **This is the most important rule.**
 
-All styling goes in `src/styles/tokens/components.css` using `@apply` directives.
-HTML files use clean semantic class names.
+All styling goes in `packages/design-system/src/styles/tokens/components.css` using `@apply` directives. Pattern-library HTML and React JSX both use clean semantic class names.
 
 ```html
 <!-- Correct -->
@@ -137,39 +143,39 @@ HTML files use clean semantic class names.
 
 ### Rules
 
-- Use existing semantic classes from `components.css` in HTML
-- If a semantic class doesn't exist, add it to `components.css` with `@apply`, then use it in HTML
-- Layout-only classes (e.g. `grid sm:grid-cols-3`) that apply only to the current template
-  may appear in HTML — these are not component styling
-- **Never** write `style="..."` attributes — exception: Chart.js `flex` values on pipeline
-  segments (e.g., `style="flex: 65"`) are data-driven and acceptable
-- **Never** write `<style>` blocks in HTML files
+- Use existing semantic classes from `components.css` in HTML and React JSX
+- If a semantic class doesn't exist, add it to `packages/design-system/src/styles/tokens/components.css` with `@apply`, then use it
+- Layout-only classes (e.g. `grid sm:grid-cols-3`) that apply only to the current template may appear inline — these are not component styling
+- **Never** write `style="..."` attributes or `style={{...}}` in React — exception: Chart.js `flex` values on pipeline segments are data-driven and acceptable
+- **Never** write `<style>` blocks in HTML files or CSS modules in React components
 
 ### Audit before building
 
 Before creating or editing any file:
 
-1. Read `pattern-library/COMPONENT-INDEX.md` — this is the ground truth for every existing component and its semantic classes
-2. Check `src/styles/tokens/components.css` for any class not yet indexed
-3. Check `src/partials/` for existing partials
-4. Only then write or modify files
+1. Read `packages/design-system/pattern-library/COMPONENT-INDEX.md` — ground truth for every existing component and its semantic classes
+2. Check `packages/design-system/src/styles/tokens/components.css` for any class not yet indexed
+3. Check `packages/design-system/src/partials/` for existing pattern-library partials
+4. Check `packages/ui-react/src/components/` for existing React ports before porting a component again
+5. Only then write or modify files
 
 ### Pattern-Library-First Rule
 
 This is mandatory. No exceptions.
 
-**Copy, don't generate.** If a component exists in `pattern-library/components/`, copy its HTML directly into the app page. Do not rewrite it from memory or regenerate it.
+**Copy, don't generate.** If a component exists in `packages/design-system/pattern-library/components/`, copy its HTML directly. Every React component in `packages/ui-react/` is a 1:1 mechanical port — same class names, same structure. Never rewrite from memory or regenerate.
 
 **Pattern library before app.** If a component you need does not exist in the index:
-1. Create `pattern-library/components/[category]-[name].html` with a `@component-meta` header
-2. Add the semantic classes to `src/styles/tokens/components.css`
-3. Add a row to `pattern-library/COMPONENT-INDEX.md`
-4. Then and only then use it in an app page
+1. Create `packages/design-system/pattern-library/components/[category]-[name].html` with a `@component-meta` header
+2. Add the semantic classes to `packages/design-system/src/styles/tokens/components.css`
+3. Add a row to `packages/design-system/pattern-library/COMPONENT-INDEX.md`
+4. Port the pattern-library HTML to React via `ui-react-porter` skill — produces `packages/ui-react/src/components/[Name].tsx`
+5. Then and only then use it in an app via `import { Name } from '@haven/ui-react'`
 
 **What goes in the pattern library:**
 - Any new semantic class added to `components.css`
 - Any component with interactive behavior (accordion, modal, dropdown, tabs)
-- Any new partial added to `src/partials/`
+- Any new partial used by more than one pattern-library page
 - Any chart pattern or data visualization variant
 - Any form pattern (input group, validation state, etc.)
 - Any reusable visual unit that will appear in more than one app
@@ -178,7 +184,7 @@ This is mandatory. No exceptions.
 - Page layout (grid, columns, sidebar composition)
 - Composition of existing components into a screen
 - Data-driven content wired to dummy data
-- App-specific partials that are tightly coupled to one persona's workflow
+- App-specific components that are tightly coupled to one persona's workflow
 
 **Task scope declaration.** Every task prompt must declare its scope before building:
 - Pattern library only (new component; no app work in this task)
@@ -189,26 +195,32 @@ See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 
 ---
 
-## JavaScript Rules
+## JavaScript / TypeScript Rules
 
-### Two categories of JS — each with a fixed location
+### Where code lives
 
-**1. Environment functions** (data loading, chart config, utilities)
-- Location: `src/scripts/env/`
-- These are shared across the entire repo
-- Reference them from HTML via `<script src="/src/scripts/env/[file].js"></script>`
-- Or include via a partial (e.g., `src/partials/scripts-charts.html`)
+**Pattern-library HTML pages** at `packages/design-system/pattern-library/` use vanilla JS for Preline initialization and chart config:
+- Shared env scripts: `packages/design-system/src/scripts/env/`
+- Included via `<script src="...">` in pattern-library HTML pages
+- No inline `<script>` blocks in pattern-library HTML
 
-**2. Component interaction JS** (accordion toggle, modal open/close, etc.)
-- Location: `src/scripts/components/[component-name].js`
-- Scoped to the component it serves
-- Referenced from the HTML page that uses the component
+**React apps** at `apps/[persona]/` use TypeScript:
+- Entry: `apps/[persona]/src/main.tsx`
+- Root component: `apps/[persona]/src/App.tsx`
+- App-scoped components: `apps/[persona]/src/components/`
+- Shared React components (ports of pattern-library entries): `packages/ui-react/src/components/[Name].tsx`, imported as `import { Name } from '@haven/ui-react'`
 
-### Inline script ban
+### Component interactions
 
-- **No inline `<script>` blocks in HTML files**
-- All JS must be in external files and referenced via `<script src="...">` tags
-- Page scripts go at the bottom of `<body>`, before `</body>`, after partials
+- Preline is initialized in `apps/[persona]/src/main.tsx` via `import 'preline'` as an ES module (not CDN). The `HSStaticMethods.autoInit()` call runs automatically.
+- For React-internal interactions that don't map to Preline (e.g., local UI state, form state), use React hooks directly. Keep them in the app or in the React component wrapper — not in the pattern-library HTML.
+
+### No style escape hatches
+
+- No `<style>` blocks in HTML
+- No `style={{...}}` in React
+- No CSS modules, styled-components, or runtime CSS-in-JS
+- Utility classes only for layout (spacing, grid, flex positioning not covered by a semantic class)
 
 ---
 
@@ -217,8 +229,8 @@ See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 ### Tailwind CSS v4 (CSS-first)
 
 - Use `@import "tailwindcss";` — no `tailwind.config.js`
-- Design tokens use `@theme` directive in `src/styles/tokens/colors.css`
-- Semantic classes use `@apply` in `src/styles/tokens/components.css`
+- Design tokens use `@theme` directive in `packages/design-system/src/styles/tokens/colors.css`
+- Semantic classes use `@apply` in `packages/design-system/src/styles/tokens/components.css`
 - Do not create `tailwind.config.js`
 
 **CRITICAL — Tailwind @theme cascade trap:**
@@ -231,7 +243,9 @@ See decisions-log.md → "Cena Health Brand Theme Merge" for full context.
 ### Preline UI
 
 - Used for interactive behavior (dropdowns, accordions, modals, overlays)
-- Preline JS is loaded via `src/scripts/main.js` (`import 'preline'`) as a Vite module — never add a CDN script tag for Preline
+- Pattern-library pages: Preline JS loaded via `packages/design-system/src/scripts/main.js` (`import 'preline'`) as a Vite module
+- React apps: Preline imported in `apps/[persona]/src/main.tsx` as `import 'preline'`; `HSStaticMethods.autoInit()` runs automatically on mount
+- Never add a CDN script tag for Preline
 - Use Preline's `data-hs-*` attributes for JS behavior
 - Apply Haven semantic classes instead of Preline's utility-heavy markup patterns
 - A single accordion does not need `hs-accordion-group` wrapper
@@ -264,8 +278,9 @@ The `display: none` default is required to prevent the menu from occupying layou
 
 ### Icons
 
-- **FontAwesome Pro v7.1.0** — local copy at `src/vendor/fontawesome/`
-- Usage: `<i class="fa-solid fa-[icon-name]"></i>`
+- **FontAwesome Pro v7.1.0** — local copy at `packages/design-system/src/vendor/fontawesome/` (gitignored; drop in place per setup)
+- HTML: `<i class="fa-solid fa-[icon-name]"></i>`
+- React: same — use `<i className="fa-solid fa-[icon-name]" />` in JSX
 - Pro styles available: solid, regular, light, thin, duotone, sharp variants
 - Never use Material Icons, Heroicons, emoji as icons, or any other icon library
 - Never reference the FA CDN — always use the local copy
@@ -273,44 +288,20 @@ The `display: none` default is required to prevent the menu from occupying layou
 ### Charts
 
 - **Chart.js v4** via CDN only — no npm-installed chart libraries
-- Every chart page must include `src/partials/scripts-charts.html` after base scripts
+- Every chart page must include `packages/design-system/src/partials/scripts-charts.html` after base scripts
+- In React apps, use Chart.js via a thin wrapper component in `packages/ui-react/src/components/` — same approach: 1:1 port of the pattern-library chart entry
 - Never write raw Chart.js config without using Haven defaults from `haven-chart-config.js`
 - Always use `HAVEN.*` constants for colors — never hardcode hex values
-- **Never use pie or donut charts.** Use stat cards, bar charts, or numeric comparisons.
-  This is a firm design principle (Tufte).
-
-### No frameworks in HTML output
-
-- No React, Vue, Angular, or any npm-installed JS framework in HTML files
-- No `localStorage` or `sessionStorage`
-- Pure HTML / CSS / vanilla JS only
-- Angular integration is Andrey's responsibility — deliver clean HTML/CSS
+- **Never use pie or donut charts.** Use stat cards, bar charts, or numeric comparisons. This is a firm design principle (Tufte).
 
 ---
 
 ## Data Rules
 
-- All dummy data lives in `src/data/`
+- All dummy data lives in `packages/design-system/src/data/`
 - Data files are markdown (`.md`) formatted to reflect Firebase schema shapes
-- Any delta from Firebase schema must be documented in `src/data/_schema-notes.md`
-  before building pages that depend on that data
-
----
-
-## ANDREY-README.md
-
-`ANDREY-README.md` is the Angular integration handoff document. It must stay in sync with every commit.
-
-**Update ANDREY-README.md in the same commit whenever any of these change:**
-- New screens added → add to the Patient App Screen Index table
-- New semantic classes or components → add HTML structure + class table
-- Existing component HTML structure changed → update the relevant section
-- Class names renamed or removed → update all references
-- New JS files that Andrey needs to know about → document the script and its purpose
-- Navigation changes (tabs added/removed, routing) → update nav section
-- New URL parameters or state conventions → document them
-
-**Do not defer this to a separate task.** ANDREY-README updates are part of the same commit as the code change. If you forget, the next agent to read the file will work from stale documentation.
+- Any delta from Firebase schema must be documented in `packages/design-system/src/data/_schema-notes.md` before building pages or components that depend on that data
+- React apps consume data via `import` from `@haven/design-system/data/...`
 
 ---
 

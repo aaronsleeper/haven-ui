@@ -3,6 +3,16 @@ dist/
 .DS_Store
 *.local
 
+# Vite dev-server cache
+.vite/
+**/.vite/
+
+# Turborepo
+.turbo/
+
+# TypeScript build info
+**/tsconfig.tsbuildinfo
+
 # FontAwesome Pro — local copy, not committed
-src/vendor/
+**/vendor/fontawesome/
 .gstack/

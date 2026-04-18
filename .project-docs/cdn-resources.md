@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/dist/assets/haven-ui.css">
 
 <!-- FontAwesome Pro (local) -->
-<link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+<link rel="stylesheet" href="/packages/design-system/src/vendor/fontawesome/css/all.css">
 
 <!-- Preline JS is loaded via Vite module (src/scripts/main.js) — do NOT add a CDN script tag -->
 
@@ -24,7 +24,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <!-- Haven chart config (after Chart.js, before page chart scripts) -->
-<script src="/src/scripts/env/haven-chart-config.js"></script>
+<script src="/packages/design-system/src/scripts/env/haven-chart-config.js"></script>
 ```
 
 Only include Chart.js, annotation plugin, and Leaflet on pages that actually use them.

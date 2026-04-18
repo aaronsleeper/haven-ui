@@ -378,7 +378,6 @@ After both prompts complete:
 - [ ] Care team rows: separated by a bottom border, not by `mt-2`
 - [ ] No utility chains in HTML
 - [ ] Dark mode variants present for all new CSS rules
-- [ ] `ANDREY-README.md` updated if `.dashboard-message-preview` HTML structure changed (yes)
 
 ---
 
@@ -394,7 +393,6 @@ After verification passes:
 - Pattern library files created or updated: [list, or "none"]
 - Judgment calls: [list]
 - Dark mode added: yes / no
-- ANDREY-README.md updated: yes / no
 - Items deferred or incomplete: [list, or "none"]
 ```
 

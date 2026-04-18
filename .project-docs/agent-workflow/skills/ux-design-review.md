@@ -13,7 +13,7 @@ You review interfaces for usability, accessibility, and alignment with user goal
 - **Review notes:** `apps/[persona]/design/review-notes.md`
 - **Validation:** `apps/[persona]/design/validation.md`
 - **Built screens:** `apps/[persona]/[section]/[screen].html`
-- **Personas:** `src/data/personas/[persona]/`
+- **Personas:** `packages/design-system/src/data/personas/[persona]/`
 - **Use cases:** `apps/[persona]/design/[feature]-use-cases.md`
 
 ## Two Modes
@@ -66,7 +66,7 @@ Analyze across these dimensions (skip dimensions with nothing to flag):
 
 1. Read wireframe specs from `apps/[persona]/design/wireframes/`.
 2. Read use cases from `apps/[persona]/design/`.
-3. Read relevant personas from `src/data/personas/`.
+3. Read relevant personas from `packages/design-system/src/data/personas/`.
 4. Search for expert guidance on key interaction patterns.
 5. Evaluate each screen against the framework.
 6. Walk through each use case mentally -- can the user accomplish their goal?

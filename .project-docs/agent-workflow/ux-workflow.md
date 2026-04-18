@@ -29,11 +29,10 @@ All paths in this document and the skill files use haven-ui conventions:
 - **App screens:** `apps/[persona]/` (e.g., `apps/provider/`, `apps/kitchen/`, `apps/patient/`)
 - **Design artifacts:** `apps/[persona]/design/` (create if not present)
 - **Wireframes:** `apps/[persona]/design/wireframes/[screen-name].md`
-- **Personas:** `src/data/personas/[persona]/`
-- **Shared references:** `src/data/shared/`
-- **Component source of truth:** `src/styles/tokens/components.css`
-- **Pattern library:** `pattern-library/components/` and `pattern-library/COMPONENT-INDEX.md`
-- **ANDREY-README:** `ANDREY-README.md` (repo root)
+- **Personas:** `packages/design-system/src/data/personas/[persona]/`
+- **Shared references:** `packages/design-system/src/data/shared/`
+- **Component source of truth:** `packages/design-system/src/styles/tokens/components.css`
+- **Pattern library:** `packages/design-system/pattern-library/components/` and `packages/design-system/pattern-library/COMPONENT-INDEX.md`
 - **Build prompts:** `apps/[persona]/design/build/`
 - **Active agent prompt:** `.project-docs/prompts/next-task.md`
 
@@ -79,10 +78,10 @@ Feature Description (Aaron)
 
 | Step | Skill File | Reads | Produces |
 |------|-----------|-------|----------|
-| 1 | `skills/ux-architect.md` | Feature description, `src/data/personas/`, `src/data/shared/` | Use cases, func spec, IA (`apps/[persona]/design/`) |
-| 2 | `skills/ux-wireframe.md` | ux-architect outputs, IA, `pattern-library/COMPONENT-INDEX.md` | `wireframes/[feature]-screen-flow.md`, `wireframes/[id]-[name].md` per screen |
+| 1 | `skills/ux-architect.md` | Feature description, `packages/design-system/src/data/personas/`, `packages/design-system/src/data/shared/` | Use cases, func spec, IA (`apps/[persona]/design/`) |
+| 2 | `skills/ux-wireframe.md` | ux-architect outputs, IA, `packages/design-system/pattern-library/COMPONENT-INDEX.md` | `wireframes/[feature]-screen-flow.md`, `wireframes/[id]-[name].md` per screen |
 | 3 | `skills/ux-design-review.md` (pre-build) | Wireframes, use cases, personas | `review-notes.md`, revised wireframes |
-| 4 | `skills/haven-mapper.md` | Wireframes, `src/styles/tokens/components.css`, `pattern-library/COMPONENT-INDEX.md` | `component-map.md`, `new-components/*.md` |
+| 4 | `skills/haven-mapper.md` | Wireframes, `packages/design-system/src/styles/tokens/components.css`, `packages/design-system/pattern-library/COMPONENT-INDEX.md` | `component-map.md`, `new-components/*.md` |
 | 5 | `skills/dev-tasker.md` | `component-map.md`, wireframes | `build/task-list.md`, `build/[nn]-[task-name].md` |
 | 6 | `skills/ux-design-review.md` (post-build) | Wireframes, built output | `validation.md` |
 | 7 | `skills/debrief-capture.md` | Aaron's notes, agent thread excerpts, `validation.md` | Entries in `prompts-library.md`, `decisions-log.md`; `design/debrief-[feature].md` |
@@ -182,20 +181,19 @@ Once confirmed, I'll map to Haven components and generate build tasks.
 
 | What | Where |
 |------|-------|
-| Cena Health domain context | `src/data/shared/cena-context.md` (create if missing; see cena-health-spark/haven-tailwind-theme/cena-context.md for source) |
-| User personas | `src/data/personas/[persona]/` |
+| Cena Health domain context | `packages/design-system/src/data/shared/cena-context.md` (create if missing; see cena-health-spark/haven-tailwind-theme/cena-context.md for source) |
+| User personas | `packages/design-system/src/data/personas/[persona]/` |
 | Design decisions log | `.project-docs/decisions-log.md` |
 | Prompts library | `.project-docs/prompts-library.md` |
-| Component ground truth | `src/styles/tokens/components.css` + `pattern-library/COMPONENT-INDEX.md` |
-| Angular integration requirements | `ANDREY-README.md` |
+| Component ground truth | `packages/design-system/src/styles/tokens/components.css` + `packages/design-system/pattern-library/COMPONENT-INDEX.md` |
 | Agent build rules | `CLAUDE.md` |
 
 ## Starting a New Feature
 
 1. Determine which persona/app (`provider`, `kitchen`, `patient`, `care-coordinator`)
 2. Check `apps/[persona]/design/` for existing work
-3. Read `src/data/shared/cena-context.md` if it exists (or refer to project context)
-4. Read relevant persona data from `src/data/personas/`
+3. Read `packages/design-system/src/data/shared/cena-context.md` if it exists (or refer to project context)
+4. Read relevant persona data from `packages/design-system/src/data/personas/`
 5. Read `skills/ux-architect.md`
 6. Begin Phase 1 with web research
 
@@ -222,7 +220,7 @@ Once confirmed, I'll map to Haven components and generate build tasks.
 
 ## Anti-Hallucination Rules
 
-1. **Never assume component availability.** Read `src/styles/tokens/components.css` AND `pattern-library/COMPONENT-INDEX.md` before mapping.
+1. **Never assume component availability.** Read `packages/design-system/src/styles/tokens/components.css` AND `packages/design-system/pattern-library/COMPONENT-INDEX.md` before mapping.
 2. **Never fabricate research.** If search returns nothing, say so.
 3. **Never guess at data fields.** Add to Open Questions instead.
 4. **Never skip the gate.** Always present the summary and wait for Aaron's response.

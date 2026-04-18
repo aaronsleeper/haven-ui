@@ -32,8 +32,8 @@ Read these files before writing anything:
 1. `.project-docs/agent-workflow/skills/haven-pl-builder.md` — your full build protocol
 2. `CLAUDE.md` — all project rules
 3. `.project-docs/decisions-log.md` — extract every 'Rule to follow in future prompts' entry
-4. `pattern-library/COMPONENT-INDEX.md` — confirm the component does not already exist
-5. `src/styles/tokens/components.css` — scan for any existing related classes
+4. `packages/design-system/pattern-library/COMPONENT-INDEX.md` — confirm the component does not already exist
+5. `packages/design-system/src/styles/tokens/components.css` — scan for any existing related classes
 
 Target component: {component name}
 Target page: {PL page path from registry}

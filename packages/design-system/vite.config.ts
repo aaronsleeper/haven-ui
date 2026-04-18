@@ -4,28 +4,27 @@ import { glob } from 'glob';
 import htmlInject from 'vite-plugin-html-inject';
 import tailwindcss from '@tailwindcss/vite';
 
-// Auto-discover all HTML entry points under apps/ and pattern-library/
-// No manual registration needed — new pages are picked up automatically.
-function getHtmlEntries() {
+// Auto-discover all HTML entry points under pattern-library/ and the root index.
+// The design-system dev server serves the pattern library as the authoritative
+// spec. React apps consume the tokens via CSS import and mirror the pattern-
+// library HTML class-for-class in their own components.
+function getHtmlEntries(): Record<string, string> {
   const files = glob.sync([
     'index.html',
-    'apps/**/*.html',
     'pattern-library/**/*.html',
   ]);
 
   return Object.fromEntries(
     files.map((file) => {
-      // Use the file path (minus .html) as the entry key
       const key = file.replace(/\.html$/, '').replace(/\//g, '-');
       return [key, resolve(__dirname, file)];
-    })
+    }),
   );
 }
 
 export default defineConfig({
   server: {
     port: 5173,
-    // Fail loudly if 5173 is taken — prevents silent port drift and verification against wrong server
     strictPort: true,
   },
   plugins: [

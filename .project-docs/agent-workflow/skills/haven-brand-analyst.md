@@ -31,8 +31,8 @@ Read these files from the cena-health-brand repo before reviewing anything:
    — WCAG compliance baseline
 
 Then read the haven-ui component being reviewed:
-- `pattern-library/components/{name}.html`
-- The relevant sections of `src/styles/tokens/components.css`
+- `packages/design-system/pattern-library/components/{name}.html`
+- The relevant sections of `packages/design-system/src/styles/tokens/components.css`
 
 ---
 

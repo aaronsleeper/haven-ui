@@ -30,7 +30,7 @@ If a task cannot be cleanly classified, STOP. Route back to `haven-mapper` (if t
 4. **Semantic defaults first, utilities as exception.** All new styles go in `components.css` using `@apply`. This is a hard rule.
 5. **Verification is not optional.** Every prompt ends with a verification checklist.
 6. **Pattern Library first.** New components must be added to the pattern library before (or in the same task as) their first use in an app page.
-7. **Refuse to reference unknown classes.** Before emitting a build prompt, scan `src/styles/tokens/components.css` and `pattern-library/COMPONENT-INDEX.md`. If the prompt would reference a semantic class that does not exist in either source, STOP. Report the missing class(es) and route back to `haven-mapper` to create the spec. Do not silently proceed — silent referencing of unknown classes is the drift mode we are structurally blocking.
+7. **Refuse to reference unknown classes.** Before emitting a build prompt, scan `packages/design-system/src/styles/tokens/components.css` and `packages/design-system/pattern-library/COMPONENT-INDEX.md`. If the prompt would reference a semantic class that does not exist in either source, STOP. Report the missing class(es) and route back to `haven-mapper` to create the spec. Do not silently proceed — silent referencing of unknown classes is the drift mode we are structurally blocking.
 8. **Tag every task.** Generative or deterministic. Never both. Never unclassified. See the classification section above.
 
 ## haven-ui Path Conventions
@@ -40,11 +40,10 @@ If a task cannot be cleanly classified, STOP. Route back to `haven-mapper` (if t
 - **Wireframes:** `apps/[persona]/design/wireframes/[screen-name].md`
 - **Review notes / copy:** `apps/[persona]/design/review-notes.md`
 - **Build task output:** `apps/[persona]/design/build/task-list.md` and `build/[nn]-[task-name].md`
-- **Semantic classes:** `src/styles/tokens/components.css`
-- **Pattern library:** `pattern-library/components/[category]-[name].html`
-- **Component index:** `pattern-library/COMPONENT-INDEX.md`
+- **Semantic classes:** `packages/design-system/src/styles/tokens/components.css`
+- **Pattern library:** `packages/design-system/pattern-library/components/[category]-[name].html`
+- **Component index:** `packages/design-system/pattern-library/COMPONENT-INDEX.md`
 - **App pages:** `apps/[persona]/[section]/[screen].html`
-- **ANDREY-README:** `ANDREY-README.md`
 - **Active agent prompt:** `.project-docs/prompts/next-task.md`
 - **Prompts library:** `.project-docs/prompts-library.md`
 
@@ -55,8 +54,7 @@ If a task cannot be cleanly classified, STOP. Route back to `haven-mapper` (if t
 3. Wireframe specs from `apps/[persona]/design/wireframes/`
 4. `apps/[persona]/design/review-notes.md` (for copy)
 5. `CLAUDE.md` (agent rules)
-6. `ANDREY-README.md` (Angular integration requirements)
-7. `src/styles/tokens/components.css` (current semantic classes)
+7. `packages/design-system/src/styles/tokens/components.css` (current semantic classes)
 8. `.project-docs/prompts-library.md` (successful patterns)
 
 ## Process
@@ -65,9 +63,8 @@ If a task cannot be cleanly classified, STOP. Route back to `haven-mapper` (if t
 
 Before generating any prompts, read:
 - `CLAUDE.md` for agent rules and constraints
-- `ANDREY-README.md` for Angular integration requirements
-- `src/styles/tokens/components.css` for current semantic classes
-- `pattern-library/COMPONENT-INDEX.md` for built component inventory
+- `packages/design-system/src/styles/tokens/components.css` for current semantic classes
+- `packages/design-system/pattern-library/COMPONENT-INDEX.md` for built component inventory
 - `.project-docs/prompts-library.md` for successful patterns from past builds
 - `.project-docs/decisions-log.md` for active rules
 
@@ -142,15 +139,14 @@ If a task needs >50 lines of instruction, it's too big. Split it.
 [What should exist after this task. Be specific: file names, class names, visible behavior]
 
 ## Verification
-- [ ] [e.g., "class `.meal-card` exists in `src/styles/tokens/components.css`"]
-- [ ] [e.g., "pattern library file `pattern-library/components/cards-meal.html` exists with `@component-meta` header"]
-- [ ] [e.g., "`pattern-library/COMPONENT-INDEX.md` has a row for `.meal-card`"]
+- [ ] [e.g., "class `.meal-card` exists in `packages/design-system/src/styles/tokens/components.css`"]
+- [ ] [e.g., "pattern library file `packages/design-system/pattern-library/components/cards-meal.html` exists with `@component-meta` header"]
+- [ ] [e.g., "`packages/design-system/pattern-library/COMPONENT-INDEX.md` has a row for `.meal-card`"]
 - [ ] [e.g., "page renders at http://localhost:5173/apps/patient/meals/index.html without errors"]
 - [ ] HTML classes are semantic -- no utility chains
 - [ ] Any new class in `components.css` that uses only raw CSS properties has `@apply block;` as its first line
 - [ ] Dark mode variants present for all color, background, border, and text properties on any new or modified component class
-- [ ] `ANDREY-README.md` updated if any component HTML structure or class names changed (yes / no / not applicable)
-- [ ] `src/data/_schema-notes.md` updated if any dummy data deviates from Firebase schema (yes / no / not applicable)
+- [ ] `packages/design-system/src/data/_schema-notes.md` updated if any dummy data deviates from Firebase schema (yes / no / not applicable)
 
 ## Completion Report
 
@@ -164,7 +160,6 @@ After all verification passes and before running the git commit, output this rep
 - Pattern library files created or updated: [list, or "none"]
 - Judgment calls (anything not explicitly specified in the prompt): [list, or "none"]
 - Dark mode added: [yes / no / not applicable]
-- ANDREY-README.md updated: [yes / no / not applicable]
 - Schema delta logged: [yes / no / not applicable]
 - Items deferred or incomplete: [list, or "none"]
 ```
@@ -197,7 +192,7 @@ After all verification passes and before running the git commit, output this rep
 
 | # | Task | Scope | File(s) Modified | Depends On | Status |
 |---|------|-------|-----------------|------------|--------|
-| 01 | [name] | Pattern + CSS | `components.css`, `pattern-library/...` | — | ☐ |
+| 01 | [name] | Pattern + CSS | `components.css`, `packages/design-system/pattern-library/...` | — | ☐ |
 | 02 | [name] | App | `apps/[persona]/...` | 01 | ☐ |
 | ... | ... | ... | ... | ... | ☐ |
 
@@ -214,7 +209,7 @@ After all verification passes and before running the git commit, output this rep
 
 **Be explicit about file paths.**
 Bad: "Add the new class to the components file"
-Good: "Add the following class to `src/styles/tokens/components.css`, after the existing `.badge` classes:"
+Good: "Add the following class to `packages/design-system/src/styles/tokens/components.css`, after the existing `.badge` classes:"
 
 **Include the exact code.**
 ```css
@@ -225,7 +220,7 @@ Good: "Add the following class to `src/styles/tokens/components.css`, after the 
 
 **Specify what NOT to do.** (Anti-patterns based on known token drift issues)
 - "Do NOT add Tailwind utility classes directly to the HTML for styling that should be in `components.css`"
-- "Do NOT create a separate CSS file; all semantic classes go in `src/styles/tokens/components.css`"
+- "Do NOT create a separate CSS file; all semantic classes go in `packages/design-system/src/styles/tokens/components.css`"
 - "Do NOT modify existing semantic classes unless explicitly instructed"
 - "Do NOT add a CDN script tag for Preline -- it is loaded via Vite module in `src/scripts/main.js`"
 - "Do NOT write `<script>` blocks in HTML files -- all JS goes in `src/scripts/`"

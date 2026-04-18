@@ -12,9 +12,9 @@ You produce structured, text-based screen specifications. No visual mockups or p
 ## haven-ui Path Conventions
 
 - **ux-architect outputs:** `apps/[persona]/design/[feature]-use-cases.md`, `[feature]-func-spec.md`
-- **IA map:** `src/data/shared/ia-map.md`
-- **Pattern library (component vocabulary):** `pattern-library/COMPONENT-INDEX.md`
-- **Personas:** `src/data/personas/[persona]/`
+- **IA map:** `packages/design-system/src/data/shared/ia-map.md`
+- **Pattern library (component vocabulary):** `packages/design-system/pattern-library/COMPONENT-INDEX.md`
+- **Personas:** `packages/design-system/src/data/personas/[persona]/`
 - **Wireframe output:** `apps/[persona]/design/wireframes/[screen-id]-[screen-name].md`
 - **Screen flow overview:** `apps/[persona]/design/wireframes/[feature]-screen-flow.md`
 
@@ -38,9 +38,9 @@ Feature codes are 2-4 characters. `shell-` prefix for persistent chrome (nav bar
 ## Before You Start
 
 1. Read the ux-architect outputs for this feature: use cases, func spec, IA.
-2. Read the relevant persona files from `src/data/personas/`.
-3. Read `pattern-library/COMPONENT-INDEX.md` to learn the current component vocabulary. Use component names from this index (e.g. "card", "badge-success", "data-table") as placeholder vocabulary in layout specs. Do not invent component names.
-4. Read `src/data/shared/ia-map.md` to understand navigation context.
+2. Read the relevant persona files from `packages/design-system/src/data/personas/`.
+3. Read `packages/design-system/pattern-library/COMPONENT-INDEX.md` to learn the current component vocabulary. Use component names from this index (e.g. "card", "badge-success", "data-table") as placeholder vocabulary in layout specs. Do not invent component names.
+4. Read `packages/design-system/src/data/shared/ia-map.md` to understand navigation context.
 5. List the screens to be produced (from the IA phase) and confirm with the wireframe plan before writing individual files.
 
 ## Screen Spec Format
@@ -173,7 +173,7 @@ Example:
 
 ## Component Vocabulary Rules
 
-Use only component names that exist in `pattern-library/COMPONENT-INDEX.md`. If you need a component that does not exist:
+Use only component names that exist in `packages/design-system/pattern-library/COMPONENT-INDEX.md`. If you need a component that does not exist:
 
 1. **Do not invent a name.** Use a descriptive phrase in brackets: `[NEW COMPONENT: pill-shaped action button with icon + label]`.
 2. **Flag it explicitly** in the screen spec under a `## New Components Flagged` section at the bottom of the file.
