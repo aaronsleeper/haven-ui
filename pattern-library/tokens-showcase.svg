@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 2480" width="1400" height="2480" font-family="'Source Sans 3', system-ui, sans-serif">
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap');
+      .display { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; fill: #25211D; }
+      .body    { font-family: 'Source Sans 3', system-ui, sans-serif; fill: #5B544C; }
+      .mono    { font-family: 'Source Code Pro', ui-monospace, monospace; }
+      .label   { font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 11.11px; font-weight: 600; fill: #787066; letter-spacing: 0.05em; text-transform: uppercase; }
+      .swatch-hex { font-family: 'Source Code Pro', monospace; font-size: 10px; fill: #5B544C; }
+      .swatch-hex-inv { font-family: 'Source Code Pro', monospace; font-size: 10px; fill: #FBFAF8; }
+      .step { font-family: 'Source Code Pro', monospace; font-size: 10px; font-weight: 600; fill: #25211D; }
+      .step-inv { font-family: 'Source Code Pro', monospace; font-size: 10px; font-weight: 600; fill: #FBFAF8; }
+    ]]></style>
+    <filter id="haven-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#4E4437" flood-opacity="0.12"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#4E4437" flood-opacity="0.10"/>
+    </filter>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#4E4437" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas / sand-50 background -->
+  <rect width="1400" height="2480" fill="#FBFAF8"/>
+
+  <!-- ============================================================
+       TITLE
+       ============================================================ -->
+  <g transform="translate(60,80)">
+    <text class="display" font-size="39.81" y="0">Haven UI · Token Showcase</text>
+    <text class="body"    font-size="16"    y="32">Current state of color, type, spacing, and component tokens · Cena Health brand</text>
+    <text class="label"   y="56">v4.7  ·  generated 2026-04-18</text>
+  </g>
+
+  <!-- ============================================================
+       SECTION 1 — COLOR RAMPS
+       ============================================================ -->
+  <g transform="translate(60,200)">
+    <text class="label" y="0">Brand color ramps</text>
+
+    <!-- Primary / Teal -->
+    <g transform="translate(0,20)">
+      <text class="body" font-size="13.33" font-weight="600" y="12" fill="#25211D">Primary · Teal  <tspan class="mono" fill="#787066">--color-primary-* / --color-teal-*</tspan></text>
+      <g transform="translate(0,22)">
+        <!-- 50 -->
+        <rect x="0"    y="0" width="112" height="64" rx="8" fill="#E9F5F2"/>
+        <text class="step" x="8" y="16">50</text>
+        <text class="swatch-hex" x="8" y="56">#E9F5F2</text>
+        <!-- 100 -->
+        <rect x="120"  y="0" width="112" height="64" rx="8" fill="#D0E7E2"/>
+        <text class="step" x="128" y="16">100</text>
+        <text class="swatch-hex" x="128" y="56">#D0E7E2</text>
+        <!-- 200 -->
+        <rect x="240"  y="0" width="112" height="64" rx="8" fill="#A8D1C9"/>
+        <text class="step" x="248" y="16">200</text>
+        <text class="swatch-hex" x="248" y="56">#A8D1C9</text>
+        <!-- 300 -->
+        <rect x="360"  y="0" width="112" height="64" rx="8" fill="#7CB9AD"/>
+        <text class="step" x="368" y="16">300</text>
+        <text class="swatch-hex" x="368" y="56">#7CB9AD</text>
+        <!-- 400 LOCKED -->
+        <rect x="480"  y="0" width="112" height="64" rx="8" fill="#52A395"/>
+        <text class="step-inv" x="488" y="16">400 ★</text>
+        <text class="swatch-hex-inv" x="488" y="56">#52A395</text>
+        <!-- 500 LOCKED logo -->
+        <rect x="600"  y="0" width="112" height="64" rx="8" fill="#3A8478"/>
+        <text class="step-inv" x="608" y="16">500 ★</text>
+        <text class="swatch-hex-inv" x="608" y="56">#3A8478</text>
+        <!-- 600 interactive fill -->
+        <rect x="720"  y="0" width="112" height="64" rx="8" fill="#1B685E"/>
+        <text class="step-inv" x="728" y="16">600</text>
+        <text class="swatch-hex-inv" x="728" y="56">#1B685E</text>
+        <!-- 700 -->
+        <rect x="840"  y="0" width="112" height="64" rx="8" fill="#124D45"/>
+        <text class="step-inv" x="848" y="16">700</text>
+        <text class="swatch-hex-inv" x="848" y="56">#124D45</text>
+        <!-- 800 LOCKED wordmark -->
+        <rect x="960"  y="0" width="112" height="64" rx="8" fill="#0D322D"/>
+        <text class="step-inv" x="968" y="16">800 ★</text>
+        <text class="swatch-hex-inv" x="968" y="56">#0D322D</text>
+        <!-- 900 -->
+        <rect x="1080" y="0" width="112" height="64" rx="8" fill="#04201C"/>
+        <text class="step-inv" x="1088" y="16">900</text>
+        <text class="swatch-hex-inv" x="1088" y="56">#04201C</text>
+        <!-- 950 -->
+        <rect x="1200" y="0" width="80"  height="64" rx="8" fill="#010F0C"/>
+        <text class="step-inv" x="1208" y="16">950</text>
+        <text class="swatch-hex-inv" x="1208" y="56">#010F0C</text>
+      </g>
+    </g>
+
+    <!-- Secondary / Sand -->
+    <g transform="translate(0,130)">
+      <text class="body" font-size="13.33" font-weight="600" y="12" fill="#25211D">Secondary · Sand  <tspan class="mono" fill="#787066">--color-secondary-* / --color-sand-* (aliases neutral, gray, zinc, stone, slate)</tspan></text>
+      <g transform="translate(0,22)">
+        <rect x="0"    y="0" width="112" height="64" rx="8" fill="#FBFAF8" stroke="#E7E4DF"/>
+        <text class="step" x="8" y="16">50</text>
+        <text class="swatch-hex" x="8" y="56">#FBFAF8</text>
+        <rect x="120"  y="0" width="112" height="64" rx="8" fill="#F3F1EE"/>
+        <text class="step" x="128" y="16">100</text>
+        <text class="swatch-hex" x="128" y="56">#F3F1EE</text>
+        <rect x="240"  y="0" width="112" height="64" rx="8" fill="#E7E4DF"/>
+        <text class="step" x="248" y="16">200</text>
+        <text class="swatch-hex" x="248" y="56">#E7E4DF</text>
+        <rect x="360"  y="0" width="112" height="64" rx="8" fill="#D1CDC6"/>
+        <text class="step" x="368" y="16">300</text>
+        <text class="swatch-hex" x="368" y="56">#D1CDC6</text>
+        <rect x="480"  y="0" width="112" height="64" rx="8" fill="#B3ADA4"/>
+        <text class="step" x="488" y="16">400</text>
+        <text class="swatch-hex" x="488" y="56">#B3ADA4</text>
+        <rect x="600"  y="0" width="112" height="64" rx="8" fill="#958E85"/>
+        <text class="step-inv" x="608" y="16">500</text>
+        <text class="swatch-hex-inv" x="608" y="56">#958E85</text>
+        <rect x="720"  y="0" width="112" height="64" rx="8" fill="#787066"/>
+        <text class="step-inv" x="728" y="16">600</text>
+        <text class="swatch-hex-inv" x="728" y="56">#787066</text>
+        <rect x="840"  y="0" width="112" height="64" rx="8" fill="#5B544C"/>
+        <text class="step-inv" x="848" y="16">700</text>
+        <text class="swatch-hex-inv" x="848" y="56">#5B544C</text>
+        <rect x="960"  y="0" width="112" height="64" rx="8" fill="#3F3933"/>
+        <text class="step-inv" x="968" y="16">800</text>
+        <text class="swatch-hex-inv" x="968" y="56">#3F3933</text>
+        <rect x="1080" y="0" width="112" height="64" rx="8" fill="#25211D"/>
+        <text class="step-inv" x="1088" y="16">900</text>
+        <text class="swatch-hex-inv" x="1088" y="56">#25211D</text>
+        <rect x="1200" y="0" width="80"  height="64" rx="8" fill="#0E0A08"/>
+        <text class="step-inv" x="1208" y="16">950</text>
+        <text class="swatch-hex-inv" x="1208" y="56">#0E0A08</text>
+      </g>
+    </g>
+
+    <!-- Sage -->
+    <g transform="translate(0,240)">
+      <text class="body" font-size="13.33" font-weight="600" y="12" fill="#25211D">Sage · Warm green identity (hue-shift from teal)  <tspan class="mono" fill="#787066">--color-sage-*</tspan></text>
+      <g transform="translate(0,22)">
+        <rect x="0"    y="0" width="112" height="64" rx="8" fill="#E7F2E8"/>
+        <text class="step" x="8" y="16">50</text>
+        <text class="swatch-hex" x="8" y="56">#E7F2E8</text>
+        <rect x="120"  y="0" width="112" height="64" rx="8" fill="#D0E5D1"/>
+        <text class="step" x="128" y="16">100</text>
+        <text class="swatch-hex" x="128" y="56">#D0E5D1</text>
+        <rect x="240"  y="0" width="112" height="64" rx="8" fill="#ACCFAD"/>
+        <text class="step" x="248" y="16">200</text>
+        <text class="swatch-hex" x="248" y="56">#ACCFAD</text>
+        <rect x="360"  y="0" width="112" height="64" rx="8" fill="#81B983"/>
+        <text class="step" x="368" y="16">300 ★</text>
+        <text class="swatch-hex" x="368" y="56">#81B983</text>
+        <rect x="480"  y="0" width="112" height="64" rx="8" fill="#689B6A"/>
+        <text class="step-inv" x="488" y="16">400</text>
+        <text class="swatch-hex-inv" x="488" y="56">#689B6A</text>
+        <rect x="600"  y="0" width="112" height="64" rx="8" fill="#507F53"/>
+        <text class="step-inv" x="608" y="16">500</text>
+        <text class="swatch-hex-inv" x="608" y="56">#507F53</text>
+        <rect x="720"  y="0" width="112" height="64" rx="8" fill="#3A643D"/>
+        <text class="step-inv" x="728" y="16">600</text>
+        <text class="swatch-hex-inv" x="728" y="56">#3A643D</text>
+        <rect x="840"  y="0" width="112" height="64" rx="8" fill="#2A4C2D"/>
+        <text class="step-inv" x="848" y="16">700</text>
+        <text class="swatch-hex-inv" x="848" y="56">#2A4C2D</text>
+        <rect x="960"  y="0" width="112" height="64" rx="8" fill="#1C351F"/>
+        <text class="step-inv" x="968" y="16">800</text>
+        <text class="swatch-hex-inv" x="968" y="56">#1C351F</text>
+        <rect x="1080" y="0" width="112" height="64" rx="8" fill="#0F1F11"/>
+        <text class="step-inv" x="1088" y="16">900</text>
+        <text class="swatch-hex-inv" x="1088" y="56">#0F1F11</text>
+        <rect x="1200" y="0" width="80"  height="64" rx="8" fill="#060D07"/>
+        <text class="step-inv" x="1208" y="16">950</text>
+        <text class="swatch-hex-inv" x="1208" y="56">#060D07</text>
+      </g>
+    </g>
+
+    <text class="label" y="370" fill="#787066">★ LOCKED brand anchors · 400/500 = logo rings · 800 = "Cena" wordmark · sage-300 = logo inner ring</text>
+  </g>
+
+  <!-- ============================================================
+       SECTION 2 — SEMANTIC COLORS
+       ============================================================ -->
+  <g transform="translate(60,600)">
+    <text class="label" y="0">Semantic color tokens · 50 (bg) · 400 (border) · 500 (base) · 700 (text)</text>
+
+    <!-- Success -->
+    <g transform="translate(0,20)">
+      <text class="body" font-size="13.33" font-weight="600" y="12">Success · Green</text>
+      <rect x="0"   y="22" width="78" height="56" rx="8" fill="#DCF0E5"/>
+      <text class="step" x="8" y="38">50</text>
+      <text class="swatch-hex" x="8" y="70">#DCF0E5</text>
+      <rect x="86"  y="22" width="78" height="56" rx="8" fill="#4F9870"/>
+      <text class="step-inv" x="94" y="38">400</text>
+      <text class="swatch-hex-inv" x="94" y="70">#4F9870</text>
+      <rect x="172" y="22" width="78" height="56" rx="8" fill="#3A8E64"/>
+      <text class="step-inv" x="180" y="38">500</text>
+      <text class="swatch-hex-inv" x="180" y="70">#3A8E64</text>
+      <rect x="258" y="22" width="78" height="56" rx="8" fill="#215A3E"/>
+      <text class="step-inv" x="266" y="38">700</text>
+      <text class="swatch-hex-inv" x="266" y="70">#215A3E</text>
+    </g>
+
+    <!-- Warning -->
+    <g transform="translate(360,20)">
+      <text class="body" font-size="13.33" font-weight="600" y="12">Warning · Amber</text>
+      <rect x="0"   y="22" width="78" height="56" rx="8" fill="#F4EAD5"/>
+      <text class="step" x="8" y="38">50</text>
+      <text class="swatch-hex" x="8" y="70">#F4EAD5</text>
+      <rect x="86"  y="22" width="78" height="56" rx="8" fill="#CEA861"/>
+      <text class="step" x="94" y="38">400</text>
+      <text class="swatch-hex" x="94" y="70">#CEA861</text>
+      <rect x="172" y="22" width="78" height="56" rx="8" fill="#B58B20"/>
+      <text class="step-inv" x="180" y="38">500</text>
+      <text class="swatch-hex-inv" x="180" y="70">#B58B20</text>
+      <rect x="258" y="22" width="78" height="56" rx="8" fill="#754B00"/>
+      <text class="step-inv" x="266" y="38">700</text>
+      <text class="swatch-hex-inv" x="266" y="70">#754B00</text>
+    </g>
+
+    <!-- Error -->
+    <g transform="translate(720,20)">
+      <text class="body" font-size="13.33" font-weight="600" y="12">Error · Red</text>
+      <rect x="0"   y="22" width="78" height="56" rx="8" fill="#FCE5E3"/>
+      <text class="step" x="8" y="38">50</text>
+      <text class="swatch-hex" x="8" y="70">#FCE5E3</text>
+      <rect x="86"  y="22" width="78" height="56" rx="8" fill="#D87972"/>
+      <text class="step-inv" x="94" y="38">400</text>
+      <text class="swatch-hex-inv" x="94" y="70">#D87972</text>
+      <rect x="172" y="22" width="78" height="56" rx="8" fill="#C13C3B"/>
+      <text class="step-inv" x="180" y="38">500</text>
+      <text class="swatch-hex-inv" x="180" y="70">#C13C3B</text>
+      <rect x="258" y="22" width="78" height="56" rx="8" fill="#932B2A"/>
+      <text class="step-inv" x="266" y="38">700</text>
+      <text class="swatch-hex-inv" x="266" y="70">#932B2A</text>
+    </g>
+
+    <!-- Info -->
+    <g transform="translate(1080,20)">
+      <text class="body" font-size="13.33" font-weight="600" y="12">Info · Cyan</text>
+      <rect x="0"   y="22" width="56" height="56" rx="8" fill="#DFEEF7"/>
+      <text class="step" x="6" y="38">50</text>
+      <text class="swatch-hex" x="6" y="70" font-size="8">#DFEEF7</text>
+      <rect x="64"  y="22" width="56" height="56" rx="8" fill="#538EB0"/>
+      <text class="step-inv" x="70" y="38">400</text>
+      <text class="swatch-hex-inv" x="70" y="70" font-size="8">#538EB0</text>
+      <rect x="128" y="22" width="56" height="56" rx="8" fill="#287AA3"/>
+      <text class="step-inv" x="134" y="38">500</text>
+      <text class="swatch-hex-inv" x="134" y="70" font-size="8">#287AA3</text>
+      <rect x="192" y="22" width="56" height="56" rx="8" fill="#155572"/>
+      <text class="step-inv" x="198" y="38">700</text>
+      <text class="swatch-hex-inv" x="198" y="70" font-size="8">#155572</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION 3 — TYPOGRAPHY
+       ============================================================ -->
+  <g transform="translate(60,760)">
+    <text class="label" y="0">Typography · Plus Jakarta Sans (display) · Source Sans 3 (body) · Source Code Pro (mono)</text>
+
+    <!-- Left column: display scale -->
+    <g transform="translate(0,24)">
+      <text class="display" font-size="39.81" y="36">The quiet harbor</text>
+      <text class="label" y="56">h1 · 4xl · 39.81px / 2.49rem</text>
+
+      <text class="display" font-size="33.18" y="100">The quiet harbor</text>
+      <text class="label" y="118">h2 · 3xl · 33.18px / 2.07rem</text>
+
+      <text class="display" font-size="27.65" y="158">The quiet harbor</text>
+      <text class="label" y="176">h3 · 2xl · 27.65px / 1.73rem</text>
+
+      <text class="display" font-size="23.04" y="212">The quiet harbor</text>
+      <text class="label" y="228">h4 · xl · 23.04px / 1.44rem</text>
+
+      <text class="display" font-size="19.2"  y="260">The quiet harbor</text>
+      <text class="label" y="276">h5 · lg · 19.2px / 1.20rem</text>
+    </g>
+
+    <!-- Right column: body + mono -->
+    <g transform="translate(720,24)">
+      <text class="body" font-size="19.2" y="22" font-weight="600" fill="#25211D">Body · large</text>
+      <text class="body" font-size="16"   y="46">Cena Health is a clinically integrated nutrition program. This is body-base copy at 16px using Source Sans 3.</text>
+      <text class="label" y="66">body · base · 16px</text>
+
+      <text class="body" font-size="13.33" y="98">Small copy carries captions, supporting metadata, and footnotes. Reads comfortably at 13.33px.</text>
+      <text class="label" y="116">body · sm · 13.33px</text>
+
+      <text class="body" font-size="11.11" y="142" fill="#787066">Extra-small tokens — labels, chips, overlines. Always paired with uppercase + tracking.</text>
+      <text class="label" y="160">body · xs · 11.11px</text>
+
+      <text class="mono" font-size="13.33" y="200" fill="#25211D">const token = "--color-primary-600";</text>
+      <text class="mono" font-size="13.33" y="220" fill="#3A8478">/* Source Code Pro · 13.33px */</text>
+      <text class="label" y="240">mono · code + tokens</text>
+
+      <!-- Paragraph sample -->
+      <g transform="translate(0,260)">
+        <text class="display" font-size="16" font-weight="700" y="0" fill="#25211D">Weight scale</text>
+        <text class="body" font-size="16" y="22" font-weight="400">Regular 400 · the default reading weight</text>
+        <text class="body" font-size="16" y="42" font-weight="500">Medium 500 · labels, buttons, tabs</text>
+        <text class="body" font-size="16" y="62" font-weight="600">Semibold 600 · card titles, emphasis</text>
+        <text class="body" font-size="16" y="82" font-weight="700" fill="#25211D">Bold 700 · display, wordmarks</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION 4 — BUTTONS
+       ============================================================ -->
+  <g transform="translate(60,1180)">
+    <text class="label" y="0">Buttons · variants × sizes</text>
+
+    <!-- Row 1: variants at default size -->
+    <g transform="translate(0,24)">
+      <!-- Primary -->
+      <rect x="0"   y="0" width="132" height="44" rx="8" fill="#1B685E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#FBFAF8" x="66" y="28" text-anchor="middle">Continue</text>
+
+      <!-- Primary hover -->
+      <rect x="148" y="0" width="132" height="44" rx="8" fill="#124D45"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#FBFAF8" x="214" y="28" text-anchor="middle">Continue :hover</text>
+
+      <!-- Secondary -->
+      <rect x="296" y="0" width="132" height="44" rx="8" fill="#F3F1EE"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#5B544C" x="362" y="28" text-anchor="middle">Save draft</text>
+
+      <!-- Outline -->
+      <rect x="444" y="0" width="132" height="44" rx="8" fill="#FBFAF8" stroke="#D1CDC6"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#5B544C" x="510" y="28" text-anchor="middle">Cancel</text>
+
+      <!-- Danger -->
+      <rect x="592" y="0" width="132" height="44" rx="8" fill="#FBFAF8" stroke="#E48D86"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#AB3433" x="658" y="28" text-anchor="middle">Remove</text>
+
+      <!-- Disabled -->
+      <g opacity="0.5">
+        <rect x="740" y="0" width="132" height="44" rx="8" fill="#1B685E"/>
+        <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#FBFAF8" x="806" y="28" text-anchor="middle">Disabled</text>
+      </g>
+
+      <!-- Loading -->
+      <g opacity="0.6">
+        <rect x="888" y="0" width="132" height="44" rx="8" fill="#1B685E"/>
+        <circle cx="924" cy="22" r="7" fill="none" stroke="#FBFAF8" stroke-width="2" stroke-dasharray="30 12" transform="rotate(-90 924 22)"/>
+        <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#FBFAF8" x="960" y="28">Saving…</text>
+      </g>
+    </g>
+
+    <!-- Row 2: sizes -->
+    <g transform="translate(0,80)">
+      <!-- Large -->
+      <rect x="0" y="0" width="150" height="52" rx="8" fill="#1B685E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="16" font-weight="500" fill="#FBFAF8" x="75" y="32" text-anchor="middle">Large · lg</text>
+
+      <!-- Default -->
+      <rect x="166" y="4" width="132" height="44" rx="8" fill="#1B685E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#FBFAF8" x="232" y="30" text-anchor="middle">Default</text>
+
+      <!-- Small -->
+      <rect x="314" y="12" width="104" height="30" rx="8" fill="#1B685E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="11.11" font-weight="500" fill="#FBFAF8" x="366" y="31" text-anchor="middle">Small · sm</text>
+
+      <!-- Extra small -->
+      <rect x="434" y="14" width="80" height="24" rx="6" fill="#1B685E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="11.11" font-weight="500" fill="#FBFAF8" x="474" y="30" text-anchor="middle">xs</text>
+    </g>
+
+    <!-- Button group -->
+    <g transform="translate(600,80)">
+      <rect x="0"   y="4" width="88" height="44" rx="8" fill="#FBFAF8" stroke="#D1CDC6"/>
+      <rect x="88"  y="4" width="88" height="44" fill="#E9F5F2" stroke="#3A8478"/>
+      <rect x="176" y="4" width="88" height="44" rx="8" fill="#FBFAF8" stroke="#D1CDC6"/>
+      <clipPath id="left-clip"><rect x="0" y="4" width="8" height="44"/></clipPath>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#5B544C" x="44"  y="31" text-anchor="middle">Day</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="600" fill="#124D45" x="132" y="31" text-anchor="middle">Week</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#5B544C" x="220" y="31" text-anchor="middle">Month</text>
+      <text class="label" y="68" x="0">btn-group · middle item active</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION 5 — BADGES
+       ============================================================ -->
+  <g transform="translate(60,1360)">
+    <text class="label" y="0">Badges · 7 color variants · uppercase tracked · rounded + pill</text>
+
+    <g transform="translate(0,24)" font-family="'Source Sans 3',sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em">
+      <!-- primary -->
+      <rect x="0"   y="0" width="72" height="22" rx="4" fill="#E9F5F2" stroke="#A8D1C9"/>
+      <text x="36" y="15" text-anchor="middle" fill="#1B685E">PRIMARY</text>
+      <!-- secondary -->
+      <rect x="84"  y="0" width="90" height="22" rx="4" fill="#F3F1EE" stroke="#E7E4DF"/>
+      <text x="129" y="15" text-anchor="middle" fill="#787066">SECONDARY</text>
+      <!-- neutral -->
+      <rect x="186" y="0" width="74" height="22" rx="4" fill="#F3F1EE" stroke="#D1CDC6"/>
+      <text x="223" y="15" text-anchor="middle" fill="#787066">NEUTRAL</text>
+      <!-- success -->
+      <rect x="272" y="0" width="74" height="22" rx="4" fill="#DCF0E5" stroke="#A0D5B8"/>
+      <text x="309" y="15" text-anchor="middle" fill="#2D7350">SUCCESS</text>
+      <!-- warning -->
+      <rect x="358" y="0" width="78" height="22" rx="4" fill="#F4EAD5" stroke="#E3C88E"/>
+      <text x="397" y="15" text-anchor="middle" fill="#9A7518">WARNING</text>
+      <!-- error -->
+      <rect x="448" y="0" width="60" height="22" rx="4" fill="#FCE5E3" stroke="#F0ADA7"/>
+      <text x="478" y="15" text-anchor="middle" fill="#AB3433">ERROR</text>
+      <!-- info -->
+      <rect x="520" y="0" width="52" height="22" rx="4" fill="#DFEEF7" stroke="#9ECCE3"/>
+      <text x="546" y="15" text-anchor="middle" fill="#1E678A">INFO</text>
+
+      <!-- Pill variants -->
+      <rect x="600" y="0" width="72" height="22" rx="11" fill="#E9F5F2" stroke="#A8D1C9"/>
+      <text x="636" y="15" text-anchor="middle" fill="#1B685E">PILL</text>
+      <rect x="684" y="0" width="74" height="22" rx="11" fill="#DCF0E5" stroke="#A0D5B8"/>
+      <text x="721" y="15" text-anchor="middle" fill="#2D7350">ACTIVE</text>
+
+      <!-- badge-sm -->
+      <rect x="790" y="3" width="44" height="16" rx="3" fill="#F4EAD5" stroke="#E3C88E"/>
+      <text x="812" y="14" text-anchor="middle" font-size="9" fill="#9A7518">NEW</text>
+
+      <text class="label" y="50" x="0">usage: status pills, care-plan tags, compliance flags, kitchen-run state</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION 6 — CARDS
+       ============================================================ -->
+  <g transform="translate(60,1470)">
+    <text class="label" y="0">Card · flex-col · bg-gray-50 · border-gray-200 · rounded-xl · shadow-2xs</text>
+
+    <!-- Card 1: Standard -->
+    <g transform="translate(0,24)" filter="url(#card-shadow)">
+      <rect x="0" y="0" width="400" height="220" rx="12" fill="#F3F1EE" stroke="#E7E4DF"/>
+      <line x1="0" y1="60" x2="400" y2="60" stroke="#E7E4DF"/>
+      <text font-family="'Plus Jakarta Sans',sans-serif" font-size="19.2" font-weight="600" fill="#3F3933" x="20" y="34">Medication schedule</text>
+      <text class="body" font-size="13.33" fill="#787066" x="20" y="50">Updated 2 minutes ago</text>
+
+      <!-- body -->
+      <text class="body" font-size="16" fill="#3F3933" x="20" y="88">Metformin 500mg · twice daily</text>
+      <rect x="20" y="100" width="74" height="22" rx="11" fill="#DCF0E5" stroke="#A0D5B8"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#2D7350" x="57" y="115" text-anchor="middle">ACTIVE</text>
+
+      <text class="body" font-size="16" fill="#3F3933" x="20" y="152">Vitamin D3 · 1 daily</text>
+      <rect x="20" y="164" width="78" height="22" rx="11" fill="#F4EAD5" stroke="#E3C88E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#9A7518" x="59" y="179" text-anchor="middle">PENDING</text>
+    </g>
+
+    <!-- Card 2: Primary action card -->
+    <g transform="translate(420,24)" filter="url(#card-shadow)">
+      <rect x="0" y="0" width="400" height="220" rx="12" fill="#F3F1EE" stroke="#E7E4DF"/>
+      <line x1="0" y1="60" x2="400" y2="60" stroke="#E7E4DF"/>
+      <text font-family="'Plus Jakarta Sans',sans-serif" font-size="19.2" font-weight="600" fill="#3F3933" x="20" y="34">Weekly meal plan</text>
+      <text class="body" font-size="13.33" fill="#787066" x="20" y="50">7 meals · delivered Monday</text>
+
+      <text class="body" font-size="13.33" fill="#5B544C" x="20" y="90">Your kitchen is finalizing this week's menu.</text>
+      <text class="body" font-size="13.33" fill="#5B544C" x="20" y="108">Edits close Sunday at 6pm.</text>
+
+      <!-- CTA -->
+      <rect x="20" y="160" width="142" height="44" rx="8" fill="#1B685E"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#FBFAF8" x="91" y="188" text-anchor="middle">Review menu</text>
+      <rect x="174" y="160" width="112" height="44" rx="8" fill="transparent" stroke="#D1CDC6"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="500" fill="#5B544C" x="230" y="188" text-anchor="middle">Skip week</text>
+    </g>
+
+    <!-- Card 3: Icon stripe / stat -->
+    <g transform="translate(840,24)" filter="url(#card-shadow)">
+      <rect x="0" y="0" width="440" height="220" rx="12" fill="#F3F1EE" stroke="#E7E4DF"/>
+      <!-- icon stripe sage tile -->
+      <rect x="20" y="20" width="72" height="72" rx="10" fill="#0D322D"/>
+      <circle cx="56" cy="56" r="20" fill="none" stroke="#52A395" stroke-width="3"/>
+      <circle cx="56" cy="56" r="12" fill="none" stroke="#81B983" stroke-width="3"/>
+
+      <text font-family="'Plus Jakarta Sans',sans-serif" font-size="27.65" font-weight="700" fill="#25211D" x="108" y="52">A1c 6.1</text>
+      <text class="body" font-size="13.33" fill="#787066" x="108" y="72">down 0.4 from last quarter</text>
+      <rect x="108" y="82" width="74" height="22" rx="11" fill="#DCF0E5" stroke="#A0D5B8"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#2D7350" x="145" y="97" text-anchor="middle">ON TARGET</text>
+
+      <!-- footer bar -->
+      <line x1="0" y1="160" x2="440" y2="160" stroke="#E7E4DF"/>
+      <text class="body" font-size="13.33" fill="#787066" x="20" y="186">Measured Apr 10 · next draw May 15</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="600" fill="#1B685E" x="420" y="186" text-anchor="end">View trend →</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION 7 — FORM
+       ============================================================ -->
+  <g transform="translate(60,1740)">
+    <text class="label" y="0">Form elements · default · focus · disabled · with helper + error</text>
+
+    <g transform="translate(0,24)">
+      <!-- Default -->
+      <text class="body" font-size="13.33" font-weight="500" fill="#3F3933" x="0" y="12">Email</text>
+      <rect x="0" y="22" width="280" height="42" rx="8" fill="#FBFAF8" stroke="#D1CDC6"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14.8" fill="#B3ADA4" x="16" y="48">you@cenahealth.com</text>
+
+      <!-- Focus -->
+      <text class="body" font-size="13.33" font-weight="500" fill="#3F3933" x="312" y="12">Dose (focused)</text>
+      <rect x="308" y="18" width="288" height="50" rx="10" fill="none" stroke="#7CB9AD" stroke-width="2" opacity="0.6"/>
+      <rect x="312" y="22" width="280" height="42" rx="8" fill="#FBFAF8" stroke="#1B685E" stroke-width="1.5"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14.8" fill="#25211D" x="328" y="48">500 mg</text>
+
+      <!-- Error -->
+      <text class="body" font-size="13.33" font-weight="500" fill="#3F3933" x="624" y="12">Insurance ID</text>
+      <rect x="624" y="22" width="280" height="42" rx="8" fill="#FBFAF8" stroke="#C13C3B" stroke-width="1.5"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14.8" fill="#25211D" x="640" y="48">XYZ-1</text>
+      <text class="body" font-size="11.11" fill="#932B2A" x="624" y="80">This ID is too short — expected 9–12 characters.</text>
+
+      <!-- Disabled -->
+      <g opacity="0.5">
+        <text class="body" font-size="13.33" font-weight="500" fill="#3F3933" x="936" y="12">DOB (locked)</text>
+        <rect x="936" y="22" width="280" height="42" rx="8" fill="#F3F1EE" stroke="#D1CDC6"/>
+        <text font-family="'Source Sans 3',sans-serif" font-size="14.8" fill="#787066" x="952" y="48">1984-03-11</text>
+      </g>
+    </g>
+
+    <!-- Helper line under email -->
+    <text class="body" font-size="11.11" fill="#787066" x="60" y="124">Use the address on file with your insurance.</text>
+  </g>
+
+  <!-- ============================================================
+       SECTION 8 — ALERTS / CALLOUTS
+       ============================================================ -->
+  <g transform="translate(60,1900)">
+    <text class="label" y="0">Alerts · semantic surface treatments (50 bg · 200 border · 700 text)</text>
+
+    <!-- Success -->
+    <g transform="translate(0,24)">
+      <rect x="0" y="0" width="640" height="64" rx="10" fill="#DCF0E5" stroke="#A0D5B8"/>
+      <circle cx="24" cy="32" r="10" fill="#3A8E64"/>
+      <path d="M19,32 L23,36 L30,29" stroke="#FBFAF8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14" font-weight="600" fill="#174430" x="48" y="28">Care plan confirmed</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" fill="#215A3E" x="48" y="46">Your provider approved the revised nutrition plan. Meals ship Monday.</text>
+    </g>
+
+    <!-- Warning -->
+    <g transform="translate(660,24)">
+      <rect x="0" y="0" width="640" height="64" rx="10" fill="#F4EAD5" stroke="#E3C88E"/>
+      <circle cx="24" cy="32" r="10" fill="#B58B20"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="700" fill="#FBFAF8" x="24" y="37" text-anchor="middle">!</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14" font-weight="600" fill="#5E3C00" x="48" y="28">Action needed by Friday</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" fill="#754B00" x="48" y="46">Complete your weekly check-in to keep your delivery on schedule.</text>
+    </g>
+
+    <!-- Error -->
+    <g transform="translate(0,100)">
+      <rect x="0" y="0" width="640" height="64" rx="10" fill="#FCE5E3" stroke="#F0ADA7"/>
+      <circle cx="24" cy="32" r="10" fill="#C13C3B"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="700" fill="#FBFAF8" x="24" y="37" text-anchor="middle">×</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14" font-weight="600" fill="#7A2221" x="48" y="28">Insurance verification failed</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" fill="#932B2A" x="48" y="46">We couldn't confirm coverage. Upload a clearer photo of your card to retry.</text>
+    </g>
+
+    <!-- Info -->
+    <g transform="translate(660,100)">
+      <rect x="0" y="0" width="640" height="64" rx="10" fill="#DFEEF7" stroke="#9ECCE3"/>
+      <circle cx="24" cy="32" r="10" fill="#287AA3"/>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" font-weight="700" fill="#FBFAF8" x="24" y="37" text-anchor="middle">i</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="14" font-weight="600" fill="#0B4E6C" x="48" y="28">New kitchen partner in your area</text>
+      <text font-family="'Source Sans 3',sans-serif" font-size="13.33" fill="#155572" x="48" y="46">Lunaria Kitchen joined the network. You can switch providers on your next cycle.</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       SECTION 9 — SPACING · RADIUS · SHADOW
+       ============================================================ -->
+  <g transform="translate(60,2100)">
+    <text class="label" y="0">Spacing scalar · radius · shadow</text>
+
+    <!-- Spacing -->
+    <g transform="translate(0,24)">
+      <text class="body" font-size="13.33" font-weight="600" fill="#25211D" y="12">Spacing · <tspan class="mono" font-weight="400" fill="#787066">--spacing: 0.25rem</tspan></text>
+      <g transform="translate(0,24)" fill="#1B685E">
+        <rect x="0"   y="16" width="4"  height="16"/>
+        <text class="swatch-hex" x="0"   y="50">1 · 4px</text>
+        <rect x="40"  y="12" width="8"  height="20"/>
+        <text class="swatch-hex" x="40"  y="50">2 · 8px</text>
+        <rect x="80"  y="8"  width="12" height="24"/>
+        <text class="swatch-hex" x="80"  y="50">3 · 12px</text>
+        <rect x="120" y="4"  width="16" height="28"/>
+        <text class="swatch-hex" x="120" y="50">4 · 16px</text>
+        <rect x="160" y="0"  width="24" height="32"/>
+        <text class="swatch-hex" x="160" y="50">6 · 24px</text>
+        <rect x="200" y="-8" width="32" height="40"/>
+        <text class="swatch-hex" x="200" y="50">8 · 32px</text>
+      </g>
+    </g>
+
+    <!-- Radius -->
+    <g transform="translate(280,24)">
+      <text class="body" font-size="13.33" font-weight="600" fill="#25211D" y="12">Radius</text>
+      <g transform="translate(0,24)">
+        <rect x="0"   y="0" width="56" height="56" rx="0"   fill="#E9F5F2" stroke="#A8D1C9"/>
+        <text class="swatch-hex" x="0"   y="74">0 · square</text>
+        <rect x="72"  y="0" width="56" height="56" rx="4"   fill="#E9F5F2" stroke="#A8D1C9"/>
+        <text class="swatch-hex" x="72"  y="74">sm · 4px</text>
+        <rect x="144" y="0" width="56" height="56" rx="8"   fill="#E9F5F2" stroke="#A8D1C9"/>
+        <text class="swatch-hex" x="144" y="74">md · 8px</text>
+        <rect x="216" y="0" width="56" height="56" rx="12"  fill="#E9F5F2" stroke="#A8D1C9"/>
+        <text class="swatch-hex" x="216" y="74">xl · 12px (card)</text>
+        <rect x="288" y="0" width="56" height="56" rx="28"  fill="#E9F5F2" stroke="#A8D1C9"/>
+        <text class="swatch-hex" x="288" y="74">full · pill</text>
+      </g>
+    </g>
+
+    <!-- Shadow -->
+    <g transform="translate(680,24)">
+      <text class="body" font-size="13.33" font-weight="600" fill="#25211D" y="12">Shadow · warm-tinted <tspan class="mono" font-weight="400" fill="#787066">rgba(78,68,55,0.1)</tspan></text>
+      <g transform="translate(0,28)">
+        <rect x="0"   y="4" width="96" height="56" rx="8" fill="#FBFAF8" stroke="#E7E4DF"/>
+        <text class="swatch-hex" x="0"   y="78">shadow-2xs</text>
+        <g filter="url(#card-shadow)">
+          <rect x="120" y="4" width="96" height="56" rx="8" fill="#FBFAF8"/>
+        </g>
+        <text class="swatch-hex" x="120" y="78">shadow-sm</text>
+        <g filter="url(#haven-shadow)">
+          <rect x="240" y="4" width="96" height="56" rx="8" fill="#FBFAF8"/>
+        </g>
+        <text class="swatch-hex" x="240" y="78">shadow-3 (default)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer / source note -->
+  <g transform="translate(60,2420)">
+    <line x1="0" y1="0" x2="1280" y2="0" stroke="#E7E4DF"/>
+    <text class="label" y="28">source · /Lab/haven-ui/src/styles/tokens/  ·  colors.css · typography.css · spacing.css · defaults.css · components.css</text>
+  </g>
+</svg>

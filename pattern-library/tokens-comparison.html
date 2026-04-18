@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Haven UI · Current vs Figma target</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  /* Shared structural tokens */
+  --radius-md: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(78, 68, 55, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(78, 68, 55, 0.10), 0 2px 4px -2px rgba(78, 68, 55, 0.10);
+}
+
+/* --- column: CURRENT haven-ui tokens (what ships today) --- */
+.col-current {
+  --surface: #FBFAF8;       /* sand-50 */
+  --elevated: #F3F1EE;      /* sand-100 — for buttons / neutral badges */
+  --card-bg: #FFFFFF;       /* card interiors lighter than surface */
+  --border: #E7E4DF;        /* sand-200 */
+  --border-strong: #D1CDC6; /* sand-300 */
+
+  --text-normal: #25211D;   /* sand-900 */
+  --text-muted: #5B544C;    /* sand-700 */
+  --text-faint: #787066;    /* sand-600 */
+
+  --primary-500: #3A8478;   /* teal-500 (LOCKED) */
+  --primary-600: #1B685E;   /* teal-600 — interactive fill */
+  --primary-700: #124D45;   /* teal-700 — hover */
+  --primary-50:  #E9F5F2;
+  --primary-200: #A8D1C9;
+
+  --success-50:  #DCF0E5;
+  --success-200: #A0D5B8;
+  --success-500: #3A8E64;
+  --success-700: #215A3E;
+
+  --warning-50:  #F4EAD5;
+  --warning-200: #E3C88E;
+  --warning-500: #B58B20;
+  --warning-700: #754B00;
+
+  --error-50:    #FCE5E3;
+  --error-200:   #F0ADA7;
+  --error-500:   #C13C3B;
+  --error-700:   #932B2A;
+
+  --info-50:     #DFEEF7;
+  --info-200:    #9ECCE3;
+  --info-500:    #287AA3;
+  --info-700:    #155572;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:    'Source Sans 3', system-ui, sans-serif;
+  --font-mono:    'Source Code Pro', ui-monospace, monospace;
+  --display-style: normal;
+  --display-weight: 700;
+
+  /* Input fill — warm-dark alpha, darkens whatever surface it sits on */
+  --input-fill: rgba(91, 84, 76, 0.08);        /* sand-700 @ 8% */
+  --input-fill-solid: #5B544C;                 /* opaque version for blend-mode variant */
+}
+
+/* --- column: FIGMA target tokens (the mockup aesthetic) --- */
+.col-figma {
+  --surface: #F5EEE5;       /* stone/50 */
+  --elevated: #EEE6DB;      /* stone/100 — for buttons / neutral badges */
+  --card-bg: #FFFFFF;       /* card interiors — white per Figma */
+  --border: #DFD5C9;        /* stone/200 */
+  --border-strong: #D8CEC0; /* stone/250 */
+
+  --text-normal: #040301;   /* on-light/normal */
+  --text-muted:  #52432A;   /* on-light/muted */
+  --text-faint:  #806F56;   /* on-light/faint */
+
+  --primary-500: #52A395;   /* teal/500 (logo — locked) */
+  --primary-600: #337A6E;   /* teal/700 — primary button */
+  --primary-700: #2D6F64;   /* teal/750 — pressed */
+  --primary-50:  #E9F5F2;
+  --primary-200: #A8D1C9;
+
+  --success-50:  #DCF0E5;
+  --success-200: #A0D5B8;
+  --success-500: #3A8E64;
+  --success-700: #215A3E;
+
+  --warning-50:  #F4EAD5;
+  --warning-200: #E3C88E;
+  --warning-500: #B58B20;
+  --warning-700: #754B00;
+
+  --error-50:    #FCE5E3;
+  --error-200:   #F0ADA7;
+  --error-500:   #C13C3B;
+  --error-700:   #932B2A;
+
+  --info-50:     #DFEEF7;
+  --info-200:    #9ECCE3;
+  --info-500:    #287AA3;
+  --info-700:    #155572;
+
+  --font-display: 'Lora', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'Source Code Pro', ui-monospace, monospace;
+  --display-style: normal;
+  --display-weight: 600;
+
+  /* Input fill — warm-dark alpha to match the amber register */
+  --input-fill: rgba(82, 67, 42, 0.08);        /* on-light/muted @ 8% */
+  --input-fill-solid: #52432A;                 /* opaque version for blend-mode variant */
+}
+
+/* --- page chrome (uses CURRENT tokens only — chrome is not part of the comparison) --- */
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background: #FBFAF8;
+  color: #25211D;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.chrome {
+  padding: 32px 40px 16px;
+  background: #FBFAF8;
+  border-bottom: 1px solid #E7E4DF;
+}
+.chrome h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 33.18px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #25211D;
+}
+.chrome p {
+  margin: 0;
+  color: #787066;
+  font-size: 14px;
+}
+.chrome .meta {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11.5px;
+  color: #958E85;
+  margin-top: 10px;
+}
+
+/* --- two-column grid --- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 120px);
+}
+@media (max-width: 1100px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.col {
+  padding: 28px 36px 48px;
+  background: var(--surface);
+  color: var(--text-normal);
+  font-family: var(--font-body);
+  min-width: 0;
+}
+.col + .col {
+  border-left: 1px solid #E7E4DF;
+}
+
+.col-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.col-label .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-600);
+}
+
+.col h2.col-title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  font-size: 27.65px;
+  margin: 0 0 24px;
+  color: var(--text-normal);
+}
+
+/* --- section --- */
+.section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+.section:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+
+.section-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin: 0 0 12px;
+}
+
+/* --- typography specimens --- */
+.type-h1 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  font-size: 39.81px;
+  line-height: 1.1;
+  color: var(--text-normal);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.type-h2 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  font-size: 27.65px;
+  line-height: 1.15;
+  color: var(--text-normal);
+  margin: 16px 0 6px;
+}
+.type-h3 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  font-size: 19.2px;
+  line-height: 1.2;
+  color: var(--text-normal);
+  margin: 16px 0 4px;
+}
+.type-p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-normal);
+  margin: 0 0 8px;
+}
+.type-muted { color: var(--text-muted); }
+.type-faint { color: var(--text-faint); font-size: 13.33px; }
+.type-pullquote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 19.2px;
+  font-style: italic;
+  color: var(--primary-600);
+  border-left: 3px solid var(--primary-500);
+  padding-left: 14px;
+  margin: 16px 0 0;
+  line-height: 1.45;
+}
+
+/* Lora italic rule — bump weight one step up vs the surrounding context.
+   Pullquote baseline is 400 → becomes 500 when rendered in Lora. */
+.col-figma .type-pullquote { font-weight: 500; }
+.col-figma em,
+.col-figma i,
+.col-figma [data-lora-italic] { font-weight: 500; font-style: italic; }
+
+/* --- buttons --- */
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-body);
+  font-size: 13.33px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 150ms, color 150ms;
+}
+.btn-primary {
+  background: var(--primary-600);
+  color: #FBFAF8;
+}
+.btn-primary:hover { background: var(--primary-700); }
+.btn-secondary {
+  background: var(--elevated);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-strong);
+}
+.btn-danger {
+  background: transparent;
+  color: var(--error-500);
+  border-color: var(--error-200);
+}
+
+/* --- badges --- */
+.badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-primary { background: var(--primary-50); color: var(--primary-600); border-color: var(--primary-200); }
+.badge-success { background: var(--success-50); color: var(--success-700); border-color: var(--success-200); }
+.badge-warning { background: var(--warning-50); color: var(--warning-700); border-color: var(--warning-200); }
+.badge-error   { background: var(--error-50);   color: var(--error-700);   border-color: var(--error-200);   }
+.badge-info    { background: var(--info-50);    color: var(--info-700);    border-color: var(--info-200);    }
+.badge-neutral { background: var(--elevated);   color: var(--text-faint);  border-color: var(--border-strong); }
+
+/* --- card --- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.card-title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-style: var(--display-style);
+  font-size: 19.2px;
+  color: var(--text-normal);
+  margin: 0 0 2px;
+}
+.card-subtitle {
+  color: var(--text-faint);
+  font-size: 13.33px;
+  margin: 0;
+}
+.card-body {
+  padding: 18px 20px 20px;
+}
+.card-body p { margin: 0 0 14px; color: var(--text-normal); line-height: 1.5; }
+.card-actions { display: flex; gap: 8px; }
+
+/* --- input --- */
+.field { display: block; margin-bottom: 12px; }
+.field-label {
+  display: block;
+  font-size: 13.33px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  font-size: 14.8px;
+  padding: 10px 14px;
+  background: var(--input-fill);       /* alpha fill — darkens whatever it sits on */
+  color: var(--text-normal);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 120ms, box-shadow 120ms, background 120ms;
+}
+.input::placeholder { color: var(--text-faint); }
+.input:hover { border-color: var(--border-strong); }
+.input:focus {
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 25%, transparent);
+}
+
+/* Alpha is the default input fill. Blend-mode variant was explored and discarded
+   (near-identical visual on the warm palette, no benefit to offset the stacking-context cost). */
+.field-help { font-size: 11.11px; color: var(--text-faint); margin-top: 4px; }
+
+/* --- input variant grid — shows alpha vs blend-mode on tan + white parents --- */
+.variant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+.variant-cell {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.variant-cell .v-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.variant-cell.on-surface { background: var(--surface); }
+.variant-cell.on-card    { background: var(--card-bg); }
+
+/* --- alerts --- */
+.alert {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  margin-bottom: 10px;
+}
+.alert-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #FBFAF8; font-size: 12px; font-weight: 700;
+}
+.alert-title { font-weight: 600; font-size: 14px; margin: 0; }
+.alert-body { font-size: 13.33px; margin: 2px 0 0; line-height: 1.45; }
+
+.alert-success { background: var(--success-50); border-color: var(--success-200); color: var(--success-700); }
+.alert-success .alert-icon { background: var(--success-500); }
+.alert-warning { background: var(--warning-50); border-color: var(--warning-200); color: var(--warning-700); }
+.alert-warning .alert-icon { background: var(--warning-500); }
+.alert-error   { background: var(--error-50);   border-color: var(--error-200);   color: var(--error-700);   }
+.alert-error   .alert-icon { background: var(--error-500); }
+.alert-info    { background: var(--info-50);    border-color: var(--info-200);    color: var(--info-700);    }
+.alert-info    .alert-icon { background: var(--info-500); }
+
+/* --- color strip --- */
+.strip { display: flex; gap: 6px; margin-bottom: 10px; }
+.chip {
+  width: 72px; height: 48px;
+  border-radius: 6px;
+  display: flex; align-items: flex-end;
+  padding: 4px 6px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 9.5px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.chip-light { color: #25211D; }
+.chip-dark  { color: #FBFAF8; }
+.chip-meta {
+  margin-top: 2px; font-family: 'Source Code Pro', monospace;
+  font-size: 10px; color: var(--text-faint);
+}
+
+/* Gradient blob — figma column only has the peach-warm emotional centerpiece */
+.col-figma {
+  position: relative;
+  overflow: hidden;
+}
+.col-figma::after {
+  content: '';
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -200px;
+  height: 360px;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255, 200, 160, 0.35), transparent 60%),
+              radial-gradient(ellipse at 75% 60%, rgba(255, 170, 130, 0.22), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+.col-figma > * { position: relative; z-index: 1; }
+
+/* --- footnote bar --- */
+.footnote {
+  background: #FBFAF8;
+  border-top: 1px solid #E7E4DF;
+  padding: 18px 40px 28px;
+  color: #787066;
+  font-size: 12px;
+  font-family: 'Source Code Pro', monospace;
+}
+.footnote code { background: #F3F1EE; padding: 1px 6px; border-radius: 4px; color: #25211D; }
+</style>
+</head>
+<body>
+
+<header class="chrome">
+  <h1>Haven UI · Current vs Figma Target</h1>
+  <p>Two renders of the same components using two token sets. Both use the same HTML tree.</p>
+  <div class="meta">source · figma.com/design/FCiLNAABRkwUV2LyGPRW3K · reference · .project-docs/references/figma-north-star.md</div>
+</header>
+
+<main class="grid">
+
+  <!-- ======================== CURRENT ======================== -->
+  <section class="col col-current">
+    <div class="col-label"><span class="dot"></span> Current · ships today</div>
+    <h2 class="col-title">What haven-ui is right now</h2>
+
+    <!-- Color strip -->
+    <div class="section">
+      <div class="section-label">Surface / text / accent</div>
+      <div class="strip">
+        <div class="chip chip-light" style="background:#FBFAF8;border:1px solid #E7E4DF;">surface</div>
+        <div class="chip chip-light" style="background:#F3F1EE;">elevated</div>
+        <div class="chip chip-dark"  style="background:#25211D;">text</div>
+        <div class="chip chip-dark"  style="background:#5B544C;">muted</div>
+        <div class="chip chip-dark"  style="background:#1B685E;">primary</div>
+        <div class="chip chip-dark"  style="background:#3A8478;">teal-500</div>
+      </div>
+      <div class="chip-meta">sand-50 · sand-100 · sand-900 · sand-700 · teal-600 · teal-500 (locked)</div>
+    </div>
+
+    <!-- Typography -->
+    <div class="section">
+      <div class="section-label">Typography · Plus Jakarta Sans display · Source Sans 3 body</div>
+      <h1 class="type-h1">A quiet harbor for care</h1>
+      <p class="type-p">Cena Health is a clinically integrated nutrition program. Food, care, and accountability in one plan.</p>
+      <h2 class="type-h2">How it works</h2>
+      <p class="type-p type-muted">Your care team builds a plan. Your kitchen cooks it. Your provider reviews the data.</p>
+      <p class="type-faint">Available in-network · most major insurers</p>
+      <p class="type-pullquote">"It felt like someone finally took the plan off my shoulders."</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="section">
+      <div class="section-label">Buttons</div>
+      <div class="btn-row">
+        <button class="btn btn-primary">Continue</button>
+        <button class="btn btn-secondary">Save draft</button>
+        <button class="btn btn-outline">Cancel</button>
+        <button class="btn btn-danger">Remove</button>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="section">
+      <div class="section-label">Badges</div>
+      <div class="badges">
+        <span class="badge badge-primary">PRIMARY</span>
+        <span class="badge badge-success">ACTIVE</span>
+        <span class="badge badge-warning">PENDING</span>
+        <span class="badge badge-error">OVERDUE</span>
+        <span class="badge badge-info">NEW</span>
+        <span class="badge badge-neutral">DRAFT</span>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="section">
+      <div class="section-label">Card · medication schedule</div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Medication schedule</h3>
+          <p class="card-subtitle">Updated 2 minutes ago</p>
+        </div>
+        <div class="card-body">
+          <p>Metformin 500mg · twice daily <span class="badge badge-success" style="margin-left:6px;">ACTIVE</span></p>
+          <p>Vitamin D3 · 1 daily <span class="badge badge-warning" style="margin-left:6px;">PENDING</span></p>
+          <div class="card-actions">
+            <button class="btn btn-primary">Review plan</button>
+            <button class="btn btn-outline">Export PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="section">
+      <div class="section-label">Form · alpha fill (warm-dark at 8%)</div>
+      <div class="variant-grid">
+        <div class="variant-cell on-surface">
+          <div class="v-label">on surface (tan)</div>
+          <input class="input" type="email" value="aaron@cenahealth.com" style="margin-bottom:8px;"/>
+          <input class="input" type="text" placeholder="Search patients…"/>
+        </div>
+        <div class="variant-cell on-card">
+          <div class="v-label">on card (white)</div>
+          <input class="input" type="email" value="aaron@cenahealth.com" style="margin-bottom:8px;"/>
+          <input class="input" type="text" placeholder="Search patients…"/>
+        </div>
+      </div>
+      <p class="type-faint" style="margin-top:10px;">Default: no border. Hover: border-strong. Focus: primary border + ring.</p>
+    </div>
+
+    <!-- Alerts -->
+    <div class="section">
+      <div class="section-label">Alerts</div>
+      <div class="alert alert-success">
+        <span class="alert-icon">✓</span>
+        <div><p class="alert-title">Care plan confirmed</p>
+        <p class="alert-body">Your provider approved the revised nutrition plan. Meals ship Monday.</p></div>
+      </div>
+      <div class="alert alert-warning">
+        <span class="alert-icon">!</span>
+        <div><p class="alert-title">Action needed by Friday</p>
+        <p class="alert-body">Complete your weekly check-in to keep your delivery on schedule.</p></div>
+      </div>
+      <div class="alert alert-info">
+        <span class="alert-icon">i</span>
+        <div><p class="alert-title">New kitchen partner in your area</p>
+        <p class="alert-body">Lunaria Kitchen joined the network.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FIGMA ======================== -->
+  <section class="col col-figma">
+    <div class="col-label"><span class="dot"></span> Figma target · mockup aesthetic</div>
+    <h2 class="col-title">What the mocks describe</h2>
+
+    <!-- Color strip -->
+    <div class="section">
+      <div class="section-label">Surface / text / accent</div>
+      <div class="strip">
+        <div class="chip chip-light" style="background:#F5EEE5;">surface</div>
+        <div class="chip chip-light" style="background:#EEE6DB;">elevated</div>
+        <div class="chip chip-dark"  style="background:#040301;">text</div>
+        <div class="chip chip-dark"  style="background:#52432A;">muted</div>
+        <div class="chip chip-dark"  style="background:#337A6E;">primary</div>
+        <div class="chip chip-dark"  style="background:#52A395;">teal-500</div>
+      </div>
+      <div class="chip-meta">stone-50 · stone-100 · on-light/normal · on-light/muted · teal/700 · teal/500</div>
+    </div>
+
+    <!-- Typography -->
+    <div class="section">
+      <div class="section-label">Typography · Lora display · Inter body</div>
+      <h1 class="type-h1">A quiet harbor for care</h1>
+      <p class="type-p">Cena Health is a clinically integrated nutrition program. Food, care, and accountability in one plan.</p>
+      <h2 class="type-h2">How it works</h2>
+      <p class="type-p type-muted">Your care team builds a plan. Your kitchen cooks it. Your provider reviews the data.</p>
+      <p class="type-faint">Available in-network · most major insurers</p>
+      <p class="type-pullquote">"It felt like someone finally took the plan off my shoulders."</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="section">
+      <div class="section-label">Buttons</div>
+      <div class="btn-row">
+        <button class="btn btn-primary">Continue</button>
+        <button class="btn btn-secondary">Save draft</button>
+        <button class="btn btn-outline">Cancel</button>
+        <button class="btn btn-danger">Remove</button>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="section">
+      <div class="section-label">Badges</div>
+      <div class="badges">
+        <span class="badge badge-primary">PRIMARY</span>
+        <span class="badge badge-success">ACTIVE</span>
+        <span class="badge badge-warning">PENDING</span>
+        <span class="badge badge-error">OVERDUE</span>
+        <span class="badge badge-info">NEW</span>
+        <span class="badge badge-neutral">DRAFT</span>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="section">
+      <div class="section-label">Card · medication schedule</div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Medication schedule</h3>
+          <p class="card-subtitle">Updated 2 minutes ago</p>
+        </div>
+        <div class="card-body">
+          <p>Metformin 500mg · twice daily <span class="badge badge-success" style="margin-left:6px;">ACTIVE</span></p>
+          <p>Vitamin D3 · 1 daily <span class="badge badge-warning" style="margin-left:6px;">PENDING</span></p>
+          <div class="card-actions">
+            <button class="btn btn-primary">Review plan</button>
+            <button class="btn btn-outline">Export PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="section">
+      <div class="section-label">Form · alpha fill (warm-dark at 8%)</div>
+      <div class="variant-grid">
+        <div class="variant-cell on-surface">
+          <div class="v-label">on surface (tan)</div>
+          <input class="input" type="email" value="aaron@cenahealth.com" style="margin-bottom:8px;"/>
+          <input class="input" type="text" placeholder="Search patients…"/>
+        </div>
+        <div class="variant-cell on-card">
+          <div class="v-label">on card (white)</div>
+          <input class="input" type="email" value="aaron@cenahealth.com" style="margin-bottom:8px;"/>
+          <input class="input" type="text" placeholder="Search patients…"/>
+        </div>
+      </div>
+      <p class="type-faint" style="margin-top:10px;">Default: no border. Hover: border-strong. Focus: primary border + ring.</p>
+    </div>
+
+    <!-- Alerts -->
+    <div class="section">
+      <div class="section-label">Alerts</div>
+      <div class="alert alert-success">
+        <span class="alert-icon">✓</span>
+        <div><p class="alert-title">Care plan confirmed</p>
+        <p class="alert-body">Your provider approved the revised nutrition plan. Meals ship Monday.</p></div>
+      </div>
+      <div class="alert alert-warning">
+        <span class="alert-icon">!</span>
+        <div><p class="alert-title">Action needed by Friday</p>
+        <p class="alert-body">Complete your weekly check-in to keep your delivery on schedule.</p></div>
+      </div>
+      <div class="alert alert-info">
+        <span class="alert-icon">i</span>
+        <div><p class="alert-title">New kitchen partner in your area</p>
+        <p class="alert-body">Lunaria Kitchen joined the network.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footnote">
+  diff · <code>--color-sand-50</code> #FBFAF8 → #F5EEE5 · <code>--color-sand-100</code> #F3F1EE → #EEE6DB · <code>--color-sand-200</code> #E7E4DF → #DFD5C9 · <code>--color-sand-300</code> #D1CDC6 → #D8CEC0 · <code>--color-sand-600</code> #787066 → #806F56 · <code>--color-sand-700</code> #5B544C → #52432A · <code>--color-sand-900</code> #25211D → #040301 · <code>--color-teal-600</code> #1B685E → #337A6E · <code>--font-display</code> Plus Jakarta Sans → Lora · <code>--font-body</code> Source Sans 3 → Inter
+</footer>
+
+</body>
+</html>
