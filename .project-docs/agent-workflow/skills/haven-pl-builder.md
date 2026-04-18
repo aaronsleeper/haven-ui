@@ -94,9 +94,29 @@ In this exact order:
   category: {Category}
   file: {filename}.html
   classes: {comma-separated list}
+  variants: {comma-separated list of variant suffixes, e.g. is-urgent, is-warning, active}
   when-to-use: {one sentence}
   preline-required: yes — {plugin} / no
   notes: {any important constraints}
+
+  interactive-usage: {required | optional | none}
+  # If required or optional, fill in this block so the ui-react-porter skill
+  # knows exactly what a11y contract the React port must honor. Omit if the
+  # component is purely presentational (e.g. a badge that never receives focus).
+
+  interactive:
+    role: button | link | listitem | checkbox | radio | tab | none
+    # Native element the React port should render — if role is `button`, React
+    # uses <button type="button">; if `link`, <a href>; if `listitem`, <li>
+    # containing a <button> or <a>; etc.
+    keyboard: {Enter, Space, Esc, Arrow keys — list what the component responds to}
+    aria:
+      current: {true when .active; false | omitted otherwise}
+      label-needed: {true if icons or state-only indicators need aria-label; false otherwise}
+      hidden-icons: {list of selectors whose <i> should carry aria-hidden="true"}
+    focus:
+      visible: {CSS class that produces the focus ring — e.g. .queue-item:focus-visible}
+
   @end-meta
 -->
 
@@ -117,6 +137,12 @@ In this exact order:
 
 </section>
 ```
+
+### Why the `interactive` block is mandatory for interactive components
+
+`ui-react-porter` produces a 1:1 mechanical port. Without an explicit interactive contract in `@component-meta`, the porter either guesses the role/keyboard/aria requirements (judgment, forbidden) or propagates whatever the HTML literally contains (often `<div>` with no keyboard semantics — a WCAG 2.1.1 failure). The block gives the porter a deterministic source for the a11y decisions that the static HTML alone doesn't encode.
+
+A component with `interactive-usage: none` is purely presentational (badges, spinners, dividers). These skip the `interactive:` block entirely.
 
 ### Pattern library page structure
 

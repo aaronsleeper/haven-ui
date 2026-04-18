@@ -17,6 +17,15 @@ Before writing any React code, verify:
 2. Every class used in that HTML file is defined in `packages/design-system/src/styles/tokens/components.css` (either as `@apply` definition or as a Preline/Tailwind class documented in the project conventions).
 3. A row for this component exists in `packages/design-system/pattern-library/COMPONENT-INDEX.md`.
 4. No existing React component at `packages/ui-react/src/components/[Name].tsx` covers the same pattern.
+5. **Pre-port accessibility audit** — the pattern-library HTML passes these checks:
+   - Root element is correct for its role (interactive elements → `<button>`, `<a>`, or a semantic form element — not `<div>`; containers → `<section>`, `<aside>`, `<nav>`, etc.)
+   - Decorative icons have `aria-hidden="true"`
+   - Icon-only or state-only indicators (SLA badges, status dots, alert chevrons) have a text equivalent via `aria-label`, visible text, or `<span class="sr-only">`
+   - List structures use `<ul>`/`<ol>` + `<li>` (or `role="list"`/`"listitem"` where a styled list defies native elements)
+   - Section headers use a heading element (`<h2>`/`<h3>`) or `role="heading"` + `aria-level`
+   - Color is never the sole conveyor of state — text or icon backs it up
+   - Hit targets on interactive elements are at least 44×44 CSS px (or the surrounding touch target is)
+   - Any animation respects `prefers-reduced-motion` (at the CSS level via `@media (prefers-reduced-motion: reduce)`)
 
 If any check fails:
 - Do NOT write the React component.
@@ -25,6 +34,7 @@ If any check fails:
   - Missing components.css definition → escalate to `haven-mapper` (new-component spec needed).
   - Missing COMPONENT-INDEX row → escalate to `haven-pl-builder` or manual index update.
   - Existing React component → escalate to human review (duplicate/divergent component question — steward's call).
+  - **A11y audit fails** → escalate to `accessibility` expert via `haven-pl-builder` to fix the pattern-library HTML first. Do not paper over an HTML gap by patching the React component — the React must mirror the HTML 1:1, so the fix belongs at the source. This rule exists because `ui-react-porter` silently propagates HTML a11y defects; the structural gate is here.
 
 ## The port rule
 
@@ -37,6 +47,8 @@ Permissible transformations:
 - Static text nodes that are clearly content → replace with `{children}` or a named prop
 - Attribute-based values (e.g. `href="#"`) → accept as prop with same name
 - Preline `data-hs-*` attributes → keep as-is (Preline JS is loaded in app entry, not in the component)
+- **Implied clickability via CSS** — if the pattern-library `components.css` definition for the component's class includes `cursor-pointer`, the component is semantically clickable. Accept an `onClick?: () => void` prop on the component root even if the HTML has no inline `onclick`. Conversely, if `components.css` does NOT declare `cursor-pointer`, do not add `onClick` — the clickability wasn't specified.
+- **Implied selection state via CSS** — if `components.css` defines an `.active` variant (or similar stateful variant), expose it as a boolean prop (`active?: boolean`) that toggles the class; and set `aria-current="true"` on the root when active (assumes the component is a selectable list item; for tab-like semantics use `aria-selected`).
 
 Forbidden transformations:
 - Adding structure not present in the pattern-library HTML (no "improvements")
@@ -105,6 +117,10 @@ After writing the component:
 - [ ] No imported hook, state, effect, or context unless the pattern-library HTML has `data-hs-*` attributes requiring client-side Preline initialization (in which case import only the Preline init utility)
 - [ ] Barrel export at `packages/ui-react/src/components/index.ts` updated
 - [ ] Component rendered in the ui-react Storybook/demo harness (when it exists) shows visual parity with the pattern-library HTML page
+- [ ] **Keyboard walkthrough:** every interactive root renders as a native interactive element (`<button>`, `<a>`, `<input>`, etc.) — no `<div role="button">`. Native elements get Enter/Space/focus/disabled for free.
+- [ ] **`aria-current` on `.active`:** when the component's `active` prop is true and the component represents a selectable list item, `aria-current="true"` is on the root
+- [ ] **`aria-hidden` on decorative icons:** every `<i class="fa-...">` that does not itself carry meaning (i.e., whose meaning is conveyed by adjacent text) has `aria-hidden="true"`
+- [ ] **`aria-label` on state-only indicators:** SLA badges, status dots, chevrons that encode state without standalone text get an `aria-label` describing the state in words
 
 ## Completion report
 

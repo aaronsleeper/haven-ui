@@ -172,6 +172,41 @@ After all verification passes and before running the git commit, output this rep
 [Common failure modes and recovery]
 ```
 
+### Step 4b: Write the slice manifest
+
+Every slice produces a `slice-manifest.md` in `apps/[persona]/design/slices/[slice-id]/manifest.md` declaring what the slice does and does NOT include. Without this, future reviewers can't distinguish deliberate deferral from forgotten scope — wireframe fidelity drifts permanently.
+
+```markdown
+# Slice Manifest — [slice-id]: [short name]
+
+**Target app:** [apps/[persona]]
+**Primary wireframe(s):** [list of wireframe paths]
+**Commit:** [sha after commit]
+
+## In scope (ships in this slice)
+
+- [Wireframe section / component] — [ported from / new] — [ui-react path or app-scoped path]
+- [Wireframe section / component] — [...]
+
+## Deferred (explicitly not in this slice, tracked for later)
+
+- [Wireframe section] — reason: [why not now] — tracked as: [next-slice item / open-question / roadmap entry]
+- [Wireframe section] — [...]
+
+## Workflow gates applied
+
+- ui-react-porter preconditions met for every ported component: [yes / list exceptions]
+- app-composer utility-soup rejection clean: [yes / list exceptions]
+- Post-slice expert review dispatched (ux-design-lead, design-system-steward, accessibility): [pending / verdict summary]
+
+## Known gaps at slice-end
+
+- [Gap] — severity: [blocker / should-fix / nice-to-have]
+- [Gap] — [...]
+```
+
+The manifest file is the single source of truth for "what shipped and what didn't" when expert review runs or future agents pick up the work. It lands in the same commit as the slice's code.
+
 ### Step 5: Write Task List
 
 ```markdown

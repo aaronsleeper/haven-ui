@@ -95,6 +95,66 @@ If Preline is used, verify `data-hs-*` attributes match the Preline v4 API, not 
 - PASS / N/A: No Preline used
 - FAIL: Describe the incorrect attributes
 
+### Accessibility checks (WCAG 2.1 AA baseline)
+
+**A11Y-01: Correct root element for the component's role**
+Interactive elements use `<button>` (not `<div role="button">`), `<a>` (with `href`), or form elements. Containers use `<section>`, `<aside>`, `<nav>`, `<article>` when they carry landmark semantics.
+- PASS: Root element matches role
+- FAIL: Describe the wrong element and what it should be
+
+**A11Y-02: Decorative icons are `aria-hidden="true"`**
+Any `<i class="fa-...">` whose meaning is redundant with adjacent text has `aria-hidden="true"`.
+- PASS: All decorative icons hidden from AT
+- FAIL: List icons missing the attribute
+
+**A11Y-03: State-only indicators have text equivalents**
+Icons, dots, or chevrons that encode state without standalone text have `aria-label` (e.g., `aria-label="SLA breached: 2 hours overdue"`) — or use `<span class="sr-only">` inside to provide visible-to-AT text.
+- PASS: Every state-only indicator has a text equivalent
+- FAIL: List indicators with no text fallback
+
+**A11Y-04: Keyboard walkthrough**
+Walk through the rendered component using Tab, Enter, Space, Esc, and arrow keys (where applicable). Every interactive element is reachable and activatable. Focus moves in a sensible order. No focus traps except where intended (modals).
+- PASS: Keyboard walkthrough clean
+- FAIL: Describe what's unreachable, unactivatable, or trapped
+
+**A11Y-05: Visible focus indicator distinct from hover and active**
+`:focus-visible` produces an outline or ring that is visually distinct from both the default state and the `:hover`/`.active` states. Color alone is insufficient — must be a ring, outline, or offset change.
+- PASS: Focus indicator distinguishable
+- FAIL: Describe what's missing
+
+**A11Y-06: Color-contrast for text (WCAG 1.4.3, 4.5:1 normal / 3:1 large)**
+Check every text + background pairing in the component against WCAG AA thresholds:
+- Normal text (<18pt or <14pt-bold): ≥4.5:1
+- Large text (≥18pt or ≥14pt-bold): ≥3:1
+Use a contrast checker or resolve the pair against the token values in `colors.css`. Both light and dark modes must pass.
+- PASS: All text pairings ≥4.5:1 (or ≥3:1 for large text)
+- FAIL: List each failing pair and the measured ratio
+
+**A11Y-07: Color is not the sole conveyor of state**
+Urgency, error, success, disabled — each is communicated by at least one of: icon, text, pattern. Color can reinforce but cannot be the only signal.
+- PASS: Every stateful variant has a non-color signal
+- FAIL: List variants that rely on color alone
+
+**A11Y-08: `aria-current` on active selectable items**
+If the component supports an `.active` class representing the selected item in a list, the HTML uses `aria-current="true"` on the active root (or the pattern-library component's `<li>`/`<button>` parent).
+- PASS / N/A: Not a selectable item, or `aria-current` is correct
+- FAIL: Active variant missing `aria-current`
+
+**A11Y-09: List and heading semantics**
+If the component represents a list, the markup uses `<ul>`/`<ol>` + `<li>` (or `role="list"`/`"listitem"` where needed). If it represents a section header, it uses `<h2>`/`<h3>` (or `role="heading"` with `aria-level`).
+- PASS / N/A: Correct semantics, or component is not a list/heading
+- FAIL: Describe what's missing
+
+**A11Y-10: Touch target size (WCAG 2.5.5 reference; 44×44 CSS px)**
+Interactive elements (buttons, taps, toggles) are at least 44×44 CSS px, or the surrounding padded target is.
+- PASS: All interactive targets ≥44×44
+- FAIL: List targets smaller than 44×44
+
+**A11Y-11: Respects `prefers-reduced-motion`**
+Any transition, fade, or animation is wrapped in `@media (prefers-reduced-motion: reduce) { animation: none; transition: none; }` or equivalent.
+- PASS / N/A: No animation, or motion is gated
+- FAIL: List unconditional animations
+
 ### Integration checks
 
 **INT-01: `COMPONENT-INDEX.md` row added**
@@ -146,6 +206,19 @@ Visit `http://localhost:5173/packages/design-system/pattern-library/pages/{name}
 - HTML-05 FA Pro icons:          PASS / FAIL
 - HTML-06 Dummy copy:            PASS / FAIL
 - HTML-07 Preline attrs:         PASS / FAIL / N/A
+
+### Accessibility
+- A11Y-01 Root element:          PASS / FAIL
+- A11Y-02 Icons aria-hidden:     PASS / FAIL / N/A
+- A11Y-03 State indicators:      PASS / FAIL / N/A
+- A11Y-04 Keyboard walkthrough:  PASS / FAIL
+- A11Y-05 Focus indicator:       PASS / FAIL
+- A11Y-06 Contrast:              PASS / FAIL
+- A11Y-07 Color independence:    PASS / FAIL / N/A
+- A11Y-08 aria-current active:   PASS / FAIL / N/A
+- A11Y-09 List/heading:          PASS / FAIL / N/A
+- A11Y-10 Touch target size:     PASS / FAIL
+- A11Y-11 Reduced motion:        PASS / FAIL / N/A
 
 ### Integration
 - INT-01 COMPONENT-INDEX row:    PASS / FAIL
