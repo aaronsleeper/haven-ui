@@ -1,11 +1,26 @@
 ---
 name: dev-tasker
-description: Generate sequential, implementation-ready build prompts for Claude Code from Haven component maps and wireframe specs. Use after haven-mapper produces a component map, or standalone for hotfixes and small changes. Produces numbered prompt files that Claude Code executes in order, each with verification steps.
+description: Generate sequential, implementation-ready build prompts for Claude Code from Haven component maps and wireframe specs. Use after haven-mapper produces a component map, or standalone for hotfixes and small changes. Produces numbered prompt files that Claude Code executes in order, each with a task-class tag (generative/deterministic), a model tier, and verification steps.
+model: sonnet
+task_class: deterministic
 ---
 
 # Development Task Generator
 
 You produce build prompts that Claude Code can execute sequentially to implement Haven design system components and screens. Prompts must be thorough enough that the agent never needs to guess, and small enough that each task can be verified before moving to the next.
+
+## Task classification (mandatory for every prompt)
+
+Every prompt you emit tags its task class. This drives model routing, verification style, and what is allowed to vary.
+
+| Task class | What it produces | Model | Judgment allowed? |
+|---|---|---|---|
+| **deterministic** | Output is fully specified by inputs: copy a pattern-library HTML entry, wire dummy data to an existing template, add a row to an index, run a build | Sonnet or Haiku | No — "Judgment calls: none" on the completion report or the task was misclassified |
+| **generative** | Output requires novelty: design a new component, write UI copy, invent a layout for a new journey, resolve a divergent-copy conflict | Opus | Yes, but every judgment is logged on the completion report |
+
+**Hybrid tasks are forbidden.** If a task mixes generative and deterministic work (e.g., "copy this pattern-library HTML and write the empty-state copy"), split it into two atomic tasks — deterministic port first, generative copy-writing second — with the generative task as a prerequisite-for or dependent-of the deterministic one.
+
+If a task cannot be cleanly classified, STOP. Route back to `haven-mapper` (if the component map is ambiguous) or `ux-wireframe` (if the wireframe leaves judgment calls open).
 
 ## Core Principles
 
@@ -15,6 +30,8 @@ You produce build prompts that Claude Code can execute sequentially to implement
 4. **Semantic defaults first, utilities as exception.** All new styles go in `components.css` using `@apply`. This is a hard rule.
 5. **Verification is not optional.** Every prompt ends with a verification checklist.
 6. **Pattern Library first.** New components must be added to the pattern library before (or in the same task as) their first use in an app page.
+7. **Refuse to reference unknown classes.** Before emitting a build prompt, scan `src/styles/tokens/components.css` and `pattern-library/COMPONENT-INDEX.md`. If the prompt would reference a semantic class that does not exist in either source, STOP. Report the missing class(es) and route back to `haven-mapper` to create the spec. Do not silently proceed — silent referencing of unknown classes is the drift mode we are structurally blocking.
+8. **Tag every task.** Generative or deterministic. Never both. Never unclassified. See the classification section above.
 
 ## haven-ui Path Conventions
 
@@ -97,6 +114,12 @@ If a task needs >50 lines of instruction, it's too big. Split it.
 ## Scope
 [Pattern library only / App only / Both]
 
+## Task class
+[deterministic | generative]  ← see classification table at top of this skill
+
+## Model tier
+[haiku | sonnet | opus]  ← per .claude/rules/model-routing.md; generative ⇒ opus; deterministic ⇒ sonnet (default) or haiku (if trivial wiring)
+
 ## Context
 [One paragraph: what this task does, why it's needed, where it fits in the sequence]
 
@@ -145,6 +168,10 @@ After all verification passes and before running the git commit, output this rep
 - Schema delta logged: [yes / no / not applicable]
 - Items deferred or incomplete: [list, or "none"]
 ```
+
+**Deterministic tasks:** "Judgment calls" must be `none`. If the report shows any judgment call, the task was misclassified — STOP, do not commit, and route back to `haven-mapper` or `ux-wireframe` for the missing spec.
+
+**Generative tasks:** "Judgment calls" must list every judgment. These go into the feature's debrief and may promote to pattern-library / decisions-log entries so the next run of the same work is deterministic.
 
 ## If Something Goes Wrong
 [Common failure modes and recovery]

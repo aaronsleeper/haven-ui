@@ -1,6 +1,8 @@
 ---
 name: haven-mapper
-description: Map wireframe specifications to Haven design system components, identify gaps, and produce implementation-ready screen recipes. Use after wireframes are reviewed (post ux-design-review pre-build) and before generating build tasks. Also use standalone when Aaron asks "can Haven do X?" or "what component should I use for Y?"
+description: Map wireframe specifications to Haven design system components, identify gaps, and produce implementation-ready screen recipes. Use after wireframes are reviewed (post ux-design-review pre-build) and before generating build tasks. Also use standalone when Aaron asks "can Haven do X?" or "what component should I use for Y?" Mapping existing components is deterministic; specifying new components is generative and gated.
+model: sonnet
+task_class: mixed — mapping is deterministic, new-component specification is generative and requires a gate before proceeding
 ---
 
 # Haven Component Mapper
@@ -16,6 +18,33 @@ Before mapping anything, read BOTH:
 2. `pattern-library/COMPONENT-INDEX.md` — indexed inventory of all built components
 
 These two files together define the full Haven component surface. If there is a discrepancy, `components.css` wins.
+
+## Gap gate — mandatory pause on new components
+
+When Step 4 (Specify New Components) would fire because a wireframe element has no existing Haven match, STOP before writing the spec. Emit a **Gap Gate** summary and wait for Aaron's explicit approval before proceeding:
+
+```
+## Gap Gate: New components detected
+
+Wireframe(s) reviewed: [list]
+Existing components mapped: [N]
+Gaps detected: [N]
+
+### Proposed new components
+- **[name]** — [one-line description] — referenced by [screen(s)] — [Preline base? y/n]
+- **[name]** — [one-line description] — referenced by [screen(s)] — [Preline base? y/n]
+
+### Options for Aaron
+1. Approve all gaps — I'll write specs in `new-components/` and proceed.
+2. Approve some; defer others to utility-fallback for this feature.
+3. Reconsider the wireframe — the gap suggests a pattern we already have under a different name.
+
+Waiting for direction before writing specs.
+```
+
+Rationale: new semantic classes are generative work with long-term design-system consequences. Auto-creating them in the middle of a feature build is the drift mode we're structurally blocking. A wireframe might incorrectly imply a new component when an existing one would suffice, or one new component is actually three variants of an existing pattern. Aaron's call, every time.
+
+**Never auto-generate a new-component spec without passing the gap gate.**
 
 ## haven-ui Path Conventions
 

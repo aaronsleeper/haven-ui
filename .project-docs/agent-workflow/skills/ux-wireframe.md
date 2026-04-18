@@ -1,6 +1,8 @@
 ---
 name: ux-wireframe
 description: Produce text-based screen specifications from ux-architect outputs. Use this skill after Gate 1 is approved and before ux-design-review. Each screen spec is a markdown file that fully defines layout zones, components, interactions, states, accessibility, and copy — enough for haven-mapper to map without ambiguity and for ux-design-review to evaluate without guessing.
+model: opus
+task_class: generative
 ---
 
 # UX Wireframe Spec Writer
@@ -175,9 +177,11 @@ Use only component names that exist in `pattern-library/COMPONENT-INDEX.md`. If 
 
 1. **Do not invent a name.** Use a descriptive phrase in brackets: `[NEW COMPONENT: pill-shaped action button with icon + label]`.
 2. **Flag it explicitly** in the screen spec under a `## New Components Flagged` section at the bottom of the file.
-3. haven-mapper will spec it properly.
+3. haven-mapper will gate and spec it properly (see haven-mapper's Gap Gate).
 
 This prevents the wireframe vocabulary from drifting from what Haven can actually produce.
+
+**Gate 2 discipline:** Any wireframe in the set that flags new components triggers a mandatory pause at Gate 2. Aaron must either approve pursuing them (via haven-mapper's Gap Gate) or redirect the wireframe before the pipeline proceeds. The workflow does not silently accept new components — they are generative work with design-system consequences.
 
 ## Copy Rules
 

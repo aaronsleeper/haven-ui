@@ -12,12 +12,13 @@ A chain of agent skills that moves a feature from user research through implemen
 |------|---------|
 | `README.md` | This file |
 | `ux-workflow.md` | Full workflow definition, gate formats, file structure, invocation rules |
-| `skills/ux-architect.md` | Phase 1-3: Discovery, Functional Spec, IA |
-| `skills/ux-wireframe.md` | Text-based screen specs: layout zones, components, interactions, states |
-| `skills/ux-design-review.md` | Pre-build wireframe review + post-build validation |
-| `skills/haven-mapper.md` | Maps wireframes to Haven components, specs new components |
-| `skills/dev-tasker.md` | Generates sequential build prompts for Claude Code |
-| `skills/debrief-capture.md` | Writes build lessons to prompts-library.md and decisions-log.md |
+| `skills/ux-architect.md` | Phase 1-3: Discovery, Functional Spec, IA (generative) |
+| `skills/ux-wireframe.md` | Text-based screen specs: layout zones, components, interactions, states (generative) |
+| `skills/ux-design-review.md` | Pre-build wireframe review + post-build validation (generative) |
+| `skills/haven-mapper.md` | Maps wireframes to Haven components (deterministic) and specs new components (generative, gated) |
+| `skills/dev-tasker.md` | Generates sequential build prompts for Claude Code (deterministic; tags each prompt generative/deterministic) |
+| `skills/ui-react-porter.md` | Mechanically ports a pattern-library HTML component to React 1:1 (deterministic; fails on any required judgment) |
+| `skills/debrief-capture.md` | Writes build lessons to prompts-library.md and decisions-log.md (deterministic) |
 
 ## Pipeline Summary
 

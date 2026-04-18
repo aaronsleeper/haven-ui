@@ -5,11 +5,14 @@
 The `/pl-build` command reads this file to find the next unbuilt component and build it.
 Do not remove rows. Do not reorder sections. Update the Status column only.
 
-Status values:
+Status values (progression is left-to-right; later states imply earlier ones):
 - `missing` — not yet built
 - `in-progress` — currently being built
-- `built` — in pattern library, passes QA
+- `built` — pattern-library HTML exists, semantic class in `components.css`, COMPONENT-INDEX row, QA passes
 - `brand-reviewed` — built + reviewed against Cena brand spec
+- `react-ported` — also has a matching React component in `packages/ui-react/` produced by the `ui-react-porter` skill (1:1 class mirror of the pattern-library HTML)
+
+**Note:** `react-ported` cannot be assigned until the monorepo scaffold lands in Commit B of the haven-ui stack-and-workflow rollout (see `~/.claude/plans/haven-ui-stack-and-workflow-consult.md`). The status value is defined now so the registry model doesn't need another rewrite when the scaffold exists.
 
 ---
 

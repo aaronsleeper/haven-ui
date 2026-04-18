@@ -4,6 +4,24 @@
 
 This document defines the end-to-end workflow for designing and building new features, screens, and applications for Cena Health using the Haven design system. It orchestrates a chain of skills that move from user research through implementation-ready build prompts, with human checkpoints at key decision points.
 
+## Generative vs deterministic — the classification model
+
+Every task in the pipeline is tagged as one of two classes. The classification drives model routing, verification style, and what judgment is allowed in the output. **Hybrid tasks are forbidden** — if a task mixes the two, split it into atomic tasks (generative first, deterministic downstream).
+
+| Class | Definition | Model | Judgment | Examples |
+|---|---|---|---|---|
+| **generative** | Output requires novelty — invent a layout, write copy, design a new component, reconcile a divergent pattern | opus | Yes, but every judgment is logged on the completion report and may be promoted to pattern-library or decisions-log entries | ux-architect, ux-wireframe, new-component spec in haven-mapper, ux-design-review, brand analysis |
+| **deterministic** | Output is fully specified by inputs — copy a pattern-library HTML entry into React, map a wireframe element to an existing component, add a row to COMPONENT-INDEX, wire dummy data, run a build | sonnet (default) or haiku (trivial wiring) | No — if the completion report lists any judgment call, the task was misclassified; STOP and route back | dev-tasker output prompts (deterministic by construction), ui-react-porter, haven-pl-qa, debrief-capture, existing-component mapping in haven-mapper |
+
+Structural enforcement makes the classification robust:
+
+- `dev-tasker` refuses to emit a prompt referencing a semantic class not found in `components.css` or `COMPONENT-INDEX.md`. That is the single most common drift mode and it is blocked at prompt-generation time, not at review time.
+- `haven-mapper` pauses at a **Gap Gate** before writing any new-component spec. A human has to approve that a generative step is warranted.
+- `ux-wireframe` pauses at Gate 2 when any `[NEW COMPONENT: ...]` was flagged, so the wireframe's novelty is acknowledged before the pipeline proceeds.
+- `ui-react-porter` fails if the React component it would produce requires any judgment — missing pattern-library HTML, missing class in components.css, missing COMPONENT-INDEX row. It does not "fix" gaps, it routes back.
+
+The classification and structural enforcement exist because prior UI attempts produced far-from-optimal results when generative work sneaked into deterministic task slots. Making the distinction explicit and the enforcement mechanical is the quality lever.
+
 ## haven-ui Path Conventions
 
 All paths in this document and the skill files use haven-ui conventions:
