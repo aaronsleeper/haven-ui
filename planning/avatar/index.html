@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ava Orb — Cena Health</title>
+  <style>
+    :root {
+      --cena-forest: #0D322D;
+      --cena-teal-500: #3A8478;
+      --cena-teal-600: #52A395;
+      --cena-sage-700: #81B983;
+      --cena-surface: #FBFAF8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--cena-surface);
+      color: var(--cena-forest);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+    .subtitle { color: var(--cena-teal-500); margin-bottom: 2rem; font-size: 0.9rem; }
+
+    .showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .orb-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--cena-teal-500);
+    }
+
+    /* Light theme orb */
+    .orb-canvas-wrap {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .orb-canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Dark surface */
+    .dark-surface {
+      background: var(--cena-forest);
+      border-radius: 16px;
+      padding: 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dark-surface .section-label { color: var(--cena-sage-700); }
+
+    /* Size row */
+    .size-row {
+      display: flex;
+      align-items: end;
+      gap: 2rem;
+    }
+
+    .size-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .size-label { font-size: 0.75rem; color: var(--cena-teal-500); }
+
+    .orb-48 .orb-canvas-wrap { width: 48px; height: 48px; }
+    .orb-40 .orb-canvas-wrap { width: 40px; height: 40px; }
+    .orb-32 .orb-canvas-wrap { width: 32px; height: 32px; }
+
+    /* State controls */
+    .state-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .state-btn {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--cena-teal-500);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--cena-teal-500);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .state-btn:hover {
+      background: var(--cena-teal-500);
+      color: var(--cena-surface);
+    }
+
+    .state-btn.active {
+      background: var(--cena-forest);
+      color: var(--cena-surface);
+      border-color: var(--cena-forest);
+    }
+  </style>
+</head>
+<body>
+  <h1>Ava Orb Avatar</h1>
+  <p class="subtitle">WebGL shader prototype — Cena Health palette</p>
+
+  <div class="showcase">
+    <!-- Hero: Light theme -->
+    <div class="orb-section">
+      <span class="section-label">Light Theme (200px)</span>
+      <div class="orb-canvas-wrap" id="orb-light"></div>
+      <div class="state-controls" data-target="light">
+        <button class="state-btn active" data-state="null">Idle</button>
+        <button class="state-btn" data-state="listening">Listening</button>
+        <button class="state-btn" data-state="thinking">Thinking</button>
+        <button class="state-btn" data-state="talking">Speaking</button>
+      </div>
+    </div>
+
+    <!-- Hero: Dark theme -->
+    <div class="dark-surface">
+      <span class="section-label">Dark Theme (200px)</span>
+      <div class="orb-canvas-wrap" id="orb-dark"></div>
+      <div class="state-controls" data-target="dark">
+        <button class="state-btn active" data-state="null">Idle</button>
+        <button class="state-btn" data-state="listening">Listening</button>
+        <button class="state-btn" data-state="thinking">Thinking</button>
+        <button class="state-btn" data-state="talking">Speaking</button>
+      </div>
+    </div>
+
+    <!-- Component sizes -->
+    <div class="orb-section">
+      <span class="section-label">Component Sizes</span>
+      <div class="size-row">
+        <div class="size-demo orb-48">
+          <div class="orb-canvas-wrap" id="orb-48"></div>
+          <span class="size-label">lg (48px)</span>
+        </div>
+        <div class="size-demo orb-40">
+          <div class="orb-canvas-wrap" id="orb-40"></div>
+          <span class="size-label">default (40px)</span>
+        </div>
+        <div class="size-demo orb-32">
+          <div class="orb-canvas-wrap" id="orb-32"></div>
+          <span class="size-label">sm (32px)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="ava-orb.js"></script>
+</body>
+</html>

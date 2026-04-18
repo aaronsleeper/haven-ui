@@ -338,6 +338,18 @@ build sprints without requiring manual diffing or multiple requests.
 3. `COMPONENT-INDEX.md` row is updated
 4. QA checklist in `haven-pl-qa.md` passes
 
+## Planning docs (imported from Ava, 2026-04-18)
+
+`planning/` holds the product, UX, and architecture planning for the human-facing
+apps that integrate with the Ava agent: UI patterns, journeys, roles, workflows,
+and the experts (ux-design-lead, design-system-steward, frontend-architecture,
+accessibility, compliance, patient-ops, etc.) that shape requirements and review.
+
+Read `planning/README.md` for the full import manifest and what was intentionally
+left in the Ava repo. When starting any new feature, consult the relevant
+`planning/journeys/`, `planning/roles/`, and `planning/experts/` files before
+jumping to wireframes.
+
 ## UX Design & Build Workflow
 
 A full design-to-build pipeline lives in `.project-docs/agent-workflow/`.

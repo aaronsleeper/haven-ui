@@ -1,0 +1,32 @@
+# Identity map — maps Slack user IDs to ava identities.
+#
+# Keyed on immutable Slack user ID (U-prefix). Display names are
+# comments only — they change; IDs don't.
+#
+# The Slack bridge refuses to write for unknown user IDs.
+# To add a team member: get their Slack user ID from their
+# profile → "..." → "Copy member ID".
+#
+# TODO: Replace placeholder Slack user IDs with real values
+# after Slack app is installed.
+
+U_AARON_PLACEHOLDER:
+  display_name: Aaron Sleeper
+  role: aaron
+  git_name: Aaron Sleeper
+  git_email: aaronsleeper@gmail.com
+  github_username: aaronsleeper
+
+U_ANDREY_PLACEHOLDER:
+  display_name: Andrey
+  role: andrey
+  git_name: Andrey
+  git_email: andrey@cenahealth.com
+  github_username: andrey-cena
+
+U_VANESSA_PLACEHOLDER:
+  display_name: Vanessa Sleeper
+  role: vanessa
+  git_name: Vanessa Sleeper
+  git_email: vanessa@cenahealth.com
+  github_username: vanessa-cena
