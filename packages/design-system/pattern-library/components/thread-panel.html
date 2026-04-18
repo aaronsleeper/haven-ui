@@ -1,0 +1,37 @@
+<!--
+  @component-meta
+  name: Thread Panel
+  category: Clinical / Healthcare
+  file: thread-panel.html
+  classes: thread-panel, thread-panel-body, thread-panel-empty
+  variants: none (is-empty state only for slice 2; slice 3 adds message types and input field)
+  when-to-use: Right rail of the three-panel coordinator app. Hosts the agent activity thread for the currently-selected queue item. Slice 2 ships only the empty-state placeholder; slice 3 lands the message types (system, tool_call, tool_result, approval_request, human, approval_response) and the input field at the bottom.
+  preline-required: no
+  notes: 380px fixed width, independent vertical scroll, border-left separator, landmark via `<aside aria-label="Activity thread">`. Empty-state text is subtle (text-gray-500) and centered.
+
+  interactive-usage: none
+
+  @end-meta
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thread Panel — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body>
+
+  <h1 class="section-title p-4">Thread Panel — Empty State</h1>
+
+  <aside class="thread-panel" aria-label="Activity thread">
+    <div class="thread-panel-body thread-panel-empty">
+      <p>Select a queue item to see its activity.</p>
+    </div>
+  </aside>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

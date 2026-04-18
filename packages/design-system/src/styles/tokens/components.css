@@ -7751,7 +7751,27 @@ a.list-group-item-action {
 
 /* .queue-sidebar canonical rule lives above in the queue/section-header block. */
 
+/* Outermost shell for the admin, coordinator, provider, and kitchen apps.
+   Flex row with fixed-width sides (queue 240px, thread 380px) and flex-grow center.
+   Desktop-first; responsive collapses land in a later slice. */
+.three-panel-shell {
+    @apply flex h-screen overflow-hidden;
+}
+
+/* Center panel. flex-1 + min-w-0 so the center can truncate/scroll internally
+   without pushing the fixed panels. Recessed bg distinguishes from white card
+   content inside. */
+.three-panel-shell-center {
+    @apply flex-1 min-w-0 overflow-y-auto bg-gray-50;
+    @apply dark:bg-neutral-950;
+}
+
+/* Right rail. Fixed 380px, independent scroll, border-left separator.
+   Slightly recessed bg per the three-panel surface hierarchy (sand-50). */
 .thread-panel {
+    @apply flex flex-col overflow-y-auto border-l border-sand-200;
+    width: 380px;
+    flex-shrink: 0;
     background-color: var(--color-sand-50);
     box-shadow: -1px 0 3px 0 rgba(0, 0, 0, 0.04);
 }
@@ -7760,7 +7780,18 @@ a.list-group-item-action {
     .thread-panel {
         background-color: var(--color-neutral-900);
         box-shadow: -1px 0 3px 0 rgba(0, 0, 0, 0.2);
+        border-left-color: var(--color-neutral-700);
     }
+}
+
+.thread-panel-body {
+    @apply flex-1 p-4;
+}
+
+/* Centered empty-state text for the thread panel's inactive state. */
+.thread-panel-empty {
+    @apply flex flex-col items-center justify-center h-full text-sm text-gray-600;
+    @apply dark:text-neutral-300;
 }
 
 .queue-filter-btn {

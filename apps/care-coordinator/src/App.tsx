@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   QueueItem,
   QueueSectionHeader,
   QueueSidebar,
   QueueSidebarBrand,
   QueueSidebarBody,
+  ThreePanelShell,
+  ThreePanelShellCenter,
+  ThreadPanel,
+  ThreadPanelEmpty,
 } from '@haven/ui-react';
 import { urgent, attention, info } from './data/queue';
 import type { QueueEntry } from './data/queue';
@@ -12,6 +16,11 @@ import type { QueueSectionTier } from '@haven/ui-react';
 
 export function App() {
   const [activeId, setActiveId] = useState<string>();
+
+  const activeEntry = useMemo(() => {
+    const all = [...urgent, ...attention, ...info];
+    return all.find((entry) => entry.id === activeId);
+  }, [activeId]);
 
   const renderSection = (
     tier: QueueSectionTier,
@@ -41,7 +50,7 @@ export function App() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <ThreePanelShell>
       <QueueSidebar>
         <QueueSidebarBrand>Ava</QueueSidebarBrand>
         <QueueSidebarBody>
@@ -51,17 +60,35 @@ export function App() {
         </QueueSidebarBody>
       </QueueSidebar>
 
-      <main className="flex-1 p-8">
-        <h1 className="section-title">care-coordinator — slice 1</h1>
-        <p className="prose-section mt-2">
-          Queue sidebar ported from Haven pattern-library components. Tab
-          reaches each queue item; Enter or Space activates. Focus ring is
-          distinct from the <code>active</code> background.
-        </p>
-        <p className="prose-section mt-4">
-          Active queue id: <code>{activeId ?? '(none — try Tab + Enter)'}</code>
-        </p>
-      </main>
-    </div>
+      <ThreePanelShellCenter>
+        {activeEntry ? (
+          <section className="p-6">
+            <h1 className="section-title">{activeEntry.name}</h1>
+            <p className="prose-section mt-2">
+              {activeEntry.category} — {activeEntry.summary}
+            </p>
+            <p className="prose-section mt-4">
+              Record content lands in a future slice.
+            </p>
+          </section>
+        ) : (
+          <section className="p-6">
+            <h1 className="section-title">Select a queue item</h1>
+            <p className="prose-section mt-2">
+              Click or Tab + Enter to a queue item in the sidebar to load
+              its record here.
+            </p>
+          </section>
+        )}
+      </ThreePanelShellCenter>
+
+      <ThreadPanel>
+        <ThreadPanelEmpty>
+          {activeEntry
+            ? 'Thread view lands in slice 3.'
+            : 'Select a queue item to see its activity.'}
+        </ThreadPanelEmpty>
+      </ThreadPanel>
+    </ThreePanelShell>
   );
 }

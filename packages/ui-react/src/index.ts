@@ -25,3 +25,15 @@ export type { QueueSidebarBrandProps } from './components/QueueSidebarBrand';
 
 export { QueueSidebarBody } from './components/QueueSidebarBody';
 export type { QueueSidebarBodyProps } from './components/QueueSidebarBody';
+
+export { ThreePanelShell } from './components/ThreePanelShell';
+export type { ThreePanelShellProps } from './components/ThreePanelShell';
+
+export { ThreePanelShellCenter } from './components/ThreePanelShellCenter';
+export type { ThreePanelShellCenterProps } from './components/ThreePanelShellCenter';
+
+export { ThreadPanel } from './components/ThreadPanel';
+export type { ThreadPanelProps } from './components/ThreadPanel';
+
+export { ThreadPanelEmpty } from './components/ThreadPanelEmpty';
+export type { ThreadPanelEmptyProps } from './components/ThreadPanelEmpty';
