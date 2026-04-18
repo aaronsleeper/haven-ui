@@ -7358,10 +7358,12 @@ a.list-group-item-action {
    QUEUE COMPONENTS (Care Coordinator)
    ================================================================ */
 
-/* Queue sidebar shell — the 240px fixed-width left panel of the 3-panel app. */
+/* Queue sidebar shell — the 240px fixed-width left panel of the 3-panel app.
+   Background is sand-100 (slight warm off-white) per the three-panel surface
+   hierarchy: sand-100 for queue, sand-50 for thread, white for center. */
 .queue-sidebar {
-    @apply flex flex-col w-60 h-screen overflow-y-auto bg-white border-r border-gray-200;
-    @apply dark:bg-neutral-900 dark:border-neutral-800;
+    @apply flex flex-col w-60 h-screen overflow-y-auto bg-sand-100 border-r border-sand-200;
+    @apply dark:bg-neutral-800 dark:border-neutral-700;
 }
 
 .queue-sidebar-brand {
@@ -7747,17 +7749,7 @@ a.list-group-item-action {
    Three-panel surface hierarchy
    ============================================================ */
 
-.queue-sidebar {
-    background-color: var(--color-sand-100);
-    border-right: 1px solid var(--color-sand-200);
-}
-
-@media (prefers-color-scheme: dark) {
-    .queue-sidebar {
-        background-color: var(--color-neutral-800);
-        border-right-color: var(--color-neutral-700);
-    }
-}
+/* .queue-sidebar canonical rule lives above in the queue/section-header block. */
 
 .thread-panel {
     background-color: var(--color-sand-50);
@@ -7776,9 +7768,7 @@ a.list-group-item-action {
     @apply dark:text-neutral-300 dark:hover:text-neutral-100;
 }
 
-.queue-list {
-    @apply pl-1;
-}
+/* .queue-list canonical rule lives above in the queue/section-header block. */
 
 /* ============================================================
    Agentic Shell — 3-panel layout (nav, chat, content)

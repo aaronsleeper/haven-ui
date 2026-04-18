@@ -155,6 +155,11 @@ Any transition, fade, or animation is wrapped in `@media (prefers-reduced-motion
 - PASS / N/A: No animation, or motion is gated
 - FAIL: List unconditional animations
 
+**A11Y-12: `aria-live` for components with dynamic state updates (WCAG 4.1.3)**
+If the component's content or state is expected to change without a page navigation (toast, queue-item status transition, progress indicator, notification badge), the container carries `aria-live="polite"` (or `"assertive"` for high-urgency alerts) and `aria-atomic` where appropriate. Purely static components (badges, icons, typography samples) skip this check.
+- PASS / N/A: Dynamic region has live region, or component is static
+- FAIL: Dynamic content has no live-region scaffolding
+
 ### Integration checks
 
 **INT-01: `COMPONENT-INDEX.md` row added**
@@ -219,6 +224,7 @@ Visit `http://localhost:5173/packages/design-system/pattern-library/pages/{name}
 - A11Y-09 List/heading:          PASS / FAIL / N/A
 - A11Y-10 Touch target size:     PASS / FAIL
 - A11Y-11 Reduced motion:        PASS / FAIL / N/A
+- A11Y-12 Live region:           PASS / FAIL / N/A
 
 ### Integration
 - INT-01 COMPONENT-INDEX row:    PASS / FAIL

@@ -176,6 +176,8 @@ After all verification passes and before running the git commit, output this rep
 
 Every slice produces a `slice-manifest.md` in `apps/[persona]/design/slices/[slice-id]/manifest.md` declaring what the slice does and does NOT include. Without this, future reviewers can't distinguish deliberate deferral from forgotten scope — wireframe fidelity drifts permanently.
 
+**Wireframe-delta discipline:** the Deferred section is not a judgment call — it is an enumeration of every wireframe element that did NOT ship in this slice. Walk the primary wireframe end to end; for each section, component, interaction, and accessibility note, either list it under "In scope" (confirmed shipped) or under "Deferred" (confirmed not shipped, with reason). Missing a wireframe element is permissible only if it's explicitly named as deferred. This matches the "Interactive usage" block discipline in `haven-pl-builder.md` — you make scope decisions explicit rather than ambient.
+
 ```markdown
 # Slice Manifest — [slice-id]: [short name]
 
@@ -190,8 +192,11 @@ Every slice produces a `slice-manifest.md` in `apps/[persona]/design/slices/[sli
 
 ## Deferred (explicitly not in this slice, tracked for later)
 
+Walk the wireframe(s) section-by-section. Every element not listed in "In scope" above MUST appear here with a reason.
+
 - [Wireframe section] — reason: [why not now] — tracked as: [next-slice item / open-question / roadmap entry]
-- [Wireframe section] — [...]
+- [Accessibility note from the wireframe's a11y section] — reason: [why not now] — tracked as: [...]
+- [Interaction spec from the wireframe] — [...]
 
 ## Workflow gates applied
 
@@ -203,6 +208,12 @@ Every slice produces a `slice-manifest.md` in `apps/[persona]/design/slices/[sli
 
 - [Gap] — severity: [blocker / should-fix / nice-to-have]
 - [Gap] — [...]
+
+## Round N expert verdict (optional — appended after each review round)
+
+- **ux-design-lead:** [ship / iterate / block] — [one-line summary]
+- **design-system-steward:** [ship / iterate / block] — [...]
+- **accessibility:** [ship / iterate / block, WCAG pass/conditional/fail] — [...]
 ```
 
 The manifest file is the single source of truth for "what shipped and what didn't" when expert review runs or future agents pick up the work. It lands in the same commit as the slice's code.

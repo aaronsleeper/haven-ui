@@ -4,6 +4,42 @@
 
 This document defines the end-to-end workflow for designing and building new features, screens, and applications for Cena Health using the Haven design system. It orchestrates a chain of skills that move from user research through implementation-ready build prompts, with human checkpoints at key decision points.
 
+## Per-slice QA protocol — mandatory gate before declaring a slice done
+
+Every vertical slice ends with a three-expert review gate. A slice is not "done" when code lands — it is done when the three experts below each emit a `ship` verdict. An `iterate` or `block` verdict from any one of them sends the slice back through the relevant skill to fix the finding, then re-dispatches all three. This is the structural discipline that prevents prior "missed the mark" UI attempts from repeating.
+
+### The expert trio
+
+| Expert | Domain | Looks for |
+|---|---|---|
+| **ux-design-lead** | UX fidelity, interaction model | wireframe adherence, copy, hierarchy, sort order, empty/loading/error states, interaction correctness for future composition |
+| **design-system-steward** | Port fidelity, class discipline | pattern-library HTML ↔ React parity, utility-soup in JSX, new semantic classes are legitimately reusable vs. app-specific leaks, token discipline |
+| **accessibility** | WCAG 2.1 AA | keyboard activation, aria-current/aria-label/aria-hidden, contrast, focus visible, list/heading semantics, target size, reduced motion, aria-live |
+
+Each expert reads their definition at `planning/experts/[name]/` to calibrate judgment. Each produces a structured memo: verdict, resolved/unresolved findings from the previous round (if any), new findings, workflow-contract effectiveness.
+
+### Dispatch pattern
+
+Dispatch all three in parallel via the Agent tool with `model: opus`. Each prompt must be self-contained: list the slice's files, the wireframe(s), the pattern-library HTML, the relevant workflow contracts. Agents do not share context — do not assume one has read another's prior review. For round 2 or later, prepend the previous-round findings and what was done about each, so the expert can verify resolution rather than re-discover.
+
+### Verdict synthesis
+
+After all three return:
+
+1. **If all three `ship`** → slice is done. Append the round-N verdict to the slice manifest. Move to the next slice.
+2. **If any `iterate`** → iterate. Apply the findings through the right skill (`ui-react-porter` for port fidelity, `app-composer` for composition, `haven-pl-builder` + `ui-react-porter` for pattern-library HTML fixes, `haven-mapper` for new semantic classes). Then re-dispatch all three.
+3. **If any `block`** → block. Do not commit further forward work until the block is resolved. A block from accessibility specifically indicates WCAG failure — not a style preference.
+
+### What the protocol produces
+
+- A slice manifest with appended verdicts per round (see `dev-tasker.md` Step 4b for the manifest format).
+- Retro-log entries in the relevant expert dirs (`planning/experts/[name]/retro-log.md`) when an expert finding reveals a recurring pattern worth remembering.
+- Workflow-skill updates when an expert finding shows a skill contract has a gap — the skill is hardened so the next slice doesn't repeat the failure mode.
+
+### Why this exists
+
+Slice 1 of care-coordinator (initial commit 83ab145) shipped with WCAG Level A failures, utility-soup in composition, and CSS-level duplicate rules — all of which the three-expert review caught on first pass. Without the protocol, those failures would have compounded across slices and eventually required a painful retrofit. The protocol trades ~15 minutes of per-slice expert review overhead for structurally guaranteed quality on the axes that matter most: wireframe fidelity, pattern-library integrity, and WCAG AA conformance.
+
 ## Generative vs deterministic — the classification model
 
 Every task in the pipeline is tagged as one of two classes. The classification drives model routing, verification style, and what judgment is allowed in the output. **Hybrid tasks are forbidden** — if a task mixes the two, split it into atomic tasks (generative first, deterministic downstream).
