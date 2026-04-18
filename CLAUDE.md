@@ -1,5 +1,20 @@
 # haven-ui — Agent Rules
 
+## ⚠️ Scope change in progress (2026-04-18)
+
+haven-ui is pivoting from "vanilla HTML + CSS delivered to Andrey for Angular translation" to a React monorepo that owns the full frontend. Decisions locked: AD-08 (React 19 + Vite), AD-09 (Turborepo + pnpm workspaces). See `planning/decisions.md` and `planning/team/proposals/stack-recommendations.md`.
+
+**What this means for agents working here right now:**
+
+- The restructure (Commit B in the rollout plan at `~/.claude/plans/haven-ui-stack-and-workflow-consult.md`) has not landed yet. Until it does, this file's existing conventions still describe the current tree — vanilla HTML + Tailwind 4 + Preline, single-app Vite, pattern-library-first discipline.
+- The ANDREY-README.md handoff mandate (below) is superseded. ANDREY-README will move to archive in Commit B. Do not update it in new work.
+- The "No React, Vue, Angular" ban in the Framework Usage section is superseded — React is now the target, not a prohibited tool. But until the monorepo restructure lands, new React code has no home; wait for the scaffold.
+- **Load-bearing rules that survive the transition:** pattern-library-first ("copy, don't generate"), semantic classes in `components.css`, `@apply` over utility soup, COMPONENT-INDEX.md as ground truth, scope declaration ("PL only / app only / both") per task. Every React component built after Commit B will be a 1:1 mechanical port of its pattern-library HTML entry.
+
+The rest of this file describes the current state. Treat it as authoritative for vanilla work and informational for planning the React migration.
+
+---
+
 Read the full task before taking any action. Complete it fully before stopping.
 
 When done:

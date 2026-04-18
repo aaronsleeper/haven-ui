@@ -228,6 +228,6 @@ be validated before implementation begins.
 | ~~Current meal prescription continues during care plan revision~~ | 01 | **Validated** — OQ-11 confirmed |
 | ~~AVA uses Twilio for voice~~ | agent-framework | **Validated** — OQ-47 confirmed |
 | ~~Epic is the primary EHR integration target~~ | 02, 04 | **Partially validated** — OQ-01: Cedars uses Epic, Vanderbilt uses Athena, UConn skips integration for phase 1. Multi-EHR support required. |
-| React/Next.js frontend | CLAUDE.md (archive) | Front-end architecture change |
+| ~~React/Next.js frontend~~ | CLAUDE.md (archive) | **Validated** — AD-08 locked React 19 + Vite on 2026-04-18 |
 | FHIR R4 for all data exchange | multiple | Some partners may only support STU3 or HL7 v2 |
 | Coordinator is the primary approver for care plans (with RDN) | 01 | Different approval chain changes workflow routing |

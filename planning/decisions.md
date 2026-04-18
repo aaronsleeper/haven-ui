@@ -22,9 +22,9 @@ Decisions made during planning that shape implementation. Each entry captures wh
 | AD-05 | Hybrid data separation — clinical DB + BigQuery for research | 2026-03-27 | 🟡 [Provisional](team/proposals/AD-05-proposal.md) — building against; Andrey review still welcome |
 | AD-06 | Risk scoring weight change process — clinical proposes, eng validates and deploys | 2026-03-27 | ✅ Decided |
 | AD-07 | Engineering on-call policy for P1 incidents | 2026-03-27 | 🟡 [Provisional](team/proposals/AD-07-proposal.md) — building against; Andrey review still welcome |
-| AD-08 | React 19 + Vite as frontend framework | 2026-04-10 | 🟡 [Provisional](team/proposals/stack-recommendations.md) — building against; Andrey review still welcome |
-| AD-09 | Turborepo + pnpm workspaces as monorepo tooling | 2026-04-10 | 🟡 [Provisional](team/proposals/stack-recommendations.md) — building against; Andrey review still welcome |
-| AD-10 | Drizzle ORM for Postgres data access | 2026-04-10 | 🟡 [Provisional](team/proposals/stack-recommendations.md) — building against; Andrey review still welcome |
+| AD-08 | React 19 + Vite as frontend framework | 2026-04-18 | ✅ Decided — locked after 3-expert consult; see scope note below |
+| AD-09 | Turborepo + pnpm workspaces as monorepo tooling | 2026-04-18 | ✅ Decided — locked after 3-expert consult; see scope note below |
+| AD-10 | Drizzle ORM for Postgres data access | 2026-04-10 | 🟡 [Provisional](team/proposals/stack-recommendations.md) — Andrey's scope; deferred until CTO review |
 
 ---
 
@@ -148,8 +148,10 @@ Decisions made during planning that shape implementation. Each entry captures wh
 
 ## AD-08: React 19 + Vite as frontend framework
 
-**Decision:** React 19 with Vite for all 4 app surfaces (Admin, Provider, Kitchen, Patient).
-**Status:** 🟡 Provisional (2026-04-10). Research-backed proposal. See [full analysis](team/proposals/stack-recommendations.md).
+**Decision:** React 19 with Vite for all app surfaces (care-coordinator, provider, kitchen, patient).
+**Status:** ✅ Decided (2026-04-18). Locked after a three-expert consult (frontend-architecture, design-system-steward, ux-design-lead) on the haven-ui scope change — haven-ui now owns the full frontend; no more HTML-to-Angular translation step. See [full analysis](team/proposals/stack-recommendations.md). Andrey's CTO courtesy review still welcome but not blocking.
+
+**Scope change context (2026-04-18):** haven-ui previously produced vanilla HTML + CSS delivered to Andrey for Angular translation in cena-health-spark. That handoff was the primary friction point — slow and produced far-from-optimal results. haven-ui now builds React apps directly. Pattern library HTML stays as the authoritative *spec* that React components mirror 1:1 (see the related workflow rewrite in `.project-docs/agent-workflow/`). This is the "Path 3 without Angular" outcome of the expert consult.
 
 **Options considered:**
 - **React 19 + Vite** — largest AI training corpus, 3 production-grade headless a11y libraries (React Aria, Radix, Base UI), most mature testing story (Vitest + RTL)
@@ -166,8 +168,8 @@ Decisions made during planning that shape implementation. Each entry captures wh
 
 ## AD-09: Turborepo + pnpm workspaces as monorepo tooling
 
-**Decision:** Turborepo as build orchestrator, pnpm as package manager.
-**Status:** 🟡 Provisional (2026-04-10). See [full analysis](team/proposals/stack-recommendations.md).
+**Decision:** Turborepo as build orchestrator, pnpm as package manager. haven-ui becomes a monorepo: `packages/design-system/` (tokens + pattern-library HTML + semantic classes as spec), `packages/ui-react/` (React components mirroring pattern-library 1:1), `apps/{care-coordinator,provider,kitchen,patient}/` (React + Vite).
+**Status:** ✅ Decided (2026-04-18). Locked alongside AD-08. See [full analysis](team/proposals/stack-recommendations.md).
 
 **Options considered:**
 - **Turborepo + pnpm** — 3 config files, free remote caching (Vercel), AI understands the JSON config, ejects cleanly to bare pnpm
@@ -184,7 +186,7 @@ Decisions made during planning that shape implementation. Each entry captures wh
 ## AD-10: Drizzle ORM for Postgres data access
 
 **Decision:** Drizzle ORM as primary database toolkit. Kysely documented as fallback.
-**Status:** 🟡 Provisional (2026-04-10). See [full analysis](team/proposals/stack-recommendations.md).
+**Status:** 🟡 Provisional — Andrey's scope; deferred. AD-10 is a backend/data-layer decision that belongs to Andrey as CTO. Frontend work (AD-08/09) does not depend on it; haven-ui will consume whatever API contract Andrey exposes. See [full analysis](team/proposals/stack-recommendations.md).
 
 **Options considered:**
 - **Drizzle** — direct connection access for `SET LOCAL app.tenant_id` (RLS), schema-as-code with inferred types, human-readable SQL migrations, no binary engine
