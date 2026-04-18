@@ -38,10 +38,15 @@ Walked the wireframe section by section. Every element not in "In scope" above a
 - **Sidebar scroll position preservation when switching items** (wireframe §73) — reason: requires scroll state management and route-level state coordination; tracked as slice-5
 - **Open question — right panel close/minimize control** (wireframe §102) — reason: not yet decided; keep panel always-visible for slice 2
 - **Open question — center panel breadcrumbs** (wireframe §103) — reason: not yet decided; center is a single-view container in slice 2
+- **`aria-live` on center panel for record-load announcement** (surfaced by ux-design-lead round 1) — reason: center currently renders static placeholder text per active queue item; aria-live scaffolding is meaningful when real record content lands; tracked alongside the thread-panel aria-live work in slice 3
+- **Design-token extractions** (surfaced by design-system-steward round 1) — `.three-panel-shell-center` bg-gray-50 → `--color-surface-muted` token; `.thread-panel` `rgba(0,0,0,0.04)` / `rgba(0,0,0,0.2)` shadows → `--shadow-panel-left` token — reason: non-blocking; tracked for the next token-audit pass
+- **Panel boundary visibility at narrow widths** (surfaced by accessibility round 1) — `border-sand-200` separator between center and thread has very low luminance contrast (~1.05:1) against `bg-gray-50` center; acceptable as decorative, primary separator is the sand-50 bg shift + box-shadow; consider `border-sand-300` when responsive collapses land in slice 4 so the boundary remains perceivable at narrow widths
 
 ## Wireframe-vs-design-system reconciliation
 
 - **Thread panel background** — wireframe §54 specifies `bg-white`; design system canonicalizes `bg-sand-50` in the Three-panel surface hierarchy (components.css). Sand-50 wins — the design-system decision is durable and documented; the wireframe suggestion was a reasonable-but-not-binding color call. The thread-panel pattern-library HTML and components.css agree on sand-50.
+- **Thread panel empty-state copy — "activity" vs "thread"** (surfaced by ux-design-lead round 1) — wireframe §81 originally said "Select a queue item to see its thread"; pattern-library HTML and React port say "…see its activity". Activity wins — the thread panel contains the agent's activity log (tool calls, approvals, messages), not a separate object named "thread". Wireframe §81 updated in this round to match.
+- **Focus-trap on persistent panels — wireframe §99 vs WCAG 2.1.2** (surfaced by accessibility round 1) — wireframe originally said "Focus trapped within active panel when using keyboard navigation". WCAG 2.1.2 (No Keyboard Trap, Level A) requires focus to be able to leave any container except modal dialogs. Wireframe §99 updated in this round: natural Tab flow is correct for a persistent layout; focus-trap is only applied in the APG modal-dialog pattern. Also codified in `ui-react-porter.md` Layout-component addendum.
 
 ## Workflow gates applied
 
@@ -55,3 +60,9 @@ Walked the wireframe section by section. Every element not in "In scope" above a
 - Focus ring not yet browser-verified — severity: should-fix; tracked from slice 1
 - Responsive behavior entirely unimplemented — severity: should-fix; tracked as slice-4
 - No breakpoint at `lg` means a narrow browser window will overflow horizontally rather than collapse the right panel; acceptable for slice-2 desktop-first scope but surfaces quickly on real use
+
+## Round 1 expert verdicts (on commit 439bfb3)
+
+- **ux-design-lead:** iterate — 1 blocker (developer copy "Thread view lands in slice 3." leaked into clinical UI), 3 should-fixes (activity/thread copy reconciliation, center min-width per §44, onboarding prose too verbose for clinical role), 1 nice-to-have (aria-live on center for record-load announcement). All addressed in round 2 except aria-live which is now deferred to slice 3.
+- **design-system-steward:** ship — port fidelity clean, zero utility soup in App.tsx (cleanest composition shipped so far), all new semantic classes reusable, no duplicate rules. Two non-blocking token flags (bg-gray-50 → `--color-surface-muted`; rgba shadows → `--shadow-panel-left`) captured in Deferred above.
+- **accessibility:** ship — WCAG 2.1 AA pass. Contrast all passes (10.77:1 for section-title, 4.77:1 for thread-panel-empty). Flagged wireframe §99 focus-trap spec as violating WCAG 2.1.2 and recommended wireframe correction (applied in round 2). Recommended Layout-component addendum for `ui-react-porter.md` and two new checks (A11Y-13 landmarks named, A11Y-14 DOM reading order) for `haven-pl-qa.md` — all applied in round 2.

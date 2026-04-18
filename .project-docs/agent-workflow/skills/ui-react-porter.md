@@ -27,6 +27,13 @@ Before writing any React code, verify:
    - Hit targets on interactive elements are at least 44×44 CSS px (or the surrounding touch target is)
    - Any animation respects `prefers-reduced-motion` (at the CSS level via `@media (prefers-reduced-motion: reduce)`)
 
+6. **Layout-component addendum** — if the component is a layout shell (panel, landmark container, app-shell, grid), additionally verify:
+   - Every `<aside>`, `<nav>`, `<section>`, `<form>` that shares a page with a sibling of the same tag carries an `aria-label` so screen-reader landmark navigation can distinguish them (WCAG 1.3.1 / 2.4.1). The React port's default `label` prop matches the pattern-library HTML's value; override optional.
+   - Every `<main>` has an `aria-label` too when another `<main>` or ambiguous structure could exist (e.g., multi-app shells). Single-`<main>` pages can omit but it doesn't hurt.
+   - DOM child order matches the visual left-to-right / top-to-bottom reading order the wireframe specifies — the React port must not reorder. CSS-only reordering (`flex-direction`, `order`) is fine for visual layout but breaks reading order and is forbidden for layout shells.
+   - Do NOT add focus-trap behavior to persistent layout panels. Focus-trap is a modal-dialog pattern per WAI-ARIA APG; applied to a persistent panel it becomes a WCAG 2.1.2 (No Keyboard Trap, Level A) failure. Wireframes that specify trapping for persistent panels are incorrect; route back to `ux-design-lead` to restate as panel-cycle keyboard shortcut or remove.
+   - Every non-interactive landmark that sits beside a scroll container has `overflow-y-auto` (or `overflow-y-hidden` if intentionally clipped) so content that grows does not strand focus off-screen.
+
 If any check fails:
 - Do NOT write the React component.
 - Report which precondition failed and which upstream skill should resolve it:

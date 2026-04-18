@@ -160,6 +160,16 @@ If the component's content or state is expected to change without a page navigat
 - PASS / N/A: Dynamic region has live region, or component is static
 - FAIL: Dynamic content has no live-region scaffolding
 
+**A11Y-13: Landmark regions are named and unique (WCAG 1.3.1, 2.4.1)**
+If the component contains or is a landmark element (`<main>`, `<nav>`, `<aside>`, `<section>`, `<form>`, `<header>`, `<footer>`), each one that shares a page with a sibling of the same tag carries an `aria-label` so screen-reader landmark navigation can distinguish them. A single-landmark-of-its-kind page can omit. Components that don't contain any landmarks skip.
+- PASS / N/A: All landmarks named, or no landmarks in this component
+- FAIL: Two landmarks of the same role with no distinguishing label
+
+**A11Y-14: DOM order matches visual reading order (WCAG 1.3.2)**
+Tab order and screen-reader reading order follow DOM order. If visual CSS (flex/grid) reorders children (`flex-direction: row-reverse`, `order:`, grid placement), DOM order still matches intended reading order — or the visual reorder is wrong. For layout shells specifically: left panel DOM-first, center DOM-second, right DOM-third.
+- PASS: DOM order matches visual/intended reading order
+- FAIL: Describe the DOM/visual mismatch
+
 ### Integration checks
 
 **INT-01: `COMPONENT-INDEX.md` row added**
@@ -225,6 +235,8 @@ Visit `http://localhost:5173/packages/design-system/pattern-library/pages/{name}
 - A11Y-10 Touch target size:     PASS / FAIL
 - A11Y-11 Reduced motion:        PASS / FAIL / N/A
 - A11Y-12 Live region:           PASS / FAIL / N/A
+- A11Y-13 Landmarks named:       PASS / FAIL / N/A
+- A11Y-14 DOM reading order:     PASS / FAIL
 
 ### Integration
 - INT-01 COMPONENT-INDEX row:    PASS / FAIL

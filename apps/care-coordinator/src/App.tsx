@@ -67,27 +67,23 @@ export function App() {
             <p className="prose-section mt-2">
               {activeEntry.category} — {activeEntry.summary}
             </p>
-            <p className="prose-section mt-4">
-              Record content lands in a future slice.
-            </p>
           </section>
         ) : (
           <section className="p-6">
             <h1 className="section-title">Select a queue item</h1>
             <p className="prose-section mt-2">
-              Click or Tab + Enter to a queue item in the sidebar to load
-              its record here.
+              Choose an item from the queue to load a record.
             </p>
           </section>
         )}
       </ThreePanelShellCenter>
 
       <ThreadPanel>
-        <ThreadPanelEmpty>
-          {activeEntry
-            ? 'Thread view lands in slice 3.'
-            : 'Select a queue item to see its activity.'}
-        </ThreadPanelEmpty>
+        {!activeEntry && (
+          <ThreadPanelEmpty>
+            Select a queue item to see its activity.
+          </ThreadPanelEmpty>
+        )}
       </ThreadPanel>
     </ThreePanelShell>
   );

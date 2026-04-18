@@ -78,7 +78,7 @@ Three fixed panels, no header bar. The queue sidebar IS the navigation.
 ### Empty State (No Queue Items)
 - Left panel: queue section shows empty message (see queue sidebar spec)
 - Center panel: morning summary with "Nothing needs your attention right now"
-- Right panel: empty — subtle text: "Select a queue item to see its thread"
+- Right panel: empty — subtle text: "Select a queue item to see its activity" (matches pattern-library thread-panel empty-state copy; the word "activity" was chosen over "thread" because the thread contains the agent's *activity*, not a separate object called a thread)
 
 ### Loading State
 - Left panel: 4-5 `skeleton` rows in queue section
@@ -96,7 +96,7 @@ Three fixed panels, no header bar. The queue sidebar IS the navigation.
 - `aria-label` on each: "Queue sidebar", "Main content", "Activity thread"
 - Tab order: left → center → right
 - Keyboard shortcut to cycle panels: none at launch (add if coordinator feedback requests it)
-- Focus trapped within active panel when using keyboard navigation
+- **Do not** focus-trap within a panel. Per WCAG 2.1.2 (No Keyboard Trap, Level A), persistent layouts (not modal dialogs) must allow focus to leave. Natural Tab flow moves through focusable elements in DOM order (queue items, then any focusable elements in center/right); Shift+Tab returns; Tab past the last focusable item moves to browser chrome. Focus trapping is only correct inside a modal dialog per the APG dialog pattern. (Wireframe originally specified trapping; corrected after a11y round-1 review of slice 2.)
 
 ## Open Questions
 - Should the right panel have a close/minimize control on desktop? Or is it always visible?

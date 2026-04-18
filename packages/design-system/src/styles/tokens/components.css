@@ -7758,12 +7758,13 @@ a.list-group-item-action {
     @apply flex h-screen overflow-hidden;
 }
 
-/* Center panel. flex-1 + min-w-0 so the center can truncate/scroll internally
-   without pushing the fixed panels. Recessed bg distinguishes from white card
-   content inside. */
+/* Center panel. flex-1 handles flex-grow; min-width guarantees a readable
+   floor (wireframe cc-shell-layout §44: ~480px) before the shell horizontally
+   overflows. Recessed bg distinguishes from white card content inside. */
 .three-panel-shell-center {
-    @apply flex-1 min-w-0 overflow-y-auto bg-gray-50;
+    @apply flex-1 overflow-y-auto bg-gray-50;
     @apply dark:bg-neutral-950;
+    min-width: 480px;
 }
 
 /* Right rail. Fixed 380px, independent scroll, border-left separator.
