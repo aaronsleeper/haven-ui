@@ -1,18 +1,19 @@
 import { useMemo, useState } from 'react';
 import {
-  QueueItem,
-  QueueSectionHeader,
   QueueSidebar,
-  QueueSidebarBrand,
-  QueueSidebarBody,
   ThreePanelShell,
   ThreePanelShellCenter,
   ThreadPanel,
   ThreadPanelEmpty,
 } from '@haven/ui-react';
+import type {
+  QueueItemProps,
+  QueueItemUrgency,
+  QueueSidebarSection,
+} from '@haven/ui-react';
+import logoSrc from '@haven/ui-react/assets/logo-cenahealth-teal.svg';
 import { urgent, attention, info } from './data/queue';
 import type { QueueEntry } from './data/queue';
-import type { QueueSectionTier } from '@haven/ui-react';
 
 export function App() {
   const [activeId, setActiveId] = useState<string>();
@@ -22,43 +23,39 @@ export function App() {
     return all.find((entry) => entry.id === activeId);
   }, [activeId]);
 
-  const renderSection = (
-    tier: QueueSectionTier,
+  const toItems = (entries: QueueEntry[]): QueueItemProps[] =>
+    entries.map((entry) => ({
+      urgency: entry.urgency,
+      name: entry.name,
+      category: entry.category,
+      summary: entry.summary,
+      time: entry.time,
+      sla: entry.sla,
+      active: entry.id === activeId,
+      onClick: () => setActiveId(entry.id),
+    }));
+
+  const section = (
+    urgency: QueueItemUrgency,
     label: string,
     entries: QueueEntry[],
-  ) => {
-    if (entries.length === 0) return null;
-    const headerId = `tier-${tier}`;
-    return (
-      <section aria-labelledby={headerId}>
-        <QueueSectionHeader id={headerId} tier={tier}>
-          {label} · {entries.length}
-        </QueueSectionHeader>
-        <ul className="queue-list">
-          {entries.map((entry) => (
-            <li key={entry.id}>
-              <QueueItem
-                {...entry}
-                active={entry.id === activeId}
-                onClick={() => setActiveId(entry.id)}
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  };
+  ): QueueSidebarSection => ({
+    header: { urgency, label },
+    items: toItems(entries),
+  });
+
+  const sections: QueueSidebarSection[] = [
+    section('urgent', 'Urgent', urgent),
+    section('attention', 'Needs Attention', attention),
+    section('info', 'Informational', info),
+  ].filter((s) => s.items.length > 0);
 
   return (
     <ThreePanelShell>
-      <QueueSidebar>
-        <QueueSidebarBrand />
-        <QueueSidebarBody>
-          {renderSection('urgent', 'Urgent', urgent)}
-          {renderSection('attention', 'Needs Attention', attention)}
-          {renderSection('info', 'Informational', info)}
-        </QueueSidebarBody>
-      </QueueSidebar>
+      <QueueSidebar
+        brand={{ logoSrc, logoAlt: 'Cena Health' }}
+        sections={sections}
+      />
 
       <ThreePanelShellCenter>
         {activeEntry ? (

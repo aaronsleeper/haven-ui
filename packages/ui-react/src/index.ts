@@ -18,13 +18,35 @@ export type {
 } from './components/QueueSectionHeader';
 
 export { QueueSidebar } from './components/QueueSidebar';
-export type { QueueSidebarProps } from './components/QueueSidebar';
+export type {
+  QueueSidebarProps,
+  QueueSidebarSection,
+  QueueSidebarSectionHeader,
+} from './components/QueueSidebar';
 
 export { QueueSidebarBrand } from './components/QueueSidebarBrand';
 export type { QueueSidebarBrandProps } from './components/QueueSidebarBrand';
 
 export { QueueSidebarBody } from './components/QueueSidebarBody';
 export type { QueueSidebarBodyProps } from './components/QueueSidebarBody';
+
+export { ResponseOption } from './components/ResponseOption';
+export type { ResponseOptionProps } from './components/ResponseOption';
+
+export { ResponseOptionGroup } from './components/ResponseOptionGroup';
+export type {
+  ResponseOptionGroupProps,
+  ResponseOptionData,
+} from './components/ResponseOptionGroup';
+
+export { ProgressBarPagination } from './components/ProgressBarPagination';
+export type {
+  ProgressBarPaginationProps,
+  ProgressBarPaginationStep,
+} from './components/ProgressBarPagination';
+
+export { AssessmentHeader } from './components/AssessmentHeader';
+export type { AssessmentHeaderProps } from './components/AssessmentHeader';
 
 export { ThreePanelShell } from './components/ThreePanelShell';
 export type { ThreePanelShellProps } from './components/ThreePanelShell';
