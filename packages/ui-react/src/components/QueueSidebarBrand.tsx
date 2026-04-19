@@ -1,25 +1,22 @@
-import type { ReactNode } from 'react';
+import logoSrc from '../assets/logo-cenahealth-teal.svg';
 
 // Mirror of the <header class="queue-sidebar-brand"> block in
 // packages/design-system/pattern-library/components/queue-sidebar.html
 
 export interface QueueSidebarBrandProps {
-  /** FontAwesome icon class after "fa-solid", e.g. "fa-circle-nodes". */
-  icon?: string;
-  children: ReactNode;
   className?: string;
+  /** Override the image alt text. Defaults to "Cena Health". */
+  alt?: string;
 }
 
 export function QueueSidebarBrand({
-  icon = 'fa-circle-nodes',
-  children,
   className = '',
-}: QueueSidebarBrandProps) {
+  alt = 'Cena Health',
+}: QueueSidebarBrandProps = {}) {
   const classes = ['queue-sidebar-brand', className].filter(Boolean).join(' ');
   return (
     <header className={classes}>
-      <i className={`fa-solid ${icon}`} aria-hidden="true"></i>
-      <span>{children}</span>
+      <img src={logoSrc} alt={alt} className="queue-sidebar-brand-logo" />
     </header>
   );
 }

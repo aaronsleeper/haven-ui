@@ -9,9 +9,9 @@ export type QueueEntry = Omit<QueueItemProps, 'className' | 'active' | 'onClick'
 
 export const urgent: QueueEntry[] = [
   {
-    id: 'q-maria-garcia',
+    id: 'q-maria-rivera',
     urgency: 'urgent',
-    name: 'Maria Garcia',
+    name: 'Maria Rivera',
     category: 'Care Plan',
     summary: 'Care plan ready for final approval',
     time: '2h ago',

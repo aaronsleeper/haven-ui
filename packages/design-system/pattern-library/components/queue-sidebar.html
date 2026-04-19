@@ -3,7 +3,7 @@
   name: Queue Sidebar
   category: Clinical / Healthcare
   file: queue-sidebar.html
-  classes: queue-sidebar, queue-sidebar-brand, queue-sidebar-body, queue-list
+  classes: queue-sidebar, queue-sidebar-brand, queue-sidebar-brand-logo, queue-sidebar-body, queue-list
   variants: none
   when-to-use: The persistent left panel of the three-panel shell (Admin / Coordinator / Provider apps). Holds the coordinator's urgency-sorted queue.
   preline-required: no
@@ -26,8 +26,7 @@
 
   <aside class="queue-sidebar" aria-label="Queue sidebar">
     <header class="queue-sidebar-brand">
-      <i class="fa-solid fa-circle-nodes" aria-hidden="true"></i>
-      <span>Ava</span>
+      <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health" class="queue-sidebar-brand-logo">
     </header>
 
     <div class="queue-sidebar-body">
@@ -41,7 +40,7 @@
           <li>
             <button type="button" class="queue-item is-urgent active" aria-current="true">
               <span class="queue-item-header">
-                <span class="queue-item-name">Maria Garcia</span>
+                <span class="queue-item-name">Maria Rivera</span>
                 <span class="badge badge-sm badge-pill">Care Plan</span>
               </span>
               <span class="queue-item-summary">Care plan ready for final approval</span>

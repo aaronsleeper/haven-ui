@@ -52,7 +52,7 @@ export function App() {
   return (
     <ThreePanelShell>
       <QueueSidebar>
-        <QueueSidebarBrand>Ava</QueueSidebarBrand>
+        <QueueSidebarBrand />
         <QueueSidebarBody>
           {renderSection('urgent', 'Urgent', urgent)}
           {renderSection('attention', 'Needs Attention', attention)}
