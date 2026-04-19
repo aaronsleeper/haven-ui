@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf .turbo"
+    "build": "tsx scripts/generate-markdoc-schemas.ts",
+    "clean": "rm -rf .turbo schema"
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -28,6 +29,8 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "ts-morph": "^28.0.0",
+    "tsx": "^4.21.0"
   }
 }
