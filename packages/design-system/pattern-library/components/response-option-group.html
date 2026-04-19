@@ -1,0 +1,99 @@
+<!--
+  @component-meta
+  name: Response Option Group
+  category: Patient App
+  file: response-option-group.html
+  classes: response-option-group, response-option-group-prompt, response-option-group-list
+  variants: none
+  when-to-use: Wraps a single assessment question and its N response-options (GAD-7, PHQ-9, Likert). Exactly one option selected at a time.
+  preline-required: no
+  notes: Uses role="radiogroup" with aria-labelledby pointing at the prompt element id. Prompt text is Body/01 (19.2px Inter Regular). Options are spaced vertically with a consistent gap. Parent handles keyboard navigation between options at the React layer (arrow keys move selection).
+
+  interactive-usage: required
+
+  interactive:
+    role: radiogroup
+    keyboard: Arrow keys move between response-options inside the group (behavior lives at the React layer)
+    aria:
+      labelledby: required — points at the prompt element id naming the question
+    focus:
+      visible: individual response-options receive focus rings; the group itself does not
+
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Response Option Group</h3>
+  <p class="pl-description">
+    Composition of response-options around a single assessment question. One group per question.
+  </p>
+
+  <!-- Single question -->
+  <div class="mb-8">
+    <p class="pl-variant-title">GAD-7 question 1</p>
+    <!-- @component: response-option-group-default -->
+    <div class="response-option-group" role="radiogroup" aria-labelledby="q1-prompt">
+      <p id="q1-prompt" class="response-option-group-prompt">
+        Over the last 2 weeks, how often have you been bothered by feeling nervous, anxious, or on edge?
+      </p>
+      <div class="response-option-group-list">
+        <button type="button" class="response-option" role="radio" aria-checked="true">
+          <span class="response-option-index"><span class="response-option-index-num">0</span></span>
+          <span class="response-option-label">Not at all</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">1</span></span>
+          <span class="response-option-label">Several days</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">2</span></span>
+          <span class="response-option-label">More than half the days</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">3</span></span>
+          <span class="response-option-label">Nearly every day</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Unselected state -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Unanswered question</p>
+    <!-- @component: response-option-group-unanswered -->
+    <div class="response-option-group" role="radiogroup" aria-labelledby="q2-prompt">
+      <p id="q2-prompt" class="response-option-group-prompt">
+        Over the last 2 weeks, how often have you been bothered by not being able to stop or control worrying?
+      </p>
+      <div class="response-option-group-list">
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">0</span></span>
+          <span class="response-option-label">Not at all</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">1</span></span>
+          <span class="response-option-label">Several days</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">2</span></span>
+          <span class="response-option-label">More than half the days</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="response-option" role="radio" aria-checked="false">
+          <span class="response-option-index"><span class="response-option-index-num">3</span></span>
+          <span class="response-option-label">Nearly every day</span>
+          <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+</section>

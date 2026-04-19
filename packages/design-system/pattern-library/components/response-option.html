@@ -1,0 +1,90 @@
+<!--
+  @component-meta
+  name: Response Option
+  category: Patient App
+  file: response-option.html
+  classes: response-option, response-option-index, response-option-index-num, response-option-label, response-option-check
+  variants: aria-checked="true" (selected), aria-checked="false" (unselected), disabled
+  when-to-use: A single numbered Likert or multi-choice option inside an assessment question (e.g., GAD-7, PHQ-9). Always lives inside a response-option-group; do not render standalone.
+  preline-required: no
+  notes: 325px max-width (length/size/13). Index square 36×36 with border-radius/xs 2px. Uses <button role="radio"> + aria-checked for Radix-compatible semantics. Selected border + index fill + check icon visibility driven by aria-checked CSS selector.
+
+  interactive-usage: required
+
+  interactive:
+    role: radio
+    keyboard: Arrow keys move selection within the radiogroup (wiring provided by response-option-group parent at the React layer); Space/Enter selects; Tab enters the group and Shift+Tab exits
+    aria:
+      checked: "true" when selected, "false" otherwise
+      disabled: optional aria-disabled="true"
+      hidden-icons: .response-option-check carries aria-hidden="true" (meaning is carried by aria-checked on the button)
+    focus:
+      visible: .response-option:focus-visible (ring-2 primary-600)
+
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Response Option</h3>
+  <p class="pl-description">
+    Single numbered Likert / multi-choice option. Selected state via <code>aria-checked="true"</code>.
+  </p>
+
+  <!-- Unselected -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Unselected</p>
+    <!-- @component: response-option-unselected -->
+    <button type="button" class="response-option" role="radio" aria-checked="false">
+      <span class="response-option-index">
+        <span class="response-option-index-num">1</span>
+      </span>
+      <span class="response-option-label">Several days</span>
+      <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+    </button>
+    <!-- /component -->
+  </div>
+
+  <!-- Selected -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Selected</p>
+    <!-- @component: response-option-selected -->
+    <button type="button" class="response-option" role="radio" aria-checked="true">
+      <span class="response-option-index">
+        <span class="response-option-index-num">0</span>
+      </span>
+      <span class="response-option-label">Not at all</span>
+      <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+    </button>
+    <!-- /component -->
+  </div>
+
+  <!-- Full GAD-7 scale -->
+  <div class="mb-6">
+    <p class="pl-variant-title">GAD-7 scale (0–3)</p>
+    <!-- @component: response-option-scale -->
+    <div class="space-y-2">
+      <button type="button" class="response-option" role="radio" aria-checked="true">
+        <span class="response-option-index"><span class="response-option-index-num">0</span></span>
+        <span class="response-option-label">Not at all</span>
+        <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="response-option" role="radio" aria-checked="false">
+        <span class="response-option-index"><span class="response-option-index-num">1</span></span>
+        <span class="response-option-label">Several days</span>
+        <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="response-option" role="radio" aria-checked="false">
+        <span class="response-option-index"><span class="response-option-index-num">2</span></span>
+        <span class="response-option-label">More than half the days</span>
+        <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="response-option" role="radio" aria-checked="false">
+        <span class="response-option-index"><span class="response-option-index-num">3</span></span>
+        <span class="response-option-label">Nearly every day</span>
+        <i class="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+</section>

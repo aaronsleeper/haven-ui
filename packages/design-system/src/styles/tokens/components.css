@@ -8862,3 +8862,147 @@ a.list-group-item-action {
 .agentic-timeline-actor {
     @apply font-medium;
 }
+
+/* ================================================================
+   ASSESSMENT PATTERNS (Patient App — GAD-7, PHQ-9, etc)
+   ================================================================
+   Authored for pilot step 2 of the generative-UI workflow. The five
+   components below compose into an assessment screen per DESIGN.md
+   §Input response option + §Assessment patterns + §Component archetypes.
+
+   Selected state on response-option is driven by aria-checked="true"
+   (Radix-compatible). The index square, border, and check icon all
+   respond to the single aria-checked attribute on the root button.
+   ================================================================ */
+
+/* Response Option — single numbered Likert / multi-choice option. */
+.response-option {
+    @apply flex items-center gap-3 w-full max-w-[325px] px-3 py-2 rounded-[5px] bg-white text-left cursor-pointer transition-colors duration-100;
+    border: 1px solid var(--color-border-image);
+}
+
+.response-option:hover {
+    @apply bg-sand-50;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .response-option {
+        transition: none;
+    }
+}
+
+.response-option:focus-visible {
+    @apply outline-none ring-2 ring-primary-600;
+}
+
+.response-option[aria-checked="true"] {
+    border-color: var(--color-accent-interactive);
+}
+
+.response-option[aria-disabled="true"],
+.response-option:disabled {
+    @apply opacity-60 cursor-not-allowed;
+}
+
+/* Index square — 36×36 with border-radius/xs (2px). */
+.response-option-index {
+    @apply flex items-center justify-center shrink-0 w-9 h-9 rounded-[2px];
+    background-color: var(--color-stone-16);
+}
+
+.response-option[aria-checked="true"] .response-option-index {
+    background-color: var(--color-accent-interactive);
+}
+
+.response-option-index-num {
+    @apply text-body-03 font-medium;
+    color: var(--color-text-normal);
+}
+
+.response-option[aria-checked="true"] .response-option-index-num {
+    color: var(--color-text-on-dark);
+}
+
+/* Label — 13.33px Inter Semibold, letter-spacing ~0.0125em per DESIGN.md. */
+.response-option-label {
+    @apply flex-1 text-body-03 font-semibold tracking-[0.0125em];
+    color: var(--color-text-normal);
+}
+
+/* Check icon — hidden on unselected (opacity 0), visible on selected. */
+.response-option-check {
+    @apply text-2xl opacity-0 transition-opacity duration-100 shrink-0;
+    color: var(--color-accent-interactive);
+}
+
+.response-option[aria-checked="true"] .response-option-check {
+    @apply opacity-100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .response-option-check {
+        transition: none;
+    }
+}
+
+
+/* Response Option Group — fieldset wrapper for a single assessment question. */
+.response-option-group {
+    @apply flex flex-col gap-4;
+}
+
+/* Question prompt — Body/01 (19.2px Inter Regular), letter-spacing 0.0125em. */
+.response-option-group-prompt {
+    @apply text-body-01 tracking-[0.0125em] m-0;
+    color: var(--color-text-normal);
+    font-feature-settings: 'calt' 0;
+}
+
+.response-option-group-list {
+    @apply flex flex-col gap-2;
+}
+
+
+/* Progress Bar Pagination — N horizontal segments, one per question.
+   accent-interactive when complete, stone-15 when remaining.
+   Distinct from data-progress (single continuous bar). */
+.progress-bar-pagination {
+    @apply flex items-center gap-1 w-full;
+}
+
+.progress-bar-pagination-segment {
+    @apply flex-1 h-1 rounded-full;
+    background-color: var(--color-stone-15);
+}
+
+.progress-bar-pagination-segment.is-filled {
+    background-color: var(--color-accent-interactive);
+}
+
+
+/* Assessment Header — title + progress + optional meta. */
+.assessment-header {
+    @apply flex flex-col gap-3;
+}
+
+/* Title — Heading/02 (Lora Medium 23.04px). */
+.assessment-header-title {
+    @apply text-heading-02 font-serif font-medium m-0;
+    color: var(--color-text-normal);
+}
+
+/* Meta line — Body/04 muted. */
+.assessment-header-meta {
+    @apply text-body-04 m-0;
+    color: var(--color-text-muted);
+}
+
+
+/* Pagination Row — Previous / Next anchor.
+   Distinct from data-pagination (page-number pills for tables).
+   Uses existing btn-outline (Previous) + btn-secondary (Next)
+   per DESIGN.md §Component archetypes: primary teal is reserved
+   for user commitments that change state, not advancement. */
+.pagination-row {
+    @apply flex items-center justify-between gap-3 w-full;
+}

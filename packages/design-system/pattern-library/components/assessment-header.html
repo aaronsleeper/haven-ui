@@ -1,0 +1,80 @@
+<!--
+  @component-meta
+  name: Assessment Header
+  category: Patient App
+  file: assessment-header.html
+  classes: assessment-header, assessment-header-title, assessment-header-meta
+  variants: none
+  when-to-use: Top of every assessment screen (GAD-7, PHQ-9, etc). Title + step-per-segment progress + optional meta ("Question N of M"). Thin composition wrapper — arranges a Heading/02 title + progress-bar-pagination + Body/04 meta.
+  preline-required: no
+  notes: Title uses Heading/02 (Lora Medium, 23.04px). Meta uses Body/04 (Inter Regular, 11.11px, text-muted). Composes progress-bar-pagination for the step indicator. No borders or surface background of its own — sits directly on the content pane.
+
+  interactive-usage: none
+
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Assessment Header</h3>
+  <p class="pl-description">
+    Title + progress indicator for an assessment screen. Composes progress-bar-pagination.
+  </p>
+
+  <!-- Default -->
+  <div class="mb-8">
+    <p class="pl-variant-title">GAD-7, question 3 of 7</p>
+    <!-- @component: assessment-header-default -->
+    <header class="assessment-header">
+      <h1 class="assessment-header-title">GAD-7</h1>
+      <nav class="progress-bar-pagination" aria-label="Assessment progress: question 3 of 7">
+        <span class="progress-bar-pagination-segment is-filled" aria-label="Question 1 — complete"></span>
+        <span class="progress-bar-pagination-segment is-filled" aria-label="Question 2 — complete"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 3 — in progress" aria-current="step"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 4 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 5 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 6 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 7 — not started"></span>
+      </nav>
+      <p class="assessment-header-meta">Question 3 of 7</p>
+    </header>
+    <!-- /component -->
+  </div>
+
+  <!-- Start state -->
+  <div class="mb-8">
+    <p class="pl-variant-title">PHQ-9, question 1 of 9 (start)</p>
+    <!-- @component: assessment-header-start -->
+    <header class="assessment-header">
+      <h1 class="assessment-header-title">PHQ-9</h1>
+      <nav class="progress-bar-pagination" aria-label="Assessment progress: question 1 of 9">
+        <span class="progress-bar-pagination-segment" aria-label="Question 1 — in progress" aria-current="step"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 2 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 3 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 4 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 5 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 6 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 7 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 8 — not started"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 9 — not started"></span>
+      </nav>
+      <p class="assessment-header-meta">Question 1 of 9</p>
+    </header>
+    <!-- /component -->
+  </div>
+
+  <!-- Without meta line -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Without Question N of M meta</p>
+    <!-- @component: assessment-header-no-meta -->
+    <header class="assessment-header">
+      <h1 class="assessment-header-title">Weekly check-in</h1>
+      <nav class="progress-bar-pagination" aria-label="Assessment progress: question 2 of 3">
+        <span class="progress-bar-pagination-segment is-filled" aria-label="Question 1 — complete"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 2 — in progress" aria-current="step"></span>
+        <span class="progress-bar-pagination-segment" aria-label="Question 3 — not started"></span>
+      </nav>
+    </header>
+    <!-- /component -->
+  </div>
+</section>

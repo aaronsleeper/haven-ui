@@ -1,0 +1,73 @@
+<!--
+  @component-meta
+  name: Pagination Row
+  category: Patient App
+  file: pagination-row.html
+  classes: pagination-row
+  variants: none
+  when-to-use: Two-button Previous / Next row anchoring the bottom of a paginated flow (assessment screens, onboarding, multi-step forms). Distinct from data-pagination (page-number pills for tables / search results).
+  preline-required: no
+  notes: Per DESIGN.md §Component archetypes, Previous is tertiary (btn-outline), Next is secondary (btn-secondary). Primary teal is reserved for user commitments that change state (Book, Schedule, Submit) — advancement through a form is secondary. Previous is optional (omit on the first step); Next is always present but may be disabled until the question is answered.
+
+  interactive-usage: required
+
+  interactive:
+    role: none — uses native <button> elements
+    keyboard: Tab moves between Previous / Next; Enter or Space activates
+    aria:
+      label: each button carries an explicit text label (or aria-label if icon-only)
+
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Pagination Row</h3>
+  <p class="pl-description">
+    Previous / Next anchor for paginated flows. Distinct from data-pagination.
+  </p>
+
+  <!-- Default: both buttons present -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Default (Previous + Next)</p>
+    <!-- @component: pagination-row-default -->
+    <nav class="pagination-row" aria-label="Assessment navigation">
+      <button type="button" class="btn-outline">Previous</button>
+      <button type="button" class="btn-secondary">Next</button>
+    </nav>
+    <!-- /component -->
+  </div>
+
+  <!-- First step: no Previous -->
+  <div class="mb-8">
+    <p class="pl-variant-title">First step (no Previous)</p>
+    <!-- @component: pagination-row-first -->
+    <nav class="pagination-row" aria-label="Assessment navigation">
+      <span></span>
+      <button type="button" class="btn-secondary">Next</button>
+    </nav>
+    <!-- /component -->
+  </div>
+
+  <!-- Last step: Next disabled until answered -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Disabled Next (question unanswered)</p>
+    <!-- @component: pagination-row-disabled-next -->
+    <nav class="pagination-row" aria-label="Assessment navigation">
+      <button type="button" class="btn-outline">Previous</button>
+      <button type="button" class="btn-secondary" disabled>Next</button>
+    </nav>
+    <!-- /component -->
+  </div>
+
+  <!-- Final screen: commit button earns primary teal -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Final screen (Submit earns primary teal)</p>
+    <!-- @component: pagination-row-submit -->
+    <nav class="pagination-row" aria-label="Assessment navigation">
+      <button type="button" class="btn-outline">Previous</button>
+      <button type="button" class="btn-primary">Submit assessment</button>
+    </nav>
+    <!-- /component -->
+  </div>
+</section>

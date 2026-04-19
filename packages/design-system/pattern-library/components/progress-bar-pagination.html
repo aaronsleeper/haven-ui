@@ -1,0 +1,82 @@
+<!--
+  @component-meta
+  name: Progress Bar Pagination
+  category: Patient App
+  file: progress-bar-pagination.html
+  classes: progress-bar-pagination, progress-bar-pagination-segment
+  variants: is-filled (completed step)
+  when-to-use: Horizontal step indicator for assessments (GAD-7, PHQ-9) where each segment represents one question. Fills left-to-right as the user advances. Distinct from data-progress (single continuous bar) and onb-progress (text-only "Step N of M").
+  preline-required: no
+  notes: N segments flex-fill the row equally. stone-15 empty / accent-interactive filled per DESIGN.md §Assessment patterns. Rendered inside a <nav aria-label="Progress"> with per-segment aria-current="step" on the active question and aria-label naming completion state. Not interactive — presentational indicator only.
+
+  interactive-usage: none
+
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Progress Bar Pagination</h3>
+  <p class="pl-description">
+    Step-per-segment progress indicator for assessment questions. Fills as user advances.
+  </p>
+
+  <!-- Start state -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Question 1 of 7 (start)</p>
+    <!-- @component: progress-bar-pagination-start -->
+    <nav class="progress-bar-pagination" aria-label="Assessment progress: question 1 of 7">
+      <span class="progress-bar-pagination-segment" aria-label="Question 1 — in progress" aria-current="step"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 2 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 3 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 4 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 5 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 6 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 7 — not started"></span>
+    </nav>
+    <!-- /component -->
+  </div>
+
+  <!-- Mid state -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Question 4 of 7 (midway)</p>
+    <!-- @component: progress-bar-pagination-mid -->
+    <nav class="progress-bar-pagination" aria-label="Assessment progress: question 4 of 7">
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 1 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 2 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 3 — complete"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 4 — in progress" aria-current="step"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 5 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 6 — not started"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 7 — not started"></span>
+    </nav>
+    <!-- /component -->
+  </div>
+
+  <!-- End state -->
+  <div class="mb-8">
+    <p class="pl-variant-title">Question 7 of 7 (final)</p>
+    <!-- @component: progress-bar-pagination-end -->
+    <nav class="progress-bar-pagination" aria-label="Assessment progress: question 7 of 7">
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 1 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 2 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 3 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 4 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 5 — complete"></span>
+      <span class="progress-bar-pagination-segment is-filled" aria-label="Question 6 — complete"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 7 — in progress" aria-current="step"></span>
+    </nav>
+    <!-- /component -->
+  </div>
+
+  <!-- Shorter scale -->
+  <div class="mb-8">
+    <p class="pl-variant-title">PHQ-2 scale (2 questions)</p>
+    <!-- @component: progress-bar-pagination-phq2 -->
+    <nav class="progress-bar-pagination" aria-label="Assessment progress: question 1 of 2">
+      <span class="progress-bar-pagination-segment" aria-label="Question 1 — in progress" aria-current="step"></span>
+      <span class="progress-bar-pagination-segment" aria-label="Question 2 — not started"></span>
+    </nav>
+    <!-- /component -->
+  </div>
+</section>
