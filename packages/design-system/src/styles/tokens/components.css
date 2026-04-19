@@ -663,7 +663,7 @@ a.btn-danger {
 }
 
 .stat-value {
-    @apply text-3xl font-bold text-primary-950 font-display dark:text-neutral-100 leading-none;
+    @apply text-3xl font-bold text-primary-950 font-serif dark:text-neutral-100 leading-none;
 }
 
 /* Space between sibling fieldsets and other block elements inside card body.
@@ -6504,7 +6504,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .navbar-brand {
     @apply flex items-center gap-2 text-lg font-semibold tracking-tight;
     @apply text-gray-900 dark:text-white;
-    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
 }
 
 .navbar-brand:hover {

@@ -1,0 +1,147 @@
+/* ============================================
+   SEMANTIC COLOR ALIASES
+   Two layers:
+   1. 11-stop family aliases (--color-primary-50..950, etc.) declared in
+      @theme so Tailwind generates bg-primary-*, text-primary-* utilities
+      baked at build time. Matches the prior haven.css contract used by
+      315+ utility references across components.css + pattern library.
+   2. Singular semantic aliases (--color-primary, --color-surface-page, etc.)
+      declared in @theme inline so utilities emit var() through to runtime,
+      enabling future dark mode / density / user themes without rebuild
+      (Token Steward Phase 0 mandate 1).
+
+   Palette source: palette.css (Tailwind-owned --color-teal-*, --color-sand-*,
+   --color-stone-*, --color-violet-*, --color-green-*, --color-amber-*,
+   --color-red-*, --color-cyan-*).
+   Refs: https://tailwindcss.com/docs/theme#inline-theme-variables
+   ============================================ */
+
+@theme {
+  /* ----- Primary (Teal) 11-stop family ----- */
+  --color-primary-50:  var(--color-teal-50);
+  --color-primary-100: var(--color-teal-100);
+  --color-primary-200: var(--color-teal-200);
+  --color-primary-300: var(--color-teal-300);
+  --color-primary-400: var(--color-teal-400);
+  --color-primary-500: var(--color-teal-500);
+  --color-primary-600: var(--color-teal-600);
+  --color-primary-700: var(--color-teal-700);
+  --color-primary-800: var(--color-teal-800);
+  --color-primary-900: var(--color-teal-900);
+  --color-primary-950: var(--color-teal-950);
+
+  /* ----- Secondary (Sand) ----- */
+  --color-secondary-50:  var(--color-sand-50);
+  --color-secondary-100: var(--color-sand-100);
+  --color-secondary-200: var(--color-sand-200);
+  --color-secondary-300: var(--color-sand-300);
+  --color-secondary-400: var(--color-sand-400);
+  --color-secondary-500: var(--color-sand-500);
+  --color-secondary-600: var(--color-sand-600);
+  --color-secondary-700: var(--color-sand-700);
+  --color-secondary-800: var(--color-sand-800);
+  --color-secondary-900: var(--color-sand-900);
+  --color-secondary-950: var(--color-sand-950);
+
+  /* ----- Accent (Violet) ----- */
+  --color-accent-50:  var(--color-violet-50);
+  --color-accent-100: var(--color-violet-100);
+  --color-accent-200: var(--color-violet-200);
+  --color-accent-300: var(--color-violet-300);
+  --color-accent-400: var(--color-violet-400);
+  --color-accent-500: var(--color-violet-500);
+  --color-accent-600: var(--color-violet-600);
+  --color-accent-700: var(--color-violet-700);
+  --color-accent-800: var(--color-violet-800);
+  --color-accent-900: var(--color-violet-900);
+  --color-accent-950: var(--color-violet-950);
+
+  /* ----- Success (Green) ----- */
+  --color-success-50:  var(--color-green-50);
+  --color-success-100: var(--color-green-100);
+  --color-success-200: var(--color-green-200);
+  --color-success-300: var(--color-green-300);
+  --color-success-400: var(--color-green-400);
+  --color-success-500: var(--color-green-500);
+  --color-success-600: var(--color-green-600);
+  --color-success-700: var(--color-green-700);
+  --color-success-800: var(--color-green-800);
+  --color-success-900: var(--color-green-900);
+  --color-success-950: var(--color-green-950);
+
+  /* ----- Warning (Amber) ----- */
+  --color-warning-50:  var(--color-amber-50);
+  --color-warning-100: var(--color-amber-100);
+  --color-warning-200: var(--color-amber-200);
+  --color-warning-300: var(--color-amber-300);
+  --color-warning-400: var(--color-amber-400);
+  --color-warning-500: var(--color-amber-500);
+  --color-warning-600: var(--color-amber-600);
+  --color-warning-700: var(--color-amber-700);
+  --color-warning-800: var(--color-amber-800);
+  --color-warning-900: var(--color-amber-900);
+  --color-warning-950: var(--color-amber-950);
+
+  /* ----- Error (Red) ----- */
+  --color-error-50:  var(--color-red-50);
+  --color-error-100: var(--color-red-100);
+  --color-error-200: var(--color-red-200);
+  --color-error-300: var(--color-red-300);
+  --color-error-400: var(--color-red-400);
+  --color-error-500: var(--color-red-500);
+  --color-error-600: var(--color-red-600);
+  --color-error-700: var(--color-red-700);
+  --color-error-800: var(--color-red-800);
+  --color-error-900: var(--color-red-900);
+  --color-error-950: var(--color-red-950);
+
+  /* ----- Info (Cyan) ----- */
+  --color-info-50:  var(--color-cyan-50);
+  --color-info-100: var(--color-cyan-100);
+  --color-info-200: var(--color-cyan-200);
+  --color-info-300: var(--color-cyan-300);
+  --color-info-400: var(--color-cyan-400);
+  --color-info-500: var(--color-cyan-500);
+  --color-info-600: var(--color-cyan-600);
+  --color-info-700: var(--color-cyan-700);
+  --color-info-800: var(--color-cyan-800);
+  --color-info-900: var(--color-cyan-900);
+  --color-info-950: var(--color-cyan-950);
+}
+
+@theme inline {
+  /* --- Brand primary — DESIGN.md §Brand expression §Color.
+     Primary button fill reserved for user commitments that change state. --- */
+  --color-primary:      var(--color-teal-700);   /* #337A6E */
+  --color-primary-edge: var(--color-teal-800);
+
+  /* --- Surface tokens — DESIGN.md §Surface / elevation. --- */
+  --color-surface-page:   var(--color-stone-50);
+  --color-surface-card:   var(--color-stone-100);
+  --color-surface-raised: var(--color-stone-150);
+
+  /* --- Text tokens — DESIGN.md §Text. --- */
+  --color-text-normal:  var(--color-sand-900);
+  --color-text-muted:   var(--color-sand-700);
+  --color-text-faint:   var(--color-sand-500);
+  --color-text-on-dark: var(--color-stone-50);
+
+  /* --- Border tokens — DESIGN.md §Border. --- */
+  --color-border-default: var(--color-stone-250);
+  --color-border-image:   rgba(4, 3, 1, 0.1);
+
+  /* --- Interactive / accent — DESIGN.md §Brand palette.
+     Semantically distinct from button primary: selection, progress-filled,
+     form input accent. --- */
+  --color-accent-interactive: var(--color-teal-600);
+}
+
+/* --- Extended stone stops per DESIGN.md — Figma opaque numbering.
+   Live on :root (not @theme) because these stops fall between Tailwind's
+   scale steps (50, 100, 200) and are intentionally non-utility tokens. --- */
+:root {
+  --color-stone-15:  #edeceb;   /* Progress-empty / neutral bar */
+  --color-stone-16:  #f2f2f2;   /* Unselected response index bg */
+  --color-stone-150: #e7ded2;   /* Shell container border */
+  --color-stone-250: #d8cec0;   /* Border/default, tertiary button border */
+}

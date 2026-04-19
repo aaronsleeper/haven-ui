@@ -1,0 +1,23 @@
+/* ============================================
+   FONT FEATURE SETTINGS
+   Inter's canonical feature set per DESIGN.md §Typography.
+   Applied on :root — font-feature-settings is NOT a Tailwind utility
+   namespace, so @theme has no effect on it (Phase 0 mandate 2).
+
+   Carries Haven's typographic voice: stylistic alternates (ss01/ss03/ss04),
+   character variants (cv01–cv11, especially for numerals and lowercase `l`),
+   discretionary ligatures, and fractions. Disabling is a regression.
+
+   Long-form body contexts that need stable letter-spacing may selectively
+   disable contextual alternates at the element level: `font-feature-settings: 'calt' 0;`
+   ============================================ */
+
+:root {
+  font-feature-settings:
+    'case' 1, 'cpsp' 1, 'ordn' 1, 'salt' 1,
+    'ss01' 1, 'ss03' 1, 'ss04' 1,
+    'cv01' 1, 'cv02' 1, 'cv03' 1, 'cv04' 1,
+    'cv05' 1, 'cv06' 1, 'cv07' 1, 'cv08' 1,
+    'cv09' 1, 'cv10' 1, 'cv11' 1,
+    'dlig' 1, 'frac' 1;
+}

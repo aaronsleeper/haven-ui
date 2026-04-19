@@ -1,9 +1,38 @@
+/* ============================================
+   HAVEN DESIGN SYSTEM — ENTRY CSS
+   Load order is load-bearing. Per Token Steward Phase 0 mandate 1:
+
+     1. tailwindcss                — lowest @layer theme
+     2. preline/variants.css       — Preline @theme inline + :root defaults
+     3. tokens/palette.css         — @theme, hex literals for Tailwind-owned colors
+     4. tokens/typography.css      — @theme --font-*, --text-*
+     5. tokens/semantic.css        — @theme family aliases + @theme inline singletons
+     6. tokens/elevation.css       — @theme custom --shadow-elevation-*
+     7. tokens/motion.css          — @theme custom --ease-haven-*
+     8. tokens/spacing.css         — @theme --spacing scalar
+     9. base/font-features.css     — :root (NOT a Tailwind namespace)
+    10. base/defaults.css          — :root form-element opinion
+    11. base/preline-overrides.css — :root, last to win over Preline
+    12. tokens/components.css      — @apply semantic component classes
+    13. print.css                  — @media print rules
+   ============================================ */
+
+/* Dark-mode toggle variant — declared ahead of consumers. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @import "tailwindcss";
-@import "./tokens/colors.css";
-@import "./tokens/typography.css";
-@import "./tokens/spacing.css";
-@import "./tokens/defaults.css";
 @import "../../node_modules/preline/css/themes/theme.css";
-@import "./haven.css";
+
+@import "./tokens/palette.css";
+@import "./tokens/typography.css";
+@import "./tokens/semantic.css";
+@import "./tokens/elevation.css";
+@import "./tokens/motion.css";
+@import "./tokens/spacing.css";
+
+@import "./base/font-features.css";
+@import "./base/defaults.css";
+@import "./base/preline-overrides.css";
+
 @import "./tokens/components.css";
 @import "./print.css";

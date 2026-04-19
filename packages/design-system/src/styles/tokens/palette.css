@@ -299,7 +299,7 @@
   --color-teal-400: #52A395; /* LOCKED — logo secondary teal (middle ring) */
   --color-teal-500: #3A8478; /* LOCKED — logo primary teal (outer ring, "health" wordmark) */
   --color-teal-600: #1B685E;
-  --color-teal-700: #124D45;
+  --color-teal-700: #337A6E; /* Figma-canonical primary button fill (DESIGN.md §Color, 2026-04-19) */
   --color-teal-800: #0D322D; /* LOCKED — logo anchor dark ("Cena" wordmark) */
   --color-teal-900: #04201C;
   --color-teal-950: #010F0C;
