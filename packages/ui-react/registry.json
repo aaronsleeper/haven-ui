@@ -1,0 +1,168 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "haven",
+  "homepage": "https://github.com/CenaHealth/haven-ui",
+  "items": [
+    {
+      "name": "queue-sidebar",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/QueueSidebar.tsx", "type": "registry:component" },
+        { "path": "components/QueueSidebar.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": ["queue-item", "queue-section-header"],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/queue-sidebar.html",
+        "composition": {
+          "propSchema": "./components/QueueSidebar.props.ts",
+          "markdocTag": "queue-sidebar",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": ["QueueSidebar.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false
+      }
+    },
+    {
+      "name": "queue-item",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/QueueItem.tsx", "type": "registry:component" },
+        { "path": "components/QueueItem.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/queue-item.html",
+        "composition": {
+          "propSchema": "./components/QueueItem.props.ts",
+          "markdocTag": "queue-item",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": ["QueueItem.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false
+      }
+    },
+    {
+      "name": "queue-section-header",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/QueueSectionHeader.tsx", "type": "registry:component" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/queue-section-header.html",
+        "composition": {
+          "propSchema": null,
+          "markdocTag": null,
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "stories": ["QueueSectionHeader.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Exempt from the typed-props composition rule. Uses children: ReactNode to carry free-form label text (compound-tag carve-out). Not directly Markdoc-addressable — rendered internally by QueueSidebar only."
+      }
+    },
+    {
+      "name": "response-option",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ResponseOption.tsx", "type": "registry:component" },
+        { "path": "components/ResponseOption.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/response-option.html",
+        "composition": {
+          "propSchema": "./components/ResponseOption.props.ts",
+          "markdocTag": "response-option",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": ["ResponseOption.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false
+      }
+    },
+    {
+      "name": "response-option-group",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ResponseOptionGroup.tsx", "type": "registry:component" },
+        { "path": "components/ResponseOptionGroup.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": ["response-option"],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/response-option-group.html",
+        "composition": {
+          "propSchema": "./components/ResponseOptionGroup.props.ts",
+          "markdocTag": "response-option-group",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": ["ResponseOptionGroup.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false
+      }
+    },
+    {
+      "name": "progress-bar-pagination",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ProgressBarPagination.tsx", "type": "registry:component" },
+        { "path": "components/ProgressBarPagination.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/progress-bar-pagination.html",
+        "composition": {
+          "propSchema": "./components/ProgressBarPagination.props.ts",
+          "markdocTag": "progress-bar-pagination",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": ["ProgressBarPagination.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false
+      }
+    },
+    {
+      "name": "assessment-header",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/AssessmentHeader.tsx", "type": "registry:component" },
+        { "path": "components/AssessmentHeader.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": ["progress-bar-pagination"],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/assessment-header.html",
+        "composition": {
+          "propSchema": "./components/AssessmentHeader.props.ts",
+          "markdocTag": "assessment-header",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": ["AssessmentHeader.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false
+      }
+    }
+  ]
+}
