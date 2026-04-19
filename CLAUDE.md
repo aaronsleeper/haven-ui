@@ -4,6 +4,8 @@ haven-ui is a React monorepo that owns the full Cena Health frontend. AD-08 (Rea
 
 **Load-bearing rules:** pattern-library-first ("copy, don't generate"), semantic classes in `components.css`, `@apply` over utility soup, `pattern-library/COMPONENT-INDEX.md` as ground truth, scope declaration per task. Every React component in `packages/ui-react/` is a 1:1 mechanical port of its pattern-library HTML entry (see `.project-docs/agent-workflow/skills/ui-react-porter.md`).
 
+**Design system spec:** [DESIGN.md](./DESIGN.md) at repo root is the canonical brand spec. Read it before any UI work. Figma is the upstream source of truth for visual tokens (colors, radii, elevations, typography); haven-ui code regenerates from Figma variable defs. Measurement tokens stay on haven-ui's 4px Tailwind scalar.
+
 The handoff-to-Andrey model has been retired. The vanilla HTML composites from that era live at `archive/vanilla-html-handoff/` for reference only; do not modify them.
 
 ---
@@ -100,7 +102,7 @@ haven-ui/
 |---|---|
 | Colors, tokens | `packages/design-system/src/styles/tokens/colors.css` |
 | Semantic component classes | `packages/design-system/src/styles/tokens/components.css` |
-| Typography | `packages/design-system/src/styles/tokens/typography.css` — fonts: Plus Jakarta Sans (display), Source Sans 3 (body/sans), Source Code Pro (mono). `--font-serif` / Lora no longer exists. |
+| Typography | `packages/design-system/src/styles/tokens/typography.css` — **stale; pending reconciliation.** Per DESIGN.md + Figma (canonical), fonts are Lora (headings/display), Inter (body/UI), JetBrains Mono (code). The prior "Plus Jakarta / Source Sans 3 / Source Code Pro" stack and the "Lora removed" note are both superseded. Full type scale and font-feature defaults in [DESIGN.md §Typography](./DESIGN.md#typography). |
 | Spacing | `packages/design-system/src/styles/tokens/spacing.css` |
 | Theme + Preline overrides | `packages/design-system/src/styles/haven.css` |
 | Pattern-library HTML (the spec) | `packages/design-system/pattern-library/components/[category]-[name].html` |
@@ -328,6 +330,27 @@ The `display: none` default is required to prevent the menu from occupying layou
 | `/build` | Executes `.project-docs/prompts/next-task.md`, then runs QA sub-agent |
 | `/pl-build` | Builds next `missing` component from `COMPONENT-REGISTRY.md`, runs QA, marks `built` |
 | `/brand-review` | Reviews next `built` component against Cena brand spec, produces proposals for Aaron |
+
+## Per-slice QA — 4-expert review panel
+
+Every slice passes through a 4-reviewer panel before merge. Each reviewer ships a structured verdict (`ship` / `iterate` / `block`):
+
+1. **Pattern-library steward** ([planning/experts/design-system-steward/](./planning/experts/design-system-steward/)) — token discipline, no utility soup, component reuse
+2. **Information architecture** ([planning/experts/ux-design-lead/](./planning/experts/ux-design-lead/)) — structure, handoff, gates
+3. **Accessibility** ([planning/experts/accessibility/](./planning/experts/accessibility/)) — WCAG 2.1 AA floor + focus management
+4. **Brand fidelity** ([planning/experts/brand-fidelity/](./planning/experts/brand-fidelity/)) — "does this feel like Haven" — voice, hierarchy, typography, primary-teal discipline, Ava identity
+
+All four must pass (or produce iterate-then-ship) before a slice ships.
+
+### Slice-opening checklist
+
+Before starting a new slice or retrofit:
+
+- [ ] Read [DESIGN.md](./DESIGN.md)
+- [ ] Load relevant Figma frames via MCP (`mcp__claude_ai_Figma__get_design_context` / `get_variable_defs` / `get_screenshot`)
+- [ ] Check `pattern-library/COMPONENT-INDEX.md` for existing components
+- [ ] Name the delta between Figma and existing components, if any
+- [ ] Plan the 4-expert review panel dispatch before shipping
 
 Command files live in `.claude/commands/`. Skill files live in `.project-docs/agent-workflow/skills/`.
 
