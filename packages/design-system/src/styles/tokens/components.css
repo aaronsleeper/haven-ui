@@ -7776,10 +7776,11 @@ a.list-group-item-action {
 
 /* Center panel. flex-1 handles flex-grow; min-width guarantees a readable
    floor (wireframe cc-shell-layout §44: ~480px) before the shell horizontally
-   overflows. Recessed bg distinguishes from white card content inside. */
+   overflows. Pane role per DESIGN.md §Surface: translucent white over page
+   (not an opaque surface). Enforced by the surface-role conformance gate. */
+/* @surface-role: pane */
 .three-panel-shell-center {
-    @apply flex-1 overflow-y-auto bg-sand-50;
-    @apply dark:bg-sand-950;
+    @apply flex-1 overflow-y-auto bg-surface-pane;
     min-width: 480px;
 }
 

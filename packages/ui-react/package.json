@@ -23,11 +23,12 @@
     "conform:manifest": "tsx tests/conform/manifest.ts",
     "conform:app-shell": "tsx tests/conform/app-shell.ts",
     "conform:css-family": "tsx tests/conform/css-family.ts",
+    "conform:surface-role": "tsx tests/conform/surface-role.ts",
     "conform:wireframe-completeness": "tsx tests/conform/wireframe-completeness.ts",
     "conform:font-features": "tsx tests/conform/font-features.ts",
     "conform:token": "playwright test tests/conform/token.spec.ts",
     "conform:visual": "playwright test tests/conform/visual.spec.ts",
-    "conform": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:wireframe-completeness && pnpm conform:font-features && pnpm conform:token && pnpm conform:visual",
+    "conform": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:surface-role && pnpm conform:wireframe-completeness && pnpm conform:font-features && pnpm conform:token && pnpm conform:visual",
     "clean": "rm -rf .turbo schema storybook-static test-results playwright-report"
   },
   "peerDependencies": {
