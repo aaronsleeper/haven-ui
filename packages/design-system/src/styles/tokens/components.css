@@ -8996,6 +8996,18 @@ a.list-group-item-action {
     background-color: var(--color-accent-interactive);
 }
 
+/* Tri-state visual differentiation (Patch 4, 2026-04-20). The in-progress
+   segment gets teal-300 — lighter than accent-interactive (teal-600, complete)
+   but clearly in the teal progression scale, so sighted users read
+   sand-15 → teal-300 → teal-600 as "not-started → here → complete". The
+   aria-current="step" attribute carries the semantic cue redundantly per
+   WCAG 1.3.3 / 1.4.1. Panel finding (A11y iterate + IA noted 2026-04-20):
+   without this class the in-progress segment was visually indistinguishable
+   from not-started. */
+.progress-bar-pagination-segment.is-in-progress {
+    background-color: var(--color-teal-300);
+}
+
 
 /* Assessment Header — title + progress + optional meta. */
 .assessment-header {

@@ -19,6 +19,7 @@ export function ProgressBarPagination({
         const classes = [
           'progress-bar-pagination-segment',
           status === 'complete' && 'is-filled',
+          status === 'in-progress' && 'is-in-progress',
         ]
           .filter(Boolean)
           .join(' ');
