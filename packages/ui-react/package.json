@@ -16,6 +16,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsx scripts/generate-markdoc-schemas.ts",
+    "compose": "tsx scripts/compose.ts",
     "storybook": "storybook dev -p 5178 --no-open",
     "storybook:build": "storybook build -o storybook-static",
     "storybook:serve": "http-server storybook-static -p 5178 -s",
