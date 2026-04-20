@@ -10,11 +10,12 @@
      6. tokens/elevation.css       — @theme custom --shadow-elevation-*
      7. tokens/motion.css          — @theme custom --ease-haven-*
      8. tokens/spacing.css         — @theme --spacing scalar
-     9. base/font-features.css     — :root (NOT a Tailwind namespace)
-    10. base/defaults.css          — :root form-element opinion
-    11. base/preline-overrides.css — :root, last to win over Preline
-    12. tokens/components.css      — @apply semantic component classes
-    13. print.css                  — @media print rules
+     9. tokens/radius.css          — @theme --radius-* (Haven Figma scale)
+    10. base/font-features.css     — :root (NOT a Tailwind namespace)
+    11. base/defaults.css          — :root form-element opinion
+    12. base/preline-overrides.css — :root, last to win over Preline
+    13. tokens/components.css      — @apply semantic component classes
+    14. print.css                  — @media print rules
    ============================================ */
 
 /* Dark-mode toggle variant — declared ahead of consumers. */
@@ -29,6 +30,7 @@
 @import "./tokens/elevation.css";
 @import "./tokens/motion.css";
 @import "./tokens/spacing.css";
+@import "./tokens/radius.css";
 
 @import "./base/font-features.css";
 @import "./base/defaults.css";

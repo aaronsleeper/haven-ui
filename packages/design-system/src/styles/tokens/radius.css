@@ -1,0 +1,24 @@
+/* ============================================
+   RADIUS TOKENS
+   Border-radius scale per DESIGN.md §Radius. Figma-canonical values
+   adopted directly (not snapped to Tailwind defaults). Round-down rule
+   applies: Figma values between tokens use the smaller.
+
+   These declarations override Tailwind 4's built-in --radius-sm/md/lg/xl
+   defaults (0.25 / 0.375 / 0.5 / 0.75 rem). Haven's scale is visually
+   distinct: xs=2, sm=5, md=11, lg=24, xl=54 (pill). Non-linear by
+   intent — small chrome (buttons, inputs, cards at sm; dialogs also sm;
+   avatars/media/chat-dock at md; rich cards at lg; pill buttons at xl).
+
+   Gate note: `.response-option` uses 5px (rounded-[5px]) per DESIGN.md
+   §Button; the token-conformance gate expects this value to appear as a
+   registered --radius-* token.
+   ============================================ */
+
+@theme {
+  --radius-xs: 2px;
+  --radius-sm: 5px;
+  --radius-md: 11px;
+  --radius-lg: 24px;
+  --radius-xl: 54px;
+}
