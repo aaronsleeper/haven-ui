@@ -6,7 +6,15 @@ import type { ReactNode } from 'react';
 //
 // Usage: render three direct children in order — left aside, center <main>,
 // right aside. The shell is pure layout; it enforces no semantics on its
-// children beyond their placement in the flex row.
+// children beyond their placement in the flex row. The outer `.app-shell`
+// div supplies the Haven floating-page envelope (stone-50 bg + padding);
+// the inner `.three-panel-shell` carries the 3px stone-200 border +
+// border-radius-md that makes the app float inside its frame.
+//
+// Composition note: this component accepts children: ReactNode. Layout-shell
+// carve-out — it composes other registered components (QueueSidebar, ThreadPanel,
+// etc.) by position, not by typed named-slots. Registered in registry.json with
+// slotModel: "children-slot" + markdocTag: null so it is not Markdoc-addressable.
 
 export interface ThreePanelShellProps {
   children: ReactNode;
@@ -14,6 +22,10 @@ export interface ThreePanelShellProps {
 }
 
 export function ThreePanelShell({ children, className = '' }: ThreePanelShellProps) {
-  const classes = ['three-panel-shell', className].filter(Boolean).join(' ');
-  return <div className={classes}>{children}</div>;
+  const shellClasses = ['three-panel-shell', className].filter(Boolean).join(' ');
+  return (
+    <div className="app-shell">
+      <div className={shellClasses}>{children}</div>
+    </div>
+  );
 }

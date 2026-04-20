@@ -3,7 +3,7 @@
    =================================== */
 
 body {
-    @apply font-sans bg-gray-50 text-gray-900;
+    @apply font-sans bg-stone-50 text-gray-900;
     @apply dark:bg-neutral-900 dark:text-neutral-100;
     position: relative;
 }
@@ -7750,11 +7750,25 @@ a.list-group-item-action {
 
 /* .queue-sidebar canonical rule lives above in the queue/section-header block. */
 
-/* Outermost shell for the admin, coordinator, provider, and kitchen apps.
+/* Floating-page envelope. Per DESIGN.md §Brand-taste rules:
+   "Pages float. The outermost shell has a 3px stone/150 border + border-radius/md 11px
+    — apps live inside a containing frame, not edge-to-edge."
+   The envelope pads the body so the stone-50 bg shows around the shell; the shell
+   carries the border + radius. NOTE: DESIGN.md cites stone/150 but palette.css
+   has no 150 step (jumps 100 → 200). Using stone-200 as nearest; reconciliation
+   tracked as Token Steward follow-up in haven-ui-design-system-completeness.md. */
+.app-shell {
+    @apply min-h-screen p-4;
+}
+
+/* Outermost shell for all four personas (care-coordinator, provider, kitchen, patient).
    Flex row with fixed-width sides (queue 240px, thread 380px) and flex-grow center.
-   Desktop-first; responsive collapses land in a later slice. */
+   Lives inside .app-shell so the stone-50 page bg shows around the frame.
+   Desktop-first; responsive collapses + user-driven resize/collapse land in a later
+   slice. */
 .three-panel-shell {
-    @apply flex h-screen overflow-hidden;
+    @apply flex overflow-hidden border-[3px] border-stone-200 rounded-md bg-white;
+    height: calc(100vh - 2rem);
 }
 
 /* Center panel. flex-1 handles flex-grow; min-width guarantees a readable

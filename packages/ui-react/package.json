@@ -21,9 +21,10 @@
     "storybook:build": "storybook build -o storybook-static",
     "storybook:serve": "http-server storybook-static -p 5178 -s",
     "conform:manifest": "tsx tests/conform/manifest.ts",
+    "conform:app-shell": "tsx tests/conform/app-shell.ts",
     "conform:token": "playwright test tests/conform/token.spec.ts",
     "conform:visual": "playwright test tests/conform/visual.spec.ts",
-    "conform": "pnpm conform:manifest && pnpm conform:token && pnpm conform:visual",
+    "conform": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:token && pnpm conform:visual",
     "clean": "rm -rf .turbo schema storybook-static test-results playwright-report"
   },
   "peerDependencies": {
