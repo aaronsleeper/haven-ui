@@ -179,12 +179,21 @@
   --color-rose-900: hsla(357, 27.3%, 30.2%, 1);
   --color-rose-950: hsla(0, 28.8%, 23.1%, 1);
 
-  /* Sand — Cena Health warm neutral palette.
-     50=lightest (#FBFAF8 off-white), 950=darkest (#0E0A08 near-black).
-     All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
-  --color-sand-50:  #FBFAF8;
-  --color-sand-100: #F3F1EE;
-  --color-sand-200: #E7E4DF;
+  /* Sand — Cena Health warm neutral palette. CANONICAL surface family.
+     All semantic classes in components.css reference sand; the alias families
+     (stone, gray, zinc, slate, neutral) below are defensive fallbacks only
+     against Tailwind's cascade trap, never component-facing vocabulary.
+     Hex values for 50/100/200 updated 2026-04-20 to DESIGN.md §Color
+     warm-beige spec (Aaron's call — Patch 1.5). Extended stops (15/16/150/250)
+     promoted from semantic.css :root into @theme so they generate utilities.
+     All values are hex literals so Tailwind's cascade cannot override them. */
+  --color-sand-15:  #edeceb;
+  --color-sand-16:  #f2f2f2;
+  --color-sand-50:  #f5eee5;
+  --color-sand-100: #eee6db;
+  --color-sand-150: #e7ded2;
+  --color-sand-200: #dfd5c9;
+  --color-sand-250: #d8cec0;
   --color-sand-300: #D1CDC6;
   --color-sand-400: #B3ADA4;
   --color-sand-500: #958E85;
@@ -194,11 +203,35 @@
   --color-sand-900: #25211D;
   --color-sand-950: #0E0A08;
 
-  /* Neutral Mappings (Aliased to Sand) */
-  /* Slate — alias to sand (hex literals to survive Tailwind v4 cascade override) */
-  --color-slate-50:  #FBFAF8;
-  --color-slate-100: #F3F1EE;
-  --color-slate-200: #E7E4DF;
+  /* --- Neutral family aliases (DEFENSIVE FALLBACK ONLY) ----------------------
+     Stone, Slate, Gray, Zinc, Neutral. All hex-identical to sand. These aliases
+     exist to neutralize Tailwind v4's @layer theme cascade override (see
+     CLAUDE.md — Tailwind @theme cascade trap). Their hex literals survive
+     cascade; sand naming prevails. components.css must NEVER reference them —
+     enforced by the One-Family-Per-Role gate (packages/ui-react/tests/conform/
+     css-family.ts). New components use bg-sand-*, text-sand-*, border-sand-*. */
+
+  /* Stone — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-stone-15:  #edeceb;
+  --color-stone-16:  #f2f2f2;
+  --color-stone-50:  #f5eee5;
+  --color-stone-100: #eee6db;
+  --color-stone-150: #e7ded2;
+  --color-stone-200: #dfd5c9;
+  --color-stone-250: #d8cec0;
+  --color-stone-300: #D1CDC6;
+  --color-stone-400: #B3ADA4;
+  --color-stone-500: #958E85;
+  --color-stone-600: #787066;
+  --color-stone-700: #5B544C;
+  --color-stone-800: #3F3933;
+  --color-stone-900: #25211D;
+  --color-stone-950: #0E0A08;
+
+  /* Slate — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-slate-50:  #f5eee5;
+  --color-slate-100: #eee6db;
+  --color-slate-200: #dfd5c9;
   --color-slate-300: #D1CDC6;
   --color-slate-400: #B3ADA4;
   --color-slate-500: #958E85;
@@ -208,10 +241,10 @@
   --color-slate-900: #25211D;
   --color-slate-950: #0E0A08;
 
-  /* Gray — alias to sand (hex literals to survive Tailwind v4 cascade override) */
-  --color-gray-50:  #FBFAF8;
-  --color-gray-100: #F3F1EE;
-  --color-gray-200: #E7E4DF;
+  /* Gray — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-gray-50:  #f5eee5;
+  --color-gray-100: #eee6db;
+  --color-gray-200: #dfd5c9;
   --color-gray-300: #D1CDC6;
   --color-gray-400: #B3ADA4;
   --color-gray-500: #958E85;
@@ -221,10 +254,10 @@
   --color-gray-900: #25211D;
   --color-gray-950: #0E0A08;
 
-  /* Zinc — alias to sand (hex literals to survive Tailwind v4 cascade override) */
-  --color-zinc-50:  #FBFAF8;
-  --color-zinc-100: #F3F1EE;
-  --color-zinc-200: #E7E4DF;
+  /* Zinc — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-zinc-50:  #f5eee5;
+  --color-zinc-100: #eee6db;
+  --color-zinc-200: #dfd5c9;
   --color-zinc-300: #D1CDC6;
   --color-zinc-400: #B3ADA4;
   --color-zinc-500: #958E85;
@@ -234,10 +267,10 @@
   --color-zinc-900: #25211D;
   --color-zinc-950: #0E0A08;
 
-  /* Neutral — alias to sand (hex literals to survive Tailwind v4 cascade override) */
-  --color-neutral-50:  #FBFAF8;
-  --color-neutral-100: #F3F1EE;
-  --color-neutral-200: #E7E4DF;
+  /* Neutral — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-neutral-50:  #f5eee5;
+  --color-neutral-100: #eee6db;
+  --color-neutral-200: #dfd5c9;
   --color-neutral-300: #D1CDC6;
   --color-neutral-400: #B3ADA4;
   --color-neutral-500: #958E85;

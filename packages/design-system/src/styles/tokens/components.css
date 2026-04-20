@@ -3,8 +3,8 @@
    =================================== */
 
 body {
-    @apply font-sans bg-stone-50 text-gray-900;
-    @apply dark:bg-neutral-900 dark:text-neutral-100;
+    @apply font-sans bg-sand-50 text-sand-900;
+    @apply dark:bg-sand-900 dark:text-sand-100;
     position: relative;
 }
 
@@ -45,7 +45,7 @@ h3,
 h4,
 h5,
 h6 {
-    @apply font-bold text-gray-900 dark:text-white;
+    @apply font-bold text-sand-900 dark:text-white;
 }
 
 h1 {
@@ -66,13 +66,13 @@ section {
 
 /* Pattern library demo chrome — not copied into app pages */
 .pl-variant-title {
-    @apply text-xs font-semibold uppercase tracking-wider text-gray-600 mb-4;
-    @apply dark:text-neutral-300;
+    @apply text-xs font-semibold uppercase tracking-wider text-sand-600 mb-4;
+    @apply dark:text-sand-300;
 }
 
 .pl-description {
-    @apply text-sm text-gray-600 mb-6;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 mb-6;
+    @apply dark:text-sand-300;
 }
 
 /* Form layout helpers */
@@ -85,13 +85,13 @@ form > div {
    =================================== */
 
 .sidebar-toggle-bar {
-    @apply sticky top-0 inset-x-0 z-20 bg-gray-50 border-y px-4 sm:px-6 md:px-8 lg:hidden;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply sticky top-0 inset-x-0 z-20 bg-sand-50 border-y px-4 sm:px-6 md:px-8 lg:hidden;
+    @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 .sidebar-toggle-btn {
-    @apply text-gray-600 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300;
-    @apply dark:text-neutral-400 dark:hover:text-gray-300;
+    @apply text-sand-600 hover:text-sand-700 focus:outline-none focus:ring-2 focus:ring-sand-300;
+    @apply dark:text-sand-400 dark:hover:text-sand-300;
 }
 
 /* ===================================
@@ -102,7 +102,7 @@ form > div {
    Disables desktop ambient blobs, sets warm tan bg. */
 .mobile-app {
   background-color: var(--color-sand-50);
-  @apply dark:bg-neutral-900;
+  @apply dark:bg-sand-900;
 }
 
 .mobile-app::before,
@@ -114,7 +114,7 @@ form > div {
 .mobile-shell {
   @apply block w-full max-w-[430px] mx-auto min-h-dvh relative;
   background-color: var(--color-sand-50);
-  @apply dark:bg-neutral-900;
+  @apply dark:bg-sand-900;
 }
 
 /* ===================================
@@ -124,16 +124,16 @@ form > div {
 /* Fixed top bar containing the language toggle.
    Present on all patient app screens. */
 .mobile-i18n-bar {
-  @apply fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 bg-gray-50 border-b border-gray-100;
+  @apply fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 bg-sand-50 border-b border-sand-100;
   height: 40px;
   max-width: 430px;
   margin-inline: auto;
-  @apply dark:bg-neutral-900 dark:border-neutral-800;
+  @apply dark:bg-sand-900 dark:border-sand-800;
 }
 
 /* Language toggle button inside the i18n bar */
 .mobile-i18n-toggle {
-  @apply inline-flex items-center gap-1.5 text-xs font-medium text-gray-600;
+  @apply inline-flex items-center gap-1.5 text-xs font-medium text-sand-600;
   @apply focus:outline-none;
   text-decoration: none;
   background: transparent;
@@ -146,13 +146,13 @@ form > div {
 }
 
 .mobile-i18n-toggle:hover {
-  @apply text-gray-900;
+  @apply text-sand-900;
   background-color: var(--color-sand-100) !important;
 }
 
 /* Open state — Preline sets aria-expanded=true on the trigger */
 .mobile-i18n-toggle[aria-expanded="true"] {
-  @apply text-gray-900;
+  @apply text-sand-900;
   background-color: var(--color-sand-100) !important;
 }
 
@@ -162,17 +162,17 @@ form > div {
 
 /* Fixed tab bar — present on all post-onboarding screens */
 .mobile-bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 bg-gray-50 border-t border-gray-200 shadow-lg;
+  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 bg-sand-50 border-t border-sand-200 shadow-lg;
   max-width: 430px;
   margin-inline: auto;
   padding-bottom: env(safe-area-inset-bottom);
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
+  @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
 /* Individual tab item — <a> or <button> */
 .mobile-bottom-nav-tab {
-  @apply flex flex-col items-center justify-center gap-1 py-2 text-gray-600 text-xs font-medium;
-  @apply hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400;
+  @apply flex flex-col items-center justify-center gap-1 py-2 text-sand-600 text-xs font-medium;
+  @apply hover:text-primary-600 dark:text-sand-400 dark:hover:text-primary-400;
   min-height: 64px;
   text-decoration: none;
   background: none;
@@ -206,8 +206,8 @@ form > div {
 
 /* "Step N of 3" indicator on onboarding screens */
 .onb-progress {
-  @apply block text-sm text-gray-600 text-center mt-4 mb-2;
-  @apply dark:text-neutral-300;
+  @apply block text-sm text-sand-600 text-center mt-4 mb-2;
+  @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -216,18 +216,18 @@ form > div {
 
 /* Main fieldset - used for form sections */
 fieldset {
-    @apply space-y-3 p-6 border border-gray-200 rounded-lg;
-    @apply dark:border-neutral-700;
+    @apply space-y-3 p-6 border border-sand-200 rounded-lg;
+    @apply dark:border-sand-700;
 }
 
 /* Nested fieldset - used for sub-sections */
 fieldset fieldset {
-    @apply p-4 bg-gray-50 dark:bg-neutral-800;
+    @apply p-4 bg-sand-50 dark:bg-sand-800;
 }
 
 /* Fieldset legend */
 legend {
-    @apply text-lg font-semibold text-gray-800 px-2;
+    @apply text-lg font-semibold text-sand-800 px-2;
     @apply dark:text-white;
     margin-bottom: 0.25rem;
     padding-top: 0;
@@ -263,12 +263,12 @@ input[type='tel'],
 input[type='url'],
 select,
 textarea {
-    @apply py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500;
+    @apply py-2.5 sm:py-3 px-4 block w-full border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
 }
 
 /* Search input - left padding accommodates the icon overlay */
 input[type='search'] {
-    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500;
+    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
 }
 
 /* Select specific padding + custom chevron (mirrors .select-haven) */
@@ -286,7 +286,7 @@ select {
 input:focus,
 select:focus,
 textarea:focus {
-    @apply focus:border-primary-500 focus:ring-primary-500 dark:focus:ring-neutral-600;
+    @apply focus:border-primary-500 focus:ring-primary-500 dark:focus:ring-sand-600;
 }
 
 /* Disabled states */
@@ -298,7 +298,7 @@ textarea:disabled {
 
 /* Base label styling */
 label {
-    @apply block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200;
+    @apply block text-sm font-medium mb-2 text-sand-700 dark:text-sand-200;
 }
 
 /* ===================================
@@ -307,25 +307,25 @@ label {
 
 /* Radio button input */
 input[type='radio'] {
-    @apply shrink-0 mt-0.5 border-gray-200 rounded-full text-primary-600;
+    @apply shrink-0 mt-0.5 border-sand-200 rounded-full text-primary-600;
     @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply dark:bg-sand-800 dark:border-sand-700;
     @apply dark:checked:bg-primary-500 dark:checked:border-primary-500;
-    @apply dark:focus:ring-offset-neutral-800;
+    @apply dark:focus:ring-offset-sand-800;
 }
 
 /* Radio button with label wrapper */
 .radio-label {
-    @apply flex p-3 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm;
+    @apply flex p-3 w-full bg-sand-50 border border-sand-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     cursor: pointer;
 }
 
 .radio-label span {
-    @apply text-sm text-gray-600 ms-3 dark:text-neutral-300;
+    @apply text-sm text-sand-600 ms-3 dark:text-sand-300;
 }
 
 /* ===================================
@@ -334,30 +334,30 @@ input[type='radio'] {
 
 /* Checkbox input */
 input[type='checkbox'] {
-    @apply shrink-0 mt-0.5 border-gray-200 rounded text-primary-600;
+    @apply shrink-0 mt-0.5 border-sand-200 rounded text-primary-600;
     @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply dark:bg-sand-800 dark:border-sand-700;
     @apply dark:checked:bg-primary-500 dark:checked:border-primary-500;
-    @apply dark:focus:ring-offset-neutral-800;
+    @apply dark:focus:ring-offset-sand-800;
 }
 
 /* Checkbox with label wrapper */
 .checkbox-label {
-    @apply flex p-3 w-full bg-gray-50 border border-gray-200 rounded-lg text-sm;
+    @apply flex p-3 w-full bg-sand-50 border border-sand-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     cursor: pointer;
 }
 
 .checkbox-label span {
-    @apply text-sm text-gray-600 ms-3 dark:text-neutral-300;
+    @apply text-sm text-sand-600 ms-3 dark:text-sand-300;
 }
 
 /* Schedule checkbox - themed checkbox for weekly meal availability */
 .schedule-checkbox {
-    @apply size-4 rounded border-gray-300 cursor-pointer;
+    @apply size-4 rounded border-sand-300 cursor-pointer;
     accent-color: var(--color-primary-600);
 }
 
@@ -382,7 +382,7 @@ a.btn-danger {
     @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg border border-transparent;
     @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:focus:ring-offset-neutral-800;
+    @apply dark:focus:ring-offset-sand-800;
     cursor: pointer;
     text-decoration: none;
 }
@@ -398,9 +398,9 @@ a.btn-danger {
 }
 
 .btn-outline {
-    @apply py-3 px-4 justify-center bg-transparent border-gray-300 text-gray-700;
-    @apply hover:bg-gray-50;
-    @apply dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800;
+    @apply py-3 px-4 justify-center bg-transparent border-sand-300 text-sand-700;
+    @apply hover:bg-sand-50;
+    @apply dark:border-sand-700 dark:text-sand-300 dark:hover:bg-sand-800;
 }
 
 .btn-danger {
@@ -525,8 +525,8 @@ a.btn-danger {
 }
 
 .badge-neutral {
-    @apply bg-gray-100 text-gray-600 border border-gray-300;
-    @apply dark:bg-neutral-700 dark:text-neutral-300 dark:border-neutral-600;
+    @apply bg-sand-100 text-sand-600 border border-sand-300;
+    @apply dark:bg-sand-700 dark:text-sand-300 dark:border-sand-600;
 }
 
 .badge-success {
@@ -565,12 +565,12 @@ a.btn-danger {
 
 /* Card component */
 .card {
-    @apply flex flex-col bg-gray-50 border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-xl dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .card-header {
-    @apply px-4 py-3 md:px-5 md:py-4 border-b border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply px-4 py-3 md:px-5 md:py-4 border-b border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 .card-header > h1,
@@ -580,13 +580,13 @@ a.btn-danger {
 }
 
 .card-title {
-    @apply text-2xl font-semibold text-gray-800 mb-0;
-    @apply dark:text-neutral-200;
+    @apply text-2xl font-semibold text-sand-800 mb-0;
+    @apply dark:text-sand-200;
 }
 
 .card-subtitle {
-    @apply text-sm text-gray-600 mt-0.5;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 mt-0.5;
+    @apply dark:text-sand-300;
 }
 
 .card-body {
@@ -631,10 +631,10 @@ a.btn-danger {
 /* Card-title divider: when card-title lives inside card-body (no dedicated header),
    pull the bottom border flush to the card edges via negative margins. */
 .card-body > .card-title {
-    @apply border-b border-gray-200 pb-3;
+    @apply border-b border-sand-200 pb-3;
     margin-inline: -1rem;
     padding-inline: 1rem;
-    @apply dark:border-neutral-700;
+    @apply dark:border-sand-700;
 }
 
 @media (min-width: 768px) {
@@ -645,8 +645,8 @@ a.btn-danger {
 }
 
 .card-footer {
-    @apply px-4 py-3 md:px-5 md:py-4 border-t border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply px-4 py-3 md:px-5 md:py-4 border-t border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 /* Stat card variant — compact uniform padding for dashboard metric cards */
@@ -659,11 +659,11 @@ a.btn-danger {
 }
 
 .stat-label {
-    @apply text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-neutral-400;
+    @apply text-xs font-semibold uppercase tracking-wide text-sand-600 dark:text-sand-400;
 }
 
 .stat-value {
-    @apply text-3xl font-bold text-primary-950 font-serif dark:text-neutral-100 leading-none;
+    @apply text-3xl font-bold text-primary-950 font-serif dark:text-sand-100 leading-none;
 }
 
 /* Space between sibling fieldsets and other block elements inside card body.
@@ -722,12 +722,12 @@ a.btn-danger {
 
 /* Field label — mirrors base label styling as an explicit class */
 .field-label {
-    @apply block text-sm font-medium text-gray-700 dark:text-gray-200;
+    @apply block text-sm font-medium text-sand-700 dark:text-sand-200;
 }
 
 /* Help text below input */
 .field-help {
-    @apply text-xs text-gray-600 mt-1 dark:text-neutral-300;
+    @apply text-xs text-sand-600 mt-1 dark:text-sand-300;
 }
 
 /* Error message below input */
@@ -808,8 +808,8 @@ a.btn-danger {
 
 /* Addon (prefix or suffix) flanking an input */
 .field-addon {
-    @apply inline-flex items-center px-3 text-sm text-gray-600 bg-gray-50 border border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300;
+    @apply inline-flex items-center px-3 text-sm text-sand-600 bg-sand-50 border border-sand-200;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-sand-300;
 }
 
 /* First child addon gets left rounding, last gets right rounding */
@@ -848,7 +848,7 @@ a.btn-danger {
    =================================== */
 
 .section-title {
-    @apply text-lg font-semibold text-gray-800 dark:text-neutral-200;
+    @apply text-lg font-semibold text-sand-800 dark:text-sand-200;
 }
 
 /* ===================================
@@ -874,18 +874,18 @@ a.btn-danger {
 }
 
 .breadcrumb a {
-    @apply text-gray-600 hover:text-primary-600;
-    @apply dark:text-neutral-300 dark:hover:text-primary-400;
+    @apply text-sand-600 hover:text-primary-600;
+    @apply dark:text-sand-300 dark:hover:text-primary-400;
 }
 
 .breadcrumb-separator {
-    @apply mx-2 text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply mx-2 text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .breadcrumb-current {
-    @apply text-gray-800 font-medium;
-    @apply dark:text-neutral-200;
+    @apply text-sand-800 font-medium;
+    @apply dark:text-sand-200;
 }
 
 /* ===================================
@@ -894,16 +894,16 @@ a.btn-danger {
 
 /* Table container - bordered, rounded wrapper with horizontal scroll */
 .data-table {
-    @apply border border-gray-200 rounded-xl;
+    @apply border border-sand-200 rounded-xl;
     overflow-x: auto;
     overflow-y: hidden;
-    @apply dark:border-neutral-700;
+    @apply dark:border-sand-700;
 }
 
 .data-table table {
     @apply min-w-full;
     table-layout: auto;
-    @apply dark:divide-neutral-700;
+    @apply dark:divide-sand-700;
 }
 
 .data-table th,
@@ -917,13 +917,13 @@ a.btn-danger {
 }
 
 .data-table thead {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-700;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-700;
 }
 
 .data-table th {
-    @apply px-4 py-3 text-start text-xs font-medium text-gray-600 tracking-wide;
-    @apply dark:text-neutral-300;
+    @apply px-4 py-3 text-start text-xs font-medium text-sand-600 tracking-wide;
+    @apply dark:text-sand-300;
     overflow: visible;
 }
 
@@ -940,14 +940,14 @@ a.btn-danger {
 }
 
 .data-table td {
-    @apply px-4 py-3 text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply px-4 py-3 text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* Primary cell (e.g. name column) - bolder text */
 .data-table td.cell-primary {
-    @apply font-semibold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply font-semibold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 /* Numeric cell - tabular figures for vertical alignment across rows */
@@ -957,9 +957,9 @@ a.btn-danger {
 }
 
 .data-table tbody tr {
-    @apply bg-gray-50 border-b border-gray-100;
-    @apply hover:bg-gray-50;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:hover:bg-neutral-700;
+    @apply bg-sand-50 border-b border-sand-100;
+    @apply hover:bg-sand-50;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:bg-sand-700;
 }
 
 .data-table tbody tr:last-child {
@@ -968,12 +968,12 @@ a.btn-danger {
 
 /* Section header rows (e.g., "Hot Meals" group divider) */
 .data-table tbody tr.section-header {
-    @apply bg-gray-50 hover:bg-gray-50;
-    @apply dark:bg-neutral-800/50;
+    @apply bg-sand-50 hover:bg-sand-50;
+    @apply dark:bg-sand-800/50;
 }
 
 .data-table tbody tr.section-header td {
-    @apply text-xs font-semibold uppercase tracking-wider text-gray-600 py-2;
+    @apply text-xs font-semibold uppercase tracking-wider text-sand-600 py-2;
 }
 
 /* Sortable column header */
@@ -982,14 +982,14 @@ a.btn-danger {
 }
 
 .data-table th[data-sortable]:hover {
-    @apply text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 /* Accordion detail row (expanded order detail, etc.) */
 .data-table tbody tr.detail-row td {
-    @apply bg-gray-50 p-4;
-    @apply dark:bg-neutral-800/50;
+    @apply bg-sand-50 p-4;
+    @apply dark:bg-sand-800/50;
 }
 
 /* Sticky first column - default for all data tables */
@@ -998,20 +998,20 @@ a.btn-danger {
     position: sticky;
     left: 0;
     z-index: 10;
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-800;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-800;
 }
 
 .data-table thead th:first-child {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-700;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-700;
     z-index: 11;
 }
 
 /* Hover: match the row hover colour on the sticky first column */
 .data-table tbody tr:hover td:first-child {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-700;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-700;
 }
 
 /* Subtle shadow to indicate the column is pinned */
@@ -1048,29 +1048,29 @@ a.btn-danger {
 }
 
 .file-list-input {
-    @apply flex-1 py-2 px-3 text-sm border-gray-200 rounded-lg bg-gray-50;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-200;
-    @apply focus:border-primary-500 focus:ring-primary-500 focus:bg-gray-50 dark:focus:bg-neutral-800;
+    @apply flex-1 py-2 px-3 text-sm border-sand-200 rounded-lg bg-sand-50;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-sand-200;
+    @apply focus:border-primary-500 focus:ring-primary-500 focus:bg-sand-50 dark:focus:bg-sand-800;
 }
 
 .file-list-action {
-    @apply flex items-center justify-center size-9 text-gray-600 hover:text-gray-700 hover:bg-gray-100 rounded-lg border border-gray-200 bg-gray-50 transition-colors cursor-pointer;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:border-neutral-700;
+    @apply flex items-center justify-center size-9 text-sand-600 hover:text-sand-700 hover:bg-sand-100 rounded-lg border border-sand-200 bg-sand-50 transition-colors cursor-pointer;
+    @apply dark:text-sand-300 dark:hover:text-sand-200 dark:hover:bg-sand-700 dark:bg-sand-800 dark:border-sand-700;
 }
 
 .file-list-add {
-    @apply inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 mt-2 px-1 cursor-pointer;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-200;
+    @apply inline-flex items-center gap-2 text-sm font-medium text-sand-600 hover:text-sand-900 mt-2 px-1 cursor-pointer;
+    @apply dark:text-sand-300 dark:hover:text-sand-200;
 }
 
 .file-list-heading {
-    @apply text-sm font-semibold text-gray-900 mb-1;
+    @apply text-sm font-semibold text-sand-900 mb-1;
     @apply dark:text-white;
 }
 
 .file-list-description {
-    @apply text-xs text-gray-600 mb-3;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600 mb-3;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -1083,19 +1083,19 @@ a.btn-danger {
 }
 
 .empty-state .empty-state-icon {
-    @apply text-5xl text-gray-300 mb-4;
-    @apply dark:text-neutral-600;
+    @apply text-5xl text-sand-300 mb-4;
+    @apply dark:text-sand-600;
 }
 
 .empty-state h2,
 .empty-state h3 {
-    @apply text-lg font-semibold text-gray-800 mb-2;
-    @apply dark:text-neutral-200;
+    @apply text-lg font-semibold text-sand-800 mb-2;
+    @apply dark:text-sand-200;
 }
 
 .empty-state p {
-    @apply text-sm text-gray-600 mb-6 max-w-sm;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 mb-6 max-w-sm;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -1103,13 +1103,13 @@ a.btn-danger {
    =================================== */
 
 .instruction-title {
-    @apply text-lg font-medium text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply text-lg font-medium text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .instruction-text {
-    @apply text-sm text-gray-600 mt-1;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 mt-1;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -1117,15 +1117,15 @@ a.btn-danger {
    =================================== */
 
 .accordion-toggle {
-    @apply inline-flex items-center gap-x-2 py-2 text-sm font-medium text-gray-600 hover:text-gray-800;
-    @apply focus:outline-none focus:text-gray-800;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-200;
+    @apply inline-flex items-center gap-x-2 py-2 text-sm font-medium text-sand-600 hover:text-sand-800;
+    @apply focus:outline-none focus:text-sand-800;
+    @apply dark:text-sand-300 dark:hover:text-sand-200;
 }
 
 /* Data Accordion — content accordion using Preline HSAccordion */
 .accordion {
-    @apply border border-gray-200 rounded-xl overflow-hidden;
-    @apply dark:border-neutral-700;
+    @apply border border-sand-200 rounded-xl overflow-hidden;
+    @apply dark:border-sand-700;
 }
 
 .accordion-item {
@@ -1139,7 +1139,7 @@ a.btn-danger {
 }
 
 .dark .accordion-item {
-    border-bottom-color: var(--color-neutral-700);
+    border-bottom-color: var(--color-sand-700);
 }
 
 .dark .accordion-item:last-child {
@@ -1147,11 +1147,11 @@ a.btn-danger {
 }
 
 .accordion-header {
-    @apply flex items-center justify-between w-full px-5 py-4 text-sm font-semibold text-gray-800 cursor-pointer;
+    @apply flex items-center justify-between w-full px-5 py-4 text-sm font-semibold text-sand-800 cursor-pointer;
     @apply bg-transparent border-transparent rounded-none;
-    @apply hover:bg-gray-50 focus:outline-none;
+    @apply hover:bg-sand-50 focus:outline-none;
     @apply focus-visible:ring-1 focus-visible:ring-primary-300 focus-visible:ring-offset-0;
-    @apply dark:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply dark:text-sand-200 dark:hover:bg-sand-800;
     background-color: transparent !important;
 }
 
@@ -1160,7 +1160,7 @@ a.btn-danger {
 }
 
 .dark .accordion-header:hover {
-    background-color: var(--color-neutral-800) !important;
+    background-color: var(--color-sand-800) !important;
 }
 
 .hs-accordion.active > .accordion-header {
@@ -1169,8 +1169,8 @@ a.btn-danger {
 }
 
 .accordion-header-icon {
-    @apply shrink-0 text-gray-600 mr-3;
-    @apply dark:text-neutral-400;
+    @apply shrink-0 text-sand-600 mr-3;
+    @apply dark:text-sand-400;
     font-size: 1rem;
     width: 1rem;
 }
@@ -1181,8 +1181,8 @@ a.btn-danger {
 }
 
 .accordion-body {
-    @apply px-5 pb-4 text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply px-5 pb-4 text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* Flush — no outer border or rounding, for embedding in cards */
@@ -1196,13 +1196,13 @@ a.btn-danger {
 }
 
 .accordion-bordered .accordion-item {
-    @apply rounded-lg border border-gray-200 mb-2;
-    @apply dark:border-neutral-700;
+    @apply rounded-lg border border-sand-200 mb-2;
+    @apply dark:border-sand-700;
     border-bottom: 1px solid var(--color-sand-200);
 }
 
 .dark .accordion-bordered .accordion-item {
-    border-bottom-color: var(--color-neutral-700);
+    border-bottom-color: var(--color-sand-700);
 }
 
 .accordion-bordered .accordion-item:last-child {
@@ -1211,7 +1211,7 @@ a.btn-danger {
 }
 
 .dark .accordion-bordered .accordion-item:last-child {
-    border-bottom-color: var(--color-neutral-700);
+    border-bottom-color: var(--color-sand-700);
 }
 
 .accordion-bordered .accordion-header {
@@ -1220,8 +1220,8 @@ a.btn-danger {
 
 /* Accordion chevrons for data accordion (reuses existing pattern) */
 .accordion-chevron-wrap {
-    @apply text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .accordion-header .accordion-chevron-up {
@@ -1243,8 +1243,8 @@ a.btn-danger {
 }
 
 .example-code-block {
-    @apply mt-2 bg-gray-50 rounded-lg p-4 font-mono text-sm block whitespace-pre-line;
-    @apply dark:bg-neutral-800 dark:text-neutral-300;
+    @apply mt-2 bg-sand-50 rounded-lg p-4 font-mono text-sm block whitespace-pre-line;
+    @apply dark:bg-sand-800 dark:text-sand-300;
 }
 
 /* ===================================
@@ -1384,8 +1384,8 @@ a.btn-danger {
 
 /* Skeleton loading placeholder */
 .skeleton {
-    @apply animate-pulse bg-gray-200 rounded;
-    @apply dark:bg-neutral-700;
+    @apply animate-pulse bg-sand-200 rounded;
+    @apply dark:bg-sand-700;
 }
 
 .skeleton-text {
@@ -1406,8 +1406,8 @@ a.btn-danger {
 }
 
 .pagination-info {
-    @apply text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .pagination-controls {
@@ -1416,9 +1416,9 @@ a.btn-danger {
 
 .pagination-btn {
     @apply inline-flex items-center justify-center size-11 text-sm rounded-lg;
-    @apply text-gray-600 hover:bg-gray-100;
+    @apply text-sand-600 hover:bg-sand-100;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-700;
+    @apply dark:text-sand-300 dark:hover:bg-sand-700;
 }
 
 .pagination-btn.active {
@@ -1433,8 +1433,8 @@ a.btn-danger {
    =================================== */
 
 .hs-dropdown-menu {
-    @apply min-w-40 bg-gray-50 border border-gray-200 shadow-md rounded-lg p-1 mt-1 z-10;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply min-w-40 bg-sand-50 border border-sand-200 shadow-md rounded-lg p-1 mt-1 z-10;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     /* Hidden by default; Preline adds 'block' when open, 'hidden' (display:none) when closed */
     display: none;
     opacity: 0;
@@ -1448,8 +1448,8 @@ a.btn-danger {
 }
 
 .hs-dropdown-item {
-    @apply flex items-center gap-x-3 py-1.5 px-3 text-sm text-gray-700 cursor-pointer;
-    @apply hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800;
+    @apply flex items-center gap-x-3 py-1.5 px-3 text-sm text-sand-700 cursor-pointer;
+    @apply hover:bg-sand-100 dark:text-sand-300 dark:hover:bg-sand-800;
     border-radius: 0;
     text-decoration: none;
     display: flex;
@@ -1482,8 +1482,8 @@ a.btn-danger {
    =================================== */
 
 .ctx-menu {
-    @apply fixed min-w-44 bg-gray-50 border border-gray-200 shadow-lg rounded-lg p-1 z-50;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply fixed min-w-44 bg-sand-50 border border-sand-200 shadow-lg rounded-lg p-1 z-50;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     display: none;
     opacity: 0;
     transform: scale(0.95);
@@ -1498,8 +1498,8 @@ a.btn-danger {
 }
 
 .ctx-menu-item {
-    @apply flex items-center gap-x-3 py-1.5 px-3 text-sm text-gray-700 cursor-pointer rounded-md;
-    @apply hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800;
+    @apply flex items-center gap-x-3 py-1.5 px-3 text-sm text-sand-700 cursor-pointer rounded-md;
+    @apply hover:bg-sand-100 dark:text-sand-300 dark:hover:bg-sand-800;
     text-decoration: none;
     width: 100%;
 }
@@ -1514,19 +1514,19 @@ a.btn-danger {
 }
 
 .ctx-menu-divider {
-    @apply block my-1 border-t border-gray-200 dark:border-neutral-700;
+    @apply block my-1 border-t border-sand-200 dark:border-sand-700;
 }
 
 .ctx-menu-label {
-    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-neutral-400;
+    @apply block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sand-600 dark:text-sand-400;
 }
 
 .ctx-menu-shortcut {
-    @apply ml-auto text-xs text-gray-600 dark:text-neutral-400;
+    @apply ml-auto text-xs text-sand-600 dark:text-sand-400;
 }
 
 .ctx-menu-icon {
-    @apply w-4 text-center text-gray-600 dark:text-neutral-300;
+    @apply w-4 text-center text-sand-600 dark:text-sand-300;
 }
 
 .ctx-menu-item.ctx-menu-item-danger .ctx-menu-icon {
@@ -1573,8 +1573,8 @@ a.btn-danger {
 
 .filter-pill {
     @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs whitespace-nowrap;
-    @apply bg-gray-50 border border-gray-200 text-gray-600;
-    @apply hover:bg-gray-100 cursor-pointer transition-colors;
+    @apply bg-sand-50 border border-sand-200 text-sand-600;
+    @apply hover:bg-sand-100 cursor-pointer transition-colors;
     @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
 }
 
@@ -1587,10 +1587,10 @@ a.btn-danger {
    =================================== */
 
 .prompt-input-container {
-    @apply border border-gray-200 rounded-xl bg-gray-50 overflow-hidden;
+    @apply border border-sand-200 rounded-xl bg-sand-50 overflow-hidden;
     @apply shadow-xs transition-shadow duration-200;
     @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
 .prompt-input-container:focus-within {
@@ -1601,9 +1601,9 @@ a.btn-danger {
 .prompt-textarea {
     @apply w-full p-4 border-0 bg-transparent text-sm resize-none;
     @apply overflow-hidden max-h-[300px] outline-none;
-    @apply placeholder-gray-400 text-gray-900;
+    @apply placeholder-sand-400 text-sand-900;
     @apply focus:ring-0 focus:outline-none;
-    @apply dark:text-neutral-200 dark:placeholder-neutral-500;
+    @apply dark:text-sand-200 dark:placeholder-sand-500;
     field-sizing: content;
     /* Modern auto-resize */
 }
@@ -1632,8 +1632,8 @@ a.btn-danger {
    On non-mobile pages (no bottom nav), bottom: 64px leaves a gap;
    those pages don't use .sticky-footer so this is fine. */
 .sticky-footer {
-    @apply fixed left-0 right-0 bg-gray-50 border-t border-gray-200 shadow-lg z-30;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply fixed left-0 right-0 bg-sand-50 border-t border-sand-200 shadow-lg z-30;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     bottom: 64px; /* clear the 64px mobile-bottom-nav */
     max-width: 430px;
     margin-inline: auto;
@@ -1644,8 +1644,8 @@ a.btn-danger {
 }
 
 .sticky-footer-info {
-    @apply flex flex-wrap items-center gap-2 text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply flex flex-wrap items-center gap-2 text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .sticky-footer-actions {
@@ -1692,8 +1692,8 @@ a.btn-danger {
 }
 
 .ai-field-confirmed-label {
-    @apply text-xs text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 /* Callout for fields defaulted to zero - more prominent warning */
@@ -1708,29 +1708,29 @@ a.btn-danger {
 
 /* Nutrition-label style list with striped rows */
 .nutrition-list {
-    @apply border border-gray-200 rounded-md overflow-hidden;
-    @apply dark:border-neutral-700;
+    @apply border border-sand-200 rounded-md overflow-hidden;
+    @apply dark:border-sand-700;
 }
 
 .nutrition-list-row {
     @apply flex items-center justify-between py-2.5 px-3 text-sm;
-    @apply border-b border-gray-100 last:border-b-0;
-    @apply dark:border-neutral-700;
+    @apply border-b border-sand-100 last:border-b-0;
+    @apply dark:border-sand-700;
 }
 
 .nutrition-list-row:nth-child(even) {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-800/50;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-800/50;
 }
 
 .nutrition-list-label {
-    @apply font-medium text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply font-medium text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .nutrition-list-value {
-    @apply flex items-center gap-2 text-gray-900;
-    @apply dark:text-neutral-200;
+    @apply flex items-center gap-2 text-sand-900;
+    @apply dark:text-sand-200;
 }
 
 /* Borderless number input that looks like plain text until focused */
@@ -1746,7 +1746,7 @@ a.btn-danger {
 }
 
 .nutrition-input-group:hover {
-    outline: 1px solid var(--color-gray-300);
+    outline: 1px solid var(--color-sand-300);
     outline-offset: -1px;
 }
 
@@ -1759,7 +1759,7 @@ a.btn-danger {
 
 /* The number input inside the group */
 input[type='number'].nutrition-input {
-    @apply w-[4ch] text-right text-sm text-gray-900 bg-transparent;
+    @apply w-[4ch] text-right text-sm text-sand-900 bg-transparent;
     padding: 0.25rem 0 0.25rem 0.375rem !important;
     border: none !important;
     box-shadow: none !important;
@@ -1774,8 +1774,8 @@ input[type='number'].nutrition-input:focus {
 
 /* Unit suffix label inside the group */
 .nutrition-unit {
-    @apply text-xs text-gray-600 pe-1.5 ps-0.5 select-none pointer-events-none;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600 pe-1.5 ps-0.5 select-none pointer-events-none;
+    @apply dark:text-sand-400;
 }
 
 /* Hide number input spinners */
@@ -1799,15 +1799,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .issues-sidebar-title {
-    @apply flex items-center gap-2 font-semibold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply flex items-center gap-2 font-semibold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 /* Individual issue item - clickable card-like row */
 .issue-item {
     @apply flex items-start gap-2 py-2 px-3 -mx-3 rounded-md cursor-pointer transition-colors;
-    @apply hover:bg-gray-50;
-    @apply dark:hover:bg-neutral-800;
+    @apply hover:bg-sand-50;
+    @apply dark:hover:bg-sand-800;
     @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
 }
 
@@ -1820,18 +1820,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .issue-item-description {
-    @apply text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .issue-item-action {
-    @apply text-xs text-gray-600 mt-0.5;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600 mt-0.5;
+    @apply dark:text-sand-300;
 }
 
 .issue-item-resolved .issue-item-description {
-    @apply text-gray-600 line-through;
-    @apply dark:text-neutral-400;
+    @apply text-sand-600 line-through;
+    @apply dark:text-sand-400;
 }
 
 .issue-item-resolved .issue-item-action {
@@ -1860,8 +1860,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Mobile: sidebar slides off-screen right */
 @media (max-width: 63.9375rem) {
     .issues-layout-aside {
-        @apply fixed top-0 right-0 bottom-0 z-40 w-80 translate-x-full bg-gray-50 shadow-xl p-4 overflow-y-auto;
-        @apply dark:bg-neutral-900;
+        @apply fixed top-0 right-0 bottom-0 z-40 w-80 translate-x-full bg-sand-50 shadow-xl p-4 overflow-y-auto;
+        @apply dark:bg-sand-900;
     }
     .issues-layout-aside.open {
         @apply translate-x-0;
@@ -1871,10 +1871,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Toggle button for mobile sidebar */
 .issues-layout-toggle {
     @apply inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg;
-    @apply bg-gray-50 border border-gray-200 text-gray-700 shadow-sm;
-    @apply hover:bg-gray-50;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300;
-    @apply dark:hover:bg-neutral-700;
+    @apply bg-sand-50 border border-sand-200 text-sand-700 shadow-sm;
+    @apply hover:bg-sand-50;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-sand-300;
+    @apply dark:hover:bg-sand-700;
 }
 
 /* Backdrop overlay when mobile sidebar is open */
@@ -1891,13 +1891,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Tag group - inline row: label + pill badges + add button */
 .tag-group {
-    @apply flex flex-wrap items-center gap-2 py-2 border-b border-gray-100 last:border-b-0;
-    @apply dark:border-neutral-700;
+    @apply flex flex-wrap items-center gap-2 py-2 border-b border-sand-100 last:border-b-0;
+    @apply dark:border-sand-700;
 }
 
 .tag-group-label {
-    @apply text-xs uppercase tracking-wide text-gray-600 font-medium min-w-[7rem];
-    @apply dark:text-neutral-300;
+    @apply text-xs uppercase tracking-wide text-sand-600 font-medium min-w-[7rem];
+    @apply dark:text-sand-300;
 }
 
 /* Removable badge - badge with an X close button */
@@ -1943,8 +1943,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Hot/Cold toggle button group */
 .meal-type-toggle {
-    @apply px-2.5 py-1 text-xs font-medium text-gray-600 cursor-pointer transition-colors;
-    @apply dark:text-neutral-400;
+    @apply px-2.5 py-1 text-xs font-medium text-sand-600 cursor-pointer transition-colors;
+    @apply dark:text-sand-400;
     @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
     background: transparent;
 }
@@ -1973,49 +1973,49 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Side-by-side comparison layout */
 .comparison-panel {
-    @apply grid sm:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply grid sm:grid-cols-2 gap-4 p-4 bg-sand-50 rounded-lg border border-sand-200;
+    @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 .comparison-column {
-    @apply bg-gray-50 rounded-md p-4;
-    @apply dark:bg-neutral-900;
+    @apply bg-sand-50 rounded-md p-4;
+    @apply dark:bg-sand-900;
 }
 
 .comparison-intro {
-    @apply text-sm text-gray-600 col-span-full mb-1;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 col-span-full mb-1;
+    @apply dark:text-sand-300;
 }
 
 .comparison-column-header {
-    @apply text-xs uppercase tracking-wide text-gray-600 font-medium mb-3;
-    @apply dark:text-neutral-300;
+    @apply text-xs uppercase tracking-wide text-sand-600 font-medium mb-3;
+    @apply dark:text-sand-300;
 }
 
 .comparison-title {
-    @apply font-semibold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply font-semibold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .comparison-subtitle {
-    @apply text-sm text-gray-600 mt-0.5;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 mt-0.5;
+    @apply dark:text-sand-300;
 }
 
 /* Legacy alias — meal-specific variant */
 .comparison-meal-title {
-    @apply font-semibold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply font-semibold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .comparison-meal-details {
-    @apply text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .comparison-meta {
-    @apply text-xs text-gray-600 mt-2;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600 mt-2;
+    @apply dark:text-sand-400;
 }
 
 .comparison-actions {
@@ -2024,8 +2024,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Row-based comparison: label + value per column */
 .comparison-row {
-    @apply grid grid-cols-1 sm:grid-cols-[140px_1fr_1fr] gap-x-4 gap-y-1 py-3 border-b border-gray-100 col-span-full items-baseline;
-    @apply dark:border-neutral-700;
+    @apply grid grid-cols-1 sm:grid-cols-[140px_1fr_1fr] gap-x-4 gap-y-1 py-3 border-b border-sand-100 col-span-full items-baseline;
+    @apply dark:border-sand-700;
 }
 
 .comparison-row:last-of-type {
@@ -2033,13 +2033,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .comparison-row-label {
-    @apply text-xs font-medium uppercase tracking-wide text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-xs font-medium uppercase tracking-wide text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .comparison-row-value {
-    @apply text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 /* Header row — no border, tighter spacing */
@@ -2060,8 +2060,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Sidebar container - replaces utility class soup on #application-sidebar */
 .app-sidebar {
     @apply fixed top-0 start-0 bottom-0 z-[60] w-64;
-    @apply border-e border-gray-100 pt-7 pb-10 overflow-y-auto;
-    @apply dark:bg-neutral-900 dark:border-neutral-800;
+    @apply border-e border-sand-100 pt-7 pb-10 overflow-y-auto;
+    @apply dark:bg-sand-900 dark:border-sand-800;
     /* Mobile: off-screen left. lg+: always visible. Preline .open slides it in on mobile. */
     @apply -translate-x-full transition-all duration-300 transform lg:translate-x-0 lg:end-auto lg:bottom-0;
     background-color: color-mix(in srgb, var(--sidebar) 42%, transparent);
@@ -2078,11 +2078,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .app-sidebar::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-gray-300 dark:bg-neutral-500;
+    @apply rounded-full bg-sand-300 dark:bg-sand-500;
 }
 
 .app-sidebar::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-neutral-700;
+    @apply bg-sand-100 dark:bg-sand-700;
 }
 
 .app-sidebar-header {
@@ -2090,7 +2090,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .app-sidebar-brand {
-    @apply flex-none text-xl font-semibold text-gray-900;
+    @apply flex-none text-xl font-semibold text-sand-900;
     @apply dark:text-white;
 }
 
@@ -2107,8 +2107,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .sidebar-nav-item {
-    @apply flex items-center gap-x-3.5 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-gray-300;
+    @apply flex items-center gap-x-3.5 px-2.5 text-sm text-sand-700 rounded-lg hover:bg-sand-100;
+    @apply dark:text-sand-400 dark:hover:bg-sand-700 dark:hover:text-sand-300;
     min-height: 3.15em; /* ~44px at 14px (text-sm), scales with font-size */
     padding-block: 0.575em;
 }
@@ -2119,13 +2119,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sidebar-nav-item.active,
 .sidebar-nav-item[aria-current='page'] {
-    @apply bg-gray-100 text-gray-900;
-    @apply dark:bg-neutral-700 dark:text-white;
+    @apply bg-sand-100 text-sand-900;
+    @apply dark:bg-sand-700 dark:text-white;
 }
 
 .sidebar-nav-section {
-    @apply block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2 ml-2.5 mt-5;
-    @apply dark:text-neutral-400;
+    @apply block text-xs font-semibold text-sand-600 uppercase tracking-wider mb-2 ml-2.5 mt-5;
+    @apply dark:text-sand-400;
 }
 
 /* No top margin on the very first section label */
@@ -2137,15 +2137,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    Strip heavy hover/focus styling inherited from global button rules or Preline. */
 .hs-accordion-toggle {
     @apply bg-transparent border-transparent rounded-md px-2 py-1;
-    @apply hover:bg-gray-100 hover:text-gray-900;
+    @apply hover:bg-sand-100 hover:text-sand-900;
     @apply focus:ring-0 focus:ring-offset-0;
     @apply focus-visible:ring-1 focus-visible:ring-primary-300 focus-visible:ring-offset-0;
-    @apply dark:hover:bg-neutral-800 dark:hover:text-neutral-200;
+    @apply dark:hover:bg-sand-800 dark:hover:text-sand-200;
     background-color: transparent !important;
 }
 
 .hs-accordion-toggle:hover {
-    background-color: var(--color-gray-100) !important;
+    background-color: var(--color-sand-100) !important;
 }
 
 /* Accordion Active State */
@@ -2200,9 +2200,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .category-chip {
-    @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors whitespace-nowrap border border-transparent;
-    @apply dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:border-neutral-700;
-    @apply focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-neutral-600;
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-sand-100 text-sand-800 hover:bg-sand-200 transition-colors whitespace-nowrap border border-transparent;
+    @apply dark:bg-sand-800 dark:text-sand-200 dark:hover:bg-sand-700 dark:border-sand-700;
+    @apply focus:outline-none focus:ring-2 focus:ring-sand-300 dark:focus:ring-sand-600;
 }
 
 .category-chip.active {
@@ -2224,8 +2224,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .chat-bubble-ai {
-    @apply bg-gray-50 border border-gray-200 p-4 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-gray-200;
+    @apply bg-sand-50 border border-sand-200 p-4 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-sand-200;
 }
 
 .chat-avatar-ai {
@@ -2239,13 +2239,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .btn-icon {
     /* Icon button base */
-    @apply p-0 bg-transparent text-gray-600 border-transparent;
+    @apply p-0 bg-transparent text-sand-600 border-transparent;
 
     /* Icon button specific styles */
     @apply inline-flex flex-shrink-0 justify-center items-center size-11 rounded-lg transition-colors;
-    @apply hover:bg-gray-100;
+    @apply hover:bg-sand-100;
     @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-neutral-700;
+    @apply dark:text-sand-400 dark:hover:bg-sand-800 dark:focus:ring-sand-700;
 }
 
 .btn-icon-primary {
@@ -2260,9 +2260,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .btn-dark-mode-toggle,
 .dark-mode-toggle {
-    @apply p-2 rounded-full bg-transparent text-gray-600 transition-colors border-none;
-    @apply hover:bg-gray-200;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-700;
+    @apply p-2 rounded-full bg-transparent text-sand-600 transition-colors border-none;
+    @apply hover:bg-sand-200;
+    @apply dark:text-sand-300 dark:hover:bg-sand-700;
 }
 
 /* ===================================
@@ -2279,13 +2279,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* The pill track */
 .pl-theme-toggle-track {
     @apply relative inline-flex items-center w-[52px] h-[28px] rounded-full shrink-0 transition-colors duration-200 cursor-pointer;
-    @apply bg-gray-200 dark:bg-primary-500;
+    @apply bg-sand-200 dark:bg-primary-500;
     padding: 3px;
 }
 
 .pl-theme-toggle:hover {
-    @apply bg-gray-100 rounded-lg;
-    @apply dark:hover:bg-neutral-700;
+    @apply bg-sand-100 rounded-lg;
+    @apply dark:hover:bg-sand-700;
 }
 
 .pl-theme-toggle:focus-visible .pl-theme-toggle-track {
@@ -2296,7 +2296,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* The sliding thumb */
 .pl-theme-toggle-thumb {
-    @apply absolute w-[22px] h-[22px] rounded-full bg-gray-50 shadow-sm transition-transform duration-200;
+    @apply absolute w-[22px] h-[22px] rounded-full bg-sand-50 shadow-sm transition-transform duration-200;
     left: 3px;
     top: 3px;
 }
@@ -2308,7 +2308,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Sun icon — visible in light mode (right side of track, opposite thumb) */
 .pl-theme-icon-sun {
-    @apply absolute text-[15px] text-gray-600;
+    @apply absolute text-[15px] text-sand-600;
     right: 5px;
     z-index: 1;
     display: block !important;
@@ -2332,7 +2332,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Label text */
 .pl-theme-toggle-label {
-    @apply text-sm text-gray-600 dark:text-neutral-300;
+    @apply text-sm text-sand-600 dark:text-sand-300;
 }
 
 .pl-theme-label-dark {
@@ -2350,13 +2350,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .btn-model-selector,
 .dropdown-btn {
     /* Reset base button styles */
-    @apply py-2 px-3 bg-gray-50 text-gray-800 border-gray-200;
+    @apply py-2 px-3 bg-sand-50 text-sand-800 border-sand-200;
 
     /* Selector styles */
     @apply inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border shadow-sm transition-colors;
-    @apply hover:bg-gray-50;
-    @apply focus:outline-none focus:bg-gray-50;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700;
+    @apply hover:bg-sand-50;
+    @apply focus:outline-none focus:bg-sand-50;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-white dark:hover:bg-sand-700 dark:focus:bg-sand-700;
 }
 
 /* ===================================
@@ -2365,8 +2365,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dropdown-menu {
     transition-property: opacity, margin;
-    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-gray-50 shadow-md rounded-lg p-2 mt-2;
-    @apply dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700;
+    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-sand-50 shadow-md rounded-lg p-2 mt-2;
+    @apply dark:bg-sand-800 dark:border dark:border-sand-700 dark:divide-sand-700;
 }
 
 .hs-dropdown.open > .dropdown-menu,
@@ -2376,8 +2376,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dropdown-item {
-    @apply flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700;
+    @apply flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-sand-800 hover:bg-sand-100 focus:outline-none focus:bg-sand-100;
+    @apply dark:text-sand-300 dark:hover:bg-sand-700 dark:hover:text-sand-300 dark:focus:bg-sand-700;
 }
 
 /* ===================================
@@ -2385,7 +2385,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .calendar-widget {
-    @apply inline-flex flex-col items-center w-10 rounded overflow-hidden border border-gray-300 leading-none;
+    @apply inline-flex flex-col items-center w-10 rounded overflow-hidden border border-sand-300 leading-none;
 }
 
 .calendar-month {
@@ -2393,7 +2393,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .calendar-day {
-    @apply w-full bg-gray-50 text-gray-800 text-sm font-semibold text-center py-0.5;
+    @apply w-full bg-sand-50 text-sand-800 text-sm font-semibold text-center py-0.5;
 }
 
 /* ===================================
@@ -2417,8 +2417,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Icon element inside .search-input (e.g. <i class="fa-solid fa-magnifying-glass search-input-icon">) */
 .search-input-icon {
-    @apply absolute start-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm pointer-events-none;
-    @apply dark:text-neutral-400;
+    @apply absolute start-3 top-1/2 -translate-y-1/2 text-sand-600 text-sm pointer-events-none;
+    @apply dark:text-sand-400;
 }
 
 /* The input inside .search-input — tighter gap so icon + text feel like one unit */
@@ -2428,8 +2428,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Legacy alias */
 .toolbar-search-input {
-    @apply block w-full shadow-sm rounded-md border-gray-200 focus:border-primary-500 focus:ring-primary-500;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
+    @apply block w-full shadow-sm rounded-md border-sand-200 focus:border-primary-500 focus:ring-primary-500;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300;
     padding-inline-start: 2rem;
 }
 
@@ -2441,11 +2441,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .select-haven {
     @apply block w-full py-2.5 sm:py-3 px-4 text-sm rounded-lg;
-    @apply border-gray-200 bg-gray-50 text-gray-900;
+    @apply border-sand-200 bg-sand-50 text-sand-900;
     @apply focus:border-primary-500 focus:ring-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
-    @apply dark:focus:ring-neutral-600;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300;
+    @apply dark:focus:ring-sand-600;
     appearance: none;
     padding-inline-end: 2.5rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");
@@ -2467,11 +2467,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .tab-nav-item {
     @apply py-3 px-4 inline-flex items-center gap-x-2 text-sm whitespace-nowrap;
     @apply border-b-2 border-transparent;
-    @apply text-gray-600;
-    @apply hover:text-primary-600 hover:border-gray-300;
+    @apply text-sand-600;
+    @apply hover:text-primary-600 hover:border-sand-300;
     @apply focus:outline-none focus:text-primary-600;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:text-neutral-300 dark:hover:text-primary-400;
+    @apply dark:text-sand-300 dark:hover:text-primary-400;
     background: transparent !important;
     border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
     border-top: none !important;
@@ -2536,13 +2536,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .confirm-dialog-title {
-    @apply text-lg font-semibold text-gray-800 text-center mt-3;
-    @apply dark:text-neutral-200;
+    @apply text-lg font-semibold text-sand-800 text-center mt-3;
+    @apply dark:text-sand-200;
 }
 
 .confirm-dialog-body {
-    @apply text-sm text-gray-600 text-center mt-2;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 text-center mt-2;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -2550,7 +2550,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .assignment-select {
-    @apply block w-full border-gray-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
+    @apply block w-full border-sand-200 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500 dark:focus:ring-sand-600;
     @apply py-2 px-3;
     @apply focus:border-primary-500 focus:ring-primary-500;
 }
@@ -2564,7 +2564,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .assignment-filter-tag {
-    @apply inline-flex items-center gap-x-2 py-1.5 px-3 rounded-full text-sm font-medium border border-gray-200 bg-gray-50 text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700;
+    @apply inline-flex items-center gap-x-2 py-1.5 px-3 rounded-full text-sm font-medium border border-sand-200 bg-sand-50 text-sand-800 shadow-sm hover:bg-sand-50 focus:outline-none focus:bg-sand-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-sand-800 dark:border-sand-700 dark:text-white dark:hover:bg-sand-700 dark:focus:bg-sand-700;
 }
 
 .assignment-filter-tag.active {
@@ -2572,7 +2572,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .assignment-filter-count {
-    @apply inline-flex items-center justify-center size-5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-neutral-700 dark:text-neutral-300;
+    @apply inline-flex items-center justify-center size-5 rounded-full text-xs font-semibold bg-sand-100 text-sand-800 dark:bg-sand-700 dark:text-sand-300;
 }
 
 .assignment-filter-tag.active .assignment-filter-count {
@@ -2594,7 +2594,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dark .data-table-sticky-cols th:nth-child(1),
 .dark .data-table-sticky-cols td:nth-child(1) {
-    background-color: var(--color-neutral-800);
+    background-color: var(--color-sand-800);
 }
 
 /* Column 2 — Modifications */
@@ -2604,12 +2604,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     left: 10rem;
     z-index: 10;
     background-color: var(--color-white);
-    border-right: 1px solid var(--color-gray-200);
+    border-right: 1px solid var(--color-sand-200);
 }
 
 .dark .data-table-sticky-cols th:nth-child(2),
 .dark .data-table-sticky-cols td:nth-child(2) {
-    background-color: var(--color-neutral-800);
+    background-color: var(--color-sand-800);
 }
 
 /* Column 3 — Totals */
@@ -2623,15 +2623,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .dark .data-table-sticky-cols th:nth-child(3),
 .dark .data-table-sticky-cols td:nth-child(3) {
-    background-color: var(--color-neutral-800);
+    background-color: var(--color-sand-800);
 }
 
 /* Sticky header row — higher z-index for all three */
 .data-table-sticky-cols thead th:nth-child(1),
 .data-table-sticky-cols thead th:nth-child(2),
 .data-table-sticky-cols thead th:nth-child(3) {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-700;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-700;
     z-index: 11;
 }
 
@@ -2639,14 +2639,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .data-table-sticky-cols tbody tr:hover td:nth-child(1),
 .data-table-sticky-cols tbody tr:hover td:nth-child(2),
 .data-table-sticky-cols tbody tr:hover td:nth-child(3) {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-700;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-700;
 }
 
 /* Hard border + shadow on third sticky column (Totals) — marks fixed/scroll boundary */
 .data-table-sticky-cols th:nth-child(3),
 .data-table-sticky-cols td:nth-child(3) {
-    border-right: 2px solid var(--color-gray-300) !important;
+    border-right: 2px solid var(--color-sand-300) !important;
 }
 
 .data-table-sticky-cols th:nth-child(3)::after,
@@ -2699,8 +2699,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     min-width: 10rem;
     max-width: 16rem;
     display: none;
-    @apply bg-gray-50 border border-gray-200 rounded-md p-2;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply bg-sand-50 border border-sand-200 rounded-md p-2;
+    @apply dark:bg-sand-800 dark:border-sand-700;
     border-top: 2px solid var(--color-primary-400);
     border-radius: 0 0 0.375rem 0.375rem;
     box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.12);
@@ -2759,21 +2759,21 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     word-break: break-word;
     hyphens: none;
     background-color: var(--color-white);
-    border: 1px solid var(--color-gray-200);
+    border: 1px solid var(--color-sand-200);
     border-top: 2px solid var(--color-primary-400);
     border-radius: 0 0 0.375rem 0.375rem;
     box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.12);
     padding: 0.5rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--color-gray-800);
+    color: var(--color-sand-800);
 }
 
 .dark .meal-col-name-expanded {
-    background-color: var(--color-neutral-800);
-    border-color: var(--color-neutral-700);
+    background-color: var(--color-sand-800);
+    border-color: var(--color-sand-700);
     border-top-color: var(--color-primary-500);
-    color: var(--color-neutral-200);
+    color: var(--color-sand-200);
 }
 
 .meal-col-header:hover .meal-col-name-expanded {
@@ -2788,7 +2788,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Meal column meta (temp icon + total) */
 .meal-col-meta {
-    @apply flex items-center gap-1 mt-1 text-xs text-gray-600;
+    @apply flex items-center gap-1 mt-1 text-xs text-sand-600;
 }
 
 .meal-col-total {
@@ -2901,14 +2901,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     border: none !important;
     border-radius: 0 !important;
     cursor: pointer;
-    color: var(--color-gray-600);
+    color: var(--color-sand-600);
     font-size: 0.6875rem;
     align-self: stretch;
     min-height: 0;
 }
 
 .meal-qty-btn:hover {
-    color: var(--color-gray-700) !important;
+    color: var(--color-sand-700) !important;
     background: transparent !important;
 }
 
@@ -2918,17 +2918,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-qty-cell:focus-within .meal-qty-btn.meal-qty-decrement {
-    border-right: 1px solid var(--color-gray-200) !important;
+    border-right: 1px solid var(--color-sand-200) !important;
 }
 
 .meal-qty-cell:focus-within .meal-qty-btn.meal-qty-increment {
-    border-left: 1px solid var(--color-gray-200) !important;
+    border-left: 1px solid var(--color-sand-200) !important;
 }
 
 /* Mobile notice for grid */
 .meal-grid-mobile-notice {
     @apply flex items-center p-3 mb-4;
-    @apply bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-600;
+    @apply bg-sand-100 border border-sand-200 rounded-lg text-sm text-sand-600;
     @apply lg:hidden;
 }
 
@@ -2971,17 +2971,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 */
 
 .alert-category-card {
-    @apply flex flex-col gap-1 p-4 bg-gray-50 rounded-xl;
-    @apply border-t border-r border-b border-gray-200;
+    @apply flex flex-col gap-1 p-4 bg-sand-50 rounded-xl;
+    @apply border-t border-r border-b border-sand-200;
     @apply border-l-4;
-    border-left-color: var(--alert-accent, var(--color-gray-200));
-    @apply hover:bg-gray-50 transition-colors cursor-pointer;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
+    border-left-color: var(--alert-accent, var(--color-sand-200));
+    @apply hover:bg-sand-50 transition-colors cursor-pointer;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:hover:bg-sand-800;
 }
 
 .alert-category-label {
-    @apply inline-flex items-center text-xs font-semibold uppercase tracking-wider text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-wider text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -2989,9 +2989,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .clinical-metric-card {
-    @apply flex flex-col gap-2 p-4 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer;
-    @apply hover:bg-gray-50 transition-colors;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
+    @apply flex flex-col gap-2 p-4 bg-sand-50 border border-sand-200 rounded-xl cursor-pointer;
+    @apply hover:bg-sand-50 transition-colors;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:hover:bg-sand-800;
 }
 
 .metric-card-flagged {
@@ -3022,8 +3022,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .trend-flat {
-    @apply inline-flex items-center gap-1 text-xs font-medium text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply inline-flex items-center gap-1 text-xs font-medium text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 /* ===================================
@@ -3032,9 +3032,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .activity-feed-row {
     @apply flex items-center gap-3 px-4 py-3;
-    @apply border-b border-gray-100 last:border-b-0;
-    @apply hover:bg-gray-50 hover:border-gray-50 transition-colors;
-    @apply dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:border-neutral-800;
+    @apply border-b border-sand-100 last:border-b-0;
+    @apply hover:bg-sand-50 hover:border-sand-50 transition-colors;
+    @apply dark:border-sand-700 dark:hover:bg-sand-800 dark:hover:border-sand-800;
 }
 
 /* ===================================
@@ -3067,20 +3067,20 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .segmented-control,
 .view-toggle {
-    @apply inline-flex rounded-lg border border-gray-200 overflow-hidden;
-    @apply dark:border-neutral-700;
+    @apply inline-flex rounded-lg border border-sand-200 overflow-hidden;
+    @apply dark:border-sand-700;
 }
 
 .segmented-control-btn,
 .view-toggle-btn {
-    @apply px-3 py-1.5 text-sm text-gray-600 bg-gray-50 transition-colors cursor-pointer;
-    @apply hover:bg-gray-50;
+    @apply px-3 py-1.5 text-sm text-sand-600 bg-sand-50 transition-colors cursor-pointer;
+    @apply hover:bg-sand-50;
     @apply focus:outline-none focus:z-10 focus:ring-2 focus:ring-inset focus:ring-primary-500;
-    @apply dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700;
+    @apply dark:bg-sand-800 dark:text-sand-300 dark:hover:bg-sand-700;
     /* Square all corners — the container handles outer rounding via overflow-hidden */
     border-radius: 0;
     /* Separator between adjacent buttons */
-    border-right: 1px solid var(--color-gray-200);
+    border-right: 1px solid var(--color-sand-200);
 }
 
 .segmented-control-btn:last-child,
@@ -3090,7 +3090,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 :is(.dark) .segmented-control-btn,
 :is(.dark) .view-toggle-btn {
-    border-right-color: var(--color-neutral-700);
+    border-right-color: var(--color-sand-700);
 }
 
 .segmented-control-btn.active,
@@ -3104,10 +3104,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .patient-card {
-    @apply flex flex-col gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer;
-    @apply border-t border-r border-b border-l border-gray-200;
-    @apply hover:bg-gray-50 transition-colors;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-neutral-800;
+    @apply flex flex-col gap-3 p-4 bg-sand-50 rounded-xl cursor-pointer;
+    @apply border-t border-r border-b border-l border-sand-200;
+    @apply hover:bg-sand-50 transition-colors;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:hover:bg-sand-800;
 }
 
 /* ===================================
@@ -3144,7 +3144,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sdoh-badge {
     @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-mono;
-    @apply bg-gray-100 text-gray-600 border border-gray-200;
+    @apply bg-sand-100 text-sand-600 border border-sand-200;
     @apply cursor-default;
 }
 
@@ -3165,9 +3165,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .medication-row {
     @apply flex items-center gap-3 px-4 py-3;
-    @apply border-b border-gray-100 last:border-b-0;
-    @apply hover:bg-gray-50 transition-colors cursor-pointer;
-    @apply dark:border-neutral-700 dark:hover:bg-neutral-800/50;
+    @apply border-b border-sand-100 last:border-b-0;
+    @apply hover:bg-sand-50 transition-colors cursor-pointer;
+    @apply dark:border-sand-700 dark:hover:bg-sand-800/50;
 }
 
 .medication-row-icon {
@@ -3180,13 +3180,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .medication-row-name {
-    @apply text-sm font-semibold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply text-sm font-semibold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .medication-row-dose {
-    @apply text-xs text-gray-600 ml-1.5;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600 ml-1.5;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -3195,18 +3195,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .alert-summary-row {
     @apply flex items-center justify-between gap-2 px-4 py-2.5;
-    @apply border-b border-gray-100 last:border-b-0;
-    @apply dark:border-neutral-700;
+    @apply border-b border-sand-100 last:border-b-0;
+    @apply dark:border-sand-700;
 }
 
 .alert-summary-row-title {
-    @apply text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .alert-summary-row-meta {
-    @apply text-xs text-gray-600 shrink-0;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600 shrink-0;
+    @apply dark:text-sand-400;
 }
 
 .alert-summary-row-status {
@@ -3233,12 +3233,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .section-nav {
-    @apply bg-gray-50 border-b border-gray-100;
+    @apply bg-sand-50 border-b border-sand-100;
 }
 
 .section-nav-item {
     @apply px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap;
-    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
+    @apply text-sand-600 hover:text-sand-900 hover:bg-sand-100;
     @apply transition-colors no-underline;
 }
 
@@ -3255,13 +3255,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .stratification-bar-label {
-    @apply text-xs font-medium text-gray-600 shrink-0;
+    @apply text-xs font-medium text-sand-600 shrink-0;
 }
 
 .stratification-bar-item {
     @apply px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap;
-    @apply bg-gray-50 text-gray-600 border-gray-200;
-    @apply hover:bg-gray-50 transition-colors cursor-pointer;
+    @apply bg-sand-50 text-sand-600 border-sand-200;
+    @apply hover:bg-sand-50 transition-colors cursor-pointer;
 }
 
 .stratification-bar-item.active {
@@ -3295,19 +3295,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .hedis-stat {
-    @apply p-4 bg-gray-50 rounded-xl border border-gray-200;
+    @apply p-4 bg-sand-50 rounded-xl border border-sand-200;
 }
 
 .hedis-stat-label {
-    @apply text-xs font-medium text-gray-600 uppercase tracking-wide mb-1;
+    @apply text-xs font-medium text-sand-600 uppercase tracking-wide mb-1;
 }
 
 .hedis-stat-value {
-    @apply text-xl font-bold text-gray-900;
+    @apply text-xl font-bold text-sand-900;
 }
 
 .hedis-stat-detail {
-    @apply text-xs text-gray-600 mt-0.5;
+    @apply text-xs text-sand-600 mt-0.5;
 }
 
 /* ===================================
@@ -3315,11 +3315,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .roi-calculator {
-    @apply p-4 bg-gray-50 rounded-xl border border-gray-200;
+    @apply p-4 bg-sand-50 rounded-xl border border-sand-200;
 }
 
 .roi-formula {
-    @apply text-sm text-gray-600 font-mono leading-relaxed;
+    @apply text-sm text-sand-600 font-mono leading-relaxed;
 }
 
 .roi-result {
@@ -3327,7 +3327,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .roi-result-label {
-    @apply text-xs text-gray-600 mt-0.5;
+    @apply text-xs text-sand-600 mt-0.5;
 }
 
 /* ===================================
@@ -3351,7 +3351,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .timeline-connector {
-    @apply w-px flex-1 bg-gray-200 mt-1;
+    @apply w-px flex-1 bg-sand-200 mt-1;
 }
 
 .timeline-event:last-child .timeline-connector {
@@ -3383,7 +3383,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .timeline-icon-circle-careplan {
-    @apply bg-gray-100 text-gray-600;
+    @apply bg-sand-100 text-sand-600;
 }
 
 .timeline-event-body {
@@ -3395,15 +3395,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .timeline-event-preview {
-    @apply text-sm text-gray-600 truncate;
+    @apply text-sm text-sand-600 truncate;
 }
 
 .timeline-event-detail {
-    @apply mt-2 text-sm text-gray-600 space-y-1;
+    @apply mt-2 text-sm text-sand-600 space-y-1;
 }
 
 .timeline-event-actor {
-    @apply text-xs text-gray-600;
+    @apply text-xs text-sand-600;
 }
 
 /* ===================================
@@ -3412,8 +3412,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .partner-list-item {
     @apply flex items-center gap-3 px-4 py-3 cursor-pointer;
-    @apply border-b border-gray-100 last:border-b-0;
-    @apply hover:bg-gray-50 transition-colors;
+    @apply border-b border-sand-100 last:border-b-0;
+    @apply hover:bg-sand-50 transition-colors;
     @apply focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none;
 }
 
@@ -3426,19 +3426,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .performance-metric-card {
-    @apply p-4 bg-gray-50 rounded-xl border border-gray-200;
+    @apply p-4 bg-sand-50 rounded-xl border border-sand-200;
 }
 
 .performance-metric-label {
-    @apply text-xs font-medium text-gray-600 uppercase tracking-wide mb-1;
+    @apply text-xs font-medium text-sand-600 uppercase tracking-wide mb-1;
 }
 
 .performance-metric-value {
-    @apply text-2xl font-bold text-gray-900;
+    @apply text-2xl font-bold text-sand-900;
 }
 
 .performance-metric-detail {
-    @apply text-xs text-gray-600 mt-0.5;
+    @apply text-xs text-sand-600 mt-0.5;
 }
 
 /* ===================================
@@ -3446,7 +3446,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .partner-alert-row {
-    @apply flex items-center gap-3 py-3 border-b border-gray-100 last:border-b-0;
+    @apply flex items-center gap-3 py-3 border-b border-sand-100 last:border-b-0;
 }
 
 /* ===================================
@@ -3480,8 +3480,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .severity-low {
-    @apply bg-gray-100 text-gray-600;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply bg-sand-100 text-sand-600;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 /* ===================================
@@ -3492,8 +3492,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Base dot — default 8px neutral circle */
 .indicator {
-    @apply inline-block w-2 h-2 rounded-full bg-gray-400 shrink-0;
-    @apply dark:bg-neutral-500;
+    @apply inline-block w-2 h-2 rounded-full bg-sand-400 shrink-0;
+    @apply dark:bg-sand-500;
 }
 
 /* Size variants */
@@ -3512,8 +3512,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .indicator-offline {
-    @apply bg-gray-400;
-    @apply dark:bg-neutral-500;
+    @apply bg-sand-400;
+    @apply dark:bg-sand-500;
 }
 
 .indicator-busy {
@@ -3555,8 +3555,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Indicator + label — flex row with dot and text */
 .indicator-label {
-    @apply inline-flex items-center gap-2 text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply inline-flex items-center gap-2 text-sm text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 /* Positioned indicator — absolute-positioned on avatar/icon corner.
@@ -3575,7 +3575,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .indicator-positioned .indicator {
-    box-shadow: 0 0 0 2px var(--color-neutral-900);
+    box-shadow: 0 0 0 2px var(--color-sand-900);
 }
 
 /* ===================================
@@ -3621,8 +3621,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .avatar-neutral {
-    @apply bg-gray-200 text-gray-600;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply bg-sand-200 text-sand-600;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 /* Image avatar — wrap an <img> inside .avatar */
@@ -3667,15 +3667,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 :is(.dark) .avatar-group > .avatar,
 :is(.dark) .avatar-group > .indicator-positioned {
     @apply block;
-    box-shadow: 0 0 0 2px var(--color-neutral-900);
+    box-shadow: 0 0 0 2px var(--color-sand-900);
 }
 
 /* "+N more" overflow indicator in avatar group */
 .avatar-group-overflow {
     @apply inline-flex items-center justify-center rounded-full font-semibold shrink-0;
     @apply w-10 h-10 text-xs;
-    @apply bg-gray-100 text-gray-600 border-2 border-white;
-    @apply dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-900;
+    @apply bg-sand-100 text-sand-600 border-2 border-white;
+    @apply dark:bg-sand-800 dark:text-sand-300 dark:border-sand-900;
     margin-left: -0.5rem;
 }
 
@@ -3738,9 +3738,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .table-section-divider td {
-    @apply px-4 py-1.5 text-xs font-semibold text-gray-600 uppercase tracking-wider;
-    @apply bg-gray-50 border-t-2 border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-400;
+    @apply px-4 py-1.5 text-xs font-semibold text-sand-600 uppercase tracking-wider;
+    @apply bg-sand-50 border-t-2 border-sand-200;
+    @apply dark:bg-sand-800 dark:border-sand-600 dark:text-sand-400;
 }
 
 /* ===================================
@@ -3753,23 +3753,23 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .performance-stat-compact {
-    @apply p-3 bg-gray-50 rounded-lg border border-gray-100;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply p-3 bg-sand-50 rounded-lg border border-sand-100;
+    @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 .performance-stat-compact-label {
-    @apply text-[10px] font-semibold uppercase tracking-wider text-gray-600 mb-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-[10px] font-semibold uppercase tracking-wider text-sand-600 mb-0.5;
+    @apply dark:text-sand-400;
 }
 
 .performance-stat-compact-value {
-    @apply text-base font-bold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply text-base font-bold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .performance-stat-compact-detail {
-    @apply text-[10px] text-gray-600 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-[10px] text-sand-600 mt-0.5;
+    @apply dark:text-sand-400;
 }
 
 /* ===================================
@@ -3778,14 +3778,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .sidebar-subnav-list {
-    @apply space-y-0.5 mt-1 ms-4 border-s border-gray-200 list-none;
-    @apply dark:border-neutral-700;
+    @apply space-y-0.5 mt-1 ms-4 border-s border-sand-200 list-none;
+    @apply dark:border-sand-700;
     border-width: 0 0 0 3px;
 }
 
 .sidebar-subnav-item {
-    @apply flex items-center gap-x-2.5 pe-2 text-[13px] text-gray-600 rounded-e-lg;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-neutral-200;
+    @apply flex items-center gap-x-2.5 pe-2 text-[13px] text-sand-600 rounded-e-lg;
+    @apply dark:text-sand-300 dark:hover:bg-sand-700 dark:hover:text-sand-200;
     @apply cursor-pointer transition-colors no-underline;
     background: transparent !important;
     border-left: 3px solid transparent;
@@ -3796,8 +3796,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .sidebar-subnav-item:hover {
-    @apply bg-gray-100 text-gray-900 font-semibold;
-    border-left-color: var(--color-gray-400);
+    @apply bg-sand-100 text-sand-900 font-semibold;
+    border-left-color: var(--color-sand-400);
 }
 
 .sidebar-subnav-item.active {
@@ -3809,7 +3809,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Section heading for content areas outside cards. */
 .section-heading {
-    @apply text-xl font-semibold text-gray-900 dark:text-neutral-100;
+    @apply text-xl font-semibold text-sand-900 dark:text-sand-100;
 }
 
 /* ============================================
@@ -3831,7 +3831,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .kv-table tr {
-    @apply border-b border-gray-100 dark:border-neutral-800;
+    @apply border-b border-sand-100 dark:border-sand-800;
 }
 
 .kv-table tr:last-child {
@@ -3839,11 +3839,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .kv-table td:first-child {
-    @apply py-2 pr-4 font-semibold text-gray-600 dark:text-neutral-300 text-sm;
+    @apply py-2 pr-4 font-semibold text-sand-600 dark:text-sand-300 text-sm;
 }
 
 .kv-table td:last-child {
-    @apply py-2 text-gray-900 dark:text-neutral-100 text-sm;
+    @apply py-2 text-sand-900 dark:text-sand-100 text-sm;
 }
 
 /* ===================================
@@ -3858,21 +3858,21 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Vertical step navigation */
 .step-nav {
-    @apply flex flex-col gap-1 py-5 pr-5 pl-3 border-r border-gray-200 shrink-0;
-    @apply dark:border-neutral-700;
+    @apply flex flex-col gap-1 py-5 pr-5 pl-3 border-r border-sand-200 shrink-0;
+    @apply dark:border-sand-700;
     min-width: 13rem;
 }
 
 /* Individual step button */
 .step-nav-item {
-    @apply flex items-center gap-2.5 py-2.5 px-4 rounded-lg font-medium text-gray-600
+    @apply flex items-center gap-2.5 py-2.5 px-4 rounded-lg font-medium text-sand-600
            bg-transparent border-none cursor-pointer text-left whitespace-nowrap transition-colors;
     font-size: 0.8rem;
 }
 
 .step-nav-item:hover {
-    @apply bg-gray-50 text-gray-700;
-    @apply dark:bg-neutral-800 dark:text-neutral-300;
+    @apply bg-sand-50 text-sand-700;
+    @apply dark:bg-sand-800 dark:text-sand-300;
 }
 
 .step-nav-item.active,
@@ -3884,8 +3884,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Numbered circle inside step button */
 .step-num {
-    @apply inline-flex items-center justify-center w-6 h-6 rounded-full font-bold bg-gray-200 text-gray-600 shrink-0;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply inline-flex items-center justify-center w-6 h-6 rounded-full font-bold bg-sand-200 text-sand-600 shrink-0;
+    @apply dark:bg-sand-700 dark:text-sand-300;
     font-size: 0.7rem;
 }
 
@@ -3902,8 +3902,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Prev / Next navigation row inside each tab */
 .form-nav {
-    @apply flex justify-between mt-8 pt-5 border-t border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply flex justify-between mt-8 pt-5 border-t border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 /* Stack horizontally on small screens */
@@ -3914,8 +3914,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     }
 
     .step-nav {
-        @apply flex-row overflow-x-auto border-r-0 border-b border-gray-200 p-3;
-        @apply dark:border-neutral-700;
+        @apply flex-row overflow-x-auto border-r-0 border-b border-sand-200 p-3;
+        @apply dark:border-sand-700;
         min-width: 0;
     }
 
@@ -3950,17 +3950,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Connecting line between steps */
 .stepper-nav-line {
-    @apply block h-px flex-1 bg-gray-200;
-    @apply dark:bg-neutral-700;
+    @apply block h-px flex-1 bg-sand-200;
+    @apply dark:bg-sand-700;
     min-width: 2rem;
 }
 
 /* Step number/icon circle — default (inactive) */
 .stepper-nav-icon {
     @apply inline-flex items-center justify-center w-8 h-8 rounded-full
-           bg-gray-200 text-gray-600 text-sm font-semibold shrink-0
+           bg-sand-200 text-sand-600 text-sm font-semibold shrink-0
            transition-colors;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 /* Active step — Preline adds hs-stepper-active: variant */
@@ -3983,15 +3983,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Step label text */
 .stepper-nav-label {
-    @apply text-sm font-medium text-gray-600 whitespace-nowrap;
-    @apply dark:text-neutral-300;
+    @apply text-sm font-medium text-sand-600 whitespace-nowrap;
+    @apply dark:text-sand-300;
 }
 
 /* Active step label */
 [data-hs-stepper-nav-item].active .stepper-nav-label,
 .stepper-nav-item.active .stepper-nav-label {
-    @apply text-gray-800 font-semibold;
-    @apply dark:text-neutral-200;
+    @apply text-sand-800 font-semibold;
+    @apply dark:text-sand-200;
 }
 
 /* Completed step label */
@@ -4003,8 +4003,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Step description (optional subtitle under label) */
 .stepper-nav-description {
-    @apply text-xs text-gray-600 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600 mt-0.5;
+    @apply dark:text-sand-400;
 }
 
 /* Content panel area */
@@ -4024,8 +4024,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Prev / Next / Finish button row */
 .stepper-actions {
-    @apply flex items-center justify-between pt-4 border-t border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply flex items-center justify-between pt-4 border-t border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 /* Finish button hidden by default — Preline shows it on last step */
@@ -4052,18 +4052,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .meal-card {
-  @apply flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl p-3 shadow-2xs;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
-  @apply hover:bg-gray-50 transition-colors;
+  @apply flex items-center gap-3 bg-sand-50 border border-sand-200 rounded-xl p-3 shadow-2xs;
+  @apply dark:bg-sand-900 dark:border-sand-700;
+  @apply hover:bg-sand-50 transition-colors;
   background-color: white !important; /* suppress button hover inheritance */
 }
 
 .meal-card:hover {
-  background-color: var(--color-gray-50) !important;
+  background-color: var(--color-sand-50) !important;
 }
 
 .meal-card-img {
-  @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-stone-100;
+  @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-sand-100;
   position: relative;
 }
 
@@ -4082,13 +4082,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .meal-card-name {
-  @apply text-sm font-medium text-gray-900 leading-snug;
-  @apply dark:text-neutral-100;
+  @apply text-sm font-medium text-sand-900 leading-snug;
+  @apply dark:text-sand-100;
 }
 
 .meal-card-day {
-  @apply text-xs text-gray-600;
-  @apply dark:text-neutral-300;
+  @apply text-xs text-sand-600;
+  @apply dark:text-sand-300;
 }
 
 .meal-card-tags {
@@ -4140,8 +4140,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .delivery-status-card {
-  @apply flex flex-col bg-gray-50 border border-gray-200 shadow-2xs rounded-xl mx-4;
-  @apply dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70;
+  @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-xl mx-4;
+  @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .delivery-status-top {
@@ -4153,19 +4153,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .delivery-status-label {
-  @apply text-xl font-semibold text-gray-900;
+  @apply text-xl font-semibold text-sand-900;
   font-family: var(--font-serif);
-  @apply dark:text-neutral-100;
+  @apply dark:text-sand-100;
 }
 
 .delivery-status-timing {
-  @apply text-sm text-gray-600;
-  @apply dark:text-neutral-300;
+  @apply text-sm text-sand-600;
+  @apply dark:text-sand-300;
 }
 
 .delivery-status-divider {
-  @apply border-t border-gray-200 mx-4;
-  @apply dark:border-neutral-700;
+  @apply border-t border-sand-200 mx-4;
+  @apply dark:border-sand-700;
 }
 
 .delivery-summary {
@@ -4173,18 +4173,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .delivery-summary-label {
-  @apply text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1;
-  @apply dark:text-neutral-300;
+  @apply text-xs font-semibold text-sand-600 uppercase tracking-wide mb-1;
+  @apply dark:text-sand-300;
 }
 
 .delivery-summary-count {
-  @apply text-sm font-medium text-gray-900;
-  @apply dark:text-neutral-100;
+  @apply text-sm font-medium text-sand-900;
+  @apply dark:text-sand-100;
 }
 
 .delivery-summary-list {
-  @apply text-sm text-gray-600 space-y-0.5 list-none pl-0;
-  @apply dark:text-neutral-300;
+  @apply text-sm text-sand-600 space-y-0.5 list-none pl-0;
+  @apply dark:text-sand-300;
 }
 
 /* Delivery screen state variants */
@@ -4216,27 +4216,27 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Incoming (care team) bubble — left-aligned */
 .message-bubble-in {
-  @apply bg-gray-100 text-gray-900 rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
+  @apply bg-sand-100 text-sand-900 rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
   border-bottom-left-radius: 4px;
-  @apply dark:bg-neutral-800 dark:text-neutral-100;
+  @apply dark:bg-sand-800 dark:text-sand-100;
 }
 
 /* Sender label — appears above first bubble in a consecutive group */
 .message-sender-label {
-  @apply text-xs text-gray-600 mb-1;
-  @apply dark:text-neutral-300;
+  @apply text-xs text-sand-600 mb-1;
+  @apply dark:text-sand-300;
 }
 
 /* Date separator between day groups */
 .message-date-sep {
-  @apply text-xs text-gray-600 text-center py-2;
-  @apply dark:text-neutral-400;
+  @apply text-xs text-sand-600 text-center py-2;
+  @apply dark:text-sand-400;
 }
 
 /* Timestamp below a bubble */
 .message-timestamp {
-  @apply text-xs text-gray-600 mt-1;
-  @apply dark:text-neutral-400;
+  @apply text-xs text-sand-600 mt-1;
+  @apply dark:text-sand-400;
 }
 
 /* Floating "new message" pill — sits above compose bar when new messages arrive */
@@ -4260,9 +4260,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual rating option card — wraps a sr-only radio input */
 .feedback-rating-card {
-  @apply flex flex-col items-center justify-center gap-2 p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer;
+  @apply flex flex-col items-center justify-center gap-2 p-3 bg-sand-50 border border-sand-200 rounded-xl cursor-pointer;
   @apply hover:border-primary-300 hover:bg-primary-50;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
+  @apply dark:bg-sand-900 dark:border-sand-700;
   min-height: 80px;
 }
 
@@ -4273,12 +4273,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .feedback-rating-card span {
-  @apply text-xs font-medium text-gray-700;
-  @apply dark:text-neutral-300;
+  @apply text-xs font-medium text-sand-700;
+  @apply dark:text-sand-300;
 }
 
 .feedback-rating-card i {
-  @apply text-2xl text-gray-600;
+  @apply text-2xl text-sand-600;
 }
 
 .feedback-rating-card:has(input:checked) i {
@@ -4309,7 +4309,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Square image container with border that highlights on selection */
 .pref-image-card-img-wrap {
-  @apply relative w-full aspect-square rounded-lg overflow-hidden bg-stone-100 border-2 border-transparent transition-all;
+  @apply relative w-full aspect-square rounded-lg overflow-hidden bg-sand-100 border-2 border-transparent transition-all;
 }
 
 /* Selected: primary border on image wrap */
@@ -4350,8 +4350,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Label below the image */
 .pref-image-card-label {
-  @apply text-xs font-medium text-gray-700 text-center;
-  @apply dark:text-neutral-300;
+  @apply text-xs font-medium text-sand-700 text-center;
+  @apply dark:text-sand-300;
 }
 
 .pref-image-card:has(input:checked) .pref-image-card-label {
@@ -4360,7 +4360,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* "No preference" plain variant — no photo, centered icon instead */
 .pref-image-card-img-wrap-plain {
-  @apply flex items-center justify-center bg-gray-100;
+  @apply flex items-center justify-center bg-sand-100;
   /* Reset the aspect-square sizing used by image wrap — sized inline per use */
   aspect-ratio: auto;
 }
@@ -4381,7 +4381,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   justify-content: center;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--color-gray-300);
+  border: 2px solid var(--color-sand-300);
   background: white;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -4418,10 +4418,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Wrapper label — shared base for both radio and checkbox rows */
 .pref-row {
-  @apply flex items-center gap-3 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer;
+  @apply flex items-center gap-3 w-full p-3 bg-sand-50 border border-sand-200 rounded-xl cursor-pointer;
   @apply hover:border-primary-300 hover:bg-primary-50 transition-colors;
   @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
-  @apply dark:bg-neutral-900 dark:border-neutral-700;
+  @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
 .pref-row:has(input:checked) {
@@ -4430,8 +4430,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .pref-row-label {
-  @apply text-sm font-medium text-gray-700;
-  @apply dark:text-neutral-300;
+  @apply text-sm font-medium text-sand-700;
+  @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -4441,7 +4441,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .task-card {
   @apply flex items-center gap-3 p-3 bg-white border border-sand-200 rounded-xl;
   @apply hover:border-sand-300 hover:shadow-2xs;
-  @apply dark:bg-neutral-800 dark:border-neutral-700 dark:hover:border-neutral-600;
+  @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:border-sand-600;
   text-decoration: none;
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -4456,14 +4456,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .task-card-name {
-  @apply text-sm font-medium text-gray-900 truncate;
-  @apply dark:text-neutral-100;
+  @apply text-sm font-medium text-sand-900 truncate;
+  @apply dark:text-sand-100;
 }
 
 .task-card-meta {
   @apply text-xs mt-0.5;
   color: var(--color-sand-400);
-  @apply dark:text-neutral-500;
+  @apply dark:text-sand-500;
 }
 
 .task-card-overdue {
@@ -4481,7 +4481,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .task-card-completed:hover {
   @apply border-sand-200 shadow-none;
-  @apply dark:border-neutral-700;
+  @apply dark:border-sand-700;
 }
 
 /* ===================================
@@ -4491,7 +4491,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .trend-card {
   @apply block bg-white border border-sand-200 rounded-xl p-4;
   @apply hover:border-sand-300 hover:shadow-2xs;
-  @apply dark:bg-neutral-800 dark:border-neutral-700 dark:hover:border-neutral-600;
+  @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:border-sand-600;
   text-decoration: none;
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -4516,7 +4516,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .emoji-scale-option {
   @apply flex flex-col items-center justify-center gap-1 cursor-pointer rounded-2xl p-2;
   @apply hover:bg-sand-100;
-  @apply dark:hover:bg-neutral-800;
+  @apply dark:hover:bg-sand-800;
   min-width: 56px;
   transition: background-color 0.15s ease;
 }
@@ -4535,7 +4535,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
   @apply text-xs text-center;
   color: var(--color-sand-500);
   max-width: 64px;
-  @apply dark:text-neutral-400;
+  @apply dark:text-sand-400;
 }
 
 .emoji-scale-option:has(input:checked) .emoji-scale-label {
@@ -4595,7 +4595,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .assess-slider-labels {
   @apply flex justify-between mt-2 text-xs;
   color: var(--color-sand-400);
-  @apply dark:text-neutral-500;
+  @apply dark:text-sand-500;
 }
 
 /* ===================================
@@ -4605,13 +4605,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .assess-progress {
   @apply text-xs text-center;
   color: var(--color-sand-500);
-  @apply dark:text-neutral-400;
+  @apply dark:text-sand-400;
 }
 
 .assess-progress-bar {
   @apply block w-full h-1 rounded-full mt-1.5 overflow-hidden;
   background: var(--color-sand-200);
-  @apply dark:bg-neutral-700;
+  @apply dark:bg-sand-700;
 }
 
 .assess-progress-fill {
@@ -4629,8 +4629,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .motion-demo-track {
-  @apply block relative w-full h-12 rounded-lg bg-gray-100 overflow-hidden;
-  @apply dark:bg-neutral-800;
+  @apply block relative w-full h-12 rounded-lg bg-sand-100 overflow-hidden;
+  @apply dark:bg-sand-800;
   container-type: inline-size;
 }
 
@@ -4654,20 +4654,20 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual icon display card — centered icon + label */
 .icon-demo-card {
-  @apply flex flex-col items-center justify-center gap-2 p-4 rounded-lg border border-gray-200 bg-gray-50;
-  @apply dark:border-neutral-700 dark:bg-neutral-800;
+  @apply flex flex-col items-center justify-center gap-2 p-4 rounded-lg border border-sand-200 bg-sand-50;
+  @apply dark:border-sand-700 dark:bg-sand-800;
 }
 
 /* Icon name label below demo icon */
 .icon-demo-label {
-  @apply block text-xs font-mono text-gray-600 text-center;
-  @apply dark:text-neutral-300;
+  @apply block text-xs font-mono text-sand-600 text-center;
+  @apply dark:text-sand-300;
 }
 
 /* Row showing the same icon across multiple FA styles */
 .icon-style-row {
-  @apply flex items-center gap-6 py-3 border-b border-gray-100;
-  @apply dark:border-neutral-700;
+  @apply flex items-center gap-6 py-3 border-b border-sand-100;
+  @apply dark:border-sand-700;
 }
 .icon-style-row:last-child {
   @apply border-b-0;
@@ -4684,22 +4684,22 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Section heading rendered above each grouped card */
 .profile-section-heading {
-    @apply block text-xs font-semibold uppercase tracking-wide text-gray-600 px-1 mb-2 mt-6;
+    @apply block text-xs font-semibold uppercase tracking-wide text-sand-600 px-1 mb-2 mt-6;
 }
 
 /* Read-only display row for personal info fields */
 .profile-field-row {
-    @apply flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0;
-    @apply dark:border-neutral-800;
+    @apply flex items-center justify-between py-3 border-b border-sand-100 last:border-b-0;
+    @apply dark:border-sand-800;
 }
 
 .profile-field-label {
-    @apply text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .profile-field-value {
-    @apply text-sm font-medium text-gray-900 text-right;
+    @apply text-sm font-medium text-sand-900 text-right;
     @apply dark:text-white;
 }
 
@@ -4716,7 +4716,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Greeting block — "Good morning, Maria" */
 .dashboard-greeting {
-    @apply text-2xl font-semibold text-gray-900;
+    @apply text-2xl font-semibold text-sand-900;
     font-family: var(--font-serif);
 }
 
@@ -4726,8 +4726,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-section-header h2 {
-    @apply text-base font-semibold text-gray-800;
-    @apply dark:text-neutral-100;
+    @apply text-base font-semibold text-sand-800;
+    @apply dark:text-sand-100;
 }
 
 .dashboard-section-header a {
@@ -4756,13 +4756,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-meal-chip-img {
-    @apply w-24 h-24 rounded-xl object-cover bg-stone-100;
+    @apply w-24 h-24 rounded-xl object-cover bg-sand-100;
     display: block;
     position: relative;
 }
 
 .dashboard-meal-chip-img-wrap {
-    @apply w-24 h-24 rounded-xl overflow-hidden bg-stone-100 relative shrink-0;
+    @apply w-24 h-24 rounded-xl overflow-hidden bg-sand-100 relative shrink-0;
 }
 
 .dashboard-meal-chip-img-wrap::after {
@@ -4780,11 +4780,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-meal-chip-day {
-    @apply text-xs text-gray-600 font-medium;
+    @apply text-xs text-sand-600 font-medium;
 }
 
 .dashboard-meal-chip-name {
-    @apply text-xs text-gray-700 leading-tight;
+    @apply text-xs text-sand-700 leading-tight;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -4794,8 +4794,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Care team message preview row */
 .dashboard-message-preview {
     @apply flex items-center gap-2;
-    @apply border-b border-gray-100 last:border-b-0;
-    @apply dark:border-neutral-800;
+    @apply border-b border-sand-100 last:border-b-0;
+    @apply dark:border-sand-800;
     padding-block: 0.5rem;
 }
 
@@ -4809,28 +4809,28 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-message-preview-sender {
-    @apply text-sm font-semibold text-gray-900 truncate;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-semibold text-sand-900 truncate;
+    @apply dark:text-sand-100;
     line-height: 1.2;
     margin: 0;
 }
 
 .dashboard-message-preview-time {
-    @apply text-xs text-gray-600 shrink-0;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600 shrink-0;
+    @apply dark:text-sand-400;
 }
 
 .dashboard-message-preview-text {
-    @apply text-xs text-gray-600 truncate;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600 truncate;
+    @apply dark:text-sand-300;
     line-height: 1.2;
     margin: 0;
 }
 
 .dashboard-message-preview-chevron {
-    @apply shrink-0 text-gray-200 self-center;
+    @apply shrink-0 text-sand-200 self-center;
     font-size: 0.625rem; /* 10px — smaller than text-xs */
-    @apply dark:text-neutral-700;
+    @apply dark:text-sand-700;
 }
 
 
@@ -4840,18 +4840,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    ========================================================================== */
 
 .divider {
-    @apply border-t border-gray-200 my-4;
-    @apply dark:border-neutral-700;
+    @apply border-t border-sand-200 my-4;
+    @apply dark:border-sand-700;
 }
 
 .divider-compact {
-    @apply border-t border-gray-200 my-2;
-    @apply dark:border-neutral-700;
+    @apply border-t border-sand-200 my-2;
+    @apply dark:border-sand-700;
 }
 
 .divider-spacious {
-    @apply border-t border-gray-200 my-8;
-    @apply dark:border-neutral-700;
+    @apply border-t border-sand-200 my-8;
+    @apply dark:border-sand-700;
 }
 
 .divider-labeled {
@@ -4873,8 +4873,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .divider-label {
-    @apply text-xs font-medium text-gray-600 uppercase tracking-wider whitespace-nowrap;
-    @apply dark:text-neutral-300;
+    @apply text-xs font-medium text-sand-600 uppercase tracking-wider whitespace-nowrap;
+    @apply dark:text-sand-300;
 }
 
 .divider-vertical {
@@ -4960,7 +4960,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .spinner-label {
-    @apply text-sm font-medium text-gray-600 dark:text-neutral-300;
+    @apply text-sm font-medium text-sand-600 dark:text-sand-300;
 }
 
 /* Full-section overlay spinner — centered in a positioned parent */
@@ -4996,8 +4996,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Base toast */
 .toast {
     @apply flex items-start gap-3 text-sm rounded-xl p-4 shadow-lg;
-    @apply bg-gray-50 border border-gray-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply bg-sand-50 border border-sand-200;
+    @apply dark:bg-sand-800 dark:border-sand-700;
     pointer-events: auto;
     position: relative;
     overflow: hidden;
@@ -5019,16 +5019,16 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .toast-title {
-    @apply font-semibold text-gray-900 dark:text-white;
+    @apply font-semibold text-sand-900 dark:text-white;
 }
 
 .toast-description {
-    @apply text-gray-600 dark:text-neutral-300 mt-0.5;
+    @apply text-sand-600 dark:text-sand-300 mt-0.5;
 }
 
 .toast-dismiss {
     @apply shrink-0 inline-flex items-center justify-center rounded-lg cursor-pointer;
-    @apply text-gray-600 dark:text-neutral-400;
+    @apply text-sand-600 dark:text-sand-400;
     width: 1.75rem;
     height: 1.75rem;
     border: none;
@@ -5037,8 +5037,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .toast-dismiss:hover {
-    @apply bg-gray-100 text-gray-600;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply bg-sand-100 text-sand-600;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 /* Progress bar for auto-dismiss countdown */
@@ -5181,13 +5181,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 :is(.dark) .toggle-track {
     @apply block;
-    background-color: var(--color-neutral-600);
+    background-color: var(--color-sand-600);
 }
 
 /* The sliding thumb (pseudo on the track) */
 .toggle-track::after {
     content: '';
-    @apply absolute rounded-full bg-gray-50 shadow-sm transition-transform duration-200;
+    @apply absolute rounded-full bg-sand-50 shadow-sm transition-transform duration-200;
     width: 18px;
     height: 18px;
     left: 3px;
@@ -5223,7 +5223,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 :is(.dark) .toggle:hover .toggle-track {
     @apply block;
-    background-color: var(--color-neutral-500);
+    background-color: var(--color-sand-500);
 }
 
 .toggle:hover input:checked + .toggle-track {
@@ -5325,14 +5325,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Label text */
 .toggle-label {
-    @apply text-sm font-medium text-gray-700;
-    @apply dark:text-neutral-200;
+    @apply text-sm font-medium text-sand-700;
+    @apply dark:text-sand-200;
 }
 
 /* Description text */
 .toggle-description {
-    @apply text-sm text-gray-600 mt-0.5;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 mt-0.5;
+    @apply dark:text-sand-300;
 }
 
 
@@ -5361,9 +5361,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .file-upload-dropzone {
-    @apply relative flex flex-col items-center justify-center gap-3 p-8 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 text-center cursor-pointer transition-colors;
+    @apply relative flex flex-col items-center justify-center gap-3 p-8 rounded-xl border-2 border-dashed border-sand-300 bg-sand-50 text-center cursor-pointer transition-colors;
     @apply hover:border-primary-400 hover:bg-primary-50/40;
-    @apply dark:border-neutral-600 dark:bg-neutral-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
+    @apply dark:border-sand-600 dark:bg-sand-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
 }
 
 .file-upload-dropzone.is-dragover {
@@ -5372,9 +5372,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-dropzone-compact {
-    @apply relative flex items-center gap-4 p-4 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 cursor-pointer transition-colors;
+    @apply relative flex items-center gap-4 p-4 rounded-lg border-2 border-dashed border-sand-300 bg-sand-50 cursor-pointer transition-colors;
     @apply hover:border-primary-400 hover:bg-primary-50/40;
-    @apply dark:border-neutral-600 dark:bg-neutral-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
+    @apply dark:border-sand-600 dark:bg-sand-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
 }
 
 .file-upload-dropzone-compact.is-dragover {
@@ -5383,23 +5383,23 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-dropzone-icon {
-    @apply text-3xl text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-3xl text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .file-upload-dropzone-compact .file-upload-dropzone-icon {
-    @apply text-xl text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-xl text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .file-upload-dropzone-text {
-    @apply text-sm font-medium text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sm font-medium text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .file-upload-dropzone-hint {
-    @apply text-xs text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .file-upload-browse {
@@ -5414,8 +5414,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual file item row */
 .file-upload-item {
-    @apply flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-gray-50;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply flex items-center gap-3 p-3 rounded-lg border border-sand-200 bg-sand-50;
+    @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 .file-upload-item.is-complete {
@@ -5429,8 +5429,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-icon {
-    @apply flex items-center justify-center size-9 rounded-md bg-gray-100 text-gray-600 text-sm shrink-0;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply flex items-center justify-center size-9 rounded-md bg-sand-100 text-sand-600 text-sm shrink-0;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 .file-upload-item.is-complete .file-upload-item-icon {
@@ -5448,18 +5448,18 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-name {
-    @apply text-sm font-medium text-gray-900 truncate;
+    @apply text-sm font-medium text-sand-900 truncate;
     @apply dark:text-white;
 }
 
 .file-upload-item-size {
-    @apply text-xs text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .file-upload-item-status {
-    @apply text-xs font-medium text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-xs font-medium text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .file-upload-item.is-complete .file-upload-item-status {
@@ -5505,8 +5505,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .file-upload-item-remove {
-    @apply flex items-center justify-center size-7 rounded-md text-gray-600 hover:text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors shrink-0;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:bg-neutral-700;
+    @apply flex items-center justify-center size-7 rounded-md text-sand-600 hover:text-sand-700 hover:bg-sand-100 cursor-pointer transition-colors shrink-0;
+    @apply dark:text-sand-400 dark:hover:text-sand-300 dark:hover:bg-sand-700;
 }
 
 .file-upload-item.is-error .file-upload-item-remove {
@@ -5524,8 +5524,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .datepicker-wrapper .datepicker-icon {
-    @apply absolute top-1/2 end-3 -translate-y-1/2 text-gray-600 pointer-events-none text-sm;
-    @apply dark:text-neutral-400;
+    @apply absolute top-1/2 end-3 -translate-y-1/2 text-sand-600 pointer-events-none text-sm;
+    @apply dark:text-sand-400;
 }
 
 /* When disabled, dim the icon */
@@ -5567,8 +5567,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc {
-    background-color: var(--color-neutral-900);
-    border-color: var(--color-neutral-700);
+    background-color: var(--color-sand-900);
+    border-color: var(--color-sand-700);
 }
 
 /* --- Week header row --- */
@@ -5591,7 +5591,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-week__day {
-    color: var(--color-neutral-500);
+    color: var(--color-sand-500);
 }
 
 /* --- Date cells grid --- */
@@ -5725,17 +5725,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Dark mode: date cells */
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-date {
-    color: var(--color-neutral-200);
+    color: var(--color-sand-200);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-month="prev"],
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-month="next"] {
-    color: var(--color-neutral-600);
+    color: var(--color-sand-600);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-hover]:not([data-vc-date-today]):not([data-vc-date-hover="first-and-last"]),
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-date[data-vc-date-selected="middle"]:not([data-vc-date-today]):not([data-vc-date-hover="first-and-last"]) {
-    background-color: var(--color-neutral-800);
+    background-color: var(--color-sand-800);
 }
 
 /* --- Month/Year labels --- */
@@ -5750,12 +5750,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-month {
-    color: var(--color-neutral-200);
+    color: var(--color-sand-200);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-month:hover,
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-month:focus {
-    color: var(--color-neutral-300);
+    color: var(--color-sand-300);
 }
 
 .vc-year {
@@ -5769,12 +5769,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-year {
-    color: var(--color-neutral-200);
+    color: var(--color-sand-200);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-year:hover,
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-year:focus {
-    color: var(--color-neutral-300);
+    color: var(--color-sand-300);
 }
 
 /* --- Arrow navigation --- */
@@ -5805,12 +5805,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-arrow {
-    color: var(--color-neutral-400);
+    color: var(--color-sand-400);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-arrow:hover,
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-arrow:focus {
-    background-color: var(--color-neutral-800);
+    background-color: var(--color-sand-800);
 }
 
 /* --- Month picker grid --- */
@@ -5855,14 +5855,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month {
-    border-color: var(--color-neutral-700);
-    color: var(--color-neutral-200);
+    border-color: var(--color-sand-700);
+    color: var(--color-sand-200);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month:hover,
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month:focus {
-    border-color: var(--color-neutral-600);
-    color: var(--color-neutral-500);
+    border-color: var(--color-sand-600);
+    color: var(--color-sand-500);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-months__month[data-vc-months-month-selected] {
@@ -5911,14 +5911,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year {
-    border-color: var(--color-neutral-700);
-    color: var(--color-neutral-200);
+    border-color: var(--color-sand-700);
+    color: var(--color-sand-200);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year:hover,
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year:focus {
-    border-color: var(--color-neutral-600);
-    color: var(--color-neutral-500);
+    border-color: var(--color-sand-600);
+    color: var(--color-sand-500);
 }
 
 :is(.dark) .vc:not([data-vc-theme="light"]) .vc-years__year[data-vc-years-year-selected] {
@@ -5938,10 +5938,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Clock icon trigger button (absolute end of input) */
 .timepicker-icon-btn {
-    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-gray-600 cursor-pointer;
-    @apply hover:bg-gray-100 hover:text-gray-700;
-    @apply focus:outline-none focus:bg-gray-100;
-    @apply dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-300 dark:focus:bg-neutral-800;
+    @apply absolute top-1/2 end-2 -translate-y-1/2 size-7 shrink-0 inline-flex justify-center items-center rounded-full text-sand-600 cursor-pointer;
+    @apply hover:bg-sand-100 hover:text-sand-700;
+    @apply focus:outline-none focus:bg-sand-100;
+    @apply dark:text-sand-400 dark:hover:bg-sand-800 dark:hover:text-sand-300 dark:focus:bg-sand-800;
 }
 
 /* Disabled wrapper dims the icon button */
@@ -5956,8 +5956,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Flex row holding hour / minute / ampm columns */
 .timepicker-columns {
-    @apply flex flex-row divide-x divide-gray-200;
-    @apply dark:divide-neutral-700;
+    @apply flex flex-row divide-x divide-sand-200;
+    @apply dark:divide-sand-700;
 }
 
 /* Individual scrollable column */
@@ -5980,14 +5980,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     border-radius: 9999px;
 }
 :is(.dark) .timepicker-column::-webkit-scrollbar-thumb {
-    background-color: var(--color-neutral-600);
+    background-color: var(--color-sand-600);
 }
 
 /* Each selectable option (label wrapping a hidden radio) */
 .timepicker-option {
     @apply relative flex justify-center items-center w-10 text-center text-sm cursor-pointer rounded-md;
-    @apply text-gray-700 hover:bg-gray-100;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-800;
+    @apply text-sand-700 hover:bg-sand-100;
+    @apply dark:text-sand-300 dark:hover:bg-sand-800;
     padding: 0.375rem 0.25rem;
 }
 
@@ -6010,16 +6010,16 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Footer bar with Now / OK buttons */
 .timepicker-footer {
-    @apply flex flex-wrap justify-between items-center gap-2 py-2 px-3 border-t border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply flex flex-wrap justify-between items-center gap-2 py-2 px-3 border-t border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 /* Ghost "Now" button */
 .timepicker-footer-btn {
-    @apply text-xs font-medium text-gray-600 cursor-pointer rounded-md;
+    @apply text-xs font-medium text-sand-600 cursor-pointer rounded-md;
     @apply hover:text-primary-600;
     @apply focus:outline-none focus:text-primary-600;
-    @apply dark:text-neutral-300 dark:hover:text-primary-400 dark:focus:text-primary-400;
+    @apply dark:text-sand-300 dark:hover:text-primary-400 dark:focus:text-primary-400;
 }
 
 /* Primary "OK" button */
@@ -6040,9 +6040,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Wrapper — looks like an input field, wraps tags + inline text input */
 .tags-input {
     @apply flex flex-wrap items-center gap-1.5 py-2 px-3 rounded-lg;
-    @apply border border-gray-200 bg-gray-50;
+    @apply border border-sand-200 bg-sand-50;
     @apply text-sm;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     cursor: text;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -6055,8 +6055,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Disabled state */
 .tags-input-disabled {
-    @apply opacity-50 pointer-events-none bg-gray-50;
-    @apply dark:bg-neutral-800;
+    @apply opacity-50 pointer-events-none bg-sand-50;
+    @apply dark:bg-sand-800;
 }
 
 /* Validation states */
@@ -6145,17 +6145,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .tags-input-field {
     @apply block;
-    color: var(--color-neutral-100);
+    color: var(--color-sand-100);
 }
 .dark .tags-input-field::placeholder {
     @apply block;
-    color: var(--color-neutral-500);
+    color: var(--color-sand-500);
 }
 
 /* Tag count / limit indicator */
 .tags-input-count {
-    @apply text-xs text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 
@@ -6168,8 +6168,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .color-picker-label {
-    @apply text-sm font-medium text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sm font-medium text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .color-picker-swatches {
@@ -6198,7 +6198,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch:focus-visible {
     @apply block;
-    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 4px var(--color-teal-400);
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-teal-400);
 }
 .color-picker-swatch.active {
     @apply block;
@@ -6207,7 +6207,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch.active {
     @apply block;
-    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 4px currentColor;
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px currentColor;
 }
 .color-picker-swatch.active::after {
     content: '';
@@ -6242,7 +6242,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch-sm:focus-visible {
     @apply block;
-    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 3px var(--color-teal-400);
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 3px var(--color-teal-400);
 }
 .color-picker-swatch-sm.active {
     @apply block;
@@ -6251,7 +6251,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch-sm.active {
     @apply block;
-    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 3px currentColor;
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 3px currentColor;
 }
 
 /* Custom color swatch — dashed border, triggers native input[type=color] */
@@ -6275,9 +6275,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch-custom {
     @apply block;
-    border-color: var(--color-neutral-600);
-    background: var(--color-neutral-800);
-    color: var(--color-neutral-500);
+    border-color: var(--color-sand-600);
+    background: var(--color-sand-800);
+    color: var(--color-sand-500);
 }
 .color-picker-swatch-custom:hover {
     @apply block;
@@ -6286,7 +6286,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch-custom:hover {
     @apply block;
-    border-color: var(--color-neutral-400);
+    border-color: var(--color-sand-400);
 }
 .color-picker-swatch-custom.active {
     @apply block;
@@ -6296,7 +6296,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-swatch-custom.active {
     @apply block;
-    box-shadow: 0 0 0 2px var(--color-neutral-900), 0 0 0 4px var(--color-teal-400);
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-teal-400);
 }
 
 /* Preview bar showing current selection */
@@ -6314,12 +6314,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 .dark .color-picker-preview-dot {
     @apply block;
-    border-color: var(--color-neutral-600);
+    border-color: var(--color-sand-600);
 }
 
 .color-picker-value {
-    @apply text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* Check icon overlay inside active swatch */
@@ -6357,24 +6357,24 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Input field inside combobox — extra right padding for toggle/close buttons */
 .combobox-input {
     @apply block w-full py-2.5 sm:py-3 text-sm rounded-lg;
-    @apply border-gray-200 bg-gray-50 text-gray-900;
+    @apply border-sand-200 bg-sand-50 text-sand-900;
     @apply focus:border-primary-500 focus:ring-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
-    @apply dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-300;
-    @apply dark:focus:ring-neutral-600;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300;
+    @apply dark:focus:ring-sand-600;
     padding-inline-start: 0.875rem;
     padding-inline-end: 4rem;
 }
 
 .combobox-input::placeholder {
-    @apply text-gray-600 dark:text-neutral-400;
+    @apply text-sand-600 dark:text-sand-400;
 }
 
 /* Toggle chevron button — sits inside the input, right side */
 .combobox-toggle {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
-    @apply text-gray-600 cursor-pointer;
-    @apply hover:text-gray-700 dark:text-neutral-400 dark:hover:text-neutral-300;
+    @apply text-sand-600 cursor-pointer;
+    @apply hover:text-sand-700 dark:text-sand-400 dark:hover:text-sand-300;
     right: 2rem;
     width: 1.5rem;
     height: 1.5rem;
@@ -6386,8 +6386,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Close / clear button — right of toggle */
 .combobox-close {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
-    @apply text-gray-600 cursor-pointer;
-    @apply hover:text-gray-700 dark:text-neutral-400 dark:hover:text-neutral-300;
+    @apply text-sand-600 cursor-pointer;
+    @apply hover:text-sand-700 dark:text-sand-400 dark:hover:text-sand-300;
     right: 0.5rem;
     width: 1.5rem;
     height: 1.5rem;
@@ -6403,8 +6403,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Dropdown output panel — hidden by default, Preline sets display:block inline */
 .combobox-output {
-    @apply absolute z-50 w-full bg-gray-50 border border-gray-200 rounded-md shadow-lg;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply absolute z-50 w-full bg-sand-50 border border-sand-200 rounded-md shadow-lg;
+    @apply dark:bg-sand-900 dark:border-sand-700;
     @apply overflow-hidden overflow-y-auto;
     max-height: 16rem;
     margin-top: 0.25rem;
@@ -6421,9 +6421,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual option item */
 .combobox-item {
-    @apply flex items-center gap-x-3 py-2 px-3 text-sm text-gray-800 cursor-pointer w-full;
-    @apply hover:bg-gray-100;
-    @apply dark:text-neutral-300 dark:hover:bg-neutral-800;
+    @apply flex items-center gap-x-3 py-2 px-3 text-sm text-sand-800 cursor-pointer w-full;
+    @apply hover:bg-sand-100;
+    @apply dark:text-sand-300 dark:hover:bg-sand-800;
 }
 
 /* Selected item highlight */
@@ -6445,13 +6445,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Group title heading */
 .combobox-group-title {
     @apply block px-3 py-1.5 text-xs font-semibold uppercase tracking-wider;
-    @apply text-gray-600 dark:text-neutral-400;
+    @apply text-sand-600 dark:text-sand-400;
 }
 
 /* No results / empty state */
 .combobox-empty {
-    @apply py-4 px-3 text-sm text-center text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply py-4 px-3 text-sm text-center text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* Disabled combobox wrapper */
@@ -6461,7 +6461,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Description text below an option label */
 .combobox-item-description {
-    @apply text-xs text-gray-600 dark:text-neutral-300;
+    @apply text-xs text-sand-600 dark:text-sand-300;
 }
 
 /* ===================================
@@ -6473,8 +6473,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply sticky top-0 z-50 w-full;
     @apply flex items-center justify-between;
     @apply px-4 sm:px-6 lg:px-8 py-3;
-    @apply bg-gray-50 border-b border-gray-200;
-    @apply dark:bg-neutral-900 dark:border-neutral-700;
+    @apply bg-sand-50 border-b border-sand-200;
+    @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
 /* Compact variant — reduced vertical padding */
@@ -6503,7 +6503,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Brand / logo area */
 .navbar-brand {
     @apply flex items-center gap-2 text-lg font-semibold tracking-tight;
-    @apply text-gray-900 dark:text-white;
+    @apply text-sand-900 dark:text-white;
     font-family: var(--font-serif), ui-serif, Georgia, serif;
 }
 
@@ -6523,8 +6523,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* Individual nav link */
 .navbar-nav-item {
     @apply px-3 py-2 text-sm font-medium rounded-lg;
-    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
-    @apply dark:text-neutral-300 dark:hover:text-white dark:hover:bg-neutral-800;
+    @apply text-sand-600 hover:text-sand-900 hover:bg-sand-100;
+    @apply dark:text-sand-300 dark:hover:text-white dark:hover:bg-sand-800;
     @apply transition-colors;
 }
 
@@ -6542,8 +6542,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .navbar-action-btn {
     @apply relative inline-flex items-center justify-center;
     @apply w-9 h-9 rounded-lg;
-    @apply text-gray-600 hover:text-gray-700 hover:bg-gray-100;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply text-sand-600 hover:text-sand-700 hover:bg-sand-100;
+    @apply dark:text-sand-300 dark:hover:text-sand-200 dark:hover:bg-sand-800;
     @apply transition-colors cursor-pointer;
 }
 
@@ -6555,32 +6555,32 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* User trigger — avatar + name */
 .navbar-user {
     @apply flex items-center gap-2 px-2 py-1.5 rounded-lg;
-    @apply hover:bg-gray-100 dark:hover:bg-neutral-800;
+    @apply hover:bg-sand-100 dark:hover:bg-sand-800;
     @apply transition-colors cursor-pointer;
 }
 
 .navbar-user-name {
     @apply hidden sm:block text-sm font-medium;
-    @apply text-gray-700 dark:text-neutral-300;
+    @apply text-sand-700 dark:text-sand-300;
 }
 
 .navbar-user-role {
     @apply hidden sm:block text-xs;
-    @apply text-gray-600 dark:text-neutral-400;
+    @apply text-sand-600 dark:text-sand-400;
 }
 
 /* Mobile hamburger toggle */
 .navbar-mobile-toggle {
     @apply inline-flex md:hidden items-center justify-center;
     @apply w-9 h-9 rounded-lg;
-    @apply text-gray-600 hover:text-gray-700 hover:bg-gray-100;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply text-sand-600 hover:text-sand-700 hover:bg-sand-100;
+    @apply dark:text-sand-300 dark:hover:text-sand-200 dark:hover:bg-sand-800;
     @apply transition-colors cursor-pointer;
 }
 
 /* Collapsible mobile menu container */
 .navbar-mobile-menu {
-    @apply md:hidden border-t border-gray-200 dark:border-neutral-700;
+    @apply md:hidden border-t border-sand-200 dark:border-sand-700;
     @apply px-4 py-3;
 }
 
@@ -6595,7 +6595,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Divider inside navbar (vertical separator between sections) */
 .navbar-divider {
-    @apply hidden md:block w-px h-6 bg-gray-200 dark:bg-neutral-700;
+    @apply hidden md:block w-px h-6 bg-sand-200 dark:bg-sand-700;
 }
 
 /* ===================================
@@ -6604,8 +6604,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Outer track */
 .progress {
-    @apply w-full bg-gray-200 rounded-full overflow-hidden;
-    @apply dark:bg-neutral-700;
+    @apply w-full bg-sand-200 rounded-full overflow-hidden;
+    @apply dark:bg-sand-700;
     height: 0.625rem;
 }
 
@@ -6622,13 +6622,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .progress-label-text {
-    @apply font-medium text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply font-medium text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .progress-label-value {
-    @apply text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* --- Size variants --- */
@@ -6702,8 +6702,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* --- Stacked (multiple bars in one track) --- */
 
 .progress-stacked {
-    @apply flex w-full bg-gray-200 rounded-full overflow-hidden;
-    @apply dark:bg-neutral-700;
+    @apply flex w-full bg-sand-200 rounded-full overflow-hidden;
+    @apply dark:bg-sand-700;
     height: 0.625rem;
 }
 
@@ -6716,21 +6716,21 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .list-group {
-    @apply border border-gray-200 rounded-lg overflow-hidden;
-    @apply dark:border-neutral-700;
+    @apply border border-sand-200 rounded-lg overflow-hidden;
+    @apply dark:border-sand-700;
 }
 
 .list-group-item {
-    @apply flex items-center gap-3 px-4 py-3 text-sm text-gray-800;
-    @apply border-b border-gray-200 last:border-b-0;
-    @apply dark:text-neutral-200 dark:border-neutral-700;
+    @apply flex items-center gap-3 px-4 py-3 text-sm text-sand-800;
+    @apply border-b border-sand-200 last:border-b-0;
+    @apply dark:text-sand-200 dark:border-sand-700;
 }
 
 .list-group-item-action {
-    @apply flex items-center gap-3 px-4 py-3 text-sm text-gray-800 w-full text-left;
-    @apply border-b border-gray-200 last:border-b-0 cursor-pointer;
-    @apply hover:bg-gray-50 focus:bg-gray-50 transition-colors;
-    @apply dark:text-neutral-200 dark:border-neutral-700 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800;
+    @apply flex items-center gap-3 px-4 py-3 text-sm text-sand-800 w-full text-left;
+    @apply border-b border-sand-200 last:border-b-0 cursor-pointer;
+    @apply hover:bg-sand-50 focus:bg-sand-50 transition-colors;
+    @apply dark:text-sand-200 dark:border-sand-700 dark:hover:bg-sand-800 dark:focus:bg-sand-800;
 }
 
 a.list-group-item-action {
@@ -6749,8 +6749,8 @@ a.list-group-item-action {
 }
 
 .list-group-item-icon {
-    @apply text-gray-600 text-base flex-shrink-0;
-    @apply dark:text-neutral-400;
+    @apply text-sand-600 text-base flex-shrink-0;
+    @apply dark:text-sand-400;
 }
 
 .list-group-item-content {
@@ -6758,13 +6758,13 @@ a.list-group-item-action {
 }
 
 .list-group-item-title {
-    @apply text-sm font-semibold text-gray-900 truncate;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-semibold text-sand-900 truncate;
+    @apply dark:text-sand-100;
 }
 
 .list-group-item-description {
-    @apply text-xs text-gray-600 mt-0.5 truncate;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600 mt-0.5 truncate;
+    @apply dark:text-sand-300;
 }
 
 .list-group-item-trailing {
@@ -6779,8 +6779,8 @@ a.list-group-item-action {
 /* Bordered variant — adds background to alternating rows */
 .list-group-striped .list-group-item:nth-child(odd),
 .list-group-striped .list-group-item-action:nth-child(odd) {
-    @apply bg-gray-50;
-    @apply dark:bg-neutral-800/50;
+    @apply bg-sand-50;
+    @apply dark:bg-sand-800/50;
 }
 
 
@@ -6807,21 +6807,21 @@ a.list-group-item-action {
 
 /* Content area — Preline manages hidden/block */
 .collapse-content {
-    @apply mt-3 text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply mt-3 text-sm text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 /* Card variant wrapper */
 .collapse-card {
-    @apply bg-gray-50 border border-gray-200 rounded-xl shadow-2xs;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply bg-sand-50 border border-sand-200 rounded-xl shadow-2xs;
+    @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 /* Card variant toggle — full-width padded row */
 .collapse-card-toggle {
     @apply flex items-center justify-between w-full px-4 py-3 text-sm font-medium cursor-pointer;
-    @apply text-gray-800 hover:bg-gray-50 rounded-xl;
-    @apply dark:text-neutral-200 dark:hover:bg-neutral-700/50;
+    @apply text-sand-800 hover:bg-sand-50 rounded-xl;
+    @apply dark:text-sand-200 dark:hover:bg-sand-700/50;
     @apply transition-colors;
 }
 
@@ -6831,15 +6831,15 @@ a.list-group-item-action {
 
 /* Card variant content — padded, with top border */
 .collapse-card-content {
-    @apply px-4 pb-4 text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply px-4 pb-4 text-sm text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 /* Inline "show more" variant — minimal text link style */
 .collapse-inline-toggle {
     @apply inline-flex items-center gap-1 text-xs font-medium cursor-pointer;
-    @apply text-gray-600 hover:text-gray-700;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-200;
+    @apply text-sand-600 hover:text-sand-700;
+    @apply dark:text-sand-300 dark:hover:text-sand-200;
     @apply transition-colors;
 }
 
@@ -6848,8 +6848,8 @@ a.list-group-item-action {
 }
 
 .collapse-inline-content {
-    @apply mt-2 text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply mt-2 text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* ===================================
@@ -6861,10 +6861,10 @@ a.list-group-item-action {
 .bottom-sheet-panel {
     @apply fixed inset-x-0 bottom-0 z-[80];
     @apply w-full max-h-[85vh];
-    @apply bg-gray-50 rounded-t-2xl shadow-lg;
+    @apply bg-sand-50 rounded-t-2xl shadow-lg;
     @apply flex flex-col;
     @apply opacity-0 transition-all duration-300 ease-out;
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
     transform: translateY(100%);
 }
 
@@ -6891,13 +6891,13 @@ a.list-group-item-action {
 
 .bottom-sheet-header {
     @apply flex items-center justify-between px-4 py-3;
-    @apply border-b border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply border-b border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 .bottom-sheet-title {
-    @apply text-base font-semibold text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply text-base font-semibold text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .bottom-sheet-body {
@@ -6911,8 +6911,8 @@ a.list-group-item-action {
 
 /* Panel container — typically inside an hs-dropdown or standalone */
 .notif-center {
-    @apply flex flex-col bg-gray-50 border border-gray-200 rounded-xl shadow-lg;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply flex flex-col bg-sand-50 border border-sand-200 rounded-xl shadow-lg;
+    @apply dark:bg-sand-800 dark:border-sand-700;
     width: 24rem;
     max-width: calc(100vw - 2rem);
     max-height: 32rem;
@@ -6921,12 +6921,12 @@ a.list-group-item-action {
 /* Header — title + unread count + mark-all-read */
 .notif-center-header {
     @apply flex items-center justify-between px-4 py-3;
-    @apply border-b border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply border-b border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 .notif-center-title {
-    @apply text-base font-semibold text-gray-900;
+    @apply text-base font-semibold text-sand-900;
     @apply dark:text-white;
 }
 
@@ -6963,13 +6963,13 @@ a.list-group-item-action {
 
 /* Filter tabs — All / Unread */
 .notif-center-tabs {
-    @apply flex border-b border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply flex border-b border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 .notif-center-tab {
     @apply flex-1 text-center text-xs font-medium py-2 cursor-pointer;
-    @apply text-gray-600 dark:text-neutral-300;
+    @apply text-sand-600 dark:text-sand-300;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -6977,7 +6977,7 @@ a.list-group-item-action {
 }
 
 .notif-center-tab:hover {
-    @apply text-gray-700 dark:text-neutral-300;
+    @apply text-sand-700 dark:text-sand-300;
 }
 
 .notif-center-tab.active {
@@ -6996,26 +6996,26 @@ a.list-group-item-action {
 }
 
 .notif-center-empty-icon {
-    @apply text-3xl mb-3 text-gray-300;
-    @apply dark:text-neutral-600;
+    @apply text-3xl mb-3 text-sand-300;
+    @apply dark:text-sand-600;
 }
 
 .notif-center-empty-text {
-    @apply text-sm text-gray-600 dark:text-neutral-300;
+    @apply text-sm text-sand-600 dark:text-sand-300;
 }
 
 /* Date group heading */
 .notif-group-label {
     @apply block text-xs font-semibold uppercase tracking-wider px-4 py-2;
-    @apply text-gray-600 bg-gray-50;
-    @apply dark:text-neutral-400 dark:bg-neutral-800/50;
+    @apply text-sand-600 bg-sand-50;
+    @apply dark:text-sand-400 dark:bg-sand-800/50;
 }
 
 /* Individual notification row */
 .notif-item {
     @apply flex items-start gap-3 px-4 py-3;
-    @apply border-b border-gray-100;
-    @apply dark:border-neutral-700/50;
+    @apply border-b border-sand-100;
+    @apply dark:border-sand-700/50;
     transition: background-color 0.15s ease;
     position: relative;
 }
@@ -7025,7 +7025,7 @@ a.list-group-item-action {
 }
 
 .notif-item:hover {
-    @apply bg-gray-50 dark:bg-neutral-700/30;
+    @apply bg-sand-50 dark:bg-sand-700/30;
 }
 
 /* Unread modifier — left accent bar + bolder text */
@@ -7074,8 +7074,8 @@ a.list-group-item-action {
 }
 
 .notif-item-icon-default {
-    @apply bg-gray-100 text-gray-600;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply bg-sand-100 text-sand-600;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 /* Content area */
@@ -7084,27 +7084,27 @@ a.list-group-item-action {
 }
 
 .notif-item-title {
-    @apply text-sm text-gray-800 dark:text-neutral-200;
+    @apply text-sm text-sand-800 dark:text-sand-200;
     line-height: 1.4;
 }
 
 .notif-item-unread .notif-item-title {
-    @apply font-semibold text-gray-900 dark:text-white;
+    @apply font-semibold text-sand-900 dark:text-white;
 }
 
 .notif-item-description {
-    @apply text-xs text-gray-600 dark:text-neutral-300 mt-0.5;
+    @apply text-xs text-sand-600 dark:text-sand-300 mt-0.5;
     line-height: 1.4;
 }
 
 .notif-item-time {
-    @apply text-xs text-gray-600 dark:text-neutral-400 mt-1;
+    @apply text-xs text-sand-600 dark:text-sand-400 mt-1;
 }
 
 /* Dismiss button */
 .notif-item-dismiss {
     @apply shrink-0 inline-flex items-center justify-center rounded-md cursor-pointer;
-    @apply text-gray-600 dark:text-neutral-400;
+    @apply text-sand-600 dark:text-sand-400;
     width: 1.5rem;
     height: 1.5rem;
     border: none;
@@ -7118,8 +7118,8 @@ a.list-group-item-action {
 }
 
 .notif-item-dismiss:hover {
-    @apply bg-gray-100 text-gray-600;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply bg-sand-100 text-sand-600;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 /* When used as an hs-dropdown-menu, override block→flex so column layout works */
@@ -7136,8 +7136,8 @@ a.list-group-item-action {
 /* Footer — view all link */
 .notif-center-footer {
     @apply flex items-center justify-center px-4 py-2.5;
-    @apply border-t border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply border-t border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 .notif-center-footer a,
@@ -7180,8 +7180,8 @@ a.list-group-item-action {
 
 /* Main panel — centered card */
 .cmd-palette-panel {
-    @apply relative flex flex-col bg-gray-50 border border-gray-200 rounded-xl shadow-2xl overflow-hidden;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply relative flex flex-col bg-sand-50 border border-sand-200 rounded-xl shadow-2xl overflow-hidden;
+    @apply dark:bg-sand-800 dark:border-sand-700;
     width: 36rem;
     max-width: calc(100vw - 2rem);
     max-height: 26rem;
@@ -7190,39 +7190,39 @@ a.list-group-item-action {
 /* Search area at top */
 .cmd-palette-search {
     @apply flex items-center gap-3 px-4 py-3;
-    @apply border-b border-gray-200;
-    @apply dark:border-neutral-700;
+    @apply border-b border-sand-200;
+    @apply dark:border-sand-700;
 }
 
 .cmd-palette-search i {
-    @apply text-gray-600 text-base shrink-0;
-    @apply dark:text-neutral-400;
+    @apply text-sand-600 text-base shrink-0;
+    @apply dark:text-sand-400;
 }
 
 /* The search input — borderless, full-width */
 .cmd-palette-input {
-    @apply block w-full text-base text-gray-900 bg-transparent outline-none;
-    @apply dark:text-neutral-100;
+    @apply block w-full text-base text-sand-900 bg-transparent outline-none;
+    @apply dark:text-sand-100;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
 }
 
 .cmd-palette-input::placeholder {
-    @apply text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 /* Keyboard shortcut badge (e.g. "Cmd K") */
 .cmd-palette-shortcut {
-    @apply inline-flex items-center gap-0.5 text-[10px] font-medium text-gray-600 shrink-0;
-    @apply dark:text-neutral-400;
+    @apply inline-flex items-center gap-0.5 text-[10px] font-medium text-sand-600 shrink-0;
+    @apply dark:text-sand-400;
 }
 
 .cmd-palette-shortcut kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-100 border border-gray-200 text-gray-600;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
+    @apply bg-sand-100 border border-sand-200 text-sand-600;
+    @apply dark:bg-sand-700 dark:border-sand-600 dark:text-sand-300;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
@@ -7238,13 +7238,13 @@ a.list-group-item-action {
 /* Empty / no-results state */
 .cmd-palette-empty {
     @apply flex flex-col items-center justify-center py-10 px-4;
-    @apply text-sm text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .cmd-palette-empty i {
-    @apply text-2xl mb-2 text-gray-300;
-    @apply dark:text-neutral-600;
+    @apply text-2xl mb-2 text-sand-300;
+    @apply dark:text-sand-600;
 }
 
 /* Result group */
@@ -7253,21 +7253,21 @@ a.list-group-item-action {
 }
 
 .cmd-palette-group + .cmd-palette-group {
-    @apply mt-2 pt-2 border-t border-gray-100;
-    @apply dark:border-neutral-700;
+    @apply mt-2 pt-2 border-t border-sand-100;
+    @apply dark:border-sand-700;
 }
 
 /* Group heading */
 .cmd-palette-group-title {
-    @apply text-[11px] font-semibold uppercase tracking-wider text-gray-600 px-2 py-1.5;
-    @apply dark:text-neutral-400;
+    @apply text-[11px] font-semibold uppercase tracking-wider text-sand-600 px-2 py-1.5;
+    @apply dark:text-sand-400;
 }
 
 /* Individual result item */
 .cmd-palette-item {
     @apply flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer;
-    @apply text-sm text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-300;
     transition: background-color 0.1s ease;
 }
 
@@ -7279,8 +7279,8 @@ a.list-group-item-action {
 
 /* Leading icon */
 .cmd-palette-item-icon {
-    @apply text-gray-600 text-sm w-5 text-center shrink-0;
-    @apply dark:text-neutral-400;
+    @apply text-sand-600 text-sm w-5 text-center shrink-0;
+    @apply dark:text-sand-400;
 }
 
 .cmd-palette-item:hover .cmd-palette-item-icon,
@@ -7301,8 +7301,8 @@ a.list-group-item-action {
 
 /* Secondary description */
 .cmd-palette-item-description {
-    @apply block text-xs text-gray-600 truncate mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply block text-xs text-sand-600 truncate mt-0.5;
+    @apply dark:text-sand-400;
 }
 
 .cmd-palette-item:hover .cmd-palette-item-description,
@@ -7318,8 +7318,8 @@ a.list-group-item-action {
 
 .cmd-palette-item-shortcut kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-100 border border-gray-200 text-gray-600;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-400;
+    @apply bg-sand-100 border border-sand-200 text-sand-600;
+    @apply dark:bg-sand-700 dark:border-sand-600 dark:text-sand-400;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
@@ -7335,19 +7335,19 @@ a.list-group-item-action {
 /* Footer with keyboard navigation hints */
 .cmd-palette-footer {
     @apply flex items-center gap-4 px-4 py-2.5;
-    @apply border-t border-gray-200 bg-gray-50;
-    @apply dark:border-neutral-700 dark:bg-neutral-800/50;
+    @apply border-t border-sand-200 bg-sand-50;
+    @apply dark:border-sand-700 dark:bg-sand-800/50;
 }
 
 .cmd-palette-footer-hint {
-    @apply flex items-center gap-1.5 text-[11px] text-gray-600;
-    @apply dark:text-neutral-400;
+    @apply flex items-center gap-1.5 text-[11px] text-sand-600;
+    @apply dark:text-sand-400;
 }
 
 .cmd-palette-footer-hint kbd {
     @apply inline-flex items-center justify-center rounded px-1 py-0.5;
-    @apply bg-gray-50 border border-gray-200 text-gray-600;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
+    @apply bg-sand-50 border border-sand-200 text-sand-600;
+    @apply dark:bg-sand-700 dark:border-sand-600 dark:text-sand-300;
     font-family: inherit;
     font-size: 10px;
     line-height: 1;
@@ -7363,11 +7363,11 @@ a.list-group-item-action {
    hierarchy: sand-100 for queue, sand-50 for thread, white for center. */
 .queue-sidebar {
     @apply flex flex-col w-60 h-screen overflow-y-auto bg-sand-100 border-r border-sand-200;
-    @apply dark:bg-neutral-800 dark:border-neutral-700;
+    @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 .queue-sidebar-brand {
-    @apply flex items-center px-3 py-3 border-b border-gray-200 dark:border-neutral-800;
+    @apply flex items-center px-3 py-3 border-b border-sand-200 dark:border-sand-800;
 }
 
 .queue-sidebar-brand-logo {
@@ -7385,11 +7385,11 @@ a.list-group-item-action {
 
 .queue-item {
     @apply block w-full text-left px-3 py-2.5;
-    border-left: 3px solid var(--color-gray-200);
+    border-left: 3px solid var(--color-sand-200);
     border-bottom: 1px solid var(--color-sand-200);
     background: transparent;
     @apply hover:bg-sand-50 transition-colors duration-100;
-    @apply dark:hover:bg-neutral-700;
+    @apply dark:hover:bg-sand-700;
 }
 
 /* Honor users who opt out of motion. */
@@ -7401,7 +7401,7 @@ a.list-group-item-action {
 
 @media (prefers-color-scheme: dark) {
     .queue-item {
-        border-bottom-color: var(--color-neutral-700);
+        border-bottom-color: var(--color-sand-700);
     }
 }
 
@@ -7420,7 +7420,7 @@ a.list-group-item-action {
 }
 
 .queue-item.is-info {
-    border-left-color: var(--color-gray-200);
+    border-left-color: var(--color-sand-200);
 }
 
 .queue-item.active {
@@ -7433,18 +7433,18 @@ a.list-group-item-action {
 }
 
 .queue-item-name {
-    @apply text-sm font-medium text-gray-900 truncate;
-    @apply dark:text-gray-100;
+    @apply text-sm font-medium text-sand-900 truncate;
+    @apply dark:text-sand-100;
 }
 
 .queue-item-summary {
-    @apply block text-xs text-gray-600 truncate mt-0.5;
-    @apply dark:text-neutral-300;
+    @apply block text-xs text-sand-600 truncate mt-0.5;
+    @apply dark:text-sand-300;
 }
 
 .queue-item-meta {
-    @apply flex items-center justify-between text-xs text-gray-600 mt-1;
-    @apply dark:text-neutral-300;
+    @apply flex items-center justify-between text-xs text-sand-600 mt-1;
+    @apply dark:text-sand-300;
 }
 
 .queue-item-sla {
@@ -7478,8 +7478,8 @@ a.list-group-item-action {
 }
 
 .queue-section-header.is-info {
-    @apply text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 /* ================================================================
@@ -7489,13 +7489,13 @@ a.list-group-item-action {
 /* System event — compact, muted */
 .thread-msg-system {
     @apply flex items-center justify-between px-4 py-1.5;
-    @apply text-xs text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .thread-msg-time {
-    @apply text-xs text-gray-600 shrink-0 ml-2;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600 shrink-0 ml-2;
+    @apply dark:text-sand-300;
 }
 
 /* Agent tool call — icon + expandable payload */
@@ -7514,21 +7514,21 @@ a.list-group-item-action {
 }
 
 .thread-msg-tool-name {
-    @apply text-xs text-gray-600;
+    @apply text-xs text-sand-600;
     font-family: var(--font-mono);
-    @apply dark:text-neutral-300;
+    @apply dark:text-sand-300;
 }
 
 .thread-msg-tool-result {
-    @apply text-xs text-gray-600 ml-1;
+    @apply text-xs text-sand-600 ml-1;
     font-family: var(--font-mono);
-    @apply dark:text-neutral-400;
+    @apply dark:text-sand-400;
 }
 
 .thread-msg-tool-detail {
-    @apply mt-1 p-2 bg-gray-50 rounded-lg text-xs;
+    @apply mt-1 p-2 bg-sand-50 rounded-lg text-xs;
     font-family: var(--font-mono);
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 /* Human message — right-aligned bubble */
@@ -7542,10 +7542,10 @@ a.list-group-item-action {
 }
 
 .thread-msg-human-bubble {
-    @apply bg-primary-50 text-sm text-gray-900 px-3 py-2 rounded-xl;
+    @apply bg-primary-50 text-sm text-sand-900 px-3 py-2 rounded-xl;
     border-top-right-radius: 0;
     @apply max-w-[85%];
-    @apply dark:bg-primary-900/20 dark:text-gray-100;
+    @apply dark:bg-primary-900/20 dark:text-sand-100;
 }
 
 /* Approval response — collapsed decision summary */
@@ -7554,9 +7554,9 @@ a.list-group-item-action {
 }
 
 .thread-msg-response-toggle {
-    @apply flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer;
-    @apply hover:text-gray-900 transition-colors;
-    @apply dark:text-neutral-300 dark:hover:text-gray-200;
+    @apply flex items-center gap-1.5 text-xs text-sand-600 cursor-pointer;
+    @apply hover:text-sand-900 transition-colors;
+    @apply dark:text-sand-300 dark:hover:text-sand-200;
 }
 
 .thread-msg-response-toggle strong {
@@ -7617,8 +7617,8 @@ a.list-group-item-action {
 
 .thread-approval-header {
     @apply flex items-center gap-2 px-4 pt-3 pb-2;
-    @apply text-sm font-semibold text-gray-900;
-    @apply dark:text-gray-100;
+    @apply text-sm font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .thread-approval-header i {
@@ -7640,23 +7640,23 @@ a.list-group-item-action {
 }
 
 .thread-approval-context-title {
-    @apply text-sm font-medium text-gray-900;
-    @apply dark:text-gray-100;
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .thread-approval-context-meta {
-    @apply text-xs text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .thread-approval-summary {
-    @apply text-sm text-gray-700 space-y-1;
-    @apply dark:text-gray-300;
+    @apply text-sm text-sand-700 space-y-1;
+    @apply dark:text-sand-300;
 }
 
 .thread-approval-summary ul {
-    @apply list-disc list-inside text-sm text-gray-600 space-y-0.5;
-    @apply dark:text-neutral-300;
+    @apply list-disc list-inside text-sm text-sand-600 space-y-0.5;
+    @apply dark:text-sand-300;
 }
 
 .thread-approval-effects {
@@ -7671,18 +7671,18 @@ a.list-group-item-action {
 }
 
 .thread-approval-effects-label {
-    @apply text-xs font-medium text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply text-xs font-medium text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .thread-approval-effects ul {
-    @apply list-disc list-inside text-xs text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply list-disc list-inside text-xs text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .thread-approval-attachment {
-    @apply flex items-center gap-1.5 text-xs text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply flex items-center gap-1.5 text-xs text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .thread-approval-actions {
@@ -7702,9 +7702,9 @@ a.list-group-item-action {
 
 .thread-approval-note textarea {
     @apply w-full text-sm rounded-lg;
-    border-color: var(--color-gray-300);
+    border-color: var(--color-sand-300);
     @apply focus:ring-primary-500 focus:border-primary-500;
-    @apply dark:bg-neutral-800 dark:border-neutral-600 dark:text-gray-200;
+    @apply dark:bg-sand-800 dark:border-sand-600 dark:text-sand-200;
 }
 
 /* ============================================================
@@ -7714,14 +7714,14 @@ a.list-group-item-action {
 .panel-splitter {
     @apply relative shrink-0 select-none;
     width: 5px;
-    background-color: var(--color-gray-200);
+    background-color: var(--color-sand-200);
     cursor: col-resize;
     @apply transition-colors duration-100;
 }
 
 @media (prefers-color-scheme: dark) {
     .panel-splitter {
-        background-color: var(--color-neutral-700);
+        background-color: var(--color-sand-700);
     }
 }
 
@@ -7763,11 +7763,14 @@ a.list-group-item-action {
 
 /* Outermost shell for all four personas (care-coordinator, provider, kitchen, patient).
    Flex row with fixed-width sides (queue 240px, thread 380px) and flex-grow center.
-   Lives inside .app-shell so the stone-50 page bg shows around the frame.
+   Lives inside .app-shell so the sand-50 page bg shows around the frame.
    Desktop-first; responsive collapses + user-driven resize/collapse land in a later
-   slice. */
+   slice. Pane bg is translucent white over sand-50 per DESIGN.md §Brand-taste
+   "Pages float. Panes layer translucent white on top." — Patch 1.5 correction
+   from Patch 1a's opaque bg-white regression. */
 .three-panel-shell {
-    @apply flex overflow-hidden border-[3px] border-stone-200 rounded-md bg-white;
+    @apply flex overflow-hidden border-[3px] border-sand-150 rounded-md;
+    background-color: var(--color-surface-pane);
     height: calc(100vh - 2rem);
 }
 
@@ -7775,8 +7778,8 @@ a.list-group-item-action {
    floor (wireframe cc-shell-layout §44: ~480px) before the shell horizontally
    overflows. Recessed bg distinguishes from white card content inside. */
 .three-panel-shell-center {
-    @apply flex-1 overflow-y-auto bg-gray-50;
-    @apply dark:bg-neutral-950;
+    @apply flex-1 overflow-y-auto bg-sand-50;
+    @apply dark:bg-sand-950;
     min-width: 480px;
 }
 
@@ -7792,9 +7795,9 @@ a.list-group-item-action {
 
 @media (prefers-color-scheme: dark) {
     .thread-panel {
-        background-color: var(--color-neutral-900);
+        background-color: var(--color-sand-900);
         box-shadow: -1px 0 3px 0 rgba(0, 0, 0, 0.2);
-        border-left-color: var(--color-neutral-700);
+        border-left-color: var(--color-sand-700);
     }
 }
 
@@ -7804,13 +7807,13 @@ a.list-group-item-action {
 
 /* Centered empty-state text for the thread panel's inactive state. */
 .thread-panel-empty {
-    @apply flex flex-col items-center justify-center h-full text-sm text-gray-600;
-    @apply dark:text-neutral-300;
+    @apply flex flex-col items-center justify-center h-full text-sm text-sand-600;
+    @apply dark:text-sand-300;
 }
 
 .queue-filter-btn {
-    @apply text-xs text-gray-600 hover:text-gray-900 cursor-pointer transition-colors;
-    @apply dark:text-neutral-300 dark:hover:text-neutral-100;
+    @apply text-xs text-sand-600 hover:text-sand-900 cursor-pointer transition-colors;
+    @apply dark:text-sand-300 dark:hover:text-sand-100;
 }
 
 /* .queue-list canonical rule lives above in the queue/section-header block. */
@@ -8098,10 +8101,10 @@ a.list-group-item-action {
 }
 
 .meal-card-image {
-    @apply flex-shrink-0 rounded-lg overflow-hidden bg-gray-100;
+    @apply flex-shrink-0 rounded-lg overflow-hidden bg-sand-100;
     width: 80px;
     height: 80px;
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 .meal-card-image img {
@@ -8109,9 +8112,9 @@ a.list-group-item-action {
 }
 
 .meal-card-image .meal-card-placeholder {
-    @apply w-full h-full flex items-center justify-center text-gray-400;
+    @apply w-full h-full flex items-center justify-center text-sand-400;
     font-size: 1.5rem;
-    @apply dark:text-neutral-600;
+    @apply dark:text-sand-600;
 }
 
 .meal-card-content {
@@ -8119,9 +8122,9 @@ a.list-group-item-action {
 }
 
 .meal-card-name {
-    @apply font-semibold text-gray-900;
+    @apply font-semibold text-sand-900;
     font-size: 0.9375rem;
-    @apply dark:text-neutral-100;
+    @apply dark:text-sand-100;
 }
 
 .meal-card-description {
@@ -8150,20 +8153,20 @@ a.list-group-item-action {
 }
 
 .patient-summary-avatar {
-    @apply flex-shrink-0 flex items-center justify-center rounded-full bg-gray-200 font-semibold text-gray-600;
+    @apply flex-shrink-0 flex items-center justify-center rounded-full bg-sand-200 font-semibold text-sand-600;
     width: 40px;
     height: 40px;
-    @apply dark:bg-neutral-700 dark:text-neutral-300;
+    @apply dark:bg-sand-700 dark:text-sand-300;
 }
 
 .patient-summary-name {
-    @apply text-lg font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-lg font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .patient-summary-subtitle {
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .patient-summary-flags {
@@ -8171,18 +8174,18 @@ a.list-group-item-action {
 }
 
 .patient-summary-stats {
-    @apply grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-100;
-    @apply dark:border-neutral-800;
+    @apply grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-sand-100;
+    @apply dark:border-sand-800;
 }
 
 .patient-summary-stat-label {
-    @apply text-xs text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .patient-summary-stat-value {
-    @apply text-sm font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 /* ============================================================
@@ -8195,13 +8198,13 @@ a.list-group-item-action {
 }
 
 .menu-grid-title {
-    @apply font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .menu-grid-subtitle {
-    @apply text-sm text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sm text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .menu-grid {
@@ -8223,18 +8226,18 @@ a.list-group-item-action {
 }
 
 .basket-item-name {
-    @apply text-sm text-gray-800;
-    @apply dark:text-neutral-200;
+    @apply text-sm text-sand-800;
+    @apply dark:text-sand-200;
 }
 
 .basket-item-qty {
-    @apply text-xs text-gray-500 ml-1;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-500 ml-1;
+    @apply dark:text-sand-400;
 }
 
 .basket-item-price {
-    @apply text-sm font-medium text-gray-900 tabular-nums;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-medium text-sand-900 tabular-nums;
+    @apply dark:text-sand-100;
 }
 
 .basket-totals {
@@ -8247,8 +8250,8 @@ a.list-group-item-action {
 }
 
 .basket-total-row.is-primary {
-    @apply font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .basket-budget-remaining {
@@ -8277,29 +8280,29 @@ a.list-group-item-action {
 }
 
 .agentic-queue-item-title {
-    @apply text-sm font-medium text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .agentic-queue-item-subtitle {
-    @apply text-xs text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .agentic-queue-item-meta {
-    @apply flex items-center gap-2 text-xs text-gray-400 mt-0.5;
-    @apply dark:text-neutral-500;
+    @apply flex items-center gap-2 text-xs text-sand-400 mt-0.5;
+    @apply dark:text-sand-500;
 }
 
 /* DataTable extensions for agentic UI */
 .data-table-striped tbody tr:nth-child(even) {
     @apply bg-white;
-    @apply dark:bg-neutral-900;
+    @apply dark:bg-sand-900;
 }
 
 .data-table-striped tbody tr:nth-child(odd) {
     background: var(--color-sand-50);
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 .data-table .cell-mono {
@@ -8338,13 +8341,13 @@ a.list-group-item-action {
 }
 
 .stat-group-label {
-    @apply text-xs font-medium text-gray-500 uppercase tracking-wide;
-    @apply dark:text-neutral-400;
+    @apply text-xs font-medium text-sand-500 uppercase tracking-wide;
+    @apply dark:text-sand-400;
 }
 
 .stat-group-value {
-    @apply text-xl font-bold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-xl font-bold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .stat-group-delta {
@@ -8364,9 +8367,9 @@ a.list-group-item-action {
 }
 
 .stat-group-icon {
-    @apply text-gray-400 mr-1;
+    @apply text-sand-400 mr-1;
     font-size: 0.75rem;
-    @apply dark:text-neutral-500;
+    @apply dark:text-sand-500;
 }
 
 /* TrendChart — container for Chart.js */
@@ -8379,13 +8382,13 @@ a.list-group-item-action {
 }
 
 .trend-chart-title {
-    @apply text-sm font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .trend-chart-metric {
-    @apply text-xs text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .trend-chart-canvas {
@@ -8407,20 +8410,20 @@ a.list-group-item-action {
 }
 
 .comparison-bar-label-text {
-    @apply text-gray-700;
-    @apply dark:text-neutral-300;
+    @apply text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .comparison-bar-label-value {
-    @apply font-medium text-gray-900 tabular-nums;
-    @apply dark:text-neutral-100;
+    @apply font-medium text-sand-900 tabular-nums;
+    @apply dark:text-sand-100;
 }
 
 .comparison-bar-track {
     @apply w-full rounded-full overflow-hidden;
     height: 8px;
     background: var(--color-sand-100);
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 .comparison-bar-fill {
@@ -8440,12 +8443,12 @@ a.list-group-item-action {
 .choice-picker-option {
     @apply flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors;
     border-color: var(--color-sand-200);
-    @apply dark:border-neutral-700;
+    @apply dark:border-sand-700;
 }
 
 .choice-picker-option:hover {
     background: var(--color-sand-50);
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 .choice-picker-option.selected {
@@ -8459,9 +8462,9 @@ a.list-group-item-action {
 }
 
 .choice-picker-icon {
-    @apply flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-500;
+    @apply flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-sand-100 text-sand-500;
     font-size: 0.875rem;
-    @apply dark:bg-neutral-700 dark:text-neutral-400;
+    @apply dark:bg-sand-700 dark:text-sand-400;
 }
 
 .choice-picker-option.selected .choice-picker-icon {
@@ -8471,13 +8474,13 @@ a.list-group-item-action {
 }
 
 .choice-picker-label {
-    @apply text-sm font-medium text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .choice-picker-description {
-    @apply text-xs text-gray-500 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-500 mt-0.5;
+    @apply dark:text-sand-400;
 }
 
 /* ConfirmAction — approval card */
@@ -8486,19 +8489,19 @@ a.list-group-item-action {
 }
 
 .confirm-action-title {
-    @apply text-base font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-base font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .confirm-action-description {
-    @apply text-sm text-gray-600 leading-relaxed;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-600 leading-relaxed;
+    @apply dark:text-sand-300;
 }
 
 .confirm-action-details {
     @apply flex flex-col gap-1.5 p-3 rounded-lg;
     background: var(--color-sand-50);
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 .confirm-action-detail-row {
@@ -8506,13 +8509,13 @@ a.list-group-item-action {
 }
 
 .confirm-action-detail-label {
-    @apply text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .confirm-action-detail-value {
-    @apply font-medium text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply font-medium text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .confirm-action-warning {
@@ -8525,7 +8528,7 @@ a.list-group-item-action {
 .confirm-action-buttons {
     @apply flex gap-2 justify-end pt-2;
     border-top: 1px solid var(--color-sand-100);
-    @apply dark:border-neutral-800;
+    @apply dark:border-sand-800;
 }
 
 /* ============================================================
@@ -8546,20 +8549,20 @@ a.list-group-item-action {
 }
 
 .receipt-title {
-    @apply text-lg font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-lg font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .receipt-reference {
-    @apply text-sm text-gray-500;
+    @apply text-sm text-sand-500;
     font-family: 'Source Code Pro', monospace;
-    @apply dark:text-neutral-400;
+    @apply dark:text-sand-400;
 }
 
 .receipt-summary {
     @apply w-full flex flex-col gap-1.5 text-left mt-2 p-3 rounded-lg;
     background: var(--color-sand-50);
-    @apply dark:bg-neutral-800;
+    @apply dark:bg-sand-800;
 }
 
 .receipt-summary-row {
@@ -8567,18 +8570,18 @@ a.list-group-item-action {
 }
 
 .receipt-summary-label {
-    @apply text-gray-500;
-    @apply dark:text-neutral-400;
+    @apply text-sand-500;
+    @apply dark:text-sand-400;
 }
 
 .receipt-summary-value {
-    @apply font-medium text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply font-medium text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .receipt-timestamp {
-    @apply text-xs text-gray-400 mt-1;
-    @apply dark:text-neutral-500;
+    @apply text-xs text-sand-400 mt-1;
+    @apply dark:text-sand-500;
 }
 
 .receipt-actions {
@@ -8599,7 +8602,7 @@ a.list-group-item-action {
     border-color: var(--color-sand-300);
     color: var(--color-sand-400);
     background: white;
-    @apply dark:bg-neutral-900 dark:border-neutral-600 dark:text-neutral-500;
+    @apply dark:bg-sand-900 dark:border-sand-600 dark:text-sand-500;
 }
 
 .progress-tracker-step.is-complete .progress-tracker-dot {
@@ -8644,7 +8647,7 @@ a.list-group-item-action {
     right: calc(-50% + 16px);
     height: 2px;
     background: var(--color-sand-200);
-    @apply dark:bg-neutral-700;
+    @apply dark:bg-sand-700;
 }
 
 .progress-tracker-step.is-complete:not(:last-child)::after {
@@ -8713,7 +8716,7 @@ a.list-group-item-action {
 .code-view {
     @apply flex flex-col rounded-lg overflow-hidden border;
     border-color: var(--color-sand-200);
-    @apply dark:border-neutral-700;
+    @apply dark:border-sand-700;
 }
 
 .code-view-header {
@@ -8721,7 +8724,7 @@ a.list-group-item-action {
     background: var(--color-sand-100);
     border-bottom: 1px solid var(--color-sand-200);
     color: var(--color-sand-600);
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-sand-400;
 }
 
 .code-view-title {
@@ -8731,8 +8734,8 @@ a.list-group-item-action {
 .code-view-copy {
     @apply flex items-center gap-1 cursor-pointer px-2 py-1 rounded;
     transition: background 0.15s, color 0.15s;
-    @apply hover:bg-gray-200;
-    @apply dark:hover:bg-neutral-700;
+    @apply hover:bg-sand-200;
+    @apply dark:hover:bg-sand-700;
 }
 
 .code-view-copy.copied {
@@ -8742,14 +8745,14 @@ a.list-group-item-action {
 .code-view-body {
     @apply overflow-auto p-3;
     background: var(--color-sand-50);
-    @apply dark:bg-neutral-900;
+    @apply dark:bg-sand-900;
 }
 
 .code-view-body pre {
     @apply m-0 text-sm leading-relaxed;
     font-family: 'Source Code Pro', monospace;
     color: var(--color-sand-800);
-    @apply dark:text-neutral-200;
+    @apply dark:text-sand-200;
 }
 
 .code-view-body.wrap-lines pre {
@@ -8763,13 +8766,13 @@ a.list-group-item-action {
 }
 
 .info-panel-title {
-    @apply text-base font-semibold text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-base font-semibold text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .info-panel-body {
-    @apply text-sm text-gray-700 leading-relaxed;
-    @apply dark:text-neutral-300;
+    @apply text-sm text-sand-700 leading-relaxed;
+    @apply dark:text-sand-300;
 }
 
 .info-panel-body p + p {
@@ -8794,14 +8797,14 @@ a.list-group-item-action {
 }
 
 .info-panel-source {
-    @apply text-xs text-gray-400 italic;
-    @apply dark:text-neutral-500;
+    @apply text-xs text-sand-400 italic;
+    @apply dark:text-sand-500;
 }
 
 .info-panel-actions {
     @apply flex gap-2 pt-2;
     border-top: 1px solid var(--color-sand-100);
-    @apply dark:border-neutral-800;
+    @apply dark:border-sand-800;
 }
 
 /* Timeline — agentic variant (extends existing timeline-*) */
@@ -8826,14 +8829,14 @@ a.list-group-item-action {
     bottom: 0;
     width: 1px;
     background: var(--color-sand-200);
-    @apply dark:bg-neutral-700;
+    @apply dark:bg-sand-700;
 }
 
 .agentic-timeline-icon {
     @apply flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full text-xs z-10;
     background: var(--color-sand-100);
     color: var(--color-sand-500);
-    @apply dark:bg-neutral-800 dark:text-neutral-400;
+    @apply dark:bg-sand-800 dark:text-sand-400;
 }
 
 .agentic-timeline-event[data-type="agent"] .agentic-timeline-icon {
@@ -8851,7 +8854,7 @@ a.list-group-item-action {
 .agentic-timeline-event[data-type="system"] .agentic-timeline-icon {
     background: var(--color-sand-100);
     color: var(--color-sand-400);
-    @apply dark:bg-neutral-800 dark:text-neutral-500;
+    @apply dark:bg-sand-800 dark:text-sand-500;
 }
 
 .agentic-timeline-body {
@@ -8859,18 +8862,18 @@ a.list-group-item-action {
 }
 
 .agentic-timeline-title {
-    @apply text-sm font-medium text-gray-900;
-    @apply dark:text-neutral-100;
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
 }
 
 .agentic-timeline-detail {
-    @apply text-xs text-gray-500 mt-0.5;
-    @apply dark:text-neutral-400;
+    @apply text-xs text-sand-500 mt-0.5;
+    @apply dark:text-sand-400;
 }
 
 .agentic-timeline-meta {
-    @apply flex items-center gap-2 text-xs text-gray-400 mt-1;
-    @apply dark:text-neutral-500;
+    @apply flex items-center gap-2 text-xs text-sand-400 mt-1;
+    @apply dark:text-sand-500;
 }
 
 .agentic-timeline-actor {
@@ -8921,7 +8924,7 @@ a.list-group-item-action {
 /* Index square — 36×36 with border-radius/xs (2px). */
 .response-option-index {
     @apply flex items-center justify-center shrink-0 w-9 h-9 rounded-[2px];
-    background-color: var(--color-stone-16);
+    background-color: var(--color-sand-16);
 }
 
 .response-option[aria-checked="true"] .response-option-index {
@@ -8986,7 +8989,7 @@ a.list-group-item-action {
 
 .progress-bar-pagination-segment {
     @apply flex-1 h-1 rounded-full;
-    background-color: var(--color-stone-15);
+    background-color: var(--color-sand-15);
 }
 
 .progress-bar-pagination-segment.is-filled {

@@ -115,19 +115,23 @@
   --color-primary:      var(--color-teal-700);   /* #337A6E */
   --color-primary-edge: var(--color-teal-800);
 
-  /* --- Surface tokens — DESIGN.md §Surface / elevation. --- */
-  --color-surface-page:   var(--color-stone-50);
-  --color-surface-card:   var(--color-stone-100);
-  --color-surface-raised: var(--color-stone-150);
+  /* --- Surface tokens — DESIGN.md §Surface / elevation.
+     Canonical family: sand. (DESIGN.md uses "stone" nomenclature from Figma;
+     code uses "sand" since sand is the hex-authoritative family per palette.css.
+     Reconciling DESIGN.md nomenclature tracked as a Token Steward follow-up.) --- */
+  --color-surface-page:   var(--color-sand-50);
+  --color-surface-pane:   rgba(255, 255, 255, 0.6);  /* Translucent white over page. Pane = DESIGN.md §Brand-taste "Pages float. Panes layer translucent white on top." */
+  --color-surface-card:   var(--color-sand-100);
+  --color-surface-raised: var(--color-sand-150);
 
   /* --- Text tokens — DESIGN.md §Text. --- */
   --color-text-normal:  var(--color-sand-900);
   --color-text-muted:   var(--color-sand-700);
   --color-text-faint:   var(--color-sand-500);
-  --color-text-on-dark: var(--color-stone-50);
+  --color-text-on-dark: var(--color-sand-50);
 
   /* --- Border tokens — DESIGN.md §Border. --- */
-  --color-border-default: var(--color-stone-250);
+  --color-border-default: var(--color-sand-250);
   --color-border-image:   rgba(4, 3, 1, 0.1);
 
   /* --- Interactive / accent — DESIGN.md §Brand palette.
@@ -136,12 +140,8 @@
   --color-accent-interactive: var(--color-teal-600);
 }
 
-/* --- Extended stone stops per DESIGN.md — Figma opaque numbering.
-   Live on :root (not @theme) because these stops fall between Tailwind's
-   scale steps (50, 100, 200) and are intentionally non-utility tokens. --- */
-:root {
-  --color-stone-15:  #edeceb;   /* Progress-empty / neutral bar */
-  --color-stone-16:  #f2f2f2;   /* Unselected response index bg */
-  --color-stone-150: #e7ded2;   /* Shell container border */
-  --color-stone-250: #d8cec0;   /* Border/default, tertiary button border */
-}
+/* Extended sand stops (sand-15, sand-16, sand-150, sand-250) were promoted
+   from this file's :root block into palette.css @theme in Patch 1.5
+   (2026-04-20) so they generate utilities and align with the canonical sand
+   family. The stone-* mirrors of those stops live in palette.css as defensive
+   fallbacks only — never reference from components.css. */
