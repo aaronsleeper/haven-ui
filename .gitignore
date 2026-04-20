@@ -16,3 +16,9 @@ dist/
 # FontAwesome Pro — local copy, not committed
 **/vendor/fontawesome/
 .gstack/
+
+# Playwright run artifacts (reports, traces, screenshots of failures).
+# Baselines at __screenshots__/ ARE committed — they're the spec.
+test-results/
+playwright-report/
+storybook-static/
