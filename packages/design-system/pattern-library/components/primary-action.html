@@ -1,0 +1,38 @@
+<!--
+  @component-meta
+  name: Primary Action
+  category: Primitives — Actions
+  file: primary-action.html
+  classes: btn-secondary (reused — no new CSS; follows DESIGN.md §Brand-taste "Primary teal fill reserved for commits; Next buttons are secondary")
+  when-to-use: The forward / terminal action on a screen — Next in a multi-step flow, Continue from a landing, Finish at the end of an assessment. Semantically "the primary action for this screen," visually rendered with btn-secondary per DESIGN.md.
+  do-not-use-when: The action is a commit (Book, Schedule, Submit) — use btn-primary directly. For destructive confirms, use btn-danger.
+  preline-required: no
+  notes: Renders as <a class=btn-secondary> when href is provided (navigation); as <button type=button class=btn-secondary> when href is absent (form submit or client-side handler). Ties into the wireframe-completeness gate as the terminal-action tag.
+  @end-meta
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primary Action — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body>
+
+  <section class="p-8 space-y-6 max-w-[640px]">
+    <h1 class="section-title">Primary Action</h1>
+
+    <!-- @component: primary-action (anchor variant — href provided) -->
+    <a href="/assessment/gad-7/question/4" class="btn-secondary">Continue</a>
+    <!-- /component -->
+
+    <!-- @component: primary-action (button variant — no href) -->
+    <button type="button" class="btn-secondary">Continue</button>
+    <!-- /component -->
+  </section>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

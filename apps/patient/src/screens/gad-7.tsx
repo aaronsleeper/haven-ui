@@ -1,7 +1,7 @@
 // Generated from ../../apps/patient/design/wireframes/gad-7.mdoc by /compose — do not edit by hand.
 // Regenerate: pnpm --filter @haven/ui-react compose ../../apps/patient/design/wireframes/gad-7.mdoc ../../apps/patient/src/screens/gad-7.tsx
 
-import { AssessmentHeader, ResponseOptionGroup } from '@haven/ui-react';
+import { AssessmentHeader, PrimaryAction, ResponseOptionGroup } from '@haven/ui-react';
 
 export default function Gad7() {
   return (
@@ -64,6 +64,10 @@ export default function Gad7() {
             "label": "Nearly every day"
           }
         ]}
+      />
+      <PrimaryAction
+        label="Continue"
+        href="/assessment/gad-7/question/4"
       />
     </>
   );

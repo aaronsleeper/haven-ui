@@ -137,9 +137,36 @@
           "allowedChildren": [],
           "slotModel": "typed-props"
         },
+        "requiresTerminal": true,
         "stories": ["ResponseOptionGroup.default"],
         "brandReviewed": false,
-        "a11yReviewed": false
+        "a11yReviewed": false,
+        "notes": "requiresTerminal: true marks this as an interactive-input tag whose enclosing wireframe must also contain at least one terminal-action tag (isTerminalAction: true) — enforced by the conform:wireframe-completeness gate. A response group with no way to submit / advance strands a keyboard-only user."
+      }
+    },
+    {
+      "name": "primary-action",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/PrimaryAction.tsx", "type": "registry:component" },
+        { "path": "components/PrimaryAction.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/primary-action.html",
+        "composition": {
+          "propSchema": "./components/PrimaryAction.props.ts",
+          "markdocTag": "primary-action",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "isTerminalAction": true,
+        "stories": ["PrimaryAction.default"],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "The forward / terminal action on a screen — Next in a multi-step flow, Continue, Finish. Semantically 'the primary action for this screen'; visually rendered with .btn-secondary per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits; Next buttons are secondary.' Anchor when href provided; button otherwise. Commit-variant actions (Submit, Schedule, Book) are a separate future tag. isTerminalAction: true marks it as satisfying the wireframe-completeness gate."
       }
     },
     {

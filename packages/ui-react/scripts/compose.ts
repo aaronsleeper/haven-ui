@@ -28,6 +28,7 @@ type Registry = { items: RegistryItem[] };
 const config = {
   tags: {
     'assessment-header': schemas.assessmentHeader,
+    'primary-action': schemas.primaryAction,
     'progress-bar-pagination': schemas.progressBarPagination,
     'queue-item': schemas.queueItem,
     'queue-sidebar': schemas.queueSidebar,

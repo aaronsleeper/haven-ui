@@ -13,6 +13,7 @@ import * as schemas from '../schema/index.js';
 const config = {
   tags: {
     'assessment-header': schemas.assessmentHeader,
+    'primary-action': schemas.primaryAction,
     'progress-bar-pagination': schemas.progressBarPagination,
     'queue-item': schemas.queueItem,
     'queue-sidebar': schemas.queueSidebar,

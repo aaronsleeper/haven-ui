@@ -48,6 +48,9 @@ export type {
 export { AssessmentHeader } from './components/AssessmentHeader';
 export type { AssessmentHeaderProps } from './components/AssessmentHeader';
 
+export { PrimaryAction } from './components/PrimaryAction';
+export type { PrimaryActionProps } from './components/PrimaryAction';
+
 export { ThreePanelShell } from './components/ThreePanelShell';
 export type { ThreePanelShellProps } from './components/ThreePanelShell';
 
