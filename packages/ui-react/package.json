@@ -33,6 +33,7 @@
     "@haven/design-system": "workspace:*"
   },
   "devDependencies": {
+    "@markdoc/markdoc": "^0.5.7",
     "@playwright/test": "^1.47.0",
     "@storybook/addon-a11y": "^8.4.0",
     "@storybook/addon-essentials": "^8.4.0",
