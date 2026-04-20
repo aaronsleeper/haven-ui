@@ -3,9 +3,11 @@ import { AssessmentHeader } from './AssessmentHeader';
 
 // Canonical visual baselines for `assessment-header` in registry.json.
 // One story per exemplar in assessment-header.html:
-//   Default — GAD-7 question 3 of 7 (title + progress + meta)
-//   Start   — PHQ-9 question 1 of 9 (first question, longer 9-step scale)
+//   Default — Anxiety check-in, question 3 of 7 (title + progress + meta)
+//   Start   — Mood check-in, question 1 of 9 (first question, 9-step scale)
 //   NoMeta  — title + progress only; meta line omitted
+// Patient-voice titles per plain-language gate (Patch 9, 2026-04-20):
+// "[topic] check-in" parallel-structure across assessment family.
 
 const meta: Meta<typeof AssessmentHeader> = {
   title: 'UI/AssessmentHeader',
@@ -25,7 +27,7 @@ type Story = StoryObj<typeof AssessmentHeader>;
 
 export const Default: Story = {
   args: {
-    title: 'GAD-7',
+    title: 'Anxiety check-in',
     meta: 'Question 3 of 7',
     progress: {
       ariaLabel: 'Assessment progress: question 3 of 7',
@@ -44,7 +46,7 @@ export const Default: Story = {
 
 export const Start: Story = {
   args: {
-    title: 'PHQ-9',
+    title: 'Mood check-in',
     meta: 'Question 1 of 9',
     progress: {
       ariaLabel: 'Assessment progress: question 1 of 9',

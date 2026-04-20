@@ -7,6 +7,36 @@ See `experts/expert-spec.md` for the full review system protocol.
 
 ---
 
+## 2026-04-20 — Plain-language lint + GAD-7 copy close (Patch 9; slice-1 debt item 5)
+
+**Trigger:** Round-2 A11y + IA panel flagged `<h1>GAD-7</h1>` as clinical-code label on the patient surface. Aaron deferred the copy change in pilot debrief pending a plain-language lint. This cycle: scope the lint + ship the copy change together per close-debt-before-advancing.
+
+**Observations:**
+- Precedent in `assess-01-my-health.md`: "Each trend card shows the patient-friendly metric label, not the clinical assessment name. E.g., 'Mood' not 'PHQ-2 Score'." The principle is already ratified at the hub level; the assessment-header was the outlier.
+- The `assessment-header-no-meta` variant already uses patient voice ("Weekly check-in") — the component supports the right copy; the GAD-7 / PHQ-9 exemplars were authored with clinical voice by accident.
+- IA call: title is patient-voice; clinician surfaces get a separate `code` prop on the component rather than a forked variant (deferred until care-coordinator assessment-view is wireframed).
+- Parallel structure adopted: `Anxiety check-in` (GAD-7), `Mood check-in` (PHQ-9), `Weekly check-in` (multi-topic) — teaches the reader the shape once.
+- Gate scope narrowed from "all pattern-library strict" to "patient-facing pattern-library components only" (hardcoded list v1; v2 reads persona annotations from registry.json). First-run dry-run surfaced ~30 false-positive violations in coordinator-facing pattern-library components (queue-item SLA labels, layout-field-row A1C, etc.) which were the right signal that the scope was too broad.
+- Non-content-skipping: HTML comments (including `<!-- @component-meta ... -->` authoring metadata) and Markdoc frontmatter are stripped before pattern-matching. Without this, the gate would have flagged dev-facing documentation strings as violations.
+
+**Calibration updates:**
+- **Persona-scoped linting rule** (new): copy gates scope by filesystem path against the registry persona taxonomy. Patient + patient-facing-pattern-library = strict; clinician surfaces = relaxed; kitchen = relaxed; pattern-library-unscoped = **out of v1 scope** (not "default strict" as initially proposed — explicit patient-facing opt-in is safer and surfaces fewer false positives).
+- **Named-prop over persona-forked component** (new): when copy rules differ by persona for the same component, add a prop (e.g., `code`), not a new component. Preserves 1:1 PL→React invariant; single surface for state-vocabulary review.
+- **Pattern-library exemplars follow the lint**: pl-variant-title captions and h1 content in patient-facing pattern-library components use patient-voice, not clinical codes. Dev reading the exemplar learns the right vocabulary by osmosis.
+- **Close-debt cadence reinforcement**: authoring a gate that would fail on a known violation = ship the fix in the same cycle. Deferring produces an immediate exemption that's wrong on its face.
+
+**Changes to this expert:**
+- Add to `judgment-framework.md`: persona-scoped copy rule + named-prop over forked-component rule.
+- Add note on pattern-library exemplar vocabulary (patient-voice by default for patient-facing components).
+
+**Open questions:**
+- **`assessment-header` `code` prop** — where does it render in clinician surfaces? Subtitle slot, eyebrow, or a separate clinician-only row? Defer to when care-coordinator assessment-view is wireframed.
+- **Spanish-locale dictionary** — existing i18n strings include Spanish ("Esto mide…"). Lint v1 scopes to English; Spanish scan deferred until `mobile-i18n-bar` language-toggle UX is a pilot surface.
+- **Voice-rule v2 linting** — imperative-with-form-noun ("Complete this form"), passive-with-clinical-agent ("will be scored") patterns proposed by Plain Language Positioning. Defer to a future gate expansion once the clinical-code dictionary settles.
+- **PRAPARE-family scalability** — `[topic] check-in` pattern may strain for multi-section SDOH assessments. "Life circumstances check-in" may not carry for a 5-section 70-question instrument. Revisit when PRAPARE reaches pilot.
+
+---
+
 ## 2026-04-20 — State-indicator IA calls (Patch 8; slice-1 debt item 4)
 
 **Trigger:** Contrast-pair gate caught `.queue-item.active` and `.response-option:hover` below WCAG 1.4.11 3:1. Brand Fidelity consulted in parallel on aesthetic / brand coherence; UX Design Lead asked to scope affordance clarity and competing-signal management.
