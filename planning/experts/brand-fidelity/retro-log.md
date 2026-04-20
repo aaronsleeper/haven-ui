@@ -2,6 +2,29 @@
 
 Append-only log of brand-fidelity reviews, calibration observations, and DESIGN.md deltas surfaced through reviews.
 
+## 2026-04-20 — State-indicator contrast calls (Patch 8; slice-1 debt item 4)
+
+**Trigger:** Contrast-pair gate caught 2 pilot-scope state indicators failing WCAG 1.4.11 3:1 beyond the 2 known-failure progress-bar pairs. Token Steward + A11y requested a Brand Fidelity call before shipping.
+
+**Observations:**
+- The two cases: `.queue-item.active` solo-bg `primary-50` (1.12:1) and `.response-option:hover` solo-bg `sand-50` (1.05:1). Both are pale tints intentional to Haven's "soft stone pages" voice. Path A (bump fill to first passing tier — primary-500 / sand-500) would turn *selection* and *hover* into loud fills, violating the brand-taste rule "primary teal reserved for commits; chrome is minimal." Path B (preserve fill, add edge carrying 3:1 contrast) is the brand-correct answer.
+- Decision 1 — `.queue-item.active`: ship Path B with `box-shadow: inset -3px 0 0 0 var(--color-accent-interactive)` on the RIGHT edge (per UX Design Lead's amendment — left edge already carries urgency tier; four-channel separation preserves visual vocabulary).
+- Decision 2 — `.response-option:hover`: ship Path B with `border-color: var(--color-sand-500)` on the existing 1px border. Fill stays pale sand-50 ("considering"); border darkens to sand-500 ("pointing at this"); selected state (`aria-checked="true"`) still owns teal border ("committed"). Each state distinguishable without fill-weight escalation.
+- Aaron's "passing barely is passing" principle applies to the edge contrast, not the fill. The fill carries voice; the edge carries compliance.
+- `brand-taste-override` exemption was proposed for the contrast-pair gate but rejected by A11y — DESIGN.md does not authorize brand-taste relaxations of WCAG. Brand Fidelity concurred.
+
+**Calibration updates:**
+- **Standing rule**: when a state-indicator color fails 3:1 on a pale-fill pattern, default to "preserve fill, move WCAG to edge" before considering tier-bump. Applies to active/hover/focus/checked states across the design system.
+- Primary teal (`--color-accent-interactive` = teal-600) is load-bearing as the "selected/committed" signal — using it for active-state edges is legal under the teal-discipline rule because selection-of-record is a commit (the coordinator has committed attention). Added to judgment-framework as explicit exception to "teal reserved for commits."
+- The `.queue-item.is-attention` (amber-400 = 2.23:1) and `.is-info` (sand-200 = 1.45:1) urgency tiers got token-level bumps to amber-500 / sand-500. These tiers are informational (only carrier of urgency at row level; section headers don't descend into per-row state), so Path B (preserve-fill-add-edge) didn't apply — the border IS the informational surface. Tier-bump was correct.
+
+**Changes to this expert:**
+- Add to `judgment-framework.md` (future edit): "State indicators failing WCAG 1.4.11 — default to preserve-fill-add-edge before tier-bumping the fill. Use `accent-interactive` for active / `sand-500` for hover on pale-fill components."
+- Add to `domain-knowledge.md`: note that primary teal on active-state edges does not violate teal-discipline when the state IS a commit (selection, submission, confirmation).
+
+**Open questions:**
+- **Primary teal on active-row edge in multi-row contexts**: when 20+ queue items are visible simultaneously and one is active, does the right-edge teal stripe read loudly as "global urgency signal" rather than "local selection"? Browser review pending from Aaron. Adjust edge width / fill tint pairing if the visual weight skews.
+
 ## 2026-04-18 — Expert created
 
 Brand-fidelity expert initialized following the design-system-completeness pivot. Slices 1 and 2 (shipped pre-DESIGN.md) are the first retrofit targets. No reviews run yet.
