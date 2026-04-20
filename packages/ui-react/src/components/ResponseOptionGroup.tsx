@@ -12,7 +12,14 @@ export type {
 // Wraps one assessment question + its N response-options. Handles keyboard nav and
 // roving tabindex per the WAI-ARIA radiogroup pattern; selection follows focus.
 
-const NAV_KEYS = new Set(['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight']);
+const NAV_KEYS = new Set([
+  'ArrowDown',
+  'ArrowUp',
+  'ArrowLeft',
+  'ArrowRight',
+  'Home',
+  'End',
+]);
 
 export function ResponseOptionGroup({
   promptId,
@@ -47,11 +54,16 @@ export function ResponseOptionGroup({
       if (buttons.length === 0) return;
 
       const activeIdx = buttons.findIndex((b) => b === document.activeElement);
-      const delta = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
-      const nextIdx =
-        activeIdx === -1
-          ? 0
-          : (activeIdx + delta + buttons.length) % buttons.length;
+      let nextIdx: number;
+      if (event.key === 'Home') {
+        nextIdx = 0;
+      } else if (event.key === 'End') {
+        nextIdx = buttons.length - 1;
+      } else {
+        const delta = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
+        nextIdx =
+          activeIdx === -1 ? 0 : (activeIdx + delta + buttons.length) % buttons.length;
+      }
 
       const nextButton = buttons[nextIdx];
       if (!nextButton) return;
