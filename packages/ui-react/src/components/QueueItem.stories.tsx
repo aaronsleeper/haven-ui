@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueueItem } from './QueueItem';
 
-// Canonical visual baseline for `queue-item` in registry.json.
-// Mirrors queue-item.html's first variant (urgent + active, Maria Garcia).
-// Variant-matrix stories (is-urgent, is-breached, is-attention, is-info)
-// are on the roadmap before step-10 visual gate ships.
+// Canonical visual baselines for `queue-item` in registry.json.
+// Each story mirrors one exemplar from queue-item.html — Default covers the
+// urgent+active+warning-SLA tier (Maria Garcia); Urgent covers the
+// urgent+breached-SLA tier (Robert Thompson); Attention and Info cover the
+// lower two tiers (Lisa Chen, Patricia Moore).
 
 const meta: Meta<typeof QueueItem> = {
   title: 'UI/QueueItem',
@@ -40,5 +41,40 @@ export const Default: Story = {
       text: 'Due in 1h',
       label: 'SLA warning: due in 1 hour',
     },
+  },
+};
+
+export const Urgent: Story = {
+  args: {
+    urgency: 'urgent',
+    name: 'Robert Thompson',
+    category: 'Eligibility',
+    summary: 'Eligibility failed — alternative path available',
+    time: '4h ago',
+    sla: {
+      status: 'breached',
+      text: '2h overdue',
+      label: 'SLA breached: 2 hours overdue',
+    },
+  },
+};
+
+export const Attention: Story = {
+  args: {
+    urgency: 'attention',
+    name: 'Lisa Chen',
+    category: 'Referral',
+    summary: 'New referral from UConn Health',
+    time: '45m ago',
+  },
+};
+
+export const Info: Story = {
+  args: {
+    urgency: 'info',
+    name: 'Patricia Moore',
+    category: 'Enrolled',
+    summary: 'Enrolled successfully',
+    time: '1h ago',
   },
 };

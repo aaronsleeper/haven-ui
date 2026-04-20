@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ResponseOption } from './ResponseOption';
 
-// Canonical visual baseline for `response-option` in registry.json.
-// Mirrors response-option.html's "Selected" variant (index 0, "Not at all",
-// aria-checked="true"). Unselected and disabled variants are on the roadmap
-// before step-10 visual gate ships.
+// Canonical visual baselines for `response-option` in registry.json.
+// Default covers the selected state (aria-checked="true"); Unselected covers
+// the unselected state. A disabled exemplar is not yet rendered in
+// response-option.html; story parked until the pattern-library HTML adds it.
 //
 // In production this component renders inside a ResponseOptionGroup, which
 // owns roving tabindex and keyboard nav. Rendered standalone here to isolate
@@ -31,5 +31,13 @@ export const Default: Story = {
     index: 0,
     label: 'Not at all',
     checked: true,
+  },
+};
+
+export const Unselected: Story = {
+  args: {
+    index: 1,
+    label: 'Several days',
+    checked: false,
   },
 };

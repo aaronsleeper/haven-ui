@@ -68,7 +68,12 @@
           "allowedChildren": [],
           "slotModel": "typed-props"
         },
-        "stories": ["QueueItem.default"],
+        "stories": [
+          "QueueItem.default",
+          "QueueItem.urgent",
+          "QueueItem.attention",
+          "QueueItem.info"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false
       }
@@ -90,7 +95,11 @@
           "allowedChildren": [],
           "slotModel": "children-slot"
         },
-        "stories": ["QueueSectionHeader.default"],
+        "stories": [
+          "QueueSectionHeader.default",
+          "QueueSectionHeader.attention",
+          "QueueSectionHeader.info"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false,
         "notes": "Exempt from the typed-props composition rule. Uses children: ReactNode to carry free-form label text (compound-tag carve-out). Not directly Markdoc-addressable — rendered internally by QueueSidebar only."
@@ -114,7 +123,10 @@
           "allowedChildren": [],
           "slotModel": "typed-props"
         },
-        "stories": ["ResponseOption.default"],
+        "stories": [
+          "ResponseOption.default",
+          "ResponseOption.unselected"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false
       }
@@ -138,7 +150,10 @@
           "slotModel": "typed-props"
         },
         "requiresTerminal": true,
-        "stories": ["ResponseOptionGroup.default"],
+        "stories": [
+          "ResponseOptionGroup.default",
+          "ResponseOptionGroup.unanswered"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false,
         "notes": "requiresTerminal: true marks this as an interactive-input tag whose enclosing wireframe must also contain at least one terminal-action tag (isTerminalAction: true) — enforced by the conform:wireframe-completeness gate. A response group with no way to submit / advance strands a keyboard-only user."
@@ -163,7 +178,10 @@
           "slotModel": "typed-props"
         },
         "isTerminalAction": true,
-        "stories": ["PrimaryAction.default"],
+        "stories": [
+          "PrimaryAction.default",
+          "PrimaryAction.button"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false,
         "notes": "The forward / terminal action on a screen — Next in a multi-step flow, Continue, Finish. Semantically 'the primary action for this screen'; visually rendered with .btn-secondary per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits; Next buttons are secondary.' Anchor when href provided; button otherwise. Commit-variant actions (Submit, Schedule, Book) are a separate future tag. isTerminalAction: true marks it as satisfying the wireframe-completeness gate."
@@ -187,7 +205,12 @@
           "allowedChildren": [],
           "slotModel": "typed-props"
         },
-        "stories": ["ProgressBarPagination.default"],
+        "stories": [
+          "ProgressBarPagination.default",
+          "ProgressBarPagination.start",
+          "ProgressBarPagination.end",
+          "ProgressBarPagination.phq2"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false
       }
@@ -210,7 +233,11 @@
           "allowedChildren": [],
           "slotModel": "typed-props"
         },
-        "stories": ["AssessmentHeader.default"],
+        "stories": [
+          "AssessmentHeader.default",
+          "AssessmentHeader.start",
+          "AssessmentHeader.no-meta"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false
       }

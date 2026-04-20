@@ -19,6 +19,7 @@ const DS_TOKEN_FILES = [
   'elevation.css',
   'motion.css',
   'spacing.css',
+  'radius.css',
 ];
 
 // Token-conformance gate. For each pilot story, reads the rendered component's

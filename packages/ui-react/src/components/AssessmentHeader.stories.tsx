@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AssessmentHeader } from './AssessmentHeader';
 
-// Canonical visual baseline for `assessment-header` in registry.json.
-// Mirrors assessment-header.html's first variant — GAD-7, question 3 of 7.
-// Start-state, PHQ-9, and no-meta variants are on the roadmap before the
-// step-10 visual gate ships.
+// Canonical visual baselines for `assessment-header` in registry.json.
+// One story per exemplar in assessment-header.html:
+//   Default — GAD-7 question 3 of 7 (title + progress + meta)
+//   Start   — PHQ-9 question 1 of 9 (first question, longer 9-step scale)
+//   NoMeta  — title + progress only; meta line omitted
 
 const meta: Meta<typeof AssessmentHeader> = {
   title: 'UI/AssessmentHeader',
@@ -36,6 +37,41 @@ export const Default: Story = {
         { status: 'not-started', label: 'Question 5 — not started' },
         { status: 'not-started', label: 'Question 6 — not started' },
         { status: 'not-started', label: 'Question 7 — not started' },
+      ],
+    },
+  },
+};
+
+export const Start: Story = {
+  args: {
+    title: 'PHQ-9',
+    meta: 'Question 1 of 9',
+    progress: {
+      ariaLabel: 'Assessment progress: question 1 of 9',
+      steps: [
+        { status: 'in-progress', label: 'Question 1 — in progress' },
+        { status: 'not-started', label: 'Question 2 — not started' },
+        { status: 'not-started', label: 'Question 3 — not started' },
+        { status: 'not-started', label: 'Question 4 — not started' },
+        { status: 'not-started', label: 'Question 5 — not started' },
+        { status: 'not-started', label: 'Question 6 — not started' },
+        { status: 'not-started', label: 'Question 7 — not started' },
+        { status: 'not-started', label: 'Question 8 — not started' },
+        { status: 'not-started', label: 'Question 9 — not started' },
+      ],
+    },
+  },
+};
+
+export const NoMeta: Story = {
+  args: {
+    title: 'Weekly check-in',
+    progress: {
+      ariaLabel: 'Assessment progress: question 2 of 3',
+      steps: [
+        { status: 'complete', label: 'Question 1 — complete' },
+        { status: 'in-progress', label: 'Question 2 — in progress' },
+        { status: 'not-started', label: 'Question 3 — not started' },
       ],
     },
   },

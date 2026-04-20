@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueueSectionHeader } from './QueueSectionHeader';
 
-// Canonical visual baseline for `queue-section-header` in registry.json.
-// Mirrors queue-section-header.html's first variant (is-urgent, "Urgent · 2").
-// Variant stories for is-attention and is-info are on the roadmap before
-// step-10 visual gate ships. This component is exempt from the no-passthrough
+// Canonical visual baselines for `queue-section-header` in registry.json.
+// One story per urgency tier mirroring queue-section-header.html (is-urgent,
+// is-attention, is-info). This component is exempt from the no-passthrough
 // rule — it carries free-form label text via children.
 
 const meta: Meta<typeof QueueSectionHeader> = {
@@ -30,5 +29,19 @@ export const Default: Story = {
   args: {
     tier: 'urgent',
     children: 'Urgent · 2',
+  },
+};
+
+export const Attention: Story = {
+  args: {
+    tier: 'attention',
+    children: 'Needs Attention · 7',
+  },
+};
+
+export const Info: Story = {
+  args: {
+    tier: 'info',
+    children: 'Informational · 3',
   },
 };

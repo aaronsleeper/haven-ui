@@ -39,14 +39,30 @@ Every story:
   Components that own their outer container (QueueSidebar, AssessmentHeader)
   use no decorator.
 
-### Variant coverage — roadmap
+### Variant coverage
 
-Pilot ships one `Default` story per component. Variant matrix stories
-(e.g. `QueueItem.breached`, `QueueItem.attention`, `QueueItem.info`;
-unselected `ResponseOption`; start/end `ProgressBarPagination`) land
-before the step-10 visual-regression gate wires to Playwright. Each
-additional variant is added to both the component's `.stories.tsx` file
-and the registry entry's `stories` array in `registry.json`.
+Each registered component ships one story per distinct exemplar in its
+pattern-library HTML — one `Default` plus one per additional variant.
+Story exports use PascalCase (CSF convention); Storybook kebab-cases them
+for iframe IDs (`export const NoMeta` → `ui-assessmentheader--no-meta`).
+Registry `stories` entries use dot-notation (`AssessmentHeader.no-meta`).
+
+Per-axis coverage (landed 2026-04-20 as slice-1 debt-closeout item 2):
+
+- `QueueItem` — `default`, `urgent` (breached SLA), `attention`, `info`
+  (tier axis; `active` flag exercised in `default`)
+- `QueueSectionHeader` — `default` (urgent), `attention`, `info`
+- `ResponseOption` — `default` (checked), `unselected`
+  (`disabled` parked — no pattern-library exemplar rendered yet)
+- `ResponseOptionGroup` — `default` (answered), `unanswered`
+- `PrimaryAction` — `default` (anchor), `button`
+- `ProgressBarPagination` — `default` (mid), `start`, `end`, `phq2`
+- `AssessmentHeader` — `default` (GAD-7 mid), `start` (PHQ-9), `no-meta`
+
+Orthogonal axes (e.g., `QueueItem.is-urgent` tier vs `is-breached` SLA
+state) get one story per axis value, not one per visual combination.
+When a pattern-library HTML adds a new exemplar, the corresponding story
+and registry entry ship in the same commit.
 
 ## Visual regression — CI-only baselines
 
