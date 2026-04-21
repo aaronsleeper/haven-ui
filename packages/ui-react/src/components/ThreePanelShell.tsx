@@ -7,9 +7,9 @@ import type { ReactNode } from 'react';
 // Usage: render three direct children in order — left aside, center <main>,
 // right aside. The shell is pure layout; it enforces no semantics on its
 // children beyond their placement in the flex row. The outer `.app-shell`
-// div supplies the Haven floating-page envelope (stone-50 bg + padding);
-// the inner `.three-panel-shell` carries the 3px stone-200 border +
-// border-radius-md that makes the app float inside its frame.
+// div supplies the Haven floating-page envelope (sand-50 page bg shows
+// around it via padding); the inner `.three-panel-shell` carries the 3px
+// sand-150 border + border-radius-md that makes the app float inside its frame.
 //
 // Composition note: this component accepts children: ReactNode. Layout-shell
 // carve-out — it composes other registered components (QueueSidebar, ThreadPanel,

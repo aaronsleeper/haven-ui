@@ -7769,12 +7769,10 @@ a.list-group-item-action {
 /* .queue-sidebar canonical rule lives above in the queue/section-header block. */
 
 /* Floating-page envelope. Per DESIGN.md §Brand-taste rules:
-   "Pages float. The outermost shell has a 3px stone/150 border + border-radius/md 11px
+   "Pages float. The outermost shell has a 3px sand-150 border + border-radius/md 11px
     — apps live inside a containing frame, not edge-to-edge."
-   The envelope pads the body so the stone-50 bg shows around the shell; the shell
-   carries the border + radius. NOTE: DESIGN.md cites stone/150 but palette.css
-   has no 150 step (jumps 100 → 200). Using stone-200 as nearest; reconciliation
-   tracked as Token Steward follow-up in haven-ui-design-system-completeness.md. */
+   The envelope pads the body so the sand-50 bg shows around the shell; the shell
+   carries the border + radius. */
 .app-shell {
     @apply min-h-screen p-4;
 }
@@ -9012,7 +9010,8 @@ a.list-group-item-action {
 
 
 /* Progress Bar Pagination — N horizontal segments, one per question.
-   accent-interactive when complete, stone-15 when remaining.
+   accent-interactive when complete, sand-500 when remaining (WCAG 1.4.11 floor;
+   was sand-15 pre-Patch-8, raised to sand-500 to clear 3:1 vs white).
    Distinct from data-progress (single continuous bar). */
 .progress-bar-pagination {
     @apply flex items-center gap-1 w-full;

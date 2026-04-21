@@ -24,7 +24,7 @@
         "stories": [],
         "brandReviewed": false,
         "a11yReviewed": false,
-        "notes": "Layout-shell carve-out. Composes other registered components (QueueSidebar, ThreadPanel, arbitrary center content) by positional children. slotModel: 'children-slot' because the shell is pure layout — it does not carry semantic content itself, only 3-panel placement. markdocTag: null because the shell is the app-level envelope, not a screen-composable tag — every app's root App.tsx wraps its generated screens in this shell. isAppShell: true marks it as a candidate for the app-shell contract gate. Supplies the Haven floating-page envelope per DESIGN.md §Brand-taste rules (stone-50 page bg + 3px stone-200 border + border-radius-md). User-driven resize + collapse of left and right panels deferred to Patch 1b."
+        "notes": "Layout-shell carve-out. Composes other registered components (QueueSidebar, ThreadPanel, arbitrary center content) by positional children. slotModel: 'children-slot' because the shell is pure layout — it does not carry semantic content itself, only 3-panel placement. markdocTag: null because the shell is the app-level envelope, not a screen-composable tag — every app's root App.tsx wraps its generated screens in this shell. isAppShell: true marks it as a candidate for the app-shell contract gate. Supplies the Haven floating-page envelope per DESIGN.md §Brand-taste rules (sand-50 page bg + 3px sand-150 border + border-radius-md). User-driven resize + collapse of left and right panels deferred to Patch 1b."
       }
     },
     {

@@ -37,11 +37,11 @@
   --primary-focus:      var(--color-teal-800);
   --primary-active:     var(--color-teal-800);
   --primary-checked:    var(--color-teal-700);
-  --primary-foreground: var(--color-stone-50);
+  --primary-foreground: var(--color-sand-50);
   --primary-line:       transparent;
 
-  /* --- Sidebar / nav surfaces — stone family for warm neutral. --- */
-  --sidebar:                 var(--color-stone-50);
+  /* --- Sidebar / nav surfaces — sand family for warm neutral. --- */
+  --sidebar:                 var(--color-sand-50);
   --sidebar-line:            var(--color-sand-200);
   --sidebar-divider:         var(--color-sand-200);
   --sidebar-nav-foreground:  var(--color-sand-700);

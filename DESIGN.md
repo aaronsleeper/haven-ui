@@ -42,7 +42,7 @@ Pull via Figma MCP (`mcp__claude_ai_Figma__get_design_context`, `get_variable_de
 
 | Axis | Source | Translation rule |
 |---|---|---|
-| Colors (palette, semantic, surface, border, interactive) | **Figma** | Regenerate haven-ui tokens from Figma variable defs; use Figma names (`teal/700`, `stone/16`, `emerald/04`) directly |
+| Colors (palette, semantic, surface, border, interactive) | **Figma** | Regenerate haven-ui tokens from Figma variable defs. Figma-native names map to haven-ui code names per §Figma-to-code token mapping; hex-identical across the boundary. |
 | Border radii | **Figma** | Adopt directly; round-down rule for values between existing tokens (e.g., Figma 6px → `border-radius/sm` 5px) |
 | Elevations / shadows | **Figma** | Adopt the 5-level multi-shadow stacks as haven-ui shadow tokens |
 | Typography (family, weight, scale, tokens) | **Figma** | Adopt directly: Lora + Inter + JetBrains Mono |
@@ -64,13 +64,29 @@ Canonical logo: **Cena Health wordmark** (`logo-cenahealth-teal.svg`).
 - Placement: top of the left nav pane, within the header region (~81px tall)
 - Size: ~24px tall × ~131px wide (observed in Figma mock 1-472)
 - Variants: `logo-cenahealth-teal.svg` (wordmark + mark), `favicon.svg` (mark only for browser tab)
-- Background: translucent-white-on-stone page background
+- Background: translucent-white-on-sand page background
 
 **Do not:** substitute the Ava avatar for the Cena logo in nav. That mode was considered and retired 2026-04-18.
 
 ### Color
 
-Haven's palette has three layers: a 9-family tag-semantic palette, a brand palette (teal + stone), and interactive/surface/text/border semantic tokens. All hexes come from Figma.
+Haven's palette has three layers: a 9-family tag-semantic palette, a brand palette (teal + sand), and interactive/surface/text/border semantic tokens. All hexes come from Figma.
+
+#### Figma-to-code token mapping
+
+Figma variable names and haven-ui code token names map 1:1 by hex. Designers working in Figma, and authors writing haven-ui code, see the same values under different labels.
+
+| Figma name | haven-ui code token | Notes |
+|---|---|---|
+| `stone/*` (surface) | `sand-*` | **Surface family rename.** Haven-ui's warm-neutral surface family is canonical as `sand`; `stone` survives in palette.css as a hex-literal defensive fallback against Tailwind v4's `@layer theme` cascade override (see [haven-ui CLAUDE.md — Tailwind @theme cascade trap](./CLAUDE.md#framework-usage)), never component-facing. Extended stops `/15 /16 /150 /250` exist in both. |
+| `teal/*` | `teal-*` | Name-identical. Brand primary family. |
+| `emerald/*`, `cyan/*`, `indigo/*`, `violet/*`, `fuchsia/*`, `rose/*`, `gold/*`, `lime/*` | *(tag tokens pending Figma pull)* | 9-color tag-semantic palette; `/04 /14 /16` stops. See §9-color tag-semantic palette below. |
+| `stone/*` (tag-semantic) | *(pending)* | **Distinct from the surface family above.** Figma names both the surface family and the neutral-tag family `stone`; haven-ui will namespace the tag version when Figma tag tokens are pulled (candidate: `tag-neutral-*`). Tracked as open question. |
+| `interactive/accent-color` | `--color-accent-interactive` | Semantic singleton. |
+| `text/on-light/*`, `text/on-dark/*` | `--color-text-normal` / `-muted` / `-faint` / `-on-dark` | Role-scoped semantic singletons. |
+| `border/default`, `border/image` | `--color-border-default`, `--color-border-image` | Role-scoped semantic singletons. |
+
+**Authoring rule:** write haven-ui code-token names inside components, semantic classes, and `@apply` directives. Figma-native names appear in this document only within this mapping table and in `.project-docs/references/figma-north-star.md`.
 
 #### Brand palette
 
@@ -82,17 +98,17 @@ Haven's palette has three layers: a 9-family tag-semantic palette, a brand palet
 | `teal/800` | `#27655b` | Dark brand accent |
 | `interactive/accent-color` | `#418f82` | Selection, progress-filled, form input accent (semantically distinct from button primary) |
 
-#### Surface (stone family)
+#### Surface (sand family)
 
 | Token | Hex | Role |
 |---|---|---|
-| `stone/15` | `#edeceb` | Progress-empty / neutral bar |
-| `stone/16` | `#f2f2f2` | Unselected response index bg |
-| `stone/50` | `#f5eee5` | **Page background** (never white) |
-| `stone/100` | `#eee6db` | Appointment cards, grouped rows |
-| `stone/150` | `#e7ded2` | Shell container border, coach-mark bg |
-| `stone/200` | `#dfd5c9` | Close-button bg |
-| `stone/250` | `#d8cec0` | Border/default, tertiary button border |
+| `sand-15`  | `#edeceb` | Progress-empty / neutral bar |
+| `sand-16`  | `#f2f2f2` | Unselected response index bg |
+| `sand-50`  | `#f5eee5` | **Page background** (never white) |
+| `sand-100` | `#eee6db` | Appointment cards, grouped rows |
+| `sand-150` | `#e7ded2` | Shell container border, coach-mark bg |
+| `sand-200` | `#dfd5c9` | Close-button bg |
+| `sand-250` | `#d8cec0` | Border/default, tertiary button border |
 
 Pane backgrounds use translucent white overlays (`rgba(255,255,255,0.6)` nav, `rgba(255,255,255,0.42)` nav on screens with background blobs). Pages are never pure white.
 
@@ -103,7 +119,7 @@ Pane backgrounds use translucent white overlays (`rgba(255,255,255,0.6)` nav, `r
 | `text/on-light/normal` | `#040301` | Body + heading on light bg |
 | `text/on-light/muted` | `#52432a` | Secondary text, helper copy |
 | `text/on-light/faint` | `#806f56` | Tertiary / placeholder |
-| `text/on-dark/default` | `#f5eee5` | Text on dark-teal bg (same hex as `stone/50`) |
+| `text/on-dark/default` | `#f5eee5` | Text on dark-teal bg (same hex as `sand-50`) |
 
 #### Border
 
@@ -224,7 +240,7 @@ haven-ui inherits the motion token set from `packages/design-system/src/styles/t
 
 ### Surface / elevation
 
-Page background: `stone/50`. Pane backgrounds: translucent white over stone. Cards: solid white on stone, or `stone/100` for grouped rows.
+Page background: `sand-50`. Pane backgrounds: translucent white over sand. Cards: solid white on sand, or `sand-100` for grouped rows.
 
 Five elevation stacks. Each is a multi-shadow composition at graduated opacities. Use a single `elevation/*` token per surface — don't compose shadows ad-hoc.
 
@@ -347,8 +363,8 @@ One component, three priorities.
 | Priority | Fill | Border | Label color |
 |---|---|---|---|
 | Primary | `teal/700` | `teal/750` | white |
-| Secondary | `stone/150` | `border/default` | `text/on-light/normal` |
-| Tertiary | transparent | `stone/250` | `text/on-light/normal` |
+| Secondary | `sand-150` | `border/default` | `text/on-light/normal` |
+| Tertiary | transparent | `sand-250` | `text/on-light/normal` |
 
 - Height 36px (`interactive/min-height/in-input`)
 - Padding 11px horizontal, 7px gap
@@ -389,13 +405,13 @@ Pattern for numbered multi-choice responses (e.g., GAD-7 scale, Likert items).
 
 - 325px max width (`length/size/13`)
 - Index square: 36px × 36px, `border-radius/xs 2px`
-  - Unselected: `stone/16` bg + numeric index
+  - Unselected: `sand-16` bg + numeric index
   - Selected: `interactive/accent-color` bg + index (white)
 - Response label: 13.33 Inter Semibold, letter-spacing 0.1666
 - Check icon: 24px on selected, hidden on unselected (opacity 0)
 - Border: `border/image` 1px unselected, `interactive/accent-color` 1px selected
 
-Group uses progress-bar pagination below the question (bars equal to question count, `interactive/accent-color` filled for completed, `stone/15` for remaining).
+Group uses progress-bar pagination below the question (bars equal to question count, `interactive/accent-color` filled for completed, `sand-15` for remaining).
 
 ### Chat message patterns
 
@@ -406,23 +422,23 @@ Two variants based on author.
 | Ava | Dot-sparkle leading indicator (teal + sand) at 16px + plain `Body/02` text, no bubble |
 | User | Bordered container with `border/default`, 16px padding vertical / 7px horizontal, `border-radius/md`, `Body/02` text |
 
-Inline recommended-content cards appear within the Ava column: 42px image thumbnail + `Body/02 Semibold` title + `Body/03 muted` subtitle, `stone/50` bg + `stone/150` border + `border-radius/md` + 16px padding.
+Inline recommended-content cards appear within the Ava column: 42px image thumbnail + `Body/02 Semibold` title + `Body/03 muted` subtitle, `sand-50` bg + `sand-150` border + `border-radius/md` + 16px padding.
 
 ### Prompt input
 
 Chat-pane bottom. `border/default`, `border-radius/md`, white bg, two rows:
 
 1. Text area (min 51px, padded). Placeholder italic `text/on-light/faint`. Sample: *"You talk. I'll listen."*
-2. Action row: language toggle + image attach + mic (primary pill, teal/700) + send (secondary pill, stone/150). All pill buttons are `border-radius/xl 54px`.
+2. Action row: language toggle + image attach + mic (primary pill, teal/700) + send (secondary pill, sand-150). All pill buttons are `border-radius/xl 54px`.
 
 ### Coach-mark / tap-in card
 
-Small floating card with `elevation/03`, `stone/100` bg, `border/default`, `border-radius/md`, 191px width.
+Small floating card with `elevation/03`, `sand-100` bg, `border/default`, `border-radius/md`, 191px width.
 
 - Feature image at top (`teal/350` bg with border)
 - Copy: `Body/03 Semibold` headline + `Body/04 muted` supporting line
 - Primary button CTA
-- Close button top-right (20px stone circle)
+- Close button top-right (20px sand circle)
 
 Voice sample: *"Your A1C dropped like it's hot"* — playful, reward-forward, earns the moment.
 
@@ -447,8 +463,8 @@ Haven's voice is **warm + specific + playful + stress-literate**. Every line ear
 
 - **Primary teal is for commitments, not advancement.** Primary button fill reserved for "Book my visit," "Schedule," destructive confirms. `Next` buttons are secondary.
 - **Active nav state = Inter Bold, not background color.** Weight change carries the signal; color stays consistent with the rest of the nav.
-- **Pages are never pure white.** Page bg is `stone/50`. Panes layer translucent white on top.
-- **Pages float.** The outermost shell has a 3px `stone/150` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge.
+- **Pages are never pure white.** Page bg is `sand-50`. Panes layer translucent white on top.
+- **Pages float.** The outermost shell has a 3px `sand-150` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge.
 - **Logo is chrome; Ava is agent.** Don't mix the two.
 - **Warmth is observational, not performative.** Specific details land; generic positivity doesn't.
 
@@ -505,4 +521,5 @@ Living list. Closed via DESIGN.md updates (not by silent consensus).
 
 | Date | Change | Author |
 |---|---|---|
+| 2026-04-20 | Nomenclature reconciliation: surface family renamed `stone/*` → `sand-*` throughout §Color, §Surface, and in-body references. Added §Figma-to-code token mapping. Tag-semantic `stone` family (§9-color tag-semantic palette) preserved pending Figma tag-token pull. Patch 11 / slice-1 debt item 7. | Token Steward + Registry Steward |
 | 2026-04-18 | Initial DESIGN.md from census + Figma pulls (shell 1-472, design-system tokens, button, dialog, tag, assessments). Reconciliation direction: Figma canonical per-axis; haven-ui keeps measurement tokens on 4px scalar. | Claude (session with Aaron) |

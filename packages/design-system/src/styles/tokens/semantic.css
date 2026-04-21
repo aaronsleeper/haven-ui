@@ -11,8 +11,9 @@
       (Token Steward Phase 0 mandate 1).
 
    Palette source: palette.css (Tailwind-owned --color-teal-*, --color-sand-*,
-   --color-stone-*, --color-violet-*, --color-green-*, --color-amber-*,
-   --color-red-*, --color-cyan-*).
+   --color-violet-*, --color-green-*, --color-amber-*, --color-red-*,
+   --color-cyan-*; stone/gray/zinc/slate/neutral are defensive alias families,
+   hex-identical to sand — see palette.css).
    Refs: https://tailwindcss.com/docs/theme#inline-theme-variables
    ============================================ */
 
@@ -115,10 +116,9 @@
   --color-primary:      var(--color-teal-700);   /* #337A6E */
   --color-primary-edge: var(--color-teal-800);
 
-  /* --- Surface tokens — DESIGN.md §Surface / elevation.
-     Canonical family: sand. (DESIGN.md uses "stone" nomenclature from Figma;
-     code uses "sand" since sand is the hex-authoritative family per palette.css.
-     Reconciling DESIGN.md nomenclature tracked as a Token Steward follow-up.) --- */
+  /* --- Surface tokens — DESIGN.md §Surface (sand family).
+     Canonical family: sand. Figma-native `stone/*` maps to code `sand-*` per
+     DESIGN.md §Figma-to-code token mapping; hex-identical across the boundary. --- */
   --color-surface-page:   var(--color-sand-50);
   --color-surface-pane:   rgba(255, 255, 255, 0.6);  /* Translucent white over page. Pane = DESIGN.md §Brand-taste "Pages float. Panes layer translucent white on top." */
   --color-surface-card:   var(--color-sand-100);
