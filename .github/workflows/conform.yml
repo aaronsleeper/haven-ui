@@ -89,15 +89,12 @@ jobs:
       - name: conform:token
         run: pnpm --filter @haven/ui-react conform:token
 
-      # TRANSITIONAL: conform:visual requires Linux baselines committed at
-      # packages/ui-react/tests/conform/__screenshots__/. First CI run after
-      # this workflow lands will fail this step because baselines don't exist
-      # yet. continue-on-error keeps the job green so token-gate regressions
-      # still block merges. Baseline generation tracked as item 8b follow-up;
-      # drop continue-on-error once baselines land.
+      # Visual gate now load-bearing. Baselines committed at
+      # packages/ui-react/tests/conform/__screenshots__/ (generated via
+      # workflow_dispatch mode=generate-baselines, first set 2026-04-21).
+      # Regenerate after intentional visual changes via the same dispatch.
       - name: conform:visual
         if: inputs.mode != 'generate-baselines'
-        continue-on-error: true
         run: pnpm --filter @haven/ui-react conform:visual
 
       # Baseline-generation branch: runs only when workflow_dispatch is
