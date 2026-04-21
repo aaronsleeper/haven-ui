@@ -195,6 +195,39 @@ This is mandatory. No exceptions.
 
 See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 
+### Pattern-library vs Storybook — boundary + drift protection
+
+These are NOT duplicative. They sit on opposite sides of the spec → port line.
+
+| | Pattern-library | Storybook |
+|---|---|---|
+| **Role** | Spec / ground truth. What a component *should* look like. | Test harness + visual-regression target. React ports running. |
+| **Tech** | HTML + semantic CSS classes (vanilla) | React components rendering in isolation |
+| **Served at** | `pnpm --filter @haven/design-system dev` → http://localhost:5173 | `pnpm --filter @haven/ui-react storybook` |
+| **When to edit** | Design decisions, new classes, new components | Derivative — mirrors pattern-library entries 1:1 |
+| **Audience** | Designers, brand reviewers, new agents figuring out what exists | `conform:visual` Playwright gate; React devs verifying port parity |
+| **Authoring authority** | Canonical. If they diverge, pattern-library wins. | Follows pattern-library. Edits here are ports, not design. |
+
+**When to use which:**
+- Copying HTML for a new component → pattern-library
+- Reviewing a brand-fidelity or design decision → pattern-library
+- Running `conform:visual` screenshot-diff → Storybook (Playwright)
+- Verifying a React port renders identically to spec → compare Storybook output to pattern-library page
+
+**Drift protections between pattern-library and React ports:**
+
+| Protection | Scope | Status |
+|---|---|---|
+| `ui-react-porter` skill | Enforces 1:1 mechanical port from pattern-library HTML → React JSX | Active |
+| `conform:manifest` | `registry.json` consistency check — every registered component declares its pattern-library source + stories | Active (pilot scope) |
+| `conform:css-family` | Tailwind-family drift in pattern-library HTML + React JSX (extended Patch 10) | Active (pilot scope) |
+| `conform:token` | Token divergence at runtime — Playwright renders stories, reads computed styles, asserts against registered token set | Active (pilot scope) |
+| `conform:visual` | Pixel-level divergence — Playwright screenshots React stories, diffs against committed baselines | Local-only; CI pending item 8b Playwright bootstrap |
+| Variant-matrix story coverage | 9 stories mirror pattern-library variant exemplars; `registry.json` `stories` arrays enforce presence (Patch 7) | Active |
+| COMPONENT-INDEX.md + COMPONENT-REGISTRY.md | Human-readable ground-truth lists; every PL component indexed; every target component tracked by status | Active (manual) |
+
+**The gap today (April 2026):** `conform:visual` runs locally but has no CI enforcement until item 8b lands the Playwright bootstrap. Visual drift between pattern-library HTML and React port could slip through PR review until CI is wired. Until then, drift protection leans on the `ui-react-porter` skill's mechanical discipline + `conform:css-family` + `conform:token` structural coverage + variant-matrix Storybook baselines.
+
 ---
 
 ## JavaScript / TypeScript Rules
