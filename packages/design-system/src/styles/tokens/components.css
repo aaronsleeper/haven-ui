@@ -4456,8 +4456,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    PATIENT APP — TASK CARD
    =================================== */
 
+/* @surface-role: card */
 .task-card {
-  @apply flex items-center gap-3 p-3 bg-white border border-sand-200 rounded-xl;
+  @apply flex items-center gap-3 p-3 bg-surface-card border border-sand-200 rounded-xl;
   @apply hover:border-sand-300 hover:shadow-2xs;
   @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:border-sand-600;
   text-decoration: none;
@@ -4506,8 +4507,9 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    PATIENT APP — TREND CARD
    =================================== */
 
+/* @surface-role: card */
 .trend-card {
-  @apply block bg-white border border-sand-200 rounded-xl p-4;
+  @apply block bg-surface-card border border-sand-200 rounded-xl p-4;
   @apply hover:border-sand-300 hover:shadow-2xs;
   @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:border-sand-600;
   text-decoration: none;
@@ -8344,8 +8346,9 @@ a.list-group-item-action {
 }
 
 /* DataTable extensions for agentic UI */
+/* @surface-role: card */
 .data-table-striped tbody tr:nth-child(even) {
-    @apply bg-white;
+    @apply bg-surface-card;
     @apply dark:bg-sand-900;
 }
 

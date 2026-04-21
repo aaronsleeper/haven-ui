@@ -86,7 +86,11 @@ const SELECTOR_RE = /^(\s*)(\.[\w-]+(?:[^{]*?))\s*\{/;
 
 // Match any background utility in @apply: bg-something (hyphen-ok), capturing
 // the full `bg-*` token. Handles stacked utilities on one line.
-const BG_UTILITY_RE = /(?<![\w-])bg-[\w/-]+/g;
+// Rejects variant-prefixed matches (`dark:bg-*`, `hover:bg-*`, etc.) — the
+// colon in the lookbehind blocks prefix matches. Variant overrides are a
+// distinct state; the gate checks the base surface declaration only. This
+// mirrors contrast-pairs.ts's defer-variants-to-v2 stance.
+const BG_UTILITY_RE = /(?<![\w\-:])bg-[\w/-]+/g;
 
 // background-color CSS property declaration (value up to the terminating ; or })
 const BG_COLOR_RE = /background(?:-color)?\s*:\s*([^;}]+)/gi;
