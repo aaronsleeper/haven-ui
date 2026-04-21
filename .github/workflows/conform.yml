@@ -28,9 +28,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # FA Pro Item 8b Phase 1: extract the committed subset tarball into the
+      # gitignored vendor dir. Storybook's staticDirs config needs this path
+      # populated before storybook:build can bundle icon assets.
+      - name: Setup FontAwesome Pro
+        run: bash scripts/setup-fontawesome.sh
+
       - name: Typecheck
         run: pnpm typecheck
 
+      # 8 structural gates — each its own step so the GH Actions UI shows
+      # per-gate pass/fail rather than one collapsed result.
       - name: conform:manifest
         run: pnpm --filter @haven/ui-react conform:manifest
 
@@ -54,3 +62,36 @@ jobs:
 
       - name: conform:font-features
         run: pnpm --filter @haven/ui-react conform:font-features
+
+      # Playwright runtime gates — token (computed-style set-membership) +
+      # visual (pixel diff vs Linux baselines). Storybook must be built first
+      # because playwright.config.ts webServer uses `storybook:serve` on CI,
+      # which serves the static bundle at :5178.
+      - name: Install Playwright Chromium
+        run: pnpm --filter @haven/ui-react exec playwright install chromium --with-deps
+
+      - name: Build Storybook (static bundle)
+        run: pnpm --filter @haven/ui-react storybook:build
+
+      - name: conform:token
+        run: pnpm --filter @haven/ui-react conform:token
+
+      # TRANSITIONAL: conform:visual requires Linux baselines committed at
+      # packages/ui-react/tests/conform/__screenshots__/. First CI run after
+      # this workflow lands will fail this step because baselines don't exist
+      # yet. continue-on-error keeps the job green so token-gate regressions
+      # still block merges. Baseline generation tracked as item 8b follow-up;
+      # drop continue-on-error once baselines land.
+      - name: conform:visual
+        continue-on-error: true
+        run: pnpm --filter @haven/ui-react conform:visual
+
+      - name: Upload Playwright artifacts (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: |
+            packages/ui-react/playwright-report/
+            packages/ui-react/test-results/
+          retention-days: 7
