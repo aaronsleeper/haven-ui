@@ -758,18 +758,20 @@ For large tap-target selection controls on mobile -- where both radio and checkb
 
 **Context:** An action button inside a colored alert surface (e.g., a Confirm CTA inside `.alert-warning`) should not use `.btn-primary` (teal). The color mismatch breaks the alert's visual coherence.
 
-**Rule:** Create `alert-{variant}-btn` companion classes when a button needs to live inside a colored alert. The button should use the variant's darker tone for contrast against the surface.
+**Rule:** Create `btn-alert-{variant}` companion classes when a button needs to live inside a colored alert. The button should use the variant's darker tone for contrast against the surface. The `btn-` prefix is load-bearing — it's what the `conform:button-font-size` gate keys on.
 
 **Pattern for warning:**
 ```css
-.alert-warning-btn {
-    @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg;
+.btn-alert-warning {
+    @apply inline-flex items-center gap-x-1.5 font-medium rounded-lg;
     @apply py-1.5 px-3 shrink-0;
     @apply bg-warning-700 text-white border border-transparent;
     @apply hover:bg-warning-800;
     @apply focus:outline-none focus:ring-2 focus:ring-warning-500 focus:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:bg-warning-600 dark:hover:bg-warning-700;
+    font-size: var(--text-button-medium);
+    line-height: var(--text-button-medium--line-height);
     cursor: pointer;
     text-decoration: none;
 }
@@ -780,12 +782,14 @@ For large tap-target selection controls on mobile -- where both radio and checkb
 <div class="alert alert-warning rounded-xl" role="alert">
   <div class="flex items-center justify-between w-full gap-3">
     <span class="text-sm">Message text</span>
-    <a href="..." class="alert-warning-btn shrink-0">Action</a>
+    <a href="..." class="btn-alert-warning shrink-0">Action</a>
   </div>
 </div>
 ```
 
-**Follow this same pattern** to create `alert-error-btn`, `alert-success-btn`, `alert-info-btn` if/when needed.
+**Follow this same pattern** to create `btn-alert-error`, `btn-alert-success`, `btn-alert-info` if/when needed.
+
+**Historical note:** This pattern was originally authored as `.alert-warning-btn` (suffix-btn); renamed to `.btn-alert-warning` (prefix-btn) 2026-04-21 to match the Haven button-class convention and be scanned by `conform:button-font-size`.
 
 ---
 

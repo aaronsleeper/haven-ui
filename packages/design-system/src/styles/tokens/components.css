@@ -413,15 +413,21 @@ a.btn-danger {
 
 /* Button size variants */
 .btn-sm {
-    @apply py-2 px-3 text-xs gap-x-1.5;
+    @apply py-2 px-3 gap-x-1.5;
+    font-size: var(--text-button-small);
+    line-height: var(--text-button-small--line-height);
 }
 
 .btn-xs {
-    @apply py-1 px-2 text-xs gap-x-1;
+    @apply py-1 px-2 gap-x-1;
+    font-size: var(--text-button-small);
+    line-height: var(--text-button-small--line-height);
 }
 
 .btn-lg {
-    @apply py-3.5 px-6 text-base;
+    @apply py-3.5 px-6;
+    font-size: var(--text-button-large);
+    line-height: var(--text-button-large--line-height);
 }
 
 /* ===================================
@@ -1294,15 +1300,19 @@ a.btn-danger {
 }
 
 /* Action button inside .alert-warning — matches warning surface colors.
-   Use instead of .btn-primary when the button lives inside a warning alert. */
-.alert-warning-btn {
-    @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg;
+   Use instead of .btn-primary when the button lives inside a warning alert.
+   Renamed from .alert-warning-btn to .btn-alert-warning 2026-04-21 so the
+   class participates in the conform:button-font-size gate's selector scope. */
+.btn-alert-warning {
+    @apply inline-flex items-center gap-x-1.5 font-medium rounded-lg;
     @apply py-1.5 px-3 shrink-0;
     @apply bg-warning-700 text-white border border-transparent;
     @apply hover:bg-warning-800;
     @apply focus:outline-none focus:ring-2 focus:ring-warning-500 focus:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:bg-warning-600 dark:hover:bg-warning-700;
+    font-size: var(--text-button-medium);
+    line-height: var(--text-button-medium--line-height);
     cursor: pointer;
     text-decoration: none;
 }
@@ -2349,16 +2359,22 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply block;
 }
 
+/* Renamed .dropdown-btn → .btn-dropdown 2026-04-21 so the class participates
+   in the conform:button-font-size gate's selector scope. .btn-model-selector
+   is kept as a semantic alias — Haven's AI-model picker reads as a distinct
+   affordance in copy even when it shares the dropdown-button visual pattern. */
 .btn-model-selector,
-.dropdown-btn {
+.btn-dropdown {
     /* Reset base button styles */
     @apply py-2 px-3 bg-sand-50 text-sand-800 border-sand-200;
 
     /* Selector styles */
-    @apply inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border shadow-sm transition-colors;
+    @apply inline-flex items-center gap-x-2 font-medium rounded-lg border shadow-sm transition-colors;
     @apply hover:bg-sand-50;
     @apply focus:outline-none focus:bg-sand-50;
     @apply dark:bg-sand-800 dark:border-sand-700 dark:text-white dark:hover:bg-sand-700 dark:focus:bg-sand-700;
+    font-size: var(--text-button-small);
+    line-height: var(--text-button-small--line-height);
 }
 
 /* ===================================
@@ -7144,8 +7160,10 @@ a.list-group-item-action {
 
 .notif-center-footer a,
 .notif-center-footer button {
-    @apply text-xs font-medium;
+    @apply font-medium;
     @apply text-primary-600 dark:text-primary-400;
+    font-size: var(--text-button-small);
+    line-height: var(--text-button-small--line-height);
     background: none;
     border: none;
     cursor: pointer;

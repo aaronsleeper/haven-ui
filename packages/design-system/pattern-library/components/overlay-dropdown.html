@@ -3,10 +3,10 @@
   name: Dropdown
   category: Overlays
   file: overlay-dropdown.html
-  classes: dropdown-btn, dropdown-menu, dropdown-item
+  classes: btn-dropdown, dropdown-menu, dropdown-item
   when-to-use: Action menus in table rows, toolbars, and page headers.
   preline-required: yes — hs-dropdown
-  notes: Use .dropdown-btn for the trigger. Always include data-hs-dropdown-placement if not default.
+  notes: Use .btn-dropdown for the trigger. Always include data-hs-dropdown-placement if not default.
   @end-meta
 -->
 
@@ -19,7 +19,7 @@
 
   <!-- @component: overlay-dropdown -->
   <div class="hs-dropdown relative inline-flex">
-    <button id="hs-dropdown-actions" type="button" class="hs-dropdown-toggle dropdown-btn" aria-haspopup="menu" aria-expanded="false" aria-label="Actions">
+    <button id="hs-dropdown-actions" type="button" class="hs-dropdown-toggle btn-dropdown" aria-haspopup="menu" aria-expanded="false" aria-label="Actions">
       Actions
       <i class="fa-solid fa-chevron-down text-xs"></i>
     </button>
