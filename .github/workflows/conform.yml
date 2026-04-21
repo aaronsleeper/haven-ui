@@ -5,6 +5,19 @@ on:
     branches: [main]
   push:
     branches: [main]
+  # Manual trigger for Linux baseline generation. Aaron's Mac lacks Docker, so
+  # baselines are generated on the GH runner and downloaded as artifact for
+  # local commit. Keep this trigger permanent — also useful for regenerating
+  # baselines after intentional visual changes.
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'verify runs all gates; generate-baselines runs only the visual gate with --update-snapshots and uploads __screenshots__/ as artifact'
+        type: choice
+        options:
+          - verify
+          - generate-baselines
+        default: verify
 
 concurrency:
   group: conform-${{ github.ref }}
@@ -83,8 +96,27 @@ jobs:
       # still block merges. Baseline generation tracked as item 8b follow-up;
       # drop continue-on-error once baselines land.
       - name: conform:visual
+        if: inputs.mode != 'generate-baselines'
         continue-on-error: true
         run: pnpm --filter @haven/ui-react conform:visual
+
+      # Baseline-generation branch: runs only when workflow_dispatch is
+      # invoked with mode=generate-baselines. Writes PNGs into __screenshots__/
+      # via --update-snapshots, then uploads the directory as an artifact for
+      # manual download + commit.
+      - name: Generate visual baselines
+        if: inputs.mode == 'generate-baselines'
+        env:
+          CI: true
+        run: pnpm --filter @haven/ui-react exec playwright test tests/conform/visual.spec.ts --update-snapshots
+
+      - name: Upload generated baselines
+        if: inputs.mode == 'generate-baselines'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: packages/ui-react/tests/conform/__screenshots__/
+          retention-days: 7
 
       - name: Upload Playwright artifacts (on failure)
         if: failure()
