@@ -118,11 +118,14 @@
 
   /* --- Surface tokens — DESIGN.md §Surface (sand family).
      Canonical family: sand. Figma-native `stone/*` maps to code `sand-*` per
-     DESIGN.md §Figma-to-code token mapping; hex-identical across the boundary. --- */
-  --color-surface-page:   var(--color-sand-50);
-  --color-surface-pane:   rgba(255, 255, 255, 0.6);  /* Translucent white over page. Pane = DESIGN.md §Brand-taste "Pages float. Panes layer translucent white on top." */
-  --color-surface-card:   var(--color-sand-100);
-  --color-surface-raised: var(--color-sand-150);
+     DESIGN.md §Figma-to-code token mapping; hex-identical across the boundary.
+     Card primary = solid white per DESIGN.md §Surface line 243 ("Cards:
+     solid white on sand, or sand-100 for grouped rows"). --- */
+  --color-surface-page:         var(--color-sand-50);
+  --color-surface-pane:         rgba(255, 255, 255, 0.6);  /* Translucent white over page. Pane = DESIGN.md §Brand-taste "Pages float. Panes layer translucent white on top." */
+  --color-surface-card:         #ffffff;                    /* Primary card — solid white on sand. */
+  --color-surface-card-grouped: var(--color-sand-100);      /* Grouped-row card variant per DESIGN.md §Surface. */
+  --color-surface-raised:       var(--color-sand-150);
 
   /* --- Text tokens — DESIGN.md §Text. --- */
   --color-text-normal:  var(--color-sand-900);

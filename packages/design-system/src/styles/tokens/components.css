@@ -7460,13 +7460,17 @@ a.list-group-item-action {
 }
 
 .queue-item-summary {
-    @apply block text-xs text-sand-600 truncate mt-0.5;
+    @apply block text-sand-600 truncate mt-0.5;
     @apply dark:text-sand-300;
+    font-size: var(--text-body-04);
+    line-height: var(--text-body-04--line-height);
 }
 
 .queue-item-meta {
-    @apply flex items-center justify-between text-xs text-sand-600 mt-1;
+    @apply flex items-center justify-between text-sand-600 mt-1;
     @apply dark:text-sand-300;
+    font-size: var(--text-utility-timestamp);
+    line-height: var(--text-utility-timestamp--line-height);
 }
 
 .queue-item-sla {
@@ -7486,7 +7490,9 @@ a.list-group-item-action {
 
 .queue-section-header {
     @apply flex items-center gap-1.5 px-3 py-1.5 m-0;
-    @apply text-xs font-semibold uppercase tracking-wide;
+    @apply font-semibold uppercase tracking-wide;
+    font-size: var(--text-utility-overline);
+    line-height: var(--text-utility-overline--line-height);
 }
 
 .queue-section-header.is-urgent {
@@ -8918,8 +8924,9 @@ a.list-group-item-action {
    ================================================================ */
 
 /* Response Option — single numbered Likert / multi-choice option. */
+/* @surface-role: card */
 .response-option {
-    @apply flex items-center gap-3 w-full max-w-[325px] px-3 py-2 rounded-[5px] bg-white text-left cursor-pointer transition-colors duration-100;
+    @apply flex items-center gap-3 w-full max-w-[325px] px-3 py-2 rounded-[5px] bg-surface-card text-left cursor-pointer transition-colors duration-100;
     border: 1px solid var(--color-border-image);
 }
 
