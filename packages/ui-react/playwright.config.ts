@@ -17,6 +17,10 @@ const isCI = !!process.env.CI;
 
 export default defineConfig({
   testDir: './tests/conform',
+  // Match the __screenshots__/ convention documented at visual.spec.ts:13.
+  // Default template scatters PNGs into a `<spec>.ts-snapshots/` sibling —
+  // explicit template targets a single flat directory we treat as source.
+  snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{-projectName}{-platform}{ext}',
   retries: isCI ? 1 : 0,
   reporter: isCI ? [['list'], ['html', { open: 'never' }]] : [['list']],
   workers: isCI ? 2 : undefined,
