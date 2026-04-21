@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { test, expect } from '@playwright/test';
@@ -12,15 +12,23 @@ const DS_TOKENS_DIR = resolve(
   HERE,
   '../../../design-system/src/styles/tokens',
 );
-const DS_TOKEN_FILES = [
-  'palette.css',
-  'typography.css',
-  'semantic.css',
-  'elevation.css',
-  'motion.css',
-  'spacing.css',
-  'radius.css',
-];
+
+// Inverted discovery: every `tokens/*.css` file IS a token spec by default.
+// Exclusions are named explicitly here. Landing a new `tokens/foo.css` picks
+// it up automatically — no gate-file edit required. Prior include-list policy
+// silently missed `radius.css` between authoring (2026-04-19) and gate-update
+// (2026-04-20); this inversion closes that class of failure structurally.
+const EXCLUDED_FROM_GATE = new Set<string>([
+  'components.css', // @apply consumer layer — references tokens, does not declare them
+]);
+
+async function discoverTokenFiles(): Promise<string[]> {
+  const entries = await readdir(DS_TOKENS_DIR);
+  return entries
+    .filter((f) => f.endsWith('.css'))
+    .filter((f) => !EXCLUDED_FROM_GATE.has(f))
+    .sort();
+}
 
 // Token-conformance gate. For each pilot story, reads the rendered component's
 // root element and asserts its six core computed properties (backgroundColor,
@@ -92,9 +100,10 @@ async function discoverTokens(page: Page): Promise<TokenSets> {
   // getComputedStyle(document.documentElement) doesn't enumerate custom props
   // (browser spec gap); style-tag concat is the correct runtime path.
 
+  const tokenFiles = await discoverTokenFiles();
   const sourceText = (
     await Promise.all(
-      DS_TOKEN_FILES.map((f) => readFile(resolve(DS_TOKENS_DIR, f), 'utf-8')),
+      tokenFiles.map((f) => readFile(resolve(DS_TOKENS_DIR, f), 'utf-8')),
     )
   ).join('\n');
   const sourceTokens = parseTokensCSS(sourceText);
