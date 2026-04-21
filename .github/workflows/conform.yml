@@ -1,0 +1,56 @@
+name: conform
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: conform-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  conform:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: conform:manifest
+        run: pnpm --filter @haven/ui-react conform:manifest
+
+      - name: conform:app-shell
+        run: pnpm --filter @haven/ui-react conform:app-shell
+
+      - name: conform:css-family
+        run: pnpm --filter @haven/ui-react conform:css-family
+
+      - name: conform:surface-role
+        run: pnpm --filter @haven/ui-react conform:surface-role
+
+      - name: conform:plain-language
+        run: pnpm --filter @haven/ui-react conform:plain-language
+
+      - name: conform:contrast-pairs
+        run: pnpm --filter @haven/ui-react conform:contrast-pairs
+
+      - name: conform:wireframe-completeness
+        run: pnpm --filter @haven/ui-react conform:wireframe-completeness
+
+      - name: conform:font-features
+        run: pnpm --filter @haven/ui-react conform:font-features
