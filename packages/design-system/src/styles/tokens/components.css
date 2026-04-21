@@ -379,10 +379,12 @@ a.btn-primary,
 a.btn-secondary,
 a.btn-outline,
 a.btn-danger {
-    @apply inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg border border-transparent;
+    @apply inline-flex items-center gap-x-1.5 font-medium rounded-lg border border-transparent;
     @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
     @apply disabled:opacity-50 disabled:pointer-events-none;
     @apply dark:focus:ring-offset-sand-800;
+    font-size: var(--text-button-medium);
+    line-height: var(--text-button-medium--line-height);
     cursor: pointer;
     text-decoration: none;
 }
@@ -7451,8 +7453,10 @@ a.list-group-item-action {
 }
 
 .queue-item-name {
-    @apply text-sm font-medium text-sand-900 truncate;
+    @apply font-medium text-sand-900 truncate;
     @apply dark:text-sand-100;
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
 }
 
 .queue-item-summary {
