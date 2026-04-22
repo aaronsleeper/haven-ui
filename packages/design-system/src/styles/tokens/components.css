@@ -7406,10 +7406,16 @@ a.list-group-item-action {
     @apply dark:text-sand-400;
 }
 
+/* Patch 24 (2026-04-22): text-primary-400 on bg-primary-100 was 2.31:1 —
+   fails WCAG AA 4.5:1 for 12px (.text-xs) normal-weight description copy.
+   text-primary-600 (#1B685E on teal-100 #D0E7E2) is 5.08:1, clears AA with
+   margin while staying one-tier lighter than the title's text-primary-800
+   (10.73:1) to preserve intra-item hierarchy. Dark-mode symmetric bump
+   primary-500 → primary-400 for the same direction. */
 .cmd-palette-item:hover .cmd-palette-item-description,
 .cmd-palette-item.is-active .cmd-palette-item-description {
-    @apply text-primary-400;
-    @apply dark:text-primary-500;
+    @apply text-primary-600;
+    @apply dark:text-primary-400;
 }
 
 /* Trailing keyboard shortcut on item */
