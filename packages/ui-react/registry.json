@@ -188,6 +188,118 @@
       }
     },
     {
+      "name": "commit-action",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/CommitAction.tsx", "type": "registry:component" },
+        { "path": "components/CommitAction.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/commit-action.html",
+        "composition": {
+          "propSchema": "./components/CommitAction.props.ts",
+          "markdocTag": "commit-action",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "isTerminalAction": true,
+        "stories": [
+          "CommitAction.default",
+          "CommitAction.anchor",
+          "CommitAction.start"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Sibling to primary-action for actions that change system state — Start, Submit, Save, Book, Schedule, Done. Renders btn-primary (teal) per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits.' Anchor when href provided (navigate + commit, e.g. Submit → completion screen); button otherwise. isTerminalAction: true — counts against the wireframe-completeness gate."
+      }
+    },
+    {
+      "name": "avatar",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/Avatar.tsx", "type": "registry:component" },
+        { "path": "components/Avatar.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/avatar.html",
+        "composition": {
+          "propSchema": "./components/Avatar.props.ts",
+          "markdocTag": "avatar",
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "stories": [
+          "Avatar.initials",
+          "Avatar.iconXL",
+          "Avatar.neutralSm"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Circular user/entity representation. Renders the base .avatar class plus optional size (xs/sm/md/lg/xl) and color (primary/secondary/neutral) modifier. Children author initials text OR an <img class=avatar-img> OR an <i class=\"fa-* avatar-icon\">; this matches the three shapes in avatar.html. Avatar groups + group-overflow stay deferred — composed from multiple avatar instances at the app layer."
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/Card.tsx", "type": "registry:component" },
+        { "path": "components/Card.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/layout-card.html",
+        "composition": {
+          "propSchema": "./components/Card.props.ts",
+          "markdocTag": "card",
+          "allowedChildren": ["card-header", "card-title", "card-subtitle", "card-body", "card-footer"],
+          "slotModel": "children-slot"
+        },
+        "stories": [
+          "Card.basic",
+          "Card.withHeader",
+          "Card.withFooter"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Default container primitive per DESIGN.md §Card canon (rounded-md = 11px per Patch 19). Card + CardHeader + CardTitle + CardSubtitle + CardBody + CardFooter export as a subcomponent family from one React file, mirroring the compositional pattern in layout-card.html."
+      }
+    },
+    {
+      "name": "mobile-shell",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/MobileShell.tsx", "type": "registry:component" },
+        { "path": "components/MobileShell.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/layout-mobile-shell.html",
+        "composition": {
+          "propSchema": "./components/MobileShell.props.ts",
+          "markdocTag": "mobile-shell",
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "isAppShell": true,
+        "stories": [
+          "MobileShell.default"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Patient-app layout primitive. Wraps content in .mobile-shell (max 430px centered) and applies .mobile-app to <body> via useEffect so the PL's two-part contract is honored from one component. isAppShell: true because it's the patient app's root envelope, sibling to three-panel-shell for desktop-persona apps."
+      }
+    },
+    {
       "name": "progress-bar-pagination",
       "type": "registry:component",
       "files": [

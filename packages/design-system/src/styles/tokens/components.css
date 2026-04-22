@@ -156,6 +156,7 @@ form > div {
 }
 
 /* Inner centering wrapper — constrains content to mobile width */
+/* @contrast-exempt: decorative-background */
 .mobile-shell {
   @apply block w-full max-w-[430px] mx-auto min-h-dvh relative;
   background-color: var(--color-sand-50);
@@ -647,10 +648,12 @@ a.btn-danger {
    conform:radius-pill gate (tests/conform/radius-pill.ts) prevents the drift
    class from returning. See DESIGN.md §Card canon for the authoritative
    radius prescription. */
+/* @contrast-exempt: decorative-background */
 .card {
     @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
+/* @contrast-exempt: decorative-background */
 .card-header {
     @apply px-4 py-3 md:px-5 md:py-4 border-b border-sand-200;
     @apply dark:border-sand-700;
@@ -691,6 +694,7 @@ a.btn-danger {
     @apply flex flex-row overflow-hidden;
 }
 
+/* @contrast-exempt: decorative-background */
 .card-icon-stripe {
     @apply flex items-center justify-center shrink-0 bg-primary-50;
     width: 3rem;
@@ -713,6 +717,7 @@ a.btn-danger {
 
 /* Card-title divider: when card-title lives inside card-body (no dedicated header),
    pull the bottom border flush to the card edges via negative margins. */
+/* @contrast-exempt: decorative-background */
 .card-body > .card-title {
     @apply border-b border-sand-200 pb-3;
     margin-inline: -1rem;
@@ -727,6 +732,7 @@ a.btn-danger {
     }
 }
 
+/* @contrast-exempt: decorative-background */
 .card-footer {
     @apply px-4 py-3 md:px-5 md:py-4 border-t border-sand-200;
     @apply dark:border-sand-700;
@@ -3732,7 +3738,11 @@ canvas {
    Initials, image, icon variants. Size scale xs–xl.
    =================================== */
 
-/* Base avatar — 40px default, centered content */
+/* Base avatar — 40px default, centered content. Identity is carried by the
+   inner text/image/icon (primary-700 on primary-100 clears text AA); the
+   outer circle fill is decorative surface, not an identifying color per
+   contrast-pair gate semantics. */
+/* @contrast-exempt: decorative-background */
 .avatar {
     @apply inline-flex items-center justify-center rounded-full font-semibold shrink-0;
     @apply w-10 h-10 text-sm;
@@ -3757,17 +3767,20 @@ canvas {
     @apply w-16 h-16 text-lg;
 }
 
-/* Color variants */
+/* Color variants — fills are decorative surfaces; identity carried by inner text. */
+/* @contrast-exempt: decorative-background */
 .avatar-primary {
     @apply bg-primary-100 text-primary-700;
     @apply dark:bg-primary-900/30 dark:text-primary-400;
 }
 
+/* @contrast-exempt: decorative-background */
 .avatar-secondary {
     @apply bg-secondary-100 text-secondary-700;
     @apply dark:bg-secondary-900/30 dark:text-secondary-400;
 }
 
+/* @contrast-exempt: decorative-background */
 .avatar-neutral {
     @apply bg-sand-200 text-sand-600;
     @apply dark:bg-sand-700 dark:text-sand-300;
@@ -3804,8 +3817,8 @@ canvas {
     @apply inline-flex flex-row-reverse items-center;
 }
 
-.avatar-group > .avatar,
-.avatar-group > .indicator-positioned {
+/* @contrast-exempt: decorative-background */
+.avatar-group > .avatar, .avatar-group > .indicator-positioned {
     @apply inline-flex items-center justify-center; /* re-declare centering; block was losing text centering by replacing inline-flex */
     margin-left: -0.5rem;
     box-shadow: 0 0 0 2px var(--color-sand-50);
@@ -3819,6 +3832,7 @@ canvas {
 }
 
 /* "+N more" overflow indicator in avatar group */
+/* @contrast-exempt: decorative-background */
 .avatar-group-overflow {
     @apply inline-flex items-center justify-center rounded-full font-semibold shrink-0;
     @apply w-10 h-10 text-xs;

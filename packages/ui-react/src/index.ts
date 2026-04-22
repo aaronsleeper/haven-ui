@@ -51,6 +51,32 @@ export type { AssessmentHeaderProps } from './components/AssessmentHeader';
 export { PrimaryAction } from './components/PrimaryAction';
 export type { PrimaryActionProps } from './components/PrimaryAction';
 
+export { CommitAction } from './components/CommitAction';
+export type { CommitActionProps, CommitActionButtonType } from './components/CommitAction';
+
+export { Avatar } from './components/Avatar';
+export type { AvatarProps, AvatarSize, AvatarColor } from './components/Avatar';
+
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardSubtitle,
+  CardBody,
+  CardFooter,
+} from './components/Card';
+export type {
+  CardProps,
+  CardHeaderProps,
+  CardTitleProps,
+  CardSubtitleProps,
+  CardBodyProps,
+  CardFooterProps,
+} from './components/Card';
+
+export { MobileShell } from './components/MobileShell';
+export type { MobileShellProps } from './components/MobileShell';
+
 export { ThreePanelShell } from './components/ThreePanelShell';
 export type { ThreePanelShellProps } from './components/ThreePanelShell';
 

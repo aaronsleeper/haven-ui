@@ -1,0 +1,42 @@
+<!--
+  @component-meta
+  name: Commit Action
+  category: Primitives — Actions
+  file: commit-action.html
+  classes: btn-primary (reused — no new CSS; follows DESIGN.md §Brand-taste "Primary teal fill reserved for commits")
+  when-to-use: A terminal-ish action that changes system state — Start (kick off an assessment or checkout), Submit (final answer in a form), Save, Book, Schedule, Done. Uses btn-primary (teal fill) because the user is committing to something, not merely navigating forward. Sibling to primary-action.html (which renders btn-secondary for forward-navigation commits are not).
+  do-not-use-when: The action is forward navigation without state change — use primary-action. For destructive confirms, use btn-danger. For soft exits from a completed flow ("Done for now" after a follow-up is queued), use btn-outline.
+  preline-required: no
+  notes: Renders as <a class=btn-primary> when href is provided (navigation that also commits, e.g. "Submit" routing to a completion screen); as <button type=submit class=btn-primary> by default, or type=button when needed. Wireframe-completeness gate uses the same terminal-action tag as primary-action; both are "the primary action for this screen" — they differ only in visual weight per brand-taste.
+  @end-meta
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commit Action — Haven Pattern Library</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/vendor/fontawesome/css/all.css">
+</head>
+<body>
+
+  <section class="p-8 space-y-6 max-w-[640px]">
+    <h1 class="section-title">Commit Action</h1>
+
+    <!-- @component: commit-action (submit button variant) -->
+    <button type="submit" class="btn-primary">Submit</button>
+    <!-- /component -->
+
+    <!-- @component: commit-action (anchor variant — navigates and commits) -->
+    <a href="/assessment/gad-7/complete" class="btn-primary">Submit</a>
+    <!-- /component -->
+
+    <!-- @component: commit-action (start variant) -->
+    <button type="button" class="btn-primary">Start</button>
+    <!-- /component -->
+  </section>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>
