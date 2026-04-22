@@ -571,10 +571,12 @@ a.btn-danger {
    LAYOUT
    =================================== */
 
-/* Card component — rounded-md per DESIGN.md §Card (Ava recommended-content
-   card, user chat bubble, floating tip card all at border-radius/md 11px).
-   Previously rounded-xl (54px pill) — long-standing drift. Surfaces needing
-   a different radius opt in explicitly at usage site. */
+/* Card component — rounded-md per DESIGN.md §Card. Patch 18 closed the .card
+   drift (54px pill → 11px); Patch 19 swept the same drift across 22 sibling
+   card/panel/container surfaces + 2 media surfaces (meal-chip at lg). The
+   conform:radius-pill gate (tests/conform/radius-pill.ts) prevents the drift
+   class from returning. See DESIGN.md §Card canon for the authoritative
+   radius prescription. */
 .card {
     @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
@@ -905,7 +907,7 @@ a.btn-danger {
 
 /* Table container - bordered, rounded wrapper with horizontal scroll */
 .data-table {
-    @apply border border-sand-200 rounded-xl;
+    @apply border border-sand-200 rounded-md;
     overflow-x: auto;
     overflow-y: hidden;
     @apply dark:border-sand-700;
@@ -1135,7 +1137,7 @@ a.btn-danger {
 
 /* Data Accordion — content accordion using Preline HSAccordion */
 .accordion {
-    @apply border border-sand-200 rounded-xl overflow-hidden;
+    @apply border border-sand-200 rounded-md overflow-hidden;
     @apply dark:border-sand-700;
 }
 
@@ -1328,7 +1330,7 @@ a.btn-danger {
 /* Stripe icon layout for alerts — full-height tinted column, same pattern as .card-icon-stripe-layout.
    Usage: add .alert-stripe to the .alert element, remove padding, place icon in .alert-stripe-icon
    and content in .alert-stripe-body. The variant class (.alert-warning etc.) still controls colors.
-   Structure: <div class="alert alert-warning alert-stripe rounded-xl">
+   Structure: <div class="alert alert-warning alert-stripe rounded-md">
                <div class="alert-stripe-icon"><i .../></div>
                <div class="alert-stripe-body">...</div>
              </div> */
@@ -1602,7 +1604,7 @@ a.btn-danger {
    =================================== */
 
 .prompt-input-container {
-    @apply border border-sand-200 rounded-xl bg-sand-50 overflow-hidden;
+    @apply border border-sand-200 rounded-md bg-sand-50 overflow-hidden;
     @apply shadow-xs transition-shadow duration-200;
     @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
     @apply dark:bg-sand-900 dark:border-sand-700;
@@ -2992,7 +2994,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 */
 
 .alert-category-card {
-    @apply flex flex-col gap-1 p-4 bg-sand-50 rounded-xl;
+    @apply flex flex-col gap-1 p-4 bg-sand-50 rounded-md;
     @apply border-t border-r border-b border-sand-200;
     @apply border-l-4;
     border-left-color: var(--alert-accent, var(--color-sand-200));
@@ -3010,7 +3012,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .clinical-metric-card {
-    @apply flex flex-col gap-2 p-4 bg-sand-50 border border-sand-200 rounded-xl cursor-pointer;
+    @apply flex flex-col gap-2 p-4 bg-sand-50 border border-sand-200 rounded-md cursor-pointer;
     @apply hover:bg-sand-50 transition-colors;
     @apply dark:bg-sand-900 dark:border-sand-700 dark:hover:bg-sand-800;
 }
@@ -3125,7 +3127,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .patient-card {
-    @apply flex flex-col gap-3 p-4 bg-sand-50 rounded-xl cursor-pointer;
+    @apply flex flex-col gap-3 p-4 bg-sand-50 rounded-md cursor-pointer;
     @apply border-t border-r border-b border-l border-sand-200;
     @apply hover:bg-sand-50 transition-colors;
     @apply dark:bg-sand-900 dark:border-sand-700 dark:hover:bg-sand-800;
@@ -3316,7 +3318,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .hedis-stat {
-    @apply p-4 bg-sand-50 rounded-xl border border-sand-200;
+    @apply p-4 bg-sand-50 rounded-md border border-sand-200;
 }
 
 .hedis-stat-label {
@@ -3336,7 +3338,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .roi-calculator {
-    @apply p-4 bg-sand-50 rounded-xl border border-sand-200;
+    @apply p-4 bg-sand-50 rounded-md border border-sand-200;
 }
 
 .roi-formula {
@@ -3447,7 +3449,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .performance-metric-card {
-    @apply p-4 bg-sand-50 rounded-xl border border-sand-200;
+    @apply p-4 bg-sand-50 rounded-md border border-sand-200;
 }
 
 .performance-metric-label {
@@ -4073,7 +4075,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .meal-card {
-  @apply flex items-center gap-3 bg-sand-50 border border-sand-200 rounded-xl p-3 shadow-2xs;
+  @apply flex items-center gap-3 bg-sand-50 border border-sand-200 rounded-md p-3 shadow-2xs;
   @apply dark:bg-sand-900 dark:border-sand-700;
   @apply hover:bg-sand-50 transition-colors;
   background-color: white !important; /* suppress button hover inheritance */
@@ -4161,7 +4163,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .delivery-status-card {
-  @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-xl mx-4;
+  @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md mx-4;
   @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
@@ -4281,7 +4283,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Individual rating option card — wraps a sr-only radio input */
 .feedback-rating-card {
-  @apply flex flex-col items-center justify-center gap-2 p-3 bg-sand-50 border border-sand-200 rounded-xl cursor-pointer;
+  @apply flex flex-col items-center justify-center gap-2 p-3 bg-sand-50 border border-sand-200 rounded-md cursor-pointer;
   @apply hover:border-primary-300 hover:bg-primary-50;
   @apply dark:bg-sand-900 dark:border-sand-700;
   min-height: 80px;
@@ -4439,7 +4441,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Wrapper label — shared base for both radio and checkbox rows */
 .pref-row {
-  @apply flex items-center gap-3 w-full p-3 bg-sand-50 border border-sand-200 rounded-xl cursor-pointer;
+  @apply flex items-center gap-3 w-full p-3 bg-sand-50 border border-sand-200 rounded-md cursor-pointer;
   @apply hover:border-primary-300 hover:bg-primary-50 transition-colors;
   @apply focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500;
   @apply dark:bg-sand-900 dark:border-sand-700;
@@ -4461,7 +4463,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* @surface-role: card */
 .task-card {
-  @apply flex items-center gap-3 p-3 bg-surface-card border border-sand-200 rounded-xl;
+  @apply flex items-center gap-3 p-3 bg-surface-card border border-sand-200 rounded-md;
   @apply hover:border-sand-300 hover:shadow-2xs;
   @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:border-sand-600;
   text-decoration: none;
@@ -4512,7 +4514,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* @surface-role: card */
 .trend-card {
-  @apply block bg-surface-card border border-sand-200 rounded-xl p-4;
+  @apply block bg-surface-card border border-sand-200 rounded-md p-4;
   @apply hover:border-sand-300 hover:shadow-2xs;
   @apply dark:bg-sand-800 dark:border-sand-700 dark:hover:border-sand-600;
   text-decoration: none;
@@ -4779,13 +4781,13 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .dashboard-meal-chip-img {
-    @apply w-24 h-24 rounded-xl object-cover bg-sand-100;
+    @apply w-24 h-24 rounded-lg object-cover bg-sand-100;
     display: block;
     position: relative;
 }
 
 .dashboard-meal-chip-img-wrap {
-    @apply w-24 h-24 rounded-xl overflow-hidden bg-sand-100 relative shrink-0;
+    @apply w-24 h-24 rounded-lg overflow-hidden bg-sand-100 relative shrink-0;
 }
 
 .dashboard-meal-chip-img-wrap::after {
@@ -5018,7 +5020,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Base toast */
 .toast {
-    @apply flex items-start gap-3 text-sm rounded-xl p-4 shadow-lg;
+    @apply flex items-start gap-3 text-sm rounded-md p-4 shadow-lg;
     @apply bg-sand-50 border border-sand-200;
     @apply dark:bg-sand-800 dark:border-sand-700;
     pointer-events: auto;
@@ -5384,7 +5386,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 .file-upload-dropzone {
-    @apply relative flex flex-col items-center justify-center gap-3 p-8 rounded-xl border-2 border-dashed border-sand-300 bg-sand-50 text-center cursor-pointer transition-colors;
+    @apply relative flex flex-col items-center justify-center gap-3 p-8 rounded-md border-2 border-dashed border-sand-300 bg-sand-50 text-center cursor-pointer transition-colors;
     @apply hover:border-primary-400 hover:bg-primary-50/40;
     @apply dark:border-sand-600 dark:bg-sand-800/50 dark:hover:border-primary-500 dark:hover:bg-primary-900/20;
 }
@@ -6836,14 +6838,14 @@ a.list-group-item-action {
 
 /* Card variant wrapper */
 .collapse-card {
-    @apply bg-sand-50 border border-sand-200 rounded-xl shadow-2xs;
+    @apply bg-sand-50 border border-sand-200 rounded-md shadow-2xs;
     @apply dark:bg-sand-800 dark:border-sand-700;
 }
 
 /* Card variant toggle — full-width padded row */
 .collapse-card-toggle {
     @apply flex items-center justify-between w-full px-4 py-3 text-sm font-medium cursor-pointer;
-    @apply text-sand-800 hover:bg-sand-50 rounded-xl;
+    @apply text-sand-800 hover:bg-sand-50 rounded-md;
     @apply dark:text-sand-200 dark:hover:bg-sand-700/50;
     @apply transition-colors;
 }
@@ -6934,7 +6936,7 @@ a.list-group-item-action {
 
 /* Panel container — typically inside an hs-dropdown or standalone */
 .notif-center {
-    @apply flex flex-col bg-sand-50 border border-sand-200 rounded-xl shadow-lg;
+    @apply flex flex-col bg-sand-50 border border-sand-200 rounded-md shadow-lg;
     @apply dark:bg-sand-800 dark:border-sand-700;
     width: 24rem;
     max-width: calc(100vw - 2rem);
@@ -7205,7 +7207,7 @@ a.list-group-item-action {
 
 /* Main panel — centered card */
 .cmd-palette-panel {
-    @apply relative flex flex-col bg-sand-50 border border-sand-200 rounded-xl shadow-2xl overflow-hidden;
+    @apply relative flex flex-col bg-sand-50 border border-sand-200 rounded-md shadow-2xl overflow-hidden;
     @apply dark:bg-sand-800 dark:border-sand-700;
     width: 36rem;
     max-width: calc(100vw - 2rem);
@@ -7593,7 +7595,7 @@ a.list-group-item-action {
 }
 
 .thread-msg-human-bubble {
-    @apply bg-primary-50 text-sm text-sand-900 px-3 py-2 rounded-xl;
+    @apply bg-primary-50 text-sm text-sand-900 px-3 py-2 rounded-md;
     border-top-right-radius: 0;
     @apply max-w-[85%];
     @apply dark:bg-primary-900/20 dark:text-sand-100;
@@ -7633,7 +7635,7 @@ a.list-group-item-action {
    ================================================================ */
 
 .thread-approval-card {
-    @apply rounded-xl shadow-sm;
+    @apply rounded-md shadow-sm;
     @apply p-0 mx-3 my-2;
     background-color: var(--color-amber-50);
     border: 1px solid var(--color-amber-200);

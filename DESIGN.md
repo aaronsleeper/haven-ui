@@ -376,6 +376,14 @@ One component, three priorities.
 
 Pill-shape variant (`border-radius/xl 54px`) is used for chat input send/mic — round treatment signals "speech-adjacent" rather than "commit." Don't pill-shape advance/commit buttons.
 
+### Card — canonical radius
+
+Card-archetype surfaces use `border-radius/md` (11px). This includes every named card type in this spec — Ava recommended-content card, user chat bubble, floating tip / coach-mark card, notification-center panel, command-palette panel, toast, data-table wrapper, accordion container, prompt-input container, file-upload dropzone, and every `.*-card` semantic class in `components.css`. Media thumbnails 96×96 or larger use `border-radius/lg` (24px) to preserve imagery warmth. Dialogs use `border-radius/sm` (5px) — see §Dialog.
+
+**Pill (`border-radius/xl` 54px) is reserved exclusively for chat-input send/mic button primitives**, per §Button brand-taste rule. Container surfaces, list rows, and content cards do NOT pill-shape. In practice, legitimate circle/stadium surfaces (avatars, toggles, badges) use `rounded-full`; `rounded-xl` (54px) should appear only on `.prompt-toolbar`-class send/mic controls.
+
+This rule is enforced structurally by the `conform:radius-pill` gate (`packages/ui-react/tests/conform/radius-pill.ts`): any `rounded-xl` / `rounded-[54px]` / `var(--radius-xl)` / `border-radius: 54px` in `components.css` fails the gate. Patch 19 (2026-04-22) swept 23 legacy drift sites to `rounded-md` and 2 media sites to `rounded-lg`; the gate prevents the drift class from returning.
+
 ### Dialog
 
 White bg, 1px `border/default`, `border-radius/sm` (5px), 24px padding.

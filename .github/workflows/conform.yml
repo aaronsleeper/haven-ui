@@ -79,6 +79,9 @@ jobs:
       - name: conform:button-font-size
         run: pnpm --filter @haven/ui-react conform:button-font-size
 
+      - name: conform:radius-pill
+        run: pnpm --filter @haven/ui-react conform:radius-pill
+
       # Playwright runtime gates — token (computed-style set-membership) +
       # visual (pixel diff vs Linux baselines). Storybook must be built first
       # because playwright.config.ts webServer uses `storybook:serve` on CI,
