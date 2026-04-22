@@ -263,12 +263,12 @@ input[type='tel'],
 input[type='url'],
 select,
 textarea {
-    @apply py-2.5 sm:py-3 px-4 block w-full border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
+    @apply py-2.5 sm:py-3 px-4 block w-full bg-sand-50 border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
 }
 
 /* Search input - left padding accommodates the icon overlay */
 input[type='search'] {
-    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
+    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full bg-sand-50 border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
 }
 
 /* Select specific padding + custom chevron (mirrors .select-haven) */
