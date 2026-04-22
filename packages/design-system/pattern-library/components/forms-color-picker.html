@@ -4,9 +4,10 @@
   category: Forms
   file: forms-color-picker.html
   classes: color-picker, color-picker-label, color-picker-swatches, color-picker-swatch, color-picker-swatch-sm, color-picker-swatch-custom, color-picker-check, color-picker-preview, color-picker-preview-dot, color-picker-value, color-picker-disabled
-  when-to-use: Swatch selector for meal type, status color, or category assignment where the user picks from a constrained palette.
+  when-to-use: Swatch selector for user-assigned color on tags, cohorts, calendar blocks, or custom lists — cases where the user picks their own family from a constrained palette. Not for clinical status (clinical status uses badge-* semantic colors, not user-pickable color).
+  do-not-use-when: The color carries semantic meaning the user can't override (severity, trend, urgency — use badge-* or severity-badge-* instead).
   preline-required: no
-  notes: JS required (color-picker.js). Uses hidden radio inputs for form value. Custom swatch bridges to native input[type=color].
+  notes: JS required (color-picker.js). Uses hidden radio inputs for form value. Custom swatch bridges to native input[type=color]. TODO palette migration — current swatches use ad-hoc hex literals; swap to 9-color tag-semantic families (emerald/cyan/indigo/violet/fuchsia/rose/gold/lime/stone per DESIGN.md §9-color tag-semantic palette) once Figma tag tokens land.
   @end-meta
 -->
 
@@ -14,7 +15,7 @@
 <section>
   <h3 class="section-title mb-4">Color Picker</h3>
   <p class="pl-description">
-    Swatch-based color selector for meal types, statuses, or categories. Uses hidden radio inputs for form compatibility.
+    Swatch-based color selector for user-assigned color on tags, cohorts, calendar blocks, or custom lists. Uses hidden radio inputs for form compatibility. Not for semantic status — use <code class="text-xs font-mono">badge-*</code> or <code class="text-xs font-mono">severity-badge-*</code> for meaning the user can't override.
   </p>
 
   <!-- Default -->
@@ -194,38 +195,39 @@
     <!-- /component -->
   </div>
 
-  <!-- Meal Type Use Case -->
+  <!-- Cohort Color Use Case -->
   <div class="mb-8">
-    <p class="pl-variant-title">Meal Type Use Case (In Card)</p>
-    <!-- @component: color-picker-meal-type -->
+    <p class="pl-variant-title">Cohort Color (In Card)</p>
+    <!-- @component: color-picker-cohort -->
     <div class="card max-w-sm">
       <div class="card-header">
-        <h3 class="card-title">Assign Meal Type</h3>
+        <h3 class="card-title">Assign Cohort Color</h3>
+        <p class="card-subtitle">For the "Post-surgery recovery" patient group</p>
       </div>
       <div class="card-body">
         <div class="color-picker" data-color-picker>
-          <span class="color-picker-label">Meal color</span>
+          <span class="color-picker-label">Group color</span>
           <div class="color-picker-swatches">
-            <label class="color-picker-swatch" style="background-color: #B91C1C; color: #B91C1C;" title="Hot - Red">
-              <input type="radio" name="color-meal" value="#B91C1C" data-color-name="Hot" class="sr-only">
+            <label class="color-picker-swatch" style="background-color: #B91C1C; color: #B91C1C;" title="Rose">
+              <input type="radio" name="color-cohort" value="#B91C1C" data-color-name="Rose" class="sr-only">
             </label>
-            <label class="color-picker-swatch active" style="background-color: #D97706; color: #D97706;" title="Warm - Amber">
-              <input type="radio" name="color-meal" value="#D97706" data-color-name="Warm" class="sr-only" checked>
+            <label class="color-picker-swatch active" style="background-color: #D97706; color: #D97706;" title="Gold">
+              <input type="radio" name="color-cohort" value="#D97706" data-color-name="Gold" class="sr-only" checked>
               <i class="fa-solid fa-check color-picker-check"></i>
             </label>
-            <label class="color-picker-swatch" style="background-color: #15803D; color: #15803D;" title="Regular - Green">
-              <input type="radio" name="color-meal" value="#15803D" data-color-name="Regular" class="sr-only">
+            <label class="color-picker-swatch" style="background-color: #15803D; color: #15803D;" title="Emerald">
+              <input type="radio" name="color-cohort" value="#15803D" data-color-name="Emerald" class="sr-only">
             </label>
-            <label class="color-picker-swatch" style="background-color: #1D4ED8; color: #1D4ED8;" title="Cold - Blue">
-              <input type="radio" name="color-meal" value="#1D4ED8" data-color-name="Cold" class="sr-only">
+            <label class="color-picker-swatch" style="background-color: #1D4ED8; color: #1D4ED8;" title="Indigo">
+              <input type="radio" name="color-cohort" value="#1D4ED8" data-color-name="Indigo" class="sr-only">
             </label>
-            <label class="color-picker-swatch" style="background-color: #7C3AED; color: #7C3AED;" title="Special - Violet">
-              <input type="radio" name="color-meal" value="#7C3AED" data-color-name="Special" class="sr-only">
+            <label class="color-picker-swatch" style="background-color: #7C3AED; color: #7C3AED;" title="Violet">
+              <input type="radio" name="color-cohort" value="#7C3AED" data-color-name="Violet" class="sr-only">
             </label>
           </div>
           <div class="color-picker-preview" data-color-preview>
             <span class="color-picker-preview-dot" style="background-color: #D97706;"></span>
-            <span class="color-picker-value">Warm (#D97706)</span>
+            <span class="color-picker-value">Gold</span>
           </div>
         </div>
       </div>
