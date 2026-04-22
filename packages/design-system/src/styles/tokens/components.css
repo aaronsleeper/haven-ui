@@ -7064,8 +7064,8 @@ a.list-group-item-action {
 
 .notif-center-count {
     @apply inline-flex items-center justify-center text-xs font-semibold rounded-full;
-    @apply bg-error-100 text-error-700;
-    @apply dark:bg-error-900/20 dark:text-error-400;
+    @apply bg-sand-150 text-sand-700;
+    @apply dark:bg-sand-800 dark:text-sand-200;
     min-width: 1.25rem;
     height: 1.25rem;
     padding: 0 0.375rem;
