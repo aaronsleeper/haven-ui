@@ -190,6 +190,36 @@
       }
     },
     {
+      "name": "patient-task-card",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/TaskCard.tsx", "type": "registry:component" },
+        { "path": "components/TaskCard.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": ["avatar"],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/patient-task-card.html",
+        "composition": {
+          "propSchema": "./components/TaskCard.props.ts",
+          "markdocTag": "patient-task-card",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "TaskCard.default",
+          "TaskCard.overdue",
+          "TaskCard.inProgress",
+          "TaskCard.completed",
+          "TaskCard.asComponent"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Tappable row for a patient task. Composes Avatar (sm) + name + meta + trailing chevron / circle-check. State drives the modifier class (.task-card-overdue / -in-progress / -completed) and the trailing-icon glyph. For state='overdue', an 'Overdue' badge auto-prepends the meta text. For state='in-progress', the meta picks up teal coloring via the `.task-card-in-progress .task-card-meta` descendant rule (no inline style). For state='completed', the card renders as a non-interactive <div>, ignoring href / asComponent. Otherwise: asComponent prop accepts a caller-supplied component (router-Link); href falls back to plain <a>; neither falls back to presentational <div>."
+      }
+    },
+    {
       "name": "icon-button",
       "type": "registry:component",
       "files": [

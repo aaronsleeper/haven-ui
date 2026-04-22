@@ -1,5 +1,5 @@
 import { Link, Route, Routes } from 'react-router-dom';
-import { MobileShell } from '@haven/ui-react';
+import { MobileShell, TaskCard } from '@haven/ui-react';
 import { Gad7Routes } from './screens/gad-7';
 
 // Patient app root — MobileShell envelope is the registered app-shell tag
@@ -17,21 +17,13 @@ function Landing() {
       </p>
 
       <div className="mt-8 space-y-3">
-        <Link
-          to="/assessment/gad-7"
-          className="card card-body no-underline block"
-        >
-          <div className="flex items-center gap-3">
-            <span className="avatar avatar-primary">
-              <i className="fa-solid fa-brain avatar-icon" aria-hidden="true"></i>
-            </span>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-sand-900">Anxiety check-in</p>
-              <p className="text-xs text-sand-600">7 questions · about 2 minutes</p>
-            </div>
-            <i className="fa-solid fa-chevron-right text-sand-400 text-xs" aria-hidden="true"></i>
-          </div>
-        </Link>
+        <TaskCard
+          name="Anxiety check-in"
+          meta="7 questions · about 2 minutes"
+          iconClass="fa-solid fa-brain"
+          asComponent={Link}
+          linkProps={{ to: '/assessment/gad-7' }}
+        />
       </div>
     </div>
   );

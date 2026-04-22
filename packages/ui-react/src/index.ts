@@ -64,6 +64,9 @@ export type {
 export { Avatar } from './components/Avatar';
 export type { AvatarProps, AvatarSize, AvatarColor } from './components/Avatar';
 
+export { TaskCard } from './components/TaskCard';
+export type { TaskCardProps, TaskCardState } from './components/TaskCard';
+
 export {
   Card,
   CardHeader,
