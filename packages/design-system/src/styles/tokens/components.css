@@ -6485,7 +6485,8 @@ canvas {
     @apply relative;
 }
 
-/* Input field inside combobox — extra right padding for toggle/close buttons */
+/* Input field inside combobox — extra right padding for toggle/close buttons.
+   End padding = X-offset (0.875) + X-width (1.5) + gap (0.5) + chevron-width (1.5) + trailing (0.375) = 4.75rem. */
 .combobox-input {
     @apply block w-full py-2.5 sm:py-3 text-sm rounded-lg;
     @apply border-sand-200 bg-sand-50 text-sand-900;
@@ -6494,19 +6495,19 @@ canvas {
     @apply dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300;
     @apply dark:focus:ring-sand-600;
     padding-inline-start: 0.875rem;
-    padding-inline-end: 4rem;
+    padding-inline-end: 4.75rem;
 }
 
 .combobox-input::placeholder {
     @apply text-sand-600 dark:text-sand-400;
 }
 
-/* Toggle chevron button — sits inside the input, right side */
+/* Toggle chevron button — sits inside the input, right of X. Offset = X-end (0.875 + 1.5) + gap 0.5 = 2.875rem. */
 .combobox-toggle {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
     @apply text-sand-600 cursor-pointer;
     @apply hover:text-sand-700 dark:text-sand-400 dark:hover:text-sand-300;
-    right: 2rem;
+    right: 2.875rem;
     width: 1.5rem;
     height: 1.5rem;
     background: none !important;
@@ -6514,12 +6515,12 @@ canvas {
     padding: 0 !important;
 }
 
-/* Close / clear button — right of toggle */
+/* Close / clear button — right of input. Right offset matches input's 0.875rem start padding for symmetric breathing. */
 .combobox-close {
     @apply absolute top-1/2 -translate-y-1/2 flex items-center justify-center;
     @apply text-sand-600 cursor-pointer;
     @apply hover:text-sand-700 dark:text-sand-400 dark:hover:text-sand-300;
-    right: 0.5rem;
+    right: 0.875rem;
     width: 1.5rem;
     height: 1.5rem;
     background: none !important;
