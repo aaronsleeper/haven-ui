@@ -7015,6 +7015,17 @@ a.list-group-item-action {
     transform: translateY(100%);
 }
 
+/* Desktop default: cap width to right-content-pane echo (640px) + center;
+   full-width on desktop feels unexpected per Aaron 2026-04-22. 720px breakpoint
+   aligns with DESIGN.md §Responsive collapse. Escape hatch via -wide modifier. */
+@media (min-width: 720px) {
+    .bottom-sheet-panel:not(.bottom-sheet-panel-wide) {
+        inset-inline: auto;
+        margin-inline: auto;
+        max-inline-size: 640px;
+    }
+}
+
 .hs-overlay.open .bottom-sheet-panel {
     @apply opacity-100;
     transform: translateY(0);
