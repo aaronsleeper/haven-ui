@@ -3948,6 +3948,10 @@ canvas {
     max-inline-size: 72ch;
 }
 
+.prose-section p + p {
+    margin-block-start: 1em;
+}
+
 /* Key/value pair table — consistent label+value list used on patient detail,
    partner detail, and anywhere a two-column definition list appears.
    Usage: <table class="kv-table"><tr><td>Label</td><td>Value</td></tr></table> */
