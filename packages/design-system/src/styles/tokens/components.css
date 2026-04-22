@@ -365,6 +365,7 @@ input[type='radio'] {
     @apply dark:bg-sand-800 dark:border-sand-700;
     @apply dark:checked:bg-primary-500 dark:checked:border-primary-500;
     @apply dark:focus:ring-offset-sand-800;
+    accent-color: var(--color-primary-600);
 }
 
 /* Radio row — standard container for simple radio + inline label. Aligns the
@@ -408,6 +409,7 @@ input[type='checkbox'] {
     @apply dark:bg-sand-800 dark:border-sand-700;
     @apply dark:checked:bg-primary-500 dark:checked:border-primary-500;
     @apply dark:focus:ring-offset-sand-800;
+    accent-color: var(--color-primary-600);
 }
 
 /* Checkbox with label wrapper (card variant). items-center added Patch 20 to
@@ -1743,10 +1745,12 @@ a.btn-danger {
 
 /* Agent-populated field - track-changes style indicator for AI-generated values */
 
-/* Row wrapper for a field that was populated by the AI agent, pending confirmation */
+/* Row wrapper for a field that was populated by the AI agent, pending confirmation.
+   Per UX Design Lead 2026-04-22: edge-indicator + icon + label (3 signals) over
+   full tint (1 weak signal); primary-teal fills reserved for commit affordances. */
 .ai-field {
-    @apply bg-primary-50 rounded px-2 py-1;
-    @apply dark:bg-primary-900/20;
+    @apply rounded-md p-3;
+    border-left: 2px solid var(--color-primary-400);
 }
 
 /* When ai-field is used on a nutrition-list-row, suppress its own rounding
@@ -2132,10 +2136,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply border-b-0 pb-0;
 }
 
-/* Diff highlight — calls out changed values */
+/* Diff highlight — calls out changed values. Warning-tint + left border;
+   primary-teal reserved for commits per DESIGN.md §Brand-taste. */
 .comparison-row-diff .comparison-row-value {
-    @apply font-semibold text-primary-700 bg-primary-50 rounded px-1.5 py-0.5 -mx-1.5;
-    @apply dark:text-primary-400 dark:bg-primary-900/20;
+    @apply font-semibold text-warning-700 bg-warning-50 rounded px-1.5 py-0.5 -mx-1.5;
+    @apply dark:text-warning-400 dark:bg-warning-900/20;
 }
 
 /* ===================================
@@ -6920,11 +6925,13 @@ a.list-group-item-action {
    COLLAPSE
    =================================== */
 
-/* Toggle button — inline flex with chevron rotation */
+/* Toggle button — inline flex with chevron rotation.
+   Sand-weight per DESIGN.md §Brand-taste: primary-teal reserved for commits;
+   disclosure/expand is not a commit. */
 .collapse-toggle {
     @apply inline-flex items-center gap-2 text-sm font-medium cursor-pointer;
-    @apply text-primary-600 hover:text-primary-700;
-    @apply dark:text-primary-400 dark:hover:text-primary-300;
+    @apply text-sand-700 hover:text-sand-900;
+    @apply dark:text-sand-300 dark:hover:text-sand-200;
     @apply transition-colors;
 }
 
@@ -7160,9 +7167,11 @@ a.list-group-item-action {
     @apply bg-sand-50 dark:bg-sand-700/30;
 }
 
-/* Unread modifier — left accent bar + bolder text */
+/* Unread modifier — left accent bar carries the state; no background tint.
+   Per UX Design Lead 2026-04-22: primary-teal tint reserved for commits,
+   not meta-states. Edge + title-weight are the two signals; adequate. */
 .notif-item-unread {
-    @apply bg-primary-50/40 dark:bg-primary-900/10;
+    /* Intentionally empty block — state carried by ::before bar + .notif-item-title font-weight */
 }
 
 .notif-item-unread::before {
