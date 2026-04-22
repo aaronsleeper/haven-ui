@@ -18,47 +18,49 @@
     Primary content container. Multiple variants for different content structures.
   </p>
 
-    <!-- @component: layout-card-basic -->
-    <div class="card">
-      <div class="card-body">
-        <p class="text-gray-500 dark:text-neutral-400">Basic card with body content only. Use for simple content blocks.</p>
+    <div class="space-y-4">
+      <!-- @component: layout-card-basic -->
+      <div class="card">
+        <div class="card-body">
+          <p class="text-gray-500 dark:text-neutral-400">Basic card with body content only. Use for simple content blocks.</p>
+        </div>
       </div>
-    </div>
-    <!-- /component -->
+      <!-- /component -->
 
-    <!-- @component: layout-card-header -->
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">Enrollment Summary</h3>
-        <p class="card-subtitle">Last updated Feb 2026</p>
+      <!-- @component: layout-card-header -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Enrollment Summary</h3>
+          <p class="card-subtitle">Last updated Feb 2026</p>
+        </div>
+        <div class="card-body">
+          <p class="text-gray-500 dark:text-neutral-400">Card body content goes here.</p>
+        </div>
       </div>
-      <div class="card-body">
-        <p class="text-gray-500 dark:text-neutral-400">Card body content goes here.</p>
-      </div>
-    </div>
-    <!-- /component -->
+      <!-- /component -->
 
-    <!-- @component: layout-card-footer -->
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">Edit Patient</h3>
+      <!-- @component: layout-card-footer -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Edit Patient</h3>
+        </div>
+        <div class="card-body">
+          <p class="text-gray-500 dark:text-neutral-400">Form fields or content here.</p>
+        </div>
+        <div class="card-footer flex justify-end gap-2">
+          <button class="btn-outline btn-sm">Cancel</button>
+          <button class="btn-primary btn-sm">Save</button>
+        </div>
       </div>
-      <div class="card-body">
-        <p class="text-gray-500 dark:text-neutral-400">Form fields or content here.</p>
-      </div>
-      <div class="card-footer flex justify-end gap-2">
-        <button class="btn-outline btn-sm">Cancel</button>
-        <button class="btn-primary btn-sm">Save</button>
-      </div>
-    </div>
-    <!-- /component -->
+      <!-- /component -->
 
-    <!-- @component: layout-card-title-in-body -->
-    <div class="card">
-      <div class="card-body">
-        <h3 class="card-title">Care Plan</h3>
-        <p class="text-gray-500 dark:text-neutral-400">When no dedicated header is needed but a title is required, place card-title directly inside card-body. The bottom border stretches to the card edges via negative margins.</p>
+      <!-- @component: layout-card-title-in-body -->
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Care Plan</h3>
+          <p class="text-gray-500 dark:text-neutral-400">When no dedicated header is needed but a title is required, place card-title directly inside card-body. The bottom border stretches to the card edges via negative margins.</p>
+        </div>
       </div>
+      <!-- /component -->
     </div>
-    <!-- /component -->
 </section>
