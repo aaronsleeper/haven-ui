@@ -571,9 +571,12 @@ a.btn-danger {
    LAYOUT
    =================================== */
 
-/* Card component */
+/* Card component — rounded-md per DESIGN.md §Card (Ava recommended-content
+   card, user chat bubble, floating tip card all at border-radius/md 11px).
+   Previously rounded-xl (54px pill) — long-standing drift. Surfaces needing
+   a different radius opt in explicitly at usage site. */
 .card {
-    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-xl dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .card-header {
