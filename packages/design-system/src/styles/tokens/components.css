@@ -2113,17 +2113,32 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply translate-x-0;
 }
 
-/* Scrollbar styling */
-.app-sidebar::-webkit-scrollbar {
+/* Haven-system scrollbar styling. Track is transparent so the chrome/page
+   surface shows through (Patch 22 — previously sand-100 track was invisible
+   against the new chrome surface). Thumb darkens on hover for affordance.
+   Shared pattern — any scroll surface that needs system-consistent styling
+   should @apply .haven-scrollbar OR duplicate these rules. Applied here
+   directly to .app-sidebar and .cmd-palette-body. */
+.app-sidebar::-webkit-scrollbar,
+.cmd-palette-body::-webkit-scrollbar {
     width: 0.5rem;
+    height: 0.5rem;
 }
 
-.app-sidebar::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-sand-300 dark:bg-sand-500;
+.app-sidebar::-webkit-scrollbar-track,
+.cmd-palette-body::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
-.app-sidebar::-webkit-scrollbar-track {
-    @apply bg-sand-100 dark:bg-sand-700;
+.app-sidebar::-webkit-scrollbar-thumb,
+.cmd-palette-body::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-sand-300 dark:bg-sand-600;
+    transition: background-color 0.15s ease;
+}
+
+.app-sidebar::-webkit-scrollbar-thumb:hover,
+.cmd-palette-body::-webkit-scrollbar-thumb:hover {
+    @apply bg-sand-400 dark:bg-sand-500;
 }
 
 .app-sidebar-header {
@@ -7268,11 +7283,18 @@ a.list-group-item-action {
     @apply dark:text-sand-400;
 }
 
-/* The search input — borderless, full-width */
+/* The search input — borderless, full-width, transparent. background-color
+   override added Patch 22 (2026-04-22): Patch 20's bg-surface-input on the
+   generic input rule was winning via specificity (input[type='text'] >
+   .cmd-palette-input), rendering the search as a solid-white pad against
+   the palette's sand-50 surface. !important on background-color restores
+   the design intent: the search is inline with the palette, not a
+   separate surface. */
 .cmd-palette-input {
     @apply block w-full text-base text-sand-900 bg-transparent outline-none;
     @apply dark:text-sand-100;
     border: none !important;
+    background-color: transparent !important;
     box-shadow: none !important;
     padding: 0 !important;
 }
@@ -7340,10 +7362,16 @@ a.list-group-item-action {
     transition: background-color 0.1s ease;
 }
 
+/* Hover + keyboard-active state. Patch 22 (2026-04-22): bumped bg from
+   primary-50 → primary-100 for visible contrast against the palette's
+   sand-50 surface (Aaron browser-review: "not enough contrast from its
+   surface color to the surface behind it, light sand to light green").
+   Added font-medium per Aaron: "consider bumping up font-weight slightly
+   for selected items." */
 .cmd-palette-item:hover,
 .cmd-palette-item.is-active {
-    @apply bg-primary-50 text-primary-700;
-    @apply dark:bg-primary-900/20 dark:text-primary-300;
+    @apply bg-primary-100 text-primary-700 font-medium;
+    @apply dark:bg-primary-900/30 dark:text-primary-300;
 }
 
 /* Leading icon */
