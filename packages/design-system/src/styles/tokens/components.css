@@ -7140,21 +7140,21 @@ a.list-group-item-action {
     @apply dark:border-sand-700;
 }
 
+/* Notif-center tab — mirrors the canonical .tab-nav-item hover/active
+   algebra with tighter padding for the dropdown context. Aligns hover
+   feedback (color + under-border) per UX Design Lead 2026-04-22 P57. */
 .notif-center-tab {
     @apply flex-1 text-center text-xs font-medium py-2 cursor-pointer;
     @apply text-sand-600 dark:text-sand-300;
+    @apply hover:text-primary-600 hover:border-sand-300 dark:hover:text-primary-400;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
     transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.notif-center-tab:hover {
-    @apply text-sand-700 dark:text-sand-300;
-}
-
 .notif-center-tab.active {
-    @apply text-primary-600 dark:text-primary-400;
+    @apply font-semibold text-primary-600 dark:text-primary-400;
     border-bottom-color: var(--color-primary-600);
 }
 
