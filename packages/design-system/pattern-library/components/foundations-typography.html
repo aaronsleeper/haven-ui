@@ -7,7 +7,7 @@
   when-to-use: Reference this page for font families, type scale, heading scale, weights, line heights, and the prose-section pattern. Use prose-section to constrain text-heavy content to a readable line length.
   do-not-use-when: N/A
   preline-required: no
-  notes: Headings use Plus Jakarta Sans (display). Body text uses Source Sans 3 (sans). Code uses Source Code Pro (mono). Font sizes defined as CSS custom properties in typography.css. Serif/Lora no longer exists.
+  notes: Headings use Lora (serif). Body text uses Inter (sans). Code uses JetBrains Mono. Font sizes defined as CSS custom properties in typography.css. Tailwind utilities font-serif / font-sans / font-mono map to var(--font-serif) / var(--font-sans) / var(--font-mono) via @theme in typography.css.
   @end-meta
 -->
 
@@ -16,7 +16,7 @@
 
   <h2>Typography</h2>
   <p class="pl-description">
-    Haven uses a three-font system: Plus Jakarta Sans for headings and display text, Source Sans 3 for body and UI, Source Code Pro for code.
+    Haven uses a three-font system: Lora for headings and display text, Inter for body and UI, JetBrains Mono for code.
   </p>
 
   <!-- ================================================
@@ -26,17 +26,17 @@
     <h3 class="section-title mb-4">Font Families</h3>
     <div class="card card-body space-y-6">
       <div>
-        <p class="pl-variant-title">Plus Jakarta Sans (Display) — Headings, hero text</p>
-        <p class="text-xl font-display text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
-        <p class="text-xs font-mono text-gray-600 mt-1">font-display &middot; var(--font-display)</p>
+        <p class="pl-variant-title">Lora (Serif / Display) — Headings, hero text</p>
+        <p class="text-xl font-serif text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-600 mt-1">font-serif &middot; var(--font-serif)</p>
       </div>
       <div>
-        <p class="pl-variant-title">Source Sans 3 (Body / Sans) — Body text, UI labels, forms</p>
+        <p class="pl-variant-title">Inter (Sans) — Body text, UI labels, forms</p>
         <p class="text-xl font-sans text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
         <p class="text-xs font-mono text-gray-600 mt-1">font-sans &middot; var(--font-sans)</p>
       </div>
       <div>
-        <p class="pl-variant-title">Source Code Pro (Mono) — Code blocks, technical values</p>
+        <p class="pl-variant-title">JetBrains Mono (Mono) — Code blocks, technical values</p>
         <p class="text-xl font-mono text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
         <p class="text-xs font-mono text-gray-600 mt-1">font-mono &middot; var(--font-mono)</p>
       </div>
@@ -92,49 +92,49 @@
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">3xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">33.18px / 2.07rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-3xl">Haven Design System — 3xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-3xl">Haven Design System — 3xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">4xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">39.81px / 2.49rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-4xl">Haven — 4xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-4xl">Haven — 4xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">5xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">47.78px / 2.99rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-5xl leading-none">Haven — 5xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-5xl leading-none">Haven — 5xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">6xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">57.34px / 3.58rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-6xl leading-none">Haven — 6xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-6xl leading-none">Haven — 6xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">7xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">68.81px / 4.30rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-7xl leading-none">Haven — 7xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-7xl leading-none">Haven — 7xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">8xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">82.57px / 5.16rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-8xl leading-none">Haven — 8xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-8xl leading-none">Haven — 8xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 border-b border-gray-100 dark:border-neutral-800 pb-3">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">9xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">99.08px / 6.19rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-9xl leading-none">Haven — 9xl</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-9xl leading-none">Haven — 9xl</span>
       </div>
 
       <div class="flex items-baseline gap-4 pb-1">
         <code class="text-xs font-mono text-gray-600 w-28 shrink-0">10xl</code>
         <span class="text-xs font-mono text-gray-600 w-28 shrink-0">118.9px / 7.43rem</span>
-        <span class="font-display text-gray-800 dark:text-neutral-200 text-9xl leading-none">Haven</span>
+        <span class="font-serif text-gray-800 dark:text-neutral-200 text-9xl leading-none">Haven</span>
       </div>
 
     </div>
@@ -146,7 +146,7 @@
   <div class="mb-10">
     <h3 class="section-title mb-4">Heading Scale</h3>
     <p class="pl-description">
-      All headings use Plus Jakarta Sans Bold. Sizes are mapped to the modular scale in <code class="text-xs font-mono">typography.css</code>.
+      All headings use Lora. Sizes are mapped to the modular scale in <code class="text-xs font-mono">typography.css</code>.
     </p>
     <div class="card card-body space-y-6">
       <div>
@@ -182,7 +182,7 @@
   <div class="mb-10">
     <h3 class="section-title mb-4">Font Weights</h3>
     <p class="pl-description">
-      Available weights for Plus Jakarta Sans and Source Sans 3. Use semantic weight classes from Tailwind.
+      Available weights for Lora and Inter. Use semantic weight classes from Tailwind.
     </p>
     <div class="card card-body space-y-5">
       <div>
@@ -208,28 +208,28 @@
     </div>
 
     <p class="text-sm text-gray-600 dark:text-neutral-400 mt-4 mb-4">
-      Same weights rendered in Plus Jakarta Sans (display):
+      Same weights rendered in Lora (serif):
     </p>
     <div class="card card-body space-y-5">
       <div>
-        <p class="text-xl font-display font-normal text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
-        <p class="text-xs font-mono text-gray-600 mt-1">font-display font-normal &middot; 400</p>
+        <p class="text-xl font-serif font-normal text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-600 mt-1">font-serif font-normal &middot; 400</p>
       </div>
       <div>
-        <p class="text-xl font-display font-medium text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
-        <p class="text-xs font-mono text-gray-600 mt-1">font-display font-medium &middot; 500</p>
+        <p class="text-xl font-serif font-medium text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-600 mt-1">font-serif font-medium &middot; 500</p>
       </div>
       <div>
-        <p class="text-xl font-display font-semibold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
-        <p class="text-xs font-mono text-gray-600 mt-1">font-display font-semibold &middot; 600</p>
+        <p class="text-xl font-serif font-semibold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-600 mt-1">font-serif font-semibold &middot; 600</p>
       </div>
       <div>
-        <p class="text-xl font-display font-bold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
-        <p class="text-xs font-mono text-gray-600 mt-1">font-display font-bold &middot; 700</p>
+        <p class="text-xl font-serif font-bold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-600 mt-1">font-serif font-bold &middot; 700</p>
       </div>
       <div>
-        <p class="text-xl font-display font-extrabold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
-        <p class="text-xs font-mono text-gray-600 mt-1">font-display font-extrabold &middot; 800</p>
+        <p class="text-xl font-serif font-extrabold text-gray-800 dark:text-neutral-200">The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-xs font-mono text-gray-600 mt-1">font-serif font-extrabold &middot; 800</p>
       </div>
     </div>
   </div>
