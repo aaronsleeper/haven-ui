@@ -22,7 +22,7 @@
       </div>
 
       <!-- Intro -->
-      <div class="prose-section mb-8">
+      <div class="prose-section">
         <p>
           The Haven Pattern Library is the single source of truth for UI components
           used across Cena Health applications. Every component shown here maps to a
@@ -30,147 +30,19 @@
           ready to drop into any page without utility-class soup.
         </p>
         <p>
-          <strong>Agents:</strong> start with
-          <code class="text-sm font-mono">pattern-library/index.md</code> to locate
-          the right component file, then copy the marked markup block.
-          <strong>Developers:</strong> browse the sidebar categories to find live
-          examples with usage notes and class references.
+          Navigate by category using the sidebar on the left. Every page opens with a
+          <strong>Component info</strong> panel naming the class list, usage guidance, and
+          Preline dependency; the live demo follows below.
         </p>
-      </div>
-
-      <!-- Category Grid -->
-      <div class="grid-2 md:grid-cols-3 gap-4">
-
-        <!-- Foundations -->
-        <a href="foundations.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-palette"></i></span>
-            <h3 class="card-title text-base mb-0">Foundations</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Colors, typography, and spacing tokens.</p>
-          <span class="badge badge-neutral badge-sm">3 components</span>
-        </a>
-
-        <!-- Buttons -->
-        <a href="buttons.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-hand-pointer"></i></span>
-            <h3 class="card-title text-base mb-0">Buttons</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Primary, secondary, outline, danger, icon, and size variants.</p>
-          <span class="badge badge-neutral badge-sm">9 components</span>
-        </a>
-
-        <!-- Badges & Status -->
-        <a href="badges.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-tag"></i></span>
-            <h3 class="card-title text-base mb-0">Badges & Status</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Color badges, severity, trend, sentiment, SDOH, and AI indicators.</p>
-          <span class="badge badge-neutral badge-sm">6 components</span>
-        </a>
-
-        <!-- Alerts -->
-        <a href="alerts.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-triangle-exclamation"></i></span>
-            <h3 class="card-title text-base mb-0">Alerts</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Inline feedback messages in success, warning, error, and info variants.</p>
-          <span class="badge badge-neutral badge-sm">1 component</span>
-        </a>
-
-        <!-- Forms -->
-        <a href="forms.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-pen-to-square"></i></span>
-            <h3 class="card-title text-base mb-0">Forms</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Inputs, selects, checkboxes, radios, fieldsets, and layout helpers.</p>
-          <span class="badge badge-neutral badge-sm">8 components</span>
-        </a>
-
-        <!-- Layout -->
-        <a href="layout.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-table-columns"></i></span>
-            <h3 class="card-title text-base mb-0">Layout</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">App shell, page header, cards, containers, grids, and sticky footer.</p>
-          <span class="badge badge-neutral badge-sm">8 components</span>
-        </a>
-
-        <!-- Navigation -->
-        <a href="navigation.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-compass"></i></span>
-            <h3 class="card-title text-base mb-0">Navigation</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Sidebar, tabs, breadcrumbs, section nav, filter pills, and segmented controls.</p>
-          <span class="badge badge-neutral badge-sm">7 components</span>
-        </a>
-
-        <!-- Data Display -->
-        <a href="data-display.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-table"></i></span>
-            <h3 class="card-title text-base mb-0">Data Display</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Data tables, KV tables, pagination, empty states, and skeletons.</p>
-          <span class="badge badge-neutral badge-sm">6 components</span>
-        </a>
-
-        <!-- Overlays -->
-        <a href="overlays.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-window-restore"></i></span>
-            <h3 class="card-title text-base mb-0">Overlays</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Modals and dropdown menus via Preline.</p>
-          <span class="badge badge-neutral badge-sm">2 components</span>
-        </a>
-
-        <!-- Toolbar & Search -->
-        <a href="toolbar.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <h3 class="card-title text-base mb-0">Toolbar & Search</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Search inputs and filter/action toolbar rows.</p>
-          <span class="badge badge-neutral badge-sm">2 components</span>
-        </a>
-
-        <!-- Healthcare -->
-        <a href="healthcare.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-stethoscope"></i></span>
-            <h3 class="card-title text-base mb-0">Healthcare</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Clinical metrics, timelines, nutrition lists, AI field indicators, and more.</p>
-          <span class="badge badge-neutral badge-sm">14 components</span>
-        </a>
-
-        <!-- Complex -->
-        <a href="complex.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-puzzle-piece"></i></span>
-            <h3 class="card-title text-base mb-0">Complex</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Prompt input, chat, issues sidebar, comparison panel, pipeline bar, and more.</p>
-          <span class="badge badge-neutral badge-sm">12 components</span>
-        </a>
-
-        <!-- Charts & Utilities -->
-        <a href="charts-utilities.html" class="card card-body hover:shadow-md transition-shadow no-underline">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-primary-500 text-lg"><i class="fa-solid fa-chart-line"></i></span>
-            <h3 class="card-title text-base mb-0">Charts & Utilities</h3>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-neutral-400 mb-1">Chart containers, accordion toggles, instruction cards, and tag containers.</p>
-          <span class="badge badge-neutral badge-sm">5 components</span>
-        </a>
-
+        <p>
+          <strong>Agents:</strong> start at
+          <code class="text-sm font-mono">pattern-library/COMPONENT-INDEX.md</code> for
+          the full ground-truth list, then open the component file and copy the marked
+          markup block.
+          <strong>Designers and engineers:</strong> read
+          <code class="text-sm font-mono">DESIGN.md</code> at the repo root for the
+          canonical brand and token spec; use the sidebar to jump to any component.
+        </p>
       </div>
 
     </main>
