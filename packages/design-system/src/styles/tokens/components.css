@@ -4971,17 +4971,17 @@ canvas {
    ========================================================================== */
 
 .divider {
-    @apply border-t border-sand-200 my-4;
+    @apply border-t border-sand-300 my-4;
     @apply dark:border-sand-700;
 }
 
 .divider-compact {
-    @apply border-t border-sand-200 my-2;
+    @apply border-t border-sand-300 my-1;
     @apply dark:border-sand-700;
 }
 
 .divider-spacious {
-    @apply border-t border-sand-200 my-8;
+    @apply border-t border-sand-300 my-10;
     @apply dark:border-sand-700;
 }
 
@@ -4994,7 +4994,7 @@ canvas {
     @apply block;
     content: "";
     flex: 1;
-    border-top: 1px solid var(--color-sand-200);
+    border-top: 1px solid var(--color-sand-300);
 }
 
 :is(.dark) .divider-labeled::before,
@@ -5010,7 +5010,7 @@ canvas {
 
 .divider-vertical {
     @apply block self-stretch;
-    border-left: 1px solid var(--color-sand-200);
+    border-left: 1px solid var(--color-sand-300);
 }
 
 :is(.dark) .divider-vertical {
