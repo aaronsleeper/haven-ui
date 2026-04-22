@@ -2183,24 +2183,28 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    should @apply .haven-scrollbar OR duplicate these rules. Applied here
    directly to .app-sidebar and .cmd-palette-body. */
 .app-sidebar::-webkit-scrollbar,
-.cmd-palette-body::-webkit-scrollbar {
+.cmd-palette-body::-webkit-scrollbar,
+.data-table::-webkit-scrollbar {
     width: 0.5rem;
     height: 0.5rem;
 }
 
 .app-sidebar::-webkit-scrollbar-track,
-.cmd-palette-body::-webkit-scrollbar-track {
+.cmd-palette-body::-webkit-scrollbar-track,
+.data-table::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
 .app-sidebar::-webkit-scrollbar-thumb,
-.cmd-palette-body::-webkit-scrollbar-thumb {
+.cmd-palette-body::-webkit-scrollbar-thumb,
+.data-table::-webkit-scrollbar-thumb {
     @apply rounded-full bg-sand-300 dark:bg-sand-600;
     transition: background-color 0.15s ease;
 }
 
 .app-sidebar::-webkit-scrollbar-thumb:hover,
-.cmd-palette-body::-webkit-scrollbar-thumb:hover {
+.cmd-palette-body::-webkit-scrollbar-thumb:hover,
+.data-table::-webkit-scrollbar-thumb:hover {
     @apply bg-sand-400 dark:bg-sand-500;
 }
 
