@@ -122,10 +122,12 @@
      Card primary = solid white per DESIGN.md §Surface line 243 ("Cards:
      solid white on sand, or sand-100 for grouped rows"). --- */
   --color-surface-page:         var(--color-sand-50);
+  --color-surface-chrome:       var(--color-sand-100);     /* Nav / persistent app chrome — ground below floating pages per DESIGN.md §Pages float. One step darker than page so content reads as floating above. */
   --color-surface-pane:         rgba(255, 255, 255, 0.6);  /* Translucent white over page. Pane = DESIGN.md §Brand-taste "Pages float. Panes layer translucent white on top." */
   --color-surface-card:         #ffffff;                    /* Primary card — solid white on sand. */
   --color-surface-card-grouped: var(--color-sand-100);      /* Grouped-row card variant per DESIGN.md §Surface. */
   --color-surface-raised:       var(--color-sand-150);
+  --color-surface-input:        #ffffff;                    /* Form primitives (inputs, selects, textareas) — solid white above page. Distinct from pane (container) per Brand Fidelity verdict 2026-04-22: translucent white is reserved for container surfaces; form primitives use solid white to avoid aggregation dilution of the pane vocabulary. */
 
   /* --- Text tokens — DESIGN.md §Text. --- */
   --color-text-normal:  var(--color-sand-900);

@@ -3,10 +3,17 @@
 // declarations match the allowed token set for that role per DESIGN.md
 // §Surface / elevation:
 //
-//   page   — solid opaque sand/50 (bg-surface-page | bg-sand-50)
-//   pane   — translucent white    (bg-surface-pane only — no opaque fallback)
+//   page   — solid opaque sand/50  (bg-surface-page | bg-sand-50)
+//   chrome — solid sand/100        (bg-surface-chrome | bg-sand-100) — nav/rails below floating pages
+//   pane   — translucent white     (bg-surface-pane only — no opaque fallback)
 //   card   — solid white or sand/100 (bg-surface-card | bg-sand-100 | bg-white)
-//   raised — solid sand/150       (bg-surface-raised | bg-sand-150)
+//   raised — solid sand/150        (bg-surface-raised | bg-sand-150)
+//   input  — solid white           (bg-surface-input | bg-white) — form primitives above page
+//
+// Roles chrome + input added Patch 20 (2026-04-22) per Brand Fidelity +
+// Token Steward joint verdict after Aaron browser-review: current 5-role
+// hierarchy missed the "nav ground" and "form primitive" rungs, causing
+// nav + inputs to collapse into the page role.
 //
 // Gap surfaced by Brand Fidelity panel round-2 2026-04-20 as a new iterate
 // finding after Patch 1a landed the floating-page envelope: the center-panel
@@ -41,7 +48,7 @@ const DEFAULT_TARGET = resolve(
   'packages/design-system/src/styles/tokens/components.css',
 );
 
-type Role = 'page' | 'pane' | 'card' | 'raised';
+type Role = 'page' | 'chrome' | 'pane' | 'card' | 'raised' | 'input';
 
 // Allowed background values per role. Tailwind utilities and raw var() refs
 // both accepted — css-family gate separately enforces sand-canonical, so we
@@ -52,6 +59,12 @@ const ROLE_ALLOWED: Record<Role, readonly string[]> = {
     'bg-sand-50',
     'var(--color-surface-page)',
     'var(--color-sand-50)',
+  ],
+  chrome: [
+    'bg-surface-chrome',
+    'bg-sand-100',
+    'var(--color-surface-chrome)',
+    'var(--color-sand-100)',
   ],
   pane: [
     // Pane is translucent white per DESIGN.md §Brand-taste. No opaque fallback.
@@ -73,6 +86,17 @@ const ROLE_ALLOWED: Record<Role, readonly string[]> = {
     'bg-sand-150',
     'var(--color-surface-raised)',
     'var(--color-sand-150)',
+  ],
+  input: [
+    // Form primitives take solid white per Brand Fidelity verdict 2026-04-22.
+    // Translucent white is reserved for pane (container) role; inputs
+    // aggregated at 15+ per forms page would dilute that vocabulary.
+    'bg-surface-input',
+    'bg-white',
+    'var(--color-surface-input)',
+    '#fff',
+    '#ffffff',
+    'white',
   ],
 };
 

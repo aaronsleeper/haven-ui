@@ -240,7 +240,23 @@ haven-ui inherits the motion token set from `packages/design-system/src/styles/t
 
 ### Surface / elevation
 
-Page background: `sand-50`. Pane backgrounds: translucent white over sand. Cards: solid white on sand, or `sand-100` for grouped rows.
+Seven surface rungs. Naming follows DESIGN.md §Pages float — pages float above a ground; chrome is the ground; panes layer translucent white on top of pages; cards are primitives above the page; inputs are form primitives above whatever surface they sit on.
+
+| Role | Token | Value | When to use |
+|---|---|---|---|
+| **chrome** | `--color-surface-chrome` | `sand-100` | Nav, rails, persistent app chrome — the ground below floating pages |
+| **page** | `--color-surface-page` | `sand-50` | Main content area that floats above chrome |
+| **pane** | `--color-surface-pane` | `rgba(255,255,255,0.6)` | Container surfaces layered translucent over page |
+| **card** | `--color-surface-card` | `#ffffff` | Primary card primitive — solid white on page |
+| **card-grouped** | `--color-surface-card-grouped` | `sand-100` | Secondary card for grouped-row contexts |
+| **raised** | `--color-surface-raised` | `sand-150` | Elevated panels, coach-mark cards |
+| **input** | `--color-surface-input` | `#ffffff` | Form primitives (inputs, selects, textareas) — solid white above page |
+
+**Translucent white is reserved for pane (container) role.** Form primitives use solid white even though they also sit "above" the page. Reason: inputs aggregate — a forms page with 15+ inputs at translucent-white would composite into a near-white region, violating the "pages are never pure white" brand-taste rule. Solid white inputs preserve the pane vocabulary and sit cleanly above sand-50.
+
+**Chrome ↔ card-grouped share `sand-100`** by design — the roles address authoring intent (chrome is persistent app structure; card-grouped is transient in-content rows) and never appear adjacent. The `conform:surface-role` gate enforces role-by-annotation, not hex, so the shared hex does not collapse the roles.
+
+Structural enforcement: the `conform:surface-role` gate (`packages/ui-react/tests/conform/surface-role.ts`) asserts every annotated class's background declarations match the allowed token set for its role. Adding a new surface class = add `/* @surface-role: <role> */` annotation; the gate picks it up automatically.
 
 Five elevation stacks. Each is a multi-shadow composition at graduated opacities. Use a single `elevation/*` token per surface — don't compose shadows ad-hoc.
 
@@ -472,7 +488,7 @@ Haven's voice is **warm + specific + playful + stress-literate**. Every line ear
 - **Primary teal is for commitments, not advancement.** Primary button fill reserved for "Book my visit," "Schedule," destructive confirms. `Next` buttons are secondary.
 - **Active nav state = Inter Bold, not background color.** Weight change carries the signal; color stays consistent with the rest of the nav.
 - **Pages are never pure white.** Page bg is `sand-50`. Panes layer translucent white on top.
-- **Pages float.** The outermost shell has a 3px `sand-150` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge.
+- **Pages float.** The outermost shell has a 3px `sand-150` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge. Chrome (nav, rails) sits at `sand-100` as the ground below the floating page (`sand-50`). Panes layer translucent white on top of pages. Inputs layer solid white on top of whatever surface they sit on — the translucent stack is reserved for container surfaces.
 - **Logo is chrome; Ava is agent.** Don't mix the two.
 - **Warmth is observational, not performative.** Specific details land; generic positivity doesn't.
 

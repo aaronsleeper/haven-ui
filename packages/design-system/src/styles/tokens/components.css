@@ -252,7 +252,11 @@ fieldset fieldset legend {
    FORM ELEMENTS
    =================================== */
 
-/* Base input styling - applies to all text-like inputs */
+/* Base input styling — applies to all text-like inputs. Patch 17 (2026-04-22)
+   introduced the light-mode bg; Patch 20 (2026-04-22) upgraded from sand-50
+   (page) to surface-input (solid white) per Brand Fidelity verdict — inputs
+   need a distinct surface-role above the page rather than sharing it. */
+/* @surface-role: input */
 input[type='text'],
 input[type='email'],
 input[type='password'],
@@ -263,12 +267,13 @@ input[type='tel'],
 input[type='url'],
 select,
 textarea {
-    @apply py-2.5 sm:py-3 px-4 block w-full bg-sand-50 border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
+    @apply py-2.5 sm:py-3 px-4 block w-full bg-surface-input border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
 }
 
 /* Search input - left padding accommodates the icon overlay */
+/* @surface-role: input */
 input[type='search'] {
-    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full bg-sand-50 border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
+    @apply py-2.5 sm:py-3 ps-10 pe-4 block w-full bg-surface-input border-sand-200 rounded-lg text-sm dark:bg-sand-900 dark:border-sand-700 dark:text-sand-300 dark:placeholder-sand-500;
 }
 
 /* Select specific padding + custom chevron (mirrors .select-haven) */
@@ -305,9 +310,10 @@ label {
    RADIO BUTTONS
    =================================== */
 
-/* Radio button input */
+/* Radio button input. mt-0.5 hand-tune removed Patch 20 — alignment belongs to
+   the .radio-row / .radio-label row primitive, not the input element. */
 input[type='radio'] {
-    @apply shrink-0 mt-0.5 border-sand-200 rounded-full text-primary-600;
+    @apply shrink-0 border-sand-200 rounded-full text-primary-600;
     @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
@@ -316,9 +322,24 @@ input[type='radio'] {
     @apply dark:focus:ring-offset-sand-800;
 }
 
-/* Radio button with label wrapper */
+/* Radio row — standard container for simple radio + inline label. Aligns the
+   input to the label's optical center via items-center + tightened label
+   line-height (cap-height alignment, not line-box) per UX Design Lead
+   verdict 2026-04-22. Shared algebra with .checkbox-row. */
+.radio-row,
+.checkbox-row {
+    @apply flex items-center gap-3;
+}
+
+.radio-row > label,
+.checkbox-row > label {
+    @apply mb-0 text-sm text-sand-700 dark:text-sand-300;
+    line-height: 1.25;
+}
+
+/* Radio button with label wrapper (card variant) */
 .radio-label {
-    @apply flex p-3 w-full bg-sand-50 border border-sand-200 rounded-lg text-sm;
+    @apply flex items-center p-3 w-full bg-sand-50 border border-sand-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-sand-900 dark:border-sand-700;
     cursor: pointer;
@@ -332,9 +353,10 @@ input[type='radio'] {
    CHECKBOXES
    =================================== */
 
-/* Checkbox input */
+/* Checkbox input. mt-0.5 hand-tune removed Patch 20 — alignment belongs to
+   the .checkbox-row / .checkbox-label row primitive, not the input element. */
 input[type='checkbox'] {
-    @apply shrink-0 mt-0.5 border-sand-200 rounded text-primary-600;
+    @apply shrink-0 border-sand-200 rounded text-primary-600;
     @apply focus:outline-none focus:ring-0;
     @apply checked:border-primary-500;
     @apply disabled:opacity-50 disabled:pointer-events-none;
@@ -343,9 +365,10 @@ input[type='checkbox'] {
     @apply dark:focus:ring-offset-sand-800;
 }
 
-/* Checkbox with label wrapper */
+/* Checkbox with label wrapper (card variant). items-center added Patch 20 to
+   share the same cap-height alignment algebra as .checkbox-row. */
 .checkbox-label {
-    @apply flex p-3 w-full bg-sand-50 border border-sand-200 rounded-lg text-sm;
+    @apply flex items-center p-3 w-full bg-sand-50 border border-sand-200 rounded-lg text-sm;
     @apply focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500;
     @apply dark:bg-sand-900 dark:border-sand-700;
     cursor: pointer;
@@ -2075,13 +2098,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    =================================== */
 
 /* Sidebar container - replaces utility class soup on #application-sidebar */
+/* @surface-role: chrome */
 .app-sidebar {
     @apply fixed top-0 start-0 bottom-0 z-[60] w-64;
-    @apply border-e border-sand-100 pt-7 pb-10 overflow-y-auto;
+    @apply border-e border-sand-200 pt-7 pb-10 overflow-y-auto;
     @apply dark:bg-sand-900 dark:border-sand-800;
     /* Mobile: off-screen left. lg+: always visible. Preline .open slides it in on mobile. */
     @apply -translate-x-full transition-all duration-300 transform lg:translate-x-0 lg:end-auto lg:bottom-0;
-    background-color: color-mix(in srgb, var(--sidebar) 42%, transparent);
+    background-color: var(--color-surface-chrome);
 }
 
 /* When Preline opens the sidebar overlay on mobile, slide it into view */
@@ -2123,25 +2147,34 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply opacity-50 pointer-events-none;
 }
 
+/* Sidebar nav item — seamless list with edge-to-edge hover. rounded-lg removed
+   Patch 20 (2026-04-22) per UX Design Lead verdict: rounded corners on adjacent
+   flush siblings left ~1px hit-test gaps between items, causing cursor to
+   flicker between pointer and arrow. Seamless rectangles give continuous
+   pointer affordance. Hover steps up from chrome (sand-100) to sand-200;
+   active uses sand-250 for persistent distinction. */
 .sidebar-nav-item {
-    @apply flex items-center gap-x-3.5 px-2.5 text-sm text-sand-700 rounded-lg hover:bg-sand-100;
+    @apply flex items-center gap-x-3.5 px-2.5 text-sm text-sand-700 hover:bg-sand-200;
     @apply dark:text-sand-400 dark:hover:bg-sand-700 dark:hover:text-sand-300;
     min-height: 3.15em; /* ~44px at 14px (text-sm), scales with font-size */
     padding-block: 0.575em;
 }
 
 .sidebar-nav-item:focus-visible {
-    @apply outline-none ring-2 ring-primary-500 dark:ring-primary-400;
+    @apply outline-none ring-2 ring-inset ring-primary-500 dark:ring-primary-400;
 }
 
 .sidebar-nav-item.active,
 .sidebar-nav-item[aria-current='page'] {
-    @apply bg-sand-100 text-sand-900;
+    @apply bg-sand-250 text-sand-900 font-medium;
     @apply dark:bg-sand-700 dark:text-white;
 }
 
+/* Category labels (Foundations / Primitives / Patterns / Components / Reference).
+   mt-5→mt-8 Patch 20 per UX Design Lead Gestalt proximity ratio: section-label
+   top-margin must be ≥ 1.5× item vertical rhythm to parse as distinct group. */
 .sidebar-nav-section {
-    @apply block text-xs font-semibold text-sand-600 uppercase tracking-wider mb-2 ml-2.5 mt-5;
+    @apply block text-xs font-semibold text-sand-600 uppercase tracking-wider mb-2 ml-2.5 mt-8;
     @apply dark:text-sand-400;
 }
 
