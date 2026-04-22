@@ -3783,7 +3783,7 @@ canvas {
 
 .avatar-group > .avatar,
 .avatar-group > .indicator-positioned {
-    @apply block; /* keeps rule alive through Tailwind v4 tree-shaking */
+    @apply inline-flex items-center justify-center; /* re-declare centering; block was losing text centering by replacing inline-flex */
     margin-left: -0.5rem;
     box-shadow: 0 0 0 2px var(--color-sand-50);
     border-radius: 9999px;
@@ -3791,7 +3791,7 @@ canvas {
 
 :is(.dark) .avatar-group > .avatar,
 :is(.dark) .avatar-group > .indicator-positioned {
-    @apply block;
+    @apply inline-flex items-center justify-center;
     box-shadow: 0 0 0 2px var(--color-sand-900);
 }
 
