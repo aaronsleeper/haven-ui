@@ -3101,6 +3101,15 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply relative w-full overflow-hidden;
 }
 
+/* Canvas rendering inherits font-feature-settings from :root (see
+   base/font-features.css). Chart.js draws axis labels via canvas text API,
+   and Inter's 'ordn' feature plus 'salt'/'cv*' alternates produced a
+   superscript-like rendering artifact on x-axis labels (Sep/Oct/Nov/Dec/Jan).
+   Reset to normal so data labels render unstyled. Patch 21 (2026-04-22). */
+canvas {
+    font-feature-settings: normal;
+}
+
 .chart-sparkline {
     @apply relative;
     height: 40px;

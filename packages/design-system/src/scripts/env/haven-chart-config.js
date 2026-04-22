@@ -80,8 +80,14 @@ const HAVEN = {
    CHART.JS GLOBAL DEFAULTS
    =================================== */
 
-Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Inter", sans-serif';
-Chart.defaults.font.size = 12;
+// Inter is prioritized so axis labels render with Haven's declared typeface
+// rather than falling through to -apple-system (San Francisco), which on macOS
+// produced a rendering artifact where lowercase letters after a capital read
+// as superscript at 12px (e.g. "Sep" → "S^ep"). Patch 21 (2026-04-22).
+Chart.defaults.font.family = '"Inter", -apple-system, BlinkMacSystemFont, sans-serif';
+// Bumped from 12 → 14 for legibility per Aaron browser review 2026-04-22.
+// Chart.js autoSkip handles tick density at larger sizes automatically.
+Chart.defaults.font.size = 14;
 Chart.defaults.color = HAVEN.sand[500];
 Chart.defaults.borderColor = HAVEN.sand[200];
 Chart.defaults.plugins.legend.display = false;
