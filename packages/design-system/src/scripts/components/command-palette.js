@@ -184,6 +184,24 @@
     }
   });
 
+  /* ── Document-level Escape handler ─────────────────
+     Patch 23 (2026-04-22): the palette-scoped keydown handler inside
+     initPalette only fires when focus is inside the palette subtree. If focus
+     drifts to <body> (user clicks backdrop area, or palette loses focus
+     programmatically), Escape keydown bubbles on document, never reaches the
+     palette listener, and the palette stays open. Document-level handler
+     ensures Escape always closes whichever palette is open.
+  ─────────────────────────────────────────────────── */
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var openPaletteEl = Array.from(document.querySelectorAll('.cmd-palette')).find(isOpen);
+    if (openPaletteEl) {
+      e.preventDefault();
+      closePalette(openPaletteEl);
+    }
+  });
+
   /* ── Initialize all palettes on page ──────────────── */
 
   document.querySelectorAll('.cmd-palette').forEach(initPalette);

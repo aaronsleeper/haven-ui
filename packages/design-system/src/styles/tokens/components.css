@@ -7283,20 +7283,24 @@ a.list-group-item-action {
     @apply dark:text-sand-400;
 }
 
-/* The search input — borderless, full-width, transparent. background-color
-   override added Patch 22 (2026-04-22): Patch 20's bg-surface-input on the
-   generic input rule was winning via specificity (input[type='text'] >
-   .cmd-palette-input), rendering the search as a solid-white pad against
-   the palette's sand-50 surface. !important on background-color restores
-   the design intent: the search is inline with the palette, not a
-   separate surface. */
-.cmd-palette-input {
+/* The search input — borderless, full-width, transparent.
+   Patch 22: background-color !important added because Patch 20's
+   bg-surface-input on the generic input rule was winning via specificity.
+   Patch 23 (2026-04-22): :focus variant added so base input:focus rule
+   (focus:border-primary-500 focus:ring-primary-500) — which has higher
+   specificity than .cmd-palette-input unqualified — stops rendering a teal
+   ring around the search on focus. Small internal padding restores text
+   breathing room per Aaron: "input text is really tight to the edges of
+   the search input." */
+.cmd-palette-input,
+.cmd-palette-input:focus {
     @apply block w-full text-base text-sand-900 bg-transparent outline-none;
     @apply dark:text-sand-100;
     border: none !important;
     background-color: transparent !important;
     box-shadow: none !important;
-    padding: 0 !important;
+    outline: none !important;
+    padding: 0.25rem 0.5rem !important;
 }
 
 .cmd-palette-input::placeholder {
@@ -7370,8 +7374,8 @@ a.list-group-item-action {
    for selected items." */
 .cmd-palette-item:hover,
 .cmd-palette-item.is-active {
-    @apply bg-primary-100 text-primary-700 font-medium;
-    @apply dark:bg-primary-900/30 dark:text-primary-300;
+    @apply bg-primary-100 text-primary-800 font-medium;
+    @apply dark:bg-primary-900/30 dark:text-primary-200;
 }
 
 /* Leading icon */
