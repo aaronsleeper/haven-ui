@@ -1,4 +1,9 @@
-import { AssessmentHeader, ResponseOptionGroup, type ResponseOptionData } from '@haven/ui-react';
+import {
+  AssessmentHeader,
+  IconButton,
+  ResponseOptionGroup,
+  type ResponseOptionData,
+} from '@haven/ui-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMemo } from 'react';
 import { GAD7_QUESTIONS, GAD7_OPTIONS } from './questions';
@@ -75,12 +80,18 @@ export function Gad7Question() {
     <div className="flex flex-col min-h-dvh">
       {/* Header — back + close */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
-        <Link to={backTo} className="btn-icon" aria-label="Previous question">
-          <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
-        </Link>
-        <Link to="/" className="btn-icon" aria-label="Save and exit">
-          <i className="fa-solid fa-xmark" aria-hidden="true"></i>
-        </Link>
+        <IconButton
+          icon="fa-solid fa-chevron-left"
+          ariaLabel="Previous question"
+          asComponent={Link}
+          linkProps={{ to: backTo }}
+        />
+        <IconButton
+          icon="fa-solid fa-xmark"
+          ariaLabel="Save and exit"
+          asComponent={Link}
+          linkProps={{ to: '/' }}
+        />
       </div>
 
       {/* Progress + title */}

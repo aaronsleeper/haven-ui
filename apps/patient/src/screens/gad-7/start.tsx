@@ -1,4 +1,4 @@
-import { Avatar, CommitAction } from '@haven/ui-react';
+import { Avatar, CommitAction, IconButton } from '@haven/ui-react';
 import { Link } from 'react-router-dom';
 import { GAD7_LEAD_IN, GAD7_QUESTIONS } from './questions';
 
@@ -12,9 +12,12 @@ export function Gad7Start() {
     <div className="flex flex-col min-h-dvh">
       {/* Header — back chevron only */}
       <div className="flex items-center px-4 pt-4 pb-2">
-        <Link to="/" className="btn-icon" aria-label="Back to home">
-          <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
-        </Link>
+        <IconButton
+          icon="fa-solid fa-chevron-left"
+          ariaLabel="Back to home"
+          asComponent={Link}
+          linkProps={{ to: '/' }}
+        />
       </div>
 
       {/* Content — vertically centered */}

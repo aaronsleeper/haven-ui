@@ -54,6 +54,13 @@ export type { PrimaryActionProps } from './components/PrimaryAction';
 export { CommitAction } from './components/CommitAction';
 export type { CommitActionProps, CommitActionButtonType } from './components/CommitAction';
 
+export { IconButton } from './components/IconButton';
+export type {
+  IconButtonProps,
+  IconButtonVariant,
+  IconButtonType,
+} from './components/IconButton';
+
 export { Avatar } from './components/Avatar';
 export type { AvatarProps, AvatarSize, AvatarColor } from './components/Avatar';
 

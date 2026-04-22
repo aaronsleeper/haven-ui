@@ -4,10 +4,10 @@
   category: Primitives — Buttons
   file: btn-icon.html
   classes: btn-icon, btn-icon-primary
-  when-to-use: Icon-only actions in toolbars, table action columns, and compact UIs where label text would crowd the layout. Always include an aria-label.
+  when-to-use: Icon-only actions in toolbars, table action columns, and compact UIs where label text would crowd the layout. Common patterns: back-chevron headers, close (×), more-options (⋮), and toolbar utilities. Always include an aria-label.
   do-not-use-when: The action is unclear without a text label — use a labeled button instead.
   preline-required: no
-  notes: btn-icon is neutral gray. btn-icon-primary is teal filled. Both are 32px square (size-8). Always provide aria-label for accessibility.
+  notes: btn-icon is neutral gray (44px / size-11 — meets the WCAG 2.5.5 / iOS 44pt tap-target floor). btn-icon-primary is teal filled (32px / size-8 — used in dense toolbars where the primary intent is visually obvious). Always provide aria-label for accessibility. Renders as <a class=btn-icon> when used for navigation (back-chevron exits, close-to-home), or <button type=button class=btn-icon> for in-page actions. The React port also accepts an `asComponent` prop so callers can inject a router-Link without forcing the design system to depend on a specific router.
   @end-meta
 -->
 
@@ -41,4 +41,16 @@
     <button type="button" class="btn-icon-primary" aria-label="Add">
       <i class="fa-solid fa-plus"></i>
     </button>
+
+    <!-- @component: btn-icon (anchor variant — back-chevron header navigation) -->
+    <a href="/assessment/gad-7/start" class="btn-icon" aria-label="Previous question">
+      <i class="fa-solid fa-chevron-left"></i>
+    </a>
+    <!-- /component -->
+
+    <!-- @component: btn-icon (anchor variant — close / save-and-exit) -->
+    <a href="/" class="btn-icon" aria-label="Save and exit">
+      <i class="fa-solid fa-xmark"></i>
+    </a>
+    <!-- /component -->
 </section>

@@ -190,6 +190,35 @@
       }
     },
     {
+      "name": "icon-button",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/IconButton.tsx", "type": "registry:component" },
+        { "path": "components/IconButton.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/btn-icon.html",
+        "composition": {
+          "propSchema": "./components/IconButton.props.ts",
+          "markdocTag": "icon-button",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "IconButton.default",
+          "IconButton.primary",
+          "IconButton.anchor",
+          "IconButton.asComponent"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Icon-only action — back chevrons, close (×), more-options (⋮), toolbar utilities. Renders .btn-icon (44px neutral, default) or .btn-icon-primary (32px teal). Required ariaLabel prop becomes the aria-label; the inner <i> is aria-hidden. Anchor when href provided; button otherwise. asComponent prop accepts a caller-supplied component (router-Link) so SPA navigation does not require leaking router APIs into the design system; linkProps spreads onto it. Not a terminal action — does not satisfy the wireframe-completeness gate."
+      }
+    },
+    {
       "name": "commit-action",
       "type": "registry:component",
       "files": [
