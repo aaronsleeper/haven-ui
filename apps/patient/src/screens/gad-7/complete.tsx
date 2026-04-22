@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { CommitAction } from '@haven/ui-react';
 import { scoreGad7 } from './questions';
 import { useGad7Responses } from './state';
 
@@ -55,9 +56,7 @@ export function Gad7Complete() {
 
       {/* Footer — Done */}
       <div className="px-6 pb-8">
-        <Link to="/" className="btn-primary w-full justify-center">
-          Done
-        </Link>
+        <CommitAction label="Done" asComponent={Link} block linkProps={{ to: '/' }} />
       </div>
     </div>
   );

@@ -8,17 +8,6 @@ import { useGad7Responses } from './state';
 // back + refresh work. Progress derived from question index; responses tracked
 // per useGad7Responses hook (persists to localStorage). "Continue" on last Q
 // routes to /complete.
-//
-// GAP: ResponseOptionGroup doesn't expose a controlled-state prop — it owns
-// aria-checked internally on click. For slice 1 we rely on the component's
-// internal state and capture the final answer via a change handler on the
-// underlying <button role="radio"> elements. Flagged for props-surface follow-
-// up: registered components need controlled-state for real flow state.
-//
-// GAP: the wireframe's "Continue disabled until answered" requires the parent
-// to know if a selection has been made. Without a controlled API on
-// ResponseOptionGroup, slice 1 relies on a native-DOM listener inside this
-// component rather than a proper prop flow.
 
 type ProgressStep = {
   status: 'complete' | 'in-progress' | 'not-started';
@@ -59,19 +48,12 @@ export function Gad7Question() {
     return null;
   }
 
-  const answered = responses[current.id] !== undefined;
+  const selected = responses[current.id];
+  const answered = selected !== undefined;
 
-  // Capture the selection via a DOM listener — ResponseOptionGroup doesn't
-  // expose a controlled API in slice-1. See GAP note above.
-  function handleAnswer(event: React.MouseEvent<HTMLDivElement>) {
-    const target = event.target as HTMLElement;
-    const btn = target.closest<HTMLButtonElement>('button[role="radio"]');
-    if (!btn || !current) return;
-    const label = btn.querySelector<HTMLElement>('.response-option-label')?.textContent?.trim();
-    if (!label) return;
-    const option = GAD7_OPTIONS.find((o) => o.label === label);
-    if (!option) return;
-    setAnswer(current.id, option.index);
+  function handleSelect(index: number) {
+    if (!current) return;
+    setAnswer(current.id, index);
   }
 
   function handleContinue() {
@@ -114,11 +96,13 @@ export function Gad7Question() {
       </div>
 
       {/* Response area */}
-      <div className="flex-1 px-6 pt-6 pb-4" onClick={handleAnswer}>
+      <div className="flex-1 px-6 pt-6 pb-4">
         <ResponseOptionGroup
           promptId={`gad7-${current.id}-prompt`}
           prompt={current.text}
           options={options}
+          selectedIndex={selected}
+          onChange={handleSelect}
         />
       </div>
 
@@ -126,7 +110,7 @@ export function Gad7Question() {
       <div className="sticky bottom-0 bg-white border-t border-sand-200 px-6 py-4">
         <button
           type="button"
-          className="btn-primary w-full justify-center"
+          className="btn-primary btn-block"
           onClick={handleContinue}
           disabled={!answered}
         >

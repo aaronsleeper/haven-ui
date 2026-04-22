@@ -35,3 +35,37 @@ export const Button: Story = {
     label: 'Continue',
   },
 };
+
+// Block variant — full-width via .btn-block modifier. Mirrors the sticky-footer
+// CTA pattern in apps/patient/src/screens/gad-7/question.tsx.
+export const Block: Story = {
+  args: {
+    label: 'Continue',
+    block: true,
+  },
+};
+
+// asComponent variant — renders via a caller-supplied component (router Link
+// stand-in here). The design system stays router-agnostic; the caller injects
+// the navigation primitive. linkProps is forwarded onto the component.
+const StubLink = ({
+  to,
+  className,
+  children,
+}: {
+  to?: string;
+  className?: string;
+  children?: React.ReactNode;
+}) => (
+  <a href={to} className={className} data-stub-link>
+    {children}
+  </a>
+);
+
+export const AsComponent: Story = {
+  args: {
+    label: 'Continue',
+    asComponent: StubLink,
+    linkProps: { to: '/assessment/gad-7/question/4' },
+  },
+};

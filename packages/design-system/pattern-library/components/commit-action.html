@@ -3,11 +3,11 @@
   name: Commit Action
   category: Primitives — Actions
   file: commit-action.html
-  classes: btn-primary (reused — no new CSS; follows DESIGN.md §Brand-taste "Primary teal fill reserved for commits")
+  classes: btn-primary, btn-block (reused — no new CSS; follows DESIGN.md §Brand-taste "Primary teal fill reserved for commits")
   when-to-use: A terminal-ish action that changes system state — Start (kick off an assessment or checkout), Submit (final answer in a form), Save, Book, Schedule, Done. Uses btn-primary (teal fill) because the user is committing to something, not merely navigating forward. Sibling to primary-action.html (which renders btn-secondary for forward-navigation commits are not).
   do-not-use-when: The action is forward navigation without state change — use primary-action. For destructive confirms, use btn-danger. For soft exits from a completed flow ("Done for now" after a follow-up is queued), use btn-outline.
   preline-required: no
-  notes: Renders as <a class=btn-primary> when href is provided (navigation that also commits, e.g. "Submit" routing to a completion screen); as <button type=submit class=btn-primary> by default, or type=button when needed. Wireframe-completeness gate uses the same terminal-action tag as primary-action; both are "the primary action for this screen" — they differ only in visual weight per brand-taste.
+  notes: Renders as <a class=btn-primary> when href is provided (navigation that also commits, e.g. "Submit" routing to a completion screen); as <button type=submit class=btn-primary> by default, or type=button when needed. Wireframe-completeness gate uses the same terminal-action tag as primary-action; both are "the primary action for this screen" — they differ only in visual weight per brand-taste. Compose .btn-block for sticky-footer / mobile full-width CTAs. The React port also accepts an `asComponent` prop so callers can inject a router-Link without forcing the design system to depend on a specific router.
   @end-meta
 -->
 <!DOCTYPE html>
@@ -34,6 +34,10 @@
 
     <!-- @component: commit-action (start variant) -->
     <button type="button" class="btn-primary">Start</button>
+    <!-- /component -->
+
+    <!-- @component: commit-action (block variant — full-width sticky-footer / mobile CTA) -->
+    <a href="/assessment/gad-7/complete" class="btn-primary btn-block">Submit</a>
     <!-- /component -->
   </section>
 

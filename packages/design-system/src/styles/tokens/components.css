@@ -501,6 +501,13 @@ a.btn-danger {
     line-height: var(--text-button-large--line-height);
 }
 
+/* Full-width modifier — add to any button variant. Replaces the
+   `w-full justify-center` inline duo on sticky-footer / mobile CTAs.
+   Composes with .btn-primary / .btn-secondary / .btn-outline / .btn-danger. */
+.btn-block {
+    @apply w-full justify-center;
+}
+
 /* ===================================
    BUTTON LOADING STATE
    =================================== */

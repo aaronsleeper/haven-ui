@@ -1,4 +1,4 @@
-import { Avatar } from '@haven/ui-react';
+import { Avatar, CommitAction } from '@haven/ui-react';
 import { Link } from 'react-router-dom';
 import { GAD7_LEAD_IN, GAD7_QUESTIONS } from './questions';
 
@@ -6,11 +6,6 @@ import { GAD7_LEAD_IN, GAD7_QUESTIONS } from './questions';
 // warm title ("Anxiety check-in" per plain-language Patch 9), description,
 // estimated time, Start commit-action. Back chevron top-left exits to a
 // hypothetical /health hub (slice 1 has no hub yet; link rendered inert).
-//
-// GAP: CommitAction renders <a href> which causes full-page navigation,
-// losing router state. For client-side Link we use <Link class="btn-primary">
-// inline. Flagged for component-API follow-up: CommitAction needs an
-// asComponent/to prop to accept a router-Link.
 
 export function Gad7Start() {
   return (
@@ -42,9 +37,12 @@ export function Gad7Start() {
 
       {/* Footer — Start commit */}
       <div className="px-6 pb-8">
-        <Link to={`/assessment/gad-7/question/${GAD7_QUESTIONS[0]!.id}`} className="btn-primary w-full justify-center">
-          Start
-        </Link>
+        <CommitAction
+          label="Start"
+          asComponent={Link}
+          block
+          linkProps={{ to: `/assessment/gad-7/question/${GAD7_QUESTIONS[0]!.id}` }}
+        />
         <p className="text-xs text-sand-400 text-center mt-3">
           Your answers are private and shared only with your care team.
         </p>

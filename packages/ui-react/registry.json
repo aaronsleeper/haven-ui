@@ -180,11 +180,13 @@
         "isTerminalAction": true,
         "stories": [
           "PrimaryAction.default",
-          "PrimaryAction.button"
+          "PrimaryAction.button",
+          "PrimaryAction.block",
+          "PrimaryAction.asComponent"
         ],
         "brandReviewed": false,
         "a11yReviewed": false,
-        "notes": "The forward / terminal action on a screen — Next in a multi-step flow, Continue, Finish. Semantically 'the primary action for this screen'; visually rendered with .btn-secondary per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits; Next buttons are secondary.' Anchor when href provided; button otherwise. Commit-variant actions (Submit, Schedule, Book) are a separate future tag. isTerminalAction: true marks it as satisfying the wireframe-completeness gate."
+        "notes": "The forward / terminal action on a screen — Next in a multi-step flow, Continue, Finish. Semantically 'the primary action for this screen'; visually rendered with .btn-secondary per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits; Next buttons are secondary.' Anchor when href provided; button otherwise. asComponent prop accepts a caller-supplied component (router-Link) so SPA navigation does not require leaking router APIs into the design system; linkProps spreads onto it. block prop composes .btn-block for sticky-footer / mobile full-width CTAs. Commit-variant actions (Submit, Schedule, Book) are a separate future tag. isTerminalAction: true marks it as satisfying the wireframe-completeness gate."
       }
     },
     {
@@ -209,11 +211,13 @@
         "stories": [
           "CommitAction.default",
           "CommitAction.anchor",
-          "CommitAction.start"
+          "CommitAction.start",
+          "CommitAction.block",
+          "CommitAction.asComponent"
         ],
         "brandReviewed": false,
         "a11yReviewed": false,
-        "notes": "Sibling to primary-action for actions that change system state — Start, Submit, Save, Book, Schedule, Done. Renders btn-primary (teal) per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits.' Anchor when href provided (navigate + commit, e.g. Submit → completion screen); button otherwise. isTerminalAction: true — counts against the wireframe-completeness gate."
+        "notes": "Sibling to primary-action for actions that change system state — Start, Submit, Save, Book, Schedule, Done. Renders btn-primary (teal) per DESIGN.md §Brand-taste 'Primary teal fill reserved for commits.' Anchor when href provided (navigate + commit, e.g. Submit → completion screen); button otherwise. asComponent prop accepts a caller-supplied component (router-Link) so SPA navigation does not require leaking router APIs into the design system; linkProps spreads onto it. block prop composes .btn-block for sticky-footer / mobile full-width CTAs. isTerminalAction: true — counts against the wireframe-completeness gate."
       }
     },
     {

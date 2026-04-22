@@ -1,10 +1,12 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import { MobileShell } from '@haven/ui-react';
 import { Gad7Routes } from './screens/gad-7';
 
-// Patient app root — mobile-shell envelope + BrowserRouter. Slice 1 routes
-// only cover the GAD-7 check-in flow; a proper Health hub lives in slice 2.
-// The landing page at `/` is a placeholder that links into the assessment.
+// Patient app root — MobileShell envelope is the registered app-shell tag
+// (conform:app-shell gate). BrowserRouter is hoisted into main.tsx so the
+// app-shell stays at the JSX root here. Slice 1 routes only cover the GAD-7
+// check-in flow; a proper Health hub lives in slice 2. The landing page at `/`
+// is a placeholder that links into the assessment.
 
 function Landing() {
   return (
@@ -37,13 +39,11 @@ function Landing() {
 
 export function App() {
   return (
-    <BrowserRouter>
-      <MobileShell>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/assessment/gad-7/*" element={<Gad7Routes />} />
-        </Routes>
-      </MobileShell>
-    </BrowserRouter>
+    <MobileShell>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/assessment/gad-7/*" element={<Gad7Routes />} />
+      </Routes>
+    </MobileShell>
   );
 }
