@@ -128,6 +128,7 @@
   --color-surface-card-grouped: var(--color-sand-100);      /* Grouped-row card variant per DESIGN.md §Surface. */
   --color-surface-raised:       var(--color-sand-150);
   --color-surface-input:        #ffffff;                    /* Form primitives (inputs, selects, textareas) — solid white above page. Distinct from pane (container) per Brand Fidelity verdict 2026-04-22: translucent white is reserved for container surfaces; form primitives use solid white to avoid aggregation dilution of the pane vocabulary. */
+  --color-surface-overlay:      #ffffff;                    /* Floating overlays (dropdowns, context-menus, combobox results, date/time pickers, notification panels). Solid white against chrome/page/card surfaces — unambiguous "floats above" signal with enough hover-bg contrast (~6% luminance delta to sand-100) for WCAG 1.4.11 3:1 non-text. Added Patch 60 per Token Steward verdict 2026-04-22 extending Patch 20 hierarchy to 8 rungs. */
 
   /* --- Text tokens — DESIGN.md §Text. --- */
   --color-text-normal:  var(--color-sand-900);

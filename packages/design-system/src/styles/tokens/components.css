@@ -1519,8 +1519,9 @@ a.btn-danger {
    These MUST use the hs-* class names so Preline's JS can detect them.
    =================================== */
 
+/* @surface-role: overlay */
 .hs-dropdown-menu {
-    @apply min-w-40 bg-sand-50 border border-sand-200 shadow-md rounded-lg p-1 mt-1 z-10;
+    @apply min-w-40 bg-surface-overlay border border-sand-200 shadow-md rounded-lg p-1 mt-1 z-10;
     @apply dark:bg-sand-900 dark:border-sand-700;
     /* Hidden by default; Preline adds 'block' when open, 'hidden' (display:none) when closed */
     display: none;
@@ -1568,8 +1569,9 @@ a.btn-danger {
    Menu:    #<menu-id>.ctx-menu
    =================================== */
 
+/* @surface-role: overlay */
 .ctx-menu {
-    @apply fixed min-w-44 bg-sand-50 border border-sand-200 shadow-lg rounded-lg p-1 z-50;
+    @apply fixed min-w-44 bg-surface-overlay border border-sand-200 shadow-lg rounded-lg p-1 z-50;
     @apply dark:bg-sand-900 dark:border-sand-700;
     display: none;
     opacity: 0;
@@ -2484,9 +2486,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    DROPDOWNS
    =================================== */
 
+/* @surface-role: overlay */
 .dropdown-menu {
     transition-property: opacity, margin;
-    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-sand-50 shadow-md rounded-lg p-2 mt-2;
+    @apply duration-300 opacity-0 hidden min-w-[15rem] bg-surface-overlay shadow-md rounded-lg p-2 mt-2;
     @apply dark:bg-sand-800 dark:border dark:border-sand-700 dark:divide-sand-700;
 }
 
@@ -6144,9 +6147,13 @@ canvas {
     @apply opacity-50 pointer-events-none;
 }
 
-/* Footer bar with Now / OK buttons */
+/* Footer bar with Now / OK buttons.
+   card-grouped surface pins the action row visually against the scrolling body
+   (sand-100 vs white overlay surface gives a 6% luminance-step pinning cue).
+   Per Token Steward verdict 2026-04-22 P40. */
+/* @surface-role: card-grouped */
 .timepicker-footer {
-    @apply flex flex-wrap justify-between items-center gap-2 py-2 px-3 border-t border-sand-200;
+    @apply flex flex-wrap justify-between items-center gap-2 py-2 px-3 bg-surface-card-grouped border-t border-sand-200;
     @apply dark:border-sand-700;
 }
 
@@ -6539,8 +6546,9 @@ canvas {
 }
 
 /* Dropdown output panel — hidden by default, Preline sets display:block inline */
+/* @surface-role: overlay */
 .combobox-output {
-    @apply absolute z-50 w-full bg-sand-50 border border-sand-200 rounded-md shadow-lg;
+    @apply absolute z-50 w-full bg-surface-overlay border border-sand-200 rounded-md shadow-lg;
     @apply dark:bg-sand-900 dark:border-sand-700;
     @apply overflow-hidden overflow-y-auto;
     max-height: 16rem;

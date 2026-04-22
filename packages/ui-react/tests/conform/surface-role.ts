@@ -3,12 +3,13 @@
 // declarations match the allowed token set for that role per DESIGN.md
 // §Surface / elevation:
 //
-//   page   — solid opaque sand/50  (bg-surface-page | bg-sand-50)
-//   chrome — solid sand/100        (bg-surface-chrome | bg-sand-100) — nav/rails below floating pages
-//   pane   — translucent white     (bg-surface-pane only — no opaque fallback)
-//   card   — solid white or sand/100 (bg-surface-card | bg-sand-100 | bg-white)
-//   raised — solid sand/150        (bg-surface-raised | bg-sand-150)
-//   input  — solid white           (bg-surface-input | bg-white) — form primitives above page
+//   page    — solid opaque sand/50  (bg-surface-page | bg-sand-50)
+//   chrome  — solid sand/100        (bg-surface-chrome | bg-sand-100) — nav/rails below floating pages
+//   pane    — translucent white     (bg-surface-pane only — no opaque fallback)
+//   card    — solid white or sand/100 (bg-surface-card | bg-sand-100 | bg-white)
+//   raised  — solid sand/150        (bg-surface-raised | bg-sand-150)
+//   input   — solid white           (bg-surface-input | bg-white) — form primitives above page
+//   overlay — solid white           (bg-surface-overlay | bg-white) — floating menus/dropdowns/pickers above page/chrome/card
 //
 // Roles chrome + input added Patch 20 (2026-04-22) per Brand Fidelity +
 // Token Steward joint verdict after Aaron browser-review: current 5-role
@@ -48,7 +49,7 @@ const DEFAULT_TARGET = resolve(
   'packages/design-system/src/styles/tokens/components.css',
 );
 
-type Role = 'page' | 'chrome' | 'pane' | 'card' | 'raised' | 'input';
+type Role = 'page' | 'chrome' | 'pane' | 'card' | 'card-grouped' | 'raised' | 'input' | 'overlay';
 
 // Allowed background values per role. Tailwind utilities and raw var() refs
 // both accepted — css-family gate separately enforces sand-canonical, so we
@@ -81,6 +82,14 @@ const ROLE_ALLOWED: Record<Role, readonly string[]> = {
     '#ffffff',
     'white',
   ],
+  'card-grouped': [
+    // Grouped-row card variant — sand-100. Separate from card for callers that
+    // need the semantic distinction (e.g. pinned footers, grouped-list chrome).
+    'bg-surface-card-grouped',
+    'bg-sand-100',
+    'var(--color-surface-card-grouped)',
+    'var(--color-sand-100)',
+  ],
   raised: [
     'bg-surface-raised',
     'bg-sand-150',
@@ -94,6 +103,19 @@ const ROLE_ALLOWED: Record<Role, readonly string[]> = {
     'bg-surface-input',
     'bg-white',
     'var(--color-surface-input)',
+    '#fff',
+    '#ffffff',
+    'white',
+  ],
+  overlay: [
+    // Floating overlays (dropdowns, context-menus, combobox results, date/time
+    // pickers, notification panels) take solid white. Distinct from input
+    // (form primitive) + card (content container) by context: overlays float
+    // above other surfaces temporarily. Added Patch 60 per Token Steward
+    // verdict 2026-04-22 extending Patch 20 hierarchy to 8 rungs.
+    'bg-surface-overlay',
+    'bg-white',
+    'var(--color-surface-overlay)',
     '#fff',
     '#ffffff',
     'white',
