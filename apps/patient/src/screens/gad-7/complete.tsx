@@ -9,10 +9,14 @@ import { useGad7Responses } from './state';
 // affirmation). Left in-memory via the scoreGad7 call so downstream consumers
 // (care-team view, eventual API persistence) can pick it up without re-scoring.
 //
-// Clears responses after mount so retaking the assessment starts fresh.
+// Cleanup of stale responses happens at the *start* of a new attempt
+// (start.tsx Start button onClick), not on unmount here. The unmount-clear
+// pattern caused a StrictMode flash: synthetic unmount → clear() → empty
+// responses → redirect-to-Start guard fires on remount → user bounces past
+// the score page. Pushing the clear to Start removes that race entirely.
 
 export function Gad7Complete() {
-  const { responses, clear } = useGad7Responses();
+  const { responses } = useGad7Responses();
   const navigate = useNavigate();
 
   // Guard: if the user lands here without any responses, bounce to Start.
@@ -23,16 +27,6 @@ export function Gad7Complete() {
   }, [responses, navigate]);
 
   const score = scoreGad7(responses);
-
-  // Clear responses on unmount so navigating back to Start is a fresh start.
-  // (A production version would persist to API before clearing; slice 1 is
-  // in-memory + localStorage only, so clearing here is the right behavior.)
-  useEffect(() => {
-    return () => {
-      clear();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="flex flex-col min-h-dvh">

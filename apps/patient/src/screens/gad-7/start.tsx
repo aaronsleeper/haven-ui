@@ -1,13 +1,19 @@
 import { Avatar, CommitAction, IconButton } from '@haven/ui-react';
 import { Link } from 'react-router-dom';
 import { GAD7_LEAD_IN, GAD7_QUESTIONS } from './questions';
+import { useGad7Responses } from './state';
 
 // Mirror of assess-02 wireframe pattern for GAD-7 specifically: category icon,
 // warm title ("Anxiety check-in" per plain-language Patch 9), description,
 // estimated time, Start commit-action. Back chevron top-left exits to a
 // hypothetical /health hub (slice 1 has no hub yet; link rendered inert).
+//
+// Clearing responses lives here (Start), not on Complete unmount, so React 18
+// StrictMode's synthetic mount/unmount cycle on Complete cannot empty
+// responses mid-render and bounce the user back to Start.
 
 export function Gad7Start() {
+  const { clear } = useGad7Responses();
   return (
     <div className="flex flex-col min-h-dvh">
       {/* Header — back chevron only */}
@@ -44,7 +50,10 @@ export function Gad7Start() {
           label="Start"
           asComponent={Link}
           block
-          linkProps={{ to: `/assessment/gad-7/question/${GAD7_QUESTIONS[0]!.id}` }}
+          linkProps={{
+            to: `/assessment/gad-7/question/${GAD7_QUESTIONS[0]!.id}`,
+            onClick: () => clear(),
+          }}
         />
         <p className="text-xs text-sand-400 text-center mt-3">
           Your answers are private and shared only with your care team.

@@ -77,7 +77,11 @@ export function Gad7Question() {
       : `/assessment/gad-7/question/${GAD7_QUESTIONS[currentIdx - 1]!.id}`;
 
   return (
-    <div className="flex flex-col min-h-dvh">
+    // Mobile (<sm): viewport-tall column with sticky footer pinned to the
+    // bottom of dvh. Desktop (≥sm): column collapses to content height; the
+    // footer drops out of sticky mode and sits naturally below the response
+    // options so Continue is right under the choices instead of 800px below.
+    <div className="flex flex-col min-h-dvh sm:min-h-fit">
       {/* Header — back + close */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <IconButton
@@ -107,7 +111,7 @@ export function Gad7Question() {
       </div>
 
       {/* Response area */}
-      <div className="flex-1 px-6 pt-6 pb-4">
+      <div className="flex-1 sm:flex-initial px-6 pt-6 pb-4">
         <ResponseOptionGroup
           promptId={`gad7-${current.id}-prompt`}
           prompt={current.text}
@@ -117,8 +121,8 @@ export function Gad7Question() {
         />
       </div>
 
-      {/* Sticky footer — Continue / Submit */}
-      <div className="sticky bottom-0 bg-white border-t border-sand-200 px-6 pt-4 pb-safe-4">
+      {/* Footer — sticky on mobile, natural-flow on desktop */}
+      <div className="sticky bottom-0 bg-white border-t border-sand-200 px-6 pt-4 pb-safe-4 sm:static sm:bg-transparent sm:border-t-0 sm:pb-4">
         <button
           type="button"
           className="btn-primary btn-block"
