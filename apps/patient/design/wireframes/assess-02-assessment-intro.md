@@ -36,7 +36,7 @@ Quick check-ins (1–5 questions, `?mode=checkin`) skip this screen entirely and
 - Icon is decorative — `aria-hidden="true"`
 
 #### Assessment Title
-- `<h1 class="text-xl font-display font-semibold">` — e.g., "How have you been feeling?" / "¿Cómo se ha sentido?"
+- `<h1 class="text-xl font-serif font-semibold">` — e.g., "How have you been feeling?" / "¿Cómo se ha sentido?"
 - Title comes from the assessment definition file's `title` / `title_es` field
 
 #### Assessment Description

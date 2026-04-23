@@ -31,7 +31,7 @@ Confirm the patient's assessment was submitted successfully. Provide a warm ackn
 - `aria-hidden="true"`
 
 #### Confirmation Heading
-- `<h1 class="text-xl font-display font-semibold mt-4">` — "Thank you" / "Gracias"
+- `<h1 class="text-xl font-serif font-semibold mt-4">` — "Thank you" / "Gracias"
 
 #### Confirmation Message
 - `<p class="text-sm text-sand-500 mt-2 max-w-xs">` — varies by assessment category:

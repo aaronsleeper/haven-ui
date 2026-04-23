@@ -23,7 +23,7 @@ Show the patient a detailed view of one tracked health metric over time. The pat
 ### Header Zone
 - `<div class="flex items-center px-4 pt-4 pb-2">`
 - Back button: `<button class="btn-icon">` with `fa-chevron-left` — returns to Health hub
-- Title: `<h1 class="text-lg font-display font-semibold ml-2">` — metric label (e.g., "Mood" / "Estado de ánimo")
+- Title: `<h1 class="text-lg font-serif font-semibold ml-2">` — metric label (e.g., "Mood" / "Estado de ánimo")
 
 ### Content Zone
 

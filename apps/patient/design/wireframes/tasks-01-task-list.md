@@ -23,7 +23,7 @@ Shows all outstanding tasks the patient needs to complete. The patient arrives h
 ### Header Zone
 - `<div class="flex items-center px-4 pt-4 pb-2">`
 - Back button: `<button class="btn-icon">` with `fa-chevron-left` — returns to dashboard
-- Title: `<h1 class="text-lg font-display font-semibold ml-2">` — "Tasks" / "Tareas"
+- Title: `<h1 class="text-lg font-serif font-semibold ml-2">` — "Tasks" / "Tareas"
 - Right: count badge `<span class="badge badge-primary badge-pill badge-sm">` — e.g., "5"
 
 ### Content Zone

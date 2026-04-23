@@ -91,7 +91,7 @@ None.
 4. **Header:**
    - `<div class="flex items-center px-4 pt-4 pb-2">`
    - Back: `.btn-icon` `fa-chevron-left` → dashboard
-   - Title: `<h1 class="text-lg font-display font-semibold ml-2">` — "Tasks" / "Tareas"
+   - Title: `<h1 class="text-lg font-serif font-semibold ml-2">` — "Tasks" / "Tareas"
    - Right: `.badge.badge-primary.badge-pill.badge-sm` — count
 5. **Task list:** `<div class="space-y-2 px-4 mt-4">` — all outstanding `task-card` components
 6. **Completed section:** Preline `hs-accordion` — "Completed" / "Completados" header, collapsed by default
@@ -145,7 +145,7 @@ None.
 3. **Header:** `.btn-icon` `fa-chevron-left` top-left
 4. **Content:** vertically centered `<div class="px-6 py-8 flex flex-col items-center text-center">`
    - Category icon: `.avatar.avatar-xl.[category-color]` with FA icon
-   - Title: `<h1 class="text-xl font-display font-semibold">`
+   - Title: `<h1 class="text-xl font-serif font-semibold">`
    - Description: `<p class="text-sm text-sand-500 mt-2 max-w-xs">`
    - Time estimate: `<p class="text-xs text-sand-400 mt-3">` with `fa-clock`
    - Section label (PRAPARE): `<p class="text-xs text-sand-400 mt-1">`
@@ -239,7 +239,7 @@ None.
 2. **i18n bar:** `mobile-i18n-bar` partial
 3. **Bottom nav:** `mobile-bottom-nav` partial — **Health** tab active
 4. **Header:**
-   - `.btn-icon` `fa-chevron-left` + `<h1 class="text-lg font-display font-semibold ml-2">` — metric label
+   - `.btn-icon` `fa-chevron-left` + `<h1 class="text-lg font-serif font-semibold ml-2">` — metric label
 5. **Current status card:** `.card mx-4 mt-4`
    - `.card-body` two-column: current value label (`text-2xl font-semibold`) + last recorded date + `trend-badge`
 6. **Trend chart:** `<div class="px-4 mt-6">`
