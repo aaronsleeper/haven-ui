@@ -9,6 +9,11 @@ export type { MobileShellProps } from './MobileShell.props';
 // PL's two-part contract (body class + inner wrapper) is honored from a single
 // React component. Removes the class on unmount so navigating back to a non-
 // mobile shell (desktop app composition) cleans up.
+//
+// Companion utilities `.pb-safe-4` and `.pb-safe-8` (in components.css) provide
+// bottom padding that clears the iOS home indicator via
+// `max(visual-floor, env(safe-area-inset-bottom))`. Compose them on sticky
+// footers and page-end containers inside the shell.
 
 export function MobileShell({ children }: MobileShellProps) {
   useEffect(() => {

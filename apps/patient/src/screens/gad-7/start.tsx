@@ -39,7 +39,7 @@ export function Gad7Start() {
       </div>
 
       {/* Footer — Start commit */}
-      <div className="px-6 pb-8">
+      <div className="px-6 pb-safe-8">
         <CommitAction
           label="Start"
           asComponent={Link}

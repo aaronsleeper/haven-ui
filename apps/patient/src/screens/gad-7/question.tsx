@@ -118,7 +118,7 @@ export function Gad7Question() {
       </div>
 
       {/* Sticky footer — Continue / Submit */}
-      <div className="sticky bottom-0 bg-white border-t border-sand-200 px-6 py-4">
+      <div className="sticky bottom-0 bg-white border-t border-sand-200 px-6 pt-4 pb-safe-4">
         <button
           type="button"
           className="btn-primary btn-block"

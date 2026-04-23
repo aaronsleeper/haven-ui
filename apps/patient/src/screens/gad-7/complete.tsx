@@ -55,7 +55,7 @@ export function Gad7Complete() {
       </div>
 
       {/* Footer — Done */}
-      <div className="px-6 pb-8">
+      <div className="px-6 pb-safe-8">
         <CommitAction label="Done" asComponent={Link} block linkProps={{ to: '/' }} />
       </div>
     </div>
