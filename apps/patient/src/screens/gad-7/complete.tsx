@@ -42,9 +42,11 @@ export function Gad7Complete() {
         </p>
 
         {/* Debug/demo only — score band visible while slice 1 is prototype.
-            Production wireframe (assess-04) hides raw score from patient. */}
+            Production wireframe (assess-04) hides raw score from patient.
+            Phrasing avoids "N/M" — the global `frac` OpenType feature on
+            :root would convert it to a tiny fraction glyph in JetBrains Mono. */}
         <p className="text-xs text-sand-400 mt-6 font-mono">
-          [prototype] score: {score.total} / 21 — {score.band}
+          [prototype] score {score.total} of 21 — {score.band}
         </p>
       </div>
 
