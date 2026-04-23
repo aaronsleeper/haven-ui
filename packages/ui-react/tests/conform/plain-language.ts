@@ -7,11 +7,13 @@
 //     and pattern-library HTML (packages/design-system/pattern-library/
 //     components/*.html). React JSX and i18n catalogs defer to v2.
 //   - Persona-scoped by filesystem path: apps/patient/** is strict;
-//     apps/care-coordinator/**, apps/provider/**, apps/kitchen/** are
-//     relaxed (clinicians + ops legitimately use clinical codes).
-//     Pattern-library (unscoped) defaults to **strict** — components
-//     are consumed by the patient surface first; a clinician-only
-//     component belongs in a persona app folder.
+//     apps/care-coordinator/** is relaxed (clinicians + ops legitimately
+//     use clinical codes). Pattern-library (unscoped) defaults to
+//     **strict** — components are consumed by the patient surface first;
+//     a clinician-only component belongs in a persona app folder.
+//     Provider + kitchen apps were archived 2026-04-23 to
+//     archive/inactive-apps/; restore + re-add to RELAXED_ROOTS if
+//     reactivated.
 //   - Dictionary: clinical assessment codes (GAD-7, PHQ-9, DAST-10,
 //     etc.), medical acronyms (BP, BMI, A1C, etc.), and a short list
 //     of ops-leak terms. Codes pattern-match both hyphenated and
@@ -47,8 +49,6 @@ const STRICT_ROOTS = [
 ];
 const RELAXED_ROOTS = [
   resolve(MONOREPO_ROOT, 'apps/care-coordinator'),
-  resolve(MONOREPO_ROOT, 'apps/provider'),
-  resolve(MONOREPO_ROOT, 'apps/kitchen'),
 ];
 
 // Patient-facing pattern-library components. A component is "patient-

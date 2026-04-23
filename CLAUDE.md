@@ -21,7 +21,8 @@ When done:
    ```
 3. Output the local server URL so Aaron can review:
    - Pattern-library spec server: `pnpm --filter @haven/design-system dev` → http://localhost:5173
-   - App dev servers: `pnpm --filter @haven/app-care-coordinator dev` (5174), `@haven/app-kitchen` (5175), `@haven/app-patient` (5176), `@haven/app-provider` (5177)
+   - App dev servers: `pnpm --filter @haven/app-care-coordinator dev` (5174), `@haven/app-patient` (5176)
+   - Archived apps (not in `apps/*`): kitchen + provider live in `archive/inactive-apps/` as of 2026-04-23 — restore when scheduled.
    - All at once: `pnpm dev` (turbo runs every dev script in parallel)
 
 Do not proceed to the next task — wait for review.
@@ -67,14 +68,13 @@ haven-ui/
 │       └── src/
 │           ├── index.ts               # Barrel export (populated by ui-react-porter)
 │           └── components/            # One file per ported pattern-library entry
-├── apps/                              # React + Vite apps per persona
+├── apps/                              # React + Vite apps per persona (active only)
 │   ├── care-coordinator/              # port 5174 (@haven/app-care-coordinator)
-│   ├── kitchen/                       # port 5175
 │   ├── patient/                       # port 5176
-│   ├── provider/                      # port 5177
 │   │   └── (each has: package.json, vite.config.ts, tsconfig.json, index.html, src/main.tsx, src/App.tsx, design/)
 │   └── [app]/design/                  # Planning material: wireframes, use-cases, component-map, validation
 ├── archive/
+│   ├── inactive-apps/                 # Archived persona apps (kitchen, provider — 2026-04-23). README inside has restoration steps.
 │   └── vanilla-html-handoff/          # Historical handoff artifacts (ANDREY-README, composite HTMLs)
 ├── planning/                          # Product / UX / architecture (imported from Ava)
 ├── .project-docs/
