@@ -195,6 +195,46 @@ This is mandatory. No exceptions.
 
 See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 
+### Slice authoring — tiered ceremony
+
+The full pattern-library-first + 4-expert panel + all-gates flow is calibrated for *new primitives* and *load-bearing slices*. Lighter work pays a smaller toll. Three tiers:
+
+| Tier | When | Ceremony |
+|---|---|---|
+| **Primitive** | New PL component (action, card, layout, input) | Full doctrine: PL HTML → components.css → COMPONENT-INDEX → ui-react port → registry → 4-expert panel → all gates. |
+| **Slice composition** | App composes existing primitives; no new PL needed | Compose inline in `apps/*`. Skip: PL fragment authoring, ui-react port, expert panel. Keep: typecheck + the "blocking on patch" gate set (see Gate triage). |
+| **Bug fix / polish** | Behavior or styling fix in shipped code | Patch the file; run typecheck + the gates whose scope was touched. |
+
+Declare the tier at the top of any task prompt that's larger than a single edit.
+
+#### Promote on second use
+
+Author one-off compositions inline in `apps/*` first. Promote to a PL fragment + ui-react primitive **when a second screen needs it**. The pattern-library-first rule applies once a primitive is anticipated, not for every visual unit.
+
+Concrete promotion criteria (any one is sufficient):
+
+- Used by ≥2 screens (current or imminent)
+- Has brand-fidelity weight (named in DESIGN.md §Brand-taste)
+- Carries interactive behavior shared across apps
+
+If none apply, leave it inline. The TaskCard port (Patch 67) was promoted *because* a second consumer was anticipated; the prototype score line on Complete (Patches 71–72) was correct to leave inline.
+
+#### Gate triage
+
+Not all 12 conform gates need to run on every patch.
+
+- **Blocking on patch (always):** `typecheck`, `conform:manifest`, `conform:app-shell`, `conform:plain-language`, `conform:css-family`
+- **Blocking on merge:** `conform:surface-role`, `conform:contrast-pairs`, `conform:wireframe-completeness`, `conform:font-features`, `conform:button-font-size`, `conform:radius-pill`
+- **Local-only / informational:** `conform:token`, `conform:visual` (Playwright; no CI enforcement yet)
+
+The "blocking on patch" set catches what breaks the build or violates authoring discipline. The "blocking on merge" set catches drift that's safe to accumulate during iteration but unsafe to ship. Run the full umbrella `pnpm conform` before opening a PR.
+
+#### Investigation discipline
+
+Before patching a bug, name the *system* causing it, not the symptom. Patches that fix symptoms without naming root cause invite repeated round-trips (cf. Patches 70/71/72 — three patches for one OpenType-feature scoping bug because the first two addressed visible symptoms).
+
+For dev-only bugs (StrictMode flash, HMR cache, dev-only race), label them as such in the commit message — don't burn cycles checking prod.
+
 ### Pattern-library vs Storybook — boundary + drift protection
 
 These are NOT duplicative. They sit on opposite sides of the spec → port line.
@@ -366,7 +406,9 @@ The `display: none` default is required to prevent the menu from occupying layou
 
 ## Per-slice QA — 4-expert review panel
 
-Every slice passes through a 4-reviewer panel before merge. Each reviewer ships a structured verdict (`ship` / `iterate` / `block`):
+Required for **Tier 1 (Primitive)** and load-bearing **Tier 2 (Slice composition)** work. Skip for bug fixes / polish and for slice composition that only re-uses existing primitives. See [Slice authoring — tiered ceremony](#slice-authoring--tiered-ceremony).
+
+When required, the slice passes through a 4-reviewer panel before merge. Each reviewer ships a structured verdict (`ship` / `iterate` / `block`):
 
 1. **Pattern-library steward** ([planning/experts/design-system-steward/](./planning/experts/design-system-steward/)) — token discipline, no utility soup, component reuse
 2. **Information architecture** ([planning/experts/ux-design-lead/](./planning/experts/ux-design-lead/)) — structure, handoff, gates
@@ -379,11 +421,12 @@ All four must pass (or produce iterate-then-ship) before a slice ships.
 
 Before starting a new slice or retrofit:
 
+- [ ] Declare the tier (Primitive / Slice composition / Bug fix)
 - [ ] Read [DESIGN.md](./DESIGN.md)
 - [ ] Load relevant Figma frames via MCP (`mcp__claude_ai_Figma__get_design_context` / `get_variable_defs` / `get_screenshot`)
 - [ ] Check `pattern-library/COMPONENT-INDEX.md` for existing components
 - [ ] Name the delta between Figma and existing components, if any
-- [ ] Plan the 4-expert review panel dispatch before shipping
+- [ ] If Tier 1: plan the 4-expert review panel dispatch before shipping
 
 Command files live in `.claude/commands/`. Skill files live in `.project-docs/agent-workflow/skills/`.
 
