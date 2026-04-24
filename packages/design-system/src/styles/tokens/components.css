@@ -8061,14 +8061,6 @@ a.list-group-item-action {
     box-shadow: -1px 0 3px 0 rgba(0, 0, 0, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-    .thread-panel {
-        background-color: var(--color-sand-900);
-        box-shadow: -1px 0 3px 0 rgba(0, 0, 0, 0.2);
-        border-left-color: var(--color-sand-700);
-    }
-}
-
 .thread-panel-body {
     @apply flex-1 p-4;
 }
@@ -8076,7 +8068,6 @@ a.list-group-item-action {
 /* Centered empty-state text for the thread panel's inactive state. */
 .thread-panel-empty {
     @apply flex flex-col items-center justify-center h-full text-sm text-sand-600;
-    @apply dark:text-sand-300;
 }
 
 .queue-filter-btn {
