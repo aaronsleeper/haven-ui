@@ -203,29 +203,32 @@ This is mandatory. No exceptions.
 
 See `.project-docs/prompts/task-template.md` for the canonical prompt format.
 
-### Slice authoring — tiered ceremony
+### Slice authoring — wireframe-driven, PL-first
 
-The full pattern-library-first + 4-expert panel + all-gates flow is calibrated for *new primitives* and *load-bearing slices*. Lighter work pays a smaller toll. Three tiers:
+Every slice begins with a **wireframe-vs-PL delta review** — the one ceremony step between expert-authored wireframes and build. Compare each component flagged in the wireframe against `pattern-library/COMPONENT-INDEX.md`. Decompose: a wireframe name like `thread-approval-card` may already be expressible as existing primitives. Three buckets per item:
+
+1. **Exists in PL** — copy the HTML; if a ui-react port is missing, port it (Tier 1, mechanical).
+2. **Novel composition (recurring shape)** — composition of existing primitives that appears across ≥2 wireframes with the same shape. Promote to PL as a composition entry (Tier 1).
+3. **Novel primitive** — no PL equivalent and no decomposition path. Promote to PL as a new primitive (Tier 1, full ceremony including 4-expert panel for brand-fidelity-weighted entries).
+
+PL-first is the default. The output of the delta review is a build plan that names which work falls into each bucket.
 
 | Tier | When | Ceremony |
 |---|---|---|
-| **Primitive** | New PL component (action, card, layout, input) | Full doctrine: PL HTML → components.css → COMPONENT-INDEX → ui-react port → registry → 4-expert panel → all gates. |
-| **Slice composition** | App composes existing primitives; no new PL needed | Compose inline in `apps/*`. Skip: PL fragment authoring, ui-react port, expert panel. Keep: typecheck + the "blocking on patch" gate set (see Gate triage). |
-| **Bug fix / polish** | Behavior or styling fix in shipped code | Patch the file; run typecheck + the gates whose scope was touched. |
+| **Primitive (Tier 1)** | Delta requires a new PL fragment OR an existing PL fragment that has not yet been ported to ui-react | PL HTML → components.css → COMPONENT-INDEX → ui-react port (via `ui-react-porter` skill) → `registry.json` + variant-matrix stories → 4-expert panel for brand-fidelity-weighted entries; mechanical 1:1 ports skip the panel. All blocking-on-patch gates per patch. |
+| **Slice composition (Tier 2)** | App composes ui-react primitives already in `packages/ui-react/`; delta review found zero PL gaps | Compose in `apps/*`. Skip: PL fragment authoring, ui-react porting, expert panel. Keep: typecheck + blocking-on-patch gate set. |
+| **Bug fix / polish (Tier 3)** | Behavior or styling fix in shipped code | Patch the file; run typecheck + the gates whose scope was touched. |
 
-Declare the tier at the top of any task prompt that's larger than a single edit.
+Declare the tier at the top of any task prompt larger than a single edit.
 
-#### Promote on second use
+#### Narrow inline carve-out
 
-Author one-off compositions inline in `apps/*` first. Promote to a PL fragment + ui-react primitive **when a second screen needs it**. The pattern-library-first rule applies once a primitive is anticipated, not for every visual unit.
+Some compositions belong inline in app code, not in the PL. The carve-out is narrow:
 
-Concrete promotion criteria (any one is sufficient):
+- **Wireframe-flagged as app-specific.** The expert who authored the wireframe explicitly marked the component as not-yet-promotable (single use, app-specific shape).
+- **Composition shape is materially simpler than any existing PL alternative.** Example: cc-02's thread-input is a `<textarea>` + `<IconButton>` — the existing `prompt-input-container` is a richer shape that doesn't fit. Compose inline; promote when a second app needs the same simpler shape.
 
-- Used by ≥2 screens (current or imminent)
-- Has brand-fidelity weight (named in DESIGN.md §Brand-taste)
-- Carries interactive behavior shared across apps
-
-If none apply, leave it inline. The TaskCard port (Patch 67) was promoted *because* a second consumer was anticipated; the prototype score line on Complete (Patches 71–72) was correct to leave inline.
+Default is still PL-first. The carve-out is the exception, not the on-ramp. "Promote on second use" is the trigger for *graduating an inline carve-out into the PL*, not the default decision for new wireframe components. The TaskCard port (Patch 67) was promoted because a second consumer was anticipated; the prototype score line on Complete (Patches 71–72) was correct to leave inline.
 
 #### Gate triage
 
@@ -414,7 +417,7 @@ The `display: none` default is required to prevent the menu from occupying layou
 
 ## Per-slice QA — 4-expert review panel
 
-Required for **Tier 1 (Primitive)** and load-bearing **Tier 2 (Slice composition)** work. Skip for bug fixes / polish and for slice composition that only re-uses existing primitives. See [Slice authoring — tiered ceremony](#slice-authoring--tiered-ceremony).
+Required for **Tier 1 (Primitive)** work that authors new PL fragments or composes brand-fidelity-weighted ports. Mechanical 1:1 ports of already-approved PL fragments skip the panel — review happened at the PL-fragment level. Tier 2 (Slice composition) and Tier 3 (Bug fix / polish) skip the panel by default. See [Slice authoring — wireframe-driven, PL-first](#slice-authoring--wireframe-driven-pl-first).
 
 When required, the slice passes through a 4-reviewer panel before merge. Each reviewer ships a structured verdict (`ship` / `iterate` / `block`):
 
@@ -429,12 +432,13 @@ All four must pass (or produce iterate-then-ship) before a slice ships.
 
 Before starting a new slice or retrofit:
 
-- [ ] Declare the tier (Primitive / Slice composition / Bug fix)
+- [ ] Read the wireframe(s) for the slice in `apps/[persona]/design/wireframes/`
 - [ ] Read [DESIGN.md](./DESIGN.md)
-- [ ] Load relevant Figma frames via MCP (`mcp__claude_ai_Figma__get_design_context` / `get_variable_defs` / `get_screenshot`)
-- [ ] Check `pattern-library/COMPONENT-INDEX.md` for existing components
-- [ ] Name the delta between Figma and existing components, if any
-- [ ] If Tier 1: plan the 4-expert review panel dispatch before shipping
+- [ ] Load relevant Figma frames via MCP if visual reference helps (`mcp__claude_ai_Figma__get_design_context` / `get_variable_defs` / `get_screenshot`)
+- [ ] **Run the wireframe-vs-PL delta review** against `pattern-library/COMPONENT-INDEX.md`. Decompose every wireframe-flagged component into primitives. Categorize each as exists-in-PL / novel-composition / novel-primitive.
+- [ ] Declare the tier per the delta outcome (Primitive / Slice composition / Bug fix)
+- [ ] If Tier 1 with brand-fidelity-weighted authoring: plan the 4-expert review panel dispatch before shipping
+- [ ] Document the delta and tier decision in the slice plan (or task prompt)
 
 Command files live in `.claude/commands/`. Skill files live in `.project-docs/agent-workflow/skills/`.
 
