@@ -214,6 +214,15 @@ Walk the wireframe(s) section-by-section. Every element not listed in "In scope"
 - **ux-design-lead:** [ship / iterate / block] — [one-line summary]
 - **design-system-steward:** [ship / iterate / block] — [...]
 - **accessibility:** [ship / iterate / block, WCAG pass/conditional/fail] — [...]
+- **brand-fidelity:** [ship / iterate / block] — [...]
+
+### Pre-build check retrospective (per round)
+
+For each reviewer's `iterate` or `block` verdict this round, answer:
+
+- **Would `plan-readiness` have caught this pre-build?** [yes / no / partially] — [one-line why]
+
+This calibrates the plan-readiness skill over time. `yes` answers that recur across slices mean the check list is right but wasn't being run; `no` answers mean the issue is inherently post-build (visual, interactive, emergent); `partially` answers mean a plan-readiness check needs extending. Pattern review against kill criteria in `~/.claude/plans/bmad-pilots-implementation.md`.
 ```
 
 The manifest file is the single source of truth for "what shipped and what didn't" when expert review runs or future agents pick up the work. It lands in the same commit as the slice's code.
