@@ -34,7 +34,8 @@
     "conform:token-theme-parity": "tsx tests/conform/token-theme-parity.ts",
     "conform:token": "playwright test tests/conform/token.spec.ts",
     "conform:visual": "playwright test tests/conform/visual.spec.ts",
-    "conform": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:surface-role && pnpm conform:plain-language && pnpm conform:contrast-pairs && pnpm conform:wireframe-completeness && pnpm conform:font-features && pnpm conform:brand-fonts && pnpm conform:button-font-size && pnpm conform:radius-pill && pnpm conform:token-theme-parity && pnpm conform:token && pnpm conform:visual",
+    "conform:fast": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:surface-role && pnpm conform:plain-language && pnpm conform:contrast-pairs && pnpm conform:wireframe-completeness && pnpm conform:font-features && pnpm conform:brand-fonts && pnpm conform:button-font-size && pnpm conform:radius-pill && pnpm conform:token-theme-parity",
+    "conform": "pnpm conform:fast && pnpm conform:token && pnpm conform:visual",
     "clean": "rm -rf .turbo schema storybook-static test-results playwright-report"
   },
   "peerDependencies": {

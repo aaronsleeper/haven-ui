@@ -1,4 +1,24 @@
 /* ===================================
+   A11Y UTILITIES
+   =================================== */
+
+/* Visually hide content while keeping it available to assistive tech.
+   Defined here as a semantic class so app JSX + PL HTML can rely on it
+   without Tailwind's utility-scanning contract (the design-system CSS
+   auto-emits this; consumers import the built stylesheet). */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ===================================
    PAGE LAYOUT
    =================================== */
 
@@ -7814,6 +7834,9 @@ a.list-group-item-action {
     @apply dark:text-primary-400;
 }
 
+/* Bubble is identified by its right-alignment + "You" label, not by the tint.
+   Text inside meets text-contrast. */
+/* @contrast-exempt: decorative-background */
 .thread-msg-human-bubble {
     @apply bg-primary-50 text-sm text-sand-900 px-3 py-2 rounded-md;
     border-top-right-radius: 0;
@@ -7951,10 +7974,14 @@ a.list-group-item-action {
     border-top: 1px solid var(--color-sand-200);
 }
 
-/* Variant overrides keep inner dividers in the same family as the surface. */
+/* Variant overrides keep inner dividers in the same family as the surface.
+   Inner dividers are decorative — the card's border+border-left already
+   identifies the variant at 3:1+ contrast. */
+/* @contrast-exempt: decorative-background */
 .thread-approval-card.is-urgent .thread-approval-effects {
     border-top-color: var(--color-red-200);
 }
+/* @contrast-exempt: decorative-background */
 .thread-approval-card.is-warning .thread-approval-effects {
     border-top-color: var(--color-amber-200);
 }
@@ -7987,9 +8014,11 @@ a.list-group-item-action {
     border-top: 1px solid var(--color-sand-200);
 }
 
+/* @contrast-exempt: decorative-background */
 .thread-approval-card.is-urgent .thread-approval-actions {
     border-top-color: var(--color-red-200);
 }
+/* @contrast-exempt: decorative-background */
 .thread-approval-card.is-warning .thread-approval-actions {
     border-top-color: var(--color-amber-200);
 }

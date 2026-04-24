@@ -29,6 +29,20 @@ Do not proceed to the next task — wait for review.
 
 ---
 
+## One-time local setup
+
+After cloning haven-ui, run once:
+
+```
+git config core.hooksPath .githooks
+```
+
+This wires the tracked `.githooks/pre-push` hook that runs `pnpm typecheck` + `pnpm --filter @haven/ui-react conform:fast` before every `git push`. Without it, `git push` uses the default `.git/hooks/` (empty), and broken gates will only be caught by CI — one failure email per push per remote. The hook skips `conform:token` and `conform:visual` (Playwright, slow); run `pnpm --filter @haven/ui-react conform` manually before opening a PR for the full umbrella.
+
+Bypass is available via `git push --no-verify`. Use it only for genuine emergencies, not as a habit.
+
+---
+
 ## Project Structure
 
 ```
