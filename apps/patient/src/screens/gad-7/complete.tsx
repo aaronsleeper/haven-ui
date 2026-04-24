@@ -42,11 +42,7 @@ export function Gad7Complete() {
         </p>
 
         {/* Debug/demo only — score band visible while slice 1 is prototype.
-            Production wireframe (assess-04) hides raw score from patient.
-            Renders in Inter (no font-mono): the global font-feature-settings
-            on :root (font-features.css) is tuned for Inter; JetBrains Mono
-            applies the same feature names to different stylistic-set glyphs,
-            including a numerator substitution that turns "21" into ²¹. */}
+            Production wireframe (assess-04) hides raw score from patient. */}
         <p className="text-xs text-sand-400 mt-6">
           [prototype] score {score.total} of 21 — {score.band}
         </p>
