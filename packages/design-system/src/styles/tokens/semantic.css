@@ -134,7 +134,7 @@
   --color-text-normal:  var(--color-sand-900);
   --color-text-muted:   var(--color-sand-700);
   --color-text-faint:   var(--color-sand-500);
-  --color-text-on-dark: var(--color-sand-50);
+  --color-text-on-dark: var(--color-sand-50); /* theme-invariant — always the text color for dark surfaces regardless of theme mode. */
 
   /* --- Border tokens — DESIGN.md §Border. --- */
   --color-border-default: var(--color-sand-250);
@@ -146,12 +146,45 @@
   --color-accent-interactive: var(--color-teal-600);
 }
 
-/* Dark-mode token overrides. Scoped narrowly to the tokens that load-bearing
-   chrome components read via plain `var(--color-...)` declarations (where the
-   `dark:` utility in the same rule can't win the cascade). Broader dark-mode
-   token coverage is tracked as a separate design-system task. */
+/* --- Dark-mode token overrides ---
+   Every semantic --color-* token declared in the @theme inline block above
+   must have a counterpart here, OR carry an inline `/* theme-invariant */`
+   comment at its declaration site. Enforced by conform:token-theme-parity.
+
+   Values below are a provisional mechanical mapping:
+     - sand surfaces mirror across the palette midpoint (50 ↔ 950, etc.)
+     - text stops invert (sand-900 ↔ sand-50)
+     - teal steps one stop lighter in dark for adequate contrast on dark bg
+     - translucent alphas invert luminosity
+   Brand-fidelity should review these before dark mode ships to users.
+   See ~/.claude/plans/haven-dark-mode-token-parity.md for the full table. */
 .dark {
-    --color-surface-chrome: var(--color-sand-900);
+    /* Brand primary */
+    --color-primary:      var(--color-teal-500);
+    --color-primary-edge: var(--color-teal-600);
+
+    /* Surface tokens */
+    --color-surface-page:         var(--color-sand-950);
+    --color-surface-chrome:       var(--color-sand-900);
+    --color-surface-pane:         rgba(255, 255, 255, 0.06);
+    --color-surface-card:         var(--color-sand-800);
+    --color-surface-card-grouped: var(--color-sand-900);
+    --color-surface-raised:       var(--color-sand-700);
+    --color-surface-input:        var(--color-sand-800);
+    --color-surface-overlay:      var(--color-sand-800);
+
+    /* Text tokens */
+    --color-text-normal: var(--color-sand-50);
+    --color-text-muted:  var(--color-sand-300);
+    --color-text-faint:  var(--color-sand-400);
+    /* --color-text-on-dark is theme-invariant — same value in both modes. */
+
+    /* Border tokens */
+    --color-border-default: var(--color-sand-700);
+    --color-border-image:   rgba(255, 253, 250, 0.1);
+
+    /* Interactive / accent */
+    --color-accent-interactive: var(--color-teal-400);
 }
 
 /* Extended sand stops (sand-15, sand-16, sand-150, sand-250) were promoted
