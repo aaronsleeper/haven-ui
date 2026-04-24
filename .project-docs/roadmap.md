@@ -58,6 +58,16 @@ Patient app MVP complete. All onboarding and main app screens built and committe
 - Care coordinator interface (not yet designed)
 - Referral form multi-step wizard (meals + RDN, multi-step tab-style wizard)
 - Resolve Vanessa billing tool question: kitchen-facing portal vs. internal billing operations tool
+- **Retire "Figma is canonical" language across docs** (decision 2026-04-24): haven-ui pattern library is now the brand's single source of truth. Figma is no longer the upstream canonical for tokens, typography, or taste. Scope:
+  - `CLAUDE.md` line 7 — rewrite "Design system spec" paragraph to name the pattern library as canonical; drop "Figma is the upstream source of truth" claim
+  - `CLAUDE.md` line 119 (typography row) — drop "Figma (canonical)" parenthetical; the canonical source is DESIGN.md + pattern library
+  - `CLAUDE.md` line 451 (slice-opening checklist) — Figma MCP lookup moves from default step to optional-reference step
+  - `DESIGN.md` §1 and §Sources of truth — flip the precedence diagram: `haven-ui pattern library → DESIGN.md → (Figma as historical reference)`. Update the per-axis canonical table (lines 45–52) so every row names haven-ui code / pattern library as canonical.
+  - `DESIGN.md` §Figma-to-code token mapping — relabel as a historical cross-reference, not a live authoring rule
+  - `packages/design-system/pattern-library/tokens-comparison.html` — **retire**. The Figma column documents a Figma state (Plus Jakarta / Source Sans / Source Code Pro) that no longer exists; the current-column side is better captured by DESIGN.md + pattern library directly. Delete the file rather than rebuilding it.
+  - `.project-docs/references/figma-north-star.md` — demote to historical reference or remove
+  - This roadmap's "Current State" section (line 12) — the font line ("Plus Jakarta Sans / Source Sans 3 / Source Code Pro") is stale; update to Lora / Inter / JetBrains Mono per DESIGN.md §Typography
+  - Verify: after cleanup, `grep -r "Figma is the upstream\|Figma (canonical)\|taste lives in Figma" packages/design-system .project-docs CLAUDE.md DESIGN.md` returns zero matches
 
 ## Blockers
 
