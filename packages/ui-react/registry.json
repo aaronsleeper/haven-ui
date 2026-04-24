@@ -474,6 +474,36 @@
       }
     },
     {
+      "name": "thread-approval-card",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ThreadApprovalCard.tsx", "type": "registry:component" },
+        { "path": "components/ThreadApprovalCard.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/thread-approval-card.html",
+        "composition": {
+          "propSchema": "./components/ThreadApprovalCard.props.ts",
+          "markdocTag": "thread-approval-card",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "ThreadApprovalCard.standard",
+          "ThreadApprovalCard.rejectIntent",
+          "ThreadApprovalCard.urgent",
+          "ThreadApprovalCard.warning",
+          "ThreadApprovalCard.historical"
+        ],
+        "brandReviewed": true,
+        "a11yReviewed": true,
+        "notes": "THE HERO COMPONENT for cc-02 thread panel. Variants: standard (sand surface, primary-500 left), is-urgent (red surface + dividers), is-warning (amber surface + dividers — semantic warning use of amber per DESIGN.md §Tag-semantic), is-historical (read-only opacity-70, no actions). Sections (summary, effects, attachment, actions, note) individually optional. Header h3 uses Lora (display) per DESIGN.md §Typography. Root is <section role='region' aria-labelledby> with <h3 id> for landmark navigation. noteMode ('hidden'|'optional'|'required') drives textarea disclosure tied to parent's reject/approve flow; noteRef forwards focus for the Reject intent flow. attachment.viewed=false applies the .thread-approval-attachment-unviewed warning class (silent-failure prevention per IA review). Action buttons are caller-supplied via actions slot using bare <button class='btn-primary btn-sm'> + <button class='btn-outline btn-sm'> per PL exemplar. Brand-fidelity + IA + a11y review (3-expert panel, 2026-04-24) all returned 'iterate'; iterate pass shipped in same Patch B."
+      }
+    },
+    {
       "name": "thread-msg-response",
       "type": "registry:component",
       "files": [

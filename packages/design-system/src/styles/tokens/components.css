@@ -7864,11 +7864,14 @@ a.list-group-item-action {
    THREAD APPROVAL CARD (THE HERO COMPONENT)
    ================================================================ */
 
+/* Standard surface: sand neutral with primary-500 accent.
+   Per DESIGN.md §Color §Surface — Haven warmth lives in the sand family;
+   amber is reserved for the .is-warning variant per §Tag-semantic. */
 .thread-approval-card {
     @apply rounded-md shadow-sm;
     @apply p-0 mx-3 my-2;
-    background-color: var(--color-amber-50);
-    border: 1px solid var(--color-amber-200);
+    background-color: var(--color-sand-50);
+    border: 1px solid var(--color-sand-200);
     border-left: 4px solid var(--color-primary-500);
 }
 
@@ -7882,9 +7885,27 @@ a.list-group-item-action {
     border-left-color: var(--color-red-500);
 }
 
+/* Warning variant — amber earns its keep semantically here per DESIGN.md §Tag-semantic. */
+.thread-approval-card.is-warning {
+    background-color: var(--color-amber-50);
+    border-color: var(--color-amber-200);
+    border-left-color: var(--color-amber-500);
+}
+
+/* Header label uses Lora Heading/05 per DESIGN.md §Typography — the hero
+   component carries the brand via its display type. */
 .thread-approval-header {
     @apply flex items-center gap-2 px-4 pt-3 pb-2;
-    @apply text-sm font-semibold text-sand-900;
+    color: var(--color-sand-900);
+}
+
+.thread-approval-header h3 {
+    font-family: var(--font-serif);
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.833rem;
+    line-height: 1.4;
+    margin: 0;
+    color: var(--color-sand-900);
 }
 
 .thread-approval-header i {
@@ -7927,7 +7948,15 @@ a.list-group-item-action {
 
 .thread-approval-effects {
     @apply pt-2 space-y-1;
-    border-top: 1px solid var(--color-amber-200);
+    border-top: 1px solid var(--color-sand-200);
+}
+
+/* Variant overrides keep inner dividers in the same family as the surface. */
+.thread-approval-card.is-urgent .thread-approval-effects {
+    border-top-color: var(--color-red-200);
+}
+.thread-approval-card.is-warning .thread-approval-effects {
+    border-top-color: var(--color-amber-200);
 }
 
 .thread-approval-effects-label {
@@ -7942,12 +7971,27 @@ a.list-group-item-action {
 
 .thread-approval-attachment {
     @apply flex items-center gap-1.5 text-xs text-sand-600;
-    @apply dark:text-sand-300;
+}
+
+/* Unviewed attachment — warning weight per IA review (silent-failure prevention). */
+.thread-approval-attachment-unviewed {
+    color: var(--color-amber-700);
+    font-weight: var(--font-weight-medium);
+}
+.thread-approval-attachment-unviewed i {
+    color: var(--color-amber-600);
 }
 
 .thread-approval-actions {
     @apply flex flex-wrap gap-2 px-4 py-3;
-    border-top: 1px solid var(--color-amber-200);
+    border-top: 1px solid var(--color-sand-200);
+}
+
+.thread-approval-card.is-urgent .thread-approval-actions {
+    border-top-color: var(--color-red-200);
+}
+.thread-approval-card.is-warning .thread-approval-actions {
+    border-top-color: var(--color-amber-200);
 }
 
 .thread-approval-note {

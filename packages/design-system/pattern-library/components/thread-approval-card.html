@@ -2,10 +2,10 @@
 @component-meta
 name: Thread Approval Card
 category: Thread / Agent
-classes: thread-approval-card, thread-approval-header, thread-approval-body, thread-approval-context, thread-approval-context-title, thread-approval-context-meta, thread-approval-summary, thread-approval-effects, thread-approval-effects-label, thread-approval-attachment, thread-approval-actions, thread-approval-note
+classes: thread-approval-card, thread-approval-header, thread-approval-body, thread-approval-context, thread-approval-context-title, thread-approval-context-meta, thread-approval-summary, thread-approval-effects, thread-approval-effects-label, thread-approval-attachment, thread-approval-attachment-unviewed, thread-approval-actions, thread-approval-note, thread-approval-note-label
 variants: is-urgent, is-warning, is-historical
 preline: false
-notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows context, downstream effects, optional note. Urgency variants change border and background.
+notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows context, downstream effects, optional attachment, optional note. Variants: is-urgent (red accents), is-warning (amber accents), is-historical (read-only, no actions). Root is <section role="region" aria-labelledby> with an <h3> title for landmark navigation. Attachment supports a viewed/unviewed warning state via the .thread-approval-attachment-unviewed class. Note textarea is conditionally rendered tied to the parent's reject/approve flow; uses an explicit <label> (sr-only) per WCAG 4.1.2.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -25,10 +25,10 @@ notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows conte
     <!-- Standard variant (care plan approval) -->
     <div>
       <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Standard — Care Plan Approval</p>
-      <div class="thread-approval-card">
+      <section class="thread-approval-card" role="region" aria-labelledby="approval-title-1">
         <div class="thread-approval-header">
-          <i class="fa-solid fa-hand"></i>
-          <span>Final Approval — Care Plan v1.0</span>
+          <i class="fa-solid fa-hand" aria-hidden="true"></i>
+          <h3 id="approval-title-1">Final Approval — Care Plan v1.0</h3>
         </div>
         <div class="thread-approval-body">
           <div class="thread-approval-context">
@@ -36,7 +36,7 @@ notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows conte
             <span class="thread-approval-context-meta">All clinical sections approved · 3 min ago</span>
           </div>
           <div class="thread-approval-summary">
-            <p class="text-xs font-medium text-gray-500">Goals (2)</p>
+            <p class="text-xs font-medium text-sand-500">Goals (2)</p>
             <ul>
               <li>HbA1c &lt; 8.0% within 6 months</li>
               <li>Weight loss 5–8% within 6 months</li>
@@ -44,8 +44,8 @@ notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows conte
             <p class="text-xs mt-2">1800 cal/day · &lt;1800mg sodium · Diabetic-appropriate · Nut-free</p>
           </div>
           <div class="thread-approval-effects">
-            <span class="thread-approval-effects-label">Approving will:</span>
-            <ul>
+            <span class="thread-approval-effects-label" id="approval-effects-label-1">Approving will:</span>
+            <ul aria-labelledby="approval-effects-label-1">
               <li>Set patient status to active</li>
               <li>Start meal prescription matching</li>
               <li>Schedule first RDN visit</li>
@@ -53,31 +53,61 @@ notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows conte
               <li>Notify patient — welcome message</li>
             </ul>
           </div>
+          <div class="thread-approval-attachment thread-approval-attachment-unviewed">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <span>1 document — not viewed</span>
+            <a href="#" class="text-link text-xs">View</a>
+          </div>
+        </div>
+        <div class="thread-approval-actions">
+          <button type="button" class="btn-primary btn-sm">Approve</button>
+          <button type="button" class="btn-outline btn-sm">Edit first</button>
+          <button type="button" class="btn-outline btn-sm">Reject with note</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Standard with note expanded (Reject intent triggered) -->
+    <div>
+      <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Standard — Reject intent (note required)</p>
+      <section class="thread-approval-card" role="region" aria-labelledby="approval-title-1b">
+        <div class="thread-approval-header">
+          <i class="fa-solid fa-hand" aria-hidden="true"></i>
+          <h3 id="approval-title-1b">Final Approval — Care Plan v1.0</h3>
+        </div>
+        <div class="thread-approval-body">
+          <div class="thread-approval-context">
+            <span class="thread-approval-context-title">Care plan draft · Maria Garcia</span>
+            <span class="thread-approval-context-meta">All clinical sections approved · 3 min ago</span>
+          </div>
+          <div class="thread-approval-summary">
+            <p>Approving will commit the agent's draft. Rejecting requires a note.</p>
+          </div>
           <div class="thread-approval-attachment">
-            <i class="fa-solid fa-paperclip"></i>
+            <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
             <span>1 attachment</span>
             <a href="#" class="text-link text-xs">View</a>
           </div>
         </div>
         <div class="thread-approval-actions">
-          <button class="btn-primary btn-sm">Approve</button>
-          <button class="btn-outline btn-sm">Edit first</button>
-          <button class="btn-outline btn-sm">Reject with note</button>
-          <button class="btn-outline btn-sm">Reassign</button>
+          <button type="button" class="btn-primary btn-sm">Approve</button>
+          <button type="button" class="btn-outline btn-sm">Edit first</button>
+          <button type="button" class="btn-outline btn-sm">Confirm rejection</button>
         </div>
         <div class="thread-approval-note">
-          <textarea rows="2" placeholder="Add a note (optional)"></textarea>
+          <label for="approval-note-1b" class="thread-approval-note-label sr-only">Rejection note (required)</label>
+          <textarea id="approval-note-1b" rows="2" placeholder="Why is this being rejected?" aria-required="true"></textarea>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- Urgent variant (eligibility failure) -->
     <div>
       <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Urgent — Eligibility Issue</p>
-      <div class="thread-approval-card is-urgent">
+      <section class="thread-approval-card is-urgent" role="region" aria-labelledby="approval-title-2">
         <div class="thread-approval-header">
-          <i class="fa-solid fa-hand"></i>
-          <span>Eligibility Issue</span>
+          <i class="fa-solid fa-hand" aria-hidden="true"></i>
+          <h3 id="approval-title-2">Eligibility Issue</h3>
         </div>
         <div class="thread-approval-body">
           <div class="thread-approval-context">
@@ -85,31 +115,67 @@ notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows conte
             <span class="thread-approval-context-meta">FAM benefit not covered under current plan</span>
           </div>
           <div class="thread-approval-summary">
-            <p>Alternative path: PMPM contract with Anthem may cover this patient.</p>
+            <p>PMPM contract with Anthem may still cover this patient — worth a check.</p>
           </div>
           <div class="thread-approval-effects">
-            <span class="thread-approval-effects-label">Pursuing alternative will:</span>
-            <ul>
+            <span class="thread-approval-effects-label" id="approval-effects-label-2">Pursuing alternative will:</span>
+            <ul aria-labelledby="approval-effects-label-2">
               <li>Initiate PMPM eligibility check</li>
               <li>Notify partner of status change</li>
             </ul>
           </div>
         </div>
         <div class="thread-approval-actions">
-          <button class="btn-primary btn-sm">Pursue alternative</button>
-          <button class="btn-outline btn-sm">Decline — notify referral source</button>
-          <button class="btn-outline btn-sm">Hold — need more info</button>
+          <button type="button" class="btn-primary btn-sm">Pursue alternative</button>
+          <button type="button" class="btn-outline btn-sm">Decline — notify referral source</button>
+          <button type="button" class="btn-outline btn-sm">Hold — need more info</button>
         </div>
-      </div>
+      </section>
+    </div>
+
+    <!-- Warning variant (review recommended) -->
+    <div>
+      <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Warning — Review Recommended</p>
+      <section class="thread-approval-card is-warning" role="region" aria-labelledby="approval-title-3">
+        <div class="thread-approval-header">
+          <i class="fa-solid fa-hand" aria-hidden="true"></i>
+          <h3 id="approval-title-3">Review Recommended</h3>
+        </div>
+        <div class="thread-approval-body">
+          <div class="thread-approval-context">
+            <span class="thread-approval-context-title">Lisa Chen — UConn Health referral</span>
+            <span class="thread-approval-context-meta">Two flagged sections need clinical sign-off</span>
+          </div>
+          <div class="thread-approval-summary">
+            <p>Two items in the proposed plan exceed the standard nutritional cap. Review before approving.</p>
+          </div>
+          <div class="thread-approval-effects">
+            <span class="thread-approval-effects-label" id="approval-effects-label-3">Approving will:</span>
+            <ul aria-labelledby="approval-effects-label-3">
+              <li>Send to RDN review queue</li>
+              <li>Notify referring provider</li>
+            </ul>
+          </div>
+        </div>
+        <div class="thread-approval-actions">
+          <button type="button" class="btn-primary btn-sm">Approve</button>
+          <button type="button" class="btn-outline btn-sm">Edit plan</button>
+          <button type="button" class="btn-outline btn-sm">Send back for revision</button>
+        </div>
+        <div class="thread-approval-note">
+          <label for="approval-note-3" class="thread-approval-note-label sr-only">Approval note (required for warning approvals)</label>
+          <textarea id="approval-note-3" rows="2" placeholder="Note your review reasoning" aria-required="true"></textarea>
+        </div>
+      </section>
     </div>
 
     <!-- Read-only variant (historical) -->
     <div>
       <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Read-only — Historical Decision</p>
-      <div class="thread-approval-card is-historical">
+      <section class="thread-approval-card is-historical" role="region" aria-labelledby="approval-title-4">
         <div class="thread-approval-header">
-          <i class="fa-solid fa-hand"></i>
-          <span>RDN Review — Nutrition Plan</span>
+          <i class="fa-solid fa-hand" aria-hidden="true"></i>
+          <h3 id="approval-title-4">RDN Review — Nutrition Plan</h3>
         </div>
         <div class="thread-approval-body">
           <div class="thread-approval-context">
@@ -117,11 +183,11 @@ notes: THE HERO COMPONENT. Agent recommendation with action buttons. Shows conte
             <span class="thread-approval-context-meta">Reviewed by Dr. Priya M. · Mar 26</span>
           </div>
           <div class="thread-approval-summary">
-            <p>Approved with edits — sodium target reduced to 1800mg.</p>
+            <p>Approved · Dr. Priya tightened sodium to 1800mg.</p>
           </div>
         </div>
-        <!-- No actions section — read-only -->
-      </div>
+        <!-- No actions section — read-only. Re-opening lives at the parent thread message level. -->
+      </section>
     </div>
 
   </div>

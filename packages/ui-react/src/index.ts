@@ -113,3 +113,11 @@ export type {
   ThreadMessageResponseProps,
   ThreadMessageResponseOutcome,
 } from './components/ThreadMessageResponse';
+
+export { ThreadApprovalCard } from './components/ThreadApprovalCard';
+export type {
+  ThreadApprovalCardProps,
+  ThreadApprovalCardVariant,
+  ThreadApprovalAttachment,
+  ThreadApprovalEffects,
+} from './components/ThreadApprovalCard';
