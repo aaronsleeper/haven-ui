@@ -391,6 +391,116 @@
       }
     },
     {
+      "name": "thread-msg-system",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ThreadMessageSystem.tsx", "type": "registry:component" },
+        { "path": "components/ThreadMessageSystem.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/thread-msg-system.html",
+        "composition": {
+          "propSchema": "./components/ThreadMessageSystem.props.ts",
+          "markdocTag": "thread-msg-system",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "ThreadMessageSystem.default",
+          "ThreadMessageSystem.drafted",
+          "ThreadMessageSystem.reviewed"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Compact system event with timestamp. Used between other thread message types in the right-rail thread panel. Pure presentation; no interaction."
+      }
+    },
+    {
+      "name": "thread-msg-human",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ThreadMessageHuman.tsx", "type": "registry:component" },
+        { "path": "components/ThreadMessageHuman.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/thread-msg-human.html",
+        "composition": {
+          "propSchema": "./components/ThreadMessageHuman.props.ts",
+          "markdocTag": "thread-msg-human",
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "stories": [
+          "ThreadMessageHuman.default",
+          "ThreadMessageHuman.followup"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Right-aligned coordinator message bubble. Children carry the bubble text content; author + time are typed props."
+      }
+    },
+    {
+      "name": "thread-msg-tool-call",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ThreadMessageToolCall.tsx", "type": "registry:component" },
+        { "path": "components/ThreadMessageToolCall.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/thread-msg-tool-call.html",
+        "composition": {
+          "propSchema": "./components/ThreadMessageToolCall.props.ts",
+          "markdocTag": "thread-msg-tool-call",
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "stories": [
+          "ThreadMessageToolCall.default",
+          "ThreadMessageToolCall.generated",
+          "ThreadMessageToolCall.expanded"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Agent tool call with expandable detail panel. Toggle is a <button class='hs-collapse-toggle thread-msg-tool-toggle'> per Preline collapse pattern; the .thread-msg-tool-toggle class resets defaults.css button chrome. useId() generates stable Preline pairing ids when none is supplied."
+      }
+    },
+    {
+      "name": "thread-msg-response",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/ThreadMessageResponse.tsx", "type": "registry:component" },
+        { "path": "components/ThreadMessageResponse.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/thread-msg-response.html",
+        "composition": {
+          "propSchema": "./components/ThreadMessageResponse.props.ts",
+          "markdocTag": "thread-msg-response",
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "stories": [
+          "ThreadMessageResponse.approved",
+          "ThreadMessageResponse.rejected"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Collapsed decision summary with click-to-re-expand. Outcome prop drives modifier class (.is-approved / .is-rejected) and leading icon. toggleContent prop carries the formatted toggle text (author + summary + time); children carry the read-only re-expand panel content. useId() generates stable Preline pairing ids when none is supplied."
+      }
+    },
+    {
       "name": "assessment-header",
       "type": "registry:component",
       "files": [

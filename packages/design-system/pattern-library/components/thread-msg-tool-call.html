@@ -2,7 +2,7 @@
 @component-meta
 name: Thread Tool Call
 category: Thread / Agent
-classes: thread-msg-tool, thread-msg-tool-icon, thread-msg-tool-content, thread-msg-tool-name, thread-msg-tool-result, thread-msg-tool-detail
+classes: thread-msg-tool, thread-msg-tool-icon, thread-msg-tool-content, thread-msg-tool-toggle, thread-msg-tool-name, thread-msg-tool-result, thread-msg-tool-detail
 variants: none
 preline: yes — HSCollapse
 notes: Agent action with expandable payload. Click to show/hide full tool call detail.
@@ -28,11 +28,11 @@ notes: Agent action with expandable payload. Click to show/hide full tool call d
         <i class="fa-solid fa-bolt"></i>
       </div>
       <div class="thread-msg-tool-content">
-        <div class="hs-collapse-toggle cursor-pointer" id="tool-toggle-1" aria-expanded="false" data-hs-collapse="#tool-detail-1">
+        <button type="button" class="hs-collapse-toggle thread-msg-tool-toggle" id="tool-toggle-1" aria-expanded="false" aria-controls="tool-detail-1" data-hs-collapse="#tool-detail-1">
           <span class="thread-msg-tool-name">◎ read_patient_assessment</span>
           <span class="thread-msg-tool-result">→ { phq9: 7, sdoh: 3 }</span>
           <span class="thread-msg-time ml-1">9:02am</span>
-        </div>
+        </button>
         <div id="tool-detail-1" class="hs-collapse hidden thread-msg-tool-detail">
           <pre class="whitespace-pre-wrap">{
   "phq9_score": 7,
@@ -52,11 +52,11 @@ notes: Agent action with expandable payload. Click to show/hide full tool call d
         <i class="fa-solid fa-bolt"></i>
       </div>
       <div class="thread-msg-tool-content">
-        <div class="hs-collapse-toggle cursor-pointer" id="tool-toggle-2" aria-expanded="false" data-hs-collapse="#tool-detail-2">
+        <button type="button" class="hs-collapse-toggle thread-msg-tool-toggle" id="tool-toggle-2" aria-expanded="false" aria-controls="tool-detail-2" data-hs-collapse="#tool-detail-2">
           <span class="thread-msg-tool-name">◎ generate_care_plan_draft</span>
           <span class="thread-msg-tool-result">→ draft ready, 5 goals</span>
           <span class="thread-msg-time ml-1">9:03am</span>
-        </div>
+        </button>
         <div id="tool-detail-2" class="hs-collapse hidden thread-msg-tool-detail">
           <pre class="whitespace-pre-wrap">{
   "goals_count": 5,

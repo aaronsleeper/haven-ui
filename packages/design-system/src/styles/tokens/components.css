@@ -7790,6 +7790,20 @@ a.list-group-item-action {
     @apply dark:bg-sand-800;
 }
 
+/* The hs-collapse-toggle inside .thread-msg-tool-content is a <button>; reset
+   the defaults.css button chrome so the toggle reads as an inline row. */
+.thread-msg-tool-toggle {
+    @apply block w-full text-left cursor-pointer;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+.thread-msg-tool-toggle:hover {
+    background-color: transparent;
+}
+
 /* Human message — right-aligned bubble */
 .thread-msg-human {
     @apply flex flex-col items-end px-4 py-2;
@@ -7816,6 +7830,16 @@ a.list-group-item-action {
     @apply flex items-center gap-1.5 text-xs text-sand-600 cursor-pointer;
     @apply hover:text-sand-900 transition-colors;
     @apply dark:text-sand-300 dark:hover:text-sand-200;
+    /* Reset defaults.css button chrome so the toggle reads as an inline row. */
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-weight: inherit;
+    width: 100%;
+    text-align: left;
+}
+.thread-msg-response-toggle:hover {
+    background-color: transparent;
 }
 
 .thread-msg-response-toggle strong {
