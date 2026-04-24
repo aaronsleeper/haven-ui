@@ -22,3 +22,6 @@ dist/
 test-results/
 playwright-report/
 storybook-static/
+
+# GitHub Pages build output (assembled by scripts/build-pages.sh)
+_site/
