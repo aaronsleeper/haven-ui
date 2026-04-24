@@ -1,19 +1,18 @@
 import { Avatar, CommitAction, IconButton } from '@haven/ui-react';
 import { Link } from 'react-router-dom';
-import { GAD7_LEAD_IN, GAD7_QUESTIONS } from './questions';
+import { PHQ9_LEAD_IN, PHQ9_QUESTIONS } from './questions';
 import { useAssessmentResponses } from '../../lib/useAssessmentResponses';
 
-// Mirror of assess-02 wireframe pattern for GAD-7 specifically: category icon,
-// warm title ("Anxiety check-in" per plain-language Patch 9), description,
-// estimated time, Start commit-action. Back chevron top-left exits to a
-// hypothetical /health hub (slice 1 has no hub yet; link rendered inert).
+// Mirror of assess-02 wireframe pattern for PHQ-9: category icon, warm title
+// ("Mood check-in" per patient-facing voice — same rename convention as GAD-7
+// → "Anxiety check-in"), description, estimated time, Start commit-action.
+// Back chevron top-left exits to a hypothetical /health hub.
 //
-// Clearing responses lives here (Start), not on Complete unmount, so React 18
-// StrictMode's synthetic mount/unmount cycle on Complete cannot empty
-// responses mid-render and bounce the user back to Start.
+// Clearing responses lives here on the Start-button onClick, not on Complete
+// unmount — see useAssessmentResponses hook doc for the StrictMode rationale.
 
-export function Gad7Start() {
-  const { clear } = useAssessmentResponses('gad-7');
+export function Phq9Start() {
+  const { clear } = useAssessmentResponses('phq-9');
   return (
     <div className="flex flex-col min-h-dvh">
       {/* Header — back chevron only */}
@@ -28,19 +27,19 @@ export function Gad7Start() {
 
       {/* Content — vertically centered */}
       <div className="flex-1 px-6 flex flex-col items-center justify-center text-center">
-        <Avatar size="xl" color="primary" alt="Anxiety check-in">
-          <i className="fa-solid fa-brain avatar-icon" aria-hidden="true"></i>
+        <Avatar size="xl" color="primary" alt="Mood check-in">
+          <i className="fa-solid fa-cloud-sun avatar-icon" aria-hidden="true"></i>
         </Avatar>
 
-        <h1 className="text-xl font-serif font-semibold mt-4">Anxiety check-in</h1>
+        <h1 className="text-xl font-serif font-semibold mt-4">Mood check-in</h1>
 
         <p className="text-sm text-sand-500 mt-2 max-w-xs">
-          {GAD7_LEAD_IN} Your answers help your care team support you.
+          {PHQ9_LEAD_IN} Your answers help your care team support you.
         </p>
 
         <p className="text-xs text-sand-400 mt-3 flex items-center gap-1.5">
           <i className="fa-regular fa-clock text-sand-400" aria-hidden="true"></i>
-          About 2 minutes — {GAD7_QUESTIONS.length} questions
+          About 3 minutes — {PHQ9_QUESTIONS.length} questions
         </p>
       </div>
 
@@ -51,7 +50,7 @@ export function Gad7Start() {
           asComponent={Link}
           block
           linkProps={{
-            to: `/assessment/gad-7/question/${GAD7_QUESTIONS[0]!.id}`,
+            to: `/assessment/phq-9/question/${PHQ9_QUESTIONS[0]!.id}`,
             onClick: () => clear(),
           }}
         />

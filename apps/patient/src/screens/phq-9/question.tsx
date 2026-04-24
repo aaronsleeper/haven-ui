@@ -6,31 +6,31 @@ import {
 } from '@haven/ui-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { GAD7_QUESTIONS, GAD7_OPTIONS } from './questions';
+import { PHQ9_QUESTIONS, PHQ9_OPTIONS } from './questions';
 import { useAssessmentResponses } from '../../lib/useAssessmentResponses';
 
-// Question screen — one GAD-7 question at a time. URL = question id so browser
+// Question screen — one PHQ-9 question at a time. URL = question id so browser
 // back + refresh work. Progress derived from question index; responses tracked
-// per useAssessmentResponses hook (persists to localStorage). "Continue" on
-// last Q routes to /complete.
+// per useAssessmentResponses hook (persists to localStorage). "Submit" on last
+// Q routes to /complete.
 
 type ProgressStep = {
   status: 'complete' | 'in-progress' | 'not-started';
   label: string;
 };
 
-export function Gad7Question() {
+export function Phq9Question() {
   const { qid } = useParams<{ qid: string }>();
   const navigate = useNavigate();
-  const { responses, setAnswer } = useAssessmentResponses('gad-7');
+  const { responses, setAnswer } = useAssessmentResponses('phq-9');
 
-  const currentIdx = GAD7_QUESTIONS.findIndex((q) => q.id === qid);
-  const current = currentIdx >= 0 ? GAD7_QUESTIONS[currentIdx] : undefined;
-  const isLast = currentIdx === GAD7_QUESTIONS.length - 1;
+  const currentIdx = PHQ9_QUESTIONS.findIndex((q) => q.id === qid);
+  const current = currentIdx >= 0 ? PHQ9_QUESTIONS[currentIdx] : undefined;
+  const isLast = currentIdx === PHQ9_QUESTIONS.length - 1;
 
   const progressSteps = useMemo<ProgressStep[]>(
     () =>
-      GAD7_QUESTIONS.map((_, i) => ({
+      PHQ9_QUESTIONS.map((_, i) => ({
         status:
           i < currentIdx ? 'complete'
           : i === currentIdx ? 'in-progress'
@@ -43,13 +43,13 @@ export function Gad7Question() {
   );
 
   const options = useMemo<ResponseOptionData[]>(
-    () => GAD7_OPTIONS.map((o) => ({ index: o.index, label: o.label })),
+    () => PHQ9_OPTIONS.map((o) => ({ index: o.index, label: o.label })),
     [],
   );
 
   // If qid is invalid, bounce to Start.
   if (!current) {
-    navigate('/assessment/gad-7/start', { replace: true });
+    navigate('/assessment/phq-9/start', { replace: true });
     return null;
   }
 
@@ -64,17 +64,17 @@ export function Gad7Question() {
   function handleContinue() {
     if (!answered || !current) return;
     if (isLast) {
-      navigate('/assessment/gad-7/complete');
+      navigate('/assessment/phq-9/complete');
       return;
     }
-    const next = GAD7_QUESTIONS[currentIdx + 1]!;
-    navigate(`/assessment/gad-7/question/${next.id}`);
+    const next = PHQ9_QUESTIONS[currentIdx + 1]!;
+    navigate(`/assessment/phq-9/question/${next.id}`);
   }
 
   const backTo =
     currentIdx === 0
-      ? '/assessment/gad-7/start'
-      : `/assessment/gad-7/question/${GAD7_QUESTIONS[currentIdx - 1]!.id}`;
+      ? '/assessment/phq-9/start'
+      : `/assessment/phq-9/question/${PHQ9_QUESTIONS[currentIdx - 1]!.id}`;
 
   return (
     // Mobile (<sm): viewport-tall column with sticky footer pinned to the
@@ -101,10 +101,10 @@ export function Gad7Question() {
       {/* Progress + title */}
       <div className="px-6 pt-2">
         <AssessmentHeader
-          title="Anxiety check-in"
-          meta={`Question ${currentIdx + 1} of ${GAD7_QUESTIONS.length}`}
+          title="Mood check-in"
+          meta={`Question ${currentIdx + 1} of ${PHQ9_QUESTIONS.length}`}
           progress={{
-            ariaLabel: `Assessment progress: question ${currentIdx + 1} of ${GAD7_QUESTIONS.length}`,
+            ariaLabel: `Assessment progress: question ${currentIdx + 1} of ${PHQ9_QUESTIONS.length}`,
             steps: progressSteps,
           }}
         />
@@ -113,7 +113,7 @@ export function Gad7Question() {
       {/* Response area */}
       <div className="flex-1 sm:flex-initial px-6 pt-6 pb-4">
         <ResponseOptionGroup
-          promptId={`gad7-${current.id}-prompt`}
+          promptId={`phq9-${current.id}-prompt`}
           prompt={current.text}
           options={options}
           selectedIndex={selected}

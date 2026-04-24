@@ -1,32 +1,30 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CommitAction } from '@haven/ui-react';
-import { scoreGad7 } from './questions';
+import { scorePhq9 } from './questions';
 import { useAssessmentResponses } from '../../lib/useAssessmentResponses';
 
 // Complete screen — warm thank-you per assess-04 wireframe. Score band computed
-// but NOT shown to patient (clinical-only per wireframe; patient sees warm
-// affirmation). Left in-memory via the scoreGad7 call so downstream consumers
-// (care-team view, eventual API persistence) can pick it up without re-scoring.
+// but NOT shown to patient in production (clinical-only per wireframe; patient
+// sees warm affirmation). Left in-memory for downstream consumers (care-team
+// view, eventual API persistence).
 //
 // Cleanup of stale responses happens at the *start* of a new attempt
-// (start.tsx Start button onClick), not on unmount here. The unmount-clear
-// pattern caused a StrictMode flash: synthetic unmount → clear() → empty
-// responses → redirect-to-Start guard fires on remount → user bounces past
-// the score page. Pushing the clear to Start removes that race entirely.
+// (start.tsx Start-button onClick), not on unmount here. See
+// useAssessmentResponses hook doc for the StrictMode rationale.
 
-export function Gad7Complete() {
-  const { responses } = useAssessmentResponses('gad-7');
+export function Phq9Complete() {
+  const { responses } = useAssessmentResponses('phq-9');
   const navigate = useNavigate();
 
   // Guard: if the user lands here without any responses, bounce to Start.
   useEffect(() => {
     if (Object.keys(responses).length === 0) {
-      navigate('/assessment/gad-7/start', { replace: true });
+      navigate('/assessment/phq-9/start', { replace: true });
     }
   }, [responses, navigate]);
 
-  const score = scoreGad7(responses);
+  const score = scorePhq9(responses);
 
   return (
     <div className="flex flex-col min-h-dvh">
@@ -41,10 +39,10 @@ export function Gad7Complete() {
           Your care team will review your answers.
         </p>
 
-        {/* Debug/demo only — score band visible while slice 1 is prototype.
+        {/* Debug/demo only — score band visible while slice is prototype.
             Production wireframe (assess-04) hides raw score from patient. */}
         <p className="text-xs text-sand-400 mt-6">
-          [prototype] score {score.total} of 21 — {score.band}
+          [prototype] score {score.total} of 27 — {score.band}
         </p>
       </div>
 
