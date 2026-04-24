@@ -75,6 +75,19 @@ HTML
 sed -i.bak 's|url=/pattern-library/pages/|url=./pages/|' "$OUT/pattern-library/pattern-library/index.html"
 rm -f "$OUT/pattern-library/pattern-library/index.html.bak"
 
+# Pattern-library HTML references plain-script assets via absolute paths
+# (`/src/scripts/...`, `/src/assets/...`) that Vite leaves untouched during
+# the HTML transform — only <link> and <script type="module"> get bundled.
+# Copy the referenced source trees into _site/pattern-library/src/ and rewrite
+# the absolute URLs to match the Pages base prefix.
+mkdir -p "$OUT/pattern-library/src"
+cp -R packages/design-system/src/scripts "$OUT/pattern-library/src/"
+cp -R packages/design-system/src/assets "$OUT/pattern-library/src/"
+
+find "$OUT/pattern-library" -type f -name '*.html' -exec \
+  sed -i.bak "s|\"/src/|\"${SITE_BASE}/pattern-library/src/|g" {} +
+find "$OUT/pattern-library" -type f -name '*.html.bak' -delete
+
 echo "==> Copying landing page"
 cp scripts/pages-landing.html "$OUT/index.html"
 
