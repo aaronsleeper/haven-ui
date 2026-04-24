@@ -146,6 +146,14 @@
   --color-accent-interactive: var(--color-teal-600);
 }
 
+/* Dark-mode token overrides. Scoped narrowly to the tokens that load-bearing
+   chrome components read via plain `var(--color-...)` declarations (where the
+   `dark:` utility in the same rule can't win the cascade). Broader dark-mode
+   token coverage is tracked as a separate design-system task. */
+.dark {
+    --color-surface-chrome: var(--color-sand-900);
+}
+
 /* Extended sand stops (sand-15, sand-16, sand-150, sand-250) were promoted
    from this file's :root block into palette.css @theme in Patch 1.5
    (2026-04-20) so they generate utilities and align with the canonical sand
