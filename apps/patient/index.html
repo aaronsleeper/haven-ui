@@ -4,7 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Haven — upatient</title>
+    <title>Haven — Patient</title>
+
+    <!-- Google Fonts — per DESIGN.md §Typography: Lora (serif), Inter (sans),
+         JetBrains Mono (code). Mirrors packages/design-system/src/partials/
+         head.html. Without these, font-feature-settings from base/font-
+         features.css applies to system fallback fonts (Times, Helvetica),
+         whose OpenType feature tables map the Inter feature codes to
+         superscript / small-cap / stylistic-set glyphs — text renders as
+         superscript-looking jumbles. See CLAUDE.md "Brand fonts per app". -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

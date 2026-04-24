@@ -118,6 +118,14 @@ haven-ui/
 - All Vite servers use `strictPort: true`. If the port is taken, Vite fails loudly rather than drifting.
 - When verifying a React component built via `ui-react-porter`, compare visually against the corresponding pattern-library page at `http://localhost:5173/pattern-library/pages/[category]-[name].html`. Parity with the spec is the test.
 
+### Brand fonts per app
+
+Every new React app under `apps/*` MUST link the canonical Haven font stack (Lora + Inter + JetBrains Mono) in its `index.html` — see `apps/patient/index.html` for the exact block, or copy from `packages/design-system/src/partials/head.html`.
+
+This is not optional styling. `base/font-features.css` sets a rich OpenType feature set on `body` (ss01/ss03/ss04, cv01–cv11, dlig, frac, etc.) that is tuned for Inter. If an app forgets the `<link>`, the browser falls back to system fonts (Times, Helvetica), and the feature codes map to unrelated glyphs in those fonts — often superscripts or small caps — so body text renders as unreadable. The Patient + Care-Coordinator apps shipped multiple slices in this broken state before Aaron caught it visually (Patch 75, 2026-04-23).
+
+`conform:brand-fonts` is in the blocking-on-patch set and will refuse the commit if any active `apps/*/index.html` is missing the font links or is missing one of the three families.
+
 ---
 
 ## Architecture: Semantic Classes, Not Utility Soup
@@ -221,9 +229,9 @@ If none apply, leave it inline. The TaskCard port (Patch 67) was promoted *becau
 
 #### Gate triage
 
-Not all 12 conform gates need to run on every patch.
+Not all 13 conform gates need to run on every patch.
 
-- **Blocking on patch (always):** `typecheck`, `conform:manifest`, `conform:app-shell`, `conform:plain-language`, `conform:css-family`
+- **Blocking on patch (always):** `typecheck`, `conform:manifest`, `conform:app-shell`, `conform:plain-language`, `conform:css-family`, `conform:brand-fonts`
 - **Blocking on merge:** `conform:surface-role`, `conform:contrast-pairs`, `conform:wireframe-completeness`, `conform:font-features`, `conform:button-font-size`, `conform:radius-pill`
 - **Local-only / informational:** `conform:token`, `conform:visual` (Playwright; no CI enforcement yet)
 
