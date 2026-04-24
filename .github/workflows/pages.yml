@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Extract FontAwesome Pro vendor files
+        run: bash scripts/setup-fontawesome.sh
+
       - name: Build Pages bundle
         run: bash scripts/build-pages.sh
 
