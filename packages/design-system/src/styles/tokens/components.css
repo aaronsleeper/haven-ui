@@ -2437,6 +2437,12 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
 }
 
+/* FA paper-plane geometric center sits lower-left of its visual weight;
+   nudge it so it reads optically centered inside the send button. */
+.btn-icon-primary .fa-paper-plane {
+    transform: translate(1px, -1px);
+}
+
 .btn-dark-mode-toggle,
 .dark-mode-toggle {
     @apply p-2 rounded-full bg-transparent text-sand-600 transition-colors border-none;
@@ -8326,12 +8332,18 @@ a.list-group-item-action {
 }
 
 .message-agent .message-avatar {
-    @apply flex items-center justify-center rounded-full;
+    @apply flex items-center justify-center rounded-full overflow-hidden;
     width: 28px;
     height: 28px;
     background: var(--color-teal-500);
     color: white;
     font-size: 0.75rem;
+}
+
+.message-agent .message-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .message-agent .message-name {
@@ -8371,6 +8383,8 @@ a.list-group-item-action {
     font-size: 0.8125rem;
     color: var(--color-sand-600);
     font-family: 'Source Code Pro', monospace;
+    /* div escapes the :where(code,kbd,…) mono reset; see Patch 21. */
+    font-feature-settings: normal;
 }
 
 .tool-call i {
