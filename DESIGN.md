@@ -45,7 +45,7 @@ Pull via Figma MCP (`mcp__claude_ai_Figma__get_design_context`, `get_variable_de
 | Colors (palette, semantic, surface, border, interactive) | **Figma** | Regenerate haven-ui tokens from Figma variable defs. Figma-native names map to haven-ui code names per §Figma-to-code token mapping; hex-identical across the boundary. |
 | Border radii | **Figma** | Adopt directly; round-down rule for values between existing tokens (e.g., Figma 6px → `border-radius/sm` 5px) |
 | Elevations / shadows | **Figma** | Adopt the 5-level multi-shadow stacks as haven-ui shadow tokens |
-| Typography (family, weight, scale, tokens) | **Figma** | Adopt directly: Lora + Inter + JetBrains Mono |
+| Typography (family, weight, scale, tokens) | **Cena brand spec** | Adopt directly: Lora (headings) + Source Sans 3 (body/UI) + Source Code Pro (mono). Per directive 2026-04-27, the Cena brand source supersedes Figma for font names; the scale and tokens here remain haven-ui's. |
 | Font-feature settings | **Figma** | Adopt as Tailwind/CSS global defaults on body (see §Typography) |
 | Iconography | **haven-ui code** | FA Pro v7.1.0 (brand spec's inline-SVG guidance is retired) |
 | Spacing / padding / gap / margin / size | **haven-ui code** | Keep existing 4px Tailwind scalar; snap Figma values to nearest 4px utility |
@@ -155,8 +155,8 @@ Three fonts. Load in this order.
 | Role | Family | Weights |
 |---|---|---|
 | Headings + Display | **Lora** | 400, 500 (medium), 600 (semibold), italic |
-| Body + UI | **Inter** | 400, 500, 600 (+ Italic, Bold Italic) |
-| Mono (code, tabular data) | **JetBrains Mono** | 400 |
+| Body + UI | **Source Sans 3** | 400, 500, 600 (+ Italic, Bold Italic) |
+| Mono (code, tabular data) | **Source Code Pro** | 400 |
 
 Type scale (major-third ratio, values in pixels):
 
@@ -170,42 +170,41 @@ Type scale (major-third ratio, values in pixels):
 | `Heading/03` | 19.2 | Lora Medium | 1.3 | Sub-section / dialog title |
 | `Heading/04` | 16 | Lora Medium | 1.35 | Minor heading |
 | `Heading/05` | 13.33 | Lora Semibold | 1.4 | Meta heading |
-| `Body/01` | 19.2 | Inter Regular | 1.5 | Intro / lede |
-| `Body/02` | 16 | Inter Regular | 1.5 | Default body |
-| `Body/03` | 13.33 | Inter Regular | 1.5 | Dense body, dialog body |
-| `Body/04` | 11.11 | Inter Regular | 1.4 | Meta / fine print, letter-spacing `-1.5` |
-| `Button/Large` | 16 | Inter Medium | 1.0 | Large CTA label |
-| `Button/Medium` | 13.33 | Inter Medium | 1.0 | Default button label |
-| `Button/Small` | 11.11 | Inter Medium | 1.0 | Compact button label |
-| `Navigation/Primary` | 13.33 | Inter Medium | 1.0 | Top-level nav item |
-| `Navigation/Secondary` | 13.33 | Inter Regular | 1.4 | Sub-nav item |
-| `Input/Comfortable/Label` | 13.33 | Inter Medium | 1.4, letter-spacing 0.5 | Form label (default density) |
-| `Input/Comfortable/Value` | 16 | Inter Regular | 1.4 | Form value |
-| `Input/Comfortable/Helper` | 11.11 | Inter Regular | 1.0 | Helper text |
-| `Input/Compact/Label` | 11.11 | Inter Medium | 1.4, letter-spacing 1 | Compact label |
-| `Input/Compact/Value` | 16 | Inter Regular | 1.4 | Compact value |
-| `Utility/Tab` | 13.33 | Inter Regular | 1.0, letter-spacing 0.5 | Tab label |
-| `Utility/Table Header` | 13.33 | Inter Regular | 1.4, letter-spacing 0.5 | Table header |
-| `Utility/Badge` | 11.11 | Inter Regular | 1.0, letter-spacing 0.5 | Badge |
-| `Utility/Timestamp` | 11.11 | Inter Regular | 1.4 | Dates / times |
-| `Utility/Code` | 13.33 | JetBrains Mono Regular | 1.4 | Inline code |
-| `Utility/OVERLINE` | 11.11 | Inter Semibold | 1.6, letter-spacing 2, UPPERCASE | Section labels |
-| `Utility/Metric/Large` | 33.18 | Inter Semibold | 1.1 | Measurement value |
-| `Utility/Metric/Small` | 19.2 | Inter Semibold | 1.1 | Small measurement |
+| `Body/01` | 19.2 | Source Sans 3 Regular | 1.5 | Intro / lede |
+| `Body/02` | 16 | Source Sans 3 Regular | 1.5 | Default body |
+| `Body/03` | 13.33 | Source Sans 3 Regular | 1.5 | Dense body, dialog body |
+| `Body/04` | 11.11 | Source Sans 3 Regular | 1.4 | Meta / fine print, letter-spacing `-1.5` |
+| `Button/Large` | 16 | Source Sans 3 Medium | 1.0 | Large CTA label |
+| `Button/Medium` | 13.33 | Source Sans 3 Medium | 1.0 | Default button label |
+| `Button/Small` | 11.11 | Source Sans 3 Medium | 1.0 | Compact button label |
+| `Navigation/Primary` | 13.33 | Source Sans 3 Medium | 1.0 | Top-level nav item |
+| `Navigation/Secondary` | 13.33 | Source Sans 3 Regular | 1.4 | Sub-nav item |
+| `Input/Comfortable/Label` | 13.33 | Source Sans 3 Medium | 1.4, letter-spacing 0.5 | Form label (default density) |
+| `Input/Comfortable/Value` | 16 | Source Sans 3 Regular | 1.4 | Form value |
+| `Input/Comfortable/Helper` | 11.11 | Source Sans 3 Regular | 1.0 | Helper text |
+| `Input/Compact/Label` | 11.11 | Source Sans 3 Medium | 1.4, letter-spacing 1 | Compact label |
+| `Input/Compact/Value` | 16 | Source Sans 3 Regular | 1.4 | Compact value |
+| `Utility/Tab` | 13.33 | Source Sans 3 Regular | 1.0, letter-spacing 0.5 | Tab label |
+| `Utility/Table Header` | 13.33 | Source Sans 3 Regular | 1.4, letter-spacing 0.5 | Table header |
+| `Utility/Badge` | 11.11 | Source Sans 3 Regular | 1.0, letter-spacing 0.5 | Badge |
+| `Utility/Timestamp` | 11.11 | Source Sans 3 Regular | 1.4 | Dates / times |
+| `Utility/Code` | 13.33 | Source Code Pro Regular | 1.4 | Inline code |
+| `Utility/OVERLINE` | 11.11 | Source Sans 3 Semibold | 1.6, letter-spacing 2, UPPERCASE | Section labels |
+| `Utility/Metric/Large` | 33.18 | Source Sans 3 Semibold | 1.1 | Measurement value |
+| `Utility/Metric/Small` | 19.2 | Source Sans 3 Semibold | 1.1 | Small measurement |
 
 #### Font-feature settings — canonical default
 
-Inter text must enable this feature-settings string. Apply globally on `body` or on the Inter font family in CSS:
+Source Sans 3 + Lora text must enable this feature-settings string. Apply globally on `body`:
 
 ```css
 font-feature-settings:
   'case' 1, 'cpsp' 1, 'ordn' 1, 'salt' 1,
   'ss01' 1, 'ss03' 1, 'ss04' 1,
-  'cv01' 1, 'cv02' 1, 'cv03' 1, 'cv04' 1,
-  'cv05' 1, 'cv06' 1, 'cv07' 1, 'cv08' 1,
-  'cv09' 1, 'cv10' 1, 'cv11' 1,
   'dlig' 1, 'frac' 1;
 ```
+
+Inter-specific character variants (`cv01`–`cv11`) were removed during the 2026-04-27 rename — those codes are not in Source Sans 3's feature table.
 
 These features carry the typographic voice: stylistic alternates (ss01/ss03/ss04), character variants (cv01–cv11, especially for numerals and lowercase `l`), discretionary ligatures, fractions. Disabling them is a regression.
 
@@ -385,7 +384,7 @@ One component, three priorities.
 - Height 36px (`interactive/min-height/in-input`)
 - Padding 11px horizontal, 7px gap
 - Border-radius 5px (`border-radius/sm`)
-- Label type: `Button/Small` (11.11 Inter Semibold, letter-spacing 0.1389)
+- Label type: `Button/Small` (11.11 Source Sans 3 Semibold, letter-spacing 0.1389)
 - Leading icon 20px, `opacity/muted 0.6`
 
 **Brand-taste rule:** primary teal is reserved for **user commitments that change state** — "Book my visit," "Schedule Appointment," "Continue" in a destructive dialog, "Send" in chat. Advancement through forms (Next) and navigation (Previous) is *secondary*, not primary. The teal earns its weight by being used sparingly.
@@ -405,7 +404,7 @@ This rule is enforced structurally by the `conform:radius-pill` gate (`packages/
 White bg, 1px `border/default`, `border-radius/sm` (5px), 24px padding.
 
 - Title: `Heading/03` (Lora Medium 19.2)
-- Body: `Body/03` (Inter Regular 13.33)
+- Body: `Body/03` (Source Sans 3 Regular 13.33)
 - Buttons right-aligned: tertiary (Cancel) + primary (destructive/commit action)
 - No close icon, no dividers, no header bar
 - Uses `elevation/02` or `elevation/03` depending on modality
@@ -418,7 +417,7 @@ Meta/status pill. Nine color families (see §Color — 9-color tag-semantic pale
 
 - Min-height 24px, padding 3×7
 - Border-radius 11px (`border-radius/md`)
-- Label type: 11.11 Inter Semibold, letter-spacing 0.1389
+- Label type: 11.11 Source Sans 3 Semibold, letter-spacing 0.1389
 - Leading icon 20px (optional)
 - Close icon 12px, `opacity/muted 0.6` (when removeable)
 - `mix-blend-multiply` on text and icons against the `/16` bg for subtle tint layering
@@ -431,7 +430,7 @@ Pattern for numbered multi-choice responses (e.g., GAD-7 scale, Likert items).
 - Index square: 36px × 36px, `border-radius/xs 2px`
   - Unselected: `sand-16` bg + numeric index
   - Selected: `interactive/accent-color` bg + index (white)
-- Response label: 13.33 Inter Semibold, letter-spacing 0.1666
+- Response label: 13.33 Source Sans 3 Semibold, letter-spacing 0.1666
 - Check icon: 24px on selected, hidden on unselected (opacity 0)
 - Border: `border/image` 1px unselected, `interactive/accent-color` 1px selected
 
@@ -486,7 +485,7 @@ Haven's voice is **warm + specific + playful + stress-literate**. Every line ear
 ### Brand-taste rules
 
 - **Primary teal is for commitments, not advancement.** Primary button fill reserved for "Book my visit," "Schedule," destructive confirms. `Next` buttons are secondary.
-- **Active nav state = Inter Bold, not background color.** Weight change carries the signal; color stays consistent with the rest of the nav.
+- **Active nav state = Source Sans 3 Bold, not background color.** Weight change carries the signal; color stays consistent with the rest of the nav.
 - **Pages are never pure white.** Page bg is `sand-50`. Panes layer translucent white on top.
 - **Pages float.** The outermost shell has a 3px `sand-150` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge. Chrome (nav, rails) sits at `sand-100` as the ground below the floating page (`sand-50`). Panes layer translucent white on top of pages. Inputs layer solid white on top of whatever surface they sit on — the translucent stack is reserved for container surfaces.
 - **Logo is chrome; Ava is agent.** Don't mix the two.
@@ -503,7 +502,7 @@ cena-health-brand/BRAND.md is currently stale. The following items are known del
 | Icon system | inline SVG, 24×24, specific stroke rules | FA Pro v7.1.0 | Brand spec updates to FA Pro |
 | Color step labels | implicit 50–950 | `/04 /14 /16` Figma labels | Brand spec updates labels |
 | Color hexes (teal interactive) | teal-400 = interactive | `teal/700 #337a6e` | Brand spec updates |
-| Typography fonts | (not specified in detail) | Lora + Inter + JetBrains Mono | Brand spec codifies |
+| Typography fonts | Lora + Source Sans 3 + Source Code Pro (per directive 2026-04-27) | Lora + Source Sans 3 + Source Code Pro | Aligned 2026-04-27 — brand spec is canonical |
 | Dummy data | Maria Rivera (DOB 1958, MRN PT-2024-0847) | Slice 1 used Maria Garcia; Figma mocks use María González / Maria Rivera | Use Maria Rivera per `dummy-copy.md` |
 
 ---

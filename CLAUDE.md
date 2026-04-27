@@ -116,7 +116,7 @@ haven-ui/
 |---|---|
 | Colors, tokens | `packages/design-system/src/styles/tokens/colors.css` |
 | Semantic component classes | `packages/design-system/src/styles/tokens/components.css` |
-| Typography | `packages/design-system/src/styles/tokens/typography.css` — **stale; pending reconciliation.** Per DESIGN.md + Figma (canonical), fonts are Lora (headings/display), Inter (body/UI), JetBrains Mono (code). The prior "Plus Jakarta / Source Sans 3 / Source Code Pro" stack and the "Lora removed" note are both superseded. Full type scale and font-feature defaults in [DESIGN.md §Typography](./DESIGN.md#typography). |
+| Typography | `packages/design-system/src/styles/tokens/typography.css` | Canonical fonts (per Cena brand spec, directive 2026-04-27): **Lora** (headings/display), **Source Sans 3** (body/UI), **Source Code Pro** (code). Full type scale and font-feature defaults in [DESIGN.md §Typography](./DESIGN.md#typography). |
 | Spacing | `packages/design-system/src/styles/tokens/spacing.css` |
 | Theme + Preline overrides | `packages/design-system/src/styles/haven.css` |
 | Pattern-library HTML (the spec) | `packages/design-system/pattern-library/components/[category]-[name].html` |
@@ -134,9 +134,9 @@ haven-ui/
 
 ### Brand fonts per app
 
-Every new React app under `apps/*` MUST link the canonical Haven font stack (Lora + Inter + JetBrains Mono) in its `index.html` — see `apps/patient/index.html` for the exact block, or copy from `packages/design-system/src/partials/head.html`.
+Every new React app under `apps/*` MUST link the canonical Haven font stack (Lora + Source Sans 3 + Source Code Pro) in its `index.html` — see `apps/patient/index.html` for the exact block, or copy from `packages/design-system/src/partials/head.html`.
 
-This is not optional styling. `base/font-features.css` sets a rich OpenType feature set on `body` (ss01/ss03/ss04, cv01–cv11, dlig, frac, etc.) that is tuned for Inter. If an app forgets the `<link>`, the browser falls back to system fonts (Times, Helvetica), and the feature codes map to unrelated glyphs in those fonts — often superscripts or small caps — so body text renders as unreadable. The Patient + Care-Coordinator apps shipped multiple slices in this broken state before Aaron caught it visually (Patch 75, 2026-04-23).
+This is not optional styling. `base/font-features.css` sets a rich OpenType feature set on `body` (ss01/ss03/ss04, dlig, frac, etc.) tuned for Source Sans 3. If an app forgets the `<link>`, the browser falls back to system fonts (Times, Helvetica), and the feature codes map to unrelated glyphs in those fonts — often superscripts or small caps — so body text renders as unreadable. The Patient + Care-Coordinator apps shipped multiple slices in this broken state before Aaron caught it visually (Patch 75, 2026-04-23).
 
 `conform:brand-fonts` is in the blocking-on-patch set and will refuse the commit if any active `apps/*/index.html` is missing the font links or is missing one of the three families.
 

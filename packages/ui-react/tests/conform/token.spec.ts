@@ -60,7 +60,7 @@ const UNIVERSAL_EXEMPTIONS = new Set<string>([
 
 // Haven's three authored font families. Observed fontFamily is a CSS font
 // stack; match if any family appears.
-const REGISTERED_FONT_FAMILIES = ['Lora', 'Inter', 'JetBrains Mono'];
+const REGISTERED_FONT_FAMILIES = ['Lora', 'Source Sans 3', 'Source Code Pro'];
 
 type Story = { id: string; selector: string };
 

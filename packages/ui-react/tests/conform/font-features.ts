@@ -1,8 +1,9 @@
-// Font-features conformance gate. Asserts that Haven's canonical Inter
-// feature string is declared on a top-level selector (`:root` or `body`)
-// inside the design-system base CSS. font-feature-settings is an inherited
-// property, so a root-level declaration carries to every Inter-bearing
-// descendant. Missing features == flat typography == brand regression
+// Font-features conformance gate. Asserts that Haven's canonical
+// Source Sans 3 feature string is declared on a top-level selector
+// (`:root` or `body`) inside the design-system base CSS.
+// font-feature-settings is an inherited property, so a root-level
+// declaration carries to every Source-Sans-3-bearing descendant.
+// Missing features == flat typography == brand regression
 // (DESIGN.md §Typography: "Disabling them is a regression").
 //
 // Gap flagged by Brand Fidelity panel review 2026-04-20: no slice-level
@@ -25,23 +26,13 @@ const DEFAULT_TARGET = resolve(
   'packages/design-system/src/styles/base/font-features.css',
 );
 
-// Canonical Inter features per DESIGN.md §Typography. Brand Fidelity 2026-04-20:
-// "ss01/ss03/ss04, cv01–cv11, dlig, frac per DESIGN.md §Typography."
+// Canonical Source Sans 3 features per DESIGN.md §Typography (post-rename
+// 2026-04-27). Inter-specific cv01–cv11 character variants were removed —
+// those codes are not in Source Sans 3's feature table.
 const CANONICAL_FEATURES = [
   'ss01',
   'ss03',
   'ss04',
-  'cv01',
-  'cv02',
-  'cv03',
-  'cv04',
-  'cv05',
-  'cv06',
-  'cv07',
-  'cv08',
-  'cv09',
-  'cv10',
-  'cv11',
   'dlig',
   'frac',
 ] as const;
@@ -65,7 +56,7 @@ function scanFile(path: string): Violation[] {
       {
         file: path,
         reason:
-          'no `font-feature-settings` declaration found on :root, html, or body. Inter carries Haven typographic voice through these features — missing them flattens type rendering. See DESIGN.md §Typography.',
+          'no `font-feature-settings` declaration found on :root, html, or body. Source Sans 3 carries Haven typographic voice through these features — missing them flattens type rendering. See DESIGN.md §Typography.',
       },
     ];
   }
@@ -96,7 +87,7 @@ function main(): void {
   const targets = args.length > 0 ? args.map((a) => resolve(a)) : [DEFAULT_TARGET];
 
   console.log(
-    `font-features gate — verifying canonical Inter feature string on ${targets.length} file(s). Required: ${CANONICAL_FEATURES.join(', ')}.`,
+    `font-features gate — verifying canonical Source Sans 3 feature string on ${targets.length} file(s). Required: ${CANONICAL_FEATURES.join(', ')}.`,
   );
 
   const allViolations: Violation[] = [];
@@ -117,7 +108,7 @@ function main(): void {
     process.exit(1);
   }
 
-  console.log(`\nfont-features gate PASSED — canonical Inter feature string declared`);
+  console.log(`\nfont-features gate PASSED — canonical Source Sans 3 feature string declared`);
 }
 
 main();

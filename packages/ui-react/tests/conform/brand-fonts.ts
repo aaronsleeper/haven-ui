@@ -1,18 +1,18 @@
 // Brand-fonts conformance gate. Every active React app's index.html AND
 // every standalone pattern-library HTML file (one with its own <head>) must
-// load the canonical Haven font stack (Inter, Lora, JetBrains Mono) per
-// DESIGN.md §Typography.
+// load the canonical Haven font stack (Lora, Source Sans 3, Source Code Pro)
+// per Cena brand spec (directive 2026-04-27) + DESIGN.md §Typography.
 //
 // Why this gate exists:
 //   base/font-features.css sets a rich OpenType feature set on body (case,
-//   cpsp, ordn, salt, ss01/ss03/ss04, cv01–cv11, dlig, frac). Those codes
-//   are Inter-specific. When a page forgets to <link> the brand fonts, the
-//   browser falls back to system serifs/sans (Times, Helvetica). Fallback
-//   fonts map the same feature codes to DIFFERENT glyphs — often
-//   superscripts, small caps, or stylistic substitutions — so body text
-//   renders as unreadable jumbles of tiny raised letters. The Patient app
-//   shipped through slices 1 + 2 in this broken state; the bug surfaced
-//   once Aaron opened the browser rather than just verifying gates + build.
+//   cpsp, ordn, salt, ss01/ss03/ss04, dlig, frac). When a page forgets to
+//   <link> the brand fonts, the browser falls back to system serifs/sans
+//   (Times, Helvetica). Fallback fonts map the same feature codes to
+//   DIFFERENT glyphs — often superscripts, small caps, or stylistic
+//   substitutions — so body text renders as unreadable jumbles of tiny
+//   raised letters. The Patient app shipped through slices 1 + 2 in this
+//   broken state; the bug surfaced once Aaron opened the browser rather
+//   than just verifying gates + build.
 //
 //   Original scope was apps/*/index.html only. On 2026-04-24 the superscript
 //   bug recurred inside the pattern library itself — the bare
@@ -25,7 +25,7 @@
 //   - If the file delegates to partials/pl-head.html via <load src>, it
 //     passes (that partial owns the canonical font block — verified here).
 //   - Otherwise: contains a <link> to fonts.googleapis.com/css2 whose
-//     family params cover Inter, Lora, and JetBrains Mono.
+//     family params cover Lora, Source Sans 3, and Source Code Pro.
 //
 // Scope:
 //   - Each apps/*/index.html (active only; archive/inactive-apps/* excluded)
@@ -47,7 +47,7 @@ const APPS_ROOT = resolve(MONOREPO_ROOT, 'apps');
 const PL_ROOT = resolve(MONOREPO_ROOT, 'packages/design-system/pattern-library');
 const PL_HEAD_PARTIAL = resolve(PL_ROOT, 'partials/pl-head.html');
 
-const REQUIRED_FAMILIES = ['Inter', 'Lora', 'JetBrains Mono'] as const;
+const REQUIRED_FAMILIES = ['Lora', 'Source Sans 3', 'Source Code Pro'] as const;
 
 type Violation = {
   file: string;
@@ -134,7 +134,7 @@ function scanFile(path: string): Violation[] {
       {
         file: path,
         reason:
-          'no <link> to fonts.googleapis.com/css2 and no <load src="../partials/pl-head.html"> found. Without brand fonts, font-feature-settings on body maps Inter OpenType codes onto system fallbacks and renders text as superscript / small-cap glyphs. Either inline the Google Fonts <link> for Inter + Lora + JetBrains Mono, or delegate <head> to partials/pl-head.html.',
+          'no <link> to fonts.googleapis.com/css2 and no <load src="../partials/pl-head.html"> found. Without brand fonts, font-feature-settings on body maps OpenType codes onto system fallbacks and renders text as superscript / small-cap glyphs. Either inline the Google Fonts <link> for Lora + Source Sans 3 + Source Code Pro, or delegate <head> to partials/pl-head.html.',
       },
     ];
   }

@@ -1,7 +1,7 @@
 /* ============================================
    TYPOGRAPHY TOKENS
    Fonts + weights + full type scale per DESIGN.md §Typography.
-   Lora (headings/display) + Inter (body/UI) + JetBrains Mono (code).
+   Lora (headings/display) + Source Sans 3 (body/UI) + Source Code Pro (code).
 
    All declarations inside @theme so Tailwind owns resolution.
    Fixes the prior latent --font-sans cascade bug where typography
@@ -12,8 +12,8 @@
   /* Font families — Tailwind-owned namespace; maps to
      font-serif / font-sans / font-mono utilities. */
   --font-serif: 'Lora', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-sans:  'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono:  'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', 'Source Code Pro', monospace;
+  --font-sans:  'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:  'Source Code Pro', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
 
   /* Font weights — explicit tokens for the 4 weights DESIGN.md uses. */
   --font-weight-regular:  400;
@@ -46,7 +46,7 @@
   --text-heading-05: 13.33px;
   --text-heading-05--line-height: 1.4;
 
-  /* Body — Inter Regular. */
+  /* Body — Source Sans 3 Regular. */
   --text-body-01: 19.2px;
   --text-body-01--line-height: 1.5;
   --text-body-02: 16px;
@@ -57,7 +57,7 @@
   --text-body-04--line-height: 1.4;
   --text-body-04--letter-spacing: -0.0015em;
 
-  /* Button — Inter Medium, line-height 1. */
+  /* Button — Source Sans 3 Medium, line-height 1. */
   --text-button-large: 16px;
   --text-button-large--line-height: 1;
   --text-button-medium: 13.33px;
@@ -65,13 +65,13 @@
   --text-button-small: 11.11px;
   --text-button-small--line-height: 1;
 
-  /* Navigation — Inter. */
+  /* Navigation — Source Sans 3. */
   --text-nav-primary: 13.33px;
   --text-nav-primary--line-height: 1;
   --text-nav-secondary: 13.33px;
   --text-nav-secondary--line-height: 1.4;
 
-  /* Input / Form — Inter. Two density steps × {label, value, helper}. */
+  /* Input / Form — Source Sans 3. Two density steps × {label, value, helper}. */
   --text-input-comfortable-label: 13.33px;
   --text-input-comfortable-label--line-height: 1.4;
   --text-input-comfortable-label--letter-spacing: 0.0005em;
@@ -86,7 +86,7 @@
   --text-input-compact-value: 16px;
   --text-input-compact-value--line-height: 1.4;
 
-  /* Utility — Inter Regular unless noted. */
+  /* Utility — Source Sans 3 Regular unless noted. */
   --text-utility-tab: 13.33px;
   --text-utility-tab--line-height: 1;
   --text-utility-tab--letter-spacing: 0.0005em;
@@ -105,12 +105,12 @@
   --text-utility-code: 13.33px;
   --text-utility-code--line-height: 1.4;
 
-  /* OVERLINE — Inter Semibold, UPPERCASE, letter-spacing 2em×0.001 */
+  /* OVERLINE — Source Sans 3 Semibold, UPPERCASE, letter-spacing 2em×0.001 */
   --text-utility-overline: 11.11px;
   --text-utility-overline--line-height: 1.6;
   --text-utility-overline--letter-spacing: 0.002em;
 
-  /* Metric — Inter Semibold for large numbers. */
+  /* Metric — Source Sans 3 Semibold for large numbers. */
   --text-utility-metric-large: 33.18px;
   --text-utility-metric-large--line-height: 1.1;
   --text-utility-metric-small: 19.2px;
