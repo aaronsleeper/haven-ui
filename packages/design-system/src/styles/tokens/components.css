@@ -1041,6 +1041,20 @@ a.btn-danger {
 }
 
 /* ===================================
+   FRAC — opt-in OpenType fractions
+   Wrap an actual numerator/slash/denominator string (e.g. "1/2", "3/4")
+   in <span class="frac"> to render with Source Sans 3's `frac` feature.
+   Not on the body baseline because `frac` substitutes digits with
+   numerator-style glyphs in digit-adjacent prose ("Column 1" → "Column ¹").
+   Patches 70/71/72/73 round-tripped this; the body-baseline removal +
+   opt-in class is the system fix. See DESIGN.md §Typography.
+   =================================== */
+
+.frac {
+    font-feature-settings: 'frac' 1;
+}
+
+/* ===================================
    BREADCRUMBS
    =================================== */
 

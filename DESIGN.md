@@ -201,12 +201,24 @@ Source Sans 3 + Lora text must enable this feature-settings string. Apply global
 font-feature-settings:
   'case' 1, 'cpsp' 1, 'ordn' 1, 'salt' 1,
   'ss01' 1, 'ss03' 1, 'ss04' 1,
-  'dlig' 1, 'frac' 1;
+  'dlig' 1;
 ```
 
 Inter-specific character variants (`cv01`–`cv11`) were removed during the 2026-04-27 rename — those codes are not in Source Sans 3's feature table.
 
-These features carry the typographic voice: stylistic alternates (ss01/ss03/ss04), character variants (cv01–cv11, especially for numerals and lowercase `l`), discretionary ligatures, fractions. Disabling them is a regression.
+These features carry the typographic voice: stylistic alternates (ss01/ss03/ss04), discretionary ligatures, ordinals, case-sensitive forms. Disabling them is a regression.
+
+##### Fractions — opt-in only
+
+`'frac' 1` is **not** on the body baseline. Source Sans 3's `frac` engine substitutes digits with numerator-style glyphs in digit-adjacent prose (e.g. `Column 1` → `Column ¹`, `grid-2` → `grid-²`), regressing pattern-library text and any UI copy that mentions a numbered column, version, or hyphenated identifier. Patches 70/71/72/73 round-tripped this; the body-baseline removal + opt-in class is the system fix.
+
+For actual fractional strings, wrap them in the `.frac` semantic class:
+
+```html
+<span class="frac">1/2 cup</span>
+```
+
+The `conform:font-features` gate enforces this — `frac` on `:root` / `html` / `body` is a hard fail.
 
 On long-form body text that needs stable letter spacing, add `'calt' 0` to disable contextual alternates. Observed on assessment question text in mock 1-2172.
 

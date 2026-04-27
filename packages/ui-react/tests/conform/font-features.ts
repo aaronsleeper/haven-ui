@@ -29,11 +29,24 @@ const DEFAULT_TARGET = resolve(
 // Canonical Source Sans 3 features per DESIGN.md §Typography (post-rename
 // 2026-04-27). Inter-specific cv01–cv11 character variants were removed —
 // those codes are not in Source Sans 3's feature table.
+//
+// `frac` was removed from the canonical body baseline 2026-04-27 (Patch A.5).
+// Source Sans 3's `frac` engine substitutes digits with numerator-style
+// glyphs in digit-adjacent prose ("Column 1" → "Column ¹", "grid-2" →
+// "grid-²"), regressing pattern-library prose for cosmetic fraction support
+// no plain text needs. The opt-in `.frac` semantic class in components.css
+// covers actual fractional strings.
 const CANONICAL_FEATURES = [
   'ss01',
   'ss03',
   'ss04',
   'dlig',
+] as const;
+
+// Features that must NOT appear on the body baseline. Regress digit-adjacent
+// prose by substituting plain numerals with numerator/denominator glyphs.
+// Use opt-in semantic classes (e.g. .frac in components.css) instead.
+const FORBIDDEN_FEATURES = [
   'frac',
 ] as const;
 
@@ -79,6 +92,16 @@ function scanFile(path: string): Violation[] {
     ];
   }
 
+  const forbiddenFound = FORBIDDEN_FEATURES.filter((f) => declared.has(f));
+  if (forbiddenFound.length > 0) {
+    return [
+      {
+        file: path,
+        reason: `font-feature-settings declares forbidden features on body baseline: ${forbiddenFound.join(', ')}. These regress digit-adjacent prose (e.g. "Column 1" → "Column ¹"). Use opt-in semantic classes (.frac) for actual fractional strings instead. See font-features.css comment block.`,
+      },
+    ];
+  }
+
   return [];
 }
 
@@ -87,7 +110,7 @@ function main(): void {
   const targets = args.length > 0 ? args.map((a) => resolve(a)) : [DEFAULT_TARGET];
 
   console.log(
-    `font-features gate — verifying canonical Source Sans 3 feature string on ${targets.length} file(s). Required: ${CANONICAL_FEATURES.join(', ')}.`,
+    `font-features gate — verifying canonical Source Sans 3 feature string on ${targets.length} file(s). Required: ${CANONICAL_FEATURES.join(', ')}. Forbidden on body: ${FORBIDDEN_FEATURES.join(', ')}.`,
   );
 
   const allViolations: Violation[] = [];
@@ -108,7 +131,7 @@ function main(): void {
     process.exit(1);
   }
 
-  console.log(`\nfont-features gate PASSED — canonical Source Sans 3 feature string declared`);
+  console.log(`\nfont-features gate PASSED — canonical Source Sans 3 feature string declared, no forbidden features on body baseline`);
 }
 
 main();
