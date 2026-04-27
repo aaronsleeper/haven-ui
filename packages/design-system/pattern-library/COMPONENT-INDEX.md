@@ -42,6 +42,7 @@ before creating any new component or semantic class.
 | Stat Card | `layout-stat-card.html` | `card-stat`, `stat-label`, `stat-value` | no | Dashboard metric cards. No pie/donut charts. |
 | Container | `layout-container.html` | `container` | no | Max-width page wrapper |
 | Page Header | `layout-page-header.html` | `page-header` | no | Title left, actions right |
+| Record Header | `layout-record-header.html` | `record-header`, `record-header-main`, `record-header-title`, `record-header-subtitle`, `record-header-trailing`, `record-header-meta` | no | Identity bar at top of a center-pane record (referral, care plan, care plan diff, patient record). Lora display title per DESIGN.md §Typography. Title left + subtitle, status badge + meta right. Reusable across cc-04/cc-05/cc-06/cc-07. |
 | Section Title | `layout-section-title.html` | `section-title` | no | Subheading inside a section |
 | Sticky Footer | `layout-sticky-footer.html` | `sticky-footer`, `sticky-footer-inner`, `sticky-footer-info`, `sticky-footer-actions` | no | Fixed bottom action bar |
 | Grid (2-col) | `layout-grid.html` | `grid-2` | no | Responsive 2-col grid |
@@ -210,6 +211,7 @@ before creating any new component or semantic class.
 | Instruction Card | `util-instruction-card.html` | `instruction-title`, `instruction-text` | no | Helper text block |
 | Sidebar Toggle Bar | `util-sidebar-toggle.html` | `sidebar-toggle-bar`, `sidebar-toggle-btn` | yes | Mobile sidebar open trigger |
 | Tag Container | `util-tag-container.html` | `tag-container` | no | Flex wrap for tag badges |
+| Editable Indicator | _(no PL page — utility class)_ | `editable-indicator` | no | Inline label + pen icon for coordinator-owned editable sections (cc-05). One-line semantic class; pair with `<i class="fa-solid fa-pen-to-square">` + label text. |
 
 ---
 

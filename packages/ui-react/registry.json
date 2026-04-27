@@ -531,6 +531,34 @@
       }
     },
     {
+      "name": "record-header",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/RecordHeader.tsx", "type": "registry:component" },
+        { "path": "components/RecordHeader.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/layout-record-header.html",
+        "composition": {
+          "propSchema": "./components/RecordHeader.props.ts",
+          "markdocTag": "record-header",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "RecordHeader.referral",
+          "RecordHeader.carePlan",
+          "RecordHeader.diff"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Identity bar at the top of a center-pane record (referral / care plan / care plan diff / patient record). Title (Lora heading-03 per DESIGN.md §Typography) carries Haven brand on record surfaces. Subtitle, trailing slot, and meta line all optional. Reusable across cc-04, cc-05, cc-06, cc-07. Promoted Patch A of cc-05 slice (2026-04-27) per Design System Steward override — 4 already-authored wireframe consumers is a stronger promotion signal than the second-use rule."
+      }
+    },
+    {
       "name": "assessment-header",
       "type": "registry:component",
       "files": [

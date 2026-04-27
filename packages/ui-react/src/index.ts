@@ -90,6 +90,9 @@ export type { MobileShellProps } from './components/MobileShell';
 export { ThreePanelShell } from './components/ThreePanelShell';
 export type { ThreePanelShellProps } from './components/ThreePanelShell';
 
+export { RecordHeader } from './components/RecordHeader';
+export type { RecordHeaderProps } from './components/RecordHeader';
+
 export { ThreePanelShellCenter } from './components/ThreePanelShellCenter';
 export type { ThreePanelShellCenterProps } from './components/ThreePanelShellCenter';
 

@@ -1,0 +1,58 @@
+<!--
+  @component-meta
+  name: Record Header
+  category: Layout
+  file: layout-record-header.html
+  classes: record-header, record-header-main, record-header-title, record-header-subtitle, record-header-trailing, record-header-meta
+  when-to-use: Top of a center-pane record surface (referral, care plan, patient record, care plan diff). Title left, status badge + meta right. Lora display title carries Haven brand per DESIGN.md §Typography.
+  preline-required: no
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Record Header</h3>
+  <p class="pl-description">
+    Identity bar at the top of a center-pane record. Title (Lora) + subtitle on the
+    left; status badge + meta label on the right. Reusable across referral,
+    care plan, care plan diff, and patient record surfaces.
+  </p>
+
+  <!-- @component: layout-record-header-default -->
+  <header class="record-header">
+    <div class="record-header-main">
+      <h2 class="record-header-title">Maria Garcia</h2>
+      <p class="record-header-subtitle">62, F · DOB Mar 15, 1964</p>
+    </div>
+    <div class="record-header-trailing">
+      <span class="badge badge-success">Eligible</span>
+      <span class="record-header-meta">via UConn Health · FHIR</span>
+    </div>
+  </header>
+  <!-- /component -->
+
+  <!-- @component: layout-record-header-care-plan -->
+  <header class="record-header">
+    <div class="record-header-main">
+      <h2 class="record-header-title">Care Plan v1.0</h2>
+      <p class="record-header-subtitle">Maria Garcia</p>
+    </div>
+    <div class="record-header-trailing">
+      <span class="badge badge-warning">Coordinator Review</span>
+      <span class="record-header-meta">Created Mar 26, 2026</span>
+    </div>
+  </header>
+  <!-- /component -->
+
+  <!-- @component: layout-record-header-diff -->
+  <header class="record-header">
+    <div class="record-header-main">
+      <h2 class="record-header-title">Care Plan Update</h2>
+      <p class="record-header-subtitle">Maria Garcia</p>
+    </div>
+    <div class="record-header-trailing">
+      <span class="badge badge-sm badge-neutral">v1.0 → v1.1</span>
+    </div>
+  </header>
+  <!-- /component -->
+</section>

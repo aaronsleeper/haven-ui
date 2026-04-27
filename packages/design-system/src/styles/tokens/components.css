@@ -995,6 +995,52 @@ a.btn-danger {
 }
 
 /* ===================================
+   RECORD HEADER
+   Identity bar at the top of a center-pane record (referral, care plan,
+   care plan diff, patient record). Lora display title per DESIGN.md
+   §Typography — display type carries the Haven brand on record surfaces.
+   =================================== */
+
+.record-header {
+    @apply flex items-start justify-between gap-4 px-6 pt-6 pb-4;
+}
+
+.record-header-main {
+    @apply flex flex-col gap-1 min-w-0;
+}
+
+.record-header-title {
+    font-family: var(--font-serif);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-heading-03);
+    line-height: var(--text-heading-03--line-height);
+    @apply text-sand-900 dark:text-sand-100 m-0;
+}
+
+.record-header-subtitle {
+    @apply text-body-03 text-sand-500 dark:text-sand-400 m-0;
+}
+
+.record-header-trailing {
+    @apply flex flex-col items-end gap-1 shrink-0;
+}
+
+.record-header-meta {
+    @apply text-body-04 text-sand-500 dark:text-sand-400;
+}
+
+/* ===================================
+   EDITABLE INDICATOR
+   Small inline label + pen icon shown on coordinator-owned sections to
+   distinguish them from read-only clinical sections (cc-05). Utility class —
+   no PL HTML page; one-line semantic styling.
+   =================================== */
+
+.editable-indicator {
+    @apply inline-flex items-center gap-1 text-body-04 text-primary-600 dark:text-primary-400;
+}
+
+/* ===================================
    BREADCRUMBS
    =================================== */
 
