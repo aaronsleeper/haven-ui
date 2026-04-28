@@ -37,6 +37,7 @@ Patient app MVP complete. All onboarding and main app screens built and committe
 
 ## Backlog
 
+- **Adopt the 3-column template across persona apps** (filed 2026-04-28, raised by Aaron during cc-05 Patch B browser verification). The `three-panel-shell` PL primitive + `ThreePanelShell` ui-react port already exist; care-coordinator uses them. Other persona apps that should compose them aren't yet — visible distraction in side-by-side review. Audit each app under `apps/*` against the `three-panel-shell` contract and migrate any that author bespoke layout shells. Likely candidates: any app composing its own queue + center + thread-rail composition without going through the shell. Surface during the next slice-opening checklist for each persona app.
 - **Generalize pref-row to shared component** -- the circle/square inset-ring selection pattern is visually strong and worth applying to provider/patient profile settings screens. Currently scoped to patient onboarding only. When a second use case appears, promote to `components.css` and document in COMPONENT-INDEX.md.
 - **Patient assessments & self-report** — Wireframes and UX review complete (Gate 2 ready 2026-03-31). Tasks system on dashboard (top 3 tasks + "See all" link to full task list). "Health" bottom nav tab for trends. Markdown-defined assessment library with generic renderer. Prototype set: PHQ-2, mood check-in, Hunger Vital Sign. See `apps/patient/design/`. Next step: haven-mapper + dev-tasker (Gate 3).
   - **Remaining assessments to build** (post-prototype):
