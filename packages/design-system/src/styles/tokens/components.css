@@ -8256,6 +8256,10 @@ a.list-group-item-action {
 
 /* --- Panel splitter overrides (agentic shell) --- */
 
+/* 1px static divider between panes; structural rhythm only. Hover state
+   thickens to 3px teal-500 (next rule) which carries the interactive
+   affordance and meets contrast on its own. */
+/* @contrast-exempt: decorative-background */
 .agentic-shell .panel-splitter {
     width: 1px;
     background-color: var(--color-sand-200);

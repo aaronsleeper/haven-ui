@@ -5,6 +5,10 @@ import { useState } from 'react';
 // than the existing complex-prompt-input PL primitive (textarea + send only,
 // no toolbar, no category chips). Promote to a PL fragment when a second app
 // needs the same shape.
+//
+// 2026-04-28 (Patch E): outer wrapper styling moved to the parent (the
+// agentic-shell `chat-input-area` now owns border-top + padding + bg).
+// This component renders only the textarea + send controls.
 
 export interface ThreadInputProps {
   onSend: (text: string) => void;
@@ -29,7 +33,7 @@ export function ThreadInput({
   };
 
   return (
-    <div className="border-t border-sand-200 bg-white p-3 flex items-end gap-2">
+    <div className="flex items-end gap-2">
       <textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}

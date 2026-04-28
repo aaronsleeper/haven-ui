@@ -1,15 +1,8 @@
 import { useMemo, useRef, useState } from 'react';
-import {
-  QueueSidebar,
-  ThreePanelShell,
-  ThreePanelShellCenter,
-  ThreadPanel,
-  ThreadPanelEmpty,
-} from '@haven/ui-react';
+import { AgenticShell, QueueItem } from '@haven/ui-react';
 import type {
   QueueItemProps,
   QueueItemUrgency,
-  QueueSidebarSection,
 } from '@haven/ui-react';
 import logoSrc from '@haven/ui-react/assets/logo-cenahealth-teal.svg';
 import { urgent, attention, info } from './data/queue';
@@ -338,88 +331,156 @@ export function App() {
       },
     }));
 
+  interface NavSection {
+    urgency: QueueItemUrgency;
+    label: string;
+    items: QueueItemProps[];
+  }
+
   const section = (
     urgency: QueueItemUrgency,
     label: string,
     entries: QueueEntry[],
-  ): QueueSidebarSection => ({
-    header: { urgency, label },
+  ): NavSection => ({
+    urgency,
+    label,
     items: toItems(entries),
   });
 
-  const sections: QueueSidebarSection[] = [
+  const sections: NavSection[] = [
     section('urgent', 'Urgent', urgent),
     section('attention', 'Needs Attention', attention),
     section('info', 'Informational', info),
   ].filter((s) => s.items.length > 0);
 
   return (
-    <ThreePanelShell>
-      <QueueSidebar
-        brand={{ logoSrc, logoAlt: 'Cena Health' }}
-        sections={sections}
+    <AgenticShell>
+      <nav className="panel-nav" aria-label="Queue">
+        <div className="nav-header">
+          <div className="nav-logo">
+            <img src={logoSrc} alt="Cena Health" />
+          </div>
+        </div>
+        {sections.map((s) => (
+          <div className="nav-section" key={s.urgency}>
+            <div className="nav-section-label">
+              <span>{s.label}</span>
+            </div>
+            <ul className="queue-list">
+              {s.items.map((item) => (
+                <li key={`${s.urgency}-${item.name}`}>
+                  <QueueItem {...item} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      <div
+        className="panel-splitter"
+        data-panel-splitter
+        data-target="previous"
+        data-min="180"
+        data-max="360"
+        aria-hidden="true"
       />
 
-      <ThreePanelShellCenter>
+      <main className="panel-chat" aria-label="Activity">
         {activeEntry ? (
-          activeCarePlan && activePatient ? (
+          <>
+            <div className="chat-thread">
+              <div className="chat-thread-inner">
+                <ThreadMessageList
+                  messages={messages}
+                  onAction={handleAction}
+                  rejectIntentId={rejectIntentId}
+                  editIntentId={editIntentId}
+                  noteValue={noteValue}
+                  onNoteChange={(value) =>
+                    setNoteByEntry((prev) => ({ ...prev, [activeEntry.id]: value }))
+                  }
+                  noteRef={noteRef}
+                  noteInvalid={noteInvalid}
+                  containerClassName=""
+                />
+                {undo && undo.entryId === activeEntry.id && (
+                  <ThreadUndoBar
+                    message={undo.message}
+                    actionLabel={undo.message.startsWith('Approved') ? 'Undo' : undefined}
+                    onAction={
+                      undo.message.startsWith('Approved') ? handleUndoAction : undefined
+                    }
+                    onDismiss={handleUndoDismiss}
+                  />
+                )}
+              </div>
+            </div>
+            <div className="chat-input-area">
+              <ThreadInput onSend={handleSend} />
+            </div>
+          </>
+        ) : (
+          /* Empty-state per ux-design-lead verdict (2026-04-28): no global
+             composer; coordinator IA is strictly entry-scoped. Vertically
+             centered in panel-chat to read as an intentional state, not a
+             placeholder. Aligned with thread-panel.html / three-panel-shell.html. */
+          <div className="flex-1 flex items-center justify-center px-6">
+            <div className="text-center max-w-md">
+              <p className="text-base font-medium text-sand-900">
+                Pick a queue item to start.
+              </p>
+              <p className="text-sm text-sand-600 mt-2">
+                Each conversation lives with a specific patient or referral, so
+                the activity stays on the record.
+              </p>
+            </div>
+          </div>
+        )}
+      </main>
+
+      <div
+        className="panel-splitter"
+        data-panel-splitter
+        data-target="next"
+        data-min="320"
+        data-max="640"
+        aria-hidden="true"
+      />
+
+      {/* Record-led panel-content per agentic-shell PL doc, mode B (carve-out
+          added 2026-04-28). RecordHeader inside CarePlanViewer carries the
+          identity layer; content-header is intentionally omitted. */}
+      <aside className="panel-content" aria-label="Care plan">
+        {activeEntry && activeCarePlan && activePatient ? (
+          <div className="flex-1 overflow-y-auto">
             <CarePlanViewer
               plan={activeCarePlan}
               patient={activePatient}
               mode={centerPaneMode}
               onPlanChange={(next) =>
-                setInflightCarePlanEdits((prev) => ({ ...prev, [activePatient.id]: next }))
+                setInflightCarePlanEdits((prev) => ({
+                  ...prev,
+                  [activePatient.id]: next,
+                }))
               }
             />
-          ) : (
-            <section className="p-6">
-              <h1 className="section-title">{activeEntry.name}</h1>
-              <p className="prose-section mt-2">
-                {activeEntry.category} — {activeEntry.summary}
-              </p>
-            </section>
-          )
-        ) : (
-          <section className="p-6">
-            <h1 className="section-title">Select a queue item</h1>
+          </div>
+        ) : activeEntry ? (
+          <div className="content-body">
+            <h2 className="section-title">{activeEntry.name}</h2>
             <p className="prose-section mt-2">
-              Choose an item from the queue to load a record.
+              {activeEntry.category} — {activeEntry.summary}
             </p>
-          </section>
-        )}
-      </ThreePanelShellCenter>
-
-      <ThreadPanel>
-        {activeEntry ? (
-          <>
-            <ThreadMessageList
-              messages={messages}
-              onAction={handleAction}
-              rejectIntentId={rejectIntentId}
-              editIntentId={editIntentId}
-              noteValue={noteValue}
-              onNoteChange={(value) =>
-                setNoteByEntry((prev) => ({ ...prev, [activeEntry.id]: value }))
-              }
-              noteRef={noteRef}
-              noteInvalid={noteInvalid}
-            />
-            {undo && undo.entryId === activeEntry.id && (
-              <ThreadUndoBar
-                message={undo.message}
-                actionLabel={undo.message.startsWith('Approved') ? 'Undo' : undefined}
-                onAction={undo.message.startsWith('Approved') ? handleUndoAction : undefined}
-                onDismiss={handleUndoDismiss}
-              />
-            )}
-            <ThreadInput onSend={handleSend} />
-          </>
+          </div>
         ) : (
-          <ThreadPanelEmpty>
-            Select a queue item to see its activity.
-          </ThreadPanelEmpty>
+          <div className="content-body">
+            <p className="text-sm text-sand-500">
+              Select a queue item to load a record.
+            </p>
+          </div>
         )}
-      </ThreadPanel>
-    </ThreePanelShell>
+      </aside>
+    </AgenticShell>
   );
 }

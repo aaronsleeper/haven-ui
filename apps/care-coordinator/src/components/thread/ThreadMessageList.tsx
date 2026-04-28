@@ -24,6 +24,11 @@ export interface ThreadMessageListProps {
   onNoteChange: (value: string) => void;
   noteRef?: Ref<HTMLTextAreaElement>;
   noteInvalid?: boolean;
+  /** Container className applied to the outer log element. Defaults to
+   *  `thread-panel-body` (legacy three-panel-shell context, padding+flex).
+   *  Pass an empty string when rendering inside `chat-thread-inner` —
+   *  the parent already owns padding, max-width, and gap. */
+  containerClassName?: string;
 }
 
 export function ThreadMessageList({
@@ -35,10 +40,11 @@ export function ThreadMessageList({
   onNoteChange,
   noteRef,
   noteInvalid,
+  containerClassName = 'thread-panel-body',
 }: ThreadMessageListProps) {
   return (
     <div
-      className="thread-panel-body"
+      className={containerClassName}
       role="log"
       aria-live="polite"
       aria-label="Thread activity"

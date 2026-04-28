@@ -90,6 +90,9 @@ export type { MobileShellProps } from './components/MobileShell';
 export { ThreePanelShell } from './components/ThreePanelShell';
 export type { ThreePanelShellProps } from './components/ThreePanelShell';
 
+export { AgenticShell } from './components/AgenticShell';
+export type { AgenticShellProps } from './components/AgenticShell';
+
 export { RecordHeader } from './components/RecordHeader';
 export type { RecordHeaderProps } from './components/RecordHeader';
 

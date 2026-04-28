@@ -23,6 +23,10 @@ Example:
 - 2026-04-28 [spacing] section-status-bar gap between items feels tight at narrow widths → brand-fidelity
 ```
 
+## Superseded by Patch E (Agentic Shell rebase, 2026-04-28)
+
+Aaron identified that cc-05 is structurally on the wrong shell (`three-panel-shell`) and should sit on `agentic-shell` instead. Patch E in `~/.claude/plans/haven-ui-cc-care-plan-viewer-slice.md` rebases the page: chat → middle pane, care plan → right pane (`panel-content` + `content-header` + `content-body`), queue stays left as `panel-nav`. Most entries below will resolve, move, or become irrelevant after the rebase lands. Re-evaluate this list and run `/design-review` after Patch E ships.
+
 ## Open
 
 - 2026-04-28 [layout] meal-delivery edit-mode inputs are too narrow for their values; widen toward the available viewport space, but respect the design's max-line-length rules so the inputs don't run edge-to-edge → brand-fidelity / design-system-steward

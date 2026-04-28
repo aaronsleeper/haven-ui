@@ -141,7 +141,39 @@
     <!-- Splitter: chat ↔ content -->
     <div id="content-splitter" class="panel-splitter" data-panel-splitter data-target="next" data-min="240" data-max="720"></div>
 
-    <!-- Panel 3: Content / Artifact -->
+    <!--
+      Panel 3 composition modes:
+
+      A) Chrome-led artifact (default — shown here):
+         <aside class="panel-content">
+           <div class="content-header">…title strip…</div>
+           <div class="content-body">…content…</div>
+         </aside>
+
+         Use when the artifact's identity is incidental ("Cocina Abuela — This Week",
+         a recipe, a menu). content-header is panel chrome; content-body provides
+         padded scroll.
+
+      B) Record-led artifact (carve-out — added 2026-04-28 for cc-05):
+         <aside class="panel-content">
+           <div class="flex-1 overflow-y-auto">
+             <RecordHeader …/>             <!-- identity layer (PL primitive) -->
+             …rest of record…
+           </div>
+         </aside>
+
+         Use when the artifact is a high-stakes review record (care plan, referral,
+         diff). The PL record-header primitive carries badge + meta + decision-relevant
+         context that content-header doesn't. Doubling them up violates the IA principle
+         "identity should not double-render at adjacent levels" (ux-design-lead consult,
+         2026-04-28). Skip content-header; let RecordHeader be the first child of
+         panel-content's scroll region.
+
+         If a third record-led consumer appears, promote the inline scroll wrapper to
+         a `.content-body-flush` semantic class.
+    -->
+
+    <!-- Panel 3: Content / Artifact (mode A — chrome-led example) -->
     <aside id="panel-content" class="panel-content">
       <div class="content-header">
         <span class="content-header-title">

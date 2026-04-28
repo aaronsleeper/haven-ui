@@ -28,6 +28,30 @@
       }
     },
     {
+      "name": "agentic-shell",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/AgenticShell.tsx", "type": "registry:component" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/layout-agentic-shell.html",
+        "composition": {
+          "propSchema": null,
+          "markdocTag": null,
+          "allowedChildren": [],
+          "slotModel": "children-slot"
+        },
+        "isAppShell": true,
+        "stories": [],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Layout-shell carve-out. Mirrors the ThreePanelShell registration shape — pure layout, no markdoc tag, isAppShell:true for the conform:app-shell gate. Used when the app's center of gravity is conversation (panel-chat) with a contextual artifact in the right pane (panel-content), not record review at the center. Nested panel-nav / panel-chat / panel-content compositions remain inline carve-outs in app code until a second consumer needs them — promote on second use per CLAUDE.md tier rules. First consumer: care-coordinator cc-05 (Patch E, 2026-04-28). Drag-resize splitters and panel toggles deferred."
+      }
+    },
+    {
       "name": "queue-sidebar",
       "type": "registry:component",
       "files": [
