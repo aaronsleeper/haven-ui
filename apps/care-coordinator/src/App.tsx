@@ -23,6 +23,8 @@ import type {
 import { ThreadMessageList } from './components/thread/ThreadMessageList';
 import { ThreadInput } from './components/thread/ThreadInput';
 import { ThreadUndoBar } from './components/thread/ThreadUndoBar';
+import { CarePlanViewer } from './components/care-plan/CarePlanViewer';
+import { getCarePlanForEntry, getPatientForEntry } from './data/care-plans';
 
 interface UndoState {
   /** Entry id whose thread the toast belongs to. */
@@ -237,12 +239,21 @@ export function App() {
 
       <ThreePanelShellCenter>
         {activeEntry ? (
-          <section className="p-6">
-            <h1 className="section-title">{activeEntry.name}</h1>
-            <p className="prose-section mt-2">
-              {activeEntry.category} — {activeEntry.summary}
-            </p>
-          </section>
+          (() => {
+            const carePlan = getCarePlanForEntry(activeEntry.id);
+            const patient = getPatientForEntry(activeEntry.id);
+            if (carePlan && patient) {
+              return <CarePlanViewer plan={carePlan} patient={patient} />;
+            }
+            return (
+              <section className="p-6">
+                <h1 className="section-title">{activeEntry.name}</h1>
+                <p className="prose-section mt-2">
+                  {activeEntry.category} — {activeEntry.summary}
+                </p>
+              </section>
+            );
+          })()
         ) : (
           <section className="p-6">
             <h1 className="section-title">Select a queue item</h1>
