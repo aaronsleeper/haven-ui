@@ -16,6 +16,10 @@ export interface ThreadMessageListProps {
   ) => void;
   /** When set, the approval card with this id renders in noteMode='required'. */
   rejectIntentId?: string;
+  /** When set, the approval card with this id is the active edit-flow card —
+   *  primary button relabels to "Approve with edits" and the Edit-first
+   *  button hides (already editing). */
+  editIntentId?: string;
   noteValue: string;
   onNoteChange: (value: string) => void;
   noteRef?: Ref<HTMLTextAreaElement>;
@@ -26,6 +30,7 @@ export function ThreadMessageList({
   messages,
   onAction,
   rejectIntentId,
+  editIntentId,
   noteValue,
   onNoteChange,
   noteRef,
@@ -71,7 +76,12 @@ export function ThreadMessageList({
             );
           case 'approval-request': {
             const isRejectIntent = rejectIntentId === m.id;
-            const primaryLabel = isRejectIntent ? 'Confirm rejection' : m.actions.primary.label;
+            const isEditIntent = editIntentId === m.id;
+            const primaryLabel = isRejectIntent
+              ? 'Confirm rejection'
+              : isEditIntent
+                ? 'Approve with edits'
+                : m.actions.primary.label;
             return (
               <ThreadApprovalCard
                 key={m.id}
@@ -109,7 +119,7 @@ export function ThreadMessageList({
                     >
                       {primaryLabel}
                     </button>
-                    {m.actions.edit && (
+                    {m.actions.edit && !isEditIntent && (
                       <button
                         type="button"
                         className="btn-outline btn-sm"

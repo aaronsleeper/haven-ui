@@ -18,9 +18,11 @@ interface SectionStatusBarItem {
 
 interface SectionStatusBarProps {
   sections: SectionStatusBarItem[];
-  /** Returns the in-page anchor id for a section. App composes the anchor
-   *  on the matching accordion-item; the bar links to it. */
-  anchorIdFor: (type: SectionType) => string;
+  /** Called when the coordinator clicks a section name. CarePlanViewer
+   *  scrolls the target into view inside its own overflow container — a
+   *  default <a href="#anchor"> would scroll the window, which is wrong for
+   *  nested overflow contexts. */
+  onJump: (type: SectionType) => void;
 }
 
 interface StatusGlyph {
@@ -59,26 +61,27 @@ const ITEM_TEXT_CLASS: Record<SectionStatus, string> = {
   'system-error': 'text-red-700 font-medium',
 };
 
-export function SectionStatusBar({ sections, anchorIdFor }: SectionStatusBarProps) {
+export function SectionStatusBar({ sections, onJump }: SectionStatusBarProps) {
   return (
     <nav
       aria-label="Care plan sections"
-      className="sticky top-0 z-10 flex flex-wrap gap-x-5 gap-y-2 px-6 py-3 bg-sand-50 border-b border-sand-150"
+      className="sticky top-0 z-20 flex flex-wrap gap-x-5 gap-y-2 px-6 py-3 bg-sand-50 border-b border-sand-150"
     >
       {sections.map((section) => {
         const label = SECTION_LABELS[section.type];
         const glyph = STATUS_GLYPH[section.status];
         const textClass = ITEM_TEXT_CLASS[section.status];
         return (
-          <a
+          <button
             key={section.type}
-            href={`#${anchorIdFor(section.type)}`}
+            type="button"
+            onClick={() => onJump(section.type)}
             aria-label={glyph.ariaLabel(label)}
             className={`inline-flex items-center gap-1.5 text-body-04 ${textClass} hover:text-sand-900 transition-colors`}
           >
             <i className={`${glyph.icon} ${glyph.textClass}`} aria-hidden="true" />
             <span>{label}</span>
-          </a>
+          </button>
         );
       })}
     </nav>

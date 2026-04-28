@@ -11,11 +11,18 @@
 //   coordinator-pending → expanded (coordinator-owned, needs review)
 //   system-error        → expanded (visible to surface the problem)
 //
-// Preline HSAccordion handles toggle at runtime; this component renders
-// the initial state.
+// Accordion is React-controlled (not Preline). The semantic Preline
+// classes are kept on the DOM so the existing CSS picks up the chevron
+// rotation + active styling — but expansion state lives in React useState
+// to avoid the React-vs-Preline DOM-mutation race that snaps bodies shut.
 
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { RecordHeader } from '@haven/ui-react';
+
+// Accordion expansion is driven by React state, not Preline. Preline mutates
+// inline style/className at runtime; React 19 re-applies fresh style objects
+// on each render, clobbering those mutations and snapping the body shut. Keep
+// the source of truth in React so there's no race.
 import type {
   CarePlan,
   CarePlanSection,
@@ -41,6 +48,13 @@ import { SectionStatusBar } from './SectionStatusBar';
 interface CarePlanViewerProps {
   plan: CarePlan;
   patient: Patient;
+  /** 'view' (default) renders read-only. 'edit' enables inline form fields
+   *  on coordinator-owned sections (Patch C: meal-delivery only). */
+  mode?: 'view' | 'edit';
+  /** Called when the coordinator edits a field in edit mode. App lifts the
+   *  override into its `carePlanOverrides` slice so the diff can be computed
+   *  on approve-with-edits. */
+  onPlanChange?: (next: CarePlan) => void;
 }
 
 const STATUS_GLYPH: Record<SectionStatus, { icon: string; textClass: string }> = {
@@ -62,11 +76,57 @@ function bodyIdFor(type: SectionType): string {
   return `cp-section-${type}-body`;
 }
 
-export function CarePlanViewer({ plan, patient }: CarePlanViewerProps) {
+export function CarePlanViewer({
+  plan,
+  patient,
+  mode = 'view',
+  onPlanChange,
+}: CarePlanViewerProps) {
   const sectionStatuses = plan.sections.map((s) => ({ type: s.type, status: s.status }));
 
+  // Per-section open state. Initialized from default-state convention; user
+  // toggles override it for the rest of the session.
+  const [openSections, setOpenSections] = useState<Set<SectionType>>(
+    () => new Set(plan.sections.filter((s) => isExpandedByDefault(s.status)).map((s) => s.type)),
+  );
+  const toggleSection = (type: SectionType) => {
+    setOpenSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(type)) next.delete(type);
+      else next.add(type);
+      return next;
+    });
+  };
+
+  // Scroll the target section into view + open it if collapsed. The scroll
+  // container is the parent .three-panel-shell-center (overflow-y-auto from
+  // the shell); scrollIntoView walks up to the nearest scrollable ancestor.
+  // Defer the scroll to the next frame so React has reconciled the newly-
+  // opened body and the layout has reflowed before we measure positions.
+  function handleSectionJump(type: SectionType) {
+    setOpenSections((prev) => {
+      if (prev.has(type)) return prev;
+      const next = new Set(prev);
+      next.add(type);
+      return next;
+    });
+    requestAnimationFrame(() => {
+      const target = document.getElementById(anchorIdFor(type));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  function updateSection(next: CarePlanSection) {
+    if (!onPlanChange) return;
+    const nextPlan: CarePlan = {
+      ...plan,
+      sections: plan.sections.map((s) => (s.type === next.type ? next : s)),
+    };
+    onPlanChange(nextPlan);
+  }
+
   return (
-    <article className="flex flex-col h-full overflow-y-auto" aria-label={`Care plan ${plan.version} for ${patient.name}`}>
+    <article aria-label={`Care plan ${plan.version} for ${patient.name}`}>
       <RecordHeader
         title={`Care Plan ${plan.version}`}
         subtitle={patient.name}
@@ -78,12 +138,31 @@ export function CarePlanViewer({ plan, patient }: CarePlanViewerProps) {
         meta={plan.meta}
       />
 
-      <SectionStatusBar sections={sectionStatuses} anchorIdFor={anchorIdFor} />
+      <SectionStatusBar sections={sectionStatuses} onJump={handleSectionJump} />
+
+      {mode === 'edit' ? (
+        <div className="px-6 pt-4">
+          <div className="alert alert-info">
+            <i className="fa-solid fa-pen-to-square alert-icon" aria-hidden="true" />
+            <span>
+              Edit mode — coordinator-owned sections accept inline changes. Approve with edits
+              when finished, or commit without changes by clearing inputs.
+            </span>
+          </div>
+        </div>
+      ) : null}
 
       <div className="px-6 py-6">
-        <div className="accordion" data-hs-accordion-always-open>
+        <div className="accordion">
           {plan.sections.map((section) => (
-            <SectionAccordionItem key={section.type} section={section} />
+            <SectionAccordionItem
+              key={section.type}
+              section={section}
+              mode={mode}
+              onSectionChange={updateSection}
+              expanded={openSections.has(section.type)}
+              onToggle={() => toggleSection(section.type)}
+            />
           ))}
         </div>
       </div>
@@ -93,8 +172,19 @@ export function CarePlanViewer({ plan, patient }: CarePlanViewerProps) {
 
 // ---------- Accordion item ----------
 
-function SectionAccordionItem({ section }: { section: CarePlanSection }) {
-  const expanded = isExpandedByDefault(section.status);
+function SectionAccordionItem({
+  section,
+  mode,
+  onSectionChange,
+  expanded,
+  onToggle,
+}: {
+  section: CarePlanSection;
+  mode: 'view' | 'edit';
+  onSectionChange: (next: CarePlanSection) => void;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
   const itemId = anchorIdFor(section.type);
   const bodyId = bodyIdFor(section.type);
   const glyph = STATUS_GLYPH[section.status];
@@ -103,7 +193,7 @@ function SectionAccordionItem({ section }: { section: CarePlanSection }) {
 
   return (
     <div
-      className={`hs-accordion accordion-item${expanded ? ' active' : ''}`}
+      className={`hs-accordion accordion-item scroll-mt-16${expanded ? ' active' : ''}`}
       id={itemId}
     >
       <button
@@ -111,6 +201,7 @@ function SectionAccordionItem({ section }: { section: CarePlanSection }) {
         className="hs-accordion-toggle accordion-header"
         aria-expanded={expanded}
         aria-controls={bodyId}
+        onClick={onToggle}
       >
         <span className="flex items-center gap-2 flex-wrap">
           <i className={`${glyph.icon} ${glyph.textClass}`} aria-hidden="true" />
@@ -132,22 +223,26 @@ function SectionAccordionItem({ section }: { section: CarePlanSection }) {
           <i className="fa-solid fa-chevron-down accordion-chevron-down" aria-hidden="true" />
         </span>
       </button>
-      <div
-        id={bodyId}
-        className="accordion-body"
-        style={expanded ? undefined : { display: 'none' }}
-        role="region"
-        aria-labelledby={itemId}
-      >
-        <SectionBody section={section} />
-      </div>
+      {expanded ? (
+        <div id={bodyId} className="accordion-body" role="region" aria-labelledby={itemId}>
+          <SectionBody section={section} mode={mode} onSectionChange={onSectionChange} />
+        </div>
+      ) : null}
     </div>
   );
 }
 
 // ---------- Per-section bodies ----------
 
-function SectionBody({ section }: { section: CarePlanSection }) {
+function SectionBody({
+  section,
+  mode,
+  onSectionChange,
+}: {
+  section: CarePlanSection;
+  mode: 'view' | 'edit';
+  onSectionChange: (next: CarePlanSection) => void;
+}) {
   switch (section.type) {
     case 'goals':
       return <GoalsBody section={section} />;
@@ -160,7 +255,7 @@ function SectionBody({ section }: { section: CarePlanSection }) {
     case 'monitoring':
       return <MonitoringBody section={section} />;
     case 'meal-delivery':
-      return <MealDeliveryBody section={section} />;
+      return <MealDeliveryBody section={section} mode={mode} onSectionChange={onSectionChange} />;
     case 'medications':
       return <MedicationsBody section={section} />;
     case 'risk-flags':
@@ -244,10 +339,46 @@ function MonitoringBody({ section }: { section: MonitoringSection }) {
   );
 }
 
-function MealDeliveryBody({ section }: { section: MealDeliverySection }) {
+function MealDeliveryBody({
+  section,
+  mode,
+  onSectionChange,
+}: {
+  section: MealDeliverySection;
+  mode: 'view' | 'edit';
+  onSectionChange: (next: CarePlanSection) => void;
+}) {
+  function updateRow(index: number, value: string) {
+    const nextRows = section.rows.map((row, i) => (i === index ? { ...row, value } : row));
+    onSectionChange({ ...section, rows: nextRows });
+  }
+
   return (
     <>
-      <KvTable rows={section.rows} />
+      {mode === 'edit' ? (
+        <table className="kv-table">
+          <tbody>
+            {section.rows.map((row, i) => (
+              <tr key={i}>
+                <td>
+                  <label htmlFor={`md-row-${i}`}>{row.label}</label>
+                </td>
+                <td>
+                  <input
+                    id={`md-row-${i}`}
+                    type="text"
+                    className="w-full"
+                    value={typeof row.value === 'string' ? row.value : ''}
+                    onChange={(e) => updateRow(i, e.target.value)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <KvTable rows={section.rows} />
+      )}
       {section.warnings && section.warnings.length > 0 ? (
         <div className="flex flex-col gap-2 mt-3">
           {section.warnings.map((warning, i) => (

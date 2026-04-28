@@ -24,7 +24,11 @@ import { ThreadMessageList } from './components/thread/ThreadMessageList';
 import { ThreadInput } from './components/thread/ThreadInput';
 import { ThreadUndoBar } from './components/thread/ThreadUndoBar';
 import { CarePlanViewer } from './components/care-plan/CarePlanViewer';
-import { getCarePlanForEntry, getPatientForEntry } from './data/care-plans';
+import {
+  getCarePlanForPatient,
+  getPatientForEntry,
+} from './data/care-plans';
+import type { CarePlan, MealDeliverySection } from './data/care-plans';
 
 interface UndoState {
   /** Entry id whose thread the toast belongs to. */
@@ -33,14 +37,50 @@ interface UndoState {
   previousMessages: ThreadMessage[];
   /** Verb past-tense for display (e.g., "Approved"). */
   message: string;
+  /** When the undo restored a care-plan commit, this carries the
+   *  previously-committed plan (or undefined if there was no committed
+   *  override before the edit). Patient id keys the slice. */
+  previousCommittedPlan?: { patientId: string; plan: CarePlan | undefined };
+}
+
+function stringifyValue(v: unknown): string {
+  if (typeof v === 'string') return v;
+  if (typeof v === 'number') return String(v);
+  return '';
+}
+
+function computeMealDeliveryDiff(original: CarePlan, edited: CarePlan): string[] {
+  const findMD = (plan: CarePlan): MealDeliverySection | undefined =>
+    plan.sections.find(
+      (s): s is MealDeliverySection => s.type === 'meal-delivery',
+    );
+  const orig = findMD(original);
+  const next = findMD(edited);
+  if (!orig || !next) return [];
+  const lines: string[] = [];
+  for (let i = 0; i < orig.rows.length; i++) {
+    const oRow = orig.rows[i];
+    const eRow = next.rows[i];
+    if (!oRow || !eRow) continue;
+    const o = stringifyValue(oRow.value);
+    const e = stringifyValue(eRow.value);
+    if (o !== e) lines.push(`${oRow.label}: ${o} → ${e}`);
+  }
+  return lines;
 }
 
 function makeApprovalResponse(
   request: ThreadApprovalRequest,
   outcome: 'approved' | 'rejected',
   note?: string,
+  editsSummary?: string,
 ): ThreadApprovalResponseRecord {
-  const verb = outcome === 'approved' ? 'Approved' : 'Rejected';
+  const verb =
+    outcome === 'rejected'
+      ? 'Rejected'
+      : editsSummary
+        ? 'Approved with edits'
+        : 'Approved';
   const time = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   return {
     id: `${request.id}-response`,
@@ -50,6 +90,7 @@ function makeApprovalResponse(
     summary: (
       <>
         <strong>You</strong> {verb}
+        {editsSummary ? ` — ${editsSummary}` : ''}
         {note ? ` — ${note}` : ''} · {time}
       </>
     ),
@@ -69,6 +110,20 @@ export function App() {
   const [noteByEntry, setNoteByEntry] = useState<Record<string, string>>({});
   const [noteInvalid, setNoteInvalid] = useState(false);
   const [undo, setUndo] = useState<UndoState | undefined>();
+  // Center-pane mode per entry. 'edit' is set when the coordinator clicks
+  // "Edit first" on an approval card; commit-with-edits or selecting another
+  // entry resets to 'view'.
+  const [centerPaneModeByEntry, setCenterPaneModeByEntry] = useState<Record<string, 'view' | 'edit'>>({});
+  // Two-slice care-plan override state, keyed by patientId per Frontend
+  // Architecture verdict (queue entries are transient; patients outlive
+  // queue trips).
+  // - committedPlanOverrides: survives entry-switch; represents the plan
+  //   the coordinator has formally committed via Approve-with-edits.
+  // - inflightCarePlanEdits: only exists during 'edit' mode; cleared on
+  //   commit OR entry-switch-while-editing. Render precedence:
+  //   inflight > committed > original-fixture.
+  const [committedPlanOverrides, setCommittedPlanOverrides] = useState<Record<string, CarePlan>>({});
+  const [inflightCarePlanEdits, setInflightCarePlanEdits] = useState<Record<string, CarePlan>>({});
   const noteRef = useRef<HTMLTextAreaElement>(null);
 
   const activeEntry = useMemo(() => {
@@ -81,7 +136,23 @@ export function App() {
     return threadOverrides[activeEntry.id] ?? getThreadFor(activeEntry.id);
   }, [activeEntry, threadOverrides]);
 
+  const activePatient = activeEntry ? getPatientForEntry(activeEntry.id) : undefined;
+  const originalCarePlan = activePatient ? getCarePlanForPatient(activePatient.id) : undefined;
+  const committedPlan = activePatient ? committedPlanOverrides[activePatient.id] : undefined;
+  const inflightPlan = activePatient ? inflightCarePlanEdits[activePatient.id] : undefined;
+  // Render precedence: inflight (if editing) > committed > original.
+  const activeCarePlan = inflightPlan ?? committedPlan ?? originalCarePlan;
+  const centerPaneMode: 'view' | 'edit' = activeEntry
+    ? (centerPaneModeByEntry[activeEntry.id] ?? 'view')
+    : 'view';
+
   const rejectIntentId = activeEntry ? rejectIntentByEntry[activeEntry.id] : undefined;
+  // Mark which approval-request card is currently in edit mode so
+  // ThreadMessageList can relabel its primary button to "Approve with edits".
+  const editIntentId =
+    centerPaneMode === 'edit'
+      ? messages.find((m) => m.type === 'approval-request')?.id
+      : undefined;
   const noteValue = activeEntry ? (noteByEntry[activeEntry.id] ?? '') : '';
 
   const writeMessages = (entryId: string, next: ThreadMessage[]) => {
@@ -101,8 +172,7 @@ export function App() {
     if (!request) return;
 
     if (intent === 'edit') {
-      // Stub: real flow opens center-pane edit mode (lives with cc-05).
-      console.info('[edit-first stub] would open center-pane edit for', request.title);
+      setCenterPaneModeByEntry((prev) => ({ ...prev, [entryId]: 'edit' }));
       return;
     }
 
@@ -152,24 +222,65 @@ export function App() {
     }
     const previousMessages = messages;
     const note = (noteByEntry[entryId] ?? '').trim();
+
+    // Edit-mode approve: diff inflight against committed-or-original; if
+    // anything changed, promote inflight → committed and fold the diff into
+    // the response message. If nothing changed, just exit edit mode.
+    let editsSummary: string | undefined;
+    let previousCommittedPlan: { patientId: string; plan: CarePlan | undefined } | undefined;
+    const isEditApprove = centerPaneMode === 'edit' && activePatient && inflightPlan;
+    if (isEditApprove) {
+      const baseline = committedPlan ?? originalCarePlan;
+      if (baseline) {
+        const diffLines = computeMealDeliveryDiff(baseline, inflightPlan);
+        editsSummary = diffLines.length > 0 ? diffLines.join(', ') : undefined;
+      }
+      previousCommittedPlan = { patientId: activePatient.id, plan: committedPlan };
+    }
+
     const next = messages.map((m) =>
       m.id === messageId
-        ? makeApprovalResponse(request, 'approved', note || undefined)
+        ? makeApprovalResponse(request, 'approved', note || undefined, editsSummary)
         : m,
     );
     writeMessages(entryId, next);
+    if (isEditApprove && activePatient) {
+      // Promote inflight to committed (only if there was a real diff;
+      // otherwise leave committed as-is and just discard the inflight).
+      if (editsSummary) {
+        setCommittedPlanOverrides((prev) => ({ ...prev, [activePatient.id]: inflightPlan }));
+      }
+      setInflightCarePlanEdits((prev) => {
+        const { [activePatient.id]: _, ...rest } = prev;
+        return rest;
+      });
+      setCenterPaneModeByEntry((prev) => ({ ...prev, [entryId]: 'view' }));
+    }
     setNoteByEntry((prev) => ({ ...prev, [entryId]: '' }));
     setNoteInvalid(false);
+    const undoMessage = editsSummary
+      ? `Approved with edits — ${editsSummary}.`
+      : 'Approved.';
     setUndo({
       entryId,
       previousMessages,
-      message: 'Approved.',
+      message: undoMessage,
+      previousCommittedPlan,
     });
   };
 
   const handleUndoAction = () => {
     if (!undo) return;
     writeMessages(undo.entryId, undo.previousMessages);
+    // If the approve also committed a care-plan edit, revert that commit
+    // to whatever was committed before (or remove the entry entirely).
+    if (undo.previousCommittedPlan) {
+      const { patientId, plan } = undo.previousCommittedPlan;
+      setCommittedPlanOverrides((prev) => {
+        const { [patientId]: _, ...rest } = prev;
+        return plan ? { ...rest, [patientId]: plan } : rest;
+      });
+    }
     setUndo(undefined);
   };
 
@@ -209,6 +320,18 @@ export function App() {
       sla: entry.sla,
       active: entry.id === activeId,
       onClick: () => {
+        // If leaving an entry that's mid-edit, drop its in-flight edits so
+        // the next visit starts clean. Committed overrides survive.
+        if (activeEntry && activeEntry.id !== entry.id && activePatient) {
+          const wasEditing = (centerPaneModeByEntry[activeEntry.id] ?? 'view') === 'edit';
+          if (wasEditing) {
+            setInflightCarePlanEdits((prev) => {
+              const { [activePatient.id]: _, ...rest } = prev;
+              return rest;
+            });
+            setCenterPaneModeByEntry((prev) => ({ ...prev, [activeEntry.id]: 'view' }));
+          }
+        }
         setActiveId(entry.id);
         // Reset transient per-entry interaction state on selection change.
         setNoteInvalid(false);
@@ -239,21 +362,23 @@ export function App() {
 
       <ThreePanelShellCenter>
         {activeEntry ? (
-          (() => {
-            const carePlan = getCarePlanForEntry(activeEntry.id);
-            const patient = getPatientForEntry(activeEntry.id);
-            if (carePlan && patient) {
-              return <CarePlanViewer plan={carePlan} patient={patient} />;
-            }
-            return (
-              <section className="p-6">
-                <h1 className="section-title">{activeEntry.name}</h1>
-                <p className="prose-section mt-2">
-                  {activeEntry.category} — {activeEntry.summary}
-                </p>
-              </section>
-            );
-          })()
+          activeCarePlan && activePatient ? (
+            <CarePlanViewer
+              plan={activeCarePlan}
+              patient={activePatient}
+              mode={centerPaneMode}
+              onPlanChange={(next) =>
+                setInflightCarePlanEdits((prev) => ({ ...prev, [activePatient.id]: next }))
+              }
+            />
+          ) : (
+            <section className="p-6">
+              <h1 className="section-title">{activeEntry.name}</h1>
+              <p className="prose-section mt-2">
+                {activeEntry.category} — {activeEntry.summary}
+              </p>
+            </section>
+          )
         ) : (
           <section className="p-6">
             <h1 className="section-title">Select a queue item</h1>
@@ -271,6 +396,7 @@ export function App() {
               messages={messages}
               onAction={handleAction}
               rejectIntentId={rejectIntentId}
+              editIntentId={editIntentId}
               noteValue={noteValue}
               onNoteChange={(value) =>
                 setNoteByEntry((prev) => ({ ...prev, [activeEntry.id]: value }))
@@ -281,8 +407,8 @@ export function App() {
             {undo && undo.entryId === activeEntry.id && (
               <ThreadUndoBar
                 message={undo.message}
-                actionLabel={undo.message === 'Approved.' ? 'Undo' : undefined}
-                onAction={undo.message === 'Approved.' ? handleUndoAction : undefined}
+                actionLabel={undo.message.startsWith('Approved') ? 'Undo' : undefined}
+                onAction={undo.message.startsWith('Approved') ? handleUndoAction : undefined}
                 onDismiss={handleUndoDismiss}
               />
             )}
