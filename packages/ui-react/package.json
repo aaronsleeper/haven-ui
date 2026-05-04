@@ -27,6 +27,7 @@
     "conform:plain-language": "tsx tests/conform/plain-language.ts",
     "conform:contrast-pairs": "tsx tests/conform/contrast-pairs.ts",
     "conform:wireframe-completeness": "tsx tests/conform/wireframe-completeness.ts",
+    "conform:wireframe-shell": "tsx tests/conform/wireframe-shell.ts",
     "conform:font-features": "tsx tests/conform/font-features.ts",
     "conform:brand-fonts": "tsx tests/conform/brand-fonts.ts",
     "conform:button-font-size": "tsx tests/conform/button-font-size.ts",
