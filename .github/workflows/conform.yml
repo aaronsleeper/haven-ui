@@ -73,6 +73,15 @@ jobs:
       - name: conform:wireframe-completeness
         run: pnpm --filter @haven/ui-react conform:wireframe-completeness
 
+      # Phase 2 (skip-when-absent / warn-mode): HAVEN_WIREFRAME_SHELL_STRICT
+      # is unset, so wireframes missing 'shells:' frontmatter are logged but
+      # not blocking. Declared wireframes are still validated against current
+      # canon — stale hashes, unregistered shell names, and shape errors halt.
+      # Phase 4 flips strict-mode by setting the env var here. Gate scripts
+      # logs include a running counter — N of M wireframes declared.
+      - name: conform:wireframe-shell
+        run: pnpm --filter @haven/ui-react conform:wireframe-shell
+
       - name: conform:font-features
         run: pnpm --filter @haven/ui-react conform:font-features
 
