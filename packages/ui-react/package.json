@@ -36,6 +36,8 @@
     "conform:visual": "playwright test tests/conform/visual.spec.ts",
     "conform:fast": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:surface-role && pnpm conform:plain-language && pnpm conform:contrast-pairs && pnpm conform:wireframe-completeness && pnpm conform:font-features && pnpm conform:brand-fonts && pnpm conform:button-font-size && pnpm conform:radius-pill && pnpm conform:token-theme-parity",
     "conform": "pnpm conform:fast && pnpm conform:token && pnpm conform:visual",
+    "shell-canon": "tsx scripts/print-shell-canon.ts",
+    "test:wireframe-shell": "tsx tests/conform/__tests__/wireframe-shell.test.ts",
     "clean": "rm -rf .turbo schema storybook-static test-results playwright-report"
   },
   "peerDependencies": {
@@ -53,9 +55,12 @@
     "@storybook/react": "^8.4.0",
     "@storybook/react-vite": "^8.4.0",
     "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "gray-matter": "^4.0.3",
     "http-server": "^14.1.1",
+    "parse5": "^7.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^8.4.0",
