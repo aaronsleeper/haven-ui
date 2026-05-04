@@ -174,3 +174,141 @@ The following changes should be applied to the wireframe files before haven-mapp
 ### CC-03 Revisions
 - [REVISED] Scheduled items show time: "10:00am — RDN visit, Maria Garcia"
 - [REVISED] Add time-of-day greeting variant
+
+---
+
+# UX Review: Care Coordinator Shell + Per-App Minimums (Stage 2 Pipeline)
+
+**Date:** 2026-05-03
+**Inputs:**
+- `apps/care-coordinator/design/wireframes/cc-shell-flow.md`
+- `apps/care-coordinator/design/wireframes/shell-cc-coordinator.md`
+- `apps/care-coordinator/design/wireframes/cc-01-queue-with-care-plan-approval.md`
+**Reviewer:** ux-design-review (pre-build mode)
+**Research consulted:**
+- NN/G, "Dangerous UX: Consequential Options Close to Benign Options" — Approve / Reject button proximity in approval card [Source: NN/G, "Dangerous UX"]
+- NN/G, "Tabs, Used Right" — content chunking (informs filter-pill design) [Source: NN/G, "Tabs, Used Right"]
+- W3C WAI 2.2.1 Timing Adjustable — undo timer accessibility [Source: W3C WAI, "WCAG 2.1 — Timing Adjustable"]
+- Destructive-action UX timing 5–30s range; clinical signature stakes (uncited but established practice — Gmail Undo Send precedent at 20-30s)
+- WCAG 2.1.2 (No Keyboard Trap) — verified
+
+## Summary
+
+Coordinator wireframes are tightly aligned with the universal shell, and the worked example (Maria Rivera care-plan final approval) is concrete enough to drive haven-mapper directly. All primitives shipped — zero new components required. Three issues need attention: (1) the approval card's `Reject` button sits adjacent to `Approve` with no visual separation, violating NN/G guidance on benign-vs-consequential proximity; (2) the worked-example summary card mixes RDN-owned nutrition values with coordinator-edit context — needs a clear "what the coordinator owns vs reads" demarcation; (3) `cc-01` underspecifies focus management when a left-pane item is clicked. All resolvable with revisions; none structural.
+
+## Screen: cc-shell-flow
+
+### Critical Issues
+
+None. Flow document is concise and accurate.
+
+### Improvements
+
+- **`cc-shell-layout.md` is "superseded" but still present.** Add a `> [!archived]` callout at the top of `cc-shell-layout.md` so dev-tasker doesn't try to map both.
+
+## Screen: shell-cc-coordinator
+
+### Critical Issues
+
+None. Inherits universal shell correctly; per-app constraints (EN-only at v1; coordinator full-allowlist thread; thread input in right pane) are locked.
+
+### Improvements
+
+- **§Filter queue by type — "Per-session; resets on app reload" is a regression risk.** Sarah works the queue all day; if filter resets every reload, she'll re-apply the same filter many times. Recommend per-user persistence to match resize-pref behavior.
+
+- **§Open Questions item 3 ("right pane close affordance")** — Gate 2 decision 2 confirmed kitchen-only collapsibility. Promote: coordinator has no collapse-the-right-pane affordance at v1.
+
+- **Thread input placeholder "Ask Ava or send a note…"** is correct for coordinator workflow (overrides PL default "You talk. I'll listen.")
+
+- **Filter pills** — flag the candidate set in Open Questions for Aaron: "All / Referrals / Care plans / Discharges / Insurance" (Insurance is its own pill, not folded).
+
+### Copy
+
+- **Empty queue heading:** "Nothing needs your attention right now"
+- **Empty queue body:** "We'll surface anything urgent. Until then, you're caught up."
+- **Empty tier (one tier 0, others populated):** "Nothing urgent right now." / "Nothing in needs-attention." / "No informational items."
+- **Right pane empty (no record selected):** "Pick a queue item to start. Each conversation lives with a specific patient or referral."
+- **Queue load failed:** "We couldn't load your queue. Retrying…" + "Try again"
+- **Center load failed:** "We couldn't load this record. Try again or pick a different item." + "Try again"
+- **Thread load failed:** "We couldn't load activity for this record." + "Try again"
+- **Thread input placeholder:** "Ask Ava or send a note…"
+
+## Screen: cc-01-queue-with-care-plan-approval
+
+### Critical Issues
+
+- **Approve and Reject sit adjacent in the action row.** Current order: `[Approve] [Edit first] [Reject] [Reassign]`. Reject is consequential (sends back to agent for redraft, blocks downstream meal-match scheduling); Approve is the happy path. NN/G "Dangerous UX" recommends separation. — Recommendation: reorder to `[Approve] [Edit first] [Reassign] [Reject]` so Reject is rightmost and physically separated from Approve. Reassign sits naturally between (also a "not approving" path but reversible). [Source: NN/G, "Dangerous UX"]
+  - **Severity:** moderate — current state is unsafe-adjacent but tap-target sizing creates some buffer. Worth fixing now.
+
+### Improvements
+
+- **`thread-msg-tool` events default state unspecified.** For coordinator review, agent's intermediate work is context, not action — should default collapsed. Approval card auto-scroll on first record-open (Gate 2 decision 6) means tool calls don't need to compete for attention.
+
+- **Plan summary card mixes RDN-owned nutrition values with coordinator-edit context.** Per Gate 2 decision 4, nutrition section is read-only after RDN sig. — Recommendation: render nutrition values with a small "Signed by Dr. Soto · 9:43 AM · Locked" inline indicator (`badge-success badge-sm`) per nutrition value to communicate clearly that these are not coordinator-editable.
+
+- **"Edit first" mode — coordinator-editable fields not enumerated.** Per Gate 2 decision 4: nutrition is RDN-locked; goals + downstream effects are coordinator-owned. State enumeration explicitly: "Coordinator-editable fields in Edit-first mode: care plan goals, downstream effects, scheduling preferences. Nutrition section: read-only with Re-route to RDN affordance instead of inline edit."
+
+- **Approval card auto-scroll on first record-open (Gate 2 decision 6)** — promote from Open Questions to canonical interaction spec.
+
+- **Reject note** — required, minimum 10 chars; field-level validation matches Reassign pattern.
+
+- **Reassign scope** — team-only at v1.
+
+- **Focus management on queue-item click** — when Sarah clicks a queue-item with mouse, focus moves to the clicked item; keyboard arrow keys within queue follow active item. State explicitly.
+
+### Copy
+
+- **Record header trailing badge:** "Pending coordinator approval"
+- **Status meta:** "Updated 9:47 AM by Ava (agent draft) · RDN signed 9:43 AM by Dr. Soto"
+- **Plan summary section heading:** "Plan summary"
+- **Nutrition section locked indicator:** "Signed by Dr. Soto · 9:43 AM · Locked"
+- **Meal plan helper text:** "Ava generated this meal plan from Maria's preferences and the nutrition targets above. Approving the care plan resumes meal-match scheduling for the next 7 days."
+- **Downstream effects heading:** "What approving this plan does"
+- **Downstream effects bullets:**
+  - "Resume meal-match scheduling (7 days)"
+  - "Send patient notification: 'Your new care plan is ready'"
+  - "Schedule first nutrition check-in for next Wednesday"
+- **Approval card header title:** "Approval requested · Care plan final approval"
+- **Approval card context meta:** "Prepared by Ava 9:47 AM · RDN signed 9:43 AM"
+- **Approval card summary:** "Plan: 1800mg sodium, 1500 kcal, 75g protein/day. Nutrition section signed. No BHN required (PHQ-9 = 4). Meal plan generated from preferences + targets."
+- **Approval card effects label:** "Approving will:"
+- **Approve toast:** "Care plan approved. Tap to undo." (5-second window per Gate 2 decision 1)
+- **Approve confirmed log:** `[Sarah K.] Approved · 9:48 AM`
+- **Approve confirmed system event:** "9:48 AM · Meal-match scheduling resumed for Maria Rivera"
+- **Approval write-failed:** "We couldn't save the approval. Tap retry, or contact support if it keeps failing." + "Try again"
+- **Reject note label (sr-only):** "Reason for rejection (required)"
+- **Reject note placeholder:** "Tell the team what needs to change…"
+- **Reject confirmation log:** `[Sarah K.] Rejected — [first 60 chars of note] · 9:48 AM`
+- **Reassign modal title:** "Reassign to a teammate"
+- **Reassign modal helper:** "Pick a coordinator on your team. They'll see this in their queue."
+- **Reassign confirm toast:** "Reassigned to [name]."
+- **Edit-first sticky footer save:** "Save and approve"
+- **Edit-first sticky footer cancel:** "Cancel"
+- **Re-route to RDN button:** "Re-route to RDN"
+- **Re-route to RDN helper:** "The RDN signed this section. Edits need a re-signature."
+
+## Cross-Screen Issues
+
+- **Filter persistence** — only "per-session" persistence in coordinator wireframes; recommend per-user for consistency.
+- **Approval card action ordering** — apply the proximity-fix to all coordinator approval flows.
+- **`thread-msg-tool` default-collapsed pattern** — apply consistently to coordinator + provider screens.
+
+## Use Case Walk-Through
+
+- **CC-SHELL-01 (Morning queue scan):** Walks. Three panes render; Sarah reads the room.
+- **CC-SHELL-02 (Open queue item → review record + thread):** Walks. Click → parallel-load → approval card pinned with auto-scroll on first open.
+- **CC-SHELL-03 (Decide and act on approval card):** Walks except for Reject-adjacent-to-Approve issue.
+- **CC-SHELL-04 (Direct agent via thread input):** Walks. Send → human message → tool call + result.
+- **CC-SHELL-05 (Resize right pane):** Walks. Drag-clamp + per-user persistence with viewport clamping is correct.
+
+## Open Questions for Aaron at Gate 2-review
+
+1. **Approval card action ordering** — re-order to `[Approve][Edit first][Reassign][Reject]` per NN/G destructive-separation guidance? Recommend yes.
+2. **Filter pills set** — "All / Referrals / Care plans / Discharges / Insurance" — confirm Insurance stands alone.
+3. **Filter persistence** — per-user vs per-session? Recommend per-user.
+4. **Reassign scope** — team-only at v1 vs org-wide? Recommend team-only.
+5. **Reject note minimum** — 10 chars? Recommend yes (matches Reassign pattern).
+
+## Verdict
+
+**ITERATE-THEN-SHIP.** Revisions land inline; ready for haven-mapper after Aaron's Gate 2-review on the action-ordering decision (only structurally meaningful question; rest is copy + decision promotion).
