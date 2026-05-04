@@ -1,0 +1,332 @@
+# Task 05: Settings Route (`/settings`)
+
+## Scope
+App only (composing existing PL classes; no new semantic classes)
+
+## Task class
+deterministic
+
+## Model tier
+sonnet
+
+## Context
+Settings surfaces three section cards: Language (segmented-control), Notifications (3 toggles), and Account (read-only KV + sign-out). Sign-out triggers a confirm dialog. All copy bilingual EN/ES. Language toggle in this card and `I18nBar` update the same preference — they are the same setting.
+
+## Prerequisites
+- Task 01 complete
+- Task 02 complete
+
+## Files to Read First
+- `apps/patient/design/wireframes/pt-03-settings.md` — layout spec, interaction specs, copy
+- `apps/patient/design/review-notes.md` — final confirmed copy (Stage 2 §pt-03-settings)
+- `packages/design-system/pattern-library/COMPONENT-INDEX.md` — verify `card`, `field-row`, `segmented-control`, `toggle`, `toggle-group`, `divider`, `data-table-kv`, `overlay-confirm-dialog`
+
+## Instructions
+
+**Style rule:** Use Haven semantic classes for all styled elements.
+
+### Step 1: Create `apps/patient/src/screens/settings/index.tsx`
+
+```tsx
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '../../lib/useLanguage';
+import type { Language } from '../../lib/useLanguage';
+
+// Demo notification prefs (in production: loaded from user profile API)
+interface NotifPrefs {
+  push: boolean;
+  delivery: boolean;
+  checkIn: boolean;
+}
+
+export function Settings() {
+  const [lang, setLang] = useLanguage();
+  const [notifPrefs, setNotifPrefs] = useState<NotifPrefs>({
+    push: true,
+    delivery: true,
+    checkIn: true,
+  });
+  const [showSignOutDialog, setShowSignOutDialog] = useState(false);
+
+  function handleLangChange(next: Language) {
+    setLang(next);
+  }
+
+  function handleToggle(key: keyof NotifPrefs) {
+    setNotifPrefs((prev) => ({ ...prev, [key]: !prev[key] }));
+    // Production: POST to user profile API; revert + show alert-error on failure
+  }
+
+  function handleSignOut() {
+    // v1: log to console; production: clear session + navigate to login
+    console.info('[Settings] Sign out confirmed');
+    setShowSignOutDialog(false);
+  }
+
+  return (
+    <main className="pb-safe-8" aria-label="Settings">
+      {/* Header */}
+      <div className="p-4">
+        <h1 className="text-[27.65px] font-serif font-medium text-sand-900">
+          {lang === 'es' ? 'Ajustes' : 'Settings'}
+        </h1>
+        <p className="text-sm text-sand-500 mt-1">
+          {lang === 'es'
+            ? 'Administre su idioma, notificaciones y cuenta.'
+            : 'Manage your language, notifications, and account.'}
+        </p>
+      </div>
+
+      <div className="px-4 space-y-4">
+        {/* Section 1 — Language */}
+        <div className="card">
+          <div className="card-header">
+            <h2 className="card-title">{lang === 'es' ? 'Idioma' : 'Language'}</h2>
+          </div>
+          <div className="card-body">
+            <div className="field-row field-row-horizontal">
+              <label className="field-label">
+                {lang === 'es' ? 'Idioma de la app' : 'App language'}
+              </label>
+              <div className="field-body">
+                <div className="segmented-control" role="group" aria-label={lang === 'es' ? 'Idioma' : 'Language'}>
+                  <button
+                    type="button"
+                    className={`segmented-control-btn${lang === 'en' ? ' active' : ''}`}
+                    onClick={() => handleLangChange('en')}
+                    aria-pressed={lang === 'en'}
+                  >
+                    English
+                  </button>
+                  <button
+                    type="button"
+                    className={`segmented-control-btn${lang === 'es' ? ' active' : ''}`}
+                    onClick={() => handleLangChange('es')}
+                    aria-pressed={lang === 'es'}
+                  >
+                    Español
+                  </button>
+                </div>
+                <p className="field-help mt-2">
+                  {lang === 'es'
+                    ? 'Sus mensajes y revisiones usarán este idioma.'
+                    : 'Your messages and check-ins will use this language.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 2 — Notifications */}
+        <div className="card">
+          <div className="card-header">
+            <h2 className="card-title">
+              {lang === 'es' ? 'Notificaciones' : 'Notifications'}
+            </h2>
+          </div>
+          <div className="card-body">
+            <div className="toggle-group">
+              {/* Push notifications */}
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="toggle-label">
+                    {lang === 'es' ? 'Notificaciones push' : 'Push notifications'}
+                  </div>
+                  <div className="toggle-description">
+                    {lang === 'es'
+                      ? 'Le avisaremos cuando algo lo necesite.'
+                      : "We'll let you know when something needs you."}
+                  </div>
+                </div>
+                <label className="toggle toggle-success shrink-0">
+                  <input
+                    type="checkbox"
+                    role="switch"
+                    checked={notifPrefs.push}
+                    onChange={() => handleToggle('push')}
+                    aria-checked={notifPrefs.push}
+                  />
+                  <span className="toggle-track" aria-hidden="true" />
+                </label>
+              </div>
+              {/* Delivery updates */}
+              <div className="flex items-start justify-between gap-4 mt-3">
+                <div>
+                  <div className="toggle-label">
+                    {lang === 'es' ? 'Actualizaciones de entrega' : 'Delivery updates'}
+                  </div>
+                  <div className="toggle-description">
+                    {lang === 'es'
+                      ? 'Cuando sus comidas van en camino.'
+                      : "When your meals are on the way."}
+                  </div>
+                </div>
+                <label className="toggle toggle-success shrink-0">
+                  <input
+                    type="checkbox"
+                    role="switch"
+                    checked={notifPrefs.delivery}
+                    onChange={() => handleToggle('delivery')}
+                    aria-checked={notifPrefs.delivery}
+                  />
+                  <span className="toggle-track" aria-hidden="true" />
+                </label>
+              </div>
+              {/* Check-in reminders */}
+              <div className="flex items-start justify-between gap-4 mt-3">
+                <div>
+                  <div className="toggle-label">
+                    {lang === 'es' ? 'Recordatorios de revisión' : 'Check-in reminders'}
+                  </div>
+                  <div className="toggle-description">
+                    {lang === 'es'
+                      ? 'Recordatorios semanales para sus revisiones.'
+                      : 'Weekly nudges for your health check-ins.'}
+                  </div>
+                </div>
+                <label className="toggle toggle-success shrink-0">
+                  <input
+                    type="checkbox"
+                    role="switch"
+                    checked={notifPrefs.checkIn}
+                    onChange={() => handleToggle('checkIn')}
+                    aria-checked={notifPrefs.checkIn}
+                  />
+                  <span className="toggle-track" aria-hidden="true" />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 3 — Account */}
+        <div className="card">
+          <div className="card-header">
+            <h2 className="card-title">{lang === 'es' ? 'Cuenta' : 'Account'}</h2>
+          </div>
+          <div className="card-body">
+            <table className="kv-table w-full text-sm">
+              <tbody>
+                <tr><th scope="row">{lang === 'es' ? 'Nombre' : 'Name'}</th><td>Maria Rivera</td></tr>
+                <tr><th scope="row">{lang === 'es' ? 'Correo' : 'Email'}</th><td>m.rivera@example.com</td></tr>
+                <tr><th scope="row">{lang === 'es' ? 'Teléfono' : 'Phone'}</th><td>(555) 123-4567</td></tr>
+              </tbody>
+            </table>
+            <div className="divider" />
+            <p className="text-sm text-sand-500 mb-2">
+              {lang === 'es'
+                ? 'Para actualizar sus datos, envíe un mensaje a su coordinadora.'
+                : 'To update your details, message your care coordinator.'}
+              {' '}
+              <Link to="/messages" className="text-link">
+                {lang === 'es' ? 'Abrir mensajes' : 'Open Messages'}
+              </Link>
+            </p>
+            <button
+              type="button"
+              className="btn-outline btn-block"
+              onClick={() => setShowSignOutDialog(true)}
+            >
+              {lang === 'es' ? 'Cerrar sesión' : 'Sign out'}
+            </button>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <p className="text-xs text-sand-400 text-center pb-4">
+          {lang === 'es'
+            ? 'Haven · v1.0 · Privacidad · Términos'
+            : 'Haven · v1.0 · Privacy · Terms'}
+        </p>
+      </div>
+
+      {/* Sign-out confirm dialog */}
+      {showSignOutDialog && (
+        <div
+          className="hs-overlay fixed inset-0 flex items-center justify-center z-50"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="signout-title"
+        >
+          <div className="hs-overlay-backdrop absolute inset-0" onClick={() => setShowSignOutDialog(false)} />
+          <div className="modal-panel relative z-10">
+            <div className="card">
+              <div className="card-body">
+                <p id="signout-title" className="text-base font-semibold text-sand-900 mb-2">
+                  {lang === 'es' ? '¿Cerrar sesión?' : 'Sign out?'}
+                </p>
+                <p className="text-sm text-sand-500 mb-4">
+                  {lang === 'es'
+                    ? 'Puede volver a iniciar sesión en cualquier momento con su teléfono o correo.'
+                    : 'You can sign back in anytime with your phone or email.'}
+                </p>
+                <div className="flex gap-2 justify-end">
+                  <button
+                    type="button"
+                    className="btn-outline btn-sm"
+                    onClick={() => setShowSignOutDialog(false)}
+                  >
+                    {lang === 'es' ? 'Cancelar' : 'Cancel'}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-primary btn-sm"
+                    onClick={handleSignOut}
+                  >
+                    {lang === 'es' ? 'Cerrar sesión' : 'Sign out'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
+```
+
+**Known Constraints:**
+- `segmented-control` + `segmented-control-btn`: existing semantic classes; `.active` drives the selected state
+- `toggle`, `toggle-success`, `toggle-track`: existing semantic classes from `forms-toggle.html` PL entry — read the PL file to confirm exact inner structure if build fails
+- `kv-table`: use `.kv-table` semantic class on `<table>`; NOT `data-table-kv` (which is the PL component name, but the CSS class is `.kv-table`)
+- Sign-out dialog: the `overlay-confirm-dialog` PL component is Preline-driven (`data-hs-overlay`); for React v1 we use a simple state-controlled overlay with `hs-overlay-backdrop` for the backdrop dim effect. Using `modal-panel` + `card` composes correctly per PL pattern.
+- `divider`: existing semantic class; just `<div className="divider" />`
+- `btn-block`: makes button full-width; compose with `btn-outline`
+
+## Expected Result
+- `apps/patient/src/screens/settings/index.tsx` exports `Settings` component
+- Language segmented-control is wired to `useLanguage()` — tapping "Español" switches all strings on this route AND in the i18n bar
+- Three notification toggles maintain local state
+- Sign-out shows inline dialog; confirm logs to console
+
+## Verification
+- [ ] `Settings` exported from `apps/patient/src/screens/settings/index.tsx`
+- [ ] Segmented-control calls `setLang` from `useLanguage()` — not isolated state
+- [ ] `<main aria-label="Settings">` landmark
+- [ ] Section headers are `<h2>`
+- [ ] Each toggle uses `role="switch"` + `aria-checked`
+- [ ] Sign-out `<button>` (not `<a>`)
+- [ ] `pb-safe-8` on `<main>` for iOS clearance
+- [ ] No `style={{}}` attributes
+- [ ] Dark mode: not applicable
+- [ ] Schema delta: not applicable
+
+## Completion Report
+
+```
+## Completion Report — Task 05: Settings Route
+
+- New semantic classes added to components.css: none
+- Existing classes modified: none
+- Pattern library files created or updated: none
+- Judgment calls: none
+- Dark mode added: not applicable
+- Schema delta logged: not applicable
+- Items deferred or incomplete: Privacy/Terms link URLs pending legal (placeholder text only)
+```
+
+## If Something Goes Wrong
+- **`toggle` inner structure error:** read `packages/design-system/pattern-library/components/forms-toggle.html` to confirm the exact HTML inside the label — `toggle-track` is the visual track span
+- **`kv-table` class not applying:** verify class name in `components.css`; the PL file is `data-table-kv.html` but the semantic class is `.kv-table` (different from the file name)
