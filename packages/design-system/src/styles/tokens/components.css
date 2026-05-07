@@ -2922,6 +2922,74 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:border-sand-700;
 }
 
+/* appointments-list — read-only list of upcoming appointments.
+   Composes appointment-card-detail-row register at row level (the
+   richer appointment-card is for the next-up appointment; this list
+   is for the rest). */
+.appointments-list {
+    @apply card;
+}
+
+.appointments-list-row {
+    @apply flex items-center gap-3 px-4 py-3 border-b border-sand-100 last:border-b-0;
+    @apply dark:border-sand-700;
+}
+
+.appointments-list-row-icon {
+    @apply text-sand-500 flex-shrink-0;
+    @apply dark:text-sand-400;
+}
+
+.appointments-list-row-meta {
+    @apply flex-1 min-w-0;
+}
+
+.appointments-list-row-when {
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.appointments-list-row-who {
+    @apply text-xs text-sand-600 mt-0.5;
+    @apply dark:text-sand-400;
+}
+
+.appointments-list-empty {
+    @apply px-4 py-6 text-center text-sm text-sand-600;
+    @apply dark:text-sand-400;
+}
+
+/* pending-request-card — outstanding request awaiting CC response.
+   Shows: requested-type label + preference window + current status +
+   expected response window. Composes .card with a status-badge and
+   ETA line. */
+.pending-request-card {
+    @apply card;
+}
+
+.pending-request-card-body {
+    @apply p-4 flex flex-col gap-2;
+}
+
+.pending-request-card-type {
+    @apply text-base font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.pending-request-card-detail {
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+.pending-request-card-status-row {
+    @apply flex items-center gap-2 mt-1;
+}
+
+.pending-request-card-eta {
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-400;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

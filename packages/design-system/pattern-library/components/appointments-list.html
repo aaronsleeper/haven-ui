@@ -1,0 +1,59 @@
+<!--
+  @component-meta
+  name: Appointments List
+  category: Patient App — Right-Pane Primitives
+  file: appointments-list.html
+  classes: appointments-list, appointments-list-row, appointments-list-row-icon, appointments-list-row-meta, appointments-list-row-when, appointments-list-row-who, appointments-list-empty
+  variants: populated, empty
+  when-to-use: Read-only list of upcoming appointments shown in the right-pane (typically below the next-up `appointment-card`). Compact rows: icon + when-line + who-line. Use when the patient has 2+ scheduled visits beyond the next-up card.
+  do-not-use-when: Single upcoming appointment (use `appointment-card`). Past appointments / clinical history (different surface). Pending request, not yet scheduled (use `pending-request-card`).
+  preline-required: no
+  notes: Composes `.card`. Each row uses a calendar-day icon + bold when-line + muted who-line. Empty state has a centered light-weight message. Distinct from clinical-data-table appointments view (clinician-facing has different columns + actions).
+  interactive-usage: none
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Appointments List</h3>
+  <p class="pl-description">Read-only list of upcoming appointments — compact rows below the next-up card.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Populated</h4>
+    <!-- @component: appointments-list (populated) -->
+    <div class="appointments-list">
+      <div class="appointments-list-row">
+        <i class="fa-solid fa-calendar-day appointments-list-row-icon" aria-hidden="true"></i>
+        <div class="appointments-list-row-meta">
+          <p class="appointments-list-row-when">Mon, May 18 · 2:00 PM</p>
+          <p class="appointments-list-row-who">Dr. Mateo Morales, RDN · UConn Health</p>
+        </div>
+      </div>
+      <div class="appointments-list-row">
+        <i class="fa-solid fa-calendar-day appointments-list-row-icon" aria-hidden="true"></i>
+        <div class="appointments-list-row-meta">
+          <p class="appointments-list-row-when">Thu, June 5 · 10:30 AM</p>
+          <p class="appointments-list-row-who">Dr. Sarah Soto, RDN · Telehealth</p>
+        </div>
+      </div>
+      <div class="appointments-list-row">
+        <i class="fa-solid fa-calendar-day appointments-list-row-icon" aria-hidden="true"></i>
+        <div class="appointments-list-row-meta">
+          <p class="appointments-list-row-when">Mon, June 19 · 9:00 AM</p>
+          <p class="appointments-list-row-who">Dr. Mateo Morales, RDN · UConn Health</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Empty</h4>
+    <!-- @component: appointments-list (empty) -->
+    <div class="appointments-list">
+      <p class="appointments-list-empty">No additional visits scheduled.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

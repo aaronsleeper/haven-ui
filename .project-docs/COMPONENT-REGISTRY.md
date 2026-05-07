@@ -287,8 +287,8 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 | budget-meter | `pages/budget-meter.html` | built | Extends `data-progress`. Variants: live-update, error state ("Over budget by $X"), $0 first-time, post-order ("$190 of $200 used"). |
 | quantity-stepper | `pages/quantity-stepper.html` | built | Patient-app version distinct from kitchen partials (per CLAUDE.md "must not be used in other apps"). |
 | appointment-card | `pages/appointment-card.html` | built | RDN name, date/time, location, "Add to calendar". Used in onboarding Fork A, idle next-appointment, request-appointment confirmation. |
-| appointments-list | `pages/appointments-list.html` | missing | Read-only list of upcoming appointments. May compose `data-list-group` + appointment-row. |
-| pending-request-card | `pages/pending-request-card.html` | missing | Requested type + preference window + status + expected response window. |
+| appointments-list | `pages/appointments-list.html` | built | Read-only list of upcoming appointments. May compose `data-list-group` + appointment-row. |
+| pending-request-card | `pages/pending-request-card.html` | built | Requested type + preference window + status + expected response window. |
 | delivery-status-timeline | `pages/delivery-status-timeline.html` | missing | 5-step status timeline (completed/current/future styling), pickup vs. delivery variants, fulfillment-window copy. Distinct from agentic `progress-tracker`. |
 | meal-warning-tooltip | `pages/meal-warning-tooltip.html` | missing | Small icon + tooltip. "Never blocks, never dims" rule — items remain at full opacity. |
 | onboarding-orientation-card | `pages/onboarding-orientation-card.html` | missing | Card + 3-column icon-label pattern (meals / appointments / check-ins). |

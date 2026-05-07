@@ -1,0 +1,53 @@
+<!--
+  @component-meta
+  name: Pending Request Card
+  category: Patient App — Right-Pane Primitives
+  file: pending-request-card.html
+  classes: pending-request-card, pending-request-card-body, pending-request-card-type, pending-request-card-detail, pending-request-card-status-row, pending-request-card-eta
+  variants: appointment-request, ingredient-request, exception-request
+  when-to-use: Outstanding patient request awaiting CC response — displayed in the right-pane when the agent has captured a request (appointment slot, ingredient swap, budget exception) but the CC hasn't yet replied. Shows: requested type + preference window + current status + expected response window.
+  do-not-use-when: Request has been resolved (use `log-confirmation-card` or `appointment-card` per type). Request is still being shaped in chat (no card yet — render after submission). Clinical referral workflow (different primitive — clinical surface).
+  preline-required: no
+  notes: Composes `.card` with a status badge (uses `.badge` family). The ETA line is muted; the requested-type and preference detail are the primary read. Status badge color: `.badge-warning` for pending CC review, `.badge-info` for queued, `.badge-success` once approved (transitional state before becoming a different card type). Covers gap-doc R-15 / R-16 / R-17.
+  interactive-usage: none
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Pending Request Card</h3>
+  <p class="pl-description">Outstanding patient request awaiting CC response — type + preference window + status + ETA.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Appointment request</h4>
+    <!-- @component: pending-request-card (appointment-request) -->
+    <div class="pending-request-card">
+      <div class="pending-request-card-body">
+        <p class="pending-request-card-type">Appointment with your dietitian</p>
+        <p class="pending-request-card-detail">Preferred: weekday afternoons, after May 20.</p>
+        <div class="pending-request-card-status-row">
+          <span class="badge badge-pill badge-warning">Pending</span>
+          <span class="pending-request-card-eta">Expect a reply within 1 business day.</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Ingredient swap request</h4>
+    <!-- @component: pending-request-card (ingredient-request) -->
+    <div class="pending-request-card">
+      <div class="pending-request-card-body">
+        <p class="pending-request-card-type">Swap eggplant for zucchini in next week's order</p>
+        <p class="pending-request-card-detail">Reason: ingredient preference (no allergy).</p>
+        <div class="pending-request-card-status-row">
+          <span class="badge badge-pill badge-info">Queued</span>
+          <span class="pending-request-card-eta">Will apply if your dietitian approves before Friday.</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
