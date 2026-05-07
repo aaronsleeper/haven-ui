@@ -1,0 +1,162 @@
+<!--
+  @component-meta
+  name: Handoff Menu
+  category: Patient App — Per-Flow Primitives
+  file: handoff-menu.html
+  classes: handoff-menu, handoff-menu-header, handoff-menu-avatar, handoff-menu-meta, handoff-menu-eyebrow, handoff-menu-title, handoff-menu-subtitle, handoff-menu-body, handoff-menu-option, handoff-menu-option-icon, handoff-menu-option-meta, handoff-menu-option-label, handoff-menu-option-helper, handoff-menu-fallback
+  variants: patient-initiated, agent-suggested, agent-escalated, crisis-non-clinical, crisis-clinical, cc-unavailable, language-mismatch, anonymized, no-cc-assigned, order-status-escalation, respond-to-cc-handoff
+  when-to-use: Right-pane (or sheet) handoff routing menu — contact identity in the header + a list of routing options (Phone / In-chat / Email) each with helper text. Triggered from chat-handoff-trigger or escalation flows.
+  do-not-use-when: Always-on chat trigger (use chat-handoff-trigger). Crisis with required clinical tier (compose crisis-resources-card + handoff-menu crisis-clinical variant). Coordinator-pane handoff (different surface).
+  preline-required: no
+  notes: 11 editorial variants per gap-doc R-23. Copy and which buttons render varies; the visual primitive is one shape. Variant-specific notes:
+    • patient-initiated: standard 3-button menu, full CC contact card
+    • agent-suggested: same shape, "Ava suggests reaching out" eyebrow
+    • agent-escalated: "Ava is connecting you" eyebrow, In-chat first
+    • crisis-non-clinical: includes 988 / general support resources
+    • crisis-clinical: pairs with crisis-resources-card; clinical-tier routing only
+    • cc-unavailable: header only, no buttons + handoff-menu-fallback message
+    • language-mismatch: language-line in subtitle, only routes that match
+    • anonymized: no avatar, no name (privacy-mode flow)
+    • no-cc-assigned: generic care-team header, not a specific person
+    • order-status-escalation: kitchen / fulfillment-routing copy
+    • respond-to-cc-handoff: "Sarah handed back to Ava" tone
+    Covers gap-doc R-23.
+  interactive-usage: required
+  interactive:
+    role: list of buttons
+    keyboard: Tab between options; Enter / Space activates
+    aria:
+      label-needed: visible labels are accessible names
+      hidden-icons: icons aria-hidden=true
+    focus:
+      visible: focus:ring-sand-700 ring-offset-2
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Handoff Menu</h3>
+  <p class="pl-description">Handoff routing menu — contact identity + 3 stacked options (Phone / In-chat / Email) with helper text. 11 editorial variants.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">patient-initiated (default)</h4>
+    <!-- @component: handoff-menu (patient-initiated) -->
+    <div class="handoff-menu">
+      <div class="handoff-menu-header">
+        <span class="avatar avatar-primary handoff-menu-avatar"><span>SO</span></span>
+        <div class="handoff-menu-meta">
+          <p class="handoff-menu-eyebrow">Talk to your care coordinator</p>
+          <p class="handoff-menu-title">Sarah Okafor</p>
+          <p class="handoff-menu-subtitle">Care coordinator · usually responds within 1 hour during the day</p>
+        </div>
+      </div>
+      <div class="handoff-menu-body">
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Call Sarah</span>
+            <span class="handoff-menu-option-helper">Best for time-sensitive questions</span>
+          </span>
+        </button>
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-message" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Continue here in chat</span>
+            <span class="handoff-menu-option-helper">Sarah will reply when she's free</span>
+          </span>
+        </button>
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Send a long message</span>
+            <span class="handoff-menu-option-helper">For anything that needs more space</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">cc-unavailable (header-only fallback)</h4>
+    <!-- @component: handoff-menu (cc-unavailable) -->
+    <div class="handoff-menu">
+      <div class="handoff-menu-header">
+        <span class="avatar avatar-neutral handoff-menu-avatar"><span>SO</span></span>
+        <div class="handoff-menu-meta">
+          <p class="handoff-menu-eyebrow">Sarah is out today</p>
+          <p class="handoff-menu-title">Sarah Okafor</p>
+          <p class="handoff-menu-subtitle">Care coordinator · back tomorrow morning</p>
+        </div>
+      </div>
+      <div class="handoff-menu-fallback">
+        For anything urgent today, call <strong>UConn Health Care Coordination</strong> at <a class="text-link" href="tel:8602436001">(860) 243-6001</a>.
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">no-cc-assigned (generic care-team header)</h4>
+    <!-- @component: handoff-menu (no-cc-assigned) -->
+    <div class="handoff-menu">
+      <div class="handoff-menu-header">
+        <span class="avatar avatar-neutral handoff-menu-avatar"><i class="fa-solid fa-users" aria-hidden="true"></i></span>
+        <div class="handoff-menu-meta">
+          <p class="handoff-menu-eyebrow">Reach your care team</p>
+          <p class="handoff-menu-title">UConn Health Care Coordination</p>
+          <p class="handoff-menu-subtitle">A coordinator will be in touch soon</p>
+        </div>
+      </div>
+      <div class="handoff-menu-body">
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Call the care team</span>
+            <span class="handoff-menu-option-helper">(860) 243-6001 · weekdays 8 AM–5 PM</span>
+          </span>
+        </button>
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-message" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Send a message here</span>
+            <span class="handoff-menu-option-helper">A coordinator will pick this up.</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">anonymized (privacy-mode)</h4>
+    <!-- @component: handoff-menu (anonymized) -->
+    <div class="handoff-menu">
+      <div class="handoff-menu-header">
+        <span class="avatar avatar-neutral handoff-menu-avatar"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span>
+        <div class="handoff-menu-meta">
+          <p class="handoff-menu-eyebrow">Talk to a person</p>
+          <p class="handoff-menu-title">Your care team</p>
+          <p class="handoff-menu-subtitle">No names shared on this device</p>
+        </div>
+      </div>
+      <div class="handoff-menu-body">
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Call</span>
+            <span class="handoff-menu-option-helper">(860) 243-6001</span>
+          </span>
+        </button>
+        <button type="button" class="handoff-menu-option">
+          <span class="handoff-menu-option-icon"><i class="fa-solid fa-message" aria-hidden="true"></i></span>
+          <span class="handoff-menu-option-meta">
+            <span class="handoff-menu-option-label">Send a message here</span>
+            <span class="handoff-menu-option-helper">No names shown on screen</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
