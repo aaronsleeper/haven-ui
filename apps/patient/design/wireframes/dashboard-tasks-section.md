@@ -1,3 +1,7 @@
+---
+shells: []
+---
+
 # Dashboard Modification: Tasks Section
 
 **Application:** Patient App (Mobile)

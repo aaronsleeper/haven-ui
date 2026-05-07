@@ -1,3 +1,9 @@
+---
+shells:
+  - name: mobile-shell
+    pl_shell_version: sha256:7216f974a242c2b4803414646c733b3b194a1bdeec04e10b61be499eb7a2e599
+---
+
 # ASSESS-02: Assessment Intro
 
 **Application:** Patient App (Mobile)
