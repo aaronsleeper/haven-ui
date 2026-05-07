@@ -1,12 +1,31 @@
 # haven-ui — Agent Rules
 
-haven-ui is a React monorepo that owns the full Cena Health frontend. AD-08 (React 19 + Vite) and AD-09 (Turborepo + pnpm workspaces) are locked. See `planning/decisions.md` and `planning/team/proposals/stack-recommendations.md`.
+haven-ui is the Cena Health **design system**, framework-agnostic at the pattern-library layer. The pattern library — HTML in `packages/design-system/pattern-library/` plus tokens in `packages/design-system/src/styles/tokens/` — is the spec. Framework ports mirror that spec 1:1; today the only port is the React monorepo here under `packages/ui-react/` and `apps/*/`. Future ports (Angular is plausible) would consume the same pattern-library spec.
+
+The React port has its own architectural decisions (AD-08 React 19 + Vite, AD-09 Turborepo + pnpm — see `planning/decisions.md`). These are React-port decisions, not pattern-library decisions.
+
+**Stack reality (2026-05):** Cena's existing production apps are Angular and **don't yet consume haven-ui**. Andrey (Cena's technical lead) has not signed off on React as Cena's frontend stack. Do not state framework decisions externally without Andrey's alignment — "React is our stack" is forbidden phrasing until that conversation lands.
 
 **Load-bearing rules:** pattern-library-first ("copy, don't generate"), semantic classes in `components.css`, `@apply` over utility soup, `pattern-library/COMPONENT-INDEX.md` as ground truth, scope declaration per task. Every React component in `packages/ui-react/` is a 1:1 mechanical port of its pattern-library HTML entry (see `.project-docs/agent-workflow/skills/ui-react-porter.md`).
 
-**Design system spec:** [DESIGN.md](./DESIGN.md) at repo root is the canonical brand spec. Read it before any UI work. Figma is the upstream source of truth for visual tokens (colors, radii, elevations, typography); haven-ui code regenerates from Figma variable defs. Measurement tokens stay on haven-ui's 4px Tailwind scalar.
+**Design system spec:** [DESIGN.md](./DESIGN.md) at repo root, plus the pattern-library HTML and CSS tokens, is the canonical source of truth for haven-ui. Vault docs (`Vaults/Knowledge/Projects/Cena Health/`) are the canonical companion docs; Figma is no longer the upstream source. Measurement tokens stay on haven-ui's 4px Tailwind scalar.
 
 The handoff-to-Andrey model has been retired. The vanilla HTML composites from that era live at `archive/vanilla-html-handoff/` for reference only; do not modify them.
+
+## Watch for these drifts
+
+The React port silently becomes the canonical X. This is **structural** drift, not one-off — multiple manifestations have been observed across 2026, and the surrounding context (filenames, code samples, this very repo's prominence) pulls in this direction every time. Resist explicitly.
+
+- **Consumption surface drift** — phrasing like "apps import from `@haven/ui-react`" treats the React port as the only consumption path. Default phrasing: "apps consume compounds via their framework's haven-ui port." When writing about consumer apps in general, name the port; when writing about the existing React port specifically, name it as "the React port" or `packages/ui-react/`, not as the canonical haven-ui consumption surface.
+- **Status-taxonomy drift** — gating "exists" or "built" on `.tsx` file presence (in coverage docs, status reports, registry tables) silently makes the React port canonical. Use PL-HTML presence as the spec-level "exists" check; React-port presence is "is the React port up to date." (Source incident: 2026-05-07 gap-doc treated `exists` as ui-react-port readiness; corrected to PL-HTML-only.)
+- **Vocabulary drift** — TypeScript discriminated unions, Storybook stories, and `registry.json` are React-port-specific artifacts. Variant *vocabulary* lives in CSS modifier classes at the pattern-library layer. Don't conflate "the variant set" with "the discriminated-union members."
+- **Stack-decision drift** — referring to "haven-ui's stack" or "haven-ui is a React monorepo" collapses pattern-library + port into a single React-shaped thing. The pattern library has no stack; the React port has React; future ports will have their own.
+
+**Why drift recurs:** the React port is the only port that exists today, so concrete examples and surrounding context dominate. Project memory and opening framing are not enough on their own — the pull comes from context, not from missing information. When classifying or characterizing something on a dimension where the React port could silently become canonical, name the suspicion explicitly and check before committing to the framing.
+
+**Generalize the resistance:** any future dimension (data model, state management, testing strategy, accessibility patterns) where someone describes "haven-ui does X" must distinguish between the pattern-library layer and the React-port layer. The pattern library doesn't have a state-management library; the React port might.
+
+(Recurring-drift fix per Vault feedback memory `feedback_no_haven_ui_react_conflation.md`; flagged in retro 2026-05-07.)
 
 ---
 
