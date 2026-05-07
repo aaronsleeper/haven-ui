@@ -1,0 +1,64 @@
+<!--
+  @component-meta
+  name: Chat Sheet Link
+  category: Patient App — A2UI Chat Affordances
+  file: chat-sheet-link.html
+  classes: chat-sheet-link, chat-sheet-link-icon
+  variants: inline (in agent message body)
+  when-to-use: Inline link in an agent message that opens a right-pane sheet (or, on mobile, the bottom-sheet overlay). Use when the agent wants to surface a reference, an artifact, or a richer view without leaving the chat thread — "Tap to view today's plan", "See your recall list", etc. The component is the same across viewports; only the target sheet behavior differs by breakpoint (overlay-bottom-sheet on mobile, right-pane slide-in on desktop).
+  do-not-use-when: The link navigates to a new page (use a regular `text-link`). The action is a commit (use `chat-button-row` with btn-primary). The action is a chip-style selection (use `chat-chip-row`). The action is a persistent affordance (use `chat-handoff-trigger`). The link surfaces clinical / population-level information (different surface; use the right-pane primitive directly).
+  preline-required: no
+  notes: Renamed from `chat-mobile-link` per the queue review (component is identical across viewports; only target sheet behavior differs). Composes the `text-link` color register (primary-600) but is a `<button>` element, not an `<a>` — sheet-opening is a UI action, not navigation. Adds a trailing icon-hint glyph so the affordance reads as "opens a surface" instead of "navigates."
+
+    On desktop, the consumer wires the click to open a right-pane sheet (or modal). On mobile, the consumer wires it to `overlay-bottom-sheet`. The sheet target is consumer-determined; the link itself is viewport-agnostic.
+
+    Lifecycle: persistent within the agent message — the link does not disappear after tap (the sheet may be re-opened). Distinct from `chat-chip-row` / `chat-tag-group` ephemeral affordances.
+
+    Covers gap-doc C-16.
+
+  interactive-usage: required
+  interactive:
+    role: button (sheet-opening is a UI action, not navigation)
+    keyboard: Enter / Space activates the sheet open
+    aria:
+      label-needed: false (visible text is the accessible name); aria-haspopup="dialog" SHOULD be added by the consumer to signal sheet semantics
+      hidden-icons: the trailing icon hint carries aria-hidden=true (it's affordance affordance, not content)
+    focus:
+      visible: focus-visible:ring-sand-700 + ring-offset-2 (clear halo over chat-pane sand-50)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Sheet Link</h3>
+  <p class="pl-description">
+    Inline link in an agent message that opens a right-pane sheet (or bottom-sheet on mobile). Composes <code>text-link</code> register; rendered as button.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Inline in an agent message</h4>
+    <!-- @component: chat-sheet-link (inline) -->
+    <p class="text-base text-sand-800 dark:text-sand-200">
+      Your dietitian put together a plan for this week.
+      <button type="button" class="chat-sheet-link" aria-haspopup="dialog">
+        Tap to view your plan
+        <i class="fa-solid fa-arrow-up-right-from-square chat-sheet-link-icon" aria-hidden="true"></i>
+      </button>
+    </p>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Inline — recall list reference</h4>
+    <!-- @component: chat-sheet-link (recall-list) -->
+    <p class="text-base text-sand-800 dark:text-sand-200">
+      Want to see what we've logged so far?
+      <button type="button" class="chat-sheet-link" aria-haspopup="dialog">
+        See your recall list
+        <i class="fa-solid fa-arrow-up-right-from-square chat-sheet-link-icon" aria-hidden="true"></i>
+      </button>
+    </p>
+    <!-- /component -->
+  </div>
+
+</section>
