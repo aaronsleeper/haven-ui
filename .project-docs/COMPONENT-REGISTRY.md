@@ -261,6 +261,61 @@ visible at localhost:5173/packages/design-system/pattern-library/pages/.
 
 ---
 
+## Patient App — A2UI Renderer (queue 2026-05-07)
+
+Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in tier order — Tier 1a = foundational chat-affordance primitives (10), Tier 1b = foundational right-pane primitives (10), Tier 1c = per-flow right-pane primitives (8), Tier 2 = composition (1). Vertical-slice each: one full primitive end-to-end before the next. Cross-reference per-component context against `Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/flows/a2ui-haven-gap.md` (uconn-pilot-docs).
+
+### Tier 1a — Chat-affordance primitives
+
+| Component | PL Page | Status | Notes |
+|---|---|---|---|
+| chat-button-row | `pages/chat-button-row.html` | missing | Single + dual variants. Default tier: secondary. Chat-anchored submit variant with disabled-state-aware helper text. Covers C-1, C-2, C-14. |
+| chat-chip-row | `pages/chat-chip-row.html` | missing | Base + `.is-soft` modifier (soft-third option). Covers C-3, C-6, C-7, C-8, C-12. |
+| chat-tag-group | `pages/chat-tag-group.html` | missing | Extends `complex-tag-group`. Preference-confirmation variant with selected-state highlighting + inline Save/Skip. Restaurant-menu register only. |
+| chat-handoff-trigger | `pages/chat-handoff-trigger.html` | missing | Persistent talk-to-a-person affordance. Two variants: header chip (desktop) + sticky-footer button (mobile). Tier: tertiary. Renamed from `talk-to-person-trigger`. |
+| chat-numeric-input | `pages/chat-numeric-input.html` | missing | Extends `nutrition-input` family. Unit-toggle (lb/kg, %, etc.); defaults to last-used unit. |
+| chat-paired-numeric | `pages/chat-paired-numeric.html` | missing | BP-specific. Two `<input type=number>` with slash separator, no unit toggle. |
+| chat-time-preference-picker | `pages/chat-time-preference-picker.html` | missing | Free-text input + two chip rows (day-of-week + time-of-day). Free text overrides chip selection. |
+| chat-sheet-link | `pages/chat-sheet-link.html` | missing | Extends `text-link` + `overlay-bottom-sheet`. Inline link in agent message that opens right-pane sheet. Renamed from `chat-mobile-link`. |
+| chat-status-row | `pages/chat-status-row.html` | missing | Extends `thread-msg-system`. Patient-app variant for CC takeover ("[CC first name] joined"). Subdued register. |
+| patient-chat-message | `pages/patient-chat-message.html` | missing | Extends `complex-chat`. Ava-styled bubble (dot-sparkle leading indicator + plain Body/02, no bubble) per DESIGN.md. Distinct from coordinator's thread-msg-* family. |
+
+### Tier 1b — Foundational right-pane primitives
+
+| Component | PL Page | Status | Notes |
+|---|---|---|---|
+| budget-meter | `pages/budget-meter.html` | missing | Extends `data-progress`. Variants: live-update, error state ("Over budget by $X"), $0 first-time, post-order ("$190 of $200 used"). |
+| quantity-stepper | `pages/quantity-stepper.html` | missing | Patient-app version distinct from kitchen partials (per CLAUDE.md "must not be used in other apps"). |
+| appointment-card | `pages/appointment-card.html` | missing | RDN name, date/time, location, "Add to calendar". Used in onboarding Fork A, idle next-appointment, request-appointment confirmation. |
+| appointments-list | `pages/appointments-list.html` | missing | Read-only list of upcoming appointments. May compose `data-list-group` + appointment-row. |
+| pending-request-card | `pages/pending-request-card.html` | missing | Requested type + preference window + status + expected response window. |
+| delivery-status-timeline | `pages/delivery-status-timeline.html` | missing | 5-step status timeline (completed/current/future styling), pickup vs. delivery variants, fulfillment-window copy. Distinct from agentic `progress-tracker`. |
+| meal-warning-tooltip | `pages/meal-warning-tooltip.html` | missing | Small icon + tooltip. "Never blocks, never dims" rule — items remain at full opacity. |
+| onboarding-orientation-card | `pages/onboarding-orientation-card.html` | missing | Card + 3-column icon-label pattern (meals / appointments / check-ins). |
+| consent-doc-viewer | `pages/consent-doc-viewer.html` | missing | Card + scroll-container + `overlay-bottom-sheet` for full PDF on mobile. |
+| week-rhythm-card | `pages/week-rhythm-card.html` | missing | 3-row visualization (meal-ordering window / CC check-in cadence / occasional surveys). Visual-only, non-interactive. Onboarding Step 5. |
+
+### Tier 1c — Per-flow right-pane primitives
+
+| Component | PL Page | Status | Notes |
+|---|---|---|---|
+| patient-recall-list | `pages/patient-recall-list.html` | missing | Largest single new authoring effort. Header (Heading/04, Lora Medium 16) with day + pass indicator. Food rows: name + time/occasion + amount columns populated progressively across passes. Per-row inline editor + trash + "+ add" footer. Variants per pass (1: names; 2: more names; 3: time; 4: amounts; 5/6: locked via `.is-locked`). Renamed from `food-recall-list`. |
+| outreach-card | `pages/outreach-card.html` | missing | CC photo + name + role + arrival time + topic + note. Variants: weekly check-in (with question preview), missed-visit (softer copy), general message, photo-unavailable fallback, `.is-checkin-active`, `.is-handoff-live` ("Live with [CC first name]"). Renamed from `cc-outreach-card`. |
+| handoff-menu | `pages/handoff-menu.html` | missing | Contact card + 3 stacked handoff buttons (Phone / In-chat / Email). 11 variants: patient-initiated, agent-suggested, agent-escalated, crisis-non-clinical, crisis-clinical, CC-unavailable, language-mismatch, anonymized, no-CC-assigned, order-status-escalation, respond-to-cc-handoff. |
+| crisis-resources-card | `pages/crisis-resources-card.html` | missing | 988 + UConn-specific protocol. `surface-card` + `border-l-4 rose-04` left accent. Never red surface. Variants TBD pending UConn clinical-team protocol input. |
+| assessment-preflight-card | `pages/assessment-preflight-card.html` | missing | Extends `AssessmentHeader`. Pre-flight card before questionnaire panel: instrument name in plain language, question count, time estimate, "your answers go to your care team" disclosure, "Begin" button. |
+| trend-snippet-list | `pages/trend-snippet-list.html` | missing | Bullet list of last 3–5 values with dates ("Apr 30 — 184 lb / Apr 23 — 185 lb / ..."). Demo + likely pilot path. Do not extend `patient-trend-card.html` (Chart.js-bound). |
+| log-confirmation-card | `pages/log-confirmation-card.html` | missing | Extends `Receipt`. Receipt-shaped variant: attribute(s), value(s), context, timestamp. |
+| assessment-confirmation | `pages/assessment-confirmation.html` | missing | Extends `Receipt`. Receipt-shaped variant: instrument name, "Submitted [date]", "Your care team has it." No score shown to patient. |
+
+### Tier 2 — Composition (build after Tier 1 dependencies land)
+
+| Component | PL Page | Status | Notes |
+|---|---|---|---|
+| patient-week-panel | `pages/patient-week-panel.html` | missing | Idle-state right-pane composition: `budget-meter` + existing `patient-delivery-status-card.html` + `appointment-card`. Compose only after dependencies are built. Renamed from `at-a-glance-panel`. |
+
+---
+
 ## Summary
 
 Run this query to see build progress:
