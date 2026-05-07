@@ -289,8 +289,8 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 | appointment-card | `pages/appointment-card.html` | built | RDN name, date/time, location, "Add to calendar". Used in onboarding Fork A, idle next-appointment, request-appointment confirmation. |
 | appointments-list | `pages/appointments-list.html` | built | Read-only list of upcoming appointments. May compose `data-list-group` + appointment-row. |
 | pending-request-card | `pages/pending-request-card.html` | built | Requested type + preference window + status + expected response window. |
-| delivery-status-timeline | `pages/delivery-status-timeline.html` | missing | 5-step status timeline (completed/current/future styling), pickup vs. delivery variants, fulfillment-window copy. Distinct from agentic `progress-tracker`. |
-| meal-warning-tooltip | `pages/meal-warning-tooltip.html` | missing | Small icon + tooltip. "Never blocks, never dims" rule — items remain at full opacity. |
+| delivery-status-timeline | `pages/delivery-status-timeline.html` | built | 5-step status timeline (completed/current/future styling), pickup vs. delivery variants, fulfillment-window copy. Distinct from agentic `progress-tracker`. |
+| meal-warning-tooltip | `pages/meal-warning-tooltip.html` | built | Small icon + tooltip. "Never blocks, never dims" rule — items remain at full opacity. |
 | onboarding-orientation-card | `pages/onboarding-orientation-card.html` | missing | Card + 3-column icon-label pattern (meals / appointments / check-ins). |
 | consent-doc-viewer | `pages/consent-doc-viewer.html` | missing | Card + scroll-container + `overlay-bottom-sheet` for full PDF on mobile. |
 | week-rhythm-card | `pages/week-rhythm-card.html` | missing | 3-row visualization (meal-ordering window / CC check-in cadence / occasional surveys). Visual-only, non-interactive. Onboarding Step 5. |

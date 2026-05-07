@@ -1,0 +1,101 @@
+<!--
+  @component-meta
+  name: Delivery Status Timeline
+  category: Patient App — Right-Pane Primitives
+  file: delivery-status-timeline.html
+  classes: delivery-status-timeline, delivery-status-timeline-body, delivery-status-timeline-list, delivery-status-timeline-step (.is-complete, .is-current), delivery-status-timeline-icon, delivery-status-timeline-meta, delivery-status-timeline-label, delivery-status-timeline-when, delivery-status-timeline-window
+  variants: delivery (default), pickup, in-progress (current step active), complete
+  when-to-use: Right-pane fulfillment-progress display for the patient's most-recent meal order. 5-step timeline with completed / current / future styling, pickup vs. delivery variants, fulfillment-window copy alongside.
+  do-not-use-when: Generic agent action steps (use agentic `progress-tracker`). Multi-order summary (use a list of `meal-delivery-card` instead). Past-orders archive (different surface).
+  preline-required: no
+  notes: Distinct from agentic `progress-tracker` (that one tracks agent action steps; this tracks fulfillment milestones with date/time labels). State on the step: default (future), `.is-complete` (past, primary-100), `.is-current` (active, primary-600 filled). Pickup vs. delivery only differs by icon set and the final step's label ("Ready for pickup" vs "Delivered"). Covers gap-doc R-9.
+  interactive-usage: none
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Delivery Status Timeline</h3>
+  <p class="pl-description">5-step fulfillment progression for the patient's meal order. Delivery / pickup variants.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Delivery — in progress (out for delivery)</h4>
+    <!-- @component: delivery-status-timeline (delivery-in-progress) -->
+    <div class="delivery-status-timeline">
+      <div class="delivery-status-timeline-body">
+        <ol class="delivery-status-timeline-list">
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta">
+              <p class="delivery-status-timeline-label">Order placed</p>
+              <p class="delivery-status-timeline-when">Sat · 2:14 PM</p>
+            </div>
+          </li>
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta">
+              <p class="delivery-status-timeline-label">Approved by your dietitian</p>
+              <p class="delivery-status-timeline-when">Sun · 9:42 AM</p>
+            </div>
+          </li>
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta">
+              <p class="delivery-status-timeline-label">Preparing your meals</p>
+              <p class="delivery-status-timeline-when">Mon · 6:15 AM</p>
+            </div>
+          </li>
+          <li class="delivery-status-timeline-step is-current">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-truck" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta">
+              <p class="delivery-status-timeline-label">Out for delivery</p>
+              <p class="delivery-status-timeline-when">Today · since 11:08 AM</p>
+            </div>
+          </li>
+          <li class="delivery-status-timeline-step">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta">
+              <p class="delivery-status-timeline-label">Delivered</p>
+            </div>
+          </li>
+        </ol>
+        <p class="delivery-status-timeline-window">Estimated arrival: today between 12:30 and 2:00 PM.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Pickup — ready</h4>
+    <!-- @component: delivery-status-timeline (pickup-ready) -->
+    <div class="delivery-status-timeline">
+      <div class="delivery-status-timeline-body">
+        <ol class="delivery-status-timeline-list">
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta"><p class="delivery-status-timeline-label">Order placed</p><p class="delivery-status-timeline-when">Sat · 2:14 PM</p></div>
+          </li>
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta"><p class="delivery-status-timeline-label">Approved by your dietitian</p><p class="delivery-status-timeline-when">Sun · 9:42 AM</p></div>
+          </li>
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta"><p class="delivery-status-timeline-label">Preparing your meals</p><p class="delivery-status-timeline-when">Mon · 6:15 AM</p></div>
+          </li>
+          <li class="delivery-status-timeline-step is-complete">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta"><p class="delivery-status-timeline-label">Packed for pickup</p><p class="delivery-status-timeline-when">Mon · 10:30 AM</p></div>
+          </li>
+          <li class="delivery-status-timeline-step is-current">
+            <span class="delivery-status-timeline-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
+            <div class="delivery-status-timeline-meta"><p class="delivery-status-timeline-label">Ready for pickup</p><p class="delivery-status-timeline-when">Since 11:00 AM</p></div>
+          </li>
+        </ol>
+        <p class="delivery-status-timeline-window">Pickup window: today by 7:00 PM at the UConn Health pharmacy lobby.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

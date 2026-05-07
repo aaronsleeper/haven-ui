@@ -2990,6 +2990,83 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-sand-400;
 }
 
+/* delivery-status-timeline — 5-step timeline showing meal-order
+   fulfillment progression. Distinct from agentic progress-tracker
+   (different content register: that one is for agent action steps;
+   this is for fulfillment milestones with date/time labels).
+   Pickup vs delivery variants change the icon set and the final
+   step label only. */
+.delivery-status-timeline {
+    @apply card;
+}
+
+.delivery-status-timeline-body {
+    @apply p-4;
+}
+
+.delivery-status-timeline-list {
+    @apply flex flex-col gap-3 relative;
+}
+
+.delivery-status-timeline-step {
+    @apply flex items-start gap-3 relative;
+}
+
+.delivery-status-timeline-icon {
+    @apply size-7 inline-flex items-center justify-center rounded-full flex-shrink-0;
+    @apply bg-sand-100 text-sand-500 z-10;
+    @apply dark:bg-sand-800 dark:text-sand-400;
+}
+
+.delivery-status-timeline-step.is-complete .delivery-status-timeline-icon {
+    @apply bg-primary-100 text-primary-700;
+    @apply dark:bg-primary-900/30 dark:text-primary-300;
+}
+
+.delivery-status-timeline-step.is-current .delivery-status-timeline-icon {
+    @apply bg-primary-600 text-white;
+    @apply dark:bg-primary-500;
+}
+
+.delivery-status-timeline-meta {
+    @apply flex-1 min-w-0;
+}
+
+.delivery-status-timeline-label {
+    @apply text-sm font-medium text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+.delivery-status-timeline-step.is-complete .delivery-status-timeline-label,
+.delivery-status-timeline-step.is-current .delivery-status-timeline-label {
+    @apply text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.delivery-status-timeline-when {
+    @apply text-xs text-sand-600 mt-0.5;
+    @apply dark:text-sand-400;
+}
+
+.delivery-status-timeline-window {
+    @apply mt-3 pt-3 border-t border-sand-100 text-sm text-sand-700;
+    @apply dark:border-sand-700 dark:text-sand-300;
+}
+
+/* meal-warning-tooltip — small inline warning icon paired with a
+   tooltip trigger. "Never blocks, never dims" rule: the meal item
+   stays at full opacity and remains tappable. The icon is a hint,
+   not a gate. Composes Preline tooltip behavior via data-hs-tooltip
+   when scripts are wired. */
+.meal-warning-tooltip {
+    @apply inline-flex items-center;
+}
+
+.meal-warning-tooltip-icon {
+    @apply text-warning-600 text-sm cursor-help;
+    @apply dark:text-warning-400;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

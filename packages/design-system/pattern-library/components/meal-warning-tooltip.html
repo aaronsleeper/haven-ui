@@ -1,0 +1,57 @@
+<!--
+  @component-meta
+  name: Meal Warning Tooltip
+  category: Patient App — Right-Pane Primitives
+  file: meal-warning-tooltip.html
+  classes: meal-warning-tooltip, meal-warning-tooltip-icon
+  variants: hover-tooltip, click-tooltip (mobile)
+  when-to-use: Inline warning hint on a meal item — for soft signals like "contains peanuts (your saved preference)" or "above your weekly sodium target." The icon is a hint paired with a tooltip; tap or hover surfaces the message.
+  do-not-use-when: The warning is hard-blocking (use a card-level alert or refuse to render the meal entirely — but per the chat-affordance rule, items "never block, never dim"; rethink the flow if you'd otherwise gate). The warning is a clinical lab alert (different surface — clinical-alert-* family).
+  preline-required: yes — hs-tooltip (consumer wires data-hs-tooltip on the wrapper)
+  notes: "Never blocks, never dims" rule: the meal item it sits on stays at full opacity and remains tappable. The icon signals consideration, not denial. Tooltip color is warning-600 (amber, not error-red) — the patient is informed, not blocked. Covers gap-doc R-7.
+  interactive-usage: required
+  interactive:
+    role: button (the icon is the tooltip trigger)
+    keyboard: Enter / Space focuses → tooltip-open; Esc dismisses
+    aria:
+      label-needed: true on the icon button (e.g., aria-label="Warning: contains peanuts")
+      hidden-icons: the FA icon glyph aria-hidden=true; aria-label on the wrapper is the accessible name
+    focus:
+      visible: focus:ring-warning-500 (matches the warning-tone register)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Meal Warning Tooltip</h3>
+  <p class="pl-description">Inline warning hint on a meal item. "Never blocks, never dims" — the item stays at full opacity and remains tappable.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Inline next to meal name</h4>
+    <!-- @component: meal-warning-tooltip (inline) -->
+    <p class="text-base text-sand-800 dark:text-sand-200">
+      Thai peanut noodle bowl
+      <span class="meal-warning-tooltip" data-hs-tooltip>
+        <button type="button" aria-label="Warning: contains peanuts (saved preference)">
+          <i class="fa-solid fa-circle-exclamation meal-warning-tooltip-icon" aria-hidden="true"></i>
+        </button>
+      </span>
+    </p>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Above sodium target</h4>
+    <!-- @component: meal-warning-tooltip (sodium) -->
+    <p class="text-base text-sand-800 dark:text-sand-200">
+      Smoked turkey panini
+      <span class="meal-warning-tooltip" data-hs-tooltip>
+        <button type="button" aria-label="Warning: above your weekly sodium target">
+          <i class="fa-solid fa-circle-exclamation meal-warning-tooltip-icon" aria-hidden="true"></i>
+        </button>
+      </span>
+    </p>
+    <!-- /component -->
+  </div>
+
+</section>
