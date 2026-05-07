@@ -1,0 +1,86 @@
+<!--
+  @component-meta
+  name: Chat Chip Row
+  category: Patient App — A2UI Chat Affordances
+  file: chat-chip-row.html
+  classes: chat-chip-row, chat-chip-row.is-small, chat-chip, chat-chip.is-soft
+  variants: default (1–3 chips), is-soft (per-chip muted modifier for soft-escape / soft-third option), is-small (per-row sizing for context-probe groups)
+  when-to-use: Inline pill-shaped affordance row embedded in the agent's chat thread under the most-recent message. Use for 1–3 mutually-exclusive options the patient picks among (greeting action chips, handoff routing, time-of-day picker, soft-third "Just say I'm okay" pattern, small context-probe groups). `.is-small` scales the row's chips for context-probe groups where chip count is higher and visual weight should be lighter (gap-doc C-12). `.is-soft` on a single chip lowers its visual weight — the agent's recommended option(s) stay filled; the soft option signals "also valid".
+  do-not-use-when: The action is a state-changing commit (use `chat-button-row` with `btn-primary` and `.has-helper` to name the consequence). Single advancement (use `chat-button-row` single — chip-of-one disappears as a chip without peers). Two-option binary where both options feel irreversible (use `chat-button-row` dual — buttons read as more deliberate at 2-option count). Tag-confirmation flows with selected-state highlighting + Save/Skip (a separate primitive — chip-row chips are one-shot, not toggleable). More than 3 main options (the agent should narrow the conversation; chips don't scale past 3 without crowding the chat thread — see exception below for `.is-small` + soft-escape).
+  preline-required: no
+  notes: Tier comes from the chip class — `.chat-chip` matches `btn-secondary`'s fill + focus register exactly (sand-100 fill, sand-700 text, sand-500 focus ring), differing only in pill geometry. The row itself is layout-only. `.is-soft` on the chat-pane sand-50 surface uses a sand-200 border (no fill) so the chip still reads as a chip, just without filled chrome — without the border the soft variant disappears into surrounding agent text.
+
+    Hard cap is "1–3 main options" (editorial; chat-affordance principles). `.is-small` carves out a soft-escape pattern: 1–3 main chips + an optional `.is-soft` "Skip" chip is permitted at small size for context-probe groups (gap-doc C-12). The soft chip is an additive escape hatch, not a 4th option.
+
+    Lifecycle contract: chip rows are ephemeral affordances tied to the agent's most-recent message. On selection the consumer removes the row from the thread (the chosen value either becomes a patient bubble or is captured silently per flow). Do not persist a chip row above an older message after the agent has spoken again — the agent re-renders affordances when state shifts. As a corollary, chips never enter a disabled state at runtime: the row is replaced rather than gated. (No `.chat-chip[disabled]` styling shipped — if a future flow needs gated chips, codify the carve-out before adding the styling.)
+
+    Optional spillover patterns (e.g., gap-doc C-7's "See everything waiting" tertiary button) are NOT part of this primitive — the spillover is a sibling button placed after the chip row in the consumer's chat-thread layout, not a chip-row variant.
+
+    Covers gap-doc rows C-3 (three-chip row), C-6 (handoff routing), C-7 (greeting action chips), C-8 (soft-third option), C-12 (context-probe group, small).
+
+  interactive-usage: none
+  # The wrapper is a layout container only. Chips inside are <button> elements with
+  # implicit role=button; visible chip text is the accessible name. No row-level
+  # keyboard or aria handling — keyboard navigation is per-chip Tab (not arrow-key
+  # radiogroup). Mutual exclusivity is enforced editorially by the agent re-rendering
+  # the row on selection, not by aria semantics. If a chip uses an icon-only label
+  # (uncommon in chat-pane), add aria-label to the individual chip. Consumers SHOULD
+  # provide a labeling anchor for screen-reader users — typically the preceding
+  # agent message via aria-describedby on each chip, or aria-label on the row when
+  # the chip-row is rendered standalone.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Chip Row</h3>
+  <p class="pl-description">
+    Pill-shaped affordance row for the patient-app chat thread. 1–3 chips, default secondary register; per-chip soft-muted variant for the C-8 soft-third option; per-row small variant for context-probe groups.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — three chips (greeting action set, gap-doc C-7)</h4>
+    <!-- @component: chat-chip-row (default-three) -->
+    <div class="chat-chip-row">
+      <button type="button" class="chat-chip">Plan this week's meals</button>
+      <button type="button" class="chat-chip">Update preferences</button>
+      <button type="button" class="chat-chip">Talk to my dietitian</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — handoff routing (gap-doc C-6)</h4>
+    <!-- @component: chat-chip-row (handoff-routing) -->
+    <div class="chat-chip-row">
+      <button type="button" class="chat-chip">Phone</button>
+      <button type="button" class="chat-chip">In-chat</button>
+      <button type="button" class="chat-chip">Email</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-soft — soft-third option (gap-doc C-8)</h4>
+    <!-- @component: chat-chip-row (is-soft-third) -->
+    <div class="chat-chip-row">
+      <button type="button" class="chat-chip">A little better</button>
+      <button type="button" class="chat-chip">About the same</button>
+      <button type="button" class="chat-chip is-soft">Just say I'm okay</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-small — context-probe group with soft-escape (gap-doc C-12)</h4>
+    <!-- @component: chat-chip-row (is-small) -->
+    <div class="chat-chip-row is-small">
+      <button type="button" class="chat-chip">Morning</button>
+      <button type="button" class="chat-chip">Afternoon</button>
+      <button type="button" class="chat-chip">Evening</button>
+      <button type="button" class="chat-chip is-soft">Skip</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
