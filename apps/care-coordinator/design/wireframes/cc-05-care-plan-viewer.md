@@ -1,3 +1,9 @@
+---
+shells:
+  - name: agentic-shell
+    pl_shell_version: sha256:95bb370a7ae1ca4187ca461ef613ccc798089036498f8db13abeaf6cdbadd80c
+---
+
 # CC-05: Care Plan Viewer
 
 **Application:** Care Coordinator Admin App (Desktop)
@@ -157,8 +163,13 @@ No footer — action is in the thread panel (approval card).
 - **Error handling:** N/A
 
 ### Edit Coordinator-Owned Section
-- **Trigger:** Click "Edit" button (appears on hover/focus for coordinator-owned sections)
-- **Feedback:** Section fields become editable inline. "Edit" button changes to "Save" + "Cancel".
+- **Trigger:** Two entry paths (E.2 — ux-design-lead consult 2026-04-28):
+  1. **Per-section "Edit" button** in the accordion header (always visible on coordinator-pending sections, not hover-revealed). `btn-ghost btn-xs` with `fa-pen-to-square` icon + "Edit" label, placed after the editable indicator.
+  2. **"Edit again" link** appended inline to the most-recent approved approval-response message in the chat thread. Discovery on-ramp for coordinators who just committed a round of edits and want to make another.
+- **First-pass entry (initial review):** "Edit first" action on the agent's approval-request card opens edit mode the same way; the existing approval card's primary button relabels to "Approve with edits" while editing.
+- **Feedback:** All coordinator-owned sections become editable across the session (γ batch model — multiple sections can be edited together as one logical commit). Edit-mode banner reads "Editing — make changes across any coordinator-owned section, then Save to commit." A sticky **Save** (`btn-primary btn-sm`) / **Cancel** (`btn-outline btn-sm`) bar appears at the bottom of the panel-content scroll region during edit mode.
+- **Save:** Commits all inflight edits as one approval-response in the thread with cumulative diff (e.g., "Updated the care plan — Meals per week: 14 → 12"). Triggers a 5-second Undo bar. Each commit is one audit row regardless of how many sections were touched.
+- **Cancel:** Discards all inflight edits and returns to view mode. No thread message written — cancellation is not an audit event.
 - **Navigation:** None — stays in same view
 - **Error handling:** If save fails, `toast-error`: "Couldn't save changes. Try again." Fields revert to previous values.
 
