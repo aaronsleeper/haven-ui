@@ -1,0 +1,112 @@
+<!--
+  @component-meta
+  name: Outreach Card
+  category: Patient App — Per-Flow Primitives
+  file: outreach-card.html
+  classes: outreach-card, outreach-card-header, outreach-card-avatar, outreach-card-meta, outreach-card-eyebrow, outreach-card-name, outreach-card-role, outreach-card-when, outreach-card-body, outreach-card-question-preview, outreach-card-actions, outreach-card.is-checkin-active, outreach-card.is-handoff-live, outreach-card-live-indicator, outreach-card-live-indicator-dot
+  variants: weekly-checkin, missed-visit, general-message, photo-unavailable, is-checkin-active (live), is-handoff-live
+  when-to-use: Right-pane surface presenting a care-coordinator outreach moment — weekly check-in, missed-visit nudge, general message, or live indicator during an active check-in or handoff. Photo + name + role + arrival time + topic + optional note + actions.
+  do-not-use-when: Generic clinical patient list (use clinical-patient-card / clinical-patient-row). Coordinator-pane queue item (use queue-item). Crisis (use crisis-resources-card).
+  preline-required: no
+  notes: Renamed from cc-outreach-card — "CC" is internal jargon. Live modifiers (`.is-checkin-active`, `.is-handoff-live`) add a subtle 4px primary-500 left-edge accent — this is signal, not a commit. The live-indicator-dot pulses to confirm the active state. Question-preview block is for weekly-checkin variant. Photo-unavailable falls back to initials avatar. Covers gap-doc R-22 / R-23 / R-24.
+  interactive-usage: optional (action buttons only)
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Outreach Card</h3>
+  <p class="pl-description">CC outreach surface — weekly check-in, missed-visit, general message, plus live state modifiers.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Weekly check-in (with question preview)</h4>
+    <!-- @component: outreach-card (weekly-checkin) -->
+    <div class="outreach-card">
+      <div class="outreach-card-header">
+        <span class="avatar avatar-primary outreach-card-avatar"><span>SO</span></span>
+        <div class="outreach-card-meta">
+          <p class="outreach-card-eyebrow">Weekly check-in</p>
+          <p class="outreach-card-name">Sarah Okafor</p>
+          <p class="outreach-card-role">Care coordinator</p>
+          <p class="outreach-card-when">Sent Tuesday morning</p>
+        </div>
+      </div>
+      <div class="outreach-card-body">
+        <p>Hi Maria, just checking in to see how the new lunches are working out.</p>
+        <p class="outreach-card-question-preview">"Have the portion sizes felt right this week?"</p>
+      </div>
+      <div class="outreach-card-actions">
+        <button type="button" class="btn-primary btn-sm">Reply</button>
+        <button type="button" class="btn-secondary btn-sm">I'll get back to this later</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Missed visit (softer copy)</h4>
+    <!-- @component: outreach-card (missed-visit) -->
+    <div class="outreach-card">
+      <div class="outreach-card-header">
+        <span class="avatar avatar-neutral outreach-card-avatar"><span>SO</span></span>
+        <div class="outreach-card-meta">
+          <p class="outreach-card-eyebrow">Following up</p>
+          <p class="outreach-card-name">Sarah Okafor</p>
+          <p class="outreach-card-role">Care coordinator</p>
+          <p class="outreach-card-when">Sent yesterday</p>
+        </div>
+      </div>
+      <div class="outreach-card-body">
+        <p>I noticed we missed our visit last week — no worries, life happens. Want to find a new time that works better for you?</p>
+      </div>
+      <div class="outreach-card-actions">
+        <button type="button" class="btn-primary btn-sm">Find a new time</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-checkin-active — live indicator</h4>
+    <!-- @component: outreach-card (is-checkin-active) -->
+    <div class="outreach-card is-checkin-active">
+      <div class="outreach-card-header">
+        <span class="avatar avatar-primary outreach-card-avatar"><span>SO</span></span>
+        <div class="outreach-card-meta">
+          <p class="outreach-card-live-indicator">
+            <span class="outreach-card-live-indicator-dot" aria-hidden="true"></span>
+            Check-in in progress
+          </p>
+          <p class="outreach-card-name">Sarah Okafor</p>
+          <p class="outreach-card-role">Care coordinator</p>
+        </div>
+      </div>
+      <div class="outreach-card-body">
+        <p>Sarah is checking in with you right now. Replies appear in the chat.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-handoff-live — live with CC</h4>
+    <!-- @component: outreach-card (is-handoff-live) -->
+    <div class="outreach-card is-handoff-live">
+      <div class="outreach-card-header">
+        <span class="avatar avatar-primary outreach-card-avatar"><span>SO</span></span>
+        <div class="outreach-card-meta">
+          <p class="outreach-card-live-indicator">
+            <span class="outreach-card-live-indicator-dot" aria-hidden="true"></span>
+            Live with Sarah
+          </p>
+          <p class="outreach-card-name">Sarah Okafor</p>
+          <p class="outreach-card-role">Care coordinator</p>
+        </div>
+      </div>
+      <div class="outreach-card-body">
+        <p>You're in chat with Sarah. Ava will rejoin once you're done.</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

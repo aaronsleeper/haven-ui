@@ -3261,6 +3261,83 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply opacity-90;
 }
 
+/* outreach-card — CC outreach surface in the right-pane: photo +
+   name + role + arrival time + topic + optional note. Variants:
+   - weekly-checkin: header label "Check-in", question preview
+   - missed-visit: softer copy ("missed your last visit")
+   - general-message: free-form CC message
+   - photo-unavailable: avatar fallback
+   - .is-checkin-active: live "right now" indicator (mid-checkin)
+   - .is-handoff-live: "Live with [CC first name]" (handoff active)
+   Renamed from cc-outreach-card — "CC" is internal jargon. */
+.outreach-card {
+    @apply card;
+}
+
+.outreach-card-header {
+    @apply px-4 py-3 flex items-start gap-3;
+}
+
+.outreach-card-avatar {
+    @apply flex-shrink-0;
+}
+
+.outreach-card-meta {
+    @apply flex-1 min-w-0;
+}
+
+.outreach-card-eyebrow {
+    @apply text-xs uppercase tracking-wider font-medium text-sand-600;
+    @apply dark:text-sand-400;
+}
+
+.outreach-card-name {
+    @apply text-base font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.outreach-card-role {
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-400;
+}
+
+.outreach-card-when {
+    @apply text-xs text-sand-600 mt-0.5;
+    @apply dark:text-sand-400;
+}
+
+.outreach-card-body {
+    @apply px-4 pb-4 text-sm text-sand-800 leading-relaxed;
+    @apply dark:text-sand-200;
+}
+
+.outreach-card-question-preview {
+    @apply mt-2 px-3 py-2 rounded bg-secondary-100 text-sand-700 text-sm italic;
+    @apply dark:bg-sand-800 dark:text-sand-200;
+}
+
+.outreach-card-actions {
+    @apply px-4 py-3 border-t border-sand-100 flex items-center gap-2;
+    @apply dark:border-sand-700;
+}
+
+/* Active modifiers — subtle teal left-edge accent (NOT a primary
+   commit; signals "this conversation is live") */
+.outreach-card.is-checkin-active,
+.outreach-card.is-handoff-live {
+    @apply border-l-4 border-l-primary-500;
+}
+
+.outreach-card-live-indicator {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium text-primary-700;
+    @apply dark:text-primary-300;
+}
+
+.outreach-card-live-indicator-dot {
+    @apply size-2 rounded-full bg-primary-500 inline-block;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */
