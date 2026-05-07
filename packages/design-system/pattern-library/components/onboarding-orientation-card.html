@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: Onboarding Orientation Card
+  category: Patient App — Right-Pane Primitives
+  file: onboarding-orientation-card.html
+  classes: onboarding-orientation-card, onboarding-orientation-card-body, onboarding-orientation-card-title, onboarding-orientation-card-grid, onboarding-orientation-card-cell, onboarding-orientation-card-icon, onboarding-orientation-card-label
+  variants: default
+  when-to-use: Onboarding step 5 visual primer — three icons + labels showing what the patient can expect (Meals / Appointments / Check-ins). Visual-only; non-interactive. Used to set expectations before the orientation flow ends.
+  do-not-use-when: Mid-flow context (different surface). Interactive selection (use chat-chip-row or chat-tag-group). Generic 3-col layout (use a regular card + grid).
+  preline-required: no
+  notes: Composes .card + 3-col grid. Icons use primary-100/-700 for warm-but-Restrained accent. Demo uses meal/appointment/check-in icons but the 3 cells are content-driven. Covers gap-doc R-18.
+  interactive-usage: none
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Onboarding Orientation Card</h3>
+  <p class="pl-description">3-column icon-label card for onboarding step 5 — sets expectations for meals, appointments, check-ins.</p>
+
+  <div class="mb-8">
+    <!-- @component: onboarding-orientation-card (default) -->
+    <div class="onboarding-orientation-card">
+      <div class="onboarding-orientation-card-body">
+        <p class="onboarding-orientation-card-title">Here's what to expect each week.</p>
+        <div class="onboarding-orientation-card-grid">
+          <div class="onboarding-orientation-card-cell">
+            <span class="onboarding-orientation-card-icon" aria-hidden="true"><i class="fa-solid fa-utensils"></i></span>
+            <p class="onboarding-orientation-card-label">Meals delivered or picked up</p>
+          </div>
+          <div class="onboarding-orientation-card-cell">
+            <span class="onboarding-orientation-card-icon" aria-hidden="true"><i class="fa-solid fa-calendar-check"></i></span>
+            <p class="onboarding-orientation-card-label">Appointments with your dietitian</p>
+          </div>
+          <div class="onboarding-orientation-card-cell">
+            <span class="onboarding-orientation-card-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
+            <p class="onboarding-orientation-card-label">Check-ins from your care team</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

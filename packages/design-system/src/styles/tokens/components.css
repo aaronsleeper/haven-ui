@@ -3067,6 +3067,106 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-warning-400;
 }
 
+/* onboarding-orientation-card — 3-column icon-label card used in
+   onboarding step 5 to orient the patient to what's coming (meals,
+   appointments, check-ins). Composes .card + a 3-col grid. */
+.onboarding-orientation-card {
+    @apply card;
+}
+
+.onboarding-orientation-card-body {
+    @apply p-4 sm:p-6;
+}
+
+.onboarding-orientation-card-title {
+    @apply text-base font-medium text-sand-900 mb-3;
+    @apply dark:text-sand-100;
+}
+
+.onboarding-orientation-card-grid {
+    @apply grid grid-cols-3 gap-3 sm:gap-4;
+}
+
+.onboarding-orientation-card-cell {
+    @apply flex flex-col items-center text-center gap-2;
+}
+
+.onboarding-orientation-card-icon {
+    @apply size-10 rounded-full inline-flex items-center justify-center;
+    @apply bg-primary-100 text-primary-700;
+    @apply dark:bg-primary-900/30 dark:text-primary-300;
+}
+
+.onboarding-orientation-card-label {
+    @apply text-xs font-medium text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+/* consent-doc-viewer — scrollable consent / agreement doc preview.
+   Card with a scroll-bounded body, plus a "View full document"
+   action that opens the overlay-bottom-sheet (mobile) or a sheet
+   panel (desktop). The acknowledge action is btn-primary because
+   it's a state-changing commit. */
+.consent-doc-viewer {
+    @apply card;
+}
+
+.consent-doc-viewer-header {
+    @apply px-4 py-3 border-b border-sand-100 flex items-center gap-2;
+    @apply dark:border-sand-700;
+}
+
+.consent-doc-viewer-title {
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.consent-doc-viewer-scroll {
+    @apply p-4 max-h-[260px] overflow-y-auto text-sm text-sand-700 leading-relaxed;
+    @apply dark:text-sand-300;
+}
+
+.consent-doc-viewer-actions {
+    @apply px-4 py-3 border-t border-sand-100 flex items-center justify-between gap-2 flex-wrap;
+    @apply dark:border-sand-700;
+}
+
+/* week-rhythm-card — visual-only 3-row rhythm display showing the
+   patient's expected weekly cadence (meal-ordering window, CC
+   check-in cadence, occasional surveys). Non-interactive; used in
+   onboarding Step 5 alongside orientation card. */
+.week-rhythm-card {
+    @apply card;
+}
+
+.week-rhythm-card-body {
+    @apply p-4 sm:p-6 flex flex-col gap-4;
+}
+
+.week-rhythm-card-row {
+    @apply flex items-start gap-3;
+}
+
+.week-rhythm-card-icon {
+    @apply size-9 rounded-full inline-flex items-center justify-center flex-shrink-0;
+    @apply bg-secondary-100 text-secondary-700;
+    @apply dark:bg-sand-800 dark:text-sand-200;
+}
+
+.week-rhythm-card-meta {
+    @apply flex-1;
+}
+
+.week-rhythm-card-label {
+    @apply text-sm font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.week-rhythm-card-detail {
+    @apply text-xs text-sand-600 mt-0.5;
+    @apply dark:text-sand-400;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

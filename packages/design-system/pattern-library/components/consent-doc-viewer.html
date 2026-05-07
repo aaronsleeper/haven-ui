@@ -1,0 +1,49 @@
+<!--
+  @component-meta
+  name: Consent Doc Viewer
+  category: Patient App — Right-Pane Primitives
+  file: consent-doc-viewer.html
+  classes: consent-doc-viewer, consent-doc-viewer-header, consent-doc-viewer-title, consent-doc-viewer-scroll, consent-doc-viewer-actions
+  variants: default (with view-full + acknowledge), pre-acknowledge, acknowledged
+  when-to-use: Consent / agreement document preview during onboarding. Card with a scroll-bounded body showing the doc text inline, plus a "View full document" action that opens the full PDF (mobile: overlay-bottom-sheet; desktop: sheet panel) and an acknowledge action that commits the consent.
+  do-not-use-when: Doc is read-only with no acknowledge step (use a plain `.card` + `.prose`). Doc requires per-section signing (different primitive — multi-step consent flow). Doc is clinical-only (different surface).
+  preline-required: optional — hs-overlay (consumer wires the bottom-sheet trigger)
+  notes: Acknowledge button uses btn-primary because it's a state-changing commit ("I understand and agree" creates a consent record). View-full uses btn-secondary (advancement, opens a sheet without committing). The scroll body has a fixed max-height; consumer can override with utility class if a longer preview is needed. Covers gap-doc R-19.
+  interactive-usage: optional
+  interactive:
+    role: button (the two action buttons)
+    keyboard: native button + scroll on the body (Tab into body, arrow keys to scroll)
+    aria:
+      label-needed: false (visible button labels are accessible names)
+      hidden-icons: action-button icons aria-hidden
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Consent Doc Viewer</h3>
+  <p class="pl-description">Scrollable consent doc preview + view-full + acknowledge actions.</p>
+
+  <div class="mb-8">
+    <!-- @component: consent-doc-viewer (default) -->
+    <div class="consent-doc-viewer">
+      <div class="consent-doc-viewer-header">
+        <i class="fa-solid fa-file-lines text-sand-500" aria-hidden="true"></i>
+        <p class="consent-doc-viewer-title">Patient consent — meal-delivery program</p>
+      </div>
+      <div class="consent-doc-viewer-scroll">
+        <p>By participating in this program, you agree to share with your care team the meals you order, your dietary preferences, and any health metrics you log voluntarily. Your care team uses this information to plan your meals and check in on your progress.</p>
+        <p class="mt-3">You can withdraw at any time by talking to your dietitian or your care coordinator. Your medical records and prescription benefits are not affected by your participation in the meal-delivery program.</p>
+        <p class="mt-3">UConn Health and its meal-delivery partners follow HIPAA and applicable state privacy law. Your information is shared only with the people on your care team and the kitchen partner preparing your meals.</p>
+      </div>
+      <div class="consent-doc-viewer-actions">
+        <button type="button" class="btn-secondary btn-sm">
+          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          View full document
+        </button>
+        <button type="button" class="btn-primary btn-sm">I understand and agree</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

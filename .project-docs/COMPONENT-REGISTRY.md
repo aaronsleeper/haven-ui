@@ -291,9 +291,9 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 | pending-request-card | `pages/pending-request-card.html` | built | Requested type + preference window + status + expected response window. |
 | delivery-status-timeline | `pages/delivery-status-timeline.html` | built | 5-step status timeline (completed/current/future styling), pickup vs. delivery variants, fulfillment-window copy. Distinct from agentic `progress-tracker`. |
 | meal-warning-tooltip | `pages/meal-warning-tooltip.html` | built | Small icon + tooltip. "Never blocks, never dims" rule — items remain at full opacity. |
-| onboarding-orientation-card | `pages/onboarding-orientation-card.html` | missing | Card + 3-column icon-label pattern (meals / appointments / check-ins). |
-| consent-doc-viewer | `pages/consent-doc-viewer.html` | missing | Card + scroll-container + `overlay-bottom-sheet` for full PDF on mobile. |
-| week-rhythm-card | `pages/week-rhythm-card.html` | missing | 3-row visualization (meal-ordering window / CC check-in cadence / occasional surveys). Visual-only, non-interactive. Onboarding Step 5. |
+| onboarding-orientation-card | `pages/onboarding-orientation-card.html` | built | Card + 3-column icon-label pattern (meals / appointments / check-ins). |
+| consent-doc-viewer | `pages/consent-doc-viewer.html` | built | Card + scroll-container + `overlay-bottom-sheet` for full PDF on mobile. |
+| week-rhythm-card | `pages/week-rhythm-card.html` | built | 3-row visualization (meal-ordering window / CC check-in cadence / occasional surveys). Visual-only, non-interactive. Onboarding Step 5. |
 
 ### Tier 1c — Per-flow right-pane primitives
 
