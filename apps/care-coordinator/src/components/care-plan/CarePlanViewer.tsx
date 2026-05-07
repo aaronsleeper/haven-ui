@@ -55,6 +55,14 @@ interface CarePlanViewerProps {
    *  override into its `carePlanOverrides` slice so the diff can be computed
    *  on approve-with-edits. */
   onPlanChange?: (next: CarePlan) => void;
+  /** Per-section Edit button entry path (Patch E.2). Click flips center-pane
+   *  mode to 'edit' without requiring a preceding approval-request. */
+  onEnterEdit?: () => void;
+  /** Save / Cancel handlers for the bottom edit-mode action bar (E.2).
+   *  Save commits inflight edits as a coordinator-self-initiated approval-
+   *  response; Cancel discards inflight and exits edit mode. */
+  onCommitEdit?: () => void;
+  onCancelEdit?: () => void;
 }
 
 const STATUS_GLYPH: Record<SectionStatus, { icon: string; textClass: string }> = {
@@ -81,6 +89,9 @@ export function CarePlanViewer({
   patient,
   mode = 'view',
   onPlanChange,
+  onEnterEdit,
+  onCommitEdit,
+  onCancelEdit,
 }: CarePlanViewerProps) {
   const sectionStatuses = plan.sections.map((s) => ({ type: s.type, status: s.status }));
 
@@ -145,8 +156,7 @@ export function CarePlanViewer({
           <div className="alert alert-info">
             <i className="fa-solid fa-pen-to-square alert-icon" aria-hidden="true" />
             <span>
-              Edit mode — coordinator-owned sections accept inline changes. Approve with edits
-              when finished, or commit without changes by clearing inputs.
+              Editing — make changes across any coordinator-owned section, then Save to commit.
             </span>
           </div>
         </div>
@@ -162,10 +172,26 @@ export function CarePlanViewer({
               onSectionChange={updateSection}
               expanded={openSections.has(section.type)}
               onToggle={() => toggleSection(section.type)}
+              onEnterEdit={onEnterEdit}
             />
           ))}
         </div>
       </div>
+
+      {mode === 'edit' && (onCommitEdit || onCancelEdit) ? (
+        <div className="sticky bottom-0 z-20 flex items-center justify-end gap-2 px-6 py-3 bg-white border-t border-sand-200">
+          {onCancelEdit ? (
+            <button type="button" className="btn-outline btn-sm" onClick={onCancelEdit}>
+              Cancel
+            </button>
+          ) : null}
+          {onCommitEdit ? (
+            <button type="button" className="btn-primary btn-sm" onClick={onCommitEdit}>
+              Save
+            </button>
+          ) : null}
+        </div>
+      ) : null}
     </article>
   );
 }
@@ -178,12 +204,14 @@ function SectionAccordionItem({
   onSectionChange,
   expanded,
   onToggle,
+  onEnterEdit,
 }: {
   section: CarePlanSection;
   mode: 'view' | 'edit';
   onSectionChange: (next: CarePlanSection) => void;
   expanded: boolean;
   onToggle: () => void;
+  onEnterEdit?: () => void;
 }) {
   const itemId = anchorIdFor(section.type);
   const bodyId = bodyIdFor(section.type);
@@ -216,6 +244,25 @@ function SectionAccordionItem({
               <i className="fa-solid fa-pen-to-square" aria-hidden="true" />
               Editable
             </span>
+          ) : null}
+          {/* Per-section Edit button (Patch E.2 per ux-design-lead consult).
+              Always-visible action on coordinator-owned sections in view mode;
+              hidden in edit mode (already editing). Stops propagation so it
+              doesn't toggle the accordion — clicking Edit should enter edit
+              mode without expanding/collapsing the section. */}
+          {mode === 'view' && isEditable(section.status) && onEnterEdit ? (
+            <button
+              type="button"
+              className="btn-ghost btn-xs ml-auto"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEnterEdit();
+              }}
+              aria-label={`Edit ${label}`}
+            >
+              <i className="fa-solid fa-pen-to-square" aria-hidden="true" />
+              Edit
+            </button>
           ) : null}
         </span>
         <span className="accordion-chevron-wrap">

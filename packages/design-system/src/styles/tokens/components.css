@@ -3168,6 +3168,100 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 /* ===================================
+   PATIENT APP — A2UI PER-FLOW PRIMITIVES (Tier 1c)
+   =================================== */
+
+/* patient-recall-list — multi-pass dietary recall display.
+   Header (day + pass indicator) + food rows (name + time/occasion +
+   amount columns populated progressively across passes 1-4) + footer
+   "+ add" affordance. Variants per pass:
+   - pass 1-2: names only
+   - pass 3: + time/occasion column
+   - pass 4: + amount column
+   - pass 5-6: .is-locked (read-only, no edit/trash/add)
+   Renamed from food-recall-list to slot with patient-* family. */
+.patient-recall-list {
+    @apply card;
+}
+
+.patient-recall-list-header {
+    @apply px-4 py-3 border-b border-sand-100 flex items-baseline justify-between gap-2;
+    @apply dark:border-sand-700;
+}
+
+.patient-recall-list-header-day {
+    /* Heading/04: Lora Medium 16 per DESIGN.md §Typography */
+    font-family: var(--font-lora, 'Lora'), serif;
+    @apply text-base font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.patient-recall-list-header-pass {
+    @apply text-xs uppercase tracking-wider font-medium text-sand-600;
+    @apply dark:text-sand-400;
+}
+
+.patient-recall-list-rows {
+    @apply divide-y divide-sand-100;
+}
+
+.patient-recall-list .patient-recall-list-rows {
+    @apply dark:divide-sand-700;
+}
+
+.patient-recall-list-row {
+    @apply px-4 py-3 grid items-center gap-3;
+    grid-template-columns: 1fr auto auto auto;
+}
+
+.patient-recall-list-row-name {
+    @apply text-sm text-sand-900 min-w-0 break-words;
+    @apply dark:text-sand-100;
+}
+
+.patient-recall-list-row-when {
+    @apply text-xs text-sand-600 whitespace-nowrap;
+    @apply dark:text-sand-400;
+}
+
+.patient-recall-list-row-amount {
+    @apply text-xs font-medium text-sand-700 tabular-nums whitespace-nowrap;
+    @apply dark:text-sand-300;
+}
+
+.patient-recall-list-row-actions {
+    @apply text-sand-500;
+    @apply dark:text-sand-400;
+}
+
+.patient-recall-list-row-trash {
+    @apply p-1.5 rounded inline-flex items-center justify-center text-sand-500;
+    @apply hover:bg-sand-100 hover:text-error-600 transition-colors;
+    @apply focus:outline-none focus:ring-2 focus:ring-sand-700 focus:ring-offset-2;
+    @apply dark:hover:bg-sand-800;
+}
+
+.patient-recall-list-footer {
+    @apply px-4 py-3 border-t border-sand-100;
+    @apply dark:border-sand-700;
+}
+
+.patient-recall-list-add {
+    @apply inline-flex items-center gap-2 text-sm text-primary-600 hover:text-primary-800 font-medium;
+    @apply focus:outline-none focus:underline;
+    @apply dark:text-primary-400 dark:hover:text-primary-300;
+}
+
+.patient-recall-list.is-locked .patient-recall-list-row-trash,
+.patient-recall-list.is-locked .patient-recall-list-footer {
+    @apply hidden;
+}
+
+.patient-recall-list.is-locked .patient-recall-list-row {
+    @apply opacity-90;
+}
+
+/* ===================================
    BUTTONS & CONTROLS
    =================================== */
 

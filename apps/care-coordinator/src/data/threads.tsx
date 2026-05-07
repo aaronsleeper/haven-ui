@@ -61,8 +61,10 @@ export interface ThreadApprovalRequest extends BaseMessage {
 
 export interface ThreadApprovalResponseRecord extends BaseMessage {
   type: 'approval-response';
-  /** Pairs back to the original approval-request message id. */
-  approvalRequestId: string;
+  /** Pairs back to the original approval-request message id. Omitted for
+   *  coordinator-self-initiated commits (per-section Edit button or
+   *  "Edit again" link after the original approval card has resolved). */
+  approvalRequestId?: string;
   outcome: ThreadMessageResponseOutcome;
   /** Pre-rendered toggle text (e.g., "Sarah K. Approved with edits..."). */
   summary: ReactNode;

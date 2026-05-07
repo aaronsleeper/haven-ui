@@ -1,0 +1,151 @@
+<!--
+  @component-meta
+  name: Patient Recall List
+  category: Patient App — Per-Flow Primitives
+  file: patient-recall-list.html
+  classes: patient-recall-list, patient-recall-list-header, patient-recall-list-header-day, patient-recall-list-header-pass, patient-recall-list-rows, patient-recall-list-row, patient-recall-list-row-name, patient-recall-list-row-when, patient-recall-list-row-amount, patient-recall-list-row-trash, patient-recall-list-footer, patient-recall-list-add, patient-recall-list.is-locked
+  variants: pass-1 (names), pass-2 (more names), pass-3 (+ time), pass-4 (+ amount), is-locked (passes 5-6, read-only)
+  when-to-use: Multi-pass dietary recall display in the right-pane during chat-driven recall flows. The agent prompts the patient across 4 passes, each pass adding columns: pass 1-2 names, pass 3 adds time/occasion, pass 4 adds amount. Passes 5-6 lock the list (read-only).
+  do-not-use-when: Generic clinical food log (use `clinical-nutrition-list`). Single-shot food entry (use a single `chat-numeric-input` or text field). Read-only meal-history archive (different surface).
+  preline-required: no
+  notes: Header uses Heading/04 (Lora Medium 16) for the day; pass indicator is uppercase eyebrow. Rows use a 4-column grid: name (1fr) + when + amount + actions (each auto-width). Hide unused columns by passing empty content; the grid auto-collapses. Trash icon per row when editable; hidden in `.is-locked`. "+ add" footer when editable; hidden in `.is-locked`. Renamed from food-recall-list to slot with patient-* family.
+
+    Lifecycle: persists across the multi-pass flow; rows accumulate columns over passes. After pass 6, the list is locked and rendered alongside a log-confirmation-card. Covers gap-doc R-21.
+
+  interactive-usage: required
+  interactive:
+    role: list (rows) + button (trash, add)
+    keyboard: Tab through rows; Tab to trash icon → Enter to remove; Tab to "+ add" → Enter to add
+    aria:
+      label-needed: aria-label on each trash button (e.g., "Remove apple"); the add button uses its visible "+ add" text
+      hidden-icons: trash + plus icons aria-hidden=true
+    focus:
+      visible: focus:ring-sand-700 ring-offset-2 on each interactive
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Patient Recall List</h3>
+  <p class="pl-description">Multi-pass dietary recall — columns populate across passes 1–4, locked in passes 5–6.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Pass 1 — names only</h4>
+    <!-- @component: patient-recall-list (pass-1) -->
+    <div class="patient-recall-list">
+      <div class="patient-recall-list-header">
+        <span class="patient-recall-list-header-day">Yesterday — Sun, May 6</span>
+        <span class="patient-recall-list-header-pass">Pass 1 of 6</span>
+      </div>
+      <div class="patient-recall-list-rows">
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Oatmeal with berries</p>
+          <span></span>
+          <span></span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove oatmeal with berries"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Turkey sandwich</p>
+          <span></span>
+          <span></span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove turkey sandwich"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Apple</p>
+          <span></span>
+          <span></span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove apple"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="patient-recall-list-footer">
+        <button type="button" class="patient-recall-list-add">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          Add another item
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Pass 4 — names + time + amount</h4>
+    <!-- @component: patient-recall-list (pass-4) -->
+    <div class="patient-recall-list">
+      <div class="patient-recall-list-header">
+        <span class="patient-recall-list-header-day">Yesterday — Sun, May 6</span>
+        <span class="patient-recall-list-header-pass">Pass 4 of 6</span>
+      </div>
+      <div class="patient-recall-list-rows">
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Oatmeal with berries</p>
+          <span class="patient-recall-list-row-when">Breakfast · 7:30 AM</span>
+          <span class="patient-recall-list-row-amount">1 bowl</span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove oatmeal with berries"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Turkey sandwich</p>
+          <span class="patient-recall-list-row-when">Lunch · 12:45 PM</span>
+          <span class="patient-recall-list-row-amount">1 sandwich</span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove turkey sandwich"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Apple</p>
+          <span class="patient-recall-list-row-when">Snack · 3:15 PM</span>
+          <span class="patient-recall-list-row-amount">1 medium</span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove apple"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Grilled chicken with rice</p>
+          <span class="patient-recall-list-row-when">Dinner · 7:00 PM</span>
+          <span class="patient-recall-list-row-amount">1 plate</span>
+          <button type="button" class="patient-recall-list-row-trash" aria-label="Remove grilled chicken with rice"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="patient-recall-list-footer">
+        <button type="button" class="patient-recall-list-add">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          Add another item
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-locked — passes 5–6, read-only</h4>
+    <!-- @component: patient-recall-list (is-locked) -->
+    <div class="patient-recall-list is-locked">
+      <div class="patient-recall-list-header">
+        <span class="patient-recall-list-header-day">Yesterday — Sun, May 6</span>
+        <span class="patient-recall-list-header-pass">Recall complete</span>
+      </div>
+      <div class="patient-recall-list-rows">
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Oatmeal with berries</p>
+          <span class="patient-recall-list-row-when">Breakfast · 7:30 AM</span>
+          <span class="patient-recall-list-row-amount">1 bowl</span>
+          <span></span>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Turkey sandwich</p>
+          <span class="patient-recall-list-row-when">Lunch · 12:45 PM</span>
+          <span class="patient-recall-list-row-amount">1 sandwich</span>
+          <span></span>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Apple</p>
+          <span class="patient-recall-list-row-when">Snack · 3:15 PM</span>
+          <span class="patient-recall-list-row-amount">1 medium</span>
+          <span></span>
+        </div>
+        <div class="patient-recall-list-row">
+          <p class="patient-recall-list-row-name">Grilled chicken with rice</p>
+          <span class="patient-recall-list-row-when">Dinner · 7:00 PM</span>
+          <span class="patient-recall-list-row-amount">1 plate</span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
