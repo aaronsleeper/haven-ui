@@ -17,6 +17,7 @@ import { ThreadMessageList } from './components/thread/ThreadMessageList';
 import { ThreadInput } from './components/thread/ThreadInput';
 import { ThreadUndoBar } from './components/thread/ThreadUndoBar';
 import { CarePlanViewer } from './components/care-plan/CarePlanViewer';
+import { MorningSummary } from './components/MorningSummary';
 import {
   getCarePlanForPatient,
   getPatientForEntry,
@@ -686,21 +687,12 @@ export function App() {
             </div>
           </>
         ) : (
-          /* Empty-state per ux-design-lead verdict (2026-04-28): no global
-             composer; coordinator IA is strictly entry-scoped. Vertically
-             centered in panel-chat to read as an intentional state, not a
-             placeholder. Aligned with thread-panel.html / three-panel-shell.html. */
-          <div className="flex-1 flex items-center justify-center px-6">
-            <div className="text-center max-w-md">
-              <p className="text-base font-medium text-sand-900">
-                Pick a queue item to start.
-              </p>
-              <p className="text-sm text-sand-600 mt-2">
-                Each conversation lives with a specific patient or referral, so
-                the activity stays on the record.
-              </p>
-            </div>
-          </div>
+          <MorningSummary
+            urgent={urgent}
+            attention={attention}
+            info={info}
+            onItemClick={(id) => setActiveId(id)}
+          />
         )}
       </main>
 
