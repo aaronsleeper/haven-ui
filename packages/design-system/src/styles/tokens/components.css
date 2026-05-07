@@ -2878,7 +2878,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    .card-body. Used in onboarding Fork A confirmation, idle next-
    appointment, request-appointment confirmation. */
 .appointment-card {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .appointment-card-header {
@@ -2927,7 +2928,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    richer appointment-card is for the next-up appointment; this list
    is for the rest). */
 .appointments-list {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .appointments-list-row {
@@ -2964,7 +2966,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    expected response window. Composes .card with a status-badge and
    ETA line. */
 .pending-request-card {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .pending-request-card-body {
@@ -2997,7 +3000,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    Pickup vs delivery variants change the icon set and the final
    step label only. */
 .delivery-status-timeline {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .delivery-status-timeline-body {
@@ -3071,7 +3075,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    onboarding step 5 to orient the patient to what's coming (meals,
    appointments, check-ins). Composes .card + a 3-col grid. */
 .onboarding-orientation-card {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .onboarding-orientation-card-body {
@@ -3108,7 +3113,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    panel (desktop). The acknowledge action is btn-primary because
    it's a state-changing commit. */
 .consent-doc-viewer {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .consent-doc-viewer-header {
@@ -3136,7 +3142,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    check-in cadence, occasional surveys). Non-interactive; used in
    onboarding Step 5 alongside orientation card. */
 .week-rhythm-card {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .week-rhythm-card-body {
@@ -3181,7 +3188,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    - pass 5-6: .is-locked (read-only, no edit/trash/add)
    Renamed from food-recall-list to slot with patient-* family. */
 .patient-recall-list {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .patient-recall-list-header {
@@ -3271,7 +3279,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    - .is-handoff-live: "Live with [CC first name]" (handoff active)
    Renamed from cc-outreach-card — "CC" is internal jargon. */
 .outreach-card {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .outreach-card-header {
@@ -3343,7 +3352,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    per gap-doc — copy and which buttons render varies, but the
    visual primitive is one shape. */
 .handoff-menu {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .handoff-menu-header {
@@ -3415,7 +3425,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    (violates Warm Ground / Cool Figure principle). The accent
    communicates urgency without flooding the surface. */
 .crisis-resources-card {
-    @apply card border-l-4 border-l-error-500;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md border-l-4 border-l-error-500;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .crisis-resources-card-body {
@@ -3469,7 +3480,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    .assessment-header where possible; adds the preflight-specific
    meta-rows + actions. */
 .assessment-preflight-card {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .assessment-preflight-card-body {
@@ -3503,7 +3515,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    Distinct from patient-trend-card (Chart.js sparkline). Used for
    quick-glance trend in the right-pane when the chart is overkill. */
 .trend-snippet-list {
-    @apply card;
+    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 .trend-snippet-list-body {
@@ -3533,14 +3546,14 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    .receipt with patient-app-specific surface (surface-card on chat-
    pane sand-50 surface). Attribute(s) + value(s) + context + ts. */
 .log-confirmation-card {
-    @apply receipt;
+    @apply flex flex-col items-center text-center gap-3 py-4;
 }
 
 /* assessment-confirmation — assessment submission receipt. Composes
    .receipt; instrument name + "Submitted [date]" + reassurance copy.
    No score shown to patient (clinical surface only). */
 .assessment-confirmation {
-    @apply receipt;
+    @apply flex flex-col items-center text-center gap-3 py-4;
 }
 
 /* ===================================
