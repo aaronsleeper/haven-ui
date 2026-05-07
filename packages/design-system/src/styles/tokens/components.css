@@ -7862,13 +7862,26 @@ canvas {
    NAVBAR / TOP BAR
    =================================== */
 
-/* Top application bar — sticky, full-width */
+/* Top application bar — sticky, full-width.
+   container-type: inline-size establishes a query container so that
+   descendants (.navbar-mobile-toggle, .navbar-divider) respond to the
+   navbar's own width, not the viewport — correct in embedded layouts
+   (sidebar contexts, multi-pane shells, iframes) where viewport ≠ navbar width. */
 .navbar {
     @apply sticky top-0 z-50 w-full;
     @apply flex items-center justify-between;
     @apply px-4 sm:px-6 lg:px-8 py-3;
     @apply bg-sand-50 border-b border-sand-200;
     @apply dark:bg-sand-900 dark:border-sand-700;
+    container-type: inline-size;
+}
+
+/* Wrapper for the navbar + sibling collapsible mobile menu. The mobile-menu
+   is markup-sibling of .navbar (not descendant) because Preline's hs-collapse
+   target lives outside the toggle's parent. .navbar-shell establishes a shared
+   inline-size container so the menu can use the same threshold as the toggle. */
+.navbar-shell {
+    container-type: inline-size;
 }
 
 /* Compact variant — reduced vertical padding */
@@ -7963,18 +7976,18 @@ canvas {
     @apply text-sand-600 dark:text-sand-400;
 }
 
-/* Mobile hamburger toggle */
+/* Mobile hamburger toggle — visible at narrow container widths */
 .navbar-mobile-toggle {
-    @apply inline-flex md:hidden items-center justify-center;
+    @apply inline-flex items-center justify-center;
     @apply w-9 h-9 rounded-lg;
     @apply text-sand-600 hover:text-sand-700 hover:bg-sand-100;
     @apply dark:text-sand-300 dark:hover:text-sand-200 dark:hover:bg-sand-800;
     @apply transition-colors cursor-pointer;
 }
 
-/* Collapsible mobile menu container */
+/* Collapsible mobile menu container — visible at narrow container widths */
 .navbar-mobile-menu {
-    @apply md:hidden border-t border-sand-200 dark:border-sand-700;
+    @apply border-t border-sand-200 dark:border-sand-700;
     @apply px-4 py-3;
 }
 
@@ -7987,9 +8000,19 @@ canvas {
     @apply w-full;
 }
 
-/* Divider inside navbar (vertical separator between sections) */
+/* Divider inside navbar (vertical separator between sections) — hidden at narrow widths */
 .navbar-divider {
-    @apply hidden md:block w-px h-6 bg-sand-200 dark:bg-sand-700;
+    @apply w-px h-6 bg-sand-200 dark:bg-sand-700;
+    display: none;
+}
+
+/* Container-query responsive switch — at navbar (or .navbar-shell) widths ≥ 768px,
+   hide hamburger + mobile menu, show divider. 768px matches the original Tailwind
+   md viewport breakpoint to preserve the contract. */
+@container (min-width: 768px) {
+    .navbar-mobile-toggle { display: none; }
+    .navbar-mobile-menu { display: none; }
+    .navbar-divider { display: block; }
 }
 
 /* ===================================

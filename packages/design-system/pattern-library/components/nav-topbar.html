@@ -3,10 +3,10 @@
   name: Navbar / Top Bar
   category: Navigation
   file: nav-topbar.html
-  classes: navbar, navbar-compact, navbar-transparent, navbar-brand, navbar-nav, navbar-nav-item, navbar-actions, navbar-action-btn, navbar-user, navbar-user-name, navbar-user-role, navbar-mobile-toggle, navbar-mobile-menu, navbar-divider
+  classes: navbar, navbar-shell, navbar-compact, navbar-transparent, navbar-brand, navbar-nav, navbar-nav-item, navbar-actions, navbar-action-btn, navbar-user, navbar-user-name, navbar-user-role, navbar-mobile-toggle, navbar-mobile-menu, navbar-divider
   when-to-use: Top-level application navigation bar with logo, nav links, and user actions. Use instead of sidebar for apps that need horizontal nav.
   preline-required: yes — hs-dropdown (user menu), hs-collapse (mobile menu)
-  notes: Mobile nav uses Preline hs-collapse. User dropdown uses hs-dropdown. Reuses existing avatar, indicator, hs-dropdown-menu, hs-dropdown-item classes.
+  notes: Mobile toggle/menu and divider use container queries against the navbar's inline-size — wrap navbar + mobile-menu in .navbar-shell when the menu is a sibling of .navbar (Preline hs-collapse target). User dropdown uses hs-dropdown. Reuses existing avatar, indicator, hs-dropdown-menu, hs-dropdown-item classes.
   @end-meta
 -->
 
@@ -179,7 +179,7 @@
   <div class="mb-12">
     <p class="pl-variant-title">Mobile Responsive (with Hamburger)</p>
     <!-- @component: navbar-mobile -->
-    <div class="border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden" style="max-width: 420px;">
+    <div class="navbar-shell border border-gray-200 dark:border-neutral-700 rounded-xl overflow-hidden" style="max-width: 420px;">
       <nav class="navbar" style="position: relative;">
         <div class="flex items-center gap-4">
           <a href="#" class="navbar-brand">
