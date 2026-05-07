@@ -1,0 +1,34 @@
+<!--
+  @component-meta
+  name: Assessment Confirmation
+  category: Patient App — Per-Flow Primitives
+  file: assessment-confirmation.html
+  classes: assessment-confirmation (composes .receipt and its sub-classes)
+  variants: default
+  when-to-use: Patient-app receipt after submitting an assessment (PHQ-9, GAD-7, etc.). Composes `.receipt` with assessment-specific copy: instrument name + "Submitted [date]" + "Your care team has it." NO score shown to the patient — clinical surface only.
+  do-not-use-when: Clinician-facing assessment review (different surface — clinical-tier patterns). Mid-assessment progress (use assessment-header + progress-bar-pagination). Generic log (use log-confirmation-card).
+  preline-required: no
+  notes: Composes `.receipt` classes. Critical brand rule: NO score is rendered to the patient — patients see "submitted, your care team has it" reassurance, not their PHQ-9 / GAD-7 score. The score routes to the clinician surface; the patient gets confirmation that the data was received. Covers gap-doc R-29.
+  interactive-usage: none
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Assessment Confirmation</h3>
+  <p class="pl-description">Receipt after the patient submits an assessment. NO score shown to patient.</p>
+
+  <div class="mb-8">
+    <!-- @component: assessment-confirmation (default) -->
+    <div class="assessment-confirmation">
+      <div class="receipt-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+      <p class="receipt-title">Check-in submitted</p>
+      <div class="receipt-summary">
+        <div class="receipt-summary-row"><span>Form</span><span>Wellness check-in</span></div>
+        <div class="receipt-summary-row"><span>Submitted</span><span>Today, 11:42 AM</span></div>
+      </div>
+      <p class="receipt-timestamp">Your care team has it. They'll be in touch if anything stands out.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

@@ -1,0 +1,38 @@
+<!--
+  @component-meta
+  name: Assessment Preflight Card
+  category: Patient App — Per-Flow Primitives
+  file: assessment-preflight-card.html
+  classes: assessment-preflight-card, assessment-preflight-card-body, assessment-preflight-card-title, assessment-preflight-card-meta, assessment-preflight-card-meta-item, assessment-preflight-card-disclosure, assessment-preflight-card-actions
+  variants: default
+  when-to-use: Pre-flight card BEFORE the questionnaire panel — instrument name in plain language + question count + time estimate + "your answers go to your care team" disclosure + "Begin" commit. Sets expectations before assessment-header / response-option-group take over.
+  do-not-use-when: Already in the assessment (use assessment-header). Confirmation after submission (use assessment-confirmation). Generic instructions card (different surface).
+  preline-required: no
+  notes: Composes .card. The Begin action is btn-primary because starting an assessment is a state-changing commit (creates a session record). Covers gap-doc R-25.
+  interactive-usage: optional
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Assessment Preflight Card</h3>
+  <p class="pl-description">Pre-flight card before the questionnaire — name, count, time, disclosure, Begin commit.</p>
+
+  <div class="mb-8">
+    <!-- @component: assessment-preflight-card (default) -->
+    <div class="assessment-preflight-card">
+      <div class="assessment-preflight-card-body">
+        <p class="assessment-preflight-card-title">A quick check-in on how you've been feeling</p>
+        <div class="assessment-preflight-card-meta">
+          <span class="assessment-preflight-card-meta-item"><i class="fa-solid fa-list-check" aria-hidden="true"></i> 9 questions</span>
+          <span class="assessment-preflight-card-meta-item"><i class="fa-solid fa-clock" aria-hidden="true"></i> About 3 minutes</span>
+        </div>
+        <p class="assessment-preflight-card-disclosure">Your answers go to your care team. They use this to check in with you.</p>
+        <div class="assessment-preflight-card-actions">
+          <button type="button" class="btn-primary">Begin</button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

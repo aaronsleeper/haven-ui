@@ -1,0 +1,49 @@
+<!--
+  @component-meta
+  name: Log Confirmation Card
+  category: Patient App — Per-Flow Primitives
+  file: log-confirmation-card.html
+  classes: log-confirmation-card (composes .receipt and its sub-classes)
+  variants: weight-log, bp-log, recall-submitted, generic
+  when-to-use: Patient-app receipt after the patient logs a value (weight, BP, dietary recall). Composes the existing `.receipt` agentic pattern with patient-facing copy: attribute(s) + value(s) + context + timestamp + reassurance.
+  do-not-use-when: Coordinator-pane log (different surface). Assessment submission (use assessment-confirmation). Order placement (use a different receipt variant in the meal-ordering flow).
+  preline-required: no
+  notes: Composes existing `.receipt` classes (receipt-icon, receipt-title, receipt-summary, receipt-summary-row, receipt-timestamp). The `.log-confirmation-card` class is a thin wrapper that delegates to .receipt — no new visual properties needed; the receipt primitive already lands the shape. Covers gap-doc R-28.
+  interactive-usage: none
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Log Confirmation Card</h3>
+  <p class="pl-description">Patient-app log receipt — attribute + value + context + timestamp. Composes <code>.receipt</code>.</p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Weight log</h4>
+    <!-- @component: log-confirmation-card (weight-log) -->
+    <div class="log-confirmation-card">
+      <div class="receipt-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+      <p class="receipt-title">Weight saved</p>
+      <div class="receipt-summary">
+        <div class="receipt-summary-row"><span>Weight</span><span>184 lb</span></div>
+      </div>
+      <p class="receipt-timestamp">Logged today at 7:42 AM</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">BP log</h4>
+    <!-- @component: log-confirmation-card (bp-log) -->
+    <div class="log-confirmation-card">
+      <div class="receipt-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+      <p class="receipt-title">Blood pressure saved</p>
+      <div class="receipt-summary">
+        <div class="receipt-summary-row"><span>Systolic</span><span>120 mmHg</span></div>
+        <div class="receipt-summary-row"><span>Diastolic</span><span>80 mmHg</span></div>
+      </div>
+      <p class="receipt-timestamp">Logged today at 8:15 AM</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

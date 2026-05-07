@@ -1,0 +1,47 @@
+<!--
+  @component-meta
+  name: Crisis Resources Card
+  category: Patient App — Per-Flow Primitives
+  file: crisis-resources-card.html
+  classes: crisis-resources-card, crisis-resources-card-body, crisis-resources-card-title, crisis-resources-card-text, crisis-resources-card-actions, crisis-resources-card-action, crisis-resources-card-action-icon, crisis-resources-card-action-meta, crisis-resources-card-action-label, crisis-resources-card-action-helper
+  variants: default (988 + UConn protocol)
+  when-to-use: Crisis-tier escalation surface in the right-pane when the patient's chat input crosses crisis-language thresholds. surface-card + 4px error-500 left-edge accent. The accent communicates urgency without flooding the surface — NEVER use error-red as a fill (violates Warm Ground / Cool Figure principle).
+  do-not-use-when: Non-crisis handoff (use handoff-menu). Generic alert (use alert variants). Coordinator-pane crisis (different surface — clinical-tier patterns).
+  preline-required: no
+  notes: Variants TBD pending UConn clinical-team protocol input. Default content includes 988 + UConn Health crisis line. The card pairs with handoff-menu's crisis-clinical variant in the same flow. Covers gap-doc R-26.
+  interactive-usage: optional (action buttons only)
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Crisis Resources Card</h3>
+  <p class="pl-description">988 + UConn-specific crisis protocol. surface-card + 4px error-500 left-edge accent. Never full-red surface.</p>
+
+  <div class="mb-8">
+    <!-- @component: crisis-resources-card (default) -->
+    <div class="crisis-resources-card">
+      <div class="crisis-resources-card-body">
+        <p class="crisis-resources-card-title">If you're in crisis right now, help is available.</p>
+        <p class="crisis-resources-card-text">You don't have to handle this alone. Reach out to one of these — they answer 24/7.</p>
+        <div class="crisis-resources-card-actions">
+          <a class="crisis-resources-card-action" href="tel:988">
+            <span class="crisis-resources-card-action-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+            <span class="crisis-resources-card-action-meta">
+              <span class="crisis-resources-card-action-label">Call or text 988</span>
+              <span class="crisis-resources-card-action-helper">Suicide and Crisis Lifeline · free, confidential, 24/7</span>
+            </span>
+          </a>
+          <a class="crisis-resources-card-action" href="tel:8606796700">
+            <span class="crisis-resources-card-action-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+            <span class="crisis-resources-card-action-meta">
+              <span class="crisis-resources-card-action-label">UConn Health Crisis Line</span>
+              <span class="crisis-resources-card-action-helper">(860) 679-6700 · staffed by your local care team</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

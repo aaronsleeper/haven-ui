@@ -1,0 +1,46 @@
+<!--
+  @component-meta
+  name: Trend Snippet List
+  category: Patient App — Per-Flow Primitives
+  file: trend-snippet-list.html
+  classes: trend-snippet-list, trend-snippet-list-body, trend-snippet-list-title, trend-snippet-list-row, trend-snippet-list-row-when, trend-snippet-list-row-value
+  variants: default (3-5 rows)
+  when-to-use: Quick-glance trend display in the right-pane — last 3-5 values with dates ("Apr 30 — 184 lb / Apr 23 — 185 lb / ..."). Used when a sparkline chart would be overkill (demo-tier reads, low-frequency metrics).
+  do-not-use-when: Need a chart visualization (use patient-trend-card with Chart.js sparkline). Need clinical-grade trend (use clinical-* pattern). Single value (use stat-card or stat-group).
+  preline-required: no
+  notes: Distinct from patient-trend-card (Chart.js-bound, sparkline). This is a bullet/row list for quick-glance reading. Composes .card. Covers gap-doc R-27.
+  interactive-usage: none
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Trend Snippet List</h3>
+  <p class="pl-description">Last 3-5 values with dates — quick-glance trend without a chart.</p>
+
+  <div class="mb-8">
+    <!-- @component: trend-snippet-list (default) -->
+    <div class="trend-snippet-list">
+      <div class="trend-snippet-list-body">
+        <p class="trend-snippet-list-title">Recent weight</p>
+        <div class="trend-snippet-list-row">
+          <span class="trend-snippet-list-row-when">Apr 30</span>
+          <span class="trend-snippet-list-row-value">184 lb</span>
+        </div>
+        <div class="trend-snippet-list-row">
+          <span class="trend-snippet-list-row-when">Apr 23</span>
+          <span class="trend-snippet-list-row-value">185 lb</span>
+        </div>
+        <div class="trend-snippet-list-row">
+          <span class="trend-snippet-list-row-when">Apr 16</span>
+          <span class="trend-snippet-list-row-value">186 lb</span>
+        </div>
+        <div class="trend-snippet-list-row">
+          <span class="trend-snippet-list-row-when">Apr 9</span>
+          <span class="trend-snippet-list-row-value">187 lb</span>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
