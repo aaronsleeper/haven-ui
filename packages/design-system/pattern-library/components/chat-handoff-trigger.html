@@ -1,0 +1,58 @@
+<!--
+  @component-meta
+  name: Chat Handoff Trigger
+  category: Patient App — A2UI Chat Affordances
+  file: chat-handoff-trigger.html
+  classes: chat-handoff-trigger, chat-handoff-trigger.is-header
+  variants: default (sticky-footer / standalone, mobile), is-header (small chip-like, desktop chat-header)
+  when-to-use: Persistent "talk to a person" affordance — always available so the patient can reach a human without scrolling, hunting, or re-routing through the conversation. Use the default variant for sticky-footer placement on mobile (compose with `.btn-block` in a `.sticky-footer` container at the consumer). Use `.is-header` for desktop chat-header placement where the trigger sits alongside the conversation context and shouldn't compete visually. Renamed from `talk-to-person-trigger` per naming-convention review — `talk-to-a-person` is user-facing copy, not the component name.
+  do-not-use-when: The handoff is a one-shot escalation in response to a specific question (use `chat-button-row` or `chat-chip-row` with appropriate routing). The patient is already mid-handoff (the live-handoff state is signaled at the chat-status-row / outreach-card level, not here). The flow is a clinical-tier crisis (use `crisis-resources-card` + `handoff-menu` clinical variants — those are escalation paths, not the persistent affordance).
+  preline-required: no
+  notes: Tertiary tier: transparent fill + sand-300 border. The most-restrained chat-pane affordance register — the trigger should be available, not loud. Sand-700 focus ring (matches chat-tag's a11y-aware focus contract; clears WCAG 1.4.11 against both chat-pane sand-50 and any neutral-fill placement context).
+
+    Always available: the trigger should be visible at the same place across the entire patient-app session. The two variants cover the two viewport-driven placements; the consumer picks one per app shell. Do not render both simultaneously.
+
+    Lifecycle: NOT ephemeral like chat-chip-row / chat-tag-group. The trigger is a session-level affordance — it persists across agent turns, message scrolling, and flow transitions. On tap, the consumer opens the appropriate handoff pathway (typically the `handoff-menu` primitive's patient-initiated variant — see gap-doc C-5 / R-23).
+
+    Covers gap-doc C-5.
+
+  interactive-usage: required
+  interactive:
+    role: button
+    keyboard: Enter / Space activates (native button)
+    aria:
+      label-needed: false (visible label "Talk to a person" is the accessible name)
+      hidden-icons: the leading icon (fa-headset) carries aria-hidden=true since the visible text already announces purpose
+    focus:
+      visible: .chat-handoff-trigger:focus-visible
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Handoff Trigger</h3>
+  <p class="pl-description">
+    Persistent "talk to a person" affordance — tertiary tier, always visible. Default variant for sticky-footer mobile placement; <code>.is-header</code> for desktop chat-header placement.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — full button (sticky-footer / mobile)</h4>
+    <!-- @component: chat-handoff-trigger (default) -->
+    <button type="button" class="chat-handoff-trigger">
+      <i class="fa-solid fa-headset" aria-hidden="true"></i>
+      Talk to a person
+    </button>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-header — small chip (desktop chat-header)</h4>
+    <!-- @component: chat-handoff-trigger (is-header) -->
+    <button type="button" class="chat-handoff-trigger is-header">
+      <i class="fa-solid fa-headset" aria-hidden="true"></i>
+      Talk to a person
+    </button>
+    <!-- /component -->
+  </div>
+
+</section>
