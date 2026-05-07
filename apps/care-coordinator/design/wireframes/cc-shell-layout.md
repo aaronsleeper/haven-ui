@@ -1,3 +1,9 @@
+---
+shells:
+  - name: three-panel-shell
+    pl_shell_version: sha256:d9eb4bf4ce28376a76842a7d7de1851da3a4b60a3924648d70cad8841c061530
+---
+
 # CC-SHELL: Admin App Three-Panel Layout
 
 **Application:** Care Coordinator Admin App (Desktop)

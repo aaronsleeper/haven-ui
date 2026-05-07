@@ -1,3 +1,9 @@
+---
+shells:
+  - name: agentic-shell
+    pl_shell_version: sha256:95bb370a7ae1ca4187ca461ef613ccc798089036498f8db13abeaf6cdbadd80c
+---
+
 # Screen Flow: Care Coordinator Shell + Per-App Minimums
 
 ## Screens in This Feature

@@ -1,3 +1,9 @@
+---
+shells:
+  - name: agentic-shell
+    pl_shell_version: sha256:95bb370a7ae1ca4187ca461ef613ccc798089036498f8db13abeaf6cdbadd80c
+---
+
 # cc-01-queue-with-care-plan-approval: Queue + Care Plan + Approval Card (Worked Example)
 
 **Application:** Care Coordinator (Admin App)
