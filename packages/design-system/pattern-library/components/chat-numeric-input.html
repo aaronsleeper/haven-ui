@@ -1,0 +1,69 @@
+<!--
+  @component-meta
+  name: Chat Numeric Input
+  category: Patient App — A2UI Chat Affordances
+  file: chat-numeric-input.html
+  classes: chat-numeric-input, chat-numeric-input-field, chat-numeric-input-unit
+  variants: with-unit-toggle (lb/kg, %, etc.), no-unit (single-unit input — pair with .chat-button-row.has-helper if a unit label is needed elsewhere)
+  when-to-use: Single-value numeric input embedded in the patient-app chat thread. Use when the agent asks for a specific number — weight, body-fat percent, blood-glucose reading, etc. The unit toggle flips between supported units for the question (e.g., lb ↔ kg) and persists the patient's last-used unit per consumer memory.
+  do-not-use-when: The value is paired (e.g., blood pressure systolic/diastolic — use `chat-paired-numeric`). The value is selected from a fixed set (use `chat-chip-row`). The value is free-text or qualitative (use a textarea or `chat-tag-group` if multi-select). The input is page-level / right-pane (use the standard form-input pattern, not this chat-embedded variant). For clinician-facing always-editable cells use `nutrition-input` (different surface, different interaction model).
+  preline-required: no
+  notes: Distinct from clinician-facing `nutrition-input` (always-editable cell, no unit toggle, sits in a recall list). `chat-numeric-input` is patient-facing, single-value, chat-anchored. The unit-toggle is a chip-shaped trailing affordance — tap cycles to the next unit. Last-used unit persistence is a consumer concern (the primitive renders whatever unit string the consumer passes); the chat-affordance principles document the cross-session memory rule.
+
+    Pair with a chat-button-row's submit pattern when the input is gating an advancement — the field stays mounted, the button below carries the commit (via .has-helper if a gate or consequence needs naming).
+
+    Covers gap-doc C-9.
+
+  interactive-usage: required
+  interactive:
+    role: textbox (the input field) + button (the unit toggle)
+    keyboard: Tab into field; type digits; Tab continues to unit toggle; Enter / Space activates the toggle to cycle units
+    aria:
+      label-needed: true on the input field (label naming the metric — "Weight"); true on the unit toggle (aria-label="Switch to kilograms" or similar — communicate the cycle action, not just current state)
+      hidden-icons: none
+    focus:
+      visible: input uses focus:ring-primary-500; toggle uses focus:ring-sand-700 (matches chat-chip family focus contract)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Numeric Input</h3>
+  <p class="pl-description">
+    Single-value numeric input embedded in the patient-app chat thread. With unit-toggle (e.g., lb/kg) for cross-unit support; defaults to last-used unit.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">With unit toggle (weight, lb ↔ kg)</h4>
+    <!-- @component: chat-numeric-input (with-unit-toggle, lb) -->
+    <div class="chat-numeric-input">
+      <label class="sr-only" for="chat-num-weight-1">Weight</label>
+      <input id="chat-num-weight-1" type="number" inputmode="decimal" class="chat-numeric-input-field" placeholder="184" />
+      <button type="button" class="chat-numeric-input-unit" aria-label="Switch to kilograms">lb</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">With unit toggle (body fat %)</h4>
+    <!-- @component: chat-numeric-input (with-unit-toggle, percent) -->
+    <div class="chat-numeric-input">
+      <label class="sr-only" for="chat-num-bf-1">Body fat percent</label>
+      <input id="chat-num-bf-1" type="number" inputmode="decimal" class="chat-numeric-input-field" placeholder="22" />
+      <button type="button" class="chat-numeric-input-unit" aria-label="Unit: percent">%</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">No unit toggle (single-unit metric — display-only unit)</h4>
+    <!-- @component: chat-numeric-input (no-unit-toggle) -->
+    <div class="chat-numeric-input">
+      <label class="sr-only" for="chat-num-glucose-1">Blood glucose</label>
+      <input id="chat-num-glucose-1" type="number" inputmode="decimal" class="chat-numeric-input-field" placeholder="105" />
+      <span class="text-sm text-sand-700 dark:text-sand-300">mg/dL</span>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
