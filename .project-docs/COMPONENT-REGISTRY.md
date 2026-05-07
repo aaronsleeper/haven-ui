@@ -271,7 +271,7 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 |---|---|---|---|
 | chat-button-row | `pages/chat-button-row.html` | built | Tier-agnostic row (tier comes from btn-* child); single + dual default to btn-secondary; `.has-helper` modifier stacks `.chat-row-helper` paragraph below. Helper-gate (disabled + aria-describedby) vs helper-consequence (enabled). Covers C-1, C-2, C-14. |
 | chat-chip-row | `pages/chat-chip-row.html` | built | Base + `.is-soft` modifier (soft-third option). Covers C-3, C-6, C-7, C-8, C-12. |
-| chat-tag-group | `pages/chat-tag-group.html` | missing | Extends `complex-tag-group`. Preference-confirmation variant with selected-state highlighting + inline Save/Skip. Restaurant-menu register only. |
+| chat-tag-group | `pages/chat-tag-group.html` | built | Extends `complex-tag-group`. Preference-confirmation variant with selected-state highlighting + inline Save/Skip. Restaurant-menu register only. |
 | chat-handoff-trigger | `pages/chat-handoff-trigger.html` | missing | Persistent talk-to-a-person affordance. Two variants: header chip (desktop) + sticky-footer button (mobile). Tier: tertiary. Renamed from `talk-to-person-trigger`. |
 | chat-numeric-input | `pages/chat-numeric-input.html` | missing | Extends `nutrition-input` family. Unit-toggle (lb/kg, %, etc.); defaults to last-used unit. |
 | chat-paired-numeric | `pages/chat-paired-numeric.html` | missing | BP-specific. Two `<input type=number>` with slash separator, no unit toggle. |

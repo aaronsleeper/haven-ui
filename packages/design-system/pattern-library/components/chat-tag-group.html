@@ -1,0 +1,113 @@
+<!--
+  @component-meta
+  name: Chat Tag Group
+  category: Patient App — A2UI Chat Affordances
+  file: chat-tag-group.html
+  classes: chat-tag-group, chat-tag-group-prompt, chat-tag-list, chat-tag (composes chat-chip), chat-tag.is-selected, chat-tag-check
+  variants: default-empty (no pre-selection), default-mid (some selected), care-plan-prefilled (initial pre-selection from prior care-plan signal)
+  when-to-use: Restaurant-menu register tag selection embedded in the patient-app chat thread. Use when the agent asks the patient to multi-select from a curated list of food preferences (dish affinity, recipe likes, ingredient preferences) and commit the selection via Save. The component composes a leading prompt + flex-wrap toggleable tag list + Save/Skip `chat-button-row` (asymmetric variant — Skip = btn-secondary advancement, Save = btn-primary commit). Care-plan-derived tags can be pre-selected at render to reflect prior signal — the patient confirms or adjusts.
+  do-not-use-when: The selection is clinical, population-level, or diagnostic (allergens, diet orders, conditions, SDOH labels) — that register belongs in `complex-tag-group`. The selection is a one-shot choice with no Save commit (use `chat-chip-row` — chips are one-shot, the row is replaced on tap). The selection is a single tag toggle (this primitive is always multi-select; for a single-tag toggle, use `chat-chip-row` with a 1-chip row). The user is not on the chat-pane (right-pane preference forms have their own pattern; this is chat-thread-embedded only).
+  preline-required: no
+  notes: Tags compose `.chat-chip` for the unselected register (sand-100 fill, sand-700 text) — no token duplication with the chip primitive. `.chat-tag` is the behavior-marker class scoping the toggle-aware focus ring (sand-700, vs chat-chip's sand-500, so the halo stays readable when fill darkens to sand-200 in `.is-selected`). The class and the ARIA contract move together: `.is-selected` ↔ `aria-pressed="true"`.
+
+    Selected state (sand-200 fill + sand-700 border + check icon): triple-cued differentiation. The check icon is non-color affordance per WCAG 1.4.1; aria-hidden because aria-pressed already carries the state announcement. Restraint-clean — no teal in the selection state. The Save `btn-primary` is the only teal touch in the composition; teal-as-commitment per DESIGN.md §Brand-taste is preserved. Sand-700 text on sand-200 ≈ 5.4:1 clears WCAG 2.1 AA 4.5:1.
+
+    Lifecycle contract: the row stays mounted while the patient toggles tags pre-Save. Save and Skip both terminate the affordance — on commit, the consumer removes the row from the thread (the captured selection becomes a patient bubble or a receipt line per flow) and the agent re-renders next state. Like `chat-chip-row`, the row does not persist above an older agent message; if the agent has spoken since, the row is replaced rather than gated. No `.chat-tag[disabled]` styling is shipped — if a future flow needs gated tags pre-Save, codify the carve-out before adding the styling. Post-commit receipt rendering (what replaces the row on Save) is a flow concern, not this primitive's — see chat-affordance-principles.
+
+    Care-plan pre-fill: when the agent has prior care-plan signal (e.g., the patient previously confirmed liking grilled fish), tags can render pre-selected as the starting state. The patient confirms via Save or adjusts before saving. This is a chat-affordance-principle, not a Haven UI rule — `chat-tag-group` simply renders whatever `is-selected` state the consumer passes in.
+
+    Tag count: scales up to ~20 tags depending on cuisine/season — flex-wrap layout handles overflow at the chat-pane scroll level (no row-level clipping, no height cap, no overflow scroller on the tag list). The visual smell of >20 tags (pile of pills crowding the message) IS the signal that the conversation should narrow; do not solve it with primitive-level scrolling or pagination. Below ~4 tags, reconsider whether multi-select-with-Save is the right pattern vs. a chip-row with a Save button.
+
+    Save/Skip composition uses `chat-button-row`'s asymmetric variant (btn-secondary + btn-primary) — see chat-button-row's meta for the full contract. The asymmetric variant is distinct from the dual variant (two btn-secondary, peer choices); pick by editorial intent.
+
+    Covers gap-doc C-4.
+
+  interactive-usage: required
+  # The wrapper IS interactive at the row level (logical group with shared
+  # selection semantics). Tags are <button type="button" aria-pressed="..."> for
+  # toggle behavior. Wrap the tag list with role="group" + aria-labelledby
+  # referencing the prompt's id so screen-reader users hear the group's purpose.
+
+  interactive:
+    role: group
+    keyboard: Tab between tags; Space/Enter toggles a tag's pressed state; Tab continues to Save/Skip. Not arrow-key navigated — this is a multi-select group of independent aria-pressed toggles, not a radiogroup or composite widget. Each tag is independently focusable and toggleable; the row-level role=group provides a labeling boundary, not a focus container.
+    aria:
+      pressed: true when .is-selected; false otherwise — the visual class and aria-pressed must move together
+      label-needed: true on the tag list (role=group) — the prompt question is the group's accessible name (link via aria-labelledby)
+      hidden-icons: the .chat-tag-check icon is always in the DOM (CSS-hidden when not .is-selected) and carries aria-hidden=true; aria-pressed announces the state, not the icon
+    focus:
+      visible: .chat-tag:focus-visible (overrides chat-chip's sand-500 ring with sand-700 to clear 1.4.11 against both unselected sand-100 and selected sand-200 fills)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Tag Group</h3>
+  <p class="pl-description">
+    Preference-confirmation column for the patient-app chat thread. Toggle-selectable food-preference tags + Save/Skip row. Restaurant-menu register only.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — empty initial state</h4>
+    <!-- @component: chat-tag-group (default-empty) -->
+    <div class="chat-tag-group">
+      <p id="chat-tag-prompt-1" class="chat-tag-group-prompt">Which of these would you like to see more of?</p>
+      <div class="chat-tag-list" role="group" aria-labelledby="chat-tag-prompt-1">
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Roasted vegetables</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Grilled salmon</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Whole-grain pasta</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Lentil soup</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Stir-fry</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Brown rice bowl</button>
+      </div>
+      <div class="chat-button-row">
+        <button type="button" class="btn-secondary">Skip</button>
+        <button type="button" class="btn-primary">Save</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Mid-flow — partial selection</h4>
+    <!-- @component: chat-tag-group (default-mid) -->
+    <div class="chat-tag-group">
+      <p id="chat-tag-prompt-2" class="chat-tag-group-prompt">Which of these would you like to see more of?</p>
+      <div class="chat-tag-list" role="group" aria-labelledby="chat-tag-prompt-2">
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Roasted vegetables</button>
+        <button type="button" class="chat-chip chat-tag is-selected" aria-pressed="true"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Grilled salmon</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Whole-grain pasta</button>
+        <button type="button" class="chat-chip chat-tag is-selected" aria-pressed="true"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Lentil soup</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Stir-fry</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Brown rice bowl</button>
+      </div>
+      <div class="chat-button-row">
+        <button type="button" class="btn-secondary">Skip</button>
+        <button type="button" class="btn-primary">Save</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Care-plan pre-filled — initial state reflects prior signal</h4>
+    <!-- @component: chat-tag-group (care-plan-prefilled) -->
+    <div class="chat-tag-group">
+      <p id="chat-tag-prompt-3" class="chat-tag-group-prompt">Last time, you liked these — keep them or adjust if your tastes have shifted.</p>
+      <div class="chat-tag-list" role="group" aria-labelledby="chat-tag-prompt-3">
+        <button type="button" class="chat-chip chat-tag is-selected" aria-pressed="true"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Roasted vegetables</button>
+        <button type="button" class="chat-chip chat-tag is-selected" aria-pressed="true"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Grilled salmon</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Whole-grain pasta</button>
+        <button type="button" class="chat-chip chat-tag is-selected" aria-pressed="true"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Lentil soup</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Stir-fry</button>
+        <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Brown rice bowl</button>
+      </div>
+      <div class="chat-button-row">
+        <button type="button" class="btn-secondary">Skip</button>
+        <button type="button" class="btn-primary">Save</button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

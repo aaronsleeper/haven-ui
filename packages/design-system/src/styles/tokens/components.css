@@ -2560,6 +2560,79 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:border-sand-700 dark:text-sand-300 dark:hover:bg-sand-800;
 }
 
+/* chat-tag-group — preference-confirmation column for the chat thread
+   (gap-doc C-4). Composition: leading prompt + flex-wrap tag list +
+   trailing Save/Skip button row. The Save/Skip row is a `chat-button-row`
+   composed directly with the asymmetric tier pattern (Skip = btn-secondary
+   advancement, Save = btn-primary commit) — see chat-button-row's meta for
+   the full asymmetric variant contract.
+
+   Restaurant-menu register only — food preferences, dish-affinity, similar
+   patient-curated taste signals. Clinical labels (allergens, diet orders,
+   diagnoses, SDOH) belong in complex-tag-group, not here.
+
+   Tags compose `.chat-chip` for the unselected register (sand-100 fill,
+   sand-700 text), with `.chat-tag` as a behavior-marker class scoping the
+   `.is-selected` rule and the toggle-aware focus override. The class
+   composition keeps a single source of truth for the unselected visual
+   register — chat-chip's existing tokens — and isolates the selection
+   delta to .chat-tag.is-selected. */
+.chat-tag-group {
+    @apply flex flex-col gap-3 mt-2;
+}
+
+/* Prompt is Ava speaking — Body/02 (text-base) per DESIGN.md §Typography
+   conversational register, not the smaller form-label register. */
+.chat-tag-group-prompt {
+    @apply text-base text-sand-800;
+    @apply dark:text-sand-200;
+}
+
+.chat-tag-list {
+    @apply flex flex-wrap items-center gap-1.5;
+}
+
+/* chat-tag — behavior-marker class for toggle-selectable chips. Compose
+   with .chat-chip for the unselected register (no token duplication).
+   The focus-ring override keeps the selection halo readable on both
+   unselected (sand-100) and selected (sand-200) fills — sand-500 (chat-chip
+   default) sits at ~2.8:1 against the chat-pane sand-50 surface, just
+   under WCAG 1.4.11's 3:1 floor. Sand-700 clears against every fill state
+   the toggle traverses. */
+.chat-tag {
+    @apply focus:ring-sand-700;
+}
+
+/* Selected state — sand-200 fill + sand-700 border + check icon (the
+   .chat-tag-check below). Triple-cued differentiation:
+   - fill shifts sand-100 → sand-200 (subtle, not the primary signal)
+   - sand-700 border (~5.4:1 against sand-200, ≥3:1 against sand-50,
+     clears WCAG 1.4.11 on either neighbor)
+   - leading check icon (non-color cue per WCAG 1.4.1; aria-hidden=true
+     because aria-pressed already carries the announcement)
+
+   Restraint-clean: no teal in the selection state. Selection is interim
+   UI state, not a commit; the Save btn-primary is the only teal touch
+   in this composition. Sand-700 text on sand-200 ≈ 5.4:1 clears WCAG
+   2.1 AA 4.5:1. Pair `.is-selected` on the visual with
+   aria-pressed="true" on the <button>; the class and ARIA must move
+   together. */
+.chat-tag.is-selected {
+    @apply bg-secondary-200 border border-sand-700 text-secondary-700;
+    @apply hover:bg-secondary-300;
+    @apply dark:bg-sand-700 dark:border-sand-300 dark:text-sand-100 dark:hover:bg-sand-600;
+}
+
+/* Check icon companion — always in the DOM (markup parity), hidden by
+   default, revealed when the parent .chat-tag carries .is-selected. */
+.chat-tag-check {
+    @apply hidden;
+}
+
+.chat-tag.is-selected .chat-tag-check {
+    @apply inline-block;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

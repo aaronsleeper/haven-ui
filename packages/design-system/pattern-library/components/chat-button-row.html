@@ -4,8 +4,8 @@
   category: Patient App — A2UI Chat Affordances
   file: chat-button-row.html
   classes: chat-button-row, chat-button-row.has-helper, chat-row-helper
-  variants: single, dual, has-helper (column-flex with helper text below the button)
-  when-to-use: Inline button affordance(s) embedded in the agent's chat thread directly under a message. Single = one button advancement (default tier secondary). Dual = two buttons for irreversible-feeling decisions (per principles carve-out). has-helper = layout modifier that stacks a helper paragraph below the button(s); use with btn-primary for chat-anchored commits, with btn-secondary for advancement when a gating reason needs naming. Tier comes from the btn-* child, not from this row.
+  variants: single, dual, asymmetric (advancement + commit pair, e.g., Skip + Save), has-helper (column-flex with helper text below the button)
+  when-to-use: Inline button affordance(s) embedded in the agent's chat thread directly under a message. Single = one button advancement (default tier secondary). Dual = two buttons for irreversible-feeling decisions (per principles carve-out — both are btn-secondary, peer choices). Asymmetric = advancement + commit pair (btn-secondary + btn-primary, e.g., Skip + Save when the row terminates a multi-step affordance like chat-tag-group). has-helper = layout modifier that stacks a helper paragraph below the button(s); use with btn-primary for chat-anchored commits, with btn-secondary for advancement when a gating reason needs naming. Tier comes from the btn-* child, not from this row.
   do-not-use-when: The action is page-level / right-pane (use primary-action or commit-action). The action is a multi-option chip-style selection (use chat-chip-row). Three or more buttons (mutually exclusive options belong in chat-chip-row, not a button row — the 1–2 cap is intentional; chip-row's flex-wrap and lighter visual weight scale to N options without crowding the chat thread).
   preline-required: no
   notes: Tier is a property of the btn-* child; the row is layout-only. Default chat-pane tier is btn-secondary (advancement) — reserve btn-primary for actual state-changing commits per DESIGN.md §Brand-taste. The helper paragraph carries one of two editorial contracts that must be chosen explicitly per use:
@@ -18,7 +18,11 @@
                          committing ("Sends to your dietitian for review."). Same
                          class, different editorial intent — pick one per instance.
 
-    Helper text reads at text-sm text-sand-700 (load-bearing register; sand-700 clears WCAG 2.1 AA 4.5:1 body-text contrast on sand-50 chat-pane surface where sand-600 falls short at ~4.2:1). Covers gap-doc rows C-1 (single), C-2 (dual), C-14 (chat-anchored submit).
+    Helper text reads at text-sm text-sand-700 (load-bearing register; sand-700 clears WCAG 2.1 AA 4.5:1 body-text contrast on sand-50 chat-pane surface where sand-600 falls short at ~4.2:1).
+
+    Asymmetric tier pattern: btn-secondary (advancement) + btn-primary (commit) is permitted for affordance-terminating rows where the right-side button commits a higher-tier outcome than mere advancement — Skip + Save at the bottom of `chat-tag-group` is the canonical example. The dual variant (two btn-secondary) reads as peer-to-peer choice; asymmetric reads as advance-or-commit. Pick by editorial intent, not visual preference. Place the commit at the LTR read-end (right) per Haven convention; the advancement (Skip) sits to its left.
+
+    Covers gap-doc rows C-1 (single), C-2 (dual), C-14 (chat-anchored submit). The asymmetric variant is consumed by chat-tag-group (gap-doc C-4) — see that primitive for the canonical Save/Skip composition.
 
   interactive-usage: none
   # The wrapper is a layout container only. Buttons inside it carry their own a11y
@@ -50,6 +54,16 @@
     <div class="chat-button-row">
       <button type="button" class="btn-secondary">Continue without adding</button>
       <button type="button" class="btn-secondary">Wait — let me add one</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Asymmetric — advancement + commit pair (Skip + Save, gap-doc C-4)</h4>
+    <!-- @component: chat-button-row (asymmetric) -->
+    <div class="chat-button-row">
+      <button type="button" class="btn-secondary">Skip</button>
+      <button type="button" class="btn-primary">Save</button>
     </div>
     <!-- /component -->
   </div>
