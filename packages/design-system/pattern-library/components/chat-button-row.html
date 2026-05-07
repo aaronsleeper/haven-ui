@@ -1,0 +1,77 @@
+<!--
+  @component-meta
+  name: Chat Button Row
+  category: Patient App — A2UI Chat Affordances
+  file: chat-button-row.html
+  classes: chat-button-row, chat-button-row.has-helper, chat-row-helper
+  variants: single, dual, has-helper (column-flex with helper text below the button)
+  when-to-use: Inline button affordance(s) embedded in the agent's chat thread directly under a message. Single = one button advancement (default tier secondary). Dual = two buttons for irreversible-feeling decisions (per principles carve-out). has-helper = layout modifier that stacks a helper paragraph below the button(s); use with btn-primary for chat-anchored commits, with btn-secondary for advancement when a gating reason needs naming. Tier comes from the btn-* child, not from this row.
+  do-not-use-when: The action is page-level / right-pane (use primary-action or commit-action). The action is a multi-option chip-style selection (use chat-chip-row). Three or more buttons (mutually exclusive options belong in chat-chip-row, not a button row — the 1–2 cap is intentional; chip-row's flex-wrap and lighter visual weight scale to N options without crowding the chat thread).
+  preline-required: no
+  notes: Tier is a property of the btn-* child; the row is layout-only. Default chat-pane tier is btn-secondary (advancement) — reserve btn-primary for actual state-changing commits per DESIGN.md §Brand-taste. The helper paragraph carries one of two editorial contracts that must be chosen explicitly per use:
+
+    helper-gate    — paired with a disabled button. Names the unmet precondition
+                     ("Add at least one item to continue."). Should be associated to
+                     the button via aria-describedby so screen-reader users hear why
+                     the action is gated, not just that it is.
+    helper-consequence — paired with an enabled button. Names the side effect of
+                         committing ("Sends to your dietitian for review."). Same
+                         class, different editorial intent — pick one per instance.
+
+    Helper text reads at text-sm text-sand-700 (load-bearing register; sand-700 clears WCAG 2.1 AA 4.5:1 body-text contrast on sand-50 chat-pane surface where sand-600 falls short at ~4.2:1). Covers gap-doc rows C-1 (single), C-2 (dual), C-14 (chat-anchored submit).
+
+  interactive-usage: none
+  # The wrapper is a layout container only. Buttons inside it carry their own a11y
+  # via btn-secondary / btn-primary. When .has-helper is paired with a disabled
+  # button, link the button to the helper paragraph via aria-describedby (see the
+  # disabled-submit demo below). No row-level keyboard or aria handling.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Button Row</h3>
+  <p class="pl-description">
+    Inline button affordance row for the patient-app chat thread. Single + dual + has-helper variants. Tier comes from the btn-* child.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Single — secondary (advancement)</h4>
+    <!-- @component: chat-button-row (single) -->
+    <div class="chat-button-row">
+      <button type="button" class="btn-secondary">Sounds good</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Dual — secondary × 2 (irreversible-feeling)</h4>
+    <!-- @component: chat-button-row (dual) -->
+    <div class="chat-button-row">
+      <button type="button" class="btn-secondary">Continue without adding</button>
+      <button type="button" class="btn-secondary">Wait — let me add one</button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">has-helper — primary commit, helper-gate (disabled, aria-describedby)</h4>
+    <!-- @component: chat-button-row (has-helper, helper-gate) -->
+    <div class="chat-button-row has-helper">
+      <button type="submit" class="btn-primary" disabled aria-describedby="chat-row-helper-gate-1">Submit recall</button>
+      <p id="chat-row-helper-gate-1" class="chat-row-helper">Add at least one item to continue.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">has-helper — primary commit, helper-consequence (enabled)</h4>
+    <!-- @component: chat-button-row (has-helper, helper-consequence) -->
+    <div class="chat-button-row has-helper">
+      <button type="submit" class="btn-primary">Submit recall</button>
+      <p class="chat-row-helper">Sends to your dietitian for review.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

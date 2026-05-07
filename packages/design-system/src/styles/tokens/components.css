@@ -516,6 +516,16 @@ a.btn-danger {
     @apply dark:border-error-700 dark:text-error-400 dark:hover:bg-error-900;
 }
 
+/* Ghost: minimum visual weight for tertiary inline actions where
+   btn-outline is too heavy (border) and a plain link is too informal.
+   Compose with btn-xs / btn-sm for size. */
+/* @contrast-exempt: decorative-background */
+.btn-ghost {
+    @apply py-2 px-3 bg-transparent text-sand-600;
+    @apply hover:bg-sand-100 hover:text-sand-900;
+    @apply dark:text-sand-400 dark:hover:bg-sand-800 dark:hover:text-sand-100;
+}
+
 /* Button size variants */
 .btn-sm {
     @apply py-2 px-3 gap-x-1.5;
@@ -2470,6 +2480,35 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .chat-avatar-ai {
     @apply flex-shrink-0 size-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold text-xs;
     @apply dark:bg-primary-900/30 dark:text-primary-400;
+}
+
+/* ===================================
+   PATIENT APP — A2UI CHAT AFFORDANCES
+   (chat-thread-embedded primitives, queue 2026-05-07)
+   =================================== */
+
+/* chat-button-row — inline button affordance row for the patient-app chat thread.
+   Tier comes from the button child (btn-secondary / btn-primary / btn-outline);
+   the row is tier-agnostic. .has-helper switches to column flex so a helper
+   paragraph stacks under the button(s). Helper is its own class so the
+   disabled-state-aware copy can evolve without touching consumers. */
+.chat-button-row {
+    @apply flex flex-wrap items-center gap-2 mt-2;
+}
+
+.chat-button-row.has-helper {
+    @apply flex-col items-start gap-1.5;
+}
+
+/* Helper paragraph register: load-bearing copy (the gating reason or the
+   commit consequence). Uses text-sand-700 (~6.5:1 on sand-50) to clear
+   WCAG 2.1 AA 4.5:1 body-text contrast — sand-600 fails (~4.2:1). Stays
+   at text-sm for chat-pane readability. Class is named .chat-row-helper
+   (not -button-row-helper) so it can be reused across chat-row siblings
+   (chat-chip-row, chat-tag-group, etc.) that need the same helper shape. */
+.chat-row-helper {
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-200;
 }
 
 /* ===================================

@@ -87,6 +87,7 @@ before creating any new component or semantic class.
 | Primary | `btn-primary.html` | `btn-primary` | no | Default CTA |
 | Secondary | `btn-secondary.html` | `btn-secondary` | no | Secondary action |
 | Outline | `btn-outline.html` | `btn-outline` | no | Tertiary / cancel |
+| Ghost | `(utility — composes with sizes)` | `btn-ghost` | no | Minimum-weight inline action — transparent bg, sand text, sand-100 hover. Compose with `btn-xs` / `btn-sm`. Use when btn-outline (border) is too heavy and a plain link is too informal. |
 | Danger | `btn-danger.html` | `btn-danger` | no | Destructive (outlined) |
 | Danger Outline | `btn-danger-outline.html` | `btn-danger-outline` | no | Explicit destructive outline |
 | Icon | `btn-icon.html` | `btn-icon`, `btn-icon-primary` | no | Icon-only buttons |
@@ -285,6 +286,7 @@ before creating any new component or semantic class.
 | Progress Bar Pagination | `progress-bar-pagination.html` | `progress-bar-pagination`, `progress-bar-pagination-segment` | no | Step-per-segment progress indicator for assessments — N bars, `.is-filled` for completed. `sand-15` empty / `accent-interactive` filled per DESIGN.md §Assessment patterns. Distinct from `data-progress` (single continuous bar). |
 | Assessment Header | `assessment-header.html` | `assessment-header`, `assessment-header-title`, `assessment-header-meta` | no | Top of every assessment screen. Heading/02 title + `progress-bar-pagination` + optional Body/04 meta ("Question N of M"). |
 | Pagination Row | `pagination-row.html` | `pagination-row` | no | Previous / Next anchor for paginated flows (assessments, onboarding). Distinct from `data-pagination` (page-number pills for tables). Previous = `btn-outline` (tertiary), Next = `btn-secondary` per DESIGN.md §Component archetypes — primary teal is reserved for commitments, not advancement. |
+| Chat Button Row | `chat-button-row.html` | `chat-button-row`, `chat-button-row.has-helper`, `chat-row-helper` | no | Inline button row embedded in patient-app chat thread. Tier comes from the btn-* child (row is tier-agnostic). Single + dual variants default to btn-secondary (advancement). `.has-helper` modifier stacks a helper paragraph below the button(s); use with btn-primary for commits, with btn-secondary when an advancement needs a gating reason. Helper class `.chat-row-helper` is shared across chat-row siblings (chat-chip-row, chat-tag-group, etc.). Two editorial contracts: helper-gate (paired with disabled button + `aria-describedby`) names the unmet precondition; helper-consequence (paired with enabled button) names the commit side effect. Covers gap-doc C-1 / C-2 / C-14. |
 
 ---
 
