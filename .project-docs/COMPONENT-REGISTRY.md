@@ -277,8 +277,8 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 | chat-paired-numeric | `pages/chat-paired-numeric.html` | built | BP-specific. Two `<input type=number>` with slash separator, no unit toggle. |
 | chat-time-preference-picker | `pages/chat-time-preference-picker.html` | built | Free-text input + two chip rows (day-of-week + time-of-day). Free text overrides chip selection. |
 | chat-sheet-link | `pages/chat-sheet-link.html` | built | Extends `text-link` + `overlay-bottom-sheet`. Inline link in agent message that opens right-pane sheet. Renamed from `chat-mobile-link`. |
-| chat-status-row | `pages/chat-status-row.html` | missing | Extends `thread-msg-system`. Patient-app variant for CC takeover ("[CC first name] joined"). Subdued register. |
-| patient-chat-message | `pages/patient-chat-message.html` | missing | Extends `complex-chat`. Ava-styled bubble (dot-sparkle leading indicator + plain Body/02, no bubble) per DESIGN.md. Distinct from coordinator's thread-msg-* family. |
+| chat-status-row | `pages/chat-status-row.html` | built | Extends `thread-msg-system`. Patient-app variant for CC takeover ("[CC first name] joined"). Subdued register. |
+| patient-chat-message | `pages/patient-chat-message.html` | built | Extends `complex-chat`. Ava-styled bubble (dot-sparkle leading indicator + plain Body/02, no bubble) per DESIGN.md. Distinct from coordinator's thread-msg-* family. |
 
 ### Tier 1b — Foundational right-pane primitives
 

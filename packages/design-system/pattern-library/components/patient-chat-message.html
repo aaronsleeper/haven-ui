@@ -1,0 +1,57 @@
+<!--
+  @component-meta
+  name: Patient Chat Message
+  category: Patient App — A2UI Chat Affordances
+  file: patient-chat-message.html
+  classes: patient-chat-message, patient-chat-message-indicator, patient-chat-message-body
+  variants: ava (default — agent message, dot-sparkle indicator), patient (right-aligned, no indicator)
+  when-to-use: Ava (patient-facing agent) message in the chat thread. Per DESIGN.md §Chat message patterns: dot-sparkle leading indicator + plain Body/02 paragraph, no bubble chrome. The patient-app chat-pane is a conversation, not a console; visual minimalism honors the warmth-first register.
+  do-not-use-when: The message is a coordinator-pane chat (use `thread-msg-*` family — humans get bubbles, system events get thread-msg-system, etc.). The message is a CC takeover signal (use `chat-status-row`). The message is a clinical surface (different surface entirely — this primitive is patient-facing only). The message is from the patient (use the `patient` variant — right-aligned, no leading indicator).
+  preline-required: no
+  notes: Distinct from `complex-chat`'s `chat-bubble-ai` (which uses filled bubble chrome) and from coordinator's `thread-msg-*` family. Ava's identity in the patient app is "warm presence in the conversation" — the dot-sparkle indicator (fa-sparkle in primary-600) is the only visual trace of the agent identity; the message body reads as conversational prose, not chat chrome.
+
+    Body/02 (text-base) is the conversational register per DESIGN.md §Typography. Leading-relaxed for paragraph readability. Distinct from chat-tag-group's prompt (which uses Body/02 sand-800 with no indicator — different role).
+
+    Lifecycle: persistent in the thread. Like thread-msg-* family, messages do not get re-rendered when state shifts.
+
+    Covers gap-doc C-15.
+
+  interactive-usage: none
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Patient Chat Message</h3>
+  <p class="pl-description">
+    Ava-styled chat message for the patient app — dot-sparkle leading indicator + plain Body/02 paragraph, no bubble chrome.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Ava (default)</h4>
+    <!-- @component: patient-chat-message (ava) -->
+    <div class="patient-chat-message">
+      <span class="patient-chat-message-indicator" aria-hidden="true">
+        <i class="fa-solid fa-sparkle"></i>
+      </span>
+      <p class="patient-chat-message-body">¡Hola Maria! How are you feeling today? I noticed you logged your weight this morning — nice work staying consistent.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Ava — multi-paragraph</h4>
+    <!-- @component: patient-chat-message (ava-multi) -->
+    <div class="patient-chat-message">
+      <span class="patient-chat-message-indicator" aria-hidden="true">
+        <i class="fa-solid fa-sparkle"></i>
+      </span>
+      <div>
+        <p class="patient-chat-message-body">Your dietitian put together a plan for this week.</p>
+        <p class="patient-chat-message-body mt-2">It includes a few new dishes I think you'll like — want to take a look?</p>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

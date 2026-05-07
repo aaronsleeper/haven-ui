@@ -2759,6 +2759,47 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply text-xs;
 }
 
+/* chat-status-row — patient-app variant of thread-msg-system
+   (gap-doc C-17). Subdued register for agent-system events shown in
+   the chat thread — typically CC takeover signals like "[CC first
+   name] joined the conversation" or "[CC first name] picked this up".
+   Distinct from the coordinator-themed thread-msg-system: this row
+   is patient-facing (warmer copy, slightly larger text for readability)
+   and uses sand-700 not sand-600 to clear AA contrast on chat-pane
+   sand-50 surface. */
+.chat-status-row {
+    @apply flex items-center justify-center gap-2 px-3 py-2 mt-2;
+    @apply text-sm text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+.chat-status-row-icon {
+    @apply text-xs text-sand-500;
+    @apply dark:text-sand-400;
+}
+
+/* patient-chat-message — Ava-styled chat bubble for the patient app
+   (gap-doc C-15). Per DESIGN.md §Chat message patterns: dot-sparkle
+   leading indicator + plain Body/02 paragraph (no bubble chrome).
+   Distinct from coordinator's thread-msg-* family (which uses bubbles
+   for human + tool/system messages) and from complex-chat (which uses
+   filled chat-bubble-ai chrome). The patient-app chat-pane is a
+   conversation, not a console — Ava's voice gets visual minimalism. */
+.patient-chat-message {
+    @apply flex items-start gap-2 mt-3;
+}
+
+.patient-chat-message-indicator {
+    @apply flex-shrink-0 size-6 inline-flex items-center justify-center;
+    @apply text-primary-600;
+    @apply dark:text-primary-400;
+}
+
+.patient-chat-message-body {
+    @apply text-base text-sand-800 leading-relaxed flex-1;
+    @apply dark:text-sand-200;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

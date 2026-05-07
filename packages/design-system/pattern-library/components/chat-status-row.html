@@ -1,0 +1,43 @@
+<!--
+  @component-meta
+  name: Chat Status Row
+  category: Patient App — A2UI Chat Affordances
+  file: chat-status-row.html
+  classes: chat-status-row, chat-status-row-icon
+  variants: cc-joined, cc-picked-up, cc-handed-back, generic
+  when-to-use: Patient-app system event row in the chat thread — typically a CC (care coordinator) takeover or handback signal ("[CC first name] joined the conversation"). Subdued register so the event reads as ambient context, not interrupted conversation.
+  do-not-use-when: The event is a coordinator-pane system message (use `thread-msg-system`). The event is a CC outreach card (use `outreach-card.is-handoff-live`). The event is a crisis escalation (use `crisis-resources-card`).
+  preline-required: no
+  notes: Sand-700 text (not sand-600 like coordinator's thread-msg-system) to clear WCAG AA on chat-pane sand-50 surface. Centered (chat-status events are conversational interludes, not left/right participants). Covers gap-doc C-17.
+  interactive-usage: none
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Status Row</h3>
+  <p class="pl-description">
+    Patient-app variant of thread-msg-system. Subdued register for CC takeover / handback / system events.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">CC joined</h4>
+    <!-- @component: chat-status-row (cc-joined) -->
+    <div class="chat-status-row">
+      <i class="fa-solid fa-circle-user chat-status-row-icon" aria-hidden="true"></i>
+      <span>Maria joined the conversation.</span>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">CC handed back to Ava</h4>
+    <!-- @component: chat-status-row (cc-handed-back) -->
+    <div class="chat-status-row">
+      <i class="fa-solid fa-arrow-right-arrow-left chat-status-row-icon" aria-hidden="true"></i>
+      <span>Maria handed the conversation back to Ava.</span>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
