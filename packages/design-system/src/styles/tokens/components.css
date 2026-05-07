@@ -2847,6 +2847,81 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-sand-400;
 }
 
+/* quantity-stepper — patient-app +/- stepper around a numeric quantity.
+   Distinct from kitchen-meal-assignment-grid's meal-qty-cell (which is
+   a tabular cell pattern, kitchen-only). Three buttons-and-display row:
+   decrement, current quantity, increment. Used in meal-ordering chat
+   flow when adjusting portions. */
+.quantity-stepper {
+    @apply inline-flex items-center gap-1 rounded-full;
+    @apply bg-secondary-100 border border-secondary-200;
+    @apply dark:bg-sand-800 dark:border-sand-700;
+}
+
+.quantity-stepper-btn {
+    @apply size-9 inline-flex items-center justify-center rounded-full;
+    @apply text-sand-700;
+    @apply hover:bg-secondary-200 transition-colors;
+    @apply focus:outline-none focus:ring-2 focus:ring-sand-700 focus:ring-offset-2 focus:ring-offset-secondary-100;
+    @apply disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent;
+    @apply dark:text-sand-200 dark:hover:bg-sand-700;
+}
+
+.quantity-stepper-value {
+    @apply min-w-[2.5rem] text-center text-base font-medium tabular-nums;
+    @apply text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+/* appointment-card — RDN/CC appointment display: name + date/time +
+   location + add-to-calendar action. Composes existing .card +
+   .card-body. Used in onboarding Fork A confirmation, idle next-
+   appointment, request-appointment confirmation. */
+.appointment-card {
+    @apply card;
+}
+
+.appointment-card-header {
+    @apply flex items-start gap-3 p-4;
+}
+
+.appointment-card-avatar {
+    @apply flex-shrink-0;
+}
+
+.appointment-card-meta {
+    @apply flex-1 min-w-0;
+}
+
+.appointment-card-title {
+    @apply text-base font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.appointment-card-subtitle {
+    @apply text-sm text-sand-700 mt-0.5;
+    @apply dark:text-sand-300;
+}
+
+.appointment-card-details {
+    @apply px-4 pb-3 space-y-1.5;
+}
+
+.appointment-card-detail-row {
+    @apply flex items-center gap-2 text-sm text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+.appointment-card-detail-icon {
+    @apply text-sand-500 flex-shrink-0 w-4 text-center;
+    @apply dark:text-sand-400;
+}
+
+.appointment-card-actions {
+    @apply px-4 py-3 border-t border-sand-100 flex items-center gap-2;
+    @apply dark:border-sand-700;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

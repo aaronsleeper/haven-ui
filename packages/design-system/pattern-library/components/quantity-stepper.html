@@ -1,0 +1,76 @@
+<!--
+  @component-meta
+  name: Quantity Stepper
+  category: Patient App — Right-Pane Primitives
+  file: quantity-stepper.html
+  classes: quantity-stepper, quantity-stepper-btn, quantity-stepper-value
+  variants: default, at-min (decrement disabled), at-max (increment disabled)
+  when-to-use: Patient-app +/- stepper for adjusting a numeric quantity (meal portions, item count) in the chat flow or right-pane order summary. Distinct from kitchen-meal-assignment-grid's `meal-qty-cell` (tabular kitchen-only pattern).
+  do-not-use-when: Quantity is a free-text numeric input (use `chat-numeric-input`). Quantity is bound to a specific cell in a kitchen partial (use `meal-qty-cell` + kitchen partial). Quantity should be picker-style (use a select dropdown).
+  preline-required: no
+  notes: Pill-shaped row with secondary-100 surface; minus and plus icon buttons + a tabular-numeric value cell. Disabled state on each button via the native `disabled` attribute (accessible) — no aria-disabled needed. Value cell uses tabular-nums so the digit-width doesn't shift when the value changes.
+  interactive-usage: required
+  interactive:
+    role: composite — two buttons + a non-interactive value display
+    keyboard: Tab between buttons; Enter / Space activates
+    aria:
+      label-needed: true on each button (e.g., "Decrease quantity", "Increase quantity"); the value cell is read by screen-reader as adjacent text
+      hidden-icons: minus/plus icons aria-hidden
+    focus:
+      visible: focus:ring-sand-700 ring-offset-2 (with ring-offset-color matching parent surface)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Quantity Stepper</h3>
+  <p class="pl-description">
+    Patient-app +/- stepper for adjusting numeric quantities. Pill-shaped, secondary register.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default</h4>
+    <!-- @component: quantity-stepper (default) -->
+    <div class="quantity-stepper">
+      <button type="button" class="quantity-stepper-btn" aria-label="Decrease quantity">
+        <i class="fa-solid fa-minus" aria-hidden="true"></i>
+      </button>
+      <span class="quantity-stepper-value" aria-live="polite">2</span>
+      <button type="button" class="quantity-stepper-btn" aria-label="Increase quantity">
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">At minimum</h4>
+    <!-- @component: quantity-stepper (at-min) -->
+    <div class="quantity-stepper">
+      <button type="button" class="quantity-stepper-btn" aria-label="Decrease quantity" disabled>
+        <i class="fa-solid fa-minus" aria-hidden="true"></i>
+      </button>
+      <span class="quantity-stepper-value" aria-live="polite">1</span>
+      <button type="button" class="quantity-stepper-btn" aria-label="Increase quantity">
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">At maximum</h4>
+    <!-- @component: quantity-stepper (at-max) -->
+    <div class="quantity-stepper">
+      <button type="button" class="quantity-stepper-btn" aria-label="Decrease quantity">
+        <i class="fa-solid fa-minus" aria-hidden="true"></i>
+      </button>
+      <span class="quantity-stepper-value" aria-live="polite">10</span>
+      <button type="button" class="quantity-stepper-btn" aria-label="Increase quantity" disabled>
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

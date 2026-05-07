@@ -1,0 +1,95 @@
+<!--
+  @component-meta
+  name: Appointment Card
+  category: Patient App — Right-Pane Primitives
+  file: appointment-card.html
+  classes: appointment-card, appointment-card-header, appointment-card-avatar, appointment-card-meta, appointment-card-title, appointment-card-subtitle, appointment-card-details, appointment-card-detail-row, appointment-card-detail-icon, appointment-card-actions
+  variants: scheduled (default), confirmed (post-request)
+  when-to-use: Single upcoming appointment display in the right-pane — RDN/CC name + date/time + location + add-to-calendar action. Used in onboarding Fork A confirmation, idle next-appointment, request-appointment confirmation. Composes `.card`.
+  do-not-use-when: Multiple appointments (use `appointments-list`). Past appointments (different visual register; consider a stripped-down clinical row). Pending request (use `pending-request-card`).
+  preline-required: no
+  notes: Composes existing `.card` infrastructure plus appointment-specific layout for header (avatar + name/role) and detail rows (date/time, location). Add-to-calendar is a btn-secondary by default (advancement, not commit — the appointment already exists). Covers gap-doc R-12 / R-13.
+  interactive-usage: optional
+  interactive:
+    role: button (the add-to-calendar action)
+    keyboard: native button
+    aria:
+      label-needed: false (visible button label is accessible name)
+      hidden-icons: detail-row icons + button icons aria-hidden
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Appointment Card</h3>
+  <p class="pl-description">
+    Single upcoming appointment display — name + date/time + location + add-to-calendar.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Scheduled — next visit</h4>
+    <!-- @component: appointment-card (scheduled) -->
+    <div class="appointment-card">
+      <div class="appointment-card-header">
+        <div class="appointment-card-avatar">
+          <span class="avatar avatar-primary"><span>SO</span></span>
+        </div>
+        <div class="appointment-card-meta">
+          <p class="appointment-card-title">Dr. Sarah Soto, RDN</p>
+          <p class="appointment-card-subtitle">Registered Dietitian</p>
+        </div>
+      </div>
+      <div class="appointment-card-details">
+        <div class="appointment-card-detail-row">
+          <i class="fa-solid fa-calendar-day appointment-card-detail-icon" aria-hidden="true"></i>
+          <span>Thursday, May 14 · 10:30 AM</span>
+        </div>
+        <div class="appointment-card-detail-row">
+          <i class="fa-solid fa-video appointment-card-detail-icon" aria-hidden="true"></i>
+          <span>Telehealth (link sent the day before)</span>
+        </div>
+      </div>
+      <div class="appointment-card-actions">
+        <button type="button" class="btn-secondary btn-sm">
+          <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+          Add to calendar
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Confirmed — post-request, in-person</h4>
+    <!-- @component: appointment-card (confirmed-in-person) -->
+    <div class="appointment-card">
+      <div class="appointment-card-header">
+        <div class="appointment-card-avatar">
+          <span class="avatar avatar-primary"><span>MO</span></span>
+        </div>
+        <div class="appointment-card-meta">
+          <p class="appointment-card-title">Dr. Mateo Morales, RDN</p>
+          <p class="appointment-card-subtitle">Registered Dietitian · UConn Health</p>
+        </div>
+      </div>
+      <div class="appointment-card-details">
+        <div class="appointment-card-detail-row">
+          <i class="fa-solid fa-calendar-day appointment-card-detail-icon" aria-hidden="true"></i>
+          <span>Monday, May 18 · 2:00 PM</span>
+        </div>
+        <div class="appointment-card-detail-row">
+          <i class="fa-solid fa-location-dot appointment-card-detail-icon" aria-hidden="true"></i>
+          <span>UConn Health, 263 Farmington Ave, Suite 312</span>
+        </div>
+      </div>
+      <div class="appointment-card-actions">
+        <button type="button" class="btn-secondary btn-sm">
+          <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+          Add to calendar
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
