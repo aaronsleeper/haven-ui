@@ -1,0 +1,87 @@
+<!--
+  @component-meta
+  name: Budget Meter
+  category: Patient App — Right-Pane Primitives
+  file: budget-meter.html
+  classes: budget-meter, budget-meter-label, budget-meter-amount, budget-meter-message, budget-meter.is-error, budget-meter.is-empty
+  variants: default (in-budget, default progress), live-update (mid-order, primary fill), is-error (over budget), is-empty ($0 first-time), post-order (settled, success register)
+  when-to-use: Patient-facing weekly meal-budget display in the right-pane idle state and during meal-ordering. Shows $X of $Y, with optional message line ("Over budget by $5", "Used your full budget this week", "$0 of $200 used"). Composes `.progress` + `.progress-bar` + state modifiers.
+  do-not-use-when: Clinical/population-level metric (use `clinical-metric-card` or stat-card). Generic progress (use `data-progress` directly). Multi-variable budget (different visual; this primitive is single-axis dollar-budget).
+  preline-required: no
+  notes: Composes existing `.progress` / `.progress-bar` infrastructure. State modifiers move at the wrapper level (.is-error, .is-empty); the underlying progress-bar fill comes from the composed .progress-error / .progress-success classes per state. Covers gap-doc R-1 / R-11 (budget-meter live + post-order).
+  interactive-usage: none
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Budget Meter</h3>
+  <p class="pl-description">
+    Patient-facing weekly meal-budget display. States: default in-budget, error over-budget, empty first-time.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — mid-week</h4>
+    <!-- @component: budget-meter (default) -->
+    <div class="budget-meter">
+      <div class="budget-meter-label">
+        <span>This week's meal budget</span>
+        <span class="budget-meter-amount">$120 of $200</span>
+      </div>
+      <div class="progress progress-success">
+        <div class="progress-bar" style="width: 60%"></div>
+      </div>
+      <p class="budget-meter-message">$80 left this week.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-empty — first-time / $0 used</h4>
+    <!-- @component: budget-meter (is-empty) -->
+    <div class="budget-meter is-empty">
+      <div class="budget-meter-label">
+        <span>This week's meal budget</span>
+        <span class="budget-meter-amount">$0 of $200</span>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" style="width: 0%"></div>
+      </div>
+      <p class="budget-meter-message">Your weekly budget resets every Monday.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">is-error — over budget</h4>
+    <!-- @component: budget-meter (is-error) -->
+    <div class="budget-meter is-error">
+      <div class="budget-meter-label">
+        <span>This week's meal budget</span>
+        <span class="budget-meter-amount">$215 of $200</span>
+      </div>
+      <div class="progress progress-error">
+        <div class="progress-bar" style="width: 100%"></div>
+      </div>
+      <p class="budget-meter-message">Over budget by $15. Adjust your order or reach out for an exception.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Post-order — settled, near-full use</h4>
+    <!-- @component: budget-meter (post-order) -->
+    <div class="budget-meter">
+      <div class="budget-meter-label">
+        <span>This week's meal budget</span>
+        <span class="budget-meter-amount">$190 of $200</span>
+      </div>
+      <div class="progress progress-success">
+        <div class="progress-bar" style="width: 95%"></div>
+      </div>
+      <p class="budget-meter-message">Order placed. $10 left this week.</p>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

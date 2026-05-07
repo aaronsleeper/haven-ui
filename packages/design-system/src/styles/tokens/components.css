@@ -2801,6 +2801,53 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 /* ===================================
+   PATIENT APP — A2UI RIGHT-PANE PRIMITIVES
+   (Tier 1b: budget-meter, quantity-stepper, appointment-*,
+    pending-request-card, delivery-status-timeline,
+    meal-warning-tooltip, onboarding-orientation-card,
+    consent-doc-viewer, week-rhythm-card)
+   =================================== */
+
+/* budget-meter — patient-facing meal-budget progress display.
+   Extends data-progress with a labeled wrapper showing $X of $Y.
+   States: default (in-budget, primary fill), .is-error (over budget,
+   error register), .is-empty ($0 first-time, sand-toned). */
+.budget-meter {
+    @apply flex flex-col gap-1.5;
+}
+
+.budget-meter-label {
+    @apply flex items-baseline justify-between text-sm;
+    @apply text-sand-700;
+    @apply dark:text-sand-200;
+}
+
+.budget-meter-amount {
+    @apply font-medium text-sand-900;
+    @apply dark:text-sand-100;
+}
+
+.budget-meter-message {
+    @apply text-xs text-sand-600;
+    @apply dark:text-sand-400;
+}
+
+.budget-meter.is-error .budget-meter-amount {
+    @apply text-error-700;
+    @apply dark:text-error-400;
+}
+
+.budget-meter.is-error .budget-meter-message {
+    @apply text-error-700;
+    @apply dark:text-error-400;
+}
+
+.budget-meter.is-empty .budget-meter-amount {
+    @apply text-sand-500;
+    @apply dark:text-sand-400;
+}
+
+/* ===================================
    BUTTONS & CONTROLS
    =================================== */
 
