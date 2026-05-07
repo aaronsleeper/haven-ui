@@ -2708,6 +2708,34 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-sand-400;
 }
 
+/* chat-time-preference-picker — composition for capturing time-window
+   preferences (gap-doc C-13). Column with: free-text input on top
+   (lets the patient name a preference the chip set doesn't cover —
+   "Tuesdays after 7" or "before my morning meds"), then two
+   chat-chip-row groups (day-of-week, then time-of-day). Free-text
+   takes precedence editorially: when both are populated, the
+   consumer treats the free text as the canonical answer and the
+   chips as fallback / starting hint.
+
+   Path A only (free-text + chips). Path B (Athena slot list) is a
+   different component (R-15) and out of scope here. */
+.chat-time-preference-picker {
+    @apply flex flex-col gap-3 mt-2;
+}
+
+.chat-time-preference-picker-input {
+    @apply w-full px-3 py-2 rounded-md;
+    @apply text-base text-sand-800;
+    @apply bg-surface-input border border-sand-200;
+    @apply focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500;
+    @apply dark:bg-sand-900 dark:border-sand-700 dark:text-sand-100;
+}
+
+.chat-time-preference-picker-section-label {
+    @apply text-xs uppercase tracking-wider font-medium text-sand-600;
+    @apply dark:text-sand-400;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

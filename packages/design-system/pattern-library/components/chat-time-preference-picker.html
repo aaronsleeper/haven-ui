@@ -1,0 +1,67 @@
+<!--
+  @component-meta
+  name: Chat Time Preference Picker
+  category: Patient App — A2UI Chat Affordances
+  file: chat-time-preference-picker.html
+  classes: chat-time-preference-picker, chat-time-preference-picker-input, chat-time-preference-picker-section-label (composes chat-chip-row + chat-chip)
+  variants: empty, mid-flow (chip selected), free-text-override (text typed; chips visually neutral)
+  when-to-use: Capturing a time-window preference in the patient-app chat thread. The free-text field accepts arbitrary preferences ("Tuesdays after 7", "before my morning meds") that the chip set doesn't cover; the chip rows offer common patterns (day-of-week, time-of-day) when free text isn't necessary. Consumer treats free text as canonical when populated, chips as fallback.
+  do-not-use-when: The choice is from a fixed slot list (e.g., Athena Path B — different component R-15). The choice is a single time (use a `forms-timepicker` component). The choice is a date (use `forms-datepicker`). The agent only needs day-of-week OR only time-of-day (use a single `chat-chip-row`).
+  preline-required: no
+  notes: Path A only — free text + chips. Path B (Athena slot list) lands later as a separate primitive (R-15). The day-of-week row is 3 chips by editorial convention (weekdays / weekend / no preference); the time-of-day row is 4 chips (morning / afternoon / evening / late night). Both compose `chat-chip-row.is-small` to keep the visual weight light — this picker is a wider composition than a single chip-row, and dropping to small chips prevents the row from crowding the chat-pane.
+
+    Free-text override is an editorial promise (the consumer captures whichever input is populated, preferring free text), not a CSS-enforced rule. The picker simply renders both controls; selection state is visible on the chips, and the text-input is independent.
+
+    Lifecycle: ephemeral; the picker is replaced when the patient submits (typically via a paired chat-button-row submit, not part of this primitive). Like other chat affordances, the row is replaced rather than gated when state shifts.
+
+    Covers gap-doc C-13.
+
+  interactive-usage: required
+  interactive:
+    role: composite — text input (textbox) + 2× chip-row (group of buttons)
+    keyboard: Tab into text input → Tab through day-of-week chips → Tab through time-of-day chips
+    aria:
+      label-needed: true on the text input (sr-only or visible label naming the question); each chip-row carries role=group + aria-labelledby pointing at its section label
+      hidden-icons: none
+    focus:
+      visible: input uses focus:ring-primary-500; chips use focus:ring-sand-700 (chat-chip family)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Time Preference Picker</h3>
+  <p class="pl-description">
+    Free-text + chip composition for time-window preferences. Free text takes editorial precedence; chips offer common patterns when free text isn't necessary.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Empty initial state</h4>
+    <!-- @component: chat-time-preference-picker (empty) -->
+    <div class="chat-time-preference-picker">
+      <label class="sr-only" for="chat-tpp-text-1">When works best for you?</label>
+      <input id="chat-tpp-text-1" type="text" class="chat-time-preference-picker-input" placeholder="When works best for you? (e.g., Tuesdays after 7)" />
+
+      <div>
+        <p id="chat-tpp-day-1" class="chat-time-preference-picker-section-label mb-1.5">Day of week</p>
+        <div class="chat-chip-row is-small" role="group" aria-labelledby="chat-tpp-day-1">
+          <button type="button" class="chat-chip">Weekdays</button>
+          <button type="button" class="chat-chip">Weekend</button>
+          <button type="button" class="chat-chip is-soft">No preference</button>
+        </div>
+      </div>
+
+      <div>
+        <p id="chat-tpp-time-1" class="chat-time-preference-picker-section-label mb-1.5">Time of day</p>
+        <div class="chat-chip-row is-small" role="group" aria-labelledby="chat-tpp-time-1">
+          <button type="button" class="chat-chip">Morning</button>
+          <button type="button" class="chat-chip">Afternoon</button>
+          <button type="button" class="chat-chip">Evening</button>
+          <button type="button" class="chat-chip">Late night</button>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
