@@ -274,7 +274,7 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 | chat-tag-group | `pages/chat-tag-group.html` | built | Extends `complex-tag-group`. Preference-confirmation variant with selected-state highlighting + inline Save/Skip. Restaurant-menu register only. |
 | chat-handoff-trigger | `pages/chat-handoff-trigger.html` | built | Persistent talk-to-a-person affordance. Two variants: header chip (desktop) + sticky-footer button (mobile). Tier: tertiary. Renamed from `talk-to-person-trigger`. |
 | chat-numeric-input | `pages/chat-numeric-input.html` | built | Extends `nutrition-input` family. Unit-toggle (lb/kg, %, etc.); defaults to last-used unit. |
-| chat-paired-numeric | `pages/chat-paired-numeric.html` | missing | BP-specific. Two `<input type=number>` with slash separator, no unit toggle. |
+| chat-paired-numeric | `pages/chat-paired-numeric.html` | built | BP-specific. Two `<input type=number>` with slash separator, no unit toggle. |
 | chat-time-preference-picker | `pages/chat-time-preference-picker.html` | missing | Free-text input + two chip rows (day-of-week + time-of-day). Free text overrides chip selection. |
 | chat-sheet-link | `pages/chat-sheet-link.html` | missing | Extends `text-link` + `overlay-bottom-sheet`. Inline link in agent message that opens right-pane sheet. Renamed from `chat-mobile-link`. |
 | chat-status-row | `pages/chat-status-row.html` | missing | Extends `thread-msg-system`. Patient-app variant for CC takeover ("[CC first name] joined"). Subdued register. |

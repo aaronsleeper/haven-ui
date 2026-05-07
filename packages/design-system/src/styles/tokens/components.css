@@ -2691,6 +2691,23 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:bg-sand-800 dark:text-sand-200 dark:hover:bg-sand-700;
 }
 
+/* chat-paired-numeric — two number fields separated by a slash for
+   BP-style values (gap-doc C-10). Composes the chat-numeric-input
+   field register but has no unit toggle (BP units don't vary in
+   patient-facing flows). The slash separator is glyph, not text — it
+   carries the systolic/diastolic semantics visually but each field
+   has its own label for screen-reader users. Single-use today
+   (BP only); PL coverage is the goal so any future paired-numeric
+   use case has a primitive to compose. */
+.chat-paired-numeric {
+    @apply inline-flex items-center gap-2 mt-2;
+}
+
+.chat-paired-numeric-separator {
+    @apply text-xl text-sand-500 font-light leading-none;
+    @apply dark:text-sand-400;
+}
+
 /* ===================================
    BUTTONS & CONTROLS
    =================================== */

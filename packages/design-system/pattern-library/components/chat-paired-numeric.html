@@ -1,0 +1,50 @@
+<!--
+  @component-meta
+  name: Chat Paired Numeric
+  category: Patient App — A2UI Chat Affordances
+  file: chat-paired-numeric.html
+  classes: chat-paired-numeric, chat-paired-numeric-separator (uses chat-numeric-input-field for the inputs)
+  variants: bp-systolic-diastolic (canonical use)
+  when-to-use: Two number values separated by a slash, where the pairing carries semantics that wouldn't render as two independent inputs — canonical and currently-only use is blood pressure (systolic / diastolic). The slash is visual, not text. Each field has its own accessible label so screen-reader users hear "systolic" and "diastolic" individually.
+  do-not-use-when: The values are independent (use two `chat-numeric-input` instances). The values need different units (use two `chat-numeric-input` with respective unit toggles). The pairing is conceptual but doesn't need slash-separator visual (e.g., min/max range — use two labeled inputs in a `chat-button-row` shape).
+  preline-required: no
+  notes: BP-specific today; PL coverage authored proactively so any future paired-numeric pattern has a primitive to compose. Inputs use `.chat-numeric-input-field` (same register as `chat-numeric-input`); the separator is a styled `<span>` carrying the slash glyph. No unit toggle on the row — BP units don't vary in patient-facing flows.
+
+    Each field MUST have its own `<label>` (visible or sr-only) so screen-reader users hear "Systolic" / "Diastolic" individually — the slash separator is purely visual and not announced.
+
+    Covers gap-doc C-10.
+
+  interactive-usage: required
+  interactive:
+    role: textbox (each field)
+    keyboard: Tab between fields; type digits; auto-advance on 3rd digit is NOT shipped (consumer can wire if desired) — Tab is the canonical advance
+    aria:
+      label-needed: true on each input — name the half (Systolic / Diastolic). Slash separator carries no semantics.
+      hidden-icons: none
+    focus:
+      visible: focus:ring-primary-500 on each field (matches chat-numeric-input-field)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Chat Paired Numeric</h3>
+  <p class="pl-description">
+    Two number fields separated by a slash. Canonical use: blood pressure (systolic / diastolic).
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Blood pressure (systolic / diastolic)</h4>
+    <!-- @component: chat-paired-numeric (bp) -->
+    <div class="chat-paired-numeric">
+      <label class="sr-only" for="chat-bp-sys-1">Systolic</label>
+      <input id="chat-bp-sys-1" type="number" inputmode="decimal" class="chat-numeric-input-field" placeholder="120" />
+      <span class="chat-paired-numeric-separator" aria-hidden="true">/</span>
+      <label class="sr-only" for="chat-bp-dia-1">Diastolic</label>
+      <input id="chat-bp-dia-1" type="number" inputmode="decimal" class="chat-numeric-input-field" placeholder="80" />
+      <span class="text-sm text-sand-700 dark:text-sand-300">mmHg</span>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
