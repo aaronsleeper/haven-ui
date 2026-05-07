@@ -1,0 +1,102 @@
+<!--
+  @component-meta
+  name: Patient Week Panel
+  category: Patient App — Tier 2 Composition
+  file: patient-week-panel.html
+  classes: patient-week-panel, patient-week-panel-section, patient-week-panel-section-label (composes budget-meter, patient-delivery-status-card, appointment-card)
+  variants: idle-state (default — no active flow)
+  when-to-use: Idle-state right-pane composition for the patient app — when no chat-driven flow is active, this panel summarizes the week (budget + delivery + next appointment). Stacks three existing primitives: `budget-meter` (top), `patient-delivery-status-card` (middle), `appointment-card` (bottom).
+  do-not-use-when: A flow is active (the relevant flow primitive should occupy the right-pane — patient-recall-list, chat-tag-group sheet, handoff-menu, crisis-resources-card, etc.). Mid-onboarding (different composition — onboarding-orientation-card + week-rhythm-card). Coordinator surface (different surface — coordinator's right-pane has its own composition).
+  preline-required: no
+  notes: Tier 2 composition — no new visual primitives, just a layout wrapper that establishes consistent vertical rhythm between the three sections. Each section has an optional eyebrow label. Renamed from at-a-glance-panel to slot with the patient-* family. Covers gap-doc R-30.
+
+    The three component dependencies are all shipped:
+    - budget-meter (Tier 1b #11)
+    - patient-delivery-status-card (existing, see COMPONENT-INDEX Patient App)
+    - appointment-card (Tier 1b #13)
+
+    Composition order is editorial — budget first because the spending state is the primary read; delivery second because it's time-bounded; appointment third because it's the longest-horizon reminder. Consumer can re-order if a different priority makes sense.
+
+  interactive-usage: optional (inherits from composed children)
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Patient Week Panel</h3>
+  <p class="pl-description">Idle-state right-pane composition — stacks budget-meter + patient-delivery-status-card + appointment-card.</p>
+
+  <div class="mb-8">
+    <!-- @component: patient-week-panel (idle-state) -->
+    <div class="patient-week-panel">
+
+      <div class="patient-week-panel-section">
+        <p class="patient-week-panel-section-label">This week's meal budget</p>
+        <div class="budget-meter">
+          <div class="budget-meter-label">
+            <span>Used so far</span>
+            <span class="budget-meter-amount">$120 of $200</span>
+          </div>
+          <div class="progress progress-success">
+            <div class="progress-bar" style="width: 60%"></div>
+          </div>
+          <p class="budget-meter-message">$80 left this week.</p>
+        </div>
+      </div>
+
+      <div class="patient-week-panel-section">
+        <p class="patient-week-panel-section-label">Delivery status</p>
+        <!-- placeholder for the existing patient-delivery-status-card primitive; the consumer composes the real card here -->
+        <div class="card">
+          <div class="delivery-status-card">
+            <div class="delivery-status-top">
+              <i class="fa-solid fa-truck delivery-status-icon" aria-hidden="true"></i>
+              <div>
+                <p class="delivery-status-label">Out for delivery</p>
+                <p class="delivery-status-timing">Estimated 12:30–2:00 PM</p>
+              </div>
+            </div>
+            <div class="delivery-status-divider"></div>
+            <div class="delivery-summary">
+              <p class="delivery-summary-label">This week's order</p>
+              <p class="delivery-summary-count">7 meals</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-week-panel-section">
+        <p class="patient-week-panel-section-label">Next appointment</p>
+        <div class="appointment-card">
+          <div class="appointment-card-header">
+            <div class="appointment-card-avatar">
+              <span class="avatar avatar-primary"><span>SO</span></span>
+            </div>
+            <div class="appointment-card-meta">
+              <p class="appointment-card-title">Dr. Sarah Soto, RDN</p>
+              <p class="appointment-card-subtitle">Registered Dietitian</p>
+            </div>
+          </div>
+          <div class="appointment-card-details">
+            <div class="appointment-card-detail-row">
+              <i class="fa-solid fa-calendar-day appointment-card-detail-icon" aria-hidden="true"></i>
+              <span>Thursday, May 14 · 10:30 AM</span>
+            </div>
+            <div class="appointment-card-detail-row">
+              <i class="fa-solid fa-video appointment-card-detail-icon" aria-hidden="true"></i>
+              <span>Telehealth (link sent the day before)</span>
+            </div>
+          </div>
+          <div class="appointment-card-actions">
+            <button type="button" class="btn-secondary btn-sm">
+              <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+              Add to calendar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

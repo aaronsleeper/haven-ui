@@ -312,7 +312,7 @@ Source queue: `apps/patient/design/a2ui-component-queue.md`. 29 components in ti
 
 | Component | PL Page | Status | Notes |
 |---|---|---|---|
-| patient-week-panel | `pages/patient-week-panel.html` | missing | Idle-state right-pane composition: `budget-meter` + existing `patient-delivery-status-card.html` + `appointment-card`. Compose only after dependencies are built. Renamed from `at-a-glance-panel`. |
+| patient-week-panel | `pages/patient-week-panel.html` | built | Idle-state right-pane composition: `budget-meter` + existing `patient-delivery-status-card.html` + `appointment-card`. Compose only after dependencies are built. Renamed from `at-a-glance-panel`. |
 
 ---
 

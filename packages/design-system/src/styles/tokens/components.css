@@ -3544,6 +3544,29 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 /* ===================================
+   PATIENT APP — A2UI TIER 2 COMPOSITION
+   =================================== */
+
+/* patient-week-panel — idle-state right-pane composition stacking
+   budget-meter + existing patient-delivery-status-card + appointment-
+   card. Tier 2 composition: no new visual primitives, just the
+   layout wrapper that establishes consistent vertical rhythm
+   between the three sections. Renamed from at-a-glance-panel to
+   slot with the patient-* family. */
+.patient-week-panel {
+    @apply flex flex-col gap-4;
+}
+
+.patient-week-panel-section {
+    @apply flex flex-col;
+}
+
+.patient-week-panel-section-label {
+    @apply text-xs uppercase tracking-wider font-medium text-sand-600 mb-2;
+    @apply dark:text-sand-400;
+}
+
+/* ===================================
    BUTTONS & CONTROLS
    =================================== */
 
