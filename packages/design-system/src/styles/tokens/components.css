@@ -4321,26 +4321,28 @@ canvas {
 }
 
 /* ===================================
-   PATIENT APP — MEAL CARD
+   PATIENT APP — MEAL DELIVERY CARD
+   Idle-pane delivery + swap (weekly meal list).
+   Distinct from .meal-option-card (agentic browse + select).
    =================================== */
 
-.meal-card {
+.meal-delivery-card {
   @apply flex items-center gap-3 bg-sand-50 border border-sand-200 rounded-md p-3 shadow-2xs;
   @apply dark:bg-sand-900 dark:border-sand-700;
   @apply hover:bg-sand-50 transition-colors;
   background-color: white !important; /* suppress button hover inheritance */
 }
 
-.meal-card:hover {
+.meal-delivery-card:hover {
   background-color: var(--color-sand-50) !important;
 }
 
-.meal-card-img {
+.meal-delivery-card-img {
   @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-sand-100;
   position: relative;
 }
 
-.meal-card-img::after {
+.meal-delivery-card-img::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -4350,25 +4352,25 @@ canvas {
   pointer-events: none;
 }
 
-.meal-card-body {
+.meal-delivery-card-body {
   @apply flex flex-col gap-1 flex-1 min-w-0;
 }
 
-.meal-card-name {
+.meal-delivery-card-name {
   @apply text-sm font-medium text-sand-900 leading-snug;
   @apply dark:text-sand-100;
 }
 
-.meal-card-day {
+.meal-delivery-card-day {
   @apply text-xs text-sand-600;
   @apply dark:text-sand-300;
 }
 
-.meal-card-tags {
+.meal-delivery-card-tags {
   @apply flex flex-wrap gap-1 mt-0.5;
 }
 
-.meal-card-swap {
+.meal-delivery-card-swap {
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -4383,18 +4385,18 @@ canvas {
   font-size: 0.875rem;
 }
 
-.meal-card-swap:hover {
+.meal-delivery-card-swap:hover {
   color: var(--color-sand-700);
   background-color: var(--color-sand-100) !important;
 }
 
-.meal-card-swap:focus {
+.meal-delivery-card-swap:focus {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
 }
 
 /* Hide swap button after a meal has been swapped */
-.meal-card.is-swapped .meal-card-swap {
+.meal-delivery-card.is-swapped .meal-delivery-card-swap {
   display: none;
 }
 
@@ -8481,55 +8483,57 @@ a.list-group-item-action {
    Agentic Components — Content Cards
    ============================================================ */
 
-/* MealCard — image + content + price + action */
-.meal-card {
+/* MealOptionCard — image + content + price + action.
+   Agentic browse + select for chat-pane meal-ordering.
+   Distinct from .meal-delivery-card (idle-pane delivery + swap). */
+.meal-option-card {
     @apply flex gap-4 items-start;
 }
 
-.meal-card-image {
+.meal-option-card-image {
     @apply flex-shrink-0 rounded-lg overflow-hidden bg-sand-100;
     width: 80px;
     height: 80px;
     @apply dark:bg-sand-800;
 }
 
-.meal-card-image img {
+.meal-option-card-image img {
     @apply w-full h-full object-cover;
 }
 
-.meal-card-image .meal-card-placeholder {
+.meal-option-card-image .meal-option-card-placeholder {
     @apply w-full h-full flex items-center justify-center text-sand-400;
     font-size: 1.5rem;
     @apply dark:text-sand-600;
 }
 
-.meal-card-content {
+.meal-option-card-content {
     @apply flex-1 min-w-0;
 }
 
-.meal-card-name {
+.meal-option-card-name {
     @apply font-semibold text-sand-900;
     font-size: 0.9375rem;
     @apply dark:text-sand-100;
 }
 
-.meal-card-description {
+.meal-option-card-description {
     font-size: 0.8125rem;
     color: var(--color-sand-500);
     margin-top: 0.125rem;
 }
 
-.meal-card-footer {
+.meal-option-card-footer {
     @apply flex justify-between items-center;
     margin-top: 0.5rem;
 }
 
-.meal-card-price {
+.meal-option-card-price {
     @apply font-semibold;
     color: var(--color-teal-700);
 }
 
-.meal-card-tags {
+.meal-option-card-tags {
     @apply flex flex-wrap gap-1 mt-1;
 }
 

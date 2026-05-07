@@ -24,7 +24,7 @@
 | `mobile-i18n-bar` | `new-components/mobile-i18n-bar.md` | Required | None | All screens |
 | `mobile-bottom-nav` | `new-components/mobile-bottom-nav.md` | Required | None | All post-onboarding screens |
 | `onb-progress` | `new-components/onb-progress.md` | Required | None | ONB-01, 02, 03 |
-| `meal-card` | `new-components/meal-card.md` | Required | None | MEALS-01 |
+| `meal-delivery-card` | `new-components/meal-delivery-card.md` | Required | None | MEALS-01 |
 | `delivery-status-card` | `new-components/delivery-status-card.md` | Required | None | MEALS-02 |
 | `message-bubble` | `new-components/message-bubble.md` | Required | None | CARE-01 |
 | `feedback-rating` | `new-components/feedback-rating.md` | Required | None | CARE-02 |
@@ -122,7 +122,7 @@ None — pure CSS selection states.
 3. **Bottom nav:** `mobile-bottom-nav` — "Meals" tab active
 4. **Header zone:** `<div class="px-4 pt-6 pb-2">` — `<h1>` Lora + subtitle `<p class="text-sm text-gray-500">`
 5. **Status banner:** `.alert` with variant class — `alert-warning` / `alert-success` / `alert-info` — full width, no `mx-4`
-6. **Meal list:** `<div class="space-y-3 px-4">` — stack of `meal-card`
+6. **Meal list:** `<div class="space-y-3 px-4">` — stack of `meal-delivery-card`
 7. **Care team shortcut:** `.card` with utility bg `bg-teal-50 border-teal-200 mx-4 mt-3` — `.text-link` "Message your care team"
 8. **Sticky confirm footer:** `.sticky-footer` (existing) — `.btn-primary` full width "Confirm my meals" — visible only when window open and unconfirmed
 9. **Empty state:** `.empty-state` + `.empty-state-icon` (existing) — `.btn-outline` CTA
@@ -136,7 +136,7 @@ None — pure CSS selection states.
 
 ### Bottom sheet — Swap Meal
 - Same Preline `hs-overlay` drawer
-- Inner: stack of `meal-card` without swap link; tap to select
+- Inner: stack of `meal-delivery-card` without swap link; tap to select
 
 ### Prototype State Variants (via `?state=` URL param)
 - Default: unconfirmed, window open

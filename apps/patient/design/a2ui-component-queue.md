@@ -14,7 +14,7 @@ This doc is the **haven-ui build queue** subset of the full A2UI ↔ Haven gap a
 
 After validating each of the 51 patient-app components against `pattern-library/COMPONENT-INDEX.md`:
 
-- **exists (4)** — `complex-tag-group` partial, `complex-notification-center`, `BasketReview` (agentic), `MenuGrid` + agentic `MealCard`. PL HTML present; React port status varies (out of scope here).
+- **exists (4)** — `complex-tag-group` partial, `complex-notification-center`, `BasketReview` (agentic), `MenuGrid` + agentic `MealOptionCard` (renamed from `MealCard` 2026-05-07). PL HTML present; React port status varies (out of scope here).
 - **extends (12)** — existing PL pattern needs a new variant or modifier
 - **missing (~17)** — needs full PL authoring (HTML + components.css + COMPONENT-INDEX entry)
 
@@ -89,7 +89,7 @@ The chat-pane affordance family is where the largest gap lives — Haven current
 
 | # | Component | Notes |
 |---|---|---|
-| 29 | `patient-week-panel` | Idle-state right-pane composition: budget meter (`budget-meter`) + delivery status (existing `patient-delivery-status-card.html`) + next-appointment (`appointment-card`). *Renamed from `at-a-glance-panel` to slot with `patient-meal-card`, `patient-trend-card` family.* |
+| 29 | `patient-week-panel` | Idle-state right-pane composition: budget meter (`budget-meter`) + delivery status (existing `patient-delivery-status-card.html`) + next-appointment (`appointment-card`). *Renamed from `at-a-glance-panel` to slot with `meal-delivery-card`, `patient-trend-card` family.* |
 
 ### Deferred
 
@@ -107,15 +107,9 @@ These are agent-orchestrated flow templates that compose existing chat + right-p
 
 ---
 
-## Open question (Aaron decision)
+## Resolved decisions
 
-**MealCard rename.** The agentic `MealCard` (browse+select; pattern-library COMPONENT-INDEX line 63) and `patient-meal-card.html` (delivery+swap; line 275) currently collide on the `.meal-card` semantic class. Haven Visual Designer expert recommends:
-- Rename agentic → `MealOptionCard`
-- Rename `patient-meal-card.html` → `MealDeliveryCard`
-
-Patient-app meal-ordering chat-pane (browse + select among 14 meals + quantity stepper) needs the agentic semantics, not delivery+swap. Until decided, the queue maps the meal-list role to "agentic MealCard (rename pending)."
-
-This rename touches an existing exposed semantic class and is Aaron's call.
+- **MealCard rename** (Aaron-approved 2026-05-07, executed same day) — agentic `MealCard` → `MealOptionCard` (chat-pane browse + select); `patient-meal-card.html` → `meal-delivery-card.html` / `MealDeliveryCard` (idle-pane delivery + swap). Resolves the prior `.meal-card` semantic-class collision flagged in Haven Visual Designer review. Patient-app meal-ordering chat-pane (R-5) maps to `MealOptionCard`.
 
 ---
 

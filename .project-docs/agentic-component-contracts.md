@@ -22,9 +22,9 @@ The frontend component router maps `component` to a pre-built Haven component an
 
 ## Content Cards
 
-### MealCard
+### MealOptionCard
 
-Single meal item for browsing/ordering.
+Single meal item for browsing/ordering (chat-pane meal-ordering). Distinct from MealDeliveryCard (idle-pane delivery + swap).
 
 ```
 {
@@ -123,7 +123,7 @@ Collection of meals displayed as a browsable grid.
 {
   kitchen_name:  string
   week_label?:   string          // e.g. "This Week", "Apr 7–11"
-  meals:         MealCard.data[]
+  meals:         MealOptionCard.data[]
 }
 ```
 

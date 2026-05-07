@@ -60,13 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!slug) return;
 
       var swapBtn = document.querySelector('[data-open-swap][data-meal="' + slug + '"]');
-      var targetCard = swapBtn ? swapBtn.closest('.meal-card') : null;
+      var targetCard = swapBtn ? swapBtn.closest('.meal-delivery-card') : null;
 
       if (targetCard) {
         targetCard.classList.add('is-swapped');
-        var nameEl = targetCard.querySelector('.meal-card-name');
+        var nameEl = targetCard.querySelector('.meal-delivery-card-name');
         if (nameEl) nameEl.textContent = btn.dataset.mealName;
-        var img = targetCard.querySelector('.meal-card-img img');
+        var img = targetCard.querySelector('.meal-delivery-card-img img');
         if (img) img.src = btn.dataset.mealImg;
       }
 
