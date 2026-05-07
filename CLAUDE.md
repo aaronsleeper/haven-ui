@@ -265,13 +265,30 @@ Default is still PL-first. The carve-out is the exception, not the on-ramp. "Pro
 
 #### Gate triage
 
-Not all 13 conform gates need to run on every patch.
+Not all 14 conform gates need to run on every patch.
 
-- **Blocking on patch (always):** `typecheck`, `conform:manifest`, `conform:app-shell`, `conform:plain-language`, `conform:css-family`, `conform:brand-fonts`
+- **Blocking on patch (always):** `typecheck`, `conform:manifest`, `conform:app-shell`, `conform:plain-language`, `conform:css-family`, `conform:brand-fonts`, `conform:wireframe-shell`
 - **Blocking on merge:** `conform:surface-role`, `conform:contrast-pairs`, `conform:wireframe-completeness`, `conform:font-features`, `conform:button-font-size`, `conform:radius-pill`
 - **Local-only / informational:** `conform:token`, `conform:visual` (Playwright; no CI enforcement yet)
 
 The "blocking on patch" set catches what breaks the build or violates authoring discipline. The "blocking on merge" set catches drift that's safe to accumulate during iteration but unsafe to ship. Run the full umbrella `pnpm conform` before opening a PR.
+
+`conform:wireframe-shell` runs in strict mode (Phase 4 flipped 2026-05-07): every wireframe under `apps/*/design/wireframes/` MUST declare `shells:` in YAML frontmatter. The gate halts on missing field, stale `pl_shell_version` (canon drift), unregistered shell name, or shape errors. To get current canon for a shell, run `pnpm --filter @haven/ui-react shell-canon` (add `--json` for scripted use, `--audit` for the declared/undeclared count). Authoring contract:
+
+```yaml
+---
+shells:
+  - name: agentic-shell
+    pl_shell_version: sha256:95bb370a7ae1ca4187ca461ef613ccc798089036498f8db13abeaf6cdbadd80c
+---
+```
+
+Three valid shapes:
+- `shells: [{name, pl_shell_version}, ...]` — full screen composing inside one or more registered shells; gate validates each entry against current canon
+- `shells: []` — fragment-spec (component-only, not a full screen); gate skips silently
+- `shells:` field absent → gate halts with `missing 'shells:' declaration`
+
+The gate enforces *"I saw this canon,"* not *"I reconciled my composition against this canon."* Always run the haven-mapper wireframe-vs-PL delta review before stamping a new hash; the gate records observation, the delta review records reconciliation. Don't skip reconciliation just because the hash matches.
 
 #### Investigation discipline
 
@@ -468,6 +485,7 @@ Before starting a new slice or retrofit:
 - [ ] Read the wireframe(s) for the slice in `apps/[persona]/design/wireframes/`
 - [ ] Read [DESIGN.md](./DESIGN.md)
 - [ ] Load relevant Figma frames via MCP if visual reference helps (`mcp__claude_ai_Figma__get_design_context` / `get_variable_defs` / `get_screenshot`)
+- [ ] **Confirm the wireframe declares `shells:` frontmatter** with current canon. Run `pnpm --filter @haven/ui-react shell-canon` and compare each wireframe's `pl_shell_version` against current; if stale, re-run the haven-mapper delta review against the new canon BEFORE stamping the new hash. The gate enforces "I saw this canon"; the delta review enforces "I reconciled my composition against this canon" — don't skip the second one because the hash update is mechanical.
 - [ ] **Run the wireframe-vs-PL delta review** against `pattern-library/COMPONENT-INDEX.md`. Decompose every wireframe-flagged component into primitives. Categorize each as exists-in-PL / novel-composition / novel-primitive.
 - [ ] Declare the tier per the delta outcome (Primitive / Slice composition / Bug fix)
 - [ ] If Tier 1 with brand-fidelity-weighted authoring: plan the 4-expert review panel dispatch before shipping
