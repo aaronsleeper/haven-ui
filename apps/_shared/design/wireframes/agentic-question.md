@@ -43,7 +43,7 @@ Hosted inline in `panel-content` (right rail). The card pins as the thread hero 
 
 **Header Zone**
 - **Component:** `[NEW COMPOSITION: thread-question-header]` — composes `thread-approval-header` slot pattern
-- Question class chip — `[STEWARD CALL: badge-pill OR new modifier `badge-pill.is-question-class`]`. Short label naming the question class (~12 char max). Example: "Mgmt repo name", "Delivery window", "Care plan".
+- Question class chip — `[STEWARD CALL: badge-pill OR new modifier `badge-pill.is-question-class`]`. Short label naming the question class (~12 char max). Examples (final copy `[REVISED 2026-05-08]`): "Match referral", "Delivery time", "Care plan path", "Substitution".
 - Optional secondary metadata — agent identity badge (Ava avatar `size-5` + name) when the asking agent is not implicit from context.
 
 **Body Zone**
@@ -58,22 +58,26 @@ Hosted inline in `panel-content` (right rail). The card pins as the thread hero 
   - Title — Body/02 16px, `font-semibold`, `text-sand-900`
   - Inline `(Recommended)` tag — `badge-sm` adjacent to title, only on the recommended option
   - Description — Body/03 14px, `text-sand-700`, 1–3 sentences
-- The "Other" option always appears last in the list — `[NEW VARIANT: option-row.is-other]`. Initial state: collapsed; same selection glyph + title slot; description slot reads "Provide your own input" (or `[COPY: contextual prompt for free-text input]`). On selection, reveals an inline `<textarea>` (see Interaction §"Other-reveal").
+- The "Other" option always appears last in the list — `[NEW VARIANT: option-row.is-other]`. Initial state: collapsed; same selection glyph + title slot; description slot reads "Type a different answer" (Spanish: "Escribe otra respuesta") `[REVISED 2026-05-08]`. On selection, reveals an inline `<textarea>` (see Interaction §"Other-reveal"). Textarea placeholder: "Tell us what fits better." (Spanish: "Cuéntanos qué se ajusta mejor.")
+- **In-place reveal guardrail `[REVISED 2026-05-08]`:** in-place expansion is the default for option lists ≤6 options. Lists exceeding 6 options trigger a steward review before authoring (in-place reveal pushes options out of view at higher counts; dedicated-slot-below approach may be appropriate). Default expected option count is 2–5, matching `response-option-group` precedent.
 
 **Footer Zone**
 - **Component:** `[NEW COMPOSITION: thread-question-footer]` — composes `thread-approval-actions` slot pattern + `sticky-footer` pinning
-- Submit — `btn-primary btn-block`, label "Submit answer" (single-select) — disabled until ≥1 option selected or until "Other" textarea has content
-- Numbered keybinding hint — `[NEW COMPOSITION: kbd-shortcut-hint]` (token reuse from `cmd-palette-shortcut` typography; steward call on whether this earns a class). Renders as "1" inside the Submit button label, e.g. "1 Submit answer". Desktop-only.
-- Cancel/dismiss hint — secondary affordance, `text-link` muted: "Esc to cancel". Desktop-only.
+- Submit — `btn-primary btn-block`, label "Submit answer" (single-select) — disabled until ≥1 option selected or until "Other" textarea has non-whitespace content `[REVISED 2026-05-08]` Spanish label: "Enviar respuesta"
+- Numbered keybinding hint — `[NEW COMPOSITION: kbd-shortcut-hint]` (token reuse from `cmd-palette-shortcut` typography; steward call on whether this earns a class). Renders as "1" inside the Submit button label, e.g. "1 — Submit answer". Desktop-only. `aria-keyshortcuts="1"` on the Submit button per MDN guidance — shortcut must be both visible AND announced. `[REVISED 2026-05-08]`
+- Cancel/dismiss hint — secondary affordance, `text-link` muted: "Esc to cancel". (Spanish: "Esc para cancelar"). Desktop-only.
 
 #### Variant 2 — Multi-select, no preview
 
 Same layout as Variant 1, with these differences:
 
 - Option list root: `role="group"` + `aria-labelledby` (NOT radiogroup — multi-select)
-- Selection glyph: `<button role="checkbox">` + `aria-checked` per option (alt: `<button aria-pressed>`; steward call at PL authoring on which ARIA pattern). Selected state: filled checkbox glyph + check icon + ring.
-- Recommendation: agent may pre-select the recommended option(s) on mount; user can deselect.
-- Submit label: "Submit answers" (plural). Enabled when ≥1 option selected.
+- Selection glyph: `<button role="checkbox">` + `aria-checked` per option `[REVISED 2026-05-08]` — locked to `role="checkbox"` (NOT `aria-pressed`). Rationale: option-row-list is a structured group of selectable options; `role="checkbox"` is the WAI-ARIA-canonical multi-select-from-a-group pattern. `aria-pressed` is the toggle-button pattern (used in `chat-tag-group`, which is a free-form chip-cloud, a different shape). Selected state: filled checkbox glyph + check icon + ring (triple-cued).
+- Recommendation: agent may pre-select the recommended option(s) on mount. When pre-selected, render a quiet suggestion line above the option list `[REVISED 2026-05-08]`:
+  - Coordinator/provider/kitchen surface: "Ava suggested these. Edit and submit when ready." (Spanish: "Ava sugirió estas opciones. Ajusta y envía cuando quieras.")
+  - Patient surface (5th-grade): "Ava picked these to start. Change them or send as is." (Spanish: "Ava marcó estas para empezar. Cámbialas o envíalas así.")
+- **Stray-Enter guard `[REVISED 2026-05-08]`:** when the agent pre-selects, Submit remains enabled but requires at least one user-driven interaction (toggle on or off any option) before the digit-keybinding fires. The Submit button itself remains clickable to honor "Submit as suggested" intent; only the keybinding shortcut requires the touch. Rationale: a stray Enter on mount otherwise commits the agent's preset as the user's answer.
+- Submit label: "Submit answers" (plural). Enabled when ≥1 option selected. (Spanish: "Enviar respuestas").
 - "Other" variant retains free-text behavior; selecting it adds it to the answer set alongside any other selected options.
 
 #### Variant 3 — Single-select, master-detail preview (DESKTOP)
@@ -89,8 +93,10 @@ Triggered automatically when ≥1 option carries a `preview` payload (mockup, co
   - `info-panel` for general structured content (key-value rows, body prose)
   - `code-view` for monospace text (code, diagrams in mermaid/ASCII, JSON, etc.)
   - `[STEWARD CALL: which primitive is canonical for option-preview detail; info-panel + code-view are starting candidates, NOT comparison-panel]`
-- "Focused option" = the option the user has hovered, focused-via-keyboard, or selected. Selection takes precedence over hover.
+- "Focused option" precedence `[REVISED 2026-05-08]`: **selection > keyboard-focus > hover.** Keyboard-focus changes mute hover-induced swaps for a 300ms cooldown after the last keyboard event. The preview pane carries `data-preview-source="selection|keyboard|hover"` for diagnostic + AT announcement use.
+- **Screen-reader announcement for preview swap `[REVISED 2026-05-08]`:** the detail pane wraps an `aria-live="polite"` region announcing the focused option's title + first-line preview summary (e.g., "Care plan path B preview: low-sodium, 2200 kcal/day, 6 meals/day."). Suppress announcements when selection is the trigger (selection already announces at the option-row level).
 - The preview pane shows context-only — the Submit affordance stays in the master pane.
+- **Layout-engagement rule `[REVISED 2026-05-08]`:** Variant 3 (master-detail break) engages only when **≥2 options carry preview payloads**, OR when ≥1 option has a preview AND the agent has marked the question with `compare_previews: true`. Single-option-with-preview falls back to Variant 1 with a `chat-sheet-link` ("View preview") that opens the preview in an `overlay-bottom-sheet`-style panel without breaking the layout. Zero-options-with-preview always falls back to Variant 1.
 
 **Pane sizing**
 - `panel-chat` reduces to its minimum (480px floor / 560 comfortable, per agentic-shell canon)
@@ -98,7 +104,10 @@ Triggered automatically when ≥1 option carries a `preview` payload (mockup, co
 - The user can drag the splitter; sizing within shell canon
 
 **Behavior on no-preview options in a mostly-preview list**
-- If the user focuses an option without a preview payload, `panel-content` shows an `[NEW STATE: option-preview-empty]` — `data-empty-state` style affordance: "No preview available for this option" with `fa-eye-slash` icon. NOT silent.
+- If the user focuses an option without a preview payload, `panel-content` shows an `[NEW STATE: option-preview-empty]` — `data-empty-state` style affordance with `fa-eye-slash` icon. `[REVISED 2026-05-08]`
+  - Heading: "No preview for this option" (Spanish: "Sin vista previa")
+  - Body: "Pick a different option to see a preview, or select this one to commit." (Spanish: "Selecciona otra opción para ver una vista previa, o elige esta para enviar.")
+  - NOT silent.
 
 #### Variant 4 — Mobile single-select (`overlay-bottom-sheet`)
 
@@ -106,10 +115,11 @@ Hosted in `overlay-bottom-sheet` (`bottom-sheet-panel` + `bottom-sheet-handle` +
 
 - **bottom-sheet-header:** question class chip + agent identity (when shown)
 - **bottom-sheet-body:** prompt body + recommendation callout + option-row-list + "Other" variant
-- **Sticky footer inside bottom-sheet-body's bottom edge:** Submit button, full-width
-- No numbered keybinding hint (no keyboard surfaced on touch devices)
-- No "Esc to cancel" hint — dismissal via overlay-tap (outside the sheet) or back-affordance (a `btn-icon` `fa-xmark` in `bottom-sheet-header`'s right slot)
-- 44px minimum touch targets on every option-row
+- **Sticky footer pinned to `bottom-sheet-panel` root (sibling of body, NOT inside body's scroll context) `[REVISED 2026-05-08]`:** Submit button, full-width. Rationale: iOS Safari's bottom-bar collapse during scroll can briefly hide a body-internal footer behind the address bar; pinning to the panel root avoids this. Existing `sticky-footer` primitive supports the panel-root pattern.
+- No numbered keybinding hint (no keyboard surfaced on touch devices) — but if a Bluetooth keyboard is connected (common on tablets), Esc dismisses the sheet. `[REVISED 2026-05-08]`
+- Dismissal via overlay-tap (outside the sheet) or back-affordance (a `btn-icon` `fa-xmark` in `bottom-sheet-header`'s right slot, `aria-label="Cancel question"` / Spanish "Cancelar pregunta") `[REVISED 2026-05-08]`
+- **44px minimum touch targets** on every option-row at the primitive level. **Kitchen tablet override:** when consumed by the kitchen app (gloved-hand context), `--option-row-min-height` raises to 48px via `option-row.is-tablet-dense` modifier OR per-app token override. Steward call at PL authoring on which mechanism. `[REVISED 2026-05-08]`
+- **Focus-trap inside the bottom-sheet `[REVISED 2026-05-08]`:** the bottom-sheet IS a modal-equivalent overlay; per WCAG 2.4.3, focus is trapped inside the sheet while open. Tab cycles option-rows → Submit → close-button (`fa-xmark`) and back. Esc dismisses. This is the one place focus-trap applies (the persistent shell does not trap focus per WCAG 2.1.2; modal overlays do).
 
 #### Variant 5 — Mobile master-detail (sequential bottom-sheets)
 
@@ -120,11 +130,13 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 - Tapping an option with a preview opens Sheet 2 (preview detail); tapping an option without a preview selects it directly (skipping Sheet 2)
 
 **Sheet 2 — Preview detail**
-- `bottom-sheet-header` shows the option title + back affordance (`btn-icon` `fa-arrow-left` left slot)
+- `bottom-sheet-header` shows the option title + back affordance (`btn-icon` `fa-arrow-left` left slot, `aria-label="Back to options"`) `[REVISED 2026-05-08]`
 - `bottom-sheet-body` hosts the preview (`info-panel` or `code-view`)
-- Sticky footer: "Select this option" — `btn-primary btn-block`. On commit, returns to Sheet 1 with this option selected, OR (if option is single-select sufficient to commit) closes both sheets and submits directly.
+- Sticky footer: **"Choose this option"** — `btn-primary btn-block` `[REVISED 2026-05-08]`. (Spanish: "Elegir esta opción"). On commit, returns to Sheet 1 with this option pre-selected — Sheet 1's Submit fires the actual commit.
+- **Sheet-stack focus return `[REVISED 2026-05-08]`:** when Sheet 2 dismisses (via back or via Choose-this-option), focus returns to the option-row in Sheet 1 that opened Sheet 2 — NOT to Sheet 1's first option. Standard sheet-stack pattern.
+- **Returning-from-Sheet-2 announcement** (sr-only `aria-live`): "Returned to options. [Option title] is selected. Submit answer at the bottom." `[REVISED 2026-05-08]`
 
-`[OPEN QUESTION: Does the user explicitly Submit from Sheet 1 after selecting from Sheet 2, or does selecting from Sheet 2 commit and dismiss directly? Default: explicit Submit from Sheet 1 — preserves the consistent "Submit" affordance across all variants.]`
+`[RESOLVED 2026-05-08]` **Sheet 2 → Sheet 1 return behavior:** Sheet 2's "Choose this option" returns to Sheet 1 with the option pre-selected; Sheet 1's Submit fires the commit. Three reasons: (a) consistency — every variant has Submit as the canonical commit affordance, (b) reversibility — user can back out of the selection without re-opening the preview, (c) mental model — master-detail's "drill in, come back, decide" matches Apple HIG and Material navigation conventions. [Source: webapphuddle.com, "Master-Detail UI Pattern Design"]
 
 ---
 
@@ -151,9 +163,10 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 
 ### Submit
 - **Trigger:** User clicks/taps the Submit button, OR presses Enter on a focused option (single-select), OR presses the displayed number key (e.g., "1" for first option) on desktop
-- **Feedback:** Submit button enters loading state (`btn-primary` with spinner). On success, the card transitions to the **Submitted** state (see States §). On failure, transitions to **Error** state.
+- **Feedback:** Submit button enters loading state (`btn-primary` with spinner) AND simultaneously transitions to `disabled` to block double-fire `[REVISED 2026-05-08]`. The disabled-with-spinner state is canonical for in-flight commits across `thread-approval-card.actions` (consistency, not a new pattern). On success, the card transitions to the **Submitted** state (see States §). On failure, transitions to **Error** state.
 - **Navigation:** Card collapses to a `thread-msg-response` style summary in the thread (desktop) or dismisses the bottom-sheet (mobile). The agent's next message appears in the thread.
 - **Error handling:** See **Error State** below. Retry is supported.
+- **Submitted-state copy `[REVISED 2026-05-08]`:** the historical summary renders the user's exact selected answer text (NOT a paraphrase) so the answer is auditable later. Format: "[User] answered: [exact option title(s)]. [timestamp]". For "Other" answers: "[User] answered: [free-text body]. [timestamp]" — the free-text payload is preserved verbatim.
 
 ### Cancel / dismiss
 - **Trigger (desktop):** User presses Esc; OR clicks outside the card if the card is in a modal-overlay variant (NOT default — default is inline-thread, no outside-click dismissal)
@@ -166,16 +179,19 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 ### Numbered keybinding (desktop only)
 - **Trigger:** User presses a digit key (1–9) corresponding to a visible option's position in the list. The "Submit" button shows the numbered hint (e.g., "1") matching the recommended or first-selected option's number; pressing that digit submits.
 - **Feedback:** If the digit matches an unselected option, that option is selected (single-select) or toggled (multi-select). If the digit matches the Submit-button-displayed number, Submit fires.
-- **Discoverability:** The numbered hint inside Submit is the visible affordance; per-option numbering is NOT shown by default (would clutter). `[OPEN QUESTION: per-option number hints visible always, on Cmd-hold, never?]`
+- **Discoverability:** The numbered hint inside Submit is the visible affordance; per-option numbering is NOT shown by default (would clutter). `[DEFERRED to PL fragment authoring (visual feel-test)]` per-option number hints visible always vs. Cmd-hold vs. never.
 - **Error handling:** Pressing a digit outside 1–N (where N is the option count, max 9) does nothing.
-- **Accessibility:** `aria-keyshortcuts` declared on the Submit button.
+- **Keyboard-layout caveat `[REVISED 2026-05-08]`:** per MDN's `aria-keyshortcuts` reference, single-digit shortcuts are fragile across keyboard layouts (French AZERTY requires Shift for digits 1–9). The Submit-button digit is a hint, not a contract; the canonical commit is the Submit click + Enter on focused option. The `aria-keyshortcuts="1"` (or whichever digit) MUST be declared so AT can announce the affordance regardless of layout. [Source: MDN Web Docs, "aria-keyshortcuts"]
+- **Stray-Enter guard interaction `[REVISED 2026-05-08]`:** when the agent pre-selects in multi-select, the digit shortcut requires at least one user-driven option toggle before firing (prevents stray Enter from committing the agent's preset as the user's answer). The Submit button itself remains clickable to honor "Submit as suggested" intent.
+- **Accessibility:** `aria-keyshortcuts="1"` (or matching digit) declared on the Submit button.
 
 ### Preview swap (master-detail variant only)
 - **Trigger:** User hovers an option-row with a preview payload (desktop), OR keyboard-focuses an option-row, OR clicks/taps to select
-- **Feedback:** The detail pane (`panel-content`) updates to render the focused option's preview. The transition is non-animated by default (instant swap) to feel responsive; `[OPEN QUESTION: subtle crossfade vs. instant — feel test at design-review pre-build]`.
-- **Selection precedence:** If an option is selected, its preview takes precedence over hover-focused options. Hover/focus on a selected option is a no-op (preview already shown).
+- **Feedback:** The detail pane (`panel-content`) updates to render the focused option's preview. The transition is non-animated by default (instant swap) — `[DEFERRED to PL fragment authoring (visual feel-test)]` instant vs. subtle crossfade.
+- **Precedence `[REVISED 2026-05-08]`:** **selection > keyboard-focus > hover.** Keyboard-focus changes mute hover-induced swaps for a 300ms cooldown after the last keyboard event. Hover/focus on a selected option is a no-op (preview already shown). The preview pane's `data-preview-source` attribute exposes which signal currently drives the preview.
+- **Screen-reader announcement `[REVISED 2026-05-08]`:** detail pane is wrapped in `aria-live="polite"`. On hover/focus changes, it announces "[Option title] preview: [first-line summary]". Suppress on selection (selection announces at the option-row level).
 - **Navigation:** None — stays in the card.
-- **Error handling:** Preview payload fails to render (network image, unparseable code) — show `[NEW STATE: option-preview-error]`: alert-error inside `info-panel` with retry affordance.
+- **Error handling:** Preview payload fails to render (network image, unparseable code) — show `[NEW STATE: option-preview-error]`: `alert-error` inside `info-panel` with retry affordance. Copy `[REVISED 2026-05-08]`: heading "Couldn't load this preview", body "Try again, or pick a different option.", retry CTA "Try again".
 
 ---
 
@@ -185,8 +201,13 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 - The card is mounted, awaiting an answer
 - Pinned as the thread hero (desktop) or mounted as the active overlay (mobile)
 - Submit button: disabled (no selection) or enabled (selection made and valid)
-- The agent has acknowledged the question is in-flight; while in-flight, the agent does not pose another question on the same thread (one question at a time)
-- `[OPEN QUESTION: Can the agent send a non-question message while a question is in-flight? E.g., "still waiting on your answer" or a clarifying note?]`
+- The agent has acknowledged the question is in-flight; while in-flight, the agent does not pose another question on the same thread (one question at a time) — see "Multiple in-flight questions" below.
+- **Non-question messages while in-flight `[REVISED 2026-05-08]`:** the agent MAY post `thread-msg-system` "Heads up: [context]" messages without invalidating the in-flight card (e.g., "Heads up: another duplicate-flag landed on this referral"). The agent MUST NOT post another question card. If urgent context arrives that would change the question, the agent cancels the in-flight card (logging as `thread-msg-system` "Question dismissed — context changed") and re-poses an updated question.
+
+### Idle (in-flight, ≥90s no interaction) `[REVISED 2026-05-08]`
+- After 90 seconds of no focus and no interaction, the card collapses its description text into a one-line summary ("Question from Ava: [class chip text]") and dims slightly via reduced opacity to free the thread for non-blocking scrolling.
+- Tapping or focusing the collapsed card re-expands to full state.
+- This state would require a new component variant `[NEW VARIANT: thread-question-card.is-idle]` — **flagged as the 13th component, OPEN QUESTION for Aaron at Gate 2 review.** If Aaron declines, the card stays full-size during idle (status quo).
 
 ### Submitted (terminal)
 - After Submit succeeds, the card transitions to a `thread-msg-response`-style historical summary
@@ -196,8 +217,7 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 
 ### Cancelled (terminal)
 - After Cancel, the card removes itself from the thread (desktop) or dismisses the bottom-sheet (mobile)
-- A `thread-msg-system`-style log entry MAY render in its place: "Question dismissed" with timestamp
-- `[OPEN QUESTION: Always log the cancellation, or only when the agent's logic depends on knowing the user explicitly declined?]`
+- **Always log `[REVISED 2026-05-08]`:** a `thread-msg-system` log entry renders in place: "Question dismissed at [timestamp]". Three reasons: (a) thread-history clarity for retrospective debugging, (b) HIPAA-adjacent audit trail for clinical apps, (c) bounded noise cost (one line per cancel, dimmed register). If consecutive `thread-msg-system` entries become noisy, collapse them in a follow-up slice — a known-safe optimization, not a reason to skip logging now.
 
 ### Locked / historical (read-only)
 - For thread-history view (the user is reviewing past threads, not the in-flight thread), already-answered question cards render as `[NEW VARIANT: thread-question-card.is-historical]`
@@ -208,12 +228,12 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 - After Submit failure (network, agent rejected the answer, validation error from agent side)
 - Inline `alert-error` renders inside the card body, above the option list
 - Submit button returns to enabled state (allowing retry)
-- Error message: `[COPY: error message when answer-submit fails — context-specific, agent provides]`
+- **Error message default copy `[REVISED 2026-05-08]`:** "We couldn't send your answer. Try again, or close and we'll re-ask." (Spanish: "No pudimos enviar tu respuesta. Inténtalo otra vez, o ciérrala y te volveremos a preguntar."). Agent-supplied per-instance copy may override this default when the agent has specific context (e.g., "Care plan B isn't available right now — pick a different option.").
 - Retry: user can re-Submit; option selection is preserved across the failure
 
 ### Empty state (no options provided)
 - Edge case: agent posts a question with zero options (degenerate). The card should NOT render in this case — agent should pose a free-text-only question via a different affordance (e.g., `prompt-input-container` with the question as preceding `message-agent`).
-- If the card receives zero options at runtime, render `[NEW STATE: thread-question-empty]`: `data-empty-state` with `fa-circle-question` icon, copy `[COPY: degenerate-no-options state — should never render in production; flag as bug]`. This is defensive.
+- If the card receives zero options at runtime, render `[NEW STATE: thread-question-empty]`: `data-empty-state` with `fa-circle-question` icon. Copy `[REVISED 2026-05-08]`: heading "Question loaded without options" (Spanish: "Pregunta sin opciones"), body "Something's off on our side. Try refreshing, or message us if it stays stuck." (Spanish: "Algo no está bien de nuestra parte. Intenta refrescar, o avísanos si sigue así."). This is defensive — should never render in production; flag as bug telemetry.
 
 ### Loading state
 - Cards do not have an own loading state — the card mounts when the agent's question payload is fully resolved. If the agent is "thinking" before posing a question, the thread shows `tool-call`-style indicators, not this card.
@@ -229,11 +249,13 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
   - Each option-row: `<button role="radio">` (single-select) or `<button role="checkbox">` (multi-select); `aria-checked` on each
   - Submit button: `aria-keyshortcuts="1"` (or whichever number is displayed)
 - **Focus management:**
-  - On card mount, focus moves to the first option-row (NOT the Submit button — the user must answer first)
-  - Tab order: prompt body's interactive elements (none by default) → option-row list (Tab enters; arrow keys navigate within radiogroup) → Submit button → Cancel hint
-  - On "Other" reveal, focus moves to the textarea
-  - On Submit, focus moves to the post-submit thread message (Submitted state)
+  - On card mount, focus moves to the **first checked option-row, otherwise the first option-row** `[REVISED 2026-05-08]` — matches WAI-ARIA APG Radio Group pattern (focus the checked radio if any; else the first). [Source: W3C WAI-ARIA APG, "Radio Group Pattern"]
+  - **Roving tabindex `[REVISED 2026-05-08]`:** the option-row-list uses a roving tabindex strategy — exactly one option-row has `tabindex="0"` at any time (the focused or last-focused option); all others have `tabindex="-1"`. Tab enters/exits the group as a single stop. Arrow keys move focus *and* check (single-select) or move focus only (multi-select; Space toggles).
+  - Tab order: prompt body's interactive elements (none by default) → option-row list (single tab stop via roving tabindex) → Submit button → Cancel hint
+  - On "Other" reveal, focus moves to the textarea (per gov.uk's "single-input conditional reveal" guidance — simple reveals perform well; complex reveals fail testing). [Source: gov.uk Accessibility Blog, "Conditionally revealed questions"]
+  - On Submit success, focus moves to the post-submit thread message (Submitted state)
   - On Cancel, focus moves to the `prompt-input-container` (desktop) or the thread parent (mobile)
+  - **Bottom-sheet variants (mobile):** focus is trapped inside the sheet while open (per WCAG 2.4.3 modal-overlay rule). On Sheet 2 → Sheet 1 return, focus returns to the option-row in Sheet 1 that opened Sheet 2 — NOT to Sheet 1's first option. `[REVISED 2026-05-08]`
 - **Touch targets (mobile):**
   - Each option-row: 44px minimum height
   - Submit button: 48px minimum height
@@ -260,13 +282,22 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 
 - "Submit answer" / "Submit answers" → "Enviar respuesta" / "Enviar respuestas"
 - "Other" → "Otro"
-- "(Recommended)" → "(Recomendado)" — verify this longer string fits the inline-with-title slot at small viewport widths; may need to break to a second line on mobile
+- "(Recommended)" → "(Recomendado)" — verify this longer string fits the inline-with-title slot at small viewport widths; may need to break to a second line on mobile `[REVISED 2026-05-08]`. Layout escape-hatch: when `(Recomendado)` would force a line break inside the option-row title, the badge wraps to a second line within the option-row instead of stretching the title's container — handled at PL fragment authoring via `flex-wrap` on the title row.
 - "Esc to cancel" → "Esc para cancelar"
-- "No preview available for this option" → "[COPY: Spanish translation]"
-- "Provide your own input" → "[COPY: Spanish translation]"
-- Numbered keybinding hint is language-agnostic (digits)
+- "No preview for this option" → "Sin vista previa" `[REVISED 2026-05-08]`
+- "Pick a different option to see a preview, or select this one to commit." → "Selecciona otra opción para ver una vista previa, o elige esta para enviar." `[REVISED 2026-05-08]`
+- "Type a different answer" (Other description) → "Escribe otra respuesta" `[REVISED 2026-05-08]`
+- "Tell us what fits better." (Other textarea placeholder) → "Cuéntanos qué se ajusta mejor." `[REVISED 2026-05-08]`
+- "Cancel question" (mobile close button aria-label) → "Cancelar pregunta" `[REVISED 2026-05-08]`
+- "Choose this option" (Sheet 2 commit) → "Elegir esta opción" `[REVISED 2026-05-08]`
+- "Back to options" (Sheet 2 back button aria-label) → "Volver a las opciones" `[REVISED 2026-05-08]`
+- "Couldn't load this preview" / "Try again, or pick a different option." → "No pudimos cargar esta vista previa." / "Inténtalo otra vez o elige otra opción." `[REVISED 2026-05-08]`
+- "We couldn't send your answer. Try again, or close and we'll re-ask." (Submit error default) → "No pudimos enviar tu respuesta. Inténtalo otra vez, o ciérrala y te volveremos a preguntar." `[REVISED 2026-05-08]`
+- "Ava suggested these. Edit and submit when ready." (multi-select agent pre-selection line, coordinator/provider/kitchen) → "Ava sugirió estas opciones. Ajusta y envía cuando quieras." `[REVISED 2026-05-08]`
+- "Ava picked these to start. Change them or send as is." (patient 5th-grade variant) → "Ava marcó estas para empezar. Cámbialas o envíalas así." `[REVISED 2026-05-08]`
+- Numbered keybinding hint is language-agnostic (digits) — but caveat per MDN: French AZERTY layouts require Shift for digit keys. The digit hint is a hint, not a contract; the canonical commit is Submit-click + Enter on focused option. `[REVISED 2026-05-08]`
 - Prompt body and option text are agent-authored — bilingual responsibility falls on the agent's content layer, not the card primitive
-- Question class chip (header) — agent-authored; bilingual responsibility same as prompt body
+- Question class chip (header) — agent-authored; bilingual responsibility same as prompt body. Final copy examples (English): "Match referral", "Delivery time", "Care plan path", "Substitution".
 
 ---
 
@@ -305,20 +336,48 @@ Premature extraction across two contexts with different decorative
 load lands in a primitive that's the union of warts.
 ```
 
-### Unresolved (for ux-design-review pre-build, then steward at PL authoring)
+### Resolved during ux-design-review pre-build (2026-05-08)
 
-- **Question class chip rendering:** `badge-pill` inline usage, or new modifier `badge-pill.is-question-class`? Steward call at PL authoring. The chip's max-width (~12 char) and visual weight need a steward decision; start with inline `badge-pill` and only promote a modifier if a second consumer needs the same shape.
-- **Numbered keybinding hint inline-with-button:** new composition class (`kbd-shortcut-hint` or similar), or per-instance Tailwind utility? Token reuse from `cmd-palette-shortcut` typography is the starting point. Per-option numbers visible always, on Cmd-hold, or never? `cc-design-review` to feel-test.
-- **Master-detail preview-pane primitive:** `info-panel` for structured content + `code-view` for monospace are the starting candidates. Is a unified `option-preview-pane` warranted, or are the two existing primitives composed directly per-instance? Steward call at PL authoring.
-- **Master-detail breakpoint:** at what viewport does the `panel-chat` + `panel-content` master-detail collapse to mobile sequential bottom-sheets? Tablet (~720px) is the agentic-shell minimum; below 720px the mobile-shell takes over. So the breakpoint is implicit at the shell-routing level. Confirm.
-- **Multi-select Submit copy:** "Submit answers" (plural) is the default. Per-instance copy override (e.g., "Apply selections", "Add to plan") is acceptable when the agent's question warrants it. NOT a primitive concern — agent authors per-instance.
-- **In-flight idle behavior:** can the agent send another message in the thread while a question is in-flight? Default assumption: NO, one question at a time per thread. If the agent needs to add a clarifying note, it does so as part of the question's prompt body, not as a separate message. Confirm with agent-platform owner.
-- **Multiple in-flight questions:** does a thread support more than one in-flight question card simultaneously? Default: NO, one at a time. Subsequent questions queue. Confirm.
-- **Sequential mobile bottom-sheets, return behavior:** does selecting from Sheet 2 (preview detail) commit and dismiss directly, or return to Sheet 1 with the option pre-selected for explicit Submit? Default in this wireframe: return to Sheet 1 for explicit Submit (preserves consistent affordance). Validate at design-review.
-- **"Other" reveal reveal-direction (in-place vs. dedicated slot):** in-place expansion of the option-row is the default in this wireframe. Validate against typical option list lengths — if option lists run long, in-place reveal pushes options out of view.
-- **Preview swap transition:** instant vs. crossfade. Feel-test at design-review.
-- **Cancellation logging:** always log a cancel as `thread-msg-system`, or only when the agent's logic needs to know? Default: log always for thread-history clarity; flag if noise becomes a problem.
-- **Loading spinner on Submit:** is there a meaningful latency window where the user might think Submit failed? Agent acknowledgment is typically <1s; if 95th-percentile is >2s, the loading spinner needs a dedicated treatment. Confirm with agent-platform metrics.
+These items had defaults named in the wireframe; the design-review pass turned them into spec-grade rules. See inline `[REVISED 2026-05-08]` tags for each resolution.
+
+- **Master-detail breakpoint** — implicit at shell-routing level. Above 720px → Variant 3; below 720px → Variant 5. No per-card breakpoint.
+- **In-flight idle behavior (agent messages while a question is in-flight)** — agent MAY post `thread-msg-system` heads-up notes; MUST NOT post another question card. If urgent context arrives that would change the question, agent cancels and re-poses.
+- **Multiple in-flight questions per thread** — locked to one question per thread. Subsequent questions queue.
+- **Sequential mobile bottom-sheets, return behavior** — Sheet 2's "Choose this option" returns to Sheet 1 with the option pre-selected; Sheet 1's Submit fires the actual commit. Preserves consistent Submit affordance + reversibility + matches mobile master-detail navigation conventions.
+- **"Other" reveal direction** — in-place expansion is the default for option lists ≤6. Lists exceeding 6 trigger a steward review (in-place reveal pushes options out of view at higher counts; dedicated-slot-below approach may be appropriate).
+- **Cancellation logging** — always log as `thread-msg-system` "Question dismissed at [timestamp]". Bounded noise cost; HIPAA audit-trail value.
+- **Loading spinner on Submit** — ship the spinner; instrument the latency. Submit transitions to disabled-with-spinner simultaneously to block double-fire. Revisit if 95p latency stays under 800ms (drop spinner) or exceeds 2s (add a "still working" affordance after 1.5s).
+- **Recommendation pre-selection (multi-select)** — agent may pre-select; render a quiet "Ava suggested these" line above the option list; require at least one user-driven option toggle before the digit-keybinding fires (stray-Enter guard). Submit button itself remains clickable to honor "Submit as suggested" intent.
+- **Submit double-tap protection** — Submit transitions to `disabled` simultaneously with the spinner-on transition. Canonical pattern across `thread-approval-card.actions`.
+- **Master-detail focused-option precedence** — selection > keyboard-focus > hover. 300ms cooldown on hover after the last keyboard event. Detail pane carries `data-preview-source` for diagnostic + AT use.
+- **Screen-reader announcement for preview swap** — detail pane wrapped in `aria-live="polite"`; announces "[Option title] preview: [first-line summary]". Suppress on selection.
+- **Initial focus on card mount** — first checked option-row, otherwise first option-row (matches WAI-ARIA APG Radio Group pattern).
+- **Roving tabindex** — option-row-list uses roving tabindex; one option has `tabindex="0"`, others `tabindex="-1"`. Tab is a single stop into/out of the group.
+- **Bottom-sheet focus-trap** — focus is trapped inside the sheet while open (WCAG 2.4.3 modal-overlay rule).
+- **Sticky-footer pinning on bottom-sheet** — pinned to `bottom-sheet-panel` root, NOT inside body's scroll context (iOS Safari address-bar collision).
+- **Master-detail layout-engagement rule** — Variant 3 engages only when ≥2 options carry preview payloads OR when ≥1 option has a preview AND agent marks the question with `compare_previews: true`. Single-option-with-preview falls back to Variant 1 + a `chat-sheet-link` "View preview".
+- **ARIA pattern for multi-select** — locked to `<button role="checkbox">` + `aria-checked` (NOT `aria-pressed`). `aria-pressed` is the toggle-button pattern; option-row-list is a structured group of selectable options.
+- **Multi-select Submit copy default** — "Submit answers" (plural). Per-instance copy override permitted (e.g., "Apply selections", "Add to plan") when the agent's question warrants it.
+
+### Open Questions for Aaron at Gate 2 review
+
+These are items that genuinely require Aaron's input — they affect locked Gate 2 component-list scope OR cross-primitive policy.
+
+1. **Pin-priority across thread message types.** Should `thread-question-card.in-flight` outrank `thread-approval-card` (default, non-urgent) when both are present in the thread? Recommendation: yes, because a question blocks agent progress. This is a thread-rendering-policy decision spanning multiple primitives. **Suggested order:** `thread-approval-card.is-urgent > thread-question-card (in-flight) > thread-approval-card (default) > thread-question-card.is-historical`. Confirm direction.
+2. **Idle-state collapse (`thread-question-card.is-idle` — 13th component).** Adding the 90s idle-collapse variant exceeds the locked Gate 2 12-component list. Add now, or punt to a follow-up slice (and accept that a stale card stays full-size during idle)?
+3. **PHI-redaction modifier (potential 13th component).** Should the card primitive support an `is-phi-redacted` modifier that masks option text in screenshots/screen-shares (over-shoulder views in shared workstations)? Recommendation: punt to consuming-app concern (each app's thread renderer applies redaction at render time, not at primitive level) — this keeps the locked component list intact. Confirm.
+4. **Allowlist parity for `agent_question` event type across persona-app threads.** Coordinator + provider + patient + kitchen each have different `data-allowlist` configurations on `panel-content`. Adding the agent-question event type requires confirming each persona's allowlist explicitly accepts it. Downstream-shell work — confirm whether haven-mapper picks this up or if a separate "thread-allowlist update" task is needed.
+5. **Recommendation pre-selection acceptance.** Resolved inline as "agent suggests but user must touch the list before keybinding fires; Submit click remains direct." Confirm acceptable; the alternative (Submit enabled but requires confirmation modal on first commit) is more intrusive but eliminates stray-Enter risk entirely.
+6. **Question class chip register (`badge-pill` inline vs. `.is-question-class` modifier).** Resolved inline to "inline `badge-pill` usage, no new modifier." The steward call at PL authoring may differ once the chip has visual weight in real renderings — the wireframe doesn't lock this.
+
+### Deferred to PL fragment authoring (visual feel-test)
+
+These items can only be evaluated against rendered output:
+
+- **Preview swap transition** — instant vs. subtle crossfade. Crossfade risks distraction; instant risks feeling abrupt. Test both at PL authoring with a real preview payload.
+- **Per-option numbered keybinding hint visibility** — always vs. Cmd-hold vs. never. Always-on may clutter dense lists; Cmd-hold is discoverable for power users; never may underutilize the affordance. Test all three with realistic option counts (3, 5, 7).
+- **Recommendation callout (`ai-insight-callout`, violet) vs. inline `(Recommended)` badge co-existence** — when both render, do they read as redundant or as reinforcing? Test in `cc-08` consuming context where the question + recommendation both carry weight. May warrant dropping one register when both are present.
+- **Master-detail preview-pane primitive choice** — `info-panel` + `code-view` per-instance vs. a unified `option-preview-pane` primitive. Steward call at PL authoring with one or two real preview payloads in hand.
 
 ---
 
@@ -345,6 +404,22 @@ This wireframe introduces components that do not exist in `pattern-library/COMPO
 
 ---
 
+## Healthcare-specific notes `[REVISED 2026-05-08]`
+
+- **Alert-fatigue mitigation:** if agentic-questions become high-frequency interrupts (multiple per hour for a coordinator), the always-pinned-as-hero behavior compounds with `thread-approval-card` pinning. Both can't pin simultaneously. **Suggested pin-priority order** (open question for Aaron): `thread-approval-card.is-urgent > thread-question-card (in-flight) > thread-approval-card (default) > thread-question-card.is-historical`. [Source: AHRQ PSNet, "Alert Fatigue"]
+- **Consuming-app context coupling:** when the question class corresponds to an existing viewer (e.g., "Match referral" → `cc-08-duplicate-comparison`), the question body should include a `chat-sheet-link` ("View full comparison") that opens the viewer in the center pane. The card stays pinned in the right pane. This pattern keeps the question + answer co-located in the thread while letting the user cross-reference the deep view without losing place.
+- **HIPAA visibility for option text:** option titles + descriptions are agent-authored; the agent must avoid raw PHI in option text where the thread is visible to non-attending users (over-shoulder views in shared workstations). The card primitive defers this to the agent's content layer; whether to add an `is-phi-redacted` modifier is open question #3 for Aaron.
+- **Documentation burden:** Submitted-state's historical summary preserves the user's exact answer (not a paraphrase) for audit. No additional clinical-documentation work created.
+
+## Use-case anchors `[REVISED 2026-05-08]`
+
+The pattern is cross-app; specific consuming-app use cases are confirmed below.
+
+- **Coordinator referral clarification (Variant 1):** pinned to `cc-04` (referral record) right pane. Three options + Other; question class chip "Match referral". When `cc-08-duplicate-comparison` exists for the same referral, prompt body includes a `chat-sheet-link` "View full comparison".
+- **Patient meal-window selection (Variant 4, mobile):** Ava chat thread; bottom-sheet. Three meal windows; question class chip "Delivery time". 5th-grade reading level + Spanish parity required.
+- **Provider clinical-decision with preview (Variant 3, desktop master-detail):** pinned to `pv-01` right pane. Two care-plan options each with preview; question class chip "Care plan path". `aria-live` announcements on preview swap. Open question #4 for Aaron: provider thread allowlist parity.
+- **Kitchen substitution (Variant 2, multi-select):** pinned to `kt-01` right pane on tablet. Two-three substitution options + Other; question class chip "Substitution". Touch targets raise to 48px (gloved-hand context) via `option-row.is-tablet-dense` or per-app token override.
+
 ## References
 
 - `apps/_shared/design/wireframes/agentic-question-brief.md` — pre-wireframe brief (driving spec)
@@ -355,3 +430,4 @@ This wireframe introduces components that do not exist in `pattern-library/COMPO
 - `planning/experts/design-system-steward/judgment-framework.md` — extract-vs-keep-local rule applied to the response-option-group boundary
 - `planning/experts/ux-design-lead/judgment-framework.md` — surface decision tree (in-thread default for routine + low-risk)
 - `apps/care-coordinator/design/wireframes/cc-08-duplicate-comparison.md` — likely consumer of the master-detail preview variant once the pattern ships
+- `apps/_shared/design/review-notes-agentic-question.md` — pre-build ux-design-review notes (2026-05-08); resolved nine of twelve original open questions, write-final-copy pass, four critical-issue patches `[REVISED 2026-05-08]`
