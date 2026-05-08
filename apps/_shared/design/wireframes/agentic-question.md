@@ -204,10 +204,10 @@ Triggered when ≥1 option carries a preview payload. Layout uses two bottom-she
 - The agent has acknowledged the question is in-flight; while in-flight, the agent does not pose another question on the same thread (one question at a time) — see "Multiple in-flight questions" below.
 - **Non-question messages while in-flight `[REVISED 2026-05-08]`:** the agent MAY post `thread-msg-system` "Heads up: [context]" messages without invalidating the in-flight card (e.g., "Heads up: another duplicate-flag landed on this referral"). The agent MUST NOT post another question card. If urgent context arrives that would change the question, the agent cancels the in-flight card (logging as `thread-msg-system` "Question dismissed — context changed") and re-poses an updated question.
 
-### Idle (in-flight, ≥90s no interaction) `[REVISED 2026-05-08]`
+### Idle (in-flight, ≥90s no interaction) `[REVISED 2026-05-08]` `[AARON-CONFIRMED 2026-05-08]`
 - After 90 seconds of no focus and no interaction, the card collapses its description text into a one-line summary ("Question from Ava: [class chip text]") and dims slightly via reduced opacity to free the thread for non-blocking scrolling.
 - Tapping or focusing the collapsed card re-expands to full state.
-- This state would require a new component variant `[NEW VARIANT: thread-question-card.is-idle]` — **flagged as the 13th component, OPEN QUESTION for Aaron at Gate 2 review.** If Aaron declines, the card stays full-size during idle (status quo).
+- Added as `[NEW VARIANT: thread-question-card.is-idle]` — Aaron approved 2026-05-08; locked component list expanded from 12 to 13. Cost rationale: authoring the modifier alongside the rest at PL fragment time is cheaper than retrofit; without it, stale cards stay full-size and compound with `thread-approval-card` for vertical real estate in busy threads.
 
 ### Submitted (terminal)
 - After Submit succeeds, the card transitions to a `thread-msg-response`-style historical summary
@@ -359,16 +359,16 @@ These items had defaults named in the wireframe; the design-review pass turned t
 - **ARIA pattern for multi-select** — locked to `<button role="checkbox">` + `aria-checked` (NOT `aria-pressed`). `aria-pressed` is the toggle-button pattern; option-row-list is a structured group of selectable options.
 - **Multi-select Submit copy default** — "Submit answers" (plural). Per-instance copy override permitted (e.g., "Apply selections", "Add to plan") when the agent's question warrants it.
 
-### Open Questions for Aaron at Gate 2 review
+### Resolved at Gate 2 review (Aaron, 2026-05-08)
 
-These are items that genuinely require Aaron's input — they affect locked Gate 2 component-list scope OR cross-primitive policy.
+All six open-questions surfaced for Aaron at Gate 2 are resolved below. The questions and answers are preserved verbatim for audit; resolutions are tagged `[AARON-CONFIRMED 2026-05-08]`.
 
-1. **Pin-priority across thread message types.** Should `thread-question-card.in-flight` outrank `thread-approval-card` (default, non-urgent) when both are present in the thread? Recommendation: yes, because a question blocks agent progress. This is a thread-rendering-policy decision spanning multiple primitives. **Suggested order:** `thread-approval-card.is-urgent > thread-question-card (in-flight) > thread-approval-card (default) > thread-question-card.is-historical`. Confirm direction.
-2. **Idle-state collapse (`thread-question-card.is-idle` — 13th component).** Adding the 90s idle-collapse variant exceeds the locked Gate 2 12-component list. Add now, or punt to a follow-up slice (and accept that a stale card stays full-size during idle)?
-3. **PHI-redaction modifier (potential 13th component).** Should the card primitive support an `is-phi-redacted` modifier that masks option text in screenshots/screen-shares (over-shoulder views in shared workstations)? Recommendation: punt to consuming-app concern (each app's thread renderer applies redaction at render time, not at primitive level) — this keeps the locked component list intact. Confirm.
-4. **Allowlist parity for `agent_question` event type across persona-app threads.** Coordinator + provider + patient + kitchen each have different `data-allowlist` configurations on `panel-content`. Adding the agent-question event type requires confirming each persona's allowlist explicitly accepts it. Downstream-shell work — confirm whether haven-mapper picks this up or if a separate "thread-allowlist update" task is needed.
-5. **Recommendation pre-selection acceptance.** Resolved inline as "agent suggests but user must touch the list before keybinding fires; Submit click remains direct." Confirm acceptable; the alternative (Submit enabled but requires confirmation modal on first commit) is more intrusive but eliminates stray-Enter risk entirely.
-6. **Question class chip register (`badge-pill` inline vs. `.is-question-class` modifier).** Resolved inline to "inline `badge-pill` usage, no new modifier." The steward call at PL authoring may differ once the chip has visual weight in real renderings — the wireframe doesn't lock this.
+1. **Pin-priority across thread message types** `[AARON-CONFIRMED 2026-05-08]` — confirmed. Pin order: `thread-approval-card.is-urgent > thread-question-card (in-flight) > thread-approval-card (default) > thread-question-card.is-historical`. This is a thread-rendering-policy entry that haven-mapper must surface for cross-primitive thread-renderer scope.
+2. **Idle-state collapse (`thread-question-card.is-idle`)** `[AARON-CONFIRMED 2026-05-08]` — add now. Locked component list expanded from 12 to 13. Cost rationale: authoring alongside other modifiers is cheaper than retrofit; idle-collapse prevents stale-card vertical-space compounding in busy threads.
+3. **PHI-redaction modifier** `[AARON-CONFIRMED 2026-05-08]` — punt to consuming-app concern. Card primitive carries no PHI-awareness; each app's thread renderer applies redaction at render time. Locked list stays at 13 (does not add a 14th).
+4. **Allowlist parity for `agent_question` event type** `[AARON-CONFIRMED 2026-05-08]` — confirmed not a primitive concern. haven-ui owns the primitive; consuming apps own their `data-allowlist` config. The downstream "update each app's allowlist" work is consuming-app integration — see "Downstream consuming-app integration tasks" section below. haven-mapper surfaces these tasks but does not execute them.
+5. **Recommendation pre-selection acceptance** `[AARON-CONFIRMED 2026-05-08]` — confirmed. User-must-touch + stray-Enter guard is the lock; no confirmation modal (avoids friction). Already reflected in Variant 2 spec + Interaction §"Numbered keybinding (desktop only)".
+6. **Question class chip register** `[AARON-CONFIRMED 2026-05-08]` — understood. Inline `badge-pill` usage at wireframe; steward retains the call at PL authoring to promote to a `.is-question-class` modifier if visual weight warrants.
 
 ### Deferred to PL fragment authoring (visual feel-test)
 
@@ -399,16 +399,17 @@ This wireframe introduces components that do not exist in `pattern-library/COMPO
 | NEW STATE | `option-preview-empty` | Tier 2 (composition) | data-empty-state for master-detail variant when focused option has no preview. |
 | NEW STATE | `option-preview-error` | Tier 2 (composition) | alert-error inside info-panel for preview render failure. |
 | NEW STATE | `thread-question-empty` | Tier 2 (composition) | Defensive degenerate-no-options state. |
+| NEW VARIANT | `thread-question-card.is-idle` `[AARON-CONFIRMED 2026-05-08]` | Tier 2 modifier | After 90s no focus/interaction, collapses description to one-line summary + dims slightly. Tap/focus re-expands. Added per Aaron's Gate 2 approval — locked list expanded 12 → 13. |
 
-`[GATE 2]` — this wireframe flags 12 new components/variants/states. Per haven-ui CLAUDE.md "Slice authoring — wireframe-driven, PL-first," this triggers a mandatory pause at Gate 2 before haven-mapper proceeds. Aaron must approve pursuing them (or redirect) before the pipeline advances.
+`[GATE 2]` — this wireframe flags **13 new components/variants/states** (12 at initial Gate 2 + 1 added at Aaron's Gate 2 review for idle-state). Aaron approved Gate 2 pursuit on 2026-05-08; pipeline advances to haven-mapper.
 
 ---
 
 ## Healthcare-specific notes `[REVISED 2026-05-08]`
 
-- **Alert-fatigue mitigation:** if agentic-questions become high-frequency interrupts (multiple per hour for a coordinator), the always-pinned-as-hero behavior compounds with `thread-approval-card` pinning. Both can't pin simultaneously. **Suggested pin-priority order** (open question for Aaron): `thread-approval-card.is-urgent > thread-question-card (in-flight) > thread-approval-card (default) > thread-question-card.is-historical`. [Source: AHRQ PSNet, "Alert Fatigue"]
+- **Alert-fatigue mitigation `[AARON-CONFIRMED 2026-05-08]`:** if agentic-questions become high-frequency interrupts (multiple per hour for a coordinator), the always-pinned-as-hero behavior compounds with `thread-approval-card` pinning. Both can't pin simultaneously. **Pin-priority order:** `thread-approval-card.is-urgent > thread-question-card (in-flight) > thread-approval-card (default) > thread-question-card.is-historical`. This is a thread-rendering-policy entry that crosses primitives — haven-mapper must surface it as part of the thread-renderer scope, not just the question-card scope. [Source: AHRQ PSNet, "Alert Fatigue"]
 - **Consuming-app context coupling:** when the question class corresponds to an existing viewer (e.g., "Match referral" → `cc-08-duplicate-comparison`), the question body should include a `chat-sheet-link` ("View full comparison") that opens the viewer in the center pane. The card stays pinned in the right pane. This pattern keeps the question + answer co-located in the thread while letting the user cross-reference the deep view without losing place.
-- **HIPAA visibility for option text:** option titles + descriptions are agent-authored; the agent must avoid raw PHI in option text where the thread is visible to non-attending users (over-shoulder views in shared workstations). The card primitive defers this to the agent's content layer; whether to add an `is-phi-redacted` modifier is open question #3 for Aaron.
+- **HIPAA visibility for option text `[AARON-CONFIRMED 2026-05-08]`:** option titles + descriptions are agent-authored; the agent must avoid raw PHI in option text where the thread is visible to non-attending users (over-shoulder views in shared workstations). The card primitive carries no PHI-awareness — redaction is a consuming-app render-time concern. Per Aaron's Gate 2 review, no `is-phi-redacted` modifier is added to this primitive's locked component list.
 - **Documentation burden:** Submitted-state's historical summary preserves the user's exact answer (not a paraphrase) for audit. No additional clinical-documentation work created.
 
 ## Use-case anchors `[REVISED 2026-05-08]`
@@ -419,6 +420,19 @@ The pattern is cross-app; specific consuming-app use cases are confirmed below.
 - **Patient meal-window selection (Variant 4, mobile):** Ava chat thread; bottom-sheet. Three meal windows; question class chip "Delivery time". 5th-grade reading level + Spanish parity required.
 - **Provider clinical-decision with preview (Variant 3, desktop master-detail):** pinned to `pv-01` right pane. Two care-plan options each with preview; question class chip "Care plan path". `aria-live` announcements on preview swap. Open question #4 for Aaron: provider thread allowlist parity.
 - **Kitchen substitution (Variant 2, multi-select):** pinned to `kt-01` right pane on tablet. Two-three substitution options + Other; question class chip "Substitution". Touch targets raise to 48px (gloved-hand context) via `option-row.is-tablet-dense` or per-app token override.
+
+## Downstream consuming-app integration tasks `[AARON-CONFIRMED 2026-05-08]`
+
+After this primitive ships, each consuming app must update its `panel-content` thread renderer's `data-allowlist` to accept the new `agent_question` event type. This is **app-architecture work, NOT a haven-ui primitive concern** — the primitive carries no allowlist semantics. haven-mapper surfaces these tasks as a follow-up list; consuming-app slices execute them.
+
+| App | File | Change required |
+|---|---|---|
+| Care Coordinator | `apps/care-coordinator/src/.../thread-panel allowlist config` | Add `agent_question` to the coordinator-thread allowlist (currently includes `system`, `agent_tool_call`, `agent_tool_result`, `approval_request`, `approval_response`, `human_message`, `notification`, `status_change`) |
+| Provider | provider thread renderer (when active app exists) | Add `agent_question` to the clinical-thread allowlist |
+| Patient | `apps/patient/src/.../thread allowlist config` | Add `agent_question` to the patient chat-thread allowlist |
+| Kitchen | `apps/kitchen/src/.../thread allowlist config` (when active) | Add `agent_question` to the order-relevant allowlist |
+
+Pin-priority policy (resolved Open Q #1) is the same kind of cross-primitive integration — `thread-approval-card`'s thread renderer needs the new pin-priority logic added when the new primitive ships. haven-mapper will surface this alongside the allowlist tasks.
 
 ## References
 
