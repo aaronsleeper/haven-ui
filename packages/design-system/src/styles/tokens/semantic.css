@@ -135,6 +135,12 @@
   --color-text-muted:   var(--color-sand-700);
   --color-text-faint:   var(--color-sand-500);
   --color-text-on-dark: var(--color-sand-50); /* theme-invariant — always the text color for dark surfaces regardless of theme mode. */
+  /* --- Brand-naming aliases — match cena-health-brand visual-language naming.
+     `text-primary` = the chromatic dark that governs the icon-and-text color
+     signature; resolves to teal-800 (#0D322D) here. Imports the icon-and-text
+     color into diagram surfaces per haven-visual-designer essence-gap iter #1. */
+  --color-text-primary:    var(--color-teal-800);
+  --color-surface-primary: var(--color-sand-50);
 
   /* --- Border tokens — DESIGN.md §Border. --- */
   --color-border-default: var(--color-sand-250);
@@ -193,6 +199,9 @@
     --color-text-muted:  var(--color-sand-300);
     --color-text-faint:  var(--color-sand-400);
     /* --color-text-on-dark is theme-invariant — same value in both modes. */
+    /* Brand-naming aliases — chromatic light mirrors the chromatic-dark intent. */
+    --color-text-primary:    var(--color-teal-100);
+    --color-surface-primary: var(--color-sand-950);
 
     /* Border tokens */
     --color-border-default: var(--color-sand-700);

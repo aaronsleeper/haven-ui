@@ -243,8 +243,8 @@ function buildMarkerDefs(svgElement) {
             orient: m.orient,
         });
         const path = m.shape === 'fill'
-            ? svgEl('path', { d: 'M 0 0 L 10 5 L 0 10 z' }, [m.klass])
-            : svgEl('path', { d: 'M 0 0 L 10 5 L 0 10', fill: 'none' }, [m.klass]);
+            ? svgEl('path', { d: 'M 0 1 L 10 5 L 0 9 Q -1 5 0 1 z' }, [m.klass])
+            : svgEl('path', { d: 'M 0 1 L 10 5 L 0 9', fill: 'none' }, [m.klass]);
         marker.appendChild(path);
         defs.appendChild(marker);
     }

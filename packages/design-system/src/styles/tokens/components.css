@@ -10581,6 +10581,13 @@ a.list-group-item-action {
    =================================== */
 :root {
     --radius-diagram-box: var(--radius-sm);
+    /* Variable stroke-weight tokens — iconography §3 1.5:1 ratio that makes
+       diagrams feel hand-placed rather than uniformly drawn. Round-2 essence-gap
+       iteration. Primary = emphasis arrows + milestone shapes/checks; secondary =
+       default arrows + milestone track; accent = future-use lighter contour. */
+    --stroke-diagram-primary:   2;
+    --stroke-diagram-secondary: 1.5;
+    --stroke-diagram-accent:    1;
 }
 
 
@@ -10660,14 +10667,16 @@ a.list-group-item-action {
 }
 
 .diagram-box-shape {
-    fill: #ffffff;
+    fill: var(--color-surface-primary);
     stroke: var(--color-border-default);
     stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     rx: var(--radius-diagram-box);
 }
 
 .diagram-box-label {
-    fill: var(--color-sand-900);
+    fill: var(--color-text-primary);
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 600;
@@ -10751,9 +10760,11 @@ a.list-group-item-action {
     /* Group container. */
 }
 .diagram-pill-shape {
-    fill: #ffffff;
+    fill: var(--color-sand-100);
     stroke: var(--color-sand-500);
     stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     rx: 11;
 }
 .diagram-pill-label {
@@ -10783,12 +10794,13 @@ a.list-group-item-action {
 .diagram-arrow {
     fill: none;
     stroke: var(--color-arrow-default);
-    stroke-width: 1.5;
+    stroke-width: var(--stroke-diagram-secondary);
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 .diagram-arrow--emphasis {
     stroke: var(--color-arrow-emphasis);
+    stroke-width: var(--stroke-diagram-primary);
 }
 .diagram-arrow--muted {
     stroke: var(--color-arrow-muted);
@@ -10839,17 +10851,21 @@ a.list-group-item-action {
 }
 .diagram-milestone-track {
     stroke: var(--color-sand-300);
-    stroke-width: 2;
+    stroke-width: var(--stroke-diagram-secondary);
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 .diagram-milestone-shape {
     fill: #ffffff;
     stroke: var(--color-sand-300);
-    stroke-width: 2;
+    stroke-width: var(--stroke-diagram-primary);
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 .diagram-milestone-check {
     fill: none;
     stroke: #ffffff;
-    stroke-width: 2.5;
+    stroke-width: var(--stroke-diagram-primary);
     stroke-linecap: round;
     stroke-linejoin: round;
 }
