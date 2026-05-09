@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body class="bg-sand-50 dark:bg-sand-900">
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-12">
+
+      <div class="page-header">
+        <h1>Diagram Connector — Iteration Ground</h1>
+        <p class="text-gray-500 dark:text-neutral-400">
+          Isolated iteration page for the diagram connector primitive. Side-by-side comparison
+          between Aaron's FigJam connector export (left, geometry reference only — explicitly
+          NOT brand-canonical per Aaron 2026-05-09) and a haven-ui-style stroked-SVG
+          instantiation (right). Goal: pixel-equivalent rendering using the
+          mechanical-instantiation approach (designed-once-instantiated-many).
+        </p>
+      </div>
+
+      <!-- ============================================================
+           Reference 1: full L-shape connector (start-dot + 2 corners + arrow)
+           Coordinate space matches the FigJam export verbatim so both renders
+           share the same scale and viewBox.
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">L-shape connector with chevron-notch arrowhead</h2>
+
+        <div class="grid grid-cols-2 gap-8">
+
+          <!-- LEFT: FigJam original (path data extracted verbatim) -->
+          <div>
+            <p class="pl-variant-title">FigJam export — verbatim path data</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="FigJam connector reference: start-dot at top, horizontal then vertical then horizontal segments joined by quarter-arc corners, terminating in a chevron-notch arrowhead at the right.">
+                <!-- Start-dot (origin marker) -->
+                <path d="M1192 91C1190.9 91 1190 91.8954 1190 93C1190 94.1046 1190.9 95 1192 95V93V91Z"
+                      fill="#D8CEC0" />
+                <!-- Horizontal segment 1 (Y=93, X 1192→1232) -->
+                <path d="M1192 93V95H1232V93V91H1192V93"
+                      fill="#D8CEC0" />
+                <!-- Top-right corner arc (1232,93) → (1256,117) — quarter-arc, 24-unit radius -->
+                <path d="M1232 93V95C1244.15 95 1254 104.85 1254 117H1256H1258C1258 102.641 1246.36 91 1232 91V93Z"
+                      fill="#D8CEC0" />
+                <!-- Vertical segment (X=1256, Y 117→327.5) -->
+                <path d="M1256 117H1254V327.5H1256H1258V117H1256"
+                      fill="#D8CEC0" />
+                <!-- Bottom-right corner arc (1256,327.5) → (1280,351.5) — quarter-arc, 24-unit radius -->
+                <path d="M1256 327.5H1254C1254 341.859 1265.64 353.5 1280 353.5V351.5V349.5C1267.85 349.5 1258 339.65 1258 327.5H1256"
+                      fill="#D8CEC0" />
+                <!-- Horizontal segment 2 (Y=351.5, X 1280→1319.5) -->
+                <path d="M1280 351.5V353.5H1319.5V351.5V349.5H1280V351.5"
+                      fill="#D8CEC0" />
+                <!-- Chevron-notch arrowhead at (1320.91, 352.914) — back-indented, all corners filleted -->
+                <path d="M1320.91 352.914C1321.7 352.133 1321.7 350.867 1320.91 350.086L1308.19 337.358C1307.41 336.577 1306.14 336.577 1305.36 337.358C1304.58 338.139 1304.58 339.405 1305.36 340.186L1316.67 351.5L1305.36 362.814C1304.58 363.595 1304.58 364.861 1305.36 365.642C1306.14 366.423 1307.41 366.423 1308.19 365.642L1320.91 352.914Z"
+                      fill="#D8CEC0" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Render method: 7 filled paths (FigJam exports stroked lines as 2-unit-thick filled shapes).
+              Color <code>#D8CEC0</code>. Corner radius ~24 units. Arrowhead 13×28 with notch at ~65% from back.
+            </p>
+          </div>
+
+          <!-- RIGHT: haven-ui instantiation -->
+          <div>
+            <p class="pl-variant-title">Haven-ui instantiation — stroked SVG</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Haven-ui connector instantiation: same geometry as the FigJam reference, rendered as a single stroked path with a chevron-notch arrowhead marker.">
+                <defs>
+                  <!-- Chevron-notch arrowhead marker.
+                       viewBox normalized to 0-origin. Tip at (12, 14). Back-flanks at (0, 0) and (0, 28).
+                       Notch at (4, 14) — the load-bearing detail per FigJam reference.
+                       refX=11 (one unit before tip) for visual clearance from path endpoint. -->
+                  <marker id="figjam-chevron-notch"
+                          viewBox="0 0 13 28"
+                          refX="11" refY="14"
+                          markerWidth="13" markerHeight="28"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 12 14 L 0 0 L 4 14 L 0 28 Z" fill="#D8CEC0" />
+                  </marker>
+                </defs>
+                <!-- Start-dot at (1192, 93) — small filled circle to match FigJam's origin marker -->
+                <circle cx="1192" cy="93" r="2" fill="#D8CEC0" />
+                <!-- The connector body: single stroked path with arc corners (A command) -->
+                <path d="M 1192 93
+                         L 1232 93
+                         A 24 24 0 0 1 1256 117
+                         L 1256 327.5
+                         A 24 24 0 0 0 1280 351.5
+                         L 1319.5 351.5"
+                      fill="none"
+                      stroke="#D8CEC0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-notch)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Render method: 1 stroked path (M/L/A commands) + 1 SVG marker (chevron-notch).
+              Stroke <code>#D8CEC0</code> width 2, round caps and joins. Same geometry, ~95%
+              less DOM, parameterizable by endpoints + corner-radius + arrowhead-marker-id.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Reference 2: arrowhead detail at 8x zoom for marker geometry critique
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Arrowhead detail (8× zoom)</h2>
+
+        <div class="grid grid-cols-2 gap-8">
+
+          <div>
+            <p class="pl-variant-title">FigJam arrowhead — verbatim</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white">
+              <svg viewBox="1300 330 28 40" class="diagram-frame" role="img"
+                   aria-label="FigJam arrowhead at 8× zoom showing the chevron-notch detail.">
+                <path d="M1320.91 352.914C1321.7 352.133 1321.7 350.867 1320.91 350.086L1308.19 337.358C1307.41 336.577 1306.14 336.577 1305.36 337.358C1304.58 338.139 1304.58 339.405 1305.36 340.186L1316.67 351.5L1305.36 362.814C1304.58 363.595 1304.58 364.861 1305.36 365.642C1306.14 366.423 1307.41 366.423 1308.19 365.642L1320.91 352.914Z"
+                      fill="#D8CEC0" />
+                <!-- Centerline reference (where the connector body would terminate) -->
+                <line x1="1280" y1="351.5" x2="1319" y2="351.5"
+                      stroke="#D8CEC0" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Notice: back of chevron is INDENTED (notch at ~30% inset). All three external
+              corners (tip + 2 back-flanks) filleted via cubic Béziers. Same shape, irrespective
+              of stroke direction (orient="auto" rotates the marker).
+            </p>
+          </div>
+
+          <div>
+            <p class="pl-variant-title">Haven-ui marker at 8× zoom — same coords for direct compare</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white">
+              <svg viewBox="1300 330 28 40" class="diagram-frame" role="img"
+                   aria-label="Haven-ui chevron-notch marker rendered at the same coordinates as the FigJam original.">
+                <defs>
+                  <marker id="figjam-chevron-notch-zoom"
+                          viewBox="0 0 13 28"
+                          refX="11" refY="14"
+                          markerWidth="13" markerHeight="28"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 12 14 L 0 0 L 4 14 L 0 28 Z" fill="#D8CEC0" />
+                  </marker>
+                </defs>
+                <!-- A short stroked line ending at the same X as the FigJam arrow's tip
+                     so the marker positions identically. Marker is auto-oriented. -->
+                <path d="M 1280 351.5 L 1319 351.5"
+                      fill="none"
+                      stroke="#D8CEC0"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      marker-end="url(#figjam-chevron-notch-zoom)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Status: SHARP corners on all three points (no fillets in this first cut). The
+              FigJam fillets are the obvious next iteration target if shape isn't matching.
+              Path is <code>M 12 14 L 0 0 L 4 14 L 0 28 Z</code> — 4 segments, 4 vertices.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Notes section: where iteration discrepancies get captured
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Iteration notes</h2>
+        <div class="prose prose-sm max-w-none">
+          <p class="text-sm text-sand-700">
+            <strong>What this page demonstrates:</strong> the mechanical-instantiation workflow.
+            Designer authors a primitive once (FigJam, in this case Aaron's existing diagram);
+            spec captures path data verbatim; haven-ui instantiates as stroked SVG with markers.
+            The two renderings should be visually equivalent. Discrepancies are bugs in
+            translation, not creative-judgment failures.
+          </p>
+          <p class="text-sm text-sand-700">
+            <strong>Known first-cut gaps</strong> (eyeball-confirm-pending):
+          </p>
+          <ul class="text-sm text-sand-700">
+            <li>Marker corners are sharp; FigJam corners are filleted via cubic Béziers. If
+              the eyeball-comparison says the arrow looks "constructed" rather than "drawn," fillet
+              the marker corners with small Q curves at each vertex.</li>
+            <li>Marker dimensions assume 13×28 (FigJam-faithful). May be too large for haven-ui
+              diagrams at typical scale (560×260 viewBox vs FigJam's 1652×703). Consider a
+              proportional scale-down option once base shape is brand-team-validated.</li>
+            <li>Start-dot is rendered as a 2-radius circle here. FigJam's version uses a slightly
+              different shape (4-Bézier closed path); difference is invisible at this scale.</li>
+          </ul>
+          <p class="text-sm text-sand-700">
+            <strong>Next iteration steps</strong> (in order):
+          </p>
+          <ol class="text-sm text-sand-700">
+            <li>Aaron eyeballs the side-by-side. If the haven-ui instantiation reads as visually
+              equivalent (or better), the connector primitive locks at this geometry.</li>
+            <li>If not equivalent: identify the specific discrepancy (likely fillet curves on
+              marker corners), revise marker path, re-render, re-compare. Each round is
+              measurable — visual diff or it's not the issue.</li>
+            <li>Once locked: capture the final connector spec (path-data templates, marker
+              path, color and stroke tokens) into <code>data-visualization.md §2.4</code>
+              as canonical primitive data. This becomes the reference the AI mechanically
+              instantiates against.</li>
+            <li>Move to next primitive (node? marker variants? substrate?). Same workflow:
+              isolated iteration page, designer-authored exemplar, spec capture, lock.</li>
+          </ol>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>
