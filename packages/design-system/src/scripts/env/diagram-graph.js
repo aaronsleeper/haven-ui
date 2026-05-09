@@ -264,28 +264,54 @@ function buildBox(id, pos) {
 
     const cx = pos.x + pos.width / 2;
     const cy = pos.y + pos.height / 2;
+    const hasIcon = !!pos.icon;
+    const hasSublabel = !!pos.sublabel;
 
     if (pos.overline) {
+        // Overline baseline at y; cap-height ~10px sits comfortably 18px below box top.
         const overline = svgEl('text', { x: pos.x + 16, y: pos.y + 24 }, ['diagram-box-overline']);
         overline.textContent = pos.overline;
         group.appendChild(overline);
     }
 
-    if (pos.icon) {
-        const icon = svgEl('text', { x: cx, y: cy - 8 }, ['diagram-icon']);
+    // Vertical layout uses baseline alignment (SVG default — no dominant-baseline
+    // override on the text classes). Y values are baselines. Heuristic offset of
+    // +0.30 * font-size approximates the visual center → baseline conversion for
+    // Source Sans 3 / Lora at the sizes used here.
+    //
+    // Stack-around-cy positioning to keep all labels visually centered in the box,
+    // which matters most when box height is small (e.g., 80px Hub variant).
+    let iconY, labelY, sublabelY;
+    if (hasIcon && hasSublabel) {
+        // Icon (22px) + Label (12px) + Sublabel (10px). Stack ~52px tall.
+        iconY = cy - 14;       // icon baseline (text-anchor middle puts glyph centered around baseline-ish)
+        labelY = cy + 8;       // 12 * 0.3 + 4 offset down from center
+        sublabelY = cy + 24;
+    } else if (hasIcon) {
+        // Icon (22) + Label (12). Stack ~34px tall.
+        iconY = cy - 4;
+        labelY = cy + 18;
+    } else if (hasSublabel) {
+        // Label (12) + Sublabel (10). Stack ~22px tall.
+        labelY = cy;           // Label baseline at center → cap top a few px above center
+        sublabelY = cy + 14;
+    } else {
+        labelY = cy + 4;       // single label baseline ~4px below visual center
+    }
+
+    if (hasIcon) {
+        const icon = svgEl('text', { x: cx, y: iconY }, ['diagram-icon']);
         icon.textContent = pos.icon;
         group.appendChild(icon);
     }
 
     if (pos.label) {
-        const labelY = pos.icon ? cy + 16 : cy - 4;
         const label = svgEl('text', { x: cx, y: labelY }, ['diagram-box-label']);
         label.textContent = pos.label;
         group.appendChild(label);
     }
 
-    if (pos.sublabel) {
-        const sublabelY = pos.icon ? cy + 32 : cy + 14;
+    if (hasSublabel) {
         const sub = svgEl('text', { x: cx, y: sublabelY }, ['diagram-box-sublabel']);
         sub.textContent = pos.sublabel;
         group.appendChild(sub);

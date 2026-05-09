@@ -4,11 +4,10 @@
   category: Primitives — Diagrams
   file: diagram-marker-defs.html
   classes: diagram-marker-defs, diagram-marker-fill, diagram-marker-fill-emphasis, diagram-marker-stroke
-  when-to-use: Single source of truth for SVG arrow markers used inside diagram-frame. Reference once near the top of any diagram's <svg>, then attach markers to diagram-arrow paths via marker-end="url(#arrow-end)". Provides arrow-end, arrow-end-emphasis, arrow-end-bidirectional, and arrow-end-open marker definitions.
+  when-to-use: Defines the four canonical SVG arrow markers as a class-vocabulary (`diagram-marker-fill`, `diagram-marker-fill-emphasis`, `diagram-marker-stroke`). Drop a `<defs class="diagram-marker-defs">` block inside each diagram's `<svg>` and pick locally-scoped IDs to reference via `marker-end="url(#YOUR-ID)"`. The class vocabulary is what's shared; SVG marker IDs are inherently per-document so each `<svg>` declares its own.
   do-not-use-when: You are authoring custom non-arrow markers. Compose with diagram-frame and diagram-arrow.
   preline-required: no
-  notes: |
-    All markers are drawn pointing toward +X (the right). orient="auto" rotates the marker so its +X axis aligns with the path tangent — markers drawn pointing right correctly orient along any path direction (fixes the rotation bug that hit cena-docs D2/D3 pre-Phase-1). markerUnits="userSpaceOnUse" keeps marker size stable regardless of path stroke-width. refX="9" (one unit before the tip at x=10) creates a 1-unit visual gap between path endpoint and arrowhead tip, preventing visual clipping at box edges. Markers carry aria-hidden via parent — meaning lives at the path/arrow level.
+  notes: All markers are drawn pointing toward +X (the right). orient="auto" rotates the marker so its +X axis aligns with the path tangent — markers drawn pointing right correctly orient along any path direction (fixes the rotation bug that hit cena-docs D2/D3 pre-Phase-1). markerUnits="userSpaceOnUse" keeps marker size stable regardless of path stroke-width. refX="9" (one unit before the tip at x=10) creates a 1-unit visual gap between path endpoint and arrowhead tip, preventing visual clipping at box edges. Authoring contract — pick a unique-per-page prefix when declaring marker IDs (e.g., `myDiagram-arrow-end`); the class vocabulary on the marker's `<path>` (one of the three diagram-marker-* classes) is what carries brand fidelity. Markers carry aria-hidden via parent — meaning lives at the path/arrow level. The Layer 2 `diagram-graph` helper auto-generates marker defs prefixed `diagram-graph-arrow-*` to avoid colliding with hand-authored Layer 1 diagrams on the same page.
   @end-meta
 -->
 

@@ -7,8 +7,7 @@
   when-to-use: Rounded-rect surface container inside a diagram. The most-reused diagram primitive — use for any titled surface, system component, or grouped element. Variants: default (white), dashed (planned/existing-state ghost), substrate (the data-grounding rectangle, teal-800), ghost (sand-100 fill, no border), milestone-* (timeline-status fills).
   do-not-use-when: You need a small chip or badge — use diagram-pill. You need a rounded circle (timeline marker) — use diagram-milestone.
   preline-required: no
-  notes: |
-    Composition: <g class="diagram-box [variant]"> with inner <rect class="diagram-box-shape">, optional diagram-icon, then diagram-box-label + diagram-box-sublabel <text> elements positioned by author. Layout-only attributes (x, y, width, height) stay inline as SVG attributes — those are positioning, not styling, and remain composable. Corner radius pinned to --radius-diagram-box (radius/sm = 5px) per round-4 B3 to prevent uniform-bubbly drift. Substrate uses teal-800 (logo-anchor color) NOT teal-700 (round-4 B1, reserved for user-commits-that-change-state).
+  notes: Composition — `<g class="diagram-box [variant]">` with inner `<rect class="diagram-box-shape">`, optional diagram-icon, then diagram-box-label + diagram-box-sublabel `<text>` elements positioned by author. Layout-only attributes (x, y, width, height) stay inline as SVG attributes — those are positioning, not styling, and remain composable. Corner radius pinned to --radius-diagram-box (radius/sm = 5px) per round-4 B3 to prevent uniform-bubbly drift. Substrate uses teal-800 (logo-anchor color) NOT teal-700 (round-4 B1, reserved for user-commits-that-change-state). Sublabel default fill is sand-700 for WCAG 1.4.3 pass on white; substrate variant overrides to teal-100 for the dark-surface case.
   @end-meta
 -->
 
@@ -49,12 +48,16 @@
       The data-grounding box. Uses teal-800 (locked logo-anchor color) per round-4 B1, kept distinct from teal-700 (reserved for user-commits-that-change-state).
     </p>
     <!-- @component: diagram-box-substrate -->
-    <svg class="diagram-frame" viewBox="0 0 760 160" role="img" aria-label="Substrate-variant diagram-box with teal-800 fill, white text, and white-translucent badge.">
+    <svg class="diagram-frame" viewBox="0 0 760 160" role="img" aria-label="Substrate-variant diagram-box: cena-corpus and ava-brain, anchored in teal-800 with a CENA-OWNED badge to the right.">
       <g class="diagram-box diagram-box--substrate">
         <rect class="diagram-box-shape" x="40" y="20" width="680" height="120" />
         <text x="60" y="50" class="diagram-box-overline">SUBSTRATE</text>
-        <text x="60" y="84" class="diagram-box-label">cena-corpus + ava-brain</text>
-        <text x="60" y="108" class="diagram-box-sublabel">files in git, audit-trailed, governance-aware</text>
+        <text x="60" y="84" class="diagram-box-label" text-anchor="start">cena-corpus + ava-brain</text>
+        <text x="60" y="108" class="diagram-box-sublabel" text-anchor="start">files in git, audit-trailed, governance-aware</text>
+        <g class="diagram-pill diagram-pill--surface-dark diagram-pill--mono">
+          <rect class="diagram-pill-shape" x="580" y="65" width="120" height="22" />
+          <text class="diagram-pill-label" x="640" y="80">CENA-OWNED</text>
+        </g>
       </g>
     </svg>
     <!-- /component -->

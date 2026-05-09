@@ -17,12 +17,38 @@
         </p>
       </div>
 
+      <!-- Choosing a primitive — decision-first orientation block.
+           The remaining sections are organized by composition order (frame first,
+           then surfaces, then connectors, then labels, then layer 2). Use this
+           block to pick the right primitive for what you need to communicate. -->
+      <section class="prose-section">
+        <h2>Choosing a primitive</h2>
+        <ul>
+          <li><strong>Wrapper</strong> — start every diagram with a <code>diagram-frame</code>.</li>
+          <li><strong>A surface</strong> (system, role, or labeled rectangle) → <code>diagram-box</code> + variants.</li>
+          <li><strong>An inline chip</strong> inside a single box (<em>"PHASE 1"</em>, <em>"contracts"</em>) → <code>diagram-pill</code>.</li>
+          <li><strong>A region overline</strong> grouping multiple boxes (<em>"SUBSTRATE"</em>, <em>"SURFACES"</em>) → <code>diagram-lane</code>.</li>
+          <li><strong>A connector</strong> between elements → <code>diagram-arrow</code> referencing markers from <code>diagram-marker-defs</code>.</li>
+          <li><strong>An explanatory line</strong> below the diagram → <code>diagram-caption</code> (Lora italic).</li>
+          <li><strong>A timeline circle</strong> (done / progress / queued) → <code>diagram-milestone</code>.</li>
+          <li><strong>An icon</strong> — SVG <code>&lt;text class="diagram-icon"&gt;name&lt;/text&gt;</code> or HTML <code>&lt;span class="diagram-icon diagram-icon--name"&gt;</code>.</li>
+        </ul>
+        <h3>Layer 1 vs Layer 2</h3>
+        <p>
+          Hand-coordinate (Layer 1) when the diagram has ≤3 element types, ≤10 connectors,
+          and no curved connectors with markers. At or past those thresholds — or whenever
+          the layout is an explicit DAG — switch to <code>diagram-graph</code> (Layer 2,
+          dagre-backed). Genuinely illustrative one-offs that don't compose from primitives
+          land in the Phase 2 <code>diagram-asset</code> escape hatch (Layer 3).
+        </p>
+      </section>
+
       <load src="../components/diagram-frame.html" />
-      <load src="../components/diagram-marker-defs.html" />
       <load src="../components/diagram-box.html" />
       <load src="../components/diagram-pill.html" />
-      <load src="../components/diagram-arrow.html" />
       <load src="../components/diagram-lane.html" />
+      <load src="../components/diagram-marker-defs.html" />
+      <load src="../components/diagram-arrow.html" />
       <load src="../components/diagram-caption.html" />
       <load src="../components/diagram-milestone.html" />
       <load src="../components/diagram-icon.html" />

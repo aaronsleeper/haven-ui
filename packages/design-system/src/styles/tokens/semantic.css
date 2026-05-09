@@ -150,9 +150,9 @@
      (logo-anchor color) NOT teal-700 (reserved for user-commits-that-change-state)
      per round-4 B1. Dashed-state fill is sand-100 NOT sand-50 (which would be
      invisible against the sand-50 page bg) per round-4 B2. --- */
-  --color-arrow-default:                    var(--color-sand-500);
+  --color-arrow-default:                    var(--color-sand-600);
   --color-arrow-emphasis:                   var(--color-teal-500);
-  --color-arrow-muted:                      var(--color-sand-400);
+  --color-arrow-muted:                      var(--color-sand-500); /* Below WCAG 1.4.11 (2.86:1 on sand-50). Authors: use only when paired with a default-arrow that carries the same semantic; never as the sole meaning-bearing path. */
   --color-diagram-substrate-bg:             var(--color-teal-800);
   --color-diagram-substrate-fg:             #ffffff; /* theme-invariant — text color on dark substrate stays white in both modes */
   --color-diagram-substrate-fg-muted:       var(--color-teal-100);
@@ -206,9 +206,9 @@
        Theme-invariants (--color-diagram-substrate-fg = #ffffff and
        --color-diagram-frame-bg = transparent) carry inline comments at their
        light-mode declaration sites and are NOT redeclared here. */
-    --color-arrow-default:                    var(--color-sand-400);
+    --color-arrow-default:                    var(--color-sand-300);
     --color-arrow-emphasis:                   var(--color-teal-400);
-    --color-arrow-muted:                      var(--color-sand-500);
+    --color-arrow-muted:                      var(--color-sand-400);
     --color-diagram-substrate-bg:             var(--color-teal-300);
     --color-diagram-substrate-fg-muted:       var(--color-teal-700);
     --color-diagram-surface-dashed-bg:        var(--color-sand-900);

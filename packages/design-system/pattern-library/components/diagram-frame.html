@@ -7,12 +7,7 @@
   when-to-use: Outer <svg> container for any inline-SVG diagram. Carries role="img" + aria-label, optional aria-describedby pointing to a sibling diagram-long-desc. Composes children: diagram-marker-defs (once), then diagram-box, diagram-arrow, diagram-pill, diagram-lane, diagram-caption, diagram-milestone in any composition.
   do-not-use-when: You are not authoring an inline SVG diagram. For raster illustrations use the Phase 2 diagram-asset escape hatch.
   preline-required: no
-  notes: |
-    Default viewBox conventions (composer override available):
-    - Landscape: viewBox="0 0 760 460"
-    - Wide: viewBox="0 0 760 360"
-    - Timeline: viewBox="0 0 760 200"
-    Frame applies width:100%; height:auto; display:block via class. ViewBox stays inline as an authoring choice. Below 500px viewport, Layer 1 frames apply overflow-x:auto via the wrapping container; Layer 2 (data-driven) frames stack from data per the diagram-graph helper. Per round-3 P1.
+  notes: Default viewBox conventions (composer override available) — Landscape `viewBox="0 0 760 460"`, Wide `viewBox="0 0 760 360"`, Timeline `viewBox="0 0 760 200"`. Frame applies width:100%; height:auto; display:block via class. ViewBox stays inline as an authoring choice. Layer-threshold guidance — for ≤3 element types + ≤10 connectors with no curved markers, hand-coordinate primitives inside this frame (Layer 1). Past that threshold or for explicit DAG layouts, switch to `diagram-graph` (Layer 2 dagre-backed). For genuinely illustrative one-offs, use the Phase 2 `diagram-asset` escape hatch (Layer 3). Below 500px viewport, Layer 1 frames apply overflow-x:auto via the wrapping container; Layer 2 (data-driven) frames stack from data per the diagram-graph helper (HTML-stack rendering ships in a follow-up). Per round-3 P1.
   @end-meta
 -->
 
@@ -57,12 +52,12 @@
 
   <!-- With long-description -->
   <div class="mb-6">
-    <p class="pl-variant-title">With diagram-long-desc (sr-only canonical structure)</p>
+    <p class="pl-variant-title">With diagram-long-desc (sr-only canonical 4-section structure)</p>
     <p class="pl-description">
-      For complex diagrams, pair the frame with a sibling diagram-long-desc block via aria-describedby. The long-desc structure is canonical: purpose → elements → relationships → optional notes. Purpose-line voice mirrors Cena brand voice — observational and specific, not generic.
+      For complex diagrams, pair the frame with a sibling <code>diagram-long-desc</code> block via aria-describedby. Canonical structure — <em>purpose → elements → relationships → optional notes</em>. Purpose-line voice mirrors Cena brand voice — observational and specific, naming actors and what they do. Avoid generic framings ("a diagram showing system components"). Authoring this block well makes the diagram comprehensible to screen readers AND becomes the long-form documentation other teams cite.
     </p>
     <!-- @component: diagram-frame-with-long-desc -->
-    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Cena's care-coordinator agent fans out to five surfaces." aria-describedby="diagram-frame-example-desc">
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Cena's care-coordinator agent fans out to five surfaces over a shared MCP server, all grounded in the patient-data substrate." aria-describedby="diagram-frame-example-desc">
       <rect class="diagram-frame-placeholder" x="20" y="20" width="720" height="160" />
       <text x="380" y="110" class="diagram-frame-placeholder-label">frame + sibling long-desc</text>
     </svg>
@@ -72,12 +67,20 @@
       </p>
       <h4 class="sr-only">Elements</h4>
       <ul class="diagram-long-desc__elements">
-        <li><strong>Care-coordinator agent</strong> — entry point, top of frame</li>
+        <li><strong>Care-coordinator agent</strong> — top of frame, the orchestration entry point</li>
+        <li><strong>Five surfaces</strong> — IDE, Slack, web app, ChatGPT, Claude, arrayed across the top tier</li>
+        <li><strong>MCP server</strong> — middle tier, dashed-state since it ships in Phase 1</li>
+        <li><strong>Patient-data substrate</strong> — bottom tier, teal-800 anchor; cena-corpus + ava-brain</li>
       </ul>
       <h4 class="sr-only">Relationships</h4>
       <ul class="diagram-long-desc__relationships">
-        <li>Agent → MCP server: read/list/search/audit calls</li>
+        <li>Aaron's IDE and Andrey's IDE → substrate, direct (git + IDE access today)</li>
+        <li>Vanessa's Slack → substrate, direct today; routes through MCP at Phase 1</li>
+        <li>Vanessa's web app and ChatGPT/Claude → MCP → substrate (Phase 1 emphasis path)</li>
       </ul>
+      <p class="diagram-long-desc__notes">
+        Reading order — surfaces top to bottom, then arrows from each surface to the substrate. Phase 1 paths are dashed; Phase 0 paths are solid.
+      </p>
     </div>
     <!-- /component -->
   </div>

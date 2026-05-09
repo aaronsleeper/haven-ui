@@ -7,22 +7,7 @@
   when-to-use: Layer 2 data-driven diagram authoring. Use when a diagram has ≥4 element types, curved connectors with markers, more than ~10 connectors, or an explicit DAG structure where auto-layout reduces hand-positioning ceremony. Author a JSON spec via data-diagram-graph; the env module runs dagre and renders Layer 1 primitives at computed positions.
   do-not-use-when: Simple diagrams with ≤3 element types and no curved connectors — Layer 1 hand-coordinate authoring is cheaper. One-off illustrative diagrams — Phase 2/Layer 3 diagram-asset escape hatch.
   preline-required: no
-  notes: |
-    JS module: src/scripts/env/diagram-graph.js (ES module; load via <script type="module">). Public API exports: layoutGraph(spec), waypointToPath(points, mode), resolveAnchor(box, hint), renderDiagramGraph(svgElement, spec). Auto-init on DOMContentLoaded for any [data-diagram-graph] element.
-
-    Spec shape:
-      { rankdir, nodesep, ranksep, marginx, marginy,
-        nodes: [{ id, label, sublabel, kind, variant, icon, overline, width, height }],
-        edges: [{ from, to, stroke, markerStart, markerEnd, route, fromAnchor, toAnchor, label }] }
-
-    Edge contract (round-3 A3):
-    - stroke: default | emphasis | muted | dashed | dotted
-    - markerStart / markerEnd: off | end | end-emphasis | end-bidirectional | end-open
-    - route: polyline (default) | smooth (Catmull-Rom→cubic Bezier; for ≥3 waypoints with directional changes)
-    - fromAnchor / toAnchor: top-{left,center,right} | bottom-{left,center,right} | left-{top,center,bottom} | right-{top,center,bottom} | auto
-    - Self-loops (from === to) are rejected at layout time per round-3 A3.
-
-    Mobile (round-3 P1): Layer 2 frames stack-from-data below 500px via the diagram-graph helper (single source: the spec). Per-diagram override available via data-mobile-strategy attribute. Stack-from-data rendering not yet implemented in this Phase 1 ship — the helper layouts SVG only; HTML stack rendering ships in a follow-up.
+  notes: JS module at `src/scripts/env/diagram-graph.js` (ES module; load via `<script type="module">`). Public API exports — `layoutGraph(spec)`, `waypointToPath(points, mode)`, `resolveAnchor(box, hint)`, `renderDiagramGraph(svgElement, spec)`. Auto-init on DOMContentLoaded for any `[data-diagram-graph]` element. Spec shape — `{rankdir, nodesep, ranksep, marginx, marginy, nodes: [{id, label, sublabel, kind, variant, icon, overline, width, height}], edges: [{from, to, stroke, markerStart, markerEnd, route, fromAnchor, toAnchor, label}]}`. Edge contract per round-3 A3 — `stroke` default/emphasis/muted/dashed/dotted, `markerStart`/`markerEnd` off/end/end-emphasis/end-bidirectional/end-open, `route` polyline (default) or smooth (Catmull-Rom→cubic Bezier; for ≥3 waypoints with directional changes), `fromAnchor`/`toAnchor` 12 named positions or auto. Self-loops rejected at layout time. Mobile per round-3 P1 — Layer 2 frames will stack-from-data below 500px via the helper (single source: the spec); HTML stack rendering not yet implemented in this Phase 1 ship and ships in a follow-up. Threshold for choosing Layer 2 over Layer 1 — ≥4 element types, OR curved connectors with markers, OR more than ~10 connectors, OR an explicit DAG structure. Below those thresholds, hand-coordinate Layer 1 inside diagram-frame.
   @end-meta
 -->
 
@@ -42,7 +27,8 @@
     <svg
       class="diagram-frame"
       role="img"
-      aria-label="Three labeled surfaces (Aaron, Andrey, Vanessa) feed into the substrate via solid arrows."
+      aria-label="Aaron's IDE, Andrey's IDE, and Vanessa's Slack each route directly into the patient-data substrate."
+      aria-describedby="diagram-graph-simple-desc"
       data-diagram-graph='{
         "rankdir": "TB",
         "nodesep": 30,
@@ -62,6 +48,22 @@
         ]
       }'
     ></svg>
+    <div class="diagram-long-desc" id="diagram-graph-simple-desc">
+      <p class="diagram-long-desc__purpose">
+        Aaron's IDE, Andrey's IDE, and Vanessa's Slack each route directly into the patient-data substrate today; no shared API layer is required for this Phase 0 connectivity.
+      </p>
+      <h4 class="sr-only">Elements</h4>
+      <ul class="diagram-long-desc__elements">
+        <li><strong>Aaron's IDE</strong> — VS Code with Claude Code, top row</li>
+        <li><strong>Andrey's IDE</strong> — his choice of editor, top row</li>
+        <li><strong>Vanessa's Slack</strong> — DM channel, top row</li>
+        <li><strong>Substrate</strong> — cena-corpus and ava-brain (files in git, audit-trailed)</li>
+      </ul>
+      <h4 class="sr-only">Relationships</h4>
+      <ul class="diagram-long-desc__relationships">
+        <li>Each top-row surface → substrate via solid sand-600 arrow (direct, no MCP)</li>
+      </ul>
+    </div>
     <!-- /component -->
   </div>
 

@@ -5,10 +5,9 @@
   file: diagram-lane.html
   classes: diagram-lane, diagram-lane-label, diagram-lane-boundary
   when-to-use: A horizontal or vertical "swim lane" — a labeled region grouping a set of boxes. Used for D3's "SURFACES" top label, "PHASE 1 · SHARED API" middle label, "SUBSTRATE" bottom label. Provides a tiny-caps Source Code Pro label and an optional dashed/dotted boundary rect.
-  do-not-use-when: You need a small inline chip — use diagram-pill. You need a single line connector — use diagram-arrow.
+  do-not-use-when: You need a small inline chip *inside* a single box (e.g., the "PHASE 1" tag inside a surface box) — use diagram-pill. You need a single-line connector — use diagram-arrow.
   preline-required: no
-  notes: |
-    Composition: <g class="diagram-lane"> with optional <rect class="diagram-lane-boundary"> + <text class="diagram-lane-label">. Label uses --font-diagram-lane-label-family (Source Code Pro per Cena canon) per round-4 B4 — letter-spaced + tiny-caps treatment. Lane boundaries are decorative — aria-hidden via parent.
+  notes: Composition — `<g class="diagram-lane">` with optional `<rect class="diagram-lane-boundary">` + `<text class="diagram-lane-label">`. Label uses --font-diagram-lane-label-family (Source Code Pro per Cena canon) per round-4 B4 — letter-spaced + tiny-caps treatment. Default fill is sand-700 for WCAG 1.4.3 pass on sand-50 page bg. Lane boundaries are decorative — aria-hidden via parent.
   @end-meta
 -->
 

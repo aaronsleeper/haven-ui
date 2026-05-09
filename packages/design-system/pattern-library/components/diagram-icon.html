@@ -7,10 +7,7 @@
   when-to-use: Semantic icon resolver inside a diagram. Two usage paths — SVG (text element with text content = icon name, font-family resolves via --font-icon-family token) and HTML (span with ::before content via the diagram-icon--{name} resolver class).
   do-not-use-when: You need a non-iconographic glyph (text label) — use diagram-box-label. You need an icon in app UI (not a diagram) — use the regular FA <i class="fa-solid fa-{name}"> primitive.
   preline-required: no
-  notes: |
-    SVG path (primary): <text class="diagram-icon" x="..." y="...">code</text> — font-family + font-feature-settings come from --font-icon-family / --font-icon-features tokens; text content = the icon name (Material Symbols ligature today). When FA Pro v7 CDN access lands, both the font tokens flip AND a per-diagram audit replaces icon names with FA codepoints — the resolver's "no audit" promise applies in HTML context only; SVG context still requires content swap. Documented honestly per the round-4 spec.
-    HTML path (long-desc, Phase 2 mobile stack-from-data): <span class="diagram-icon diagram-icon--code"></span> — ::before content set via the resolver class. This is the path that makes icon-stack swap a one-file change.
-    Names today: folder, code, comments, robot, public, smart-toy, forum. Adding a new icon = adding a new class with the right Material name + (later) FA name pair. Aaron + brand-fidelity expert curate the list.
+  notes: Two usage paths. SVG (primary) — `<text class="diagram-icon" x="..." y="...">code</text>` where font-family + font-feature-settings come from --font-icon-family / --font-icon-features tokens and text content = the icon name (Material Symbols ligature today). When FA Pro v7 CDN access lands, both the font tokens flip AND a per-diagram audit replaces icon names with FA codepoints — the resolver's "no audit" promise applies in HTML context only; SVG context still requires content swap. HTML path (long-desc, Phase 2 mobile stack-from-data) — `<span class="diagram-icon diagram-icon--code"></span>` — ::before content set via the resolver class. This is the path that makes icon-stack swap a one-file change. Names today — folder, code, comments, robot, public, smart-toy, forum. Adding a new icon = adding a new class with the right Material name + (later) FA name pair.
   @end-meta
 -->
 

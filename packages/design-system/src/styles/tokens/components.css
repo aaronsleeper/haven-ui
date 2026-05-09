@@ -10593,6 +10593,22 @@ a.list-group-item-action {
     overflow: visible;
 }
 
+/* Optional wrapping container for Layer 1 frames at <500px viewport.
+   Per round-3 P1: simple Layer 1 diagrams scale-down to unreadable on phones;
+   wrapping in this container preserves the diagram's natural viewBox size and
+   scrolls horizontally instead. Authors opt in by wrapping the <svg> in a
+   <div class="diagram-frame-wrap">. Layer 2 diagrams should stack-from-data
+   via the diagram-graph helper at small viewports (follow-up). */
+@media (max-width: 500px) {
+    .diagram-frame-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .diagram-frame-wrap > .diagram-frame {
+        min-width: 480px;
+    }
+}
+
 /* PL placeholder rect for empty-frame demos — not used in real diagrams. */
 .diagram-frame-placeholder {
     fill: var(--color-sand-100);
@@ -10659,14 +10675,14 @@ a.list-group-item-action {
 }
 
 .diagram-box-sublabel {
-    fill: var(--color-sand-500);
+    fill: var(--color-sand-700);
     font-family: var(--font-sans);
     font-size: 10px;
     text-anchor: middle;
 }
 
 .diagram-box-overline {
-    fill: var(--color-sand-500);
+    fill: var(--color-sand-700);
     font-family: var(--font-sans);
     font-size: 10px;
     letter-spacing: 0.15em;
@@ -10726,13 +10742,17 @@ a.list-group-item-action {
 }
 
 
-/* --- Pill --- */
+/* --- Pill ---
+   Default fill = white, default stroke = sand-500 — yields 4.10:1 stroke-vs-page
+   contrast on sand-50 page bg, clearing WCAG 1.4.11 (3:1 for UI component
+   boundaries). Earlier sand-50/sand-300 pairing rendered as an invisible chip
+   against the sand-50 page bg (1.34:1 stroke ratio). */
 .diagram-pill {
     /* Group container. */
 }
 .diagram-pill-shape {
-    fill: var(--color-sand-50);
-    stroke: var(--color-sand-300);
+    fill: #ffffff;
+    stroke: var(--color-sand-500);
     stroke-width: 1;
     rx: 11;
 }
@@ -10786,7 +10806,7 @@ a.list-group-item-action {
     /* Group container. */
 }
 .diagram-lane-label {
-    fill: var(--color-sand-500);
+    fill: var(--color-sand-700);
     font-family: var(--font-diagram-lane-label-family);
     font-size: 10px;
     letter-spacing: 0.18em;
@@ -10805,7 +10825,7 @@ a.list-group-item-action {
    B4: Lora italic + weight bump 500 (one step above 400 roman) per
    feedback_lora_italic_weight_bump.md. Italic earns warmth in explanatory slot. */
 .diagram-caption {
-    fill: var(--color-sand-500);
+    fill: var(--color-sand-700);
     font-family: var(--font-diagram-caption-family);
     font-style: italic;
     font-weight: var(--font-diagram-caption-weight);

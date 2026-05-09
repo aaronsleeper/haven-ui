@@ -4,11 +4,10 @@
   category: Primitives — Diagrams
   file: diagram-arrow.html
   classes: diagram-arrow, diagram-arrow--emphasis, diagram-arrow--muted, diagram-arrow--dashed, diagram-arrow--dotted
-  when-to-use: Connector path between elements in a diagram. Two authoring modes — manual (explicit d="M ... L ..." path) and endpoint (data-from / data-to references resolved by the Layer 2 diagram-graph helper). Always references markers from diagram-marker-defs via marker-end="url(#arrow-end)".
-  do-not-use-when: You need a static visual line that isn't a connector — use a plain styled <line>. You need a curved illustrative line — Layer 3 diagram-asset escape hatch.
+  when-to-use: Connector path between elements in a diagram. Two authoring modes — manual (explicit d="M ... L ..." path) and endpoint (data-from / data-to references resolved by the Layer 2 diagram-graph helper). Reference markers from a `<defs class="diagram-marker-defs">` block in the same `<svg>` via `marker-end="url(#YOUR-LOCAL-ID)"` — IDs are per-svg by SVG spec; the class vocabulary on the marker is what's shared.
+  do-not-use-when: You need a static visual line that isn't a connector — use a plain styled <line>. You need a curved illustrative line — Layer 3 diagram-asset escape hatch. Past ~10 connectors or any curved+marker combination on one diagram, consider switching to diagram-graph for auto-layout.
   preline-required: no
-  notes: |
-    Stroke variants via modifier classes — default (sand-500), emphasis (teal-500, e.g. D3's MCP/Phase-1 path), muted (sand-400 lower-emphasis), dashed (3 3 dasharray), dotted (1 3 dasharray). Combine with marker references for arrowheads. aria-hidden="true" on the arrow itself; semantic meaning lives in the connected boxes' labels and the diagram's long-desc. Endpoint-mode contract per round-3 A3 — anchor hints (top-center, right-bottom, etc.) and waypoint→SVG-path conversion (default polyline; smooth via data-route="smooth").
+  notes: Stroke variants via modifier classes — default (sand-600 — 1.4.11 pass on sand-50 page bg), emphasis (teal-500, e.g. D3's MCP/Phase-1 path), muted (sand-500 — note this is below 1.4.11; only use when paired with a default-arrow that carries the same semantic, never as the sole meaning-bearing path), dashed (3 3 dasharray), dotted (1 3 dasharray). Combine with marker references for arrowheads. aria-hidden="true" on the arrow itself; semantic meaning lives in the connected boxes' labels and the diagram's long-desc. Endpoint-mode contract per round-3 A3 — anchor hints (top-center, right-bottom, etc.) and waypoint→SVG-path conversion (default polyline; smooth via data-route="smooth").
   @end-meta
 -->
 

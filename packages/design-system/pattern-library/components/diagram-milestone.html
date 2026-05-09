@@ -7,8 +7,7 @@
   when-to-use: Timeline diagram milestone — circle at a track position with title + subtitle below. States done / progress / queued swap fill + stroke per token. When state=done, the optional check icon renders inside the circle.
   do-not-use-when: You need a rectangular surface (use diagram-box). You need a small inline chip (use diagram-pill).
   preline-required: no
-  notes: |
-    Composition: <g class="diagram-milestone [state]"> with inner <circle class="diagram-milestone-shape"> + optional <path class="diagram-milestone-check"> + <text class="diagram-milestone-title"> + <text class="diagram-milestone-subtitle">. Done state uses success-700 fill; progress uses primary (teal-700) fill — note progress is the canonical "active commitment" use of primary teal, distinct from substrate's teal-800 anchor; queued uses neutral border on white. Check-icon path is a simple polyline; only render when state=done.
+  notes: Composition — `<g class="diagram-milestone [state]">` with inner `<circle class="diagram-milestone-shape">` + optional `<path class="diagram-milestone-check">` + `<text class="diagram-milestone-title">` + `<text class="diagram-milestone-subtitle">`. Done state uses success-700 fill; progress uses primary (teal-700) fill — note progress is the canonical "active commitment" use of primary teal, distinct from substrate's teal-800 anchor; queued uses neutral border on white. Check-icon path is a simple polyline; only render when state=done.
   @end-meta
 -->
 
@@ -22,7 +21,7 @@
   <div class="mb-6">
     <p class="pl-variant-title">Three milestone states</p>
     <!-- @component: diagram-milestone-states -->
-    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Three diagram-milestone states — done (success fill with check), in-progress (primary teal fill), queued (neutral border on white).">
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Phase 0 spec landed and signed off; Phase 1 primitives are in build now; Phase 2 (the Layer 3 escape hatch) is queued behind Phase 1." aria-describedby="diagram-milestone-states-desc">
       <!-- Track segment -->
       <line x1="120" y1="80" x2="640" y2="80" class="diagram-milestone-track" />
 
@@ -45,6 +44,22 @@
         <text class="diagram-milestone-subtitle" x="600" y="150" text-anchor="middle">layer 3 escape hatch</text>
       </g>
     </svg>
+    <div class="diagram-long-desc" id="diagram-milestone-states-desc">
+      <p class="diagram-long-desc__purpose">
+        Phase 0 spec landed and signed off; Phase 1 primitives are in build now; Phase 2 (the Layer 3 escape hatch) is queued behind Phase 1 — sequenced so each phase ships a complete capability before the next opens.
+      </p>
+      <h4 class="sr-only">Elements</h4>
+      <ul class="diagram-long-desc__elements">
+        <li><strong>Phase 0 milestone</strong> — done state, solid green fill with check</li>
+        <li><strong>Phase 1 milestone</strong> — in-progress state, teal-700 fill (the canonical user-commitment color)</li>
+        <li><strong>Phase 2 milestone</strong> — queued state, white fill with sand-300 border</li>
+        <li><strong>Track segment</strong> — sand-300 line connecting the three circles, left to right</li>
+      </ul>
+      <h4 class="sr-only">Relationships</h4>
+      <ul class="diagram-long-desc__relationships">
+        <li>Phase 0 → Phase 1 → Phase 2: linear sequence along the track</li>
+      </ul>
+    </div>
     <!-- /component -->
   </div>
 </section>
