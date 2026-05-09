@@ -1,0 +1,48 @@
+<!--
+  @component-meta
+  name: Diagram Lane
+  category: Primitives — Diagrams
+  file: diagram-lane.html
+  classes: diagram-lane, diagram-lane-label, diagram-lane-boundary
+  when-to-use: A horizontal or vertical "swim lane" — a labeled region grouping a set of boxes. Used for D3's "SURFACES" top label, "PHASE 1 · SHARED API" middle label, "SUBSTRATE" bottom label. Provides a tiny-caps Source Code Pro label and an optional dashed/dotted boundary rect.
+  do-not-use-when: You need a small inline chip — use diagram-pill. You need a single line connector — use diagram-arrow.
+  preline-required: no
+  notes: |
+    Composition: <g class="diagram-lane"> with optional <rect class="diagram-lane-boundary"> + <text class="diagram-lane-label">. Label uses --font-diagram-lane-label-family (Source Code Pro per Cena canon) per round-4 B4 — letter-spaced + tiny-caps treatment. Lane boundaries are decorative — aria-hidden via parent.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Lane</h3>
+  <p class="pl-description">
+    A labeled region for grouping diagram-boxes. Tiny-caps Source Code Pro label with an optional dashed boundary.
+  </p>
+
+  <!-- Label only -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Label only (no boundary) — common for top/bottom region labels</p>
+    <!-- @component: diagram-lane-label-only -->
+    <svg class="diagram-frame" viewBox="0 0 760 100" role="img" aria-label="Lane label without boundary — used for top region labels like SURFACES.">
+      <g class="diagram-lane">
+        <text class="diagram-lane-label" x="20" y="30">SURFACES</text>
+      </g>
+      <g class="diagram-lane">
+        <text class="diagram-lane-label" x="20" y="70">SUBSTRATE</text>
+      </g>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- Label + dashed boundary -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Label + dashed boundary — common for grouped middle region (e.g., D3's PHASE 1 · SHARED API)</p>
+    <!-- @component: diagram-lane-with-boundary -->
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Lane with dashed boundary rect plus an inset Source Code Pro label.">
+      <g class="diagram-lane">
+        <rect class="diagram-lane-boundary" x="220" y="40" width="320" height="120" />
+        <text class="diagram-lane-label" x="240" y="66">PHASE 1 · SHARED API</text>
+      </g>
+    </svg>
+    <!-- /component -->
+  </div>
+</section>

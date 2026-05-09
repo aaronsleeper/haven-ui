@@ -1,0 +1,50 @@
+<!--
+  @component-meta
+  name: Diagram Milestone
+  category: Primitives — Diagrams
+  file: diagram-milestone.html
+  classes: diagram-milestone, diagram-milestone-shape, diagram-milestone-title, diagram-milestone-subtitle, diagram-milestone-check, diagram-milestone--done, diagram-milestone--progress, diagram-milestone--queued
+  when-to-use: Timeline diagram milestone — circle at a track position with title + subtitle below. States done / progress / queued swap fill + stroke per token. When state=done, the optional check icon renders inside the circle.
+  do-not-use-when: You need a rectangular surface (use diagram-box). You need a small inline chip (use diagram-pill).
+  preline-required: no
+  notes: |
+    Composition: <g class="diagram-milestone [state]"> with inner <circle class="diagram-milestone-shape"> + optional <path class="diagram-milestone-check"> + <text class="diagram-milestone-title"> + <text class="diagram-milestone-subtitle">. Done state uses success-700 fill; progress uses primary (teal-700) fill — note progress is the canonical "active commitment" use of primary teal, distinct from substrate's teal-800 anchor; queued uses neutral border on white. Check-icon path is a simple polyline; only render when state=done.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Milestone</h3>
+  <p class="pl-description">
+    Timeline milestone circle with title + subtitle. Three states cover done, in-progress, and queued.
+  </p>
+
+  <!-- Three states -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Three milestone states</p>
+    <!-- @component: diagram-milestone-states -->
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Three diagram-milestone states — done (success fill with check), in-progress (primary teal fill), queued (neutral border on white).">
+      <!-- Track segment -->
+      <line x1="120" y1="80" x2="640" y2="80" class="diagram-milestone-track" />
+
+      <g class="diagram-milestone diagram-milestone--done">
+        <circle class="diagram-milestone-shape" cx="160" cy="80" r="20" />
+        <path class="diagram-milestone-check" d="M 152 80 L 158 86 L 168 76" />
+        <text class="diagram-milestone-title" x="160" y="130" text-anchor="middle">Phase 0</text>
+        <text class="diagram-milestone-subtitle" x="160" y="150" text-anchor="middle">spec landed</text>
+      </g>
+
+      <g class="diagram-milestone diagram-milestone--progress">
+        <circle class="diagram-milestone-shape" cx="380" cy="80" r="20" />
+        <text class="diagram-milestone-title" x="380" y="130" text-anchor="middle">Phase 1</text>
+        <text class="diagram-milestone-subtitle" x="380" y="150" text-anchor="middle">primitives in build</text>
+      </g>
+
+      <g class="diagram-milestone diagram-milestone--queued">
+        <circle class="diagram-milestone-shape" cx="600" cy="80" r="20" />
+        <text class="diagram-milestone-title" x="600" y="130" text-anchor="middle">Phase 2</text>
+        <text class="diagram-milestone-subtitle" x="600" y="150" text-anchor="middle">layer 3 escape hatch</text>
+      </g>
+    </svg>
+    <!-- /component -->
+  </div>
+</section>

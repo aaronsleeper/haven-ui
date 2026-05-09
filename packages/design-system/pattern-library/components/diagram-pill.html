@@ -1,0 +1,54 @@
+<!--
+  @component-meta
+  name: Diagram Pill
+  category: Primitives — Diagrams
+  file: diagram-pill.html
+  classes: diagram-pill, diagram-pill-shape, diagram-pill-label, diagram-pill--surface-default, diagram-pill--surface-dark, diagram-pill--mono
+  when-to-use: Small rounded-rect chip inside a diagram (e.g., the "PHASE 1 · SHARED API" overline pill in D3, the "facts / contracts / plans" content chips in D2). Standardizes height (~22-26px), pill corner radius, and padding rules.
+  do-not-use-when: You need a full surface — use diagram-box. You need a status badge in app UI — use the existing badge primitive.
+  preline-required: no
+  notes: |
+    Composition: <g class="diagram-pill [variant]"> with inner <rect class="diagram-pill-shape"> + <text class="diagram-pill-label">. Variants: surface-default (sand-50 fill on light surfaces), surface-dark (translucent white on substrate teal-800 surfaces), mono (Source Code Pro label for technical labels). Corner radius is pill-shaped (~half of height) — kept distinct from diagram-box's radius/sm to read as a different element class.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Pill</h3>
+  <p class="pl-description">
+    Small rounded chip for inline labels inside a diagram. Three variants cover light surfaces, dark substrate surfaces, and monospace technical labels.
+  </p>
+
+  <!-- All variants -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Surface variants</p>
+    <!-- @component: diagram-pill-variants -->
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Three diagram-pill variants — surface-default (sand-50 on light), surface-dark (white-translucent on substrate teal-800), mono (Source Code Pro on light).">
+      <!-- Light context -->
+      <rect x="20" y="20" width="360" height="80" class="diagram-frame-placeholder" />
+      <g class="diagram-pill diagram-pill--surface-default">
+        <rect class="diagram-pill-shape" x="50" y="50" width="120" height="22" />
+        <text class="diagram-pill-label" x="110" y="65">PHASE 1</text>
+      </g>
+      <g class="diagram-pill diagram-pill--surface-default diagram-pill--mono">
+        <rect class="diagram-pill-shape" x="190" y="50" width="160" height="22" />
+        <text class="diagram-pill-label" x="270" y="65">cena-corpus</text>
+      </g>
+
+      <!-- Dark substrate context -->
+      <g class="diagram-box diagram-box--substrate">
+        <rect class="diagram-box-shape" x="400" y="20" width="340" height="80" />
+      </g>
+      <g class="diagram-pill diagram-pill--surface-dark">
+        <rect class="diagram-pill-shape" x="430" y="50" width="120" height="22" />
+        <text class="diagram-pill-label" x="490" y="65">CENA-OWNED</text>
+      </g>
+      <g class="diagram-pill diagram-pill--surface-dark diagram-pill--mono">
+        <rect class="diagram-pill-shape" x="570" y="50" width="140" height="22" />
+        <text class="diagram-pill-label" x="640" y="65">/v1/audit</text>
+      </g>
+
+      <text x="380" y="160" class="diagram-marker-sample-label" text-anchor="middle">light surface · default + mono · then dark substrate · default + mono</text>
+    </svg>
+    <!-- /component -->
+  </div>
+</section>

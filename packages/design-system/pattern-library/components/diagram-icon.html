@@ -1,0 +1,60 @@
+<!--
+  @component-meta
+  name: Diagram Icon
+  category: Primitives — Diagrams
+  file: diagram-icon.html
+  classes: diagram-icon, diagram-icon--folder, diagram-icon--code, diagram-icon--comments, diagram-icon--robot, diagram-icon--public, diagram-icon--smart-toy, diagram-icon--forum
+  when-to-use: Semantic icon resolver inside a diagram. Two usage paths — SVG (text element with text content = icon name, font-family resolves via --font-icon-family token) and HTML (span with ::before content via the diagram-icon--{name} resolver class).
+  do-not-use-when: You need a non-iconographic glyph (text label) — use diagram-box-label. You need an icon in app UI (not a diagram) — use the regular FA <i class="fa-solid fa-{name}"> primitive.
+  preline-required: no
+  notes: |
+    SVG path (primary): <text class="diagram-icon" x="..." y="...">code</text> — font-family + font-feature-settings come from --font-icon-family / --font-icon-features tokens; text content = the icon name (Material Symbols ligature today). When FA Pro v7 CDN access lands, both the font tokens flip AND a per-diagram audit replaces icon names with FA codepoints — the resolver's "no audit" promise applies in HTML context only; SVG context still requires content swap. Documented honestly per the round-4 spec.
+    HTML path (long-desc, Phase 2 mobile stack-from-data): <span class="diagram-icon diagram-icon--code"></span> — ::before content set via the resolver class. This is the path that makes icon-stack swap a one-file change.
+    Names today: folder, code, comments, robot, public, smart-toy, forum. Adding a new icon = adding a new class with the right Material name + (later) FA name pair. Aaron + brand-fidelity expert curate the list.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Icon</h3>
+  <p class="pl-description">
+    Semantic icon resolver. SVG context uses text-content authoring with font-family token; HTML context uses ::before pseudo-element resolver classes for true name-only authoring.
+  </p>
+
+  <!-- SVG path: font-family token + text content authoring -->
+  <div class="mb-6">
+    <p class="pl-variant-title">SVG path — text-content authoring (font-family from --font-icon-family token)</p>
+    <p class="pl-description">
+      In SVG, the diagram-icon class applies font-family + font-feature-settings; the AUTHOR places the icon name as text content. Material Symbols ligatures render the glyph. When FA Pro lands, a per-diagram audit replaces names with codepoints.
+    </p>
+    <!-- @component: diagram-icon-svg-glyphs -->
+    <svg class="diagram-frame" viewBox="0 0 760 100" role="img" aria-label="Seven Material Symbols Outlined glyphs rendered via diagram-icon class on SVG text elements.">
+      <text class="diagram-icon" x="80" y="60" text-anchor="middle">code</text>
+      <text class="diagram-icon" x="180" y="60" text-anchor="middle">folder</text>
+      <text class="diagram-icon" x="280" y="60" text-anchor="middle">forum</text>
+      <text class="diagram-icon" x="380" y="60" text-anchor="middle">public</text>
+      <text class="diagram-icon" x="480" y="60" text-anchor="middle">smart_toy</text>
+      <text class="diagram-icon" x="580" y="60" text-anchor="middle">comments</text>
+      <text class="diagram-icon" x="680" y="60" text-anchor="middle">robot</text>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- HTML path: ::before resolver -->
+  <div class="mb-6">
+    <p class="pl-variant-title">HTML path — name-only authoring via diagram-icon--&#123;name&#125; resolver class</p>
+    <p class="pl-description">
+      In HTML (e.g., diagram-long-desc, Phase 2 stack-from-data mobile rendering), the resolver class sets ::before content. When the icon stack swaps from Material to FA Pro, the resolver mappings update in one file — no per-instance audit.
+    </p>
+    <!-- @component: diagram-icon-html-resolvers -->
+    <div class="diagram-icon-html-row">
+      <span class="diagram-icon diagram-icon--code" aria-label="code"></span>
+      <span class="diagram-icon diagram-icon--folder" aria-label="folder"></span>
+      <span class="diagram-icon diagram-icon--forum" aria-label="forum"></span>
+      <span class="diagram-icon diagram-icon--public" aria-label="public"></span>
+      <span class="diagram-icon diagram-icon--smart-toy" aria-label="smart-toy"></span>
+      <span class="diagram-icon diagram-icon--comments" aria-label="comments"></span>
+      <span class="diagram-icon diagram-icon--robot" aria-label="robot"></span>
+    </div>
+    <!-- /component -->
+  </div>
+</section>

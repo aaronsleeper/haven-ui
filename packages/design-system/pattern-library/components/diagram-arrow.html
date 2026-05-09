@@ -1,0 +1,75 @@
+<!--
+  @component-meta
+  name: Diagram Arrow
+  category: Primitives — Diagrams
+  file: diagram-arrow.html
+  classes: diagram-arrow, diagram-arrow--emphasis, diagram-arrow--muted, diagram-arrow--dashed, diagram-arrow--dotted
+  when-to-use: Connector path between elements in a diagram. Two authoring modes — manual (explicit d="M ... L ..." path) and endpoint (data-from / data-to references resolved by the Layer 2 diagram-graph helper). Always references markers from diagram-marker-defs via marker-end="url(#arrow-end)".
+  do-not-use-when: You need a static visual line that isn't a connector — use a plain styled <line>. You need a curved illustrative line — Layer 3 diagram-asset escape hatch.
+  preline-required: no
+  notes: |
+    Stroke variants via modifier classes — default (sand-500), emphasis (teal-500, e.g. D3's MCP/Phase-1 path), muted (sand-400 lower-emphasis), dashed (3 3 dasharray), dotted (1 3 dasharray). Combine with marker references for arrowheads. aria-hidden="true" on the arrow itself; semantic meaning lives in the connected boxes' labels and the diagram's long-desc. Endpoint-mode contract per round-3 A3 — anchor hints (top-center, right-bottom, etc.) and waypoint→SVG-path conversion (default polyline; smooth via data-route="smooth").
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Arrow</h3>
+  <p class="pl-description">
+    Connector path with stroke variants (default, emphasis, muted, dashed, dotted) and marker references. Pair with diagram-marker-defs once per diagram-frame.
+  </p>
+
+  <!-- Stroke variants -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Stroke variants (with arrow-end)</p>
+    <!-- @component: diagram-arrow-stroke-variants -->
+    <svg class="diagram-frame" viewBox="0 0 760 220" role="img" aria-label="Five diagram-arrow stroke variants — default solid, emphasis solid teal, muted solid, dashed, dotted. All connect via the standard arrow-end marker.">
+      <defs class="diagram-marker-defs">
+        <marker id="pl-arr-end-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill" />
+        </marker>
+        <marker id="pl-arr-end-2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill-emphasis" />
+        </marker>
+      </defs>
+
+      <path d="M 60 40 L 360 40" class="diagram-arrow" marker-end="url(#pl-arr-end-1)" aria-hidden="true" />
+      <text x="380" y="44" class="diagram-marker-sample-label">default — sand-500</text>
+
+      <path d="M 60 80 L 360 80" class="diagram-arrow diagram-arrow--emphasis" marker-end="url(#pl-arr-end-2)" aria-hidden="true" />
+      <text x="380" y="84" class="diagram-marker-sample-label">emphasis — teal-500</text>
+
+      <path d="M 60 120 L 360 120" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pl-arr-end-1)" aria-hidden="true" />
+      <text x="380" y="124" class="diagram-marker-sample-label">muted — sand-400</text>
+
+      <path d="M 60 160 L 360 160" class="diagram-arrow diagram-arrow--dashed" marker-end="url(#pl-arr-end-1)" aria-hidden="true" />
+      <text x="380" y="164" class="diagram-marker-sample-label">dashed — 3 3</text>
+
+      <path d="M 60 200 L 360 200" class="diagram-arrow diagram-arrow--dotted" marker-end="url(#pl-arr-end-1)" aria-hidden="true" />
+      <text x="380" y="204" class="diagram-marker-sample-label">dotted — 1 3</text>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- Curved + bidirectional -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Curved path · bidirectional marker</p>
+    <!-- @component: diagram-arrow-curved-and-bidirectional -->
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Curved emphasis arrow plus a bidirectional arrow with markers at both ends.">
+      <defs class="diagram-marker-defs">
+        <marker id="pl-arr-end-3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill-emphasis" />
+        </marker>
+        <marker id="pl-arr-bidir" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill" />
+        </marker>
+      </defs>
+
+      <path d="M 60 60 C 60 100 200 120 360 60" class="diagram-arrow diagram-arrow--emphasis diagram-arrow--dashed" marker-end="url(#pl-arr-end-3)" aria-hidden="true" />
+      <text x="380" y="64" class="diagram-marker-sample-label">curved cubic — emphasis dashed</text>
+
+      <path d="M 60 140 L 360 140" class="diagram-arrow" marker-start="url(#pl-arr-bidir)" marker-end="url(#pl-arr-bidir)" aria-hidden="true" />
+      <text x="380" y="144" class="diagram-marker-sample-label">bidirectional — auto-start-reverse</text>
+    </svg>
+    <!-- /component -->
+  </div>
+</section>

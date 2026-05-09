@@ -223,6 +223,24 @@ visible at localhost:5173/packages/design-system/pattern-library/pages/.
 
 ---
 
+## Diagrams
+
+Inline-SVG primitives for system diagrams. Phase 1 of the haven-ui diagram capability (~/.claude/plans/haven-ui-diagram-research.md). Layer 2 (`diagram-graph` dagre helper) ships in a follow-up lane.
+
+| Component | PL Page | Status | Notes |
+|---|---|---|---|
+| Diagram Frame | `pages/diagrams.html` | built | Outer SVG with role="img"/aria-label/aria-describedby. ViewBox conventions baked. |
+| Diagram Marker Defs | `pages/diagrams.html` | built | Four canonical arrow markers (end/emphasis/bidirectional/open). Solves the rotation bug at the framework layer. |
+| Diagram Box | `pages/diagrams.html` | built | 7 variants. Substrate uses teal-800 per round-4 B1; dashed uses sand-100 per B2; radius pinned per B3. |
+| Diagram Pill | `pages/diagrams.html` | built | 3 variants (default, surface-dark, mono). |
+| Diagram Arrow | `pages/diagrams.html` | built | 5 stroke variants + 2 marker references. Endpoint-mode contract (data-from/data-to + anchor hints + waypoint conversion) lives in Layer 2. |
+| Diagram Lane | `pages/diagrams.html` | built | Source Code Pro label per round-4 B4. Optional dashed boundary. |
+| Diagram Caption | `pages/diagrams.html` | built | Lora italic + weight 500 per round-4 B4 + feedback_lora_italic_weight_bump.md. |
+| Diagram Milestone | `pages/diagrams.html` | built | 3 states (done/progress/queued). Progress = canonical teal-700 commitment use. |
+| Diagram Icon | `pages/diagrams.html` | built | SVG path (text + font-family token) + HTML path (::before resolver) — Material Symbols today, FA Pro v7 swap when CDN access lands. |
+
+---
+
 ## Healthcare / Clinical (Domain-specific)
 
 | Component | PL Page | Status | Notes |

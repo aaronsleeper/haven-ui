@@ -1,0 +1,41 @@
+<!--
+  @component-meta
+  name: Diagram Caption
+  category: Primitives — Diagrams
+  file: diagram-caption.html
+  classes: diagram-caption
+  when-to-use: Italic explanatory text below a diagram (e.g., "Surfaces are downstream of substrate. New surfaces get added without touching the substrate's shape."). Standardizes Lora italic + weight 500 (one step above 400 roman) + sand-500 fill + bottom-anchored centering.
+  do-not-use-when: You need an in-diagram label — use diagram-box-label / diagram-box-sublabel. You need a region overline — use diagram-lane-label.
+  preline-required: no
+  notes: |
+    Lora italic earns warmth in the explanatory slot. Weight bump to 500 compensates for italic's lighter optical weight per feedback_lora_italic_weight_bump.md. Anchor middle by author choice; class doesn't enforce text-anchor (composers may want left-anchored captions for some layouts).
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Caption</h3>
+  <p class="pl-description">
+    Italic explanatory text below a diagram. Lora italic with weight bump 500 lands warm + readable against the sand-50 surrounding surface.
+  </p>
+
+  <!-- Caption -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Below-frame caption (centered)</p>
+    <!-- @component: diagram-caption-centered -->
+    <svg class="diagram-frame" viewBox="0 0 760 100" role="img" aria-label="Italic centered diagram caption — Lora 500 italic at sand-500 fill.">
+      <text class="diagram-caption" x="380" y="60" text-anchor="middle">Surfaces are downstream of substrate. New surfaces get added without touching the substrate&#x2019;s shape.</text>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- Inline caption -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Inline caption (left-anchored, e.g., next to a curved arrow)</p>
+    <!-- @component: diagram-caption-inline -->
+    <svg class="diagram-frame" viewBox="0 0 760 100" role="img" aria-label="Inline italic caption next to a curved arrow path.">
+      <text class="diagram-caption" x="40" y="48">via MCP</text>
+      <text class="diagram-caption" x="40" y="80">direct (git + IDE)</text>
+    </svg>
+    <!-- /component -->
+  </div>
+</section>

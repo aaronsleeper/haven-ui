@@ -1,0 +1,51 @@
+<!--
+  @component-meta
+  name: Diagram Marker Defs
+  category: Primitives — Diagrams
+  file: diagram-marker-defs.html
+  classes: diagram-marker-defs, diagram-marker-fill, diagram-marker-fill-emphasis, diagram-marker-stroke
+  when-to-use: Single source of truth for SVG arrow markers used inside diagram-frame. Reference once near the top of any diagram's <svg>, then attach markers to diagram-arrow paths via marker-end="url(#arrow-end)". Provides arrow-end, arrow-end-emphasis, arrow-end-bidirectional, and arrow-end-open marker definitions.
+  do-not-use-when: You are authoring custom non-arrow markers. Compose with diagram-frame and diagram-arrow.
+  preline-required: no
+  notes: |
+    All markers are drawn pointing toward +X (the right). orient="auto" rotates the marker so its +X axis aligns with the path tangent — markers drawn pointing right correctly orient along any path direction (fixes the rotation bug that hit cena-docs D2/D3 pre-Phase-1). markerUnits="userSpaceOnUse" keeps marker size stable regardless of path stroke-width. refX="9" (one unit before the tip at x=10) creates a 1-unit visual gap between path endpoint and arrowhead tip, preventing visual clipping at box edges. Markers carry aria-hidden via parent — meaning lives at the path/arrow level.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Marker Defs</h3>
+  <p class="pl-description">
+    Reusable SVG arrow markers for diagram-arrow paths. Authoring contract: include &lt;defs class="diagram-marker-defs"&gt; once near the top of each diagram's &lt;svg&gt;, then reference markers via marker-end="url(#arrow-end)".
+  </p>
+
+  <!-- All four marker styles -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Four marker styles</p>
+    <!-- @component: diagram-marker-defs-all -->
+    <svg class="diagram-frame" viewBox="0 0 480 200" role="img" aria-label="Four diagram-marker-defs arrow styles: end (filled), end-emphasis (filled teal), end-bidirectional, end-open (line chevron).">
+      <defs class="diagram-marker-defs">
+        <marker id="pl-arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill" />
+        </marker>
+        <marker id="pl-arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill-emphasis" />
+        </marker>
+        <marker id="pl-arrow-end-bidirectional" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill" />
+        </marker>
+        <marker id="pl-arrow-end-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10" class="diagram-marker-stroke" fill="none" />
+        </marker>
+      </defs>
+      <path d="M 30 40 L 200 40" class="diagram-arrow" marker-end="url(#pl-arrow-end)" />
+      <text x="210" y="44" class="diagram-marker-sample-label">arrow-end</text>
+      <path d="M 30 80 L 200 80" class="diagram-arrow diagram-arrow--emphasis" marker-end="url(#pl-arrow-end-emphasis)" />
+      <text x="210" y="84" class="diagram-marker-sample-label">arrow-end-emphasis</text>
+      <path d="M 30 120 L 200 120" class="diagram-arrow" marker-start="url(#pl-arrow-end-bidirectional)" marker-end="url(#pl-arrow-end-bidirectional)" />
+      <text x="210" y="124" class="diagram-marker-sample-label">arrow-end-bidirectional</text>
+      <path d="M 30 160 L 200 160" class="diagram-arrow" marker-end="url(#pl-arrow-end-open)" />
+      <text x="210" y="164" class="diagram-marker-sample-label">arrow-end-open</text>
+    </svg>
+    <!-- /component -->
+  </div>
+</section>

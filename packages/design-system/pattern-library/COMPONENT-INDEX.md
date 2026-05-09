@@ -268,6 +268,25 @@ before creating any new component or semantic class.
 
 ---
 
+## Diagrams
+
+Inline-SVG primitives for system diagrams. Layer 1 = hand-coordinate authoring; Layer 2 = dagre-backed `diagram-graph` helper composes these primitives at computed positions (ships in a follow-up lane). All tokens land in `semantic.css` (color) + `typography.css` (font) + `components.css` (radius alias). Spec: `~/.claude/plans/haven-ui-diagram-research.md`.
+
+| Component | File | Classes | Preline | Notes |
+|---|---|---|---|---|
+| Diagram Frame | `diagram-frame.html` | `diagram-frame`, `diagram-frame-placeholder`, `diagram-frame-placeholder-label`, `diagram-marker-sample-label` | no | Outer SVG container. role="img" + aria-label required; aria-describedby optional. Default viewBoxes: landscape 760×460, wide 760×360, timeline 760×200. |
+| Diagram Marker Defs | `diagram-marker-defs.html` | `diagram-marker-defs`, `diagram-marker-fill`, `diagram-marker-fill-emphasis`, `diagram-marker-stroke` | no | SVG arrow markers. All point +X with orient="auto" tangent rotation; markerUnits="userSpaceOnUse"; refX="9" for visual gap. Four IDs: `arrow-end`, `arrow-end-emphasis`, `arrow-end-bidirectional`, `arrow-end-open`. |
+| Diagram Box | `diagram-box.html` | `diagram-box`, `diagram-box-shape`, `diagram-box-label`, `diagram-box-sublabel`, `diagram-box-overline`, `diagram-box--dashed`, `diagram-box--substrate`, `diagram-box--ghost`, `diagram-box--milestone-done`, `diagram-box--milestone-progress`, `diagram-box--milestone-queued` | no | Rounded-rect surface. Substrate uses teal-800 (logo-anchor) NOT teal-700 (round-4 B1). Dashed uses sand-100 NOT sand-50 (round-4 B2). Corner radius pinned to `--radius-diagram-box` = radius-sm (round-4 B3). |
+| Diagram Pill | `diagram-pill.html` | `diagram-pill`, `diagram-pill-shape`, `diagram-pill-label`, `diagram-pill--surface-default`, `diagram-pill--surface-dark`, `diagram-pill--mono` | no | Small chip inside diagrams. Pill rx (~half height); kept distinct from box's radius-sm. |
+| Diagram Arrow | `diagram-arrow.html` | `diagram-arrow`, `diagram-arrow--emphasis`, `diagram-arrow--muted`, `diagram-arrow--dashed`, `diagram-arrow--dotted` | no | Connector path. Always reference markers from `diagram-marker-defs` via `marker-end="url(#arrow-end)"`. aria-hidden on the path; meaning lives in connected boxes' labels and the diagram's long-desc. |
+| Diagram Lane | `diagram-lane.html` | `diagram-lane`, `diagram-lane-label`, `diagram-lane-boundary` | no | Swim-lane region grouping boxes. Label uses Source Code Pro per Cena canon (round-4 B4). Optional dashed boundary. |
+| Diagram Caption | `diagram-caption.html` | `diagram-caption` | no | Italic explanatory text below a diagram. Lora italic + weight 500 (one step above 400 roman per `feedback_lora_italic_weight_bump.md`). |
+| Diagram Milestone | `diagram-milestone.html` | `diagram-milestone`, `diagram-milestone-shape`, `diagram-milestone-track`, `diagram-milestone-check`, `diagram-milestone-title`, `diagram-milestone-subtitle`, `diagram-milestone--done`, `diagram-milestone--progress`, `diagram-milestone--queued` | no | Timeline-circle with title/subtitle. Progress state IS the canonical user-commitment use of teal-700, distinct from substrate's teal-800 anchor. |
+| Diagram Icon | `diagram-icon.html` | `diagram-icon`, `diagram-icon--folder`, `diagram-icon--code`, `diagram-icon--comments`, `diagram-icon--robot`, `diagram-icon--public`, `diagram-icon--smart-toy`, `diagram-icon--forum` | no | Two paths: SVG `<text>` (font-family + content authoring) and HTML `<span>` (::before resolver classes — true name-only authoring, one-file FA-Pro swap when CDN access lands). |
+| Diagram Long-Desc | (markup hook in `diagram-frame.html`) | `diagram-long-desc`, `diagram-long-desc__purpose`, `diagram-long-desc__elements`, `diagram-long-desc__relationships`, `diagram-long-desc__notes` | no | Sr-only canonical long-desc structure (purpose → elements → relationships → notes). Purpose-line uses Cena observational + specific brand voice per round-4 B5. |
+
+---
+
 ## Patient App
 
 | Component | File | Classes | Preline | Notes |

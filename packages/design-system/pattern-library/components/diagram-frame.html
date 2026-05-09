@@ -1,0 +1,84 @@
+<!--
+  @component-meta
+  name: Diagram Frame
+  category: Primitives — Diagrams
+  file: diagram-frame.html
+  classes: diagram-frame
+  when-to-use: Outer <svg> container for any inline-SVG diagram. Carries role="img" + aria-label, optional aria-describedby pointing to a sibling diagram-long-desc. Composes children: diagram-marker-defs (once), then diagram-box, diagram-arrow, diagram-pill, diagram-lane, diagram-caption, diagram-milestone in any composition.
+  do-not-use-when: You are not authoring an inline SVG diagram. For raster illustrations use the Phase 2 diagram-asset escape hatch.
+  preline-required: no
+  notes: |
+    Default viewBox conventions (composer override available):
+    - Landscape: viewBox="0 0 760 460"
+    - Wide: viewBox="0 0 760 360"
+    - Timeline: viewBox="0 0 760 200"
+    Frame applies width:100%; height:auto; display:block via class. ViewBox stays inline as an authoring choice. Below 500px viewport, Layer 1 frames apply overflow-x:auto via the wrapping container; Layer 2 (data-driven) frames stack from data per the diagram-graph helper. Per round-3 P1.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Frame</h3>
+  <p class="pl-description">
+    Outer SVG container with built-in accessibility handles and viewport-scaling. The frame standardizes role="img" + aria-label, optionally pointing to a sibling diagram-long-desc for screen-reader-friendly prose descriptions of complex diagrams.
+  </p>
+
+  <!-- Landscape (760 × 460) -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Landscape (760 × 460) — composes substrate + surfaces + arrows</p>
+    <!-- @component: diagram-frame-landscape -->
+    <svg class="diagram-frame" viewBox="0 0 760 460" role="img" aria-label="Cena's care-coordinator agent fans out to five surfaces over a shared MCP server, all grounded in the patient-data substrate.">
+      <rect class="diagram-frame-placeholder" x="20" y="20" width="720" height="420" />
+      <text x="380" y="240" class="diagram-frame-placeholder-label">760 × 460 frame</text>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- Wide (760 × 360) -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Wide (760 × 360) — composition-shorter diagrams</p>
+    <!-- @component: diagram-frame-wide -->
+    <svg class="diagram-frame" viewBox="0 0 760 360" role="img" aria-label="Wide-frame diagram example.">
+      <rect class="diagram-frame-placeholder" x="20" y="20" width="720" height="320" />
+      <text x="380" y="190" class="diagram-frame-placeholder-label">760 × 360 frame</text>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- Timeline (760 × 200) -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Timeline (760 × 200) — milestone tracks + phase-status patterns</p>
+    <!-- @component: diagram-frame-timeline -->
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Timeline-frame diagram example.">
+      <rect class="diagram-frame-placeholder" x="20" y="20" width="720" height="160" />
+      <text x="380" y="110" class="diagram-frame-placeholder-label">760 × 200 frame</text>
+    </svg>
+    <!-- /component -->
+  </div>
+
+  <!-- With long-description -->
+  <div class="mb-6">
+    <p class="pl-variant-title">With diagram-long-desc (sr-only canonical structure)</p>
+    <p class="pl-description">
+      For complex diagrams, pair the frame with a sibling diagram-long-desc block via aria-describedby. The long-desc structure is canonical: purpose → elements → relationships → optional notes. Purpose-line voice mirrors Cena brand voice — observational and specific, not generic.
+    </p>
+    <!-- @component: diagram-frame-with-long-desc -->
+    <svg class="diagram-frame" viewBox="0 0 760 200" role="img" aria-label="Cena's care-coordinator agent fans out to five surfaces." aria-describedby="diagram-frame-example-desc">
+      <rect class="diagram-frame-placeholder" x="20" y="20" width="720" height="160" />
+      <text x="380" y="110" class="diagram-frame-placeholder-label">frame + sibling long-desc</text>
+    </svg>
+    <div class="diagram-long-desc" id="diagram-frame-example-desc">
+      <p class="diagram-long-desc__purpose">
+        Cena's care-coordinator agent fans out to five surfaces over a shared MCP server, all grounded in the patient-data substrate.
+      </p>
+      <h4 class="sr-only">Elements</h4>
+      <ul class="diagram-long-desc__elements">
+        <li><strong>Care-coordinator agent</strong> — entry point, top of frame</li>
+      </ul>
+      <h4 class="sr-only">Relationships</h4>
+      <ul class="diagram-long-desc__relationships">
+        <li>Agent → MCP server: read/list/search/audit calls</li>
+      </ul>
+    </div>
+    <!-- /component -->
+  </div>
+</section>
