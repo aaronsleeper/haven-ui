@@ -26,9 +26,12 @@
       <load src="../components/diagram-caption.html" />
       <load src="../components/diagram-milestone.html" />
       <load src="../components/diagram-icon.html" />
+      <load src="../components/diagram-graph.html" />
 
     </main>
   </div>
   <load src="../partials/pl-scripts.html" />
+  <!-- Layer 2 dagre-backed renderer — auto-init on [data-diagram-graph] elements. -->
+  <script type="module" src="/src/scripts/env/diagram-graph.js"></script>
 </body>
 </html>

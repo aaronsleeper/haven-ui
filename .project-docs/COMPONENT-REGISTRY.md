@@ -238,6 +238,7 @@ Inline-SVG primitives for system diagrams. Phase 1 of the haven-ui diagram capab
 | Diagram Caption | `pages/diagrams.html` | built | Lora italic + weight 500 per round-4 B4 + feedback_lora_italic_weight_bump.md. |
 | Diagram Milestone | `pages/diagrams.html` | built | 3 states (done/progress/queued). Progress = canonical teal-700 commitment use. |
 | Diagram Icon | `pages/diagrams.html` | built | SVG path (text + font-family token) + HTML path (::before resolver) — Material Symbols today, FA Pro v7 swap when CDN access lands. |
+| Diagram Graph (Layer 2) | `pages/diagrams.html` | built | Data-driven helper. dagre-backed layout + waypoint conversion + anchor resolver + SVG renderer. ESM at `src/scripts/env/diagram-graph.js`; auto-inits on `[data-diagram-graph]`. Unit tests pending in lane E. |
 
 ---
 

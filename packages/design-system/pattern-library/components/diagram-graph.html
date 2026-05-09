@@ -1,0 +1,102 @@
+<!--
+  @component-meta
+  name: Diagram Graph
+  category: Primitives — Diagrams
+  file: diagram-graph.html
+  classes: (renders Layer 1 primitives — diagram-frame, diagram-box, diagram-arrow, diagram-icon, diagram-marker-defs)
+  when-to-use: Layer 2 data-driven diagram authoring. Use when a diagram has ≥4 element types, curved connectors with markers, more than ~10 connectors, or an explicit DAG structure where auto-layout reduces hand-positioning ceremony. Author a JSON spec via data-diagram-graph; the env module runs dagre and renders Layer 1 primitives at computed positions.
+  do-not-use-when: Simple diagrams with ≤3 element types and no curved connectors — Layer 1 hand-coordinate authoring is cheaper. One-off illustrative diagrams — Phase 2/Layer 3 diagram-asset escape hatch.
+  preline-required: no
+  notes: |
+    JS module: src/scripts/env/diagram-graph.js (ES module; load via <script type="module">). Public API exports: layoutGraph(spec), waypointToPath(points, mode), resolveAnchor(box, hint), renderDiagramGraph(svgElement, spec). Auto-init on DOMContentLoaded for any [data-diagram-graph] element.
+
+    Spec shape:
+      { rankdir, nodesep, ranksep, marginx, marginy,
+        nodes: [{ id, label, sublabel, kind, variant, icon, overline, width, height }],
+        edges: [{ from, to, stroke, markerStart, markerEnd, route, fromAnchor, toAnchor, label }] }
+
+    Edge contract (round-3 A3):
+    - stroke: default | emphasis | muted | dashed | dotted
+    - markerStart / markerEnd: off | end | end-emphasis | end-bidirectional | end-open
+    - route: polyline (default) | smooth (Catmull-Rom→cubic Bezier; for ≥3 waypoints with directional changes)
+    - fromAnchor / toAnchor: top-{left,center,right} | bottom-{left,center,right} | left-{top,center,bottom} | right-{top,center,bottom} | auto
+    - Self-loops (from === to) are rejected at layout time per round-3 A3.
+
+    Mobile (round-3 P1): Layer 2 frames stack-from-data below 500px via the diagram-graph helper (single source: the spec). Per-diagram override available via data-mobile-strategy attribute. Stack-from-data rendering not yet implemented in this Phase 1 ship — the helper layouts SVG only; HTML stack rendering ships in a follow-up.
+  @end-meta
+-->
+
+<section>
+  <h3 class="section-title mb-4">Diagram Graph</h3>
+  <p class="pl-description">
+    Layer 2 data-driven authoring. Author a small JSON spec describing nodes + edges; dagre computes positions and edge waypoints; the helper renders Layer 1 primitives at the computed positions.
+  </p>
+
+  <!-- Simple example: 3 surfaces over a substrate -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Simple example — 3 surfaces over a substrate</p>
+    <p class="pl-description">
+      Three labeled surfaces feed into a substrate via solid arrows. Inspect the page source to see the data-diagram-graph payload — that's the entire spec.
+    </p>
+    <!-- @component: diagram-graph-simple -->
+    <svg
+      class="diagram-frame"
+      role="img"
+      aria-label="Three labeled surfaces (Aaron, Andrey, Vanessa) feed into the substrate via solid arrows."
+      data-diagram-graph='{
+        "rankdir": "TB",
+        "nodesep": 30,
+        "ranksep": 80,
+        "marginx": 24,
+        "marginy": 24,
+        "nodes": [
+          { "id": "aaron",    "label": "Aaron · IDE",     "sublabel": "VS Code · Claude Code", "icon": "code",  "width": 150, "height": 84 },
+          { "id": "andrey",   "label": "Andrey · IDE",    "sublabel": "his choice",            "icon": "code",  "width": 150, "height": 84 },
+          { "id": "vanessa",  "label": "Vanessa · Slack", "sublabel": "DMs today",             "icon": "forum", "width": 150, "height": 84 },
+          { "id": "substrate","label": "cena-corpus + ava-brain", "sublabel": "files in git, audit-trailed", "overline": "SUBSTRATE", "variant": "substrate", "width": 540, "height": 110 }
+        ],
+        "edges": [
+          { "from": "aaron",   "to": "substrate", "stroke": "default", "markerEnd": "end" },
+          { "from": "andrey",  "to": "substrate", "stroke": "default", "markerEnd": "end" },
+          { "from": "vanessa", "to": "substrate", "stroke": "default", "markerEnd": "end" }
+        ]
+      }'
+    ></svg>
+    <!-- /component -->
+  </div>
+
+  <!-- Variant example: emphasis arrows + smooth route -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Stroke variants + smooth route</p>
+    <p class="pl-description">
+      Same shape, different edge styles. Two solid sand arrows, one emphasis-teal arrow, one dashed smooth-routed arrow.
+    </p>
+    <!-- @component: diagram-graph-stroke-variants -->
+    <svg
+      class="diagram-frame"
+      role="img"
+      aria-label="Layer 2 demo: four edges illustrate the stroke variant set — default, emphasis, dashed, plus smooth route mode."
+      data-diagram-graph='{
+        "rankdir": "TB",
+        "nodesep": 40,
+        "ranksep": 80,
+        "marginx": 24,
+        "marginy": 24,
+        "nodes": [
+          { "id": "a",  "label": "Source A", "icon": "code",     "width": 140, "height": 80 },
+          { "id": "b",  "label": "Source B", "icon": "forum",    "width": 140, "height": 80 },
+          { "id": "c",  "label": "Source C", "icon": "public",   "width": 140, "height": 80 },
+          { "id": "d",  "label": "Source D", "icon": "smart_toy","width": 140, "height": 80 },
+          { "id": "hub","label": "Hub", "sublabel": "shared API", "variant": "dashed", "width": 320, "height": 80 }
+        ],
+        "edges": [
+          { "from": "a", "to": "hub", "stroke": "default" },
+          { "from": "b", "to": "hub", "stroke": "emphasis" },
+          { "from": "c", "to": "hub", "stroke": "dashed" },
+          { "from": "d", "to": "hub", "stroke": "muted",  "route": "smooth" }
+        ]
+      }'
+    ></svg>
+    <!-- /component -->
+  </div>
+</section>
