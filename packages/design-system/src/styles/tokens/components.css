@@ -10581,11 +10581,14 @@ a.list-group-item-action {
    =================================== */
 :root {
     --radius-diagram-box: var(--radius-sm);
-    /* Variable stroke-weight tokens — iconography §3 1.5:1 ratio that makes
-       diagrams feel hand-placed rather than uniformly drawn. Round-2 essence-gap
-       iteration. Primary = emphasis arrows + milestone shapes/checks; secondary =
-       default arrows + milestone track; accent = future-use lighter contour. */
-    --stroke-diagram-primary:   2;
+    /* Variable stroke-weight tokens — iconography §3 ratio that makes diagrams
+       feel hand-placed rather than uniformly drawn. Iter #2 pushed primary
+       from 2 → 2.5 because 1.5:1 ratio against a 1.5px secondary read too
+       uniform on the showcase; 2.5:1.5:1 gives the visible drama the spec
+       intends. Primary = emphasis arrows + milestone shapes/checks; secondary
+       = default arrows + milestone track; accent = light contour (default for
+       box/pill — already expressed as 1px hardcoded). */
+    --stroke-diagram-primary:   2.5;
     --stroke-diagram-secondary: 1.5;
     --stroke-diagram-accent:    1;
 }
@@ -10667,8 +10670,8 @@ a.list-group-item-action {
 }
 
 .diagram-box-shape {
-    fill: var(--color-surface-primary);
-    stroke: var(--color-border-default);
+    fill: var(--color-sand-100);
+    stroke: var(--color-sand-300);
     stroke-width: 1;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -10760,7 +10763,7 @@ a.list-group-item-action {
     /* Group container. */
 }
 .diagram-pill-shape {
-    fill: var(--color-sand-100);
+    fill: var(--color-sand-200);
     stroke: var(--color-sand-500);
     stroke-width: 1;
     stroke-linecap: round;

@@ -237,8 +237,8 @@ function buildMarkerDefs(svgElement) {
             viewBox: '0 0 10 10',
             refX: '9',
             refY: '5',
-            markerWidth: '7',
-            markerHeight: '7',
+            markerWidth: '10',
+            markerHeight: '10',
             markerUnits: 'userSpaceOnUse',
             orient: m.orient,
         });
