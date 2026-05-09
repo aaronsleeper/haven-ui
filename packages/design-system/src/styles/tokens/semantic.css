@@ -144,6 +144,21 @@
      Semantically distinct from button primary: selection, progress-filled,
      form input accent. --- */
   --color-accent-interactive: var(--color-teal-600);
+
+  /* --- Diagram tokens — haven-ui-diagram-research.md D3 + round-4 brand-fidelity.
+     Semantic aliases for the diagram-* primitive family. Substrate uses teal-800
+     (logo-anchor color) NOT teal-700 (reserved for user-commits-that-change-state)
+     per round-4 B1. Dashed-state fill is sand-100 NOT sand-50 (which would be
+     invisible against the sand-50 page bg) per round-4 B2. --- */
+  --color-arrow-default:                    var(--color-sand-500);
+  --color-arrow-emphasis:                   var(--color-teal-500);
+  --color-arrow-muted:                      var(--color-sand-400);
+  --color-diagram-substrate-bg:             var(--color-teal-800);
+  --color-diagram-substrate-fg:             #ffffff; /* theme-invariant — text color on dark substrate stays white in both modes */
+  --color-diagram-substrate-fg-muted:       var(--color-teal-100);
+  --color-diagram-surface-dashed-bg:        var(--color-sand-100);
+  --color-diagram-surface-dashed-border:    var(--color-sand-500);
+  --color-diagram-frame-bg:                 transparent; /* theme-invariant — diagram bg deferred to consuming surface */
 }
 
 /* --- Dark-mode token overrides ---
@@ -185,6 +200,19 @@
 
     /* Interactive / accent */
     --color-accent-interactive: var(--color-teal-400);
+
+    /* Diagram tokens — provisional mechanical mirror for dark mode.
+       Brand-fidelity should review these before dark mode ships to users.
+       Theme-invariants (--color-diagram-substrate-fg = #ffffff and
+       --color-diagram-frame-bg = transparent) carry inline comments at their
+       light-mode declaration sites and are NOT redeclared here. */
+    --color-arrow-default:                    var(--color-sand-400);
+    --color-arrow-emphasis:                   var(--color-teal-400);
+    --color-arrow-muted:                      var(--color-sand-500);
+    --color-diagram-substrate-bg:             var(--color-teal-300);
+    --color-diagram-substrate-fg-muted:       var(--color-teal-700);
+    --color-diagram-surface-dashed-bg:        var(--color-sand-900);
+    --color-diagram-surface-dashed-border:    var(--color-sand-400);
 }
 
 /* Extended sand stops (sand-15, sand-16, sand-150, sand-250) were promoted

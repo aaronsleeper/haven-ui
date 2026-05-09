@@ -10566,3 +10566,24 @@ a.list-group-item-action {
 .pagination-row {
     @apply flex items-center justify-between gap-3 w-full;
 }
+
+
+/* ===================================
+   DIAGRAM PRIMITIVES
+   haven-ui-diagram-research.md D3 + round-4 brand-fidelity findings B1-B5.
+   Layer 1: hand-coordinate primitives. Layer 2: dagre-backed diagram-graph
+   helper composes these primitives at computed positions.
+
+   Per-primitive @apply classes (diagram-frame, diagram-marker-defs,
+   diagram-box + variants, diagram-pill, diagram-arrow, diagram-lane,
+   diagram-caption, diagram-milestone, diagram-icon) land in Lane B.
+   Lane A (this section) defines the radius alias only.
+
+   B3: --radius-diagram-box pinned to radius-sm (5px) per round-4
+   brand-fidelity review — prevents AI-slop drift toward uniform-bubbly
+   radius across all diagram elements while keeping pills (radius-xl)
+   and milestone circles (50%) visually distinct as element classes.
+   =================================== */
+:root {
+    --radius-diagram-box: var(--radius-sm);
+}

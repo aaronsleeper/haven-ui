@@ -115,4 +115,19 @@
   --text-utility-metric-large--line-height: 1.1;
   --text-utility-metric-small: 19.2px;
   --text-utility-metric-small--line-height: 1.1;
+
+  /* ----------------------------------------
+     Diagram primitives — haven-ui-diagram-research.md D3 + round-4 B4.
+     Captions use Lora italic with weight bump 500 (one step above surrounding
+     400 roman per feedback_lora_italic_weight_bump.md). Lane labels use
+     Source Code Pro per current Cena canon (the "JetBrains Mono" reference
+     in some haven-ui internal docs is stale relative to DESIGN.md §Typography).
+     Icon stack starts on Material Symbols Outlined as a stopgap; FA Pro v7
+     swap is a one-token change at this layer when CDN access lands.
+     ---------------------------------------- */
+  --font-diagram-caption-family:    var(--font-serif); /* Lora */
+  --font-diagram-caption-weight:    500;
+  --font-diagram-lane-label-family: var(--font-mono);  /* Source Code Pro */
+  --font-icon-family:               'Material Symbols Outlined', sans-serif;
+  --font-icon-features:             "'liga'";
 }
