@@ -306,13 +306,13 @@ function buildBox(id, pos) {
     }
 
     if (pos.label) {
-        const label = svgEl('text', { x: cx, y: labelY }, ['diagram-box-label']);
+        const label = svgEl('text', { x: cx, y: labelY, 'text-anchor': 'middle' }, ['diagram-box-label']);
         label.textContent = pos.label;
         group.appendChild(label);
     }
 
     if (hasSublabel) {
-        const sub = svgEl('text', { x: cx, y: sublabelY }, ['diagram-box-sublabel']);
+        const sub = svgEl('text', { x: cx, y: sublabelY, 'text-anchor': 'middle' }, ['diagram-box-sublabel']);
         sub.textContent = pos.sublabel;
         group.appendChild(sub);
     }

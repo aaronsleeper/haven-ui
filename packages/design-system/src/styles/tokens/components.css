@@ -10683,14 +10683,17 @@ a.list-group-item-action {
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 600;
-    text-anchor: middle;
+    /* text-anchor lives in markup per haven-ui convention; consumers must set
+       text-anchor="middle" on centered labels. CSS-set text-anchor here was
+       silently overriding markup's text-anchor="start" on the substrate variant
+       and causing labels to escape their container. */
 }
 
 .diagram-box-sublabel {
     fill: var(--color-sand-700);
     font-family: var(--font-sans);
     font-size: 10px;
-    text-anchor: middle;
+    /* text-anchor in markup — see diagram-box-label note above. */
 }
 
 .diagram-box-overline {
