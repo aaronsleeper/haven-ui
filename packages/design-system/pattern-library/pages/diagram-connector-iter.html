@@ -71,21 +71,32 @@
               <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
                    aria-label="Haven-ui connector instantiation: same geometry as the FigJam reference, rendered as a single stroked path with a chevron-notch arrowhead marker.">
                 <defs>
-                  <!-- Chevron-notch arrowhead marker.
-                       viewBox normalized to 0-origin. Tip at (12, 14). Back-flanks at (0, 0) and (0, 28).
-                       Notch at (4, 14) — the load-bearing detail per FigJam reference.
-                       refX=11 (one unit before tip) for visual clearance from path endpoint. -->
+                  <!-- Stroked chevron arrowhead marker (iter #4, Aaron 2026-05-09 feedback).
+                       Open path: back-flanks at (0, 0) and (0, 17), tip at (8, 8.5).
+                       Sized at corner-radius/3 (corner-radius=24, so chevron-width=8) to feel
+                       proportionally appropriate to the connector's other geometry. Aspect
+                       maintains FigJam's ~94° opening (atan(8.5/8) ≈ 47° per flank).
+                       refX=0 places chevron's back at the body endpoint, tip 8 units past —
+                       chevron now visually covers/extends past the line's end rather than the
+                       body's round cap protruding through the tip. -->
                   <marker id="figjam-chevron-notch"
-                          viewBox="0 0 13 28"
-                          refX="11" refY="14"
-                          markerWidth="13" markerHeight="28"
+                          viewBox="0 0 8 17"
+                          refX="0" refY="8.5"
+                          markerWidth="8" markerHeight="17"
                           markerUnits="userSpaceOnUse"
                           orient="auto">
-                    <path d="M 12 14 L 0 0 L 4 14 L 0 28 Z" fill="#D8CEC0" />
+                    <path d="M 0 0 L 8 8.5 L 0 17"
+                          fill="none"
+                          stroke="#D8CEC0"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
                   </marker>
                 </defs>
-                <!-- Start-dot at (1192, 93) — small filled circle to match FigJam's origin marker -->
-                <circle cx="1192" cy="93" r="2" fill="#D8CEC0" />
+                <!-- Start-dot at (1192, 93). r = 1.5 × stroke-width (so diameter = 3× stroke-width).
+                     Bumped from r=2 (iter #3) to r=3 (iter #4) — Aaron felt iter #3's dot read
+                     as too small relative to the chevron. -->
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
                 <!-- The connector body: single stroked path with arc corners (A command) -->
                 <path d="M 1192 93
                          L 1232 93
@@ -102,9 +113,9 @@
               </svg>
             </div>
             <p class="text-xs text-sand-500 mt-2">
-              Render method: 1 stroked path (M/L/A commands) + 1 SVG marker (chevron-notch).
-              Stroke <code>#D8CEC0</code> width 2, round caps and joins. Same geometry, ~95%
-              less DOM, parameterizable by endpoints + corner-radius + arrowhead-marker-id.
+              Iter #4: chevron 8×17 (corner-radius/3), <code>refX=0</code> so chevron extends
+              past body endpoint instead of overlapping. Dot r=3 (1.5× stroke-width).
+              Stroke <code>#D8CEC0</code> width 2, round caps and joins, fill none.
             </p>
           </div>
 
@@ -145,12 +156,17 @@
                    aria-label="Haven-ui chevron-notch marker rendered at the same coordinates as the FigJam original.">
                 <defs>
                   <marker id="figjam-chevron-notch-zoom"
-                          viewBox="0 0 13 28"
-                          refX="11" refY="14"
-                          markerWidth="13" markerHeight="28"
+                          viewBox="0 0 8 17"
+                          refX="0" refY="8.5"
+                          markerWidth="8" markerHeight="17"
                           markerUnits="userSpaceOnUse"
                           orient="auto">
-                    <path d="M 12 14 L 0 0 L 4 14 L 0 28 Z" fill="#D8CEC0" />
+                    <path d="M 0 0 L 8 8.5 L 0 17"
+                          fill="none"
+                          stroke="#D8CEC0"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
                   </marker>
                 </defs>
                 <!-- A short stroked line ending at the same X as the FigJam arrow's tip
@@ -164,13 +180,272 @@
               </svg>
             </div>
             <p class="text-xs text-sand-500 mt-2">
-              Status: SHARP corners on all three points (no fillets in this first cut). The
-              FigJam fillets are the obvious next iteration target if shape isn't matching.
-              Path is <code>M 12 14 L 0 0 L 4 14 L 0 28 Z</code> — 4 segments, 4 vertices.
+              Iter #4 chevron: <code>M 0 0 L 8 8.5 L 0 17</code> — width 8 (= corner-radius/3),
+              ~94° opening. <code>refX=0</code> places back-flanks at body endpoint;
+              chevron extends 8 units past, so the tip visibly covers the line's terminus
+              instead of body's round cap protruding through.
             </p>
           </div>
 
         </div>
+      </section>
+
+      <!-- ============================================================
+           Reference 3: production-scale render so line weight reads at
+           a typical haven-ui diagram size (not the blown-up demo scale).
+           Same haven-ui SVG, smaller container. Helps Aaron eyeball the
+           line weight in something closer to actual use.
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Production-scale render — same connector, smaller container</h2>
+        <p class="text-sm text-sand-700 mb-4 max-w-2xl">
+          The two renders above sit in 1140-wide containers, scaling stroke-width=2 user-units
+          to ~15px on screen — overweight relative to actual use. The renders below shrink the
+          container so the connector reads at production-typical size. Use these to judge line
+          weight in context, not the zoomed-in demo.
+        </p>
+        <div class="grid grid-cols-3 gap-8 items-start">
+
+          <!-- 280px container, ~3.7× smaller than the main demo -->
+          <div>
+            <p class="pl-variant-title">~280px container</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 280px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Haven-ui connector at ~280px container width — typical haven-ui diagram scale.">
+                <defs>
+                  <marker id="figjam-chevron-prod-280"
+                          viewBox="0 0 8 17"
+                          refX="0" refY="8.5"
+                          markerWidth="8" markerHeight="17"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 8 8.5 L 0 17"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-prod-280)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Closest to typical haven-ui diagram scale. If the line weight reads correctly here,
+              this is the canonical anchor.
+            </p>
+          </div>
+
+          <!-- 400px container -->
+          <div>
+            <p class="pl-variant-title">~400px container</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Haven-ui connector at ~400px container width.">
+                <defs>
+                  <marker id="figjam-chevron-prod-400"
+                          viewBox="0 0 8 17"
+                          refX="0" refY="8.5"
+                          markerWidth="8" markerHeight="17"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 8 8.5 L 0 17"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-prod-400)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Mid-scale. A diagram embedded in a column of body text might land here.
+            </p>
+          </div>
+
+          <!-- 560px container — matches the haven-ui-typical 560-wide viewBox cited in the plan -->
+          <div>
+            <p class="pl-variant-title">~560px container</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 560px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Haven-ui connector at ~560px container width — upper bound of typical haven-ui diagram scale.">
+                <defs>
+                  <marker id="figjam-chevron-prod-560"
+                          viewBox="0 0 8 17"
+                          refX="0" refY="8.5"
+                          markerWidth="8" markerHeight="17"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 8 8.5 L 0 17"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-prod-560)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Upper end of typical scale (560×260 viewBox cited in the plan). If line weight
+              reads correctly here AND at 280px, the primitive is scale-robust.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Reference 4: chevron-size variants (iter #4) at 400px production
+           scale. Lets Aaron pick the chevron-to-corner-radius ratio that
+           feels right. All four use refX=0 (chevron extends past line)
+           and r=3 dot (1.5× stroke-width). Only chevron dimensions vary.
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Chevron-size variants — pick the proportion</h2>
+        <p class="text-sm text-sand-700 mb-4 max-w-2xl">
+          Iter #4 shrinks the chevron because iter #3's 13×28 felt disproportionately large
+          relative to the dot and line weight. These four variants vary chevron-width as a
+          fraction of corner-radius (24 user-units) — pick the proportion that feels harmonious
+          with the rest of the connector. All maintain FigJam's ~94° opening; only outer
+          dimensions change.
+        </p>
+        <div class="grid grid-cols-4 gap-4 items-start">
+
+          <!-- Variant A: corner-radius/4 (smallest) -->
+          <div>
+            <p class="pl-variant-title">A · 6×13 (radius/4)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Variant A: chevron 6×13, corner-radius/4 ratio.">
+                <defs>
+                  <marker id="figjam-chevron-var-a"
+                          viewBox="0 0 6 13"
+                          refX="0" refY="6.5"
+                          markerWidth="6" markerHeight="13"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 6 6.5 L 0 13"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-var-a)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Most delicate. Chevron is a subtle terminator, not a destination.
+            </p>
+          </div>
+
+          <!-- Variant B: corner-radius/3 (recommended — current main render) -->
+          <div>
+            <p class="pl-variant-title">B · 8×17 (radius/3) ★</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Variant B: chevron 8×17, corner-radius/3 ratio.">
+                <defs>
+                  <marker id="figjam-chevron-var-b"
+                          viewBox="0 0 8 17"
+                          refX="0" refY="8.5"
+                          markerWidth="8" markerHeight="17"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 8 8.5 L 0 17"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-var-b)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Recommended. Visible terminator; balanced with dot and line.
+            </p>
+          </div>
+
+          <!-- Variant C: corner-radius/2.5 -->
+          <div>
+            <p class="pl-variant-title">C · 10×21 (radius/2.4)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Variant C: chevron 10×21, corner-radius/2.4 ratio.">
+                <defs>
+                  <marker id="figjam-chevron-var-c"
+                          viewBox="0 0 10 21"
+                          refX="0" refY="10.5"
+                          markerWidth="10" markerHeight="21"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 10 10.5 L 0 21"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-var-c)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Mid-large. Reads as a clear arrowhead.
+            </p>
+          </div>
+
+          <!-- Variant D: corner-radius/1.85 (= FigJam original 13×28) -->
+          <div>
+            <p class="pl-variant-title">D · 13×28 (FigJam)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="1180 80 150 300" class="diagram-frame" role="img"
+                   aria-label="Variant D: chevron 13×28, FigJam's original outer dimensions.">
+                <defs>
+                  <marker id="figjam-chevron-var-d"
+                          viewBox="0 0 13 28"
+                          refX="0" refY="14"
+                          markerWidth="13" markerHeight="28"
+                          markerUnits="userSpaceOnUse"
+                          orient="auto">
+                    <path d="M 0 0 L 13 14 L 0 28"
+                          fill="none" stroke="#D8CEC0"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </marker>
+                </defs>
+                <circle cx="1192" cy="93" r="3" fill="#D8CEC0" />
+                <path d="M 1192 93 L 1232 93 A 24 24 0 0 1 1256 117 L 1256 327.5 A 24 24 0 0 0 1280 351.5 L 1319.5 351.5"
+                      fill="none" stroke="#D8CEC0" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      marker-end="url(#figjam-chevron-var-d)" />
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              FigJam's outer dimensions (iter #3). Aaron felt this disproportionately large.
+            </p>
+          </div>
+
+        </div>
+        <p class="text-xs text-sand-500 mt-4 max-w-2xl">
+          Note on the FigJam-to-corner-radius ratio question: FigJam's chevron is 13 wide vs
+          corner-radius 24, ≈ ratio 1:1.85 (variant D). My read is that this ratio is FigJam's
+          default arrowhead-to-arc relationship rather than a deliberate brand-aligned choice.
+          Variants A–C explore tighter ratios that feel more harmonious with the connector's
+          other geometry.
+        </p>
       </section>
 
       <!-- ============================================================
@@ -187,13 +462,31 @@
             translation, not creative-judgment failures.
           </p>
           <p class="text-sm text-sand-700">
-            <strong>Known first-cut gaps</strong> (eyeball-confirm-pending):
+            <strong>Iteration history:</strong>
           </p>
           <ul class="text-sm text-sand-700">
-            <li>Marker corners are sharp; FigJam corners are filleted via cubic Béziers. If
-              the eyeball-comparison says the arrow looks "constructed" rather than "drawn," fillet
-              the marker corners with small Q curves at each vertex.</li>
-            <li>Marker dimensions assume 13×28 (FigJam-faithful). May be too large for haven-ui
+            <li>Iter #1 (filled chevron-with-notch, 13×28, <code>M 12 14 L 0 0 L 4 14 L 0 28 Z</code>):
+              connector body geometry validated by Aaron 2026-05-09; marker read ~10× heavier than
+              FigJam intent because filled shapes don't match FigJam's stroked-line aesthetic.</li>
+            <li>Iter #2 (open stroked chevron, 13×14, <code>M 0 0 L 13 7 L 0 14</code>):
+              right approach (drawn-by-virtue-of-being-the-same-line) but compressed — chevron read
+              as too-narrowly-angled and the round caps at flank ends were too small to register at
+              this opening width. ~57° opening vs FigJam's ~94°.</li>
+            <li>Iter #3 (open stroked chevron, 13×28, <code>M 0 0 L 13 14 L 0 28</code>):
+              widened to FigJam's outer dimensions. Aaron's feedback: chevron disproportionately
+              large; dot proportionally small; sharp ends (round caps too small relative to flank
+              length); body's round cap protruded through chevron tip (because <code>refX=13</code>
+              put tip at body endpoint).</li>
+            <li>Iter #4 (current — open stroked chevron, 8×17, <code>M 0 0 L 8 8.5 L 0 17</code>):
+              chevron sized at corner-radius/3 for proportional harmony; <code>refX=0</code> so
+              chevron extends past body endpoint instead of overlapping (tip covers line's end);
+              dot bumped to r=3 (1.5× stroke-width). Variants row below shows 4 sizes for picking.</li>
+          </ul>
+          <p class="text-sm text-sand-700">
+            <strong>Known follow-ons</strong> (eyeball-confirm-pending):
+          </p>
+          <ul class="text-sm text-sand-700">
+            <li>Marker dimensions are 13×14 in user-space units. May still be too large for haven-ui
               diagrams at typical scale (560×260 viewBox vs FigJam's 1652×703). Consider a
               proportional scale-down option once base shape is brand-team-validated.</li>
             <li>Start-dot is rendered as a 2-radius circle here. FigJam's version uses a slightly
