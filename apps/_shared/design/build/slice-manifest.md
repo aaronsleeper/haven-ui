@@ -271,9 +271,37 @@ Spec (`thread-question-card.md`) updated to match: CSS Definition block + Access
 
 ---
 
-## Round 2 expert verdict — thread-question-card PL fragment (after iterations, if any)
+## Round 2 expert verdict — thread-question-card PL fragment (after Round 1 iterations)
 
-(To be filled in after Round 2 panel runs.)
+Panel re-dispatched 2026-05-11 on sonnet after Round 1 iterations landed (commit `062c142`). Asked each reviewer to verify Round 1 closure + surface anything new. Same opus quota constraint as Round 1.
+
+- **design-system-steward:** ship — all 3 Round 1 items closed cleanly. One trivial drift: `.is-historical` `<p class="pl-description">` still read "sand-400 + 0.85" pre-iteration values; spec + CSS were correct; PL prose was the 3rd copy-point that lagged. Patched mid-cycle (commit pending). Plus 3 "non-issue confirmed" notes: `bg-surface-card` removal has no behavior delta; 1px+4px border composition is clean shorthand-then-longhand cascade; opacity + background-color cascade in `.is-historical` is structurally sound. Plan-readiness retro: candidate extension worth flagging — "diff PL `<p class='pl-description'>` prose against corresponding CSS values."
+- **ux-design-lead:** ship — all 4 Round 1 items closed. One non-blocking advisory: suggestion line italic sand-700 on sand-50 lands at ~4.3:1 (clears AA Body but feels thin at Body/03 13px italic; italic strokes are narrower than roman → perceived weight lower than measured ratio). Worth adding suggestion-line/sand-50 pair to spec's `conform:contrast-pairs` checklist so it carries through to the React port. Plan-readiness retro: partially — "verify .is-other on all variants against wireframe" would have caught the V2 omission in Round 1.
+- **accessibility:** ship, WCAG pass — all 4 Round 1 items closed. Contrast pairs (recomputed from palette.css hex): sand-600 on sand-50 = **3.79:1** PASS (1.4.11 ≥3:1; CSS comment cited 3.61:1; both clear); sand-700 on sand-50 = **5.74:1** PASS (AA Body ≥4.5:1). Variant 2 `.is-other` confirmed `role="checkbox"` (matches multi-select context). Plan-readiness retro: no extensions needed for the a11y plane.
+- **brand-fidelity:** ship, scorecard **8.5 → 9.5/10**. Items 1 + 3 + 4 closed; item 2 (Lora) deferred per wireframe intent. Visual hierarchy and Stone surface palette both bumped to 2/2; Typography expression held at 1.5/2 pending future Lora feel-test. One consumer-side advisory: `.is-other` copy register ("Type a different answer") reads as clinical-workflow; in Kitchen meal-substitution context the consumer should override description via the `option-row-description` slot ("Add your own substitution"). Primitive stays generic. Plan-readiness retro: yes — all Round 1 items have explicit verdicts in `@component-meta`; CSS carries inline decision rationale; Lora deferral is named.
+
+### Net verdict
+
+**Round 2: 4/4 SHIP.** No iterate, no block. Task 02 thread-question-card closed.
+
+Round 2 polish: one stale `<p class="pl-description">` string on `.is-historical` section corrected (sand-400/0.85 → sand-600/0.70) per Steward's mid-cycle observation.
+
+### Convergence + carry-forward items (non-blocking)
+
+- **Suggestion-line contrast pair** (ux-lead): add `sand-700 on sand-50` to spec's `conform:contrast-pairs` checklist so the React port carries the gate. Flag for spec update.
+- **Kitchen `.is-other` copy override** (brand): when the Kitchen app composes Variant 2 multi-select, consider overriding the description text via the `option-row-description` slot for stronger domain context. Primitive remains generic.
+- **PL prose drift** (steward retro): plan-readiness candidate extension — diff `<p class="pl-description">` against corresponding CSS values. Adds to the existing 4 plan-readiness extension candidates from option-row + 1 from thread-question-card Round 1 retros.
+
+### Pre-build check retrospective (Round 2)
+
+All ship — no iterate or block verdicts.
+
+The Round 2 panel cycle on thread-question-card mirrored option-row's Round 1 → Round 2 trajectory:
+- Round 1: 3 iterate + 1 ship-with-iterate verdicts
+- Iteration cycle: 13 actionable items + 1 deferred (Lora) in one patch
+- Round 2: 4/4 SHIP
+
+Iteration efficiency stayed high — Round 1 items had clear mechanical fixes; Round 2 caught one stale PL prose string + surfaced low-priority advisories that don't block ship.
 
 - **ux-design-lead:** [ship / iterate / block] — [one-line summary]
 - **design-system-steward:** [ship / iterate / block] — [...]
