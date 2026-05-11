@@ -172,12 +172,14 @@
 
   <!-- Multi-select with agent pre-selection (mounted aria-checked, no user interaction yet) -->
   <div class="mb-6">
-    <p class="pl-variant-title">Multi-select — agent pre-selection (mounted <code>aria-checked="true"</code>, awaiting user confirm)</p>
+    <p class="pl-variant-title">Multi-select — agent pre-selection (mounted <code>aria-checked="true"</code>, awaiting user confirm) <em>— visually identical to user-toggled multi-select by design; the state-semantic distinction is consumer-side.</em></p>
     <!-- @component: option-row-multi-pre-selected -->
     <!-- Wireframe Variant 2: agent surfaces a pre-selection suggestion; the user must
          touch (or commit Submit) before the value is persisted. Visual state is
          identical to user-toggled selected — the "stray-Enter guard" lives in
-         thread-question-card / the consumer, not in option-row. -->
+         thread-question-card / the consumer, not in option-row. Do NOT collapse this
+         variant into the user-toggled multi-select entry — the pre-selection vs
+         user-action distinction is the state semantic this variant exists to demonstrate. -->
     <h4 id="option-row-demo-4b-prompt" class="sr-only">Multi-select with agent pre-selection example</h4>
     <div class="option-row-list" role="group" aria-labelledby="option-row-demo-4b-prompt">
       <button type="button" class="option-row" role="checkbox" aria-checked="true" tabindex="0" data-option-id="opt-4b-a">

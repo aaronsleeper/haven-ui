@@ -71,7 +71,7 @@ Future consumers will require steward review before reuse — this primitive is 
 **Existing tokens reused:**
 
 - Selection ring: `--color-accent-interactive` (matches response-option precedent at line 10444)
-- Hover border: `--color-sand-600` (clears WCAG 1.4.11 against sand-50 hover-fill at 4.28:1; Round 1 a11y verdict 2026-05-11 corrected response-option's sand-500 precedent which was measured against white default surface and computes 2.81:1 against sand-50)
+- Hover border: `--color-sand-600` (clears WCAG 1.4.11 against sand-50 hover-fill at 3.82:1; Round 1 a11y verdict 2026-05-11 corrected response-option's sand-500 precedent which was measured against white default surface and computes 2.81:1 against sand-50; Round 2 recomputed actual ratio from palette.css hex literals)
 - Glyph border: `--color-sand-600` (same WCAG 1.4.11 reasoning as hover border — the glyph's outer edge sits against the row's hover fill when hovered)
 - Focus ring: `--color-primary-600` (matches response-option's `:focus-visible` at line 10440)
 - Title text: `--color-text-normal` / `text-sand-900`
@@ -237,12 +237,13 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
     border: 1px solid var(--color-border-image);
 }
 
-/* Hover — sand-600 border on sand-50 hover-fill (4.28:1) per WCAG 1.4.11.
+/* Hover — sand-600 border on sand-50 hover-fill (3.82:1) per WCAG 1.4.11.
    Note: response-option Patch 8 cited sand-500 at 3.42:1 measured
    against WHITE (default state). The relevant state for 1.4.11 is
    hover, where the row's fill is sand-50 — sand-500 on sand-50
    computes 2.81:1 (fail). Bumped to sand-600 per Round 1 a11y
-   verdict 2026-05-11. Pale fill so hover reads as "considering";
+   verdict 2026-05-11 (Round 2 recomputed: 3.82:1; comfortable
+   headroom over 3.0). Pale fill so hover reads as "considering";
    selected reads as "committed" via teal border. */
 .option-row:hover {
     @apply bg-sand-50;
@@ -283,7 +284,7 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 .option-row-glyph {
     @apply flex items-center justify-center shrink-0 w-5 h-5 mt-0.5;
     /* sand-600 (not sand-500) to clear WCAG 1.4.11 against sand-50
-       row-hover fill (4.28:1); see hover-state note above. */
+       row-hover fill (3.82:1); see hover-state note above. */
     border: 2px solid var(--color-sand-600);
     background-color: var(--color-surface-card);
     transition: background-color var(--duration-fast) var(--ease-default),

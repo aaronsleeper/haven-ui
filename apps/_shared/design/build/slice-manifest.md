@@ -183,16 +183,49 @@ For each iterate verdict, would `plan-readiness` have caught this pre-build?
 
 ---
 
+## Round 2 expert verdict — option-row PL fragment (post-Round 1 iterations)
+
+Panel re-dispatched 2026-05-11 after commit `289acad` landed Round 1 iterations. All four reviewers opus-tier, unprimed; each asked to verify Round 1 closure + surface anything new.
+
+- **design-system-steward:** ship — Both Round 1 items closed (CSS comment scope wording + `.option-row-recommended` no-rule semantic-hook). Two micro-observations not blocking: dark-mode `.option-row-glyph` still carries sand-500 (pre-existing pattern, not regression — flag for future dark-mode sweep); response-option's sand-500 cascade flagged for future WCAG 1.4.11 re-measurement.
+- **ux-design-lead:** ship — All four Round 1 items closed cleanly. Three advisory observations: pre-selected variant now annotated as "visually identical to user-toggled by design" (Round 2 polish); wrap-demo's second option is short-and-unrecommended (trivial, point made); 7-option PL exemplar deliberately NOT added (intentional — >6-options is a process gate via @component-meta note, not a sanctioned render pattern).
+- **accessibility:** ship, WCAG pass — All four Round 1 items closed. WCAG 1.4.11 hover-border recomputed: sand-600 on sand-50 = 3.82:1 (Round 1 docs cited 4.28:1 — Round 2 polish corrects to 3.82:1; both pass 3.0:1 floor). Glyph border on white interior = 4.52:1 — affordance improvement for default state. One forward-pointer raised (consumer-side, deferred to thread-question-card spec): mounted `aria-checked="true"` is valid ARIA but invisible to SR users as "agent-suggested vs user-selected" — consumer should pair with visible "(Suggested)" label or `aria-live="polite"` on card mount.
+- **brand-fidelity:** ship — Scorecard 9.5/10 (up from 8.5/10). All three actionable Round 1 items closed: `badge-info` confirmed cyan-family (materially distinct from teal commit-signal), `items-center` cleanly resolves baseline-hang, dead `@apply block` correctly removed. One advisory observation (low, non-blocking): sand-500 → sand-600 hover/glyph bump creates a slight visual-weight delta vs response-option (still at sand-500) — visual harmony question dissolves if/when response-option re-runs WCAG 1.4.11 against sand-50.
+
+### Net verdict
+
+**Round 2: ship.** All four reviewers ship; no iterate, no block. Task 01 closed.
+
+Round 2 polish applied in same commit cycle (`[next sha]`):
+- Doc-accuracy: components.css comments + spec line 74 corrected 4.28:1 → 3.82:1 (per a11y recomputation)
+- Pre-selected variant annotation: `<p class="pl-variant-title">` and HTML comment now explicitly call out "visually identical to user-toggled by design" to prevent future delta-review from proposing collapse
+
+### Forward-pointers + backlog (out of option-row scope)
+
+- **Forward-pointer to `thread-question-card` spec (Task 02):** consumer-side SR announcement strategy for agent-pre-selected state — primitive provides valid `aria-checked` scaffolding; consumer must pair with visible "(Suggested)" label OR `aria-live="polite"` announcement on card mount. Sourced from Round 2 a11y verdict 2026-05-11.
+- **Steward backlog:** response-option WCAG 1.4.11 re-measurement against sand-50 hover-fill — if it fails (likely), bump to sand-600 for visual harmony with option-row. Quarterly steward sweep. Sourced from Round 2 brand-fidelity + steward verdicts 2026-05-11.
+- **Plan-readiness candidate extensions** (3 surfaced from this slice's retrospectives):
+  1. State-specific contrast pair check — `conform:contrast-pairs` should compute against state-specific surfaces (hover-fill vs default surface), not just one (a11y Round 1)
+  2. Open-question tracing — every spec line flagged as "open question" must trace to a resolved decision before authorizing build; otherwise the question ships into the artifact (brand Round 1 + ux-lead Round 1 convergence)
+  3. Visual-identity-by-design variant annotation — for any variant intentionally visually identical to another, require explicit PL annotation so future delta-review doesn't propose collapse (ux-lead Round 2)
+  4. Reviewer-recomputes contrast values — panel template should require recomputation from palette.css hex literals before accepting cited ratios as ground truth (a11y Round 2)
+
+### Pre-build check retrospective (Round 2)
+
+All ship — no iterate or block verdicts. No retro entries.
+
+---
+
 ## Round 2 expert verdict — thread-question-card PL fragment (after Task 02)
 
-(To be filled in after the 4-expert panel runs.)
+(To be filled in after the 4-expert panel runs for thread-question-card.)
 
 - **ux-design-lead:** [ship / iterate / block] — [one-line summary]
 - **design-system-steward:** [ship / iterate / block] — [...]
 - **accessibility:** [ship / iterate / block, WCAG pass/conditional/fail] — [...]
 - **brand-fidelity:** [ship / iterate / block] — [...]
 
-### Pre-build check retrospective (Round 2)
+### Pre-build check retrospective (Round 2 — thread-question-card)
 
 For each reviewer's `iterate` or `block` verdict, answer:
 - **Would `plan-readiness` have caught this pre-build?** [yes / no / partially] — [one-line why]
