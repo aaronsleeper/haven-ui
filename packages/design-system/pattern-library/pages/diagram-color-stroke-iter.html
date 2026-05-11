@@ -339,8 +339,8 @@
               </div>
             </foreignObject>
 
-            <!-- Connector down to data layer. With refX=0, the chevron extends 8 user-units past the body line endpoint. To land the chevron tip exactly at the AVA rect top (y=320), the body line must end at y=312 (320 - 8). -->
-            <line x1="300" y1="290" x2="300" y2="312" stroke="#3A8478" stroke-width="2" stroke-linecap="round" marker-end="url(#cs-mix-emphasis)" />
+            <!-- Connector down to data layer. With refX=0, the chevron extends 8 user-units past the body line endpoint. To leave a 4-unit gap between chevron tip and AVA rect top (y=320) — matching the substrate-row clearance and avoiding the chevron-cap-into-rect-border merge — the body line ends at y=308 (chevron tip lands at y=316). -->
+            <line x1="300" y1="290" x2="300" y2="308" stroke="#3A8478" stroke-width="2" stroke-linecap="round" marker-end="url(#cs-mix-emphasis)" />
 
             <!-- Bottom data layer (violet) — uses violet-200 text per family-contrast rule. -->
             <rect x="160" y="320" width="280" height="60" rx="5" fill="#F2ECF5" stroke="#7F62A0" />
