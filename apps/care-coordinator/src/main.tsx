@@ -4,6 +4,15 @@ import '@haven/design-system/styles';
 import 'preline';
 import { App } from './App';
 
+// Font-features gate: pairs with `:where(html.fonts-loaded) body` in
+// base/font-features.css. See font-features.css comment block for full
+// rationale. Prevents superscript flash during Google Fonts swap window.
+if ('fonts' in document) {
+  document.fonts.ready.then(() => {
+    document.documentElement.classList.add('fonts-loaded');
+  });
+}
+
 const rootEl = document.getElementById('root');
 if (!rootEl) throw new Error('#root not found');
 

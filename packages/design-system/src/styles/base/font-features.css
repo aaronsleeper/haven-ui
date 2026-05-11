@@ -31,9 +31,22 @@
 
    Long-form body contexts that need stable letter-spacing may selectively
    disable contextual alternates at the element level: `font-feature-settings: 'calt' 0;`
+
+   2026-05-11 (post-Patch-75 root-cause fix): the body declaration is
+   gated on `html.fonts-loaded`, a class added by `document.fonts.ready`
+   in the entry script. During the Google Fonts swap window, body renders
+   in the system fallback with NO features active — preventing the
+   superscript / small-caps flash that the OpenType feature codes produce
+   when applied to Times/Helvetica fallback tables. Patches 70-75 each
+   closed an adjacent cause (StrictMode race, mono inheritance, missing
+   link, copy patterns) but never closed the temporal-coupling root cause
+   (features applied before font availability). The `:where()` wrapper
+   keeps specificity at 0 so consumer overrides still win cleanly. The
+   paired runtime — `document.fonts.ready` handler — MUST exist in every
+   entry script; `conform:font-features` enforces the pairing.
    ============================================ */
 
-body {
+:where(html.fonts-loaded) body {
   font-feature-settings:
     'case' 1, 'cpsp' 1, 'ordn' 1, 'salt' 1,
     'ss01' 1, 'ss03' 1, 'ss04' 1,
