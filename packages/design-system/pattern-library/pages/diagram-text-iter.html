@@ -137,6 +137,11 @@
             <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
               <svg viewBox="0 0 760 200" class="diagram-frame" role="img"
                    aria-label="Pure-SVG render with a heading too long for the narrow container: text overflows past the rect's right edge.">
+                <!-- Demo background: subtle warm tint covering the full viewBox so
+                     overflowing white text is visible against it (white-on-white otherwise
+                     hides the heading's overflow and creates the false appearance of
+                     clipping at the rect's right edge). -->
+                <rect width="760" height="200" fill="#EFE6D2" opacity="0.6" />
                 <rect x="40" y="20" width="240" height="160" rx="5" fill="#0F3D38" />
                 <!-- Hairline guide showing rect's right edge — helps see the overflow.
                      Stroke-width=3 user-units so the guide is visible at typical rendered scale
@@ -154,10 +159,12 @@
               </svg>
             </div>
             <p class="text-xs text-sand-500 mt-2">
-              Red dashed line marks the rect's right edge. Heading and sublabel cross it
-              freely — the SVG viewBox doesn't clip; text just keeps going. Author must
-              shorten content, switch to <code>&lt;tspan&gt;</code> with hand-computed dy
-              offsets, OR use approach B.
+              Red dashed line marks the rect's right edge. Heading and sublabel BOTH cross it
+              freely — the SVG viewBox doesn't clip; text just keeps going. The SVG has a
+              subtle warm-tint background so overflowing white-on-dark text remains visible
+              past the rect edge (without it, white text on white wrapper would appear to
+              clip at the rect — a misleading visual). Author must shorten content, switch
+              to <code>&lt;tspan&gt;</code> with hand-computed dy offsets, OR use approach B.
             </p>
           </div>
 
