@@ -101,7 +101,47 @@ Add the full CSS block exactly as specified in `thread-question-card.md` § "CSS
 
 Copy CSS verbatim from the spec — do not paraphrase or "improve" `@apply` chains.
 
-### Step 3: Add COMPONENT-INDEX row
+### Step 3a: Create the PL preview page wrapper
+
+PL component HTML files are fragments — no `<head>`, no charset, no CSS link. They are unreviewable in isolation. Per `dev-tasker.md` Core Principle 9 + `plan-readiness.md` Check 9 (both added 2026-05-11 after Task 01's reviewability gap), every new `components/{name}.html` ships with its preview page wrapper + nav entry in the same task.
+
+Create `packages/design-system/pattern-library/pages/thread-question-card.html`. Mirror the `chat-tag-group.html` precedent — four `<load src>` directives wrap the fragment:
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body class="bg-gray-50 dark:bg-neutral-900">
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-16">
+
+      <div class="page-header">
+        <h1>Thread Question Card</h1>
+      </div>
+
+      <load src="../components/thread-question-card.html" />
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>
+```
+
+### Step 3b: Add nav entry to pl-nav.html
+
+Open `packages/design-system/pattern-library/partials/pl-nav.html`. Find the **Components** section. Add a nav entry alongside the option-row entry (alongside other Thread/Agent + Chat primitives — around lines 195–200 area). Use an appropriate FA Pro icon (`fa-comment-question`, `fa-message-pen`, or similar — steward call at authoring; default to `fa-comment-question`).
+
+```html
+<li><a href="../pages/thread-question-card.html" class="sidebar-nav-item">
+  <i class="fa-solid fa-comment-question"></i> Thread Question Card
+</a></li>
+```
+
+### Step 4: Add COMPONENT-INDEX row
 
 Open `packages/design-system/pattern-library/COMPONENT-INDEX.md`. Find the **Thread / Agent** category (currently includes `thread-msg-system`, `thread-msg-tool-call`, `thread-msg-human`, `thread-msg-response`, `thread-approval-card`). Add the new row alongside `thread-approval-card`:
 
@@ -111,9 +151,9 @@ Open `packages/design-system/pattern-library/COMPONENT-INDEX.md`. Find the **Thr
 
 Update the `_Last updated:` line at the bottom of the file to today's date.
 
-### Step 4: Verify the fragment renders
+### Step 5: Verify the fragment renders
 
-Run `pnpm --filter @haven/design-system dev` and visit http://localhost:5173. Navigate to the thread-question-card PL page. Confirm:
+Run `pnpm --filter @haven/design-system dev` and visit `http://localhost:5173/pattern-library/pages/thread-question-card.html` — the preview page wrapper (Step 3a) must render with full PL chrome (sidebar nav + main pane styled). Confirm:
 
 - All 7 exemplar instances render
 - Variant 1 desktop renders with primary-500 left accent + sand-50 surface (matches thread-approval-card family)
@@ -154,7 +194,10 @@ After this task:
 
 ## Verification
 
-- [ ] `thread-question-card.html` exists with `@component-meta` header
+- [ ] `thread-question-card.html` (fragment) exists with `@component-meta` header
+- [ ] **Preview page wrapper** `pattern-library/pages/thread-question-card.html` exists, mirrors `chat-tag-group.html` pattern (4 `<load src>` directives: pl-head + pl-nav + the component + pl-scripts)
+- [ ] **Nav entry** added to `pattern-library/partials/pl-nav.html` in the Components section with an appropriate FA Pro icon
+- [ ] **Reviewability check:** page is loadable in PL preview with full PL chrome at `http://localhost:5173/pattern-library/pages/thread-question-card.html` — page renders with CSS applied (not as a raw fragment) and Spanish/em-dash characters render without mojibake (no `â€"`, `Ã¡`, etc.)
 - [ ] All semantic classes from the spec exist in `components.css` (grep: `^\.thread-question-card` returns 8+ matches)
 - [ ] `--thread-question-card-idle-opacity` custom property is defined
 - [ ] Dark-mode block redeclares every color property used in the light-mode block
@@ -182,7 +225,9 @@ After all verification passes and before running the git commit, output this rep
 - New semantic classes added to components.css: .thread-question-card, .thread-question-card-header, .thread-question-card-body, .thread-question-card-prompt, .thread-question-card-summary, .thread-question-card-suggestion, .thread-question-card.is-idle, .thread-question-card.is-historical (8 classes + 1 custom property + dark-mode block)
 - Existing classes modified: none
 - Pattern library files created or updated:
-  - packages/design-system/pattern-library/components/thread-question-card.html (new)
+  - packages/design-system/pattern-library/components/thread-question-card.html (new fragment)
+  - packages/design-system/pattern-library/pages/thread-question-card.html (new preview page wrapper)
+  - packages/design-system/pattern-library/partials/pl-nav.html (new nav entry)
   - packages/design-system/pattern-library/COMPONENT-INDEX.md (new row in Thread / Agent)
 - Judgment calls (anything not explicitly specified in the prompt): none
 - Dark mode added: yes
@@ -198,6 +243,8 @@ Stage explicitly:
 ```
 git -C /Users/aaronsleeper/Vaults/Lab/haven-ui add \
   packages/design-system/pattern-library/components/thread-question-card.html \
+  packages/design-system/pattern-library/pages/thread-question-card.html \
+  packages/design-system/pattern-library/partials/pl-nav.html \
   packages/design-system/src/styles/tokens/components.css \
   packages/design-system/pattern-library/COMPONENT-INDEX.md
 ```
