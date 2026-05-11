@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body class="bg-sand-50 dark:bg-sand-900">
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-12">
+
+      <div class="page-header">
+        <h1>Diagram Text-in-Container — Iteration Ground</h1>
+        <p class="text-gray-500 dark:text-neutral-400">
+          Isolated iteration page for the text-in-container primitive. The substrate-variant
+          diagram-box bug (Aaron 2026-05-10, fixed at commit 7f2a086) revealed the deeper
+          challenge: SVG has no auto-layout, so every text element needs manual x/y/text-anchor
+          set correctly. Multi-line text, padding, container-width-aware alignment all live in
+          the author's head. This page compares two approaches — pure-SVG with manual positioning
+          vs. <code>&lt;foreignObject&gt;</code> HTML escape — across a substrate-style scenario
+          and a multi-line stress test.
+        </p>
+      </div>
+
+      <!-- ============================================================
+           Scenario: substrate-style box with overline + heading + sublabel + pill.
+           Mirrors the failure case Aaron caught on the diagrams page.
+           Used as the same test scenario for both approaches.
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Scenario: substrate-style box (overline · heading · sublabel · pill)</h2>
+        <p class="text-sm text-sand-700 mb-4 max-w-2xl">
+          Both approaches render the same substrate scenario at the same container size.
+          Container is 400px wide; SVG viewBox uses 760×160 user-units (matching the diagram-box
+          component's canonical size). The text content fits comfortably here.
+        </p>
+
+        <div class="grid grid-cols-2 gap-8 items-start">
+
+          <!-- APPROACH A: Pure SVG with manual positioning -->
+          <div>
+            <p class="pl-variant-title">A · Pure SVG (manual positioning)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img"
+                   aria-label="Substrate-style box rendered with pure SVG: overline, heading, sublabel anchored from x=60 with text-anchor=start.">
+                <rect x="40" y="20" width="680" height="120" rx="5"
+                      fill="#0F3D38" />
+                <!-- Overline: top-left, text-anchor=start -->
+                <text x="60" y="50" font-family="Source Sans 3, sans-serif" font-size="10"
+                      font-weight="600" letter-spacing="1.5"
+                      fill="#A6CFCC" text-transform="uppercase"
+                      text-anchor="start">SUBSTRATE</text>
+                <!-- Heading -->
+                <text x="60" y="84" font-family="Source Sans 3, sans-serif" font-size="14"
+                      font-weight="600" fill="#FFFFFF"
+                      text-anchor="start">cena-corpus + ava-brain</text>
+                <!-- Sublabel -->
+                <text x="60" y="108" font-family="Source Sans 3, sans-serif" font-size="11"
+                      fill="#A6CFCC"
+                      text-anchor="start">files in git, audit-trailed, governance-aware</text>
+                <!-- Pill (CENA-OWNED) — manually positioned at top-right -->
+                <g>
+                  <rect x="580" y="65" width="120" height="22" rx="11"
+                        fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.4)" />
+                  <text x="640" y="80" font-family="Source Code Pro, monospace" font-size="10"
+                        font-weight="600" fill="#FFFFFF"
+                        text-anchor="middle" dominant-baseline="middle">CENA-OWNED</text>
+                </g>
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Each text element gets explicit <code>x</code>, <code>y</code>, and
+              <code>text-anchor</code>. The pill rect's center (640, 76) is computed by hand;
+              the label's <code>x="640"</code> + <code>text-anchor="middle"</code> centers it.
+              No reflow — content must fit the author's chosen positions.
+            </p>
+          </div>
+
+          <!-- APPROACH B: foreignObject with HTML inside -->
+          <div>
+            <p class="pl-variant-title">B · foreignObject (HTML escape)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img"
+                   aria-label="Substrate-style box rendered with foreignObject HTML inside: layout via flexbox.">
+                <rect x="40" y="20" width="680" height="120" rx="5"
+                      fill="#0F3D38" />
+                <foreignObject x="40" y="20" width="680" height="120">
+                  <div xmlns="http://www.w3.org/1999/xhtml"
+                       style="width:100%;height:100%;padding:18px 24px;
+                              display:flex;flex-direction:column;justify-content:flex-start;
+                              font-family: 'Source Sans 3', sans-serif; color: #FFFFFF; box-sizing:border-box;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                      <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;
+                                  text-transform:uppercase;color:#A6CFCC;">SUBSTRATE</div>
+                      <div style="display:inline-block;padding:3px 12px;border-radius:11px;
+                                  background:rgba(255,255,255,0.18);
+                                  border:1px solid rgba(255,255,255,0.4);
+                                  font-family:'Source Code Pro',monospace;font-size:10px;
+                                  font-weight:600;color:#FFFFFF;letter-spacing:0.5px;">CENA-OWNED</div>
+                    </div>
+                    <div style="font-size:14px;font-weight:600;margin-top:14px;">cena-corpus + ava-brain</div>
+                    <div style="font-size:11px;color:#A6CFCC;margin-top:4px;">files in git, audit-trailed, governance-aware</div>
+                  </div>
+                </foreignObject>
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Single <code>&lt;foreignObject&gt;</code> wraps the box's interior. Layout via
+              flexbox + padding. Pill is just a styled <code>&lt;div&gt;</code>. No manual x/y
+              math; no <code>text-anchor</code>. Reflow is automatic if content changes.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Stress test 1: long heading that should wrap to multiple lines.
+           Pure SVG can't wrap automatically; foreignObject can.
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Stress test: long heading that needs to wrap</h2>
+        <p class="text-sm text-sand-700 mb-4 max-w-2xl">
+          What happens when the heading exceeds the container width? Pure SVG runs off the
+          edge silently. foreignObject wraps to multiple lines via CSS.
+        </p>
+
+        <div class="grid grid-cols-2 gap-8 items-start">
+
+          <div>
+            <p class="pl-variant-title">A · Pure SVG (no wrap)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img"
+                   aria-label="Pure-SVG render with a heading too long for the container: text overflows to the right.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <text x="60" y="50" font-family="Source Sans 3, sans-serif" font-size="10"
+                      font-weight="600" letter-spacing="1.5" fill="#A6CFCC"
+                      text-anchor="start">SUBSTRATE</text>
+                <text x="60" y="84" font-family="Source Sans 3, sans-serif" font-size="14"
+                      font-weight="600" fill="#FFFFFF"
+                      text-anchor="start">cena-corpus, ava-brain, audit-trail-store, and the governance ledger</text>
+                <text x="60" y="108" font-family="Source Sans 3, sans-serif" font-size="11"
+                      fill="#A6CFCC"
+                      text-anchor="start">files in git, audit-trailed, governance-aware, all-cena-owned</text>
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Heading runs past the right edge of the rect. Sublabel may also overflow depending
+              on font metrics. Authors must either shorten content or use <code>&lt;tspan&gt;</code>
+              with hand-computed dy offsets per line.
+            </p>
+          </div>
+
+          <div>
+            <p class="pl-variant-title">B · foreignObject (auto-wrap)</p>
+            <div class="border border-sand-300 rounded-md p-4 bg-white" style="max-width: 400px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img"
+                   aria-label="foreignObject render with the same long heading: text wraps to multiple lines via CSS.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <foreignObject x="40" y="20" width="680" height="120">
+                  <div xmlns="http://www.w3.org/1999/xhtml"
+                       style="width:100%;height:100%;padding:18px 24px;
+                              display:flex;flex-direction:column;
+                              font-family:'Source Sans 3',sans-serif;color:#FFFFFF;box-sizing:border-box;">
+                    <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;
+                                text-transform:uppercase;color:#A6CFCC;">SUBSTRATE</div>
+                    <div style="font-size:14px;font-weight:600;margin-top:10px;line-height:1.3;">cena-corpus, ava-brain, audit-trail-store, and the governance ledger</div>
+                    <div style="font-size:11px;color:#A6CFCC;margin-top:4px;line-height:1.4;">files in git, audit-trailed, governance-aware, all-cena-owned</div>
+                  </div>
+                </foreignObject>
+              </svg>
+            </div>
+            <p class="text-xs text-sand-500 mt-2">
+              Long heading wraps automatically. Box height could overflow if content is too
+              long — handle with <code>overflow:hidden</code> or by sizing the rect to fit.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Stress test 2: responsive — same SVG at three container widths.
+           Tests whether layout holds at small + large rendering sizes.
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Responsive test: same SVG at 3 container widths</h2>
+        <p class="text-sm text-sand-700 mb-4 max-w-2xl">
+          The substrate scenario rendered at 240/400/640px container widths. Pure SVG (top row)
+          and foreignObject (bottom row). Both should hold their internal layout regardless of
+          rendered size — the SVG viewBox handles scaling. foreignObject's HTML scales too,
+          but font sizes inside are in CSS px which scales with the SVG viewBox transform.
+        </p>
+
+        <!-- Row 1: Pure SVG at 3 sizes -->
+        <h3 class="text-sm font-semibold mb-2 mt-6">Approach A: Pure SVG</h3>
+        <div class="grid grid-cols-3 gap-4 items-start">
+          <div>
+            <p class="pl-variant-title">240px</p>
+            <div class="border border-sand-300 rounded-md p-2 bg-white" style="max-width: 240px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img" aria-label="Pure SVG at 240px container width.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <text x="60" y="50" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="600" letter-spacing="1.5" fill="#A6CFCC" text-anchor="start">SUBSTRATE</text>
+                <text x="60" y="84" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="start">cena-corpus + ava-brain</text>
+                <text x="60" y="108" font-family="Source Sans 3, sans-serif" font-size="11" fill="#A6CFCC" text-anchor="start">files in git, audit-trailed, governance-aware</text>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <p class="pl-variant-title">400px</p>
+            <div class="border border-sand-300 rounded-md p-2 bg-white" style="max-width: 400px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img" aria-label="Pure SVG at 400px container width.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <text x="60" y="50" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="600" letter-spacing="1.5" fill="#A6CFCC" text-anchor="start">SUBSTRATE</text>
+                <text x="60" y="84" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="start">cena-corpus + ava-brain</text>
+                <text x="60" y="108" font-family="Source Sans 3, sans-serif" font-size="11" fill="#A6CFCC" text-anchor="start">files in git, audit-trailed, governance-aware</text>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <p class="pl-variant-title">640px</p>
+            <div class="border border-sand-300 rounded-md p-2 bg-white" style="max-width: 640px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img" aria-label="Pure SVG at 640px container width.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <text x="60" y="50" font-family="Source Sans 3, sans-serif" font-size="10" font-weight="600" letter-spacing="1.5" fill="#A6CFCC" text-anchor="start">SUBSTRATE</text>
+                <text x="60" y="84" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="start">cena-corpus + ava-brain</text>
+                <text x="60" y="108" font-family="Source Sans 3, sans-serif" font-size="11" fill="#A6CFCC" text-anchor="start">files in git, audit-trailed, governance-aware</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: foreignObject at 3 sizes -->
+        <h3 class="text-sm font-semibold mb-2 mt-8">Approach B: foreignObject</h3>
+        <div class="grid grid-cols-3 gap-4 items-start">
+          <div>
+            <p class="pl-variant-title">240px</p>
+            <div class="border border-sand-300 rounded-md p-2 bg-white" style="max-width: 240px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img" aria-label="foreignObject at 240px container width.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <foreignObject x="40" y="20" width="680" height="120">
+                  <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;padding:18px 24px;display:flex;flex-direction:column;font-family:'Source Sans 3',sans-serif;color:#FFFFFF;box-sizing:border-box;">
+                    <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#A6CFCC;">SUBSTRATE</div>
+                    <div style="font-size:14px;font-weight:600;margin-top:10px;">cena-corpus + ava-brain</div>
+                    <div style="font-size:11px;color:#A6CFCC;margin-top:4px;">files in git, audit-trailed, governance-aware</div>
+                  </div>
+                </foreignObject>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <p class="pl-variant-title">400px</p>
+            <div class="border border-sand-300 rounded-md p-2 bg-white" style="max-width: 400px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img" aria-label="foreignObject at 400px container width.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <foreignObject x="40" y="20" width="680" height="120">
+                  <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;padding:18px 24px;display:flex;flex-direction:column;font-family:'Source Sans 3',sans-serif;color:#FFFFFF;box-sizing:border-box;">
+                    <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#A6CFCC;">SUBSTRATE</div>
+                    <div style="font-size:14px;font-weight:600;margin-top:10px;">cena-corpus + ava-brain</div>
+                    <div style="font-size:11px;color:#A6CFCC;margin-top:4px;">files in git, audit-trailed, governance-aware</div>
+                  </div>
+                </foreignObject>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <p class="pl-variant-title">640px</p>
+            <div class="border border-sand-300 rounded-md p-2 bg-white" style="max-width: 640px;">
+              <svg viewBox="0 0 760 160" class="diagram-frame" role="img" aria-label="foreignObject at 640px container width.">
+                <rect x="40" y="20" width="680" height="120" rx="5" fill="#0F3D38" />
+                <foreignObject x="40" y="20" width="680" height="120">
+                  <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;padding:18px 24px;display:flex;flex-direction:column;font-family:'Source Sans 3',sans-serif;color:#FFFFFF;box-sizing:border-box;">
+                    <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#A6CFCC;">SUBSTRATE</div>
+                    <div style="font-size:14px;font-weight:600;margin-top:10px;">cena-corpus + ava-brain</div>
+                    <div style="font-size:11px;color:#A6CFCC;margin-top:4px;">files in git, audit-trailed, governance-aware</div>
+                  </div>
+                </foreignObject>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           Trade-off table + recommendation gate
+           ============================================================ -->
+      <section>
+        <h2 class="text-lg font-semibold mb-4">Trade-offs at a glance</h2>
+        <div class="prose prose-sm max-w-none">
+          <table class="text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-sand-300">
+                <th class="text-left p-2 font-semibold">Concern</th>
+                <th class="text-left p-2 font-semibold">A · Pure SVG</th>
+                <th class="text-left p-2 font-semibold">B · foreignObject</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Single-line text positioning</td>
+                <td class="p-2">Manual x/y/text-anchor per element. Foot-gun if CSS overrides attributes (the substrate bug).</td>
+                <td class="p-2">CSS handles it (text-align, padding). No SVG-specific authoring rules.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Multi-line text wrap</td>
+                <td class="p-2">Manual via &lt;tspan dy&gt;. Wrap point hand-computed; doesn't reflow.</td>
+                <td class="p-2">Automatic via CSS line-wrap. Reflows to container width.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Padding</td>
+                <td class="p-2">Hand-computed offsets from rect edges.</td>
+                <td class="p-2">CSS padding property. Standard.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Layout primitives (flex, grid)</td>
+                <td class="p-2">None. Compute every position by hand.</td>
+                <td class="p-2">Full HTML/CSS layout system available.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Static-asset export (PNG, PDF, image embed)</td>
+                <td class="p-2">Reliable across all SVG renderers and image converters.</td>
+                <td class="p-2">Quirky. Many SVG-to-PNG tools (rsvg, librsvg, headless browsers, image embedders) drop or mis-render foreignObject content.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Browser rendering</td>
+                <td class="p-2">Universal — every browser and every SVG implementation.</td>
+                <td class="p-2">All modern browsers (Chrome, Firefox, Safari, Edge). Some niche tools may skip.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Accessibility</td>
+                <td class="p-2">Standard SVG &lt;text&gt; — well-supported by screen readers; aria-label on root.</td>
+                <td class="p-2">HTML inside is screen-reader accessible, but Safari has historic bugs reading foreignObject content.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">CSS bleed risk</td>
+                <td class="p-2">SVG presentation attributes mostly isolated; CSS can still override (the substrate bug).</td>
+                <td class="p-2">HTML inside foreignObject inherits surrounding CSS — global Tailwind reset, body styles, etc. all apply unless reset.</td>
+              </tr>
+              <tr class="border-b border-sand-200">
+                <td class="p-2">Conform-gate friendliness</td>
+                <td class="p-2">Class-based components.css rules apply. Existing gates (token, css-family) work.</td>
+                <td class="p-2">Inline styles inside foreignObject bypass class system. Hard to gate.</td>
+              </tr>
+              <tr>
+                <td class="p-2">Authoring effort</td>
+                <td class="p-2">Higher. Every text decision is a math problem.</td>
+                <td class="p-2">Lower. Same as authoring HTML.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-sm text-sand-700 mt-6 max-w-2xl">
+          <strong>My read</strong>: A is the canonical answer for diagrams that ship as static
+          assets, are converted to PNG/PDF, embedded in slide decks, or rendered by anything
+          other than a current browser. B is the right answer if every consumer is a modern
+          browser AND the diagram lives in an HTML page (never exported, never embedded as
+          raster). For Cena's likely use cases (vault docs, slide decks, dashboards in apps),
+          A is the safer default — but the foot-guns need to be eliminated by spec convention,
+          not just discipline. The fix shipped in 7f2a086 is a model for the convention:
+          positioning attributes ALWAYS in markup, never in CSS.
+        </p>
+        <p class="text-sm text-sand-700 mt-4 max-w-2xl">
+          A possible third path: A as the default, with B as an opt-in escape hatch for the
+          rare case where multi-line wrap is genuinely needed and the diagram won't be exported.
+          Spec section §10 (implementation notes) would name this hatch.
+        </p>
+      </section>
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>
