@@ -133,17 +133,53 @@ The wireframe flagged these as "steward call" or "promote to modifier only if a 
 
 ## Round 1 expert verdict — option-row PL fragment (after Task 01)
 
-(To be filled in after the 4-expert panel runs.)
+Panel dispatched 2026-05-11; all four reviewers opus-tier, unprimed prompts per bias-control protocol.
 
-- **ux-design-lead:** [ship / iterate / block] — [one-line summary]
-- **design-system-steward:** [ship / iterate / block] — [...]
-- **accessibility:** [ship / iterate / block, WCAG pass/conditional/fail] — [...]
-- **brand-fidelity:** [ship / iterate / block] — [...]
+- **design-system-steward:** ship (with one cosmetic iterate) — Spec executed faithfully; class vocabulary, variant-modifier discipline, `--option-row-min-height` shape, and `@apply` cleanliness all hold; one minor scope-drift on `.option-row-list` CSS comment vs spec wording.
+- **ux-design-lead:** iterate — Scan order and dual-cue logic sound; four IA-level fixes needed: `(Recommended)` badge wrap collision, missing >6-options threshold signal, `.option-row-recommended` no-op class without tone documentation, missing agent-pre-selected multi-select variant.
+- **accessibility:** iterate, WCAG conditional — ARIA semantics + focus-visible + triple-cue + reduced-motion + 7/8 contrast pairs correct, but `sand-500` hover-border on `sand-50` hover-fill computes 2.81:1 (under WCAG 1.4.11 3:1 floor); spec line 239 + CSS comment line 10530 cite incorrect 3.42:1 against wrong background.
+- **brand-fidelity:** iterate, 8.5/10 — Chassis unmistakably Haven; `(Recommended)` badge ships colorless (no `badge-info`/etc. variant); title `items-baseline` will misalign badge against text baseline; dead `@apply block` on `.option-row-recommended` is cleanup-class; Spanish `.is-other` register flagged for patient-surface contextual review.
+
+### Convergence — issues flagged by multiple reviewers
+
+- `(Recommended)` badge slot is unresolved at three levels: brand-fidelity (colorless = unstyled render), ux-design-lead (no-op class needs tone documentation), brand-fidelity again (dead `@apply block`). Spec § 4-Expert Panel Scope line 535 flagged the badge tone as an open question; Task 01 shipped the open question *into* the artifact.
+- `.option-row-title` flex alignment (ux-design-lead wrap collision + brand-fidelity baseline misalignment) — both observable visual issues stem from `items-baseline` on a small-uppercase-pill-against-semibold-body-text composition.
+
+### Net verdict
+
+**Round 1: iterate** — Three iterate + one ship-with-iterate. Must-fix before Round 2 or ship sign-off:
+
+1. **WCAG 1.4.11 fail** (a11y) — bump `.option-row:hover` border from `sand-500` to a stop that clears 3.0:1 against `sand-50` hover-fill; correct comments + spec
+2. **Colorless badge** (brand) — apply a color variant to `(Recommended)`; recommended `badge-info` (preserves teal as commit-signal token)
+3. **Title alignment** (brand + ux-lead) — `items-baseline` → `items-center` or `self-center` on `.option-row-recommended`
+
+Iterate-then-ship (apply in same patch cycle):
+4. **Pre-selected multi-select variant** (ux-lead) — add 10th PL example
+5. **Long-title wrap example** (ux-lead) — demonstrate badge stays adjacent
+6. **`@component-meta notes` additions:** >6 options trigger steward review (ux-lead); consumer must `preventDefault()` Space on `role="radio"` button (a11y); consumer must focus-trap bottom-sheet (a11y)
+7. **`.option-row-list` CSS comment scope** (steward) — update wording to match spec
+
+Deferred (not blocking; tracked separately):
+- Spanish `.is-other` description register (brand) — revisit at Variant 4 mobile patient-surface authoring
+- `.option-row-recommended` tone variant taxonomy beyond `badge-info` — defer to consumer surface emergence per "promote on second use" rule
 
 ### Pre-build check retrospective (Round 1)
 
-For each reviewer's `iterate` or `block` verdict, answer:
-- **Would `plan-readiness` have caught this pre-build?** [yes / no / partially] — [one-line why]
+For each iterate verdict, would `plan-readiness` have caught this pre-build?
+
+- **steward cosmetic iterate** (CSS comment scope drift): **partially** — a check diffing spec class-table notes against `@component-meta` headers and CSS comment blocks would surface wording leaks. Candidate plan-readiness extension.
+- **ux-lead badge wrap collision**: **no** — needs rendered evaluation against real copy + bilingual Spanish (visual feel-test).
+- **ux-lead >6-options threshold signal**: **no** — IA judgment about primitive-level signaling; not a structural completeness check.
+- **ux-lead `.option-row-recommended` tone documentation**: **yes** — the spec flagged badge tone as an open question; a pre-build check tracing open questions to resolved spec lines would have surfaced this.
+- **ux-lead missing pre-selected multi-select variant**: **yes** — wireframe Variant 2 explicitly establishes pre-selection as first-class; a PL-completeness check against "every wireframe-specified state has at least one PL variant" would catch.
+- **a11y WCAG 1.4.11 hover-border fail**: **partially** — `conform:contrast-pairs` would catch IF the gate computes against state-specific surface backgrounds (hover-fill vs default surface). Drift here is that spec line 239 named the right pair conceptually but the comment-claimed value substituted the wrong background. Candidate gate extension.
+- **a11y consumer-guidance notes** (preventDefault on Space; focus-trap on bottom-sheet): **no** — post-build documentation polish.
+- **brand colorless badge**: **yes** — spec § 4-Expert Panel Scope line 535 explicitly flagged badge tone as an open question; build shipped the question into the artifact. Same plan-readiness extension as ux-lead's tone-documentation item.
+- **brand title `items-baseline` baseline misalignment**: **no** — visual-render-only; caught by eye in live PL page.
+- **brand Spanish `.is-other` register**: **no** — voice/feel evaluation; inherently post-build.
+- **brand dead `@apply block`**: **partially** — a check that traces every `@apply block` (the tree-shake guard) against subsequent rules that would override `display:` would catch. Niche check; low priority.
+
+**Net signal for plan-readiness calibration:** 3 of 11 iterate items would have been caught by current check shape; 4 of 11 would be caught by candidate extensions (open-Q tracing, wireframe-vs-PL completeness, state-specific contrast pairs, comment-vs-spec wording diff). 4 of 11 are inherently post-build (visual feel-test, IA judgment, voice register, documentation polish).
 
 ---
 
