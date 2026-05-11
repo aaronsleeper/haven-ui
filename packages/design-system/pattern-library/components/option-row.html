@@ -7,7 +7,7 @@
   variants: aria-checked="true" (selected), aria-checked="false" (unselected), .is-other (final-position reveal-on-select textarea), .is-tablet-dense (kitchen 48px touch target), aria-disabled="true" (rare; defensive)
   when-to-use: A selectable option inside the agentic-question pattern's `thread-question-card`. Single-select (role="radio") or multi-select (role="checkbox"). Composed inside `option-row-list` (radiogroup/group slot). NOT response-option — that primitive is assessment-only (PHQ-9, GAD-7) per steward verdict 2026-05-08.
   preline-required: no
-  notes: Tier 1 novel primitive. Triple-cued selection state — filled glyph + visible check icon + accent-interactive border ring (color-independent per WCAG 1.4.1). 44px minimum touch target via `--option-row-min-height` custom property; `.is-tablet-dense` raises to 48px for kitchen gloved-hand context. `.is-other` reveals an inline textarea on select; focus moves to the textarea (gov.uk Accessibility Blog "Conditionally revealed questions"). Roving tabindex is consumer-side state, not a primitive concern.
+  notes: Tier 1 novel primitive. Triple-cued selection state — filled glyph + visible check icon + accent-interactive border ring (color-independent per WCAG 1.4.1). 44px minimum touch target via `--option-row-min-height` custom property; `.is-tablet-dense` raises to 48px for kitchen gloved-hand context. `.is-other` reveals an inline textarea on select; focus moves to the textarea (gov.uk Accessibility Blog "Conditionally revealed questions"). Roving tabindex is consumer-side state, not a primitive concern. Lists of more than 6 options trigger steward review for `.is-other` reveal direction (compression vs vertical scroll; see wireframe §Option Zone). Consumer keydown handler must `preventDefault()` on Space to avoid double-fire on `<button role="radio">` (browser native Space activation + ARIA radio toggle). Consumer must establish focus-trap inside the bottom-sheet variant (Variant 4 mobile) — primitive provides the role/aria scaffolding only.
 
   interactive-usage: required
 
@@ -97,13 +97,42 @@
         <span class="option-row-content">
           <span class="option-row-title">
             Match to existing referral
-            <span class="badge badge-sm option-row-recommended">Recommended</span>
+            <span class="badge badge-info badge-sm option-row-recommended">Recommended</span>
           </span>
           <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
         </span>
         <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-3-b">
+        <span class="option-row-glyph" aria-hidden="true"></span>
+        <span class="option-row-content">
+          <span class="option-row-title">Create new referral</span>
+          <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
+        </span>
+        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Single-select with recommendation — long title forces (Recommended) wrap -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Single-select — long title forces <code>(Recommended)</code> badge wrap</p>
+    <!-- @component: option-row-with-recommendation-wrap -->
+    <h4 id="option-row-demo-3b-prompt" class="sr-only">Single-select wrap example</h4>
+    <div class="option-row-list" role="radiogroup" aria-labelledby="option-row-demo-3b-prompt">
+      <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="0" data-option-id="opt-3b-a">
+        <span class="option-row-glyph" aria-hidden="true"></span>
+        <span class="option-row-content">
+          <span class="option-row-title">
+            Match to the existing referral from BHN intake last Tuesday afternoon
+            <span class="badge badge-info badge-sm option-row-recommended">Recommended</span>
+          </span>
+          <span class="option-row-description">Same patient, same provider; the badge should stay adjacent to the title text when it wraps, not push the description further down.</span>
+        </span>
+        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-3b-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
         <span class="option-row-content">
           <span class="option-row-title">Create new referral</span>
@@ -130,6 +159,36 @@
         <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="checkbox" aria-checked="false" tabindex="-1" data-option-id="opt-4-b">
+        <span class="option-row-glyph" aria-hidden="true"></span>
+        <span class="option-row-content">
+          <span class="option-row-title">Mushrooms</span>
+          <span class="option-row-description">Omit if the patient noted texture sensitivity.</span>
+        </span>
+        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Multi-select with agent pre-selection (mounted aria-checked, no user interaction yet) -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Multi-select — agent pre-selection (mounted <code>aria-checked="true"</code>, awaiting user confirm)</p>
+    <!-- @component: option-row-multi-pre-selected -->
+    <!-- Wireframe Variant 2: agent surfaces a pre-selection suggestion; the user must
+         touch (or commit Submit) before the value is persisted. Visual state is
+         identical to user-toggled selected — the "stray-Enter guard" lives in
+         thread-question-card / the consumer, not in option-row. -->
+    <h4 id="option-row-demo-4b-prompt" class="sr-only">Multi-select with agent pre-selection example</h4>
+    <div class="option-row-list" role="group" aria-labelledby="option-row-demo-4b-prompt">
+      <button type="button" class="option-row" role="checkbox" aria-checked="true" tabindex="0" data-option-id="opt-4b-a">
+        <span class="option-row-glyph" aria-hidden="true"></span>
+        <span class="option-row-content">
+          <span class="option-row-title">Cilantro</span>
+          <span class="option-row-description">Substitute with parsley if unavailable.</span>
+        </span>
+        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="option-row" role="checkbox" aria-checked="false" tabindex="-1" data-option-id="opt-4b-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
         <span class="option-row-content">
           <span class="option-row-title">Mushrooms</span>

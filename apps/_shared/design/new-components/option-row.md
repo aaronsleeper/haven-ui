@@ -65,13 +65,14 @@ Future consumers will require steward review before reuse — this primitive is 
 
 **Existing classes reused (no changes needed):**
 
-- `.badge` + `.badge-sm` — for the `(Recommended)` inline badge
+- `.badge` + `.badge-info` + `.badge-sm` — for the `(Recommended)` inline badge (Round 1 brand verdict 2026-05-11: `badge-info` preserves teal as the commit-signal token; the recommendation is an informational signal from the agent, not a commit-state cue)
 - `.btn-loading` + `.btn-spinner` — N/A for option-row itself; consumer-app Submit button uses these on commit
 
 **Existing tokens reused:**
 
 - Selection ring: `--color-accent-interactive` (matches response-option precedent at line 10444)
-- Hover border: `--color-sand-500` (matches response-option's WCAG 1.4.11 hover-edge pattern at line 10430)
+- Hover border: `--color-sand-600` (clears WCAG 1.4.11 against sand-50 hover-fill at 4.28:1; Round 1 a11y verdict 2026-05-11 corrected response-option's sand-500 precedent which was measured against white default surface and computes 2.81:1 against sand-50)
+- Glyph border: `--color-sand-600` (same WCAG 1.4.11 reasoning as hover border — the glyph's outer edge sits against the row's hover fill when hovered)
 - Focus ring: `--color-primary-600` (matches response-option's `:focus-visible` at line 10440)
 - Title text: `--color-text-normal` / `text-sand-900`
 - Description text: `--color-sand-700`
@@ -96,7 +97,7 @@ Future consumers will require steward review before reuse — this primitive is 
   <span class="option-row-content">
     <span class="option-row-title">
       Match to existing referral
-      <span class="badge badge-sm option-row-recommended">Recommended</span>
+      <span class="badge badge-info badge-sm option-row-recommended">Recommended</span>
     </span>
     <span class="option-row-description">
       Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.
@@ -236,13 +237,16 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
     border: 1px solid var(--color-border-image);
 }
 
-/* Hover — sand-500 border (3.42:1 on white) per WCAG 1.4.11.
-   Pale fill so hover reads as "considering"; selected reads as
-   "committed" via teal border. Mirrors response-option Patch 8
-   verdict. */
+/* Hover — sand-600 border on sand-50 hover-fill (4.28:1) per WCAG 1.4.11.
+   Note: response-option Patch 8 cited sand-500 at 3.42:1 measured
+   against WHITE (default state). The relevant state for 1.4.11 is
+   hover, where the row's fill is sand-50 — sand-500 on sand-50
+   computes 2.81:1 (fail). Bumped to sand-600 per Round 1 a11y
+   verdict 2026-05-11. Pale fill so hover reads as "considering";
+   selected reads as "committed" via teal border. */
 .option-row:hover {
     @apply bg-sand-50;
-    border-color: var(--color-sand-500);
+    border-color: var(--color-sand-600);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -278,7 +282,9 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 
 .option-row-glyph {
     @apply flex items-center justify-center shrink-0 w-5 h-5 mt-0.5;
-    border: 2px solid var(--color-sand-500);
+    /* sand-600 (not sand-500) to clear WCAG 1.4.11 against sand-50
+       row-hover fill (4.28:1); see hover-state note above. */
+    border: 2px solid var(--color-sand-600);
     background-color: var(--color-surface-card);
     transition: background-color var(--duration-fast) var(--ease-default),
                 border-color var(--duration-fast) var(--ease-default);
@@ -314,16 +320,20 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 }
 
 /* Title — Body/02 16px Source Sans 3 font-semibold sand-900.
-   Wraps to support inline (Recommended) badge slot. */
+   Wraps to support inline (Recommended) badge slot.
+   items-center (not items-baseline) so a small uppercase pill badge
+   aligns visually with the title text x-height rather than hanging
+   off the baseline. Round 1 brand-fidelity verdict 2026-05-11. */
 .option-row-title {
-    @apply flex flex-wrap items-baseline gap-2 text-body-02 font-semibold;
+    @apply flex flex-wrap items-center gap-2 text-body-02 font-semibold;
     color: var(--color-text-normal);
 }
 
-/* Recommended badge — composes existing .badge-sm; no new visual class. */
-.option-row-recommended {
-    /* No additional rules — composes .badge.badge-sm; layout is inline-flex sibling of title text */
-}
+/* .option-row-recommended is a semantic-hook class only — no CSS rule.
+   Visual styling is composed via .badge.badge-info.badge-sm on the slot
+   element (informational tone per Round 1 brand verdict 2026-05-11;
+   preserves teal as the commit-signal token). Class retained in HTML
+   for semantic clarity, JS/test selectors, and future scoped overrides. */
 
 /* Description — Body/03 14px sand-700.
    1–3 sentences expected; line-height tuned for compact two-line max. */
@@ -520,6 +530,9 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 - **Color-independence for `(Recommended)` badge:** text label "Recommended" is the canonical signal; color is reinforcement. The wireframe explicitly notes: does NOT rely on color alone.
 - **Reduced motion:** `transition: none` on `.option-row`, `.option-row-glyph`, `.option-row-check` under `(prefers-reduced-motion: reduce)`. Selection state still applies — only the transition is suppressed.
 - **Screen reader announcement on focus:** consumer-side script announces option title + description + "Recommended" if applicable. The DOM structure makes title and description naturally accessible without `aria-label`.
+- **Consumer Space-key handling (consumer responsibility):** the WAI-ARIA APG specifies Space toggles a `role="radio"`/`role="checkbox"` button. Native `<button>` elements also activate on Space. The consumer keydown handler MUST call `preventDefault()` on Space to avoid double-fire (browser native activation + ARIA toggle). Round 1 a11y verdict 2026-05-11.
+- **Bottom-sheet focus-trap (consumer responsibility):** Variant 4 (mobile bottom-sheet) consumer surface must trap focus inside the sheet for the duration of the question. Primitive provides the role/aria scaffolding only; trap behavior is consumer-side via Preline's `data-hs-overlay` or equivalent. Round 1 a11y verdict 2026-05-11.
+- **List-length threshold:** lists of more than 6 options trigger steward review for `.is-other` reveal direction (compression vs vertical scroll vs sequential reveal). The primitive does not enforce a cap — judgment is exercised at composition time. See wireframe §Option Zone and `thread-question-card.md` § Used In.
 
 ---
 
