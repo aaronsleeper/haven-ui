@@ -278,6 +278,14 @@ Inline-SVG primitives for system diagrams. Phase 1 of the haven-ui diagram capab
 | Notification Center | `pages/complex-notifications.html` | built | Grouped notification list with dismiss |
 | Command Palette | `pages/complex-command-palette.html` | built | Keyboard-driven search/action launcher |
 
+## Thread / Agent (Multi-app shared agentic-thread primitives)
+
+| Component | PL Page | Status | Notes |
+|---|---|---|---|
+| thread-approval-card | `pages/thread-approval-card.html` | built | THE HERO. Variants: `.is-urgent`, `.is-warning`, `.is-historical`. Sand-50 surface + primary-500 left accent. |
+| option-row | `pages/option-row.html` | built | Tier 1 dependency for thread-question-card. Single/multi-select row with glyph + content slots. Selected state via inset box-shadow (no separate check icon). `badge badge-info badge-sm` for Recommended. `.is-other` always wrapped in `.option-row-other-wrapper`. |
+| thread-question-card | `pages/thread-question-card.html` | built | Tier 2 composition primitive for agentic-question pattern. Parallels thread-approval-card. Composes option-row + sticky-footer + ai-insight-callout + badge-pill. Variants: single-select desktop, bilingual, multi-select, mobile bottom-sheet, `.is-idle`, `.is-historical`, error-state, empty-state. |
+
 ---
 
 ## Patient App — A2UI Renderer (queue 2026-05-07)

@@ -1,0 +1,581 @@
+<!-- @component-meta
+name: thread-question-card
+category: thread-agent
+file: pattern-library/components/thread-question-card.html
+classes:
+  - thread-question-card
+  - thread-question-card-header
+  - thread-question-card-body
+  - thread-question-card-prompt
+  - thread-question-card-summary
+  - thread-question-card-suggestion
+  - thread-question-card.is-idle
+  - thread-question-card.is-historical
+when-to-use: Use when an agent poses a structured single-select or multi-select question requiring a user commit. Render inline in the thread pane (desktop) or as a bottom-sheet overlay (mobile). Use `.is-idle` after 90s of no interaction; `.is-historical` for read-only thread-history rendering.
+preline: false (composes bottom-sheet-panel which uses data-hs-overlay in Variants 4+5)
+notes: Tier 2 novel composition primitive for the agentic-question pattern. Parallels thread-approval-card. Composes option-row + sticky-footer + ai-insight-callout + badge-pill. Pin priority via data-pin-priority attribute (cross-primitive thread-renderer-policy concern).
+-->
+
+<section class="pl-page">
+
+  <!-- ============================================================
+       Variant 1 — Single-select desktop, base case
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title">Variant 1 — Single-select desktop, base case</h2>
+    <p class="pl-description">
+      Full envelope: header chip + Ava avatar + prompt + recommendation callout + 3 option-rows (one Recommended) + <code>.is-other</code> + sticky-footer (Submit disabled — no selection).
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card"
+        role="region"
+        aria-labelledby="tqc-v1-prompt"
+        data-pin-priority="2"
+      >
+        <!-- Header zone -->
+        <div class="thread-question-card-header">
+          <span class="badge-pill">Match referral</span>
+          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+        </div>
+
+        <!-- Body zone -->
+        <div class="thread-question-card-body">
+          <p
+            id="tqc-v1-prompt"
+            class="thread-question-card-prompt"
+          >
+            A new referral landed for Aaron Sleeper. Should I match it to the existing referral or treat it as a new one?
+          </p>
+
+          <!-- Optional recommendation callout -->
+          <div class="ai-insight-callout">
+            <i class="fa-solid fa-sparkles ai-insight-callout-icon" aria-hidden="true"></i>
+            <span><strong>Recommendation:</strong> Match to existing referral — same provider, last seen 3 days ago.</span>
+          </div>
+
+          <!-- Option zone — option-row-list slot -->
+          <div
+            class="option-row-list"
+            role="radiogroup"
+            aria-labelledby="tqc-v1-prompt"
+          >
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="0" data-option-id="tqc-v1-a">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">
+                  Match to existing referral
+                  <span class="badge badge-info badge-sm option-row-recommended">Recommended</span>
+                </span>
+                <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="tqc-v1-b">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Create new referral</span>
+                <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="tqc-v1-c">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Flag for manual review</span>
+                <span class="option-row-description">Send to the care team for a human decision before matching.</span>
+              </span>
+            </button>
+            <!-- .is-other always wrapped in .option-row-other-wrapper -->
+            <div class="option-row-other-wrapper">
+              <button
+                type="button"
+                class="option-row is-other"
+                role="radio"
+                aria-checked="false"
+                tabindex="-1"
+                data-option-id="tqc-v1-other"
+                aria-expanded="false"
+              >
+                <span class="option-row-glyph" aria-hidden="true"></span>
+                <span class="option-row-content">
+                  <span class="option-row-title">Other</span>
+                  <span class="option-row-description">Type a different answer</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer zone — composes sticky-footer -->
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-actions">
+              <button
+                type="button"
+                class="btn-primary btn-block"
+                aria-keyshortcuts="1"
+                disabled
+              >
+                <span class="cmd-palette-shortcut" aria-hidden="true"><kbd>1</kbd></span>
+                Submit answer
+              </button>
+              <span class="text-link" aria-hidden="true">Esc to cancel</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Variant 1 — Bilingual (Spanish copy)
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title">Variant 1 — Bilingual (Spanish)</h2>
+    <p class="pl-description">
+      Same structure as Variant 1 with Spanish copy. Patient app requires 5th-grade reading level + Spanish parity.
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card"
+        role="region"
+        aria-labelledby="tqc-v1-es-prompt"
+        data-pin-priority="2"
+      >
+        <div class="thread-question-card-header">
+          <span class="badge-pill">Emparejar referido</span>
+          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+        </div>
+
+        <div class="thread-question-card-body">
+          <p
+            id="tqc-v1-es-prompt"
+            class="thread-question-card-prompt"
+          >
+            Llegó un nuevo referido para Aaron Sleeper. ¿Lo emparejo con el referido existente o lo trato como uno nuevo?
+          </p>
+
+          <div class="ai-insight-callout">
+            <i class="fa-solid fa-sparkles ai-insight-callout-icon" aria-hidden="true"></i>
+            <span><strong>Recomendación:</strong> Emparejar con el referido existente — mismo proveedor, última visita hace 3 días.</span>
+          </div>
+
+          <div
+            class="option-row-list"
+            role="radiogroup"
+            aria-labelledby="tqc-v1-es-prompt"
+          >
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="0" data-option-id="tqc-v1-es-a">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">
+                  Emparejar con el referido existente
+                  <span class="badge badge-info badge-sm option-row-recommended">Recomendado</span>
+                </span>
+                <span class="option-row-description">Aaron Sleeper de BHN — mismo paciente, mismo proveedor, última visita hace 3 días.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="tqc-v1-es-b">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Crear nuevo referido</span>
+                <span class="option-row-description">Tratar como nuevo — no hay registro existente que coincida.</span>
+              </span>
+            </button>
+            <div class="option-row-other-wrapper">
+              <button
+                type="button"
+                class="option-row is-other"
+                role="radio"
+                aria-checked="false"
+                tabindex="-1"
+                data-option-id="tqc-v1-es-other"
+                aria-expanded="false"
+              >
+                <span class="option-row-glyph" aria-hidden="true"></span>
+                <span class="option-row-content">
+                  <span class="option-row-title">Otro</span>
+                  <span class="option-row-description">Escribe una respuesta diferente</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-actions">
+              <button
+                type="button"
+                class="btn-primary btn-block"
+                aria-keyshortcuts="1"
+                disabled
+              >
+                <span class="cmd-palette-shortcut" aria-hidden="true"><kbd>1</kbd></span>
+                Enviar respuesta
+              </button>
+              <span class="text-link" aria-hidden="true">Esc para cancelar</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Variant 2 — Multi-select with pre-selection suggestion line
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title">Variant 2 — Multi-select with pre-selection suggestion line</h2>
+    <p class="pl-description">
+      <code>role="checkbox"</code> on option-rows (NOT radio); suggestion line above option-row-list; Submit enabled (agent pre-selected).
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card"
+        role="region"
+        aria-labelledby="tqc-v2-prompt"
+        data-pin-priority="2"
+      >
+        <div class="thread-question-card-header">
+          <span class="badge-pill">Meal substitutions</span>
+          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+        </div>
+
+        <div class="thread-question-card-body">
+          <p
+            id="tqc-v2-prompt"
+            class="thread-question-card-prompt"
+          >
+            Several ingredients in this week's meal plan are out of stock. Which substitutions should I apply?
+          </p>
+
+          <!-- Pre-selection suggestion line — above option-row-list when agent pre-selects -->
+          <p class="thread-question-card-suggestion">Ava suggested these. Edit and submit when ready.</p>
+
+          <div
+            class="option-row-list"
+            role="group"
+            aria-labelledby="tqc-v2-prompt"
+          >
+            <button type="button" class="option-row" role="checkbox" aria-checked="true" tabindex="0" data-option-id="tqc-v2-a">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Replace cilantro with parsley</span>
+                <span class="option-row-description">Equivalent garnish; patient has no documented aversion.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="checkbox" aria-checked="true" tabindex="-1" data-option-id="tqc-v2-b">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Replace brown rice with quinoa</span>
+                <span class="option-row-description">Same caloric band; higher protein — aligns with care plan goal.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="checkbox" aria-checked="false" tabindex="-1" data-option-id="tqc-v2-c">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Omit mushrooms entirely</span>
+                <span class="option-row-description">Patient noted texture sensitivity in last check-in.</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-actions">
+              <button type="button" class="btn-primary btn-block" aria-keyshortcuts="1">
+                <span class="cmd-palette-shortcut" aria-hidden="true"><kbd>1</kbd></span>
+                Submit answers
+              </button>
+              <span class="text-link" aria-hidden="true">Esc to cancel</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Variant 4 — Mobile bottom-sheet
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title">Variant 4 — Mobile bottom-sheet</h2>
+    <p class="pl-description">
+      Composes <code>bottom-sheet-panel</code>. Sticky-footer is a sibling of <code>bottom-sheet-body</code> (pinned to panel root, NOT inside scroll context).
+    </p>
+    <div class="max-w-[420px]">
+      <div
+        class="bottom-sheet-panel"
+        data-hs-overlay-keyboard="true"
+        role="dialog"
+        aria-labelledby="tqc-v4-prompt"
+        data-pin-priority="2"
+      >
+        <div class="bottom-sheet-handle" aria-hidden="true"></div>
+
+        <header class="bottom-sheet-header">
+          <span class="badge-pill">Delivery time</span>
+          <button
+            type="button"
+            class="btn-icon"
+            aria-label="Cancel question"
+            data-hs-overlay-close
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <div class="bottom-sheet-body">
+          <p
+            id="tqc-v4-prompt"
+            class="thread-question-card-prompt"
+          >
+            What time works best for your meal delivery?
+          </p>
+
+          <div class="option-row-list" role="radiogroup" aria-labelledby="tqc-v4-prompt">
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="0" data-option-id="tqc-v4-a">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Morning (8 AM – 11 AM)</span>
+                <span class="option-row-description">Delivered before your first meal of the day.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="tqc-v4-b">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Afternoon (12 PM – 3 PM)</span>
+                <span class="option-row-description">Arrives during your midday window.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="tqc-v4-c">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Evening (4 PM – 7 PM)</span>
+                <span class="option-row-description">Delivered in time for dinner.</span>
+              </span>
+            </button>
+            <!-- .is-other always wrapped in .option-row-other-wrapper -->
+            <div class="option-row-other-wrapper">
+              <button
+                type="button"
+                class="option-row is-other"
+                role="radio"
+                aria-checked="false"
+                tabindex="-1"
+                data-option-id="tqc-v4-other"
+                aria-expanded="false"
+              >
+                <span class="option-row-glyph" aria-hidden="true"></span>
+                <span class="option-row-content">
+                  <span class="option-row-title">Other</span>
+                  <span class="option-row-description">Type a different time</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky footer pinned to bottom-sheet-panel ROOT (sibling of body, NOT inside body's scroll context) -->
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-actions">
+              <button type="button" class="btn-primary btn-block" disabled>Submit answer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       .is-idle state
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title"><code>.is-idle</code> — 90s collapse</h2>
+    <p class="pl-description">
+      After 90s no focus or interaction: collapses description to one-line summary + dims via <code>--thread-question-card-idle-opacity</code> (0.65). Hover or focus-within re-expands to opacity 1.
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card is-idle"
+        role="region"
+        aria-labelledby="tqc-idle-prompt"
+        data-pin-priority="2"
+      >
+        <div class="thread-question-card-header">
+          <span class="badge-pill">Match referral</span>
+        </div>
+        <div class="thread-question-card-body">
+          <!-- Description body collapsed; one-line summary in its place -->
+          <p id="tqc-idle-prompt" class="thread-question-card-summary">Question from Ava: Match referral</p>
+        </div>
+        <!-- Footer hidden in idle state (primitive default: hidden) -->
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       .is-historical state
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title"><code>.is-historical</code> — read-only</h2>
+    <p class="pl-description">
+      Read-only thread-history rendering. Muted treatment: sand-50 surface + sand-400 left border + 0.85 opacity. <code>aria-disabled</code> on option-rows; Submit removed.
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card is-historical"
+        role="region"
+        aria-labelledby="tqc-hist-prompt"
+        data-pin-priority="4"
+      >
+        <div class="thread-question-card-header">
+          <span class="badge-pill">Match referral</span>
+          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+        </div>
+
+        <div class="thread-question-card-body">
+          <p
+            id="tqc-hist-prompt"
+            class="thread-question-card-prompt"
+          >
+            A new referral landed for Aaron Sleeper. Should I match it to the existing referral or treat it as a new one?
+          </p>
+
+          <div
+            class="option-row-list"
+            role="radiogroup"
+            aria-labelledby="tqc-hist-prompt"
+          >
+            <!-- Selected state preserved; aria-disabled on all option-rows -->
+            <button type="button" class="option-row" role="radio" aria-checked="true" aria-disabled="true" tabindex="-1" data-option-id="tqc-hist-a">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">
+                  Match to existing referral
+                  <span class="badge badge-info badge-sm option-row-recommended">Recommended</span>
+                </span>
+                <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" aria-disabled="true" tabindex="-1" data-option-id="tqc-hist-b">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Create new referral</span>
+                <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
+              </span>
+            </button>
+          </div>
+        </div>
+        <!-- Submit removed — read-only -->
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Error state — Submit failed
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title">Error state — Submit failed</h2>
+    <p class="pl-description">
+      Inline <code>.alert-error</code> above option-row-list. Option selection preserved; Submit returns to enabled.
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card"
+        role="region"
+        aria-labelledby="tqc-err-prompt"
+        data-pin-priority="2"
+      >
+        <div class="thread-question-card-header">
+          <span class="badge-pill">Match referral</span>
+          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+        </div>
+
+        <div class="thread-question-card-body">
+          <p
+            id="tqc-err-prompt"
+            class="thread-question-card-prompt"
+          >
+            A new referral landed for Aaron Sleeper. Should I match it to the existing referral or treat it as a new one?
+          </p>
+
+          <!-- Inline error above option-row-list -->
+          <div class="alert-error" role="alert">
+            <i class="fa-solid fa-circle-exclamation alert-icon" aria-hidden="true"></i>
+            <div>
+              <p>We couldn't send your answer. Try again, or close and we'll re-ask.</p>
+            </div>
+          </div>
+
+          <!-- option-row-list still rendered; selection preserved -->
+          <div
+            class="option-row-list"
+            role="radiogroup"
+            aria-labelledby="tqc-err-prompt"
+          >
+            <button type="button" class="option-row" role="radio" aria-checked="true" tabindex="0" data-option-id="tqc-err-a">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">
+                  Match to existing referral
+                  <span class="badge badge-info badge-sm option-row-recommended">Recommended</span>
+                </span>
+                <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
+              </span>
+            </button>
+            <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="tqc-err-b">
+              <span class="option-row-glyph" aria-hidden="true"></span>
+              <span class="option-row-content">
+                <span class="option-row-title">Create new referral</span>
+                <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit returns to enabled after error -->
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-actions">
+              <button type="button" class="btn-primary btn-block" aria-keyshortcuts="1">
+                <span class="cmd-palette-shortcut" aria-hidden="true"><kbd>1</kbd></span>
+                Submit answer
+              </button>
+              <span class="text-link" aria-hidden="true">Esc to cancel</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Empty state — defensive (zero options)
+       ============================================================ -->
+  <div class="pl-section">
+    <h2 class="section-title">Empty state — defensive</h2>
+    <p class="pl-description">
+      Zero-option defensive fallback. Should never render in production — flag as bug telemetry.
+    </p>
+    <div class="max-w-[420px]">
+      <section
+        class="thread-question-card"
+        role="region"
+        aria-labelledby="tqc-empty-heading"
+        data-pin-priority="2"
+      >
+        <div class="thread-question-card-body">
+          <div class="empty-state">
+            <i class="fa-solid fa-circle-question empty-state-icon" aria-hidden="true"></i>
+            <h3 id="tqc-empty-heading">Question loaded without options</h3>
+            <p>Something's off on our side. Try refreshing, or message us if it stays stuck.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</section>
