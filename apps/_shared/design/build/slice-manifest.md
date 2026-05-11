@@ -216,9 +216,35 @@ All ship — no iterate or block verdicts. No retro entries.
 
 ---
 
-## Round 2 expert verdict — thread-question-card PL fragment (after Task 02)
+## Round 1 expert verdict — thread-question-card PL fragment (after Task 02 build, before Task 03)
 
 (To be filled in after the 4-expert panel runs for thread-question-card.)
+
+Task 02 build complete 2026-05-11. Plan-readiness: READY 9/9. Build subagent: 17/17, zero judgment calls. haven-pl-qa: PASS with 3 mechanical fixes applied during review (`file:`/`when-to-use:` meta fields; redundant `items-center` utility on 4 option-row-title spans; missing COMPONENT-REGISTRY rows). Commit `ecd8891` pushed to haven-ui main.
+
+For visual review by Aaron before panel dispatch (surfaced by haven-pl-qa):
+1. `.is-idle` opacity transition (0.65 → 1.0 on hover/focus) reads as "still here but quiet" vs disabled
+2. `(Recommended)` badge co-existence with `ai-insight-callout` in Variant 1 — reinforcing vs redundant
+3. Bottom-sheet sticky-footer pinning under iOS Safari address-bar collapse (Variant 4)
+4. `.is-historical` muted treatment (sand-50 surface + sand-400 left border + 0.85 opacity) reads as "past, not actionable"
+
+Panel placeholders below; will run after Aaron's visual gate.
+
+- **design-system-steward:** [ship / iterate / block] — [one-line summary]
+- **ux-design-lead:** [ship / iterate / block] — [...]
+- **accessibility:** [ship / iterate / block, WCAG pass/conditional/fail] — [...]
+- **brand-fidelity:** [ship / iterate / block] — [...]
+
+### Pre-build check retrospective (Round 1 — thread-question-card)
+
+For each reviewer's `iterate` or `block` verdict, answer:
+- **Would `plan-readiness` have caught this pre-build?** [yes / no / partially] — [one-line why]
+
+---
+
+## Round 2 expert verdict — thread-question-card PL fragment (after iterations, if any)
+
+(To be filled in after Round 2 panel runs.)
 
 - **ux-design-lead:** [ship / iterate / block] — [one-line summary]
 - **design-system-steward:** [ship / iterate / block] — [...]
