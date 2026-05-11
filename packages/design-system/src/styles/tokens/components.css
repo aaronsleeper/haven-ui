@@ -10510,6 +10510,231 @@ a.list-group-item-action {
 }
 
 
+/* ============================================================
+   option-row
+   Tier 1 novel primitive — shared by all variants of
+   thread-question-card. NOT response-option (assessment-only
+   per steward verdict 2026-05-08).
+   Wireframe source: apps/_shared/design/wireframes/agentic-question.md
+   Spec: apps/_shared/design/new-components/option-row.md
+   ============================================================ */
+
+.option-row {
+    --option-row-min-height: 2.75rem; /* 44px touch-target floor */
+
+    @apply flex items-start gap-3 w-full px-3 py-2 rounded-[5px] bg-surface-card text-left cursor-pointer transition-colors duration-100;
+    min-height: var(--option-row-min-height);
+    border: 1px solid var(--color-border-image);
+}
+
+/* Hover — sand-500 border (3.42:1 on white) per WCAG 1.4.11.
+   Pale fill so hover reads as "considering"; selected reads as
+   "committed" via teal border. Mirrors response-option Patch 8
+   verdict. */
+.option-row:hover {
+    @apply bg-sand-50;
+    border-color: var(--color-sand-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .option-row {
+        transition: none;
+    }
+}
+
+.option-row:focus-visible {
+    @apply outline-none ring-2 ring-primary-600;
+}
+
+.option-row[aria-checked="true"] {
+    border-color: var(--color-accent-interactive);
+}
+
+.option-row[aria-disabled="true"],
+.option-row:disabled {
+    @apply opacity-60 cursor-not-allowed;
+}
+
+/* Tablet-dense modifier — kitchen gloved-hand context.
+   Raises touch-target floor from 44px to 48px. */
+.option-row.is-tablet-dense {
+    --option-row-min-height: 3rem; /* 48px */
+}
+
+/* ----------------------------------------------------------
+   option-row-glyph — selection circle (radio) or square (checkbox)
+   Triple-cued selection state #1: filled glyph.
+   ---------------------------------------------------------- */
+
+.option-row-glyph {
+    @apply flex items-center justify-center shrink-0 w-5 h-5 mt-0.5;
+    border: 2px solid var(--color-sand-500);
+    background-color: var(--color-surface-card);
+    transition: background-color var(--duration-fast) var(--ease-default),
+                border-color var(--duration-fast) var(--ease-default);
+}
+
+/* Radio — circle */
+.option-row[role="radio"] .option-row-glyph {
+    @apply rounded-full;
+}
+
+/* Checkbox — rounded square */
+.option-row[role="checkbox"] .option-row-glyph {
+    @apply rounded-[3px];
+}
+
+.option-row[aria-checked="true"] .option-row-glyph {
+    border-color: var(--color-accent-interactive);
+    background-color: var(--color-accent-interactive);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .option-row-glyph {
+        transition: none;
+    }
+}
+
+/* ----------------------------------------------------------
+   option-row-content — vertical stack of title + description
+   ---------------------------------------------------------- */
+
+.option-row-content {
+    @apply flex flex-col gap-0.5 flex-1 min-w-0;
+}
+
+/* Title — Body/02 16px Source Sans 3 font-semibold sand-900.
+   Wraps to support inline (Recommended) badge slot. */
+.option-row-title {
+    @apply flex flex-wrap items-baseline gap-2 text-body-02 font-semibold;
+    color: var(--color-text-normal);
+}
+
+/* Recommended badge — composes existing .badge.badge-sm; no new visual class.
+   Reserved as a semantic hook for the inline badge slot adjacent to the title. */
+.option-row-recommended {
+    @apply block; /* keeps rule alive through Tailwind v4 tree-shaking */
+}
+
+/* Description — Body/03 14px sand-700.
+   1–3 sentences expected; line-height tuned for compact two-line max. */
+.option-row-description {
+    @apply text-body-03 leading-snug;
+    color: var(--color-sand-700);
+}
+
+/* ----------------------------------------------------------
+   option-row-check — check-icon, fade in on select
+   Triple-cued selection state #2: visible check icon.
+   (#3 — ring — is the [aria-checked] border treatment above.)
+   ---------------------------------------------------------- */
+
+.option-row-check {
+    @apply text-lg opacity-0 shrink-0 mt-0.5;
+    color: var(--color-accent-interactive);
+    transition: opacity var(--duration-fast) var(--ease-default);
+}
+
+.option-row[aria-checked="true"] .option-row-check {
+    @apply opacity-100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .option-row-check {
+        transition: none;
+    }
+}
+
+/* ----------------------------------------------------------
+   option-row.is-other — final option with reveal-on-select textarea
+   Tier 1 sub-primitive variant. No PL precedent for reveal-on-select
+   interaction; load-bearing for the agentic-question pattern.
+   ---------------------------------------------------------- */
+
+.option-row-other-wrapper {
+    @apply flex flex-col gap-2;
+}
+
+.option-row-other-textarea {
+    @apply w-full min-h-[2.75rem] px-3 py-2 rounded-[5px] text-body-03;
+    background-color: var(--color-surface-card);
+    color: var(--color-text-normal);
+    border: 1px solid var(--color-border-image);
+    resize: vertical;
+}
+
+.option-row-other-textarea::placeholder {
+    color: var(--color-sand-500);
+}
+
+.option-row-other-textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary-600;
+    border-color: var(--color-accent-interactive);
+}
+
+/* ----------------------------------------------------------
+   option-row-list — container slot
+   role="radiogroup" (single-select) or role="group" (multi-select).
+   Lives as a slot inside thread-question-card; included here so
+   that the primitive is self-contained for PL preview.
+   ---------------------------------------------------------- */
+
+.option-row-list {
+    @apply flex flex-col gap-2;
+}
+
+/* ----------------------------------------------------------
+   Dark mode
+   All color properties redeclared — no implicit inheritance.
+   ---------------------------------------------------------- */
+
+.dark .option-row {
+    background-color: var(--color-sand-900);
+    border-color: var(--color-sand-700);
+}
+
+.dark .option-row:hover {
+    background-color: var(--color-sand-800);
+    border-color: var(--color-sand-500);
+}
+
+.dark .option-row[aria-checked="true"] {
+    border-color: var(--color-accent-interactive);
+}
+
+.dark .option-row-glyph {
+    background-color: var(--color-sand-900);
+    border-color: var(--color-sand-500);
+}
+
+.dark .option-row[aria-checked="true"] .option-row-glyph {
+    background-color: var(--color-accent-interactive);
+    border-color: var(--color-accent-interactive);
+}
+
+.dark .option-row-title {
+    color: var(--color-sand-100);
+}
+
+.dark .option-row-description {
+    color: var(--color-sand-300);
+}
+
+.dark .option-row-check {
+    color: var(--color-accent-interactive);
+}
+
+.dark .option-row-other-textarea {
+    background-color: var(--color-sand-900);
+    border-color: var(--color-sand-700);
+    color: var(--color-sand-100);
+}
+
+.dark .option-row-other-textarea::placeholder {
+    color: var(--color-sand-500);
+}
+
+
 /* Progress Bar Pagination — N horizontal segments, one per question.
    accent-interactive when complete, sand-500 when remaining (WCAG 1.4.11 floor;
    was sand-15 pre-Patch-8, raised to sand-500 to clear 3:1 vs white).
