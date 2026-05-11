@@ -46,16 +46,16 @@ Future consumers will require steward review before reuse — this primitive is 
 | Class | Type | Notes |
 |-------|------|-------|
 | `.option-row` | Primitive base | Outer `<button>` element; bold title + description + selection glyph + (Recommended) badge slot |
-| `.option-row-glyph` | Sub-element | Selection circle (radio) or square (checkbox); filled-on-select |
+| `.option-row-glyph` | Sub-element | Selection circle (radio) or square (checkbox); filled-on-select with inset white ring (mirrors pref-row pattern — Round 1.5 refactor 2026-05-11) |
 | `.option-row-content` | Sub-element | Vertical stack of title + description |
 | `.option-row-title` | Sub-element | Body/02 16px font-semibold sand-900 |
-| `.option-row-recommended` | Sub-element (slot) | Inline `.badge.badge-sm` adjacent to title; "Recommended" label |
+| `.option-row-recommended` | Sub-element (slot) | Inline `.badge.badge-info.badge-sm` adjacent to title; "Recommended" label (no own CSS rule — semantic-hook class only) |
 | `.option-row-description` | Sub-element | Body/03 14px sand-700 |
-| `.option-row-check` | Sub-element | Check-icon; opacity 0 → 1 on `[aria-checked="true"]` |
-| `.option-row.is-other` | Variant | Final-position option with reveal-on-select textarea |
-| `.option-row-other-textarea` | Sub-element | Inline textarea revealed in `.is-other` variant when selected; collapses on deselect |
-| `.option-row.is-tablet-dense` | Modifier (kitchen tablet override) | Raises `--option-row-min-height` from 44px to 48px for gloved-hand context. Steward call: this modifier vs per-app token override. |
-| `.option-row-list` | Container slot | Provides `role="radiogroup"` (single) or `role="group"` (multi) wrapper. Default: lives as a slot inside `thread-question-card`; not a standalone PL entry unless second carrier emerges. |
+| `.option-row.is-other` | Variant | Final-position option with reveal-on-select textarea (in-place expansion via wrapper) |
+| `.option-row-other-wrapper` | Container variant | Always wraps `.is-other`. Invisible chrome when button is unchecked; takes on option-row's selected chrome (border + fill + rounded corners) when button is checked. Wireframe-spec'd in-place expansion (Round 1.5 refactor 2026-05-11). |
+| `.option-row-other-textarea` | Sub-element | Inline textarea revealed inside `.option-row-other-wrapper` when `.is-other` is selected; borderless, sits inside the wrapper with a dashed top-separator |
+| `.option-row.is-tablet-dense` | Modifier (kitchen tablet override) | Raises `--option-row-min-height` from 44px to 48px for gloved-hand context. |
+| `.option-row-list` | Container slot | Provides `role="radiogroup"` (single) or `role="group"` (multi) wrapper. Lives as a slot inside `thread-question-card`; not a standalone PL entry unless second carrier emerges. |
 
 **Custom CSS variable:**
 
@@ -103,7 +103,6 @@ Future consumers will require steward review before reuse — this primitive is 
       Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.
     </span>
   </span>
-  <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
 </button>
 ```
 
@@ -131,7 +130,6 @@ Future consumers will require steward review before reuse — this primitive is 
     <span class="option-row-title">Cilantro</span>
     <span class="option-row-description">Substitute with parsley if unavailable.</span>
   </span>
-  <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
 </button>
 ```
 
@@ -139,27 +137,33 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 
 ### `.is-other` variant (collapsed)
 
+`.is-other` is ALWAYS wrapped in `.option-row-other-wrapper`, regardless of state. When the button is unchecked, the wrapper has no visible chrome — it's a transparent layout container. When checked, the wrapper takes on the option-row's selected chrome (border, fill, rounded corners) and the textarea is revealed inside it. This is the "always-wrapped" pattern adopted in the Round 1.5 refactor (2026-05-11) so the structural shape is consistent across collapsed and expanded states; consumer doesn't manage a DOM swap on state change.
+
 ```html
-<button
-  type="button"
-  class="option-row is-other"
-  role="radio"
-  aria-checked="false"
-  tabindex="0"
-  data-option-id="other"
-  aria-expanded="false"
-  aria-controls="opt-other-textarea-[id]"
->
-  <span class="option-row-glyph" aria-hidden="true"></span>
-  <span class="option-row-content">
-    <span class="option-row-title">Other</span>
-    <span class="option-row-description">Type a different answer</span>
-  </span>
-  <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
-</button>
+<div class="option-row-other-wrapper">
+  <button
+    type="button"
+    class="option-row is-other"
+    role="radio"
+    aria-checked="false"
+    tabindex="0"
+    data-option-id="other"
+    aria-expanded="false"
+  >
+    <span class="option-row-glyph" aria-hidden="true"></span>
+    <span class="option-row-content">
+      <span class="option-row-title">Other</span>
+      <span class="option-row-description">Type a different answer</span>
+    </span>
+  </button>
+</div>
 ```
 
+Note: when collapsed, `aria-controls` is omitted because the textarea does not yet exist in the DOM. Consumer adds `aria-controls` (pointing to the textarea's id) only when the textarea is rendered.
+
 ### `.is-other` variant (selected; textarea revealed)
+
+In-place expansion: the wrapper carries the option-row's selected visual chrome; inner button + textarea appear as one bounded surface. Wireframe line 160: "Reveal is in-place expansion of the 'Other' option-row, NOT a modal or separate slot." Round 1.5 refactor replaced the prior sibling-below pattern.
 
 ```html
 <div class="option-row-other-wrapper">
@@ -177,7 +181,6 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
       <span class="option-row-title">Other</span>
       <span class="option-row-description">Type a different answer</span>
     </span>
-    <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
   </button>
   <label class="sr-only" for="opt-other-textarea-[id]">Tell us what fits better</label>
   <textarea
@@ -190,7 +193,9 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 </div>
 ```
 
-**Reveal behavior:** focus moves to the textarea on reveal. Per gov.uk Accessibility Blog ("Conditionally revealed questions"): single-input conditional reveals perform well; complex reveals fail testing — so a single textarea is the right shape. Deselecting `.is-other` collapses the textarea; content is preserved in consumer-app local state but not committed. Re-selecting restores the textarea content.
+**Reveal behavior:** focus moves to the textarea on reveal. Per gov.uk Accessibility Blog ("Conditionally revealed questions"): single-input conditional reveals perform well; complex reveals fail testing — so a single textarea is the right shape. Deselecting `.is-other` collapses the textarea (consumer removes from DOM); content is preserved in consumer-app local state but not committed. Re-selecting restores the textarea content.
+
+**Visual structure:** when expanded, the wrapper has the accent-interactive border + sand-50 fill + rounded-[5px] corners; inner button has no individual border (wrapper carries it); textarea has no border but has a dashed top-separator inside the wrapper, signaling "still part of the option, separate field." Reads as one bounded surface.
 
 **Bilingual placeholder:** Spanish — `placeholder="Cuéntanos qué se ajusta mejor."`; description copy `"Escribe otra respuesta"`. (Per wireframe Bilingual Considerations.)
 
@@ -304,6 +309,11 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 .option-row[aria-checked="true"] .option-row-glyph {
     border-color: var(--color-accent-interactive);
     background-color: var(--color-accent-interactive);
+    /* Inset-ring pattern (mirrors pref-row line 5793) — creates the
+       classic radio-dot / filled-checkbox visual via box-shadow.
+       Provides a SHAPE cue independent of color (WCAG 1.4.1), so
+       a separate check icon is redundant. Round 1.5 refactor 2026-05-11. */
+    box-shadow: inset 0 0 0 3px white;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -344,42 +354,67 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 }
 
 /* ----------------------------------------------------------
-   option-row-check — check-icon, fade in on select
-   Triple-cued selection state #2: visible check icon.
-   (#3 — ring — is the [aria-checked] border treatment above.)
+   option-row.is-other — in-place expansion of the "Other" option
+   when selected. Wireframe line 160: "Reveal is in-place expansion
+   of the 'Other' option-row, NOT a modal or separate slot."
+
+   Structure: .is-other is ALWAYS wrapped in .option-row-other-wrapper.
+   When the inner button is unchecked, the wrapper has no chrome —
+   invisible layout container. When checked, the wrapper takes on the
+   option-row's selected chrome (border + fill + rounded corners);
+   inner button + textarea lose individual chrome to appear as one
+   bounded surface. Round 1.5 refactor 2026-05-11 (replaced the prior
+   sibling-below pattern).
    ---------------------------------------------------------- */
 
-.option-row-check {
-    @apply text-lg opacity-0 shrink-0 mt-0.5;
-    color: var(--color-accent-interactive);
-    transition: opacity var(--duration-fast) var(--ease-default);
-}
-
-.option-row[aria-checked="true"] .option-row-check {
-    @apply opacity-100;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .option-row-check {
-        transition: none;
-    }
-}
-
-/* ----------------------------------------------------------
-   option-row.is-other — final option with reveal-on-select textarea
-   Tier 1 sub-primitive variant. No PL precedent for reveal-on-select
-   interaction; load-bearing for the agentic-question pattern.
-   ---------------------------------------------------------- */
-
+/* Default wrapper: transparent layout container. The button inside
+   carries its own option-row chrome in this state. */
 .option-row-other-wrapper {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col;
 }
 
+/* When the inner .is-other is checked, the wrapper carries the chrome
+   and the inner button + textarea become visually nested inside it. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) {
+    @apply rounded-[5px] bg-sand-50 overflow-hidden;
+    border: 1px solid var(--color-accent-interactive);
+}
+
+/* When the wrapper is expanded, the inner button loses its individual
+   border and bg — the wrapper carries them. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) > .option-row.is-other {
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+/* Prevent double-hover: wrapper carries the chrome; inner button hover
+   shouldn't add a second surface fill. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) > .option-row.is-other:hover {
+    background-color: transparent;
+}
+
+/* Focus ring moves to the wrapper so the bounded surface reads as one
+   focused element. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) > .option-row.is-other:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.option-row-other-wrapper:has(.option-row.is-other:focus-visible) {
+    @apply ring-2 ring-primary-600;
+}
+
+/* Textarea — borderless, sits inside the wrapper below the button.
+   Dashed top-border serves as a subtle separator inside the bounded
+   surface (reads as "still part of the option, separate field"). */
 .option-row-other-textarea {
-    @apply w-full min-h-[2.75rem] px-3 py-2 rounded-[5px] text-body-03;
-    background-color: var(--color-surface-card);
+    @apply w-full min-h-[2.75rem] px-3 pb-3 pt-2 text-body-03;
+    background-color: transparent;
     color: var(--color-text-normal);
-    border: 1px solid var(--color-border-image);
+    border: none;
+    border-top: 1px dashed var(--color-sand-300);
+    border-radius: 0;
     resize: vertical;
 }
 
@@ -388,8 +423,8 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 }
 
 .option-row-other-textarea:focus-visible {
-    @apply outline-none ring-2 ring-primary-600;
-    border-color: var(--color-accent-interactive);
+    @apply outline-none;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* ----------------------------------------------------------
@@ -430,6 +465,9 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 .dark .option-row[aria-checked="true"] .option-row-glyph {
     background-color: var(--color-accent-interactive);
     border-color: var(--color-accent-interactive);
+    /* Dark-mode inset matches the row's surface (sand-900 default)
+       so the inset reads as a "hole" in the filled glyph. */
+    box-shadow: inset 0 0 0 3px var(--color-sand-900);
 }
 
 .dark .option-row-title {
@@ -440,18 +478,24 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
     color: var(--color-sand-300);
 }
 
-.dark .option-row-check {
-    color: var(--color-accent-interactive);
+/* Dark-mode in-place expansion: wrapper takes on sand-800 fill +
+   accent-interactive border when expanded. */
+.dark .option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) {
+    background-color: var(--color-sand-800);
+    border-color: var(--color-accent-interactive);
 }
 
 .dark .option-row-other-textarea {
-    background-color: var(--color-sand-900);
-    border-color: var(--color-sand-700);
     color: var(--color-sand-100);
+    border-top-color: var(--color-sand-700);
 }
 
 .dark .option-row-other-textarea::placeholder {
     color: var(--color-sand-500);
+}
+
+.dark .option-row-other-textarea:focus-visible {
+    background-color: rgba(63, 57, 51, 0.5);
 }
 ```
 
@@ -518,10 +562,10 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
 - **Roving tabindex:** the option-row-list consumer maintains exactly one option-row with `tabindex="0"` at any time (the focused or last-focused option); all others get `tabindex="-1"`. Tab enters/exits the group as a single stop. This is consumer-side state, not a primitive concern. Reference: WAI-ARIA APG Radio Group Pattern (cited in wireframe Accessibility Notes).
 - **Arrow keys:** within a radiogroup, arrow keys move focus AND check (single-select). Within a multi-select group, arrow keys move focus only; Space toggles. Consumer-side keyboard handler.
 - **Initial focus on card mount:** first checked option-row, otherwise the first option-row (per WAI-ARIA APG Radio Group). Consumer-side responsibility.
-- **Triple-cued selection** (per WCAG 1.4.1):
-  1. Filled glyph (color independent — shape change)
-  2. Visible check icon (color independent — icon presence)
-  3. Border ring color shift to `accent-interactive` (color cue, reinforced by 1+2)
+- **Dual-cued selection** (per WCAG 1.4.1; Round 1.5 refactor 2026-05-11 — previously triple-cued):
+  1. Glyph fill with inset white ring — creates the classic radio-dot / filled-checkbox visual via box-shadow. This is a SHAPE change (empty glyph → filled + ring), independent of color.
+  2. Row border ring color shift to `accent-interactive` (color cue, reinforced by 1).
+  The previously-shipped right-side check icon was redundant with the inset-ring shape cue and was removed. Color-independence preserved via cue 1 (shape change).
 - **`.is-other` reveal:**
   - Focus moves to the textarea on reveal (gov.uk Accessibility Blog "Conditionally revealed questions" — single-input reveals are reliably testable).
   - `aria-expanded` on the button + `aria-controls` linking to the textarea — SR announces "expanded"/"collapsed".
@@ -529,7 +573,7 @@ ARIA verdict: `role="checkbox"` is locked (NOT `aria-pressed`). `option-row-list
   - Empty textarea on Submit attempt: Submit stays disabled (consumer-side); affordance is self-evident — no error message needed.
 - **Touch targets:** `--option-row-min-height: 2.75rem` (44px) at primitive level. `.is-tablet-dense` raises to 48px for kitchen.
 - **Color-independence for `(Recommended)` badge:** text label "Recommended" is the canonical signal; color is reinforcement. The wireframe explicitly notes: does NOT rely on color alone.
-- **Reduced motion:** `transition: none` on `.option-row`, `.option-row-glyph`, `.option-row-check` under `(prefers-reduced-motion: reduce)`. Selection state still applies — only the transition is suppressed.
+- **Reduced motion:** `transition: none` on `.option-row` and `.option-row-glyph` under `(prefers-reduced-motion: reduce)`. Selection state still applies — only the transition is suppressed.
 - **Screen reader announcement on focus:** consumer-side script announces option title + description + "Recommended" if applicable. The DOM structure makes title and description naturally accessible without `aria-label`.
 - **Consumer Space-key handling (consumer responsibility):** the WAI-ARIA APG specifies Space toggles a `role="radio"`/`role="checkbox"` button. Native `<button>` elements also activate on Space. The consumer keydown handler MUST call `preventDefault()` on Space to avoid double-fire (browser native activation + ARIA toggle). Round 1 a11y verdict 2026-05-11.
 - **Bottom-sheet focus-trap (consumer responsibility):** Variant 4 (mobile bottom-sheet) consumer surface must trap focus inside the sheet for the duration of the question. Primitive provides the role/aria scaffolding only; trap behavior is consumer-side via Preline's `data-hs-overlay` or equivalent. Round 1 a11y verdict 2026-05-11.

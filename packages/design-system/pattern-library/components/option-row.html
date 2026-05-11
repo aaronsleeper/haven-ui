@@ -3,11 +3,11 @@
   name: Option Row
   category: Thread / Agent
   file: option-row.html
-  classes: option-row, option-row-glyph, option-row-content, option-row-title, option-row-recommended, option-row-description, option-row-check, option-row.is-other, option-row-other-wrapper, option-row-other-textarea, option-row.is-tablet-dense, option-row-list
+  classes: option-row, option-row-glyph, option-row-content, option-row-title, option-row-recommended, option-row-description, option-row.is-other, option-row-other-wrapper, option-row-other-textarea, option-row.is-tablet-dense, option-row-list
   variants: aria-checked="true" (selected), aria-checked="false" (unselected), .is-other (final-position reveal-on-select textarea), .is-tablet-dense (kitchen 48px touch target), aria-disabled="true" (rare; defensive)
   when-to-use: A selectable option inside the agentic-question pattern's `thread-question-card`. Single-select (role="radio") or multi-select (role="checkbox"). Composed inside `option-row-list` (radiogroup/group slot). NOT response-option — that primitive is assessment-only (PHQ-9, GAD-7) per steward verdict 2026-05-08.
   preline-required: no
-  notes: Tier 1 novel primitive. Triple-cued selection state — filled glyph + visible check icon + accent-interactive border ring (color-independent per WCAG 1.4.1). 44px minimum touch target via `--option-row-min-height` custom property; `.is-tablet-dense` raises to 48px for kitchen gloved-hand context. `.is-other` reveals an inline textarea on select; focus moves to the textarea (gov.uk Accessibility Blog "Conditionally revealed questions"). Roving tabindex is consumer-side state, not a primitive concern. Lists of more than 6 options trigger steward review for `.is-other` reveal direction (compression vs vertical scroll; see wireframe §Option Zone). Consumer keydown handler must `preventDefault()` on Space to avoid double-fire on `<button role="radio">` (browser native Space activation + ARIA radio toggle). Consumer must establish focus-trap inside the bottom-sheet variant (Variant 4 mobile) — primitive provides the role/aria scaffolding only.
+  notes: Tier 1 novel primitive. Dual-cued selection state (Round 1.5 refactor 2026-05-11) — filled glyph with inset white ring creates a SHAPE change (mirrors pref-row's classic radio-dot / filled-checkbox pattern via box-shadow), plus the row's outer border shifts to accent-interactive (color cue). The previously-shipped right-side check icon was redundant with the inset-ring shape cue and was removed; WCAG 1.4.1 color-independence preserved via the shape change. 44px minimum touch target via `--option-row-min-height` custom property; `.is-tablet-dense` raises to 48px for kitchen gloved-hand context. `.is-other` uses in-place expansion (wireframe line 160) — the `.option-row-other-wrapper` carries the option-row's selected visual chrome when expanded, and the textarea sits visually inside that bounded surface (no own border, dashed top-separator). Round 1.5 refactor replaced the prior sibling-below pattern. Roving tabindex is consumer-side state, not a primitive concern. Lists of more than 6 options trigger steward review for `.is-other` reveal direction. Consumer keydown handler must `preventDefault()` on Space to avoid double-fire on `<button role="radio">`. Consumer must establish focus-trap inside the bottom-sheet variant (Variant 4 mobile).
 
   interactive-usage: required
 
@@ -19,7 +19,7 @@
       expanded: ".is-other" toggles aria-expanded mirroring aria-checked
       controls: ".is-other" carries aria-controls referencing the revealed textarea id
       disabled: optional aria-disabled="true" (rare; defensive)
-      hidden-icons: .option-row-glyph and .option-row-check carry aria-hidden="true" (meaning is carried by aria-checked on the button)
+      hidden-icons: .option-row-glyph carries aria-hidden="true" (meaning is carried by aria-checked on the button; the inset-ring shape change on selection is decorative reinforcement, not a separate announcement)
     focus:
       visible: .option-row:focus-visible (ring-2 primary-600); .option-row-other-textarea:focus-visible (ring-2 primary-600 + accent-interactive border)
       reveal: ".is-other" reveal moves focus to the textarea on select; collapses on deselect (consumer-side state preserves content across re-selection)
@@ -46,7 +46,6 @@
           <span class="option-row-title">Match to existing referral</span>
           <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-1-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -54,7 +53,6 @@
           <span class="option-row-title">Create new referral</span>
           <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -72,7 +70,6 @@
           <span class="option-row-title">Match to existing referral</span>
           <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-2-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -80,7 +77,6 @@
           <span class="option-row-title">Create new referral</span>
           <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -101,7 +97,6 @@
           </span>
           <span class="option-row-description">Aaron Sleeper from BHN — same patient, same provider, last seen 3 days ago.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-3-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -109,7 +104,6 @@
           <span class="option-row-title">Create new referral</span>
           <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -130,7 +124,6 @@
           </span>
           <span class="option-row-description">Same patient, same provider; the badge should stay adjacent to the title text when it wraps, not push the description further down.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-3b-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -138,7 +131,6 @@
           <span class="option-row-title">Create new referral</span>
           <span class="option-row-description">Treat as a new intake — no existing record matches.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -156,7 +148,6 @@
           <span class="option-row-title">Cilantro</span>
           <span class="option-row-description">Substitute with parsley if unavailable.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="checkbox" aria-checked="false" tabindex="-1" data-option-id="opt-4-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -164,7 +155,6 @@
           <span class="option-row-title">Mushrooms</span>
           <span class="option-row-description">Omit if the patient noted texture sensitivity.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -188,7 +178,6 @@
           <span class="option-row-title">Cilantro</span>
           <span class="option-row-description">Substitute with parsley if unavailable.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="checkbox" aria-checked="false" tabindex="-1" data-option-id="opt-4b-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -196,7 +185,6 @@
           <span class="option-row-title">Mushrooms</span>
           <span class="option-row-description">Omit if the patient noted texture sensitivity.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -214,25 +202,28 @@
           <span class="option-row-title">Same-day appointment</span>
           <span class="option-row-description">Open slot at 3:45 PM with Dr. Soto.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
-      <button
-        type="button"
-        class="option-row is-other"
-        role="radio"
-        aria-checked="false"
-        tabindex="-1"
-        data-option-id="opt-5-other"
-        aria-expanded="false"
-        aria-controls="option-row-demo-5-other-textarea"
-      >
-        <span class="option-row-glyph" aria-hidden="true"></span>
-        <span class="option-row-content">
-          <span class="option-row-title">Other</span>
-          <span class="option-row-description">Type a different answer</span>
-        </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
-      </button>
+      <!-- .is-other is always wrapped in .option-row-other-wrapper, even when collapsed.
+           Wrapper is invisible (no chrome) when aria-checked="false"; takes on the
+           option-row's selected chrome when aria-checked="true". Structurally consistent
+           across collapsed and expanded states. -->
+      <div class="option-row-other-wrapper">
+        <button
+          type="button"
+          class="option-row is-other"
+          role="radio"
+          aria-checked="false"
+          tabindex="-1"
+          data-option-id="opt-5-other"
+          aria-expanded="false"
+        >
+          <span class="option-row-glyph" aria-hidden="true"></span>
+          <span class="option-row-content">
+            <span class="option-row-title">Other</span>
+            <span class="option-row-description">Type a different answer</span>
+          </span>
+        </button>
+      </div>
     </div>
     <!-- /component -->
   </div>
@@ -249,7 +240,6 @@
           <span class="option-row-title">Same-day appointment</span>
           <span class="option-row-description">Open slot at 3:45 PM with Dr. Soto.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <div class="option-row-other-wrapper">
         <button
@@ -267,8 +257,7 @@
             <span class="option-row-title">Other</span>
             <span class="option-row-description">Type a different answer</span>
           </span>
-          <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
-        </button>
+          </button>
         <label class="sr-only" for="option-row-demo-6-other-textarea">Tell us what fits better</label>
         <textarea
           id="option-row-demo-6-other-textarea"
@@ -294,7 +283,6 @@
           <span class="option-row-title">Heat to 165°F before plating</span>
           <span class="option-row-description">Internal temperature confirmed with probe.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row is-tablet-dense" role="radio" aria-checked="false" tabindex="-1" data-option-id="opt-7-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -302,7 +290,6 @@
           <span class="option-row-title">Plate cold and chill</span>
           <span class="option-row-description">Held at or below 40°F until delivery.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -320,7 +307,6 @@
           <span class="option-row-title">Send for review</span>
           <span class="option-row-description">Provider verifies before next step.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <button type="button" class="option-row" role="radio" aria-checked="false" aria-disabled="true" tabindex="-1" data-option-id="opt-8-b">
         <span class="option-row-glyph" aria-hidden="true"></span>
@@ -328,7 +314,6 @@
           <span class="option-row-title">Auto-approve</span>
           <span class="option-row-description">Unavailable for this referral type.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
     </div>
     <!-- /component -->
@@ -346,7 +331,6 @@
           <span class="option-row-title">Cita del mismo día</span>
           <span class="option-row-description">Hueco libre a las 3:45 PM con la Dra. Soto.</span>
         </span>
-        <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
       </button>
       <div class="option-row-other-wrapper">
         <button
@@ -364,8 +348,7 @@
             <span class="option-row-title">Otro</span>
             <span class="option-row-description">Escribe otra respuesta</span>
           </span>
-          <i class="fa-solid fa-check option-row-check" aria-hidden="true"></i>
-        </button>
+          </button>
         <label class="sr-only" for="option-row-demo-9-other-textarea">Cuéntanos qué se ajusta mejor</label>
         <textarea
           id="option-row-demo-9-other-textarea"

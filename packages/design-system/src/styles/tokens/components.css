@@ -10593,6 +10593,12 @@ a.list-group-item-action {
 .option-row[aria-checked="true"] .option-row-glyph {
     border-color: var(--color-accent-interactive);
     background-color: var(--color-accent-interactive);
+    /* Inset-ring pattern (mirrors pref-row line 5793) — creates the
+       classic radio-dot / filled-checkbox visual via box-shadow.
+       Provides a SHAPE cue independent of color (WCAG 1.4.1), so
+       the right-side check icon is redundant and was removed in the
+       Round 1.5 refactor 2026-05-11. */
+    box-shadow: inset 0 0 0 3px white;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -10635,42 +10641,69 @@ a.list-group-item-action {
 }
 
 /* ----------------------------------------------------------
-   option-row-check — check-icon, fade in on select
-   Triple-cued selection state #2: visible check icon.
-   (#3 — ring — is the [aria-checked] border treatment above.)
+   option-row.is-other — in-place expansion of the "Other" option
+   when selected. Wireframe line 160: "Reveal is in-place expansion
+   of the 'Other' option-row, NOT a modal or separate slot."
+
+   Structure: the .is-other button is wrapped in .option-row-other-wrapper.
+   When the button is unchecked, the wrapper has no chrome — invisible,
+   button + nothing else inside. When the button is checked, the wrapper
+   takes on the option-row's selected chrome (border + fill + rounded
+   corners); inner button + textarea lose individual chrome to appear
+   as one bounded surface. Round 1.5 refactor per Aaron's visual review
+   2026-05-11 (replaced sibling-below pattern with in-place expansion).
    ---------------------------------------------------------- */
 
-.option-row-check {
-    @apply text-lg opacity-0 shrink-0 mt-0.5;
-    color: var(--color-accent-interactive);
-    transition: opacity var(--duration-fast) var(--ease-default);
-}
-
-.option-row[aria-checked="true"] .option-row-check {
-    @apply opacity-100;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .option-row-check {
-        transition: none;
-    }
-}
-
-/* ----------------------------------------------------------
-   option-row.is-other — final option with reveal-on-select textarea
-   Tier 1 sub-primitive variant. No PL precedent for reveal-on-select
-   interaction; load-bearing for the agentic-question pattern.
-   ---------------------------------------------------------- */
-
+/* Default wrapper: transparent layout container. The button inside
+   carries its own option-row chrome when the wrapper is in this state. */
 .option-row-other-wrapper {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col;
 }
 
+/* When the inner .is-other is checked, the wrapper carries the chrome
+   and the inner button + textarea become visually nested inside it. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) {
+    @apply rounded-[5px] bg-sand-50 overflow-hidden;
+    border: 1px solid var(--color-accent-interactive);
+}
+
+/* When the wrapper is expanded, the inner button loses its individual
+   border and bg — the wrapper carries them. Click target + aria
+   semantics unchanged. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) > .option-row.is-other {
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+/* Prevent double-hover: wrapper carries the chrome; inner button hover
+   shouldn't add a second surface fill. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) > .option-row.is-other:hover {
+    background-color: transparent;
+}
+
+/* Focus ring moves to the wrapper so the bounded surface reads as one
+   focused element. */
+.option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) > .option-row.is-other:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.option-row-other-wrapper:has(.option-row.is-other:focus-visible) {
+    @apply ring-2 ring-primary-600;
+}
+
+/* Textarea — borderless, sits inside the wrapper below the button
+   content. Dashed top-border serves as a subtle separator inside
+   the bounded surface (reads as "still part of the option, separate
+   field"). */
 .option-row-other-textarea {
-    @apply w-full min-h-[2.75rem] px-3 py-2 rounded-[5px] text-body-03;
-    background-color: var(--color-surface-card);
+    @apply w-full min-h-[2.75rem] px-3 pb-3 pt-2 text-body-03;
+    background-color: transparent;
     color: var(--color-text-normal);
-    border: 1px solid var(--color-border-image);
+    border: none;
+    border-top: 1px dashed var(--color-sand-300);
+    border-radius: 0;
     resize: vertical;
 }
 
@@ -10679,8 +10712,8 @@ a.list-group-item-action {
 }
 
 .option-row-other-textarea:focus-visible {
-    @apply outline-none ring-2 ring-primary-600;
-    border-color: var(--color-accent-interactive);
+    @apply outline-none;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* ----------------------------------------------------------
@@ -10723,6 +10756,11 @@ a.list-group-item-action {
 .dark .option-row[aria-checked="true"] .option-row-glyph {
     background-color: var(--color-accent-interactive);
     border-color: var(--color-accent-interactive);
+    /* Dark-mode inset matches the row's surface (sand-900 default;
+       sand-800 hover) so the inset reads as a "hole" in the filled
+       glyph regardless of state. Using sand-900 is the safer default
+       — on hover the contrast against sand-800 is still visible. */
+    box-shadow: inset 0 0 0 3px var(--color-sand-900);
 }
 
 .dark .option-row-title {
@@ -10733,18 +10771,24 @@ a.list-group-item-action {
     color: var(--color-sand-300);
 }
 
-.dark .option-row-check {
-    color: var(--color-accent-interactive);
+/* Dark-mode in-place expansion: wrapper takes on sand-800 fill +
+   accent-interactive border when expanded. */
+.dark .option-row-other-wrapper:has(.option-row.is-other[aria-checked="true"]) {
+    background-color: var(--color-sand-800);
+    border-color: var(--color-accent-interactive);
 }
 
 .dark .option-row-other-textarea {
-    background-color: var(--color-sand-900);
-    border-color: var(--color-sand-700);
     color: var(--color-sand-100);
+    border-top-color: var(--color-sand-700);
 }
 
 .dark .option-row-other-textarea::placeholder {
     color: var(--color-sand-500);
+}
+
+.dark .option-row-other-textarea:focus-visible {
+    background-color: rgba(63, 57, 51, 0.5);
 }
 
 
