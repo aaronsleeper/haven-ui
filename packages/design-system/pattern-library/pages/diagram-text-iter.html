@@ -22,6 +22,23 @@
       </div>
 
       <!-- ============================================================
+           DECISION BANNER — Aaron 2026-05-10
+           ============================================================ -->
+      <div class="border-l-4 border-teal-500 bg-teal-50 p-4 rounded-r-md">
+        <p class="text-sm font-semibold text-teal-800 mb-1">DECISION (2026-05-10): Approach B (foreignObject) is the canonical convention.</p>
+        <p class="text-sm text-teal-900">
+          Diagrams need reliable text containment AND wrap. Approach A's silent-overflow
+          failure mode (visible in the stress test below) disqualifies it as a default —
+          unknown-future content length means real diagrams will break in production.
+          Approach A is retained on this page for comparison + the why-not record.
+          Trade-off accepted: foreignObject's static-asset-export quirks (rsvg / librsvg
+          may mis-render). Acceptable as long as Cena diagrams render in modern browsers
+          (haven-ui apps, vault HTML, slide-deck-via-browser-screenshot). Revisit and
+          consider Option 2 (hybrid by content type) if export issues bite.
+        </p>
+      </div>
+
+      <!-- ============================================================
            Scenario: substrate-style box with overline + heading + sublabel + pill.
            Mirrors the failure case Aaron caught on the diagrams page.
            Used as the same test scenario for both approaches.
@@ -371,19 +388,25 @@
         </div>
 
         <p class="text-sm text-sand-700 mt-6 max-w-2xl">
-          <strong>My read</strong>: A is the canonical answer for diagrams that ship as static
-          assets, are converted to PNG/PDF, embedded in slide decks, or rendered by anything
-          other than a current browser. B is the right answer if every consumer is a modern
-          browser AND the diagram lives in an HTML page (never exported, never embedded as
-          raster). For Cena's likely use cases (vault docs, slide decks, dashboards in apps),
-          A is the safer default — but the foot-guns need to be eliminated by spec convention,
-          not just discipline. The fix shipped in 7f2a086 is a model for the convention:
-          positioning attributes ALWAYS in markup, never in CSS.
+          <strong>Decision (Aaron 2026-05-10):</strong> Approach B is canonical. Reliable
+          containment + wrap is a hard requirement for diagram authoring — content length
+          is not known in advance, and silent overflow with no wrap means broken diagrams
+          in production. A's foot-gun is structural, not fixable by author discipline.
         </p>
         <p class="text-sm text-sand-700 mt-4 max-w-2xl">
-          A possible third path: A as the default, with B as an opt-in escape hatch for the
-          rare case where multi-line wrap is genuinely needed and the diagram won't be exported.
-          Spec section §10 (implementation notes) would name this hatch.
+          The trade-off accepted: foreignObject's static-asset export is quirky (rsvg /
+          librsvg / image-embedders may drop or mis-render). Acceptable because Cena's
+          diagrams are consumed by modern browsers (haven-ui apps, vault HTML, slide
+          decks via browser screenshot). If export-to-raster reliability becomes load-bearing
+          (e.g., for a client-facing PDF pipeline), revisit and consider the hybrid path:
+          A for fixed-size single-line labels, B for any text that might wrap.
+        </p>
+        <p class="text-sm text-sand-700 mt-4 max-w-2xl">
+          The substrate-bug fix shipped in 7f2a086 (text-anchor in markup not CSS) still
+          stands for any legacy SVG-text usage that hasn't migrated to foreignObject yet —
+          most importantly, the canonical <code>diagram-box.html</code> substrate variant.
+          Migration to foreignObject is a separate task; this iteration locks the convention
+          for new authoring.
         </p>
       </section>
 
