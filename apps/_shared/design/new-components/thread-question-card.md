@@ -467,9 +467,15 @@ Should never render in production — flag as bug telemetry. Consumer-app guards
 .thread-question-card {
     --thread-question-card-idle-opacity: 0.65;
 
-    @apply flex flex-col gap-3 w-full p-4 rounded-[8px] bg-surface-card;
+    /* Surface: explicit var(--color-sand-50) matches thread-approval-card
+       family register (Round 1 brand + steward verdict 2026-05-11).
+       Avoids bg-surface-card alias's drift risk vs the sibling hero. */
+    @apply flex flex-col gap-3 w-full p-4 rounded-[8px];
+    background-color: var(--color-sand-50);
     border: 1px solid var(--color-border-image);
-    border-left: 3px solid var(--color-primary-500);
+    /* 4px left border (was 3px) for family parity with thread-approval-card
+       — Round 1 brand verdict 2026-05-11. */
+    border-left: 4px solid var(--color-primary-500);
 }
 
 /* ----------------------------------------------------------
@@ -496,10 +502,12 @@ Should never render in production — flag as bug telemetry. Consumer-app guards
 
 /* Suggestion line (multi-select, when agent pre-selects).
    Per-instance Body/03 muted-tone copy. Promote to its own class
-   only if a third surface needs the same line. */
+   only if a third surface needs the same line. sand-700 (was sand-600)
+   so italic register reads as informational rather than decorative
+   metadata — Round 1 brand verdict 2026-05-11. */
 .thread-question-card-suggestion {
     @apply text-body-03 m-0 italic;
-    color: var(--color-sand-600);
+    color: var(--color-sand-700);
 }
 
 /* ----------------------------------------------------------
@@ -534,9 +542,16 @@ Should never render in production — flag as bug telemetry. Consumer-app guards
    ---------------------------------------------------------- */
 
 .thread-question-card.is-historical {
+    /* Background sand-50 already set on base after Round 1 surface-token alignment;
+       explicit redeclaration kept for structural parity with .dark .is-historical. */
     background-color: var(--color-sand-50);
-    border-left-color: var(--color-sand-400);
-    opacity: 0.85;
+    /* sand-600 (was sand-400) to clear WCAG 1.4.11 against sand-50 surface
+       (sand-400 = 1.93:1 FAIL; sand-600 = 3.61:1 PASS) — Round 1 a11y
+       verdict 2026-05-11. */
+    border-left-color: var(--color-sand-600);
+    /* opacity 0.70 (was 0.85) for family parity with thread-approval-card.is-historical
+       — Round 1 steward verdict 2026-05-11. */
+    opacity: 0.70;
 }
 
 .thread-question-card.is-historical .option-row {

@@ -13,7 +13,7 @@ classes:
   - thread-question-card.is-historical
 when-to-use: Use when an agent poses a structured single-select or multi-select question requiring a user commit. Render inline in the thread pane (desktop) or as a bottom-sheet overlay (mobile). Use `.is-idle` after 90s of no interaction; `.is-historical` for read-only thread-history rendering.
 preline: false (composes bottom-sheet-panel which uses data-hs-overlay in Variants 4+5)
-notes: Tier 2 novel composition primitive for the agentic-question pattern. Parallels thread-approval-card. Composes option-row + sticky-footer + ai-insight-callout + badge-pill. Pin priority via data-pin-priority attribute (cross-primitive thread-renderer-policy concern).
+notes: Tier 2 novel composition primitive for the agentic-question pattern. Parallels thread-approval-card. Composes option-row + sticky-footer + ai-insight-callout + badge-pill. Pin priority via data-pin-priority attribute (cross-primitive thread-renderer-policy concern). Round 1 (2026-05-11) deferred feel-test verdicts captured here: (a) `ai-insight-callout` recommendation prose + inline `.badge-info.option-row-recommended` on a specific option-row are REINFORCING (callout = explanatory prose register; badge = scannable inline anchor on the option). Different read-order layers — not redundant. Default: both render together in single-recommend contexts. (b) Per-option numbered keybinding hints (e.g. `<kbd>1</kbd>` next to each option title) are NOT rendered in the primitive PL — consumer wires them per surface. Submit's `aria-keyshortcuts="1"` + `cmd-palette-shortcut` indicator is the only digit-binding shown here (binds to Submit, not to a specific option). Round 1 verdicts also drove: surface align to explicit `bg-sand-50`, opacity 0.70 (was 0.85), left border 4px (was 3px) — all for family parity with thread-approval-card. Historical left-border bumped sand-400 → sand-600 to clear WCAG 1.4.11 against sand-50 surface (was 1.93:1; now 3.61:1).
 -->
 
 <section class="pl-page">
@@ -84,7 +84,12 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 <span class="option-row-description">Send to the care team for a human decision before matching.</span>
               </span>
             </button>
-            <!-- .is-other always wrapped in .option-row-other-wrapper -->
+            <!-- .is-other always wrapped in .option-row-other-wrapper.
+                 aria-controls below points to the textarea id that will be
+                 rendered when this option is selected. In the collapsed
+                 state shown here, the textarea is not in the DOM; the
+                 attribute documents the binding that the consumer wires
+                 when expanding. Round 1 a11y + steward verdict 2026-05-11. -->
             <div class="option-row-other-wrapper">
               <button
                 type="button"
@@ -94,6 +99,7 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 tabindex="-1"
                 data-option-id="tqc-v1-other"
                 aria-expanded="false"
+                aria-controls="tqc-v1-other-textarea"
               >
                 <span class="option-row-glyph" aria-hidden="true"></span>
                 <span class="option-row-content">
@@ -190,6 +196,7 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 tabindex="-1"
                 data-option-id="tqc-v1-es-other"
                 aria-expanded="false"
+                aria-controls="tqc-v1-es-other-textarea"
               >
                 <span class="option-row-glyph" aria-hidden="true"></span>
                 <span class="option-row-content">
@@ -249,7 +256,9 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
             Several ingredients in this week's meal plan are out of stock. Which substitutions should I apply?
           </p>
 
-          <!-- Pre-selection suggestion line — above option-row-list when agent pre-selects -->
+          <!-- Pre-selection suggestion line — above option-row-list when agent pre-selects.
+               Round 1 brand verdict 2026-05-11: sand-700 (not sand-600) so italic register
+               reads as informational rather than decorative metadata. -->
           <p class="thread-question-card-suggestion">Ava suggested these. Edit and submit when ready.</p>
 
           <div
@@ -257,6 +266,11 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
             role="group"
             aria-labelledby="tqc-v2-prompt"
           >
+            <!-- Single agent pre-selection. Round 1 a11y verdict 2026-05-11: prior PL
+                 had both rows pre-selected, creating ambiguity about which option the
+                 Submit's aria-keyshortcuts="1" maps to. Single pre-selection demonstrates
+                 the agent-suggested case without conflating digit-on-Submit (Submit form
+                 with current selection) and per-option digit binding (consumer-side). -->
             <button type="button" class="option-row" role="checkbox" aria-checked="true" tabindex="0" data-option-id="tqc-v2-a">
               <span class="option-row-glyph" aria-hidden="true"></span>
               <span class="option-row-content">
@@ -264,7 +278,7 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 <span class="option-row-description">Equivalent garnish; patient has no documented aversion.</span>
               </span>
             </button>
-            <button type="button" class="option-row" role="checkbox" aria-checked="true" tabindex="-1" data-option-id="tqc-v2-b">
+            <button type="button" class="option-row" role="checkbox" aria-checked="false" tabindex="-1" data-option-id="tqc-v2-b">
               <span class="option-row-glyph" aria-hidden="true"></span>
               <span class="option-row-content">
                 <span class="option-row-title">Replace brown rice with quinoa</span>
@@ -278,6 +292,28 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 <span class="option-row-description">Patient noted texture sensitivity in last check-in.</span>
               </span>
             </button>
+            <!-- .is-other always wrapped in .option-row-other-wrapper.
+                 Round 1 ux-lead verdict 2026-05-11: Variant 2 (multi-select) was missing
+                 the .is-other row; wireframe specifies it should appear in every variant
+                 with an "Other" option. -->
+            <div class="option-row-other-wrapper">
+              <button
+                type="button"
+                class="option-row is-other"
+                role="checkbox"
+                aria-checked="false"
+                tabindex="-1"
+                data-option-id="tqc-v2-other"
+                aria-expanded="false"
+                aria-controls="tqc-v2-other-textarea"
+              >
+                <span class="option-row-glyph" aria-hidden="true"></span>
+                <span class="option-row-content">
+                  <span class="option-row-title">Other</span>
+                  <span class="option-row-description">Type a different answer</span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -304,6 +340,10 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
     <p class="pl-description">
       Composes <code>bottom-sheet-panel</code>. Sticky-footer is a sibling of <code>bottom-sheet-body</code> (pinned to panel root, NOT inside scroll context).
     </p>
+    <!-- Focus-trap implementation: consumer-side via Preline data-hs-overlay JS +
+         consumer-managed focus return on close. The PL example is inert HTML;
+         the primitive provides role="dialog" + aria-modal scaffolding only.
+         Round 1 a11y verdict 2026-05-11. -->
     <div class="max-w-[420px]">
       <div
         class="bottom-sheet-panel"
@@ -356,7 +396,12 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 <span class="option-row-description">Delivered in time for dinner.</span>
               </span>
             </button>
-            <!-- .is-other always wrapped in .option-row-other-wrapper -->
+            <!-- .is-other always wrapped in .option-row-other-wrapper.
+                 aria-controls below points to the textarea id that will be
+                 rendered when this option is selected. In the collapsed
+                 state shown here, the textarea is not in the DOM; the
+                 attribute documents the binding that the consumer wires
+                 when expanding. Round 1 a11y + steward verdict 2026-05-11. -->
             <div class="option-row-other-wrapper">
               <button
                 type="button"
@@ -366,6 +411,7 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 tabindex="-1"
                 data-option-id="tqc-v4-other"
                 aria-expanded="false"
+                aria-controls="tqc-v4-other-textarea"
               >
                 <span class="option-row-glyph" aria-hidden="true"></span>
                 <span class="option-row-content">
@@ -404,11 +450,20 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
         aria-labelledby="tqc-idle-prompt"
         data-pin-priority="2"
       >
+        <!-- Idle header omits the Ava avatar — the "asking agent" identity is implicit
+             from the badge-pill class chip alone. This is the no-avatar idle form;
+             consumers may render the in-flight header with avatar present if their
+             surface requires explicit agent attribution. Round 1 ux-lead verdict
+             2026-05-11. -->
         <div class="thread-question-card-header">
           <span class="badge-pill">Match referral</span>
         </div>
         <div class="thread-question-card-body">
-          <!-- Description body collapsed; one-line summary in its place -->
+          <!-- Description body collapsed; one-line summary in its place.
+               aria-labelledby on the section above (line ~446) points to this summary
+               element — deliberate: in the idle state the summary IS the accessible
+               name; AT reads "Question from Ava: Match referral" as the region label.
+               Round 1 ux-lead verdict 2026-05-11. -->
           <p id="tqc-idle-prompt" class="thread-question-card-summary">Question from Ava: Match referral</p>
         </div>
         <!-- Footer hidden in idle state (primitive default: hidden) -->

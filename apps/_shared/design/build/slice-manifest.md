@@ -228,17 +228,46 @@ For visual review by Aaron before panel dispatch (surfaced by haven-pl-qa):
 3. Bottom-sheet sticky-footer pinning under iOS Safari address-bar collapse (Variant 4)
 4. `.is-historical` muted treatment (sand-50 surface + sand-400 left border + 0.85 opacity) reads as "past, not actionable"
 
-Panel placeholders below; will run after Aaron's visual gate.
+Panel dispatched 2026-05-11. Original opus dispatch hit quota; re-dispatched on sonnet (4 verdicts captured). Sonnet escalation flags from agents addressed inline — brand reviewer's sonnet pass covered the items steward + ux-lead flagged for opus depth.
 
-- **design-system-steward:** [ship / iterate / block] — [one-line summary]
-- **ux-design-lead:** [ship / iterate / block] — [...]
-- **accessibility:** [ship / iterate / block, WCAG pass/conditional/fail] — [...]
-- **brand-fidelity:** [ship / iterate / block] — [...]
+- **design-system-steward:** iterate — three concrete issues: surface token divergence (`bg-surface-card` vs sibling's `bg-sand-50`); `.is-historical` opacity mismatch (0.85 vs sibling's 0.70); missing `aria-controls` on `.is-other` PL examples.
+- **ux-design-lead:** iterate — three items in single follow-up pass: idle `aria-labelledby` resolves to summary not prompt (annotate as deliberate); idle avatar omission (single example = cargo-cult; annotate or add second variant); no `.is-other` row in Variant 2 multi-select (wireframe says present in every variant). Plus low-priority: deferred feel-tests (callout/badge co-existence, keybinding hint visibility) unresolved as explicit verdicts.
+- **accessibility:** iterate, WCAG conditional — one hard fail: `sand-400` historical left-border on sand-50 = 1.93:1 (need ≥3:1; bump to sand-600 at 3.61:1). Plus: `aria-keyshortcuts="1"` ambiguity in Variant 2 multi-select with both rows pre-selected; missing `aria-controls` (convergent with steward); focus-trap consumer-side note missing from Variant 4 comment block.
+- **brand-fidelity:** ship-with-iterate, 8.5/10 — feel test mostly yes. Surface token alias creates latent drift vs sibling (recommend explicit `bg-sand-50`); 3px vs 4px left border delta vs sibling (4px) — intentional tier signal or incidental?; suggestion line italic sand-600 may read as decorative metadata (consider sand-700); no Lora serif anywhere in card (wireframe-chosen body copy on prompt — defensible, but card carries no serif warmth vs sibling's Lora `h3`).
 
-### Pre-build check retrospective (Round 1 — thread-question-card)
+### Convergence — issues flagged by multiple reviewers
 
-For each reviewer's `iterate` or `block` verdict, answer:
-- **Would `plan-readiness` have caught this pre-build?** [yes / no / partially] — [one-line why]
+- **Missing `aria-controls` on `.is-other`** (steward + a11y) — both flagged. Resolved in iteration: 3 instances now carry `aria-controls="tqc-{variant}-other-textarea"` placeholder + inline HTML comment documenting consumer-side binding pattern.
+- **Surface token divergence + opacity mismatch + border-width delta** (steward + brand) — all three are family-parity questions against thread-approval-card. Aaron's verdict 2026-05-11: align all three (explicit `bg-sand-50`, opacity 0.70, border 4px). Resolved in iteration.
+
+### Iteration cycle applied (commit `[next sha]`)
+
+13 items landed in one patch cycle per Aaron's verdict 2026-05-11:
+
+1. WCAG 1.4.11: `.is-historical` border-left-color sand-400 → sand-600 (3.61:1 PASS)
+2. Surface alignment: base `@apply bg-surface-card` → explicit `background-color: var(--color-sand-50)` (family parity)
+3. `.is-historical` opacity 0.85 → 0.70 (family parity)
+4. Left border 3px → 4px (family parity)
+5. Suggestion line sand-600 → sand-700 (informational over decorative-metadata read)
+6. `aria-controls` placeholder added on all 4 `.is-other` instances (Variants 1, 1-es, 2, 4) + HTML comment explaining the binding documents the consumer-side wiring
+7. Variant 2 pre-selection reset to single option (keyshortcuts ambiguity resolved; digit-on-Submit semantics no longer conflate with per-option digit binding)
+8. Variant 2 multi-select now includes `.is-other` row
+9. Idle state HTML comments added: `aria-labelledby` → summary is deliberate; avatar omission is the optional form
+10. Variant 4 focus-trap consumer-side note added to comment block
+11. Feel-test verdicts recorded inline in `@component-meta notes`: (a) `ai-insight-callout` + `(Recommended)` badge are REINFORCING (callout = prose register; badge = inline anchor — different read-order layers); (b) per-option numbered keybinding hints NOT rendered in primitive PL (consumer-side per surface)
+12. Lora absence: NOT addressed — wireframe explicitly chose body copy for prompt; deferred to a future feel-test if the card needs more serif warmth
+13. Suggestion line visibility: addressed via #5 (sand-700 bump)
+
+Spec (`thread-question-card.md`) updated to match: CSS Definition block + Accessibility Notes references.
+
+### Pre-build check retrospective (Round 1)
+
+- **steward (3 iterate items):** partially — surface-token-intent gap could be caught by a "spec must declare canonical surface token explicitly when paralleling a sibling primitive" check. Opacity + aria-controls are translation gaps from spec → PL.
+- **a11y (1 fail + iterate items):** partially — the historical contrast pair was named in spec's PL Authoring Checklist (`conform:contrast-pairs`) but without expected ratio; the gate as-written would have caught the fail on first run. Candidate plan-readiness extension: contrast pairs in spec must declare expected ratios.
+- **ux-lead (3 items):** partially — the idle-state `aria-labelledby` ambiguity is structural (annotated as deliberate post-Round 1); the missing `.is-other` in Variant 2 is a wireframe-vs-PL completeness check candidate (also surfaced in option-row Round 2 as a general plan-readiness extension).
+- **brand (1 iterate item):** yes — spec was the build; the `bg-surface-card` alias was the only gap a spec-level "explicit surface declaration for paralleling primitives" check could have caught.
+
+**Net signal for plan-readiness calibration:** the 3-item plan-readiness candidate extensions from option-row's slice (state-specific contrast pair check; open-question tracing; wireframe-vs-PL completeness) would have caught at least 5 of the 13 iterate items in this Round. The extensions are increasingly worth shipping; tracked in `~/.claude/plans/bmad-pilots-implementation.md` (pending — out of scope this slice).
 
 ---
 
