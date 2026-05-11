@@ -35,7 +35,22 @@ Future consumers will require steward review before reuse — this primitive is 
 
 ## Preline Base
 
-**None.** Pure Tailwind + semantic-class implementation. Selection state is React/JSX-driven via `aria-checked` toggle; roving tabindex is consumer-side state (handled by `option-row-list` slot inside `thread-question-card`).
+**None.** Pure Tailwind + semantic-class implementation.
+
+**Primitive-owned behavior** (shipped as `src/scripts/components/option-row.js`; referenced from any fragment carrying option-row markup):
+- Click → toggle `aria-checked` on the clicked option (single-select clears siblings; multi-select toggles independently). This is the universal radio/checkbox contract; haven-ui's framework-agnostic primitive carries it.
+- `.is-other` `aria-expanded` follows `aria-checked` on the same button.
+- Skip clicks on `aria-disabled="true"` and on rows inside `.thread-question-card.is-historical` (read-only thread-history).
+
+**Consumer-owned behavior** (NOT in the primitive script; consumer wires per surface):
+- Initial selection state (mounted `aria-checked` values per agent payload).
+- Persistence / Submit handling.
+- Roving tabindex policy (which option holds `tabindex="0"` after focus moves).
+- Custom keyboard handlers (arrow keys, type-ahead, digit-shortcuts).
+- Focus return after sheet close.
+- Rendering / removal of the `.is-other` textarea (the primitive flips `aria-expanded`; consumer maps that to conditional render).
+
+The React port will manage state via React's idiomatic patterns and does not load the script; the React component's behavioral contract is identical to the vanilla primitive (clicked option becomes checked; siblings clear in single-select).
 
 `role="radio"` and `role="checkbox"` are WAI-ARIA Radio Group + Checkbox patterns (W3C WAI-ARIA APG); not Preline behavior.
 

@@ -1,27 +1,35 @@
 /*
- * option-row interactive demo handler — PL preview only.
+ * option-row interactive behavior — primitive-level click-to-toggle.
  *
- * The option-row primitive ships as static HTML; selection state is
- * consumer-managed (per spec, "Roving tabindex is consumer-side state,
- * not a primitive concern"). For the PL preview, this script makes
- * the demos respond to clicks so reviewers can see selection-state
- * transitions without running a consumer-app.
+ * The option-row primitive's universal contract: clicking an unchecked
+ * option-row checks it. In single-select context (option-row-list
+ * carries role="radiogroup") siblings clear; in multi-select context
+ * (role="group") the clicked option toggles independently.
  *
- * Behavior:
- * - Single-select (`option-row-list[role="radiogroup"]`): clicking an
- *   option-row sets its `aria-checked="true"` and clears all siblings
- *   to `aria-checked="false"`. `.is-other` button also flips
- *   `aria-expanded` to mirror `aria-checked`.
- * - Multi-select (`option-row-list[role="group"]`): clicking an
- *   option-row toggles its own `aria-checked`. `.is-other` also
- *   toggles `aria-expanded`.
- * - Skip if the clicked option-row has `aria-disabled="true"`.
- * - Skip entirely if the option-row sits inside a `.thread-question-
- *   card.is-historical` ancestor (read-only thread-history rendering).
+ * This script is part of the haven-ui PL primitive, NOT a preview
+ * affordance. Consumers in any framework (vanilla, future Angular,
+ * etc.) inherit this behavior by referencing this script alongside
+ * the option-row HTML. The React port manages selection via React
+ * state and does not load this script — but the behavioral contract
+ * (clicked option becomes checked; siblings clear in single-select)
+ * is the same.
  *
- * Real consumer apps replace this with React state (or framework
- * equivalent). This script is PL-preview-only and is referenced from
- * `pl-scripts.html`, not from any consuming-app entry script.
+ * Consumer-side concerns NOT handled here (per option-row spec):
+ *   - Initial selection state (mounted aria-checked values)
+ *   - Persistence / Submit handling
+ *   - Roving tabindex policy customization
+ *   - Custom keyboard handlers (arrow keys, type-ahead, etc.)
+ *   - Focus return after sheet close
+ *
+ * `.is-other` reveal: this script flips `aria-expanded` to mirror
+ * `aria-checked`. Rendering / removal of the textarea below remains
+ * consumer-managed (the static PL fragment doesn't mount/unmount
+ * the textarea; React port maps aria-expanded to conditional render).
+ *
+ * Skip conditions:
+ *   - aria-disabled="true" on the button → no toggle
+ *   - Ancestor `.thread-question-card.is-historical` → primitive is
+ *     in read-only thread-history rendering; ignore all clicks
  */
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
@@ -40,7 +48,6 @@
         var isSingleSelect = role === 'radiogroup';
 
         if (isSingleSelect) {
-          // Clear all siblings, then set clicked.
           list.querySelectorAll('.option-row').forEach(function (sibling) {
             sibling.setAttribute('aria-checked', 'false');
             if (sibling.classList.contains('is-other')) {
@@ -52,7 +59,6 @@
             button.setAttribute('aria-expanded', 'true');
           }
         } else if (isMultiSelect) {
-          // Toggle the clicked option independently.
           var nowChecked = button.getAttribute('aria-checked') !== 'true';
           button.setAttribute('aria-checked', nowChecked ? 'true' : 'false');
           if (button.classList.contains('is-other')) {
