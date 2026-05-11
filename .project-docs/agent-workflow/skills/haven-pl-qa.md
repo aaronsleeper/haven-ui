@@ -172,6 +172,10 @@ Tab order and screen-reader reading order follow DOM order. If visual CSS (flex/
 
 ### Integration checks
 
+**N/A IS NOT PERMITTED FOR INT-03 OR INT-04 WHEN THE COMPONENT IS A NEW PL FRAGMENT.** PL component HTML files (`pattern-library/components/{name}.html`) are intentional fragments — no `<head>`, no charset, no CSS link. They are unreviewable in isolation. Any QA pass on a new PL fragment MUST verify that `pages/{name}.html` and the `pl-nav.html` entry exist, otherwise INT-03 and INT-04 are FAIL (not N/A). If you find yourself reaching for N/A on either check, the task was incomplete — the slice cannot ship until the wrapper page exists. Source incident: agentic-question slice Task 01 (2026-05-11) — the QA agent granted N/A on both checks based on a literal reading of the task prompt; Aaron loaded the URL and saw raw unstyled buttons with mojibake. The skill text (then) implied PASS/FAIL only; the agent inferred an N/A path. This block exists to close that loophole structurally.
+
+The only exception: tasks that ONLY edit an existing `components/{name}.html` (no new fragment) — the existing page already wires the chrome, so INT-03/INT-04 verify the EXISTING entries, not new ones.
+
 **INT-01: `COMPONENT-INDEX.md` row added**
 New row present in the correct section with all columns filled.
 - PASS: Row present
@@ -183,14 +187,14 @@ Row marked `built` (not `missing` or `in-progress`).
 - FAIL: Status not updated
 
 **INT-03: Nav link in `pl-nav.html`**
-Link present in the correct section.
-- PASS: Link present
-- FAIL: Link missing or in wrong section
+Link present in the correct section. For new PL fragments, the entry must be added under one of the registered sections (Foundations / Primitives / Patterns / Components / Reference) with an appropriate FA Pro icon.
+- PASS: Link present in correct section with icon
+- FAIL: Link missing, in wrong section, or icon missing — **N/A IS NOT A VALID VERDICT FOR NEW PL FRAGMENTS** (per the block at the top of Integration checks)
 
-**INT-04: Page uses `<load>` tag**
-Component loaded via `<load src="../components/{name}.html" />` — not inlined.
-- PASS: Correct
-- FAIL: Component markup inlined directly
+**INT-04: Page wrapper uses `<load>` tag**
+The component is loaded via `<load src="../components/{name}.html" />` from within `pattern-library/pages/{name}.html` — not inlined. For new PL fragments, the page wrapper file must exist and mirror the `chat-tag-group.html` pattern: pl-head + pl-nav + the component + pl-scripts.
+- PASS: Page wrapper exists and uses `<load>` correctly
+- FAIL: Page wrapper missing entirely, or component markup inlined into a page, or wrapper missing one of the four `<load>` directives — **N/A IS NOT A VALID VERDICT FOR NEW PL FRAGMENTS** (per the block at the top of Integration checks)
 
 **INT-05: Dev server renders without error**
 Visit `http://localhost:5173/packages/design-system/pattern-library/pages/{name}.html`. Page loads, no JS console errors, Preline components initialize correctly.

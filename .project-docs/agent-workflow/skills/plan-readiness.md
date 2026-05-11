@@ -125,6 +125,21 @@ Generative copy (empty states, labels, microcopy) must come verbatim from `apps/
 - Concern: a deterministic task introduces copy not found in review-notes.md — may be a minor variant but should be flagged.
 - Fail: generative copy not sourced from review-notes.md AND no upstream generative task creates it.
 
+### 9. PL fragment reviewability (hard)
+
+Every new PL component fragment introduced in the slice must ship with its preview page wrapper and nav entry. PL component HTML files (`pattern-library/components/{name}.html`) are intentional fragments — no `<head>`, no charset, no CSS link — and are unreviewable in isolation without a `pages/{name}.html` wrapper that injects the PL chrome (per `chat-tag-group.html` precedent: `<load src=...>` for pl-head + pl-nav + component + pl-scripts).
+
+For each new `components/{name}.html` referenced in any build prompt, verify the same task or an earlier task in the sequence also:
+- Creates `pattern-library/pages/{name}.html`
+- Adds a nav entry to `pattern-library/partials/pl-nav.html` (with appropriate FA Pro icon + section placement)
+
+Tasks that ONLY edit an existing `components/{name}.html` (no new fragment) are exempt — the existing page already wires the chrome.
+
+- Pass: every new fragment has both `pages/` and `pl-nav.html` artifacts in the task sequence.
+- Fail: any new fragment is missing either artifact. Do not downgrade to a concern — a primitive that can't be visually reviewed by Aaron is structurally incomplete.
+
+Source incident: Task 01 of the agentic-question slice (2026-05-11) shipped `option-row.html` as a fragment without `pages/` or nav entry. The QA agent marked INT-03/INT-04 as N/A based on Task 01's literal scope. Aaron could not load the rendered page for review — the fragment loaded standalone produced raw browser-default buttons with mojibake on em-dashes and Spanish accents. A follow-up commit (`d070ee6`) added the wrapper. This check exists so the failure mode is blocked structurally.
+
 ## Output format
 
 ```markdown
@@ -150,6 +165,7 @@ Generative copy (empty states, labels, microcopy) must come verbatim from `apps/
 | 6 | Scope declaration | pass/concern/fail | [one line] |
 | 7 | Decisions-log rules | pass/concern/fail | [one line] |
 | 8 | Copy verbatim | pass/concern/fail | [one line] |
+| 9 | PL fragment reviewability | pass/fail | [one line] |
 
 ### Concerns (if any)
 - [Concern] — suggested resolution: [what Aaron can do now or defer]
@@ -170,7 +186,7 @@ Proceeding to `/build` first task.
 
 ## Decision rules for the verdict
 
-- Any **fail** on checks 1–5 (the hard checks) → NOT-READY.
+- Any **fail** on checks 1–5 or check 9 (the hard checks) → NOT-READY.
 - Any **fail** on checks 6–8 (the soft checks) → CONCERNS (not NOT-READY).
 - Any **concern** on any check with no fails → CONCERNS.
 - All pass → READY.

@@ -32,6 +32,7 @@ If a task cannot be cleanly classified, STOP. Route back to `haven-mapper` (if t
 6. **Pattern Library first.** New components must be added to the pattern library before (or in the same task as) their first use in an app page.
 7. **Refuse to reference unknown classes.** Before emitting a build prompt, scan `packages/design-system/src/styles/tokens/components.css` and `packages/design-system/pattern-library/COMPONENT-INDEX.md`. If the prompt would reference a semantic class that does not exist in either source, STOP. Report the missing class(es) and route back to `haven-mapper` to create the spec. Do not silently proceed — silent referencing of unknown classes is the drift mode we are structurally blocking.
 8. **Tag every task.** Generative or deterministic. Never both. Never unclassified. See the classification section above.
+9. **PL fragments ship with their preview page + nav entry, in the same task.** PL component HTML files (`pattern-library/components/{name}.html`) are intentional fragments — no `<head>`, no charset, no CSS link. They are unreviewable in isolation; they need a wrapper page that injects the PL chrome. Any task that creates a new `components/{name}.html` MUST also (a) create `pattern-library/pages/{name}.html` mirroring the `chat-tag-group.html` pattern (`<load src=...>` on pl-head, pl-nav, the component, pl-scripts) and (b) add a nav entry to `pattern-library/partials/pl-nav.html` under the appropriate section (Foundations / Primitives / Patterns / Components / Reference). A primitive that can't be visually reviewed by Aaron is structurally incomplete; ship-and-defer-the-wrapper produces unreviewable work and is forbidden. Carve-out: tasks that ONLY edit an existing `components/{name}.html` (no new fragment) don't need a new page — the existing page is already wired.
 
 ## haven-ui Path Conventions
 
@@ -140,8 +141,11 @@ If a task needs >50 lines of instruction, it's too big. Split it.
 
 ## Verification
 - [ ] [e.g., "class `.meal-card` exists in `packages/design-system/src/styles/tokens/components.css`"]
-- [ ] [e.g., "pattern library file `packages/design-system/pattern-library/components/cards-meal.html` exists with `@component-meta` header"]
+- [ ] [e.g., "pattern library fragment `packages/design-system/pattern-library/components/cards-meal.html` exists with `@component-meta` header"]
 - [ ] [e.g., "`packages/design-system/pattern-library/COMPONENT-INDEX.md` has a row for `.meal-card`"]
+- [ ] **If this task creates a new PL fragment:** preview page `packages/design-system/pattern-library/pages/{name}.html` exists, mirrors the `chat-tag-group.html` pattern (`<load src="../partials/pl-head.html" />` + `<load src="../partials/pl-nav.html" />` + `<load src="../components/{name}.html" />` + `<load src="../partials/pl-scripts.html" />`)
+- [ ] **If this task creates a new PL fragment:** nav entry in `packages/design-system/pattern-library/partials/pl-nav.html` is added in the appropriate section
+- [ ] **If this task creates a new PL fragment:** the fragment is loadable in the PL preview with full PL chrome at `http://localhost:5173/pattern-library/pages/{name}.html` — verify the page renders with CSS applied (not as a raw fragment) and Spanish/em-dash characters render without mojibake (no `â€"`, `Ã¡`, etc.)
 - [ ] [e.g., "page renders at http://localhost:5173/apps/patient/meals/index.html without errors"]
 - [ ] HTML classes are semantic -- no utility chains
 - [ ] Any new class in `components.css` that uses only raw CSS properties has `@apply block;` as its first line
