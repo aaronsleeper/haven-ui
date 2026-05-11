@@ -60,6 +60,7 @@ The card itself is React/JSX-driven for: selection state, roving tabindex, idle 
 | `.thread-question-card-body` | Slot | Prompt body + optional recommendation callout + option-row-list |
 | `.thread-question-card-prompt` | Slot | Body/02 prose (the question text); receives `id` for `aria-labelledby` from option-row-list |
 | `.thread-question-card-summary` | Slot (idle-state only) | One-line summary rendered in `.is-idle`; replaces description body |
+| `.thread-question-card-actions` | Slot | Card-internal footer (Round 1.6 refactor 2026-05-11). Natural-flow flex footer at the bottom of the card with `border-top: 1px solid sand-200`, paralleling `.thread-approval-actions`. NOT the patient-app `.sticky-footer` (which is `position: fixed` + `bottom: 64px` to clear the mobile bottom-nav and is the wrong primitive for this inline-card composition). |
 | `.thread-question-card.is-historical` | Variant | Read-only thread-history rendering; muted; no Submit, no select, no Other-reveal |
 | `.thread-question-card.is-idle` | Variant | After 90s no focus/interaction: collapses description to one-line summary + dims via opacity reduction |
 
@@ -68,7 +69,7 @@ The card itself is React/JSX-driven for: selection state, roving tabindex, idle 
 - `.option-row` + `.option-row-list` (Tier 1 dependency; see companion spec)
 - `.badge-pill` — question class chip (per-instance; promotion to `.is-question-class` deferred to second consumer)
 - `.ai-insight-callout` + `.ai-insight-callout-icon` — recommendation register
-- `.sticky-footer` + `.sticky-footer-inner` + `.sticky-footer-actions` — footer composition
+- (no shared footer primitive composed — Round 1.6 refactor 2026-05-11 introduced `.thread-question-card-actions` as a card-internal slot paralleling `.thread-approval-actions`; the patient-app `.sticky-footer` is `position: fixed + bottom: 64px` and is the wrong primitive for this inline-card composition)
 - `.btn-primary` + `.btn-block` — Submit button
 - `.btn-loading` + `.btn-spinner` — Submit in-flight state
 - `.text-link` — cancel hint ("Esc to cancel")
@@ -105,7 +106,9 @@ The card itself is React/JSX-driven for: selection state, roving tabindex, idle 
   <!-- Header zone -->
   <div class="thread-question-card-header">
     <span class="badge-pill">Match referral</span>
-    <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+    <span class="avatar avatar-xs" aria-label="Ava">
+      <i class="fa-solid fa-sparkle avatar-icon" aria-hidden="true"></i>
+    </span>
   </div>
 
   <!-- Body zone -->
@@ -153,10 +156,8 @@ The card itself is React/JSX-driven for: selection state, roving tabindex, idle 
     </div>
   </div>
 
-  <!-- Footer zone — composes sticky-footer -->
-  <div class="sticky-footer">
-    <div class="sticky-footer-inner">
-      <div class="sticky-footer-actions">
+  <!-- Footer zone — .thread-question-card-actions (natural-flow flex footer at the bottom of the card; parallels .thread-approval-actions) -->
+  <div class="thread-question-card-actions">
         <button
           type="button"
           class="btn-primary btn-block"
@@ -167,8 +168,6 @@ The card itself is React/JSX-driven for: selection state, roving tabindex, idle 
           Submit answer
         </button>
         <span class="text-link" aria-hidden="true">Esc to cancel</span>
-      </div>
-    </div>
   </div>
 </section>
 ```
@@ -299,12 +298,8 @@ The `.thread-question-card-preview` wrapper is per-instance — no new class on 
   </div>
 
   <!-- Sticky footer pinned to bottom-sheet-panel ROOT (sibling of body, NOT inside body's scroll context) -->
-  <div class="sticky-footer">
-    <div class="sticky-footer-inner">
-      <div class="sticky-footer-actions">
+  <div class="thread-question-card-actions">
         <button type="button" class="btn-primary btn-block" disabled>Submit answer</button>
-      </div>
-    </div>
   </div>
 </div>
 ```
@@ -342,12 +337,8 @@ Two bottom-sheet invocations swap in/out:
     <!-- info-panel or code-view, same as Variant 3 detail pane -->
   </div>
 
-  <div class="sticky-footer">
-    <div class="sticky-footer-inner">
-      <div class="sticky-footer-actions">
+  <div class="thread-question-card-actions">
         <button type="button" class="btn-primary btn-block">Choose this option</button>
-      </div>
-    </div>
   </div>
 </div>
 ```
@@ -565,6 +556,21 @@ Should never render in production — flag as bug telemetry. Consumer-app guards
 }
 
 /* ----------------------------------------------------------
+   Actions footer — paralleling .thread-approval-actions.
+   Natural-flow flex footer at the bottom of the card, NOT a
+   viewport-fixed sticky-footer (the patient-app .sticky-footer
+   class is position: fixed + bottom: 64px to clear the mobile
+   bottom-nav — wrong primitive for this composition). Round 1.6
+   refactor 2026-05-11 after Aaron caught the viewport-floated
+   footer in PL preview.
+   ---------------------------------------------------------- */
+
+.thread-question-card-actions {
+    @apply flex flex-wrap items-center justify-between gap-2 px-4 py-3;
+    border-top: 1px solid var(--color-sand-200);
+}
+
+/* ----------------------------------------------------------
    Dark mode
    All color properties redeclared — no implicit inheritance.
    ---------------------------------------------------------- */
@@ -590,6 +596,10 @@ Should never render in production — flag as bug telemetry. Consumer-app guards
 .dark .thread-question-card.is-historical {
     background-color: var(--color-sand-950);
     border-left-color: var(--color-sand-600);
+}
+
+.dark .thread-question-card-actions {
+    border-top-color: var(--color-sand-700);
 }
 ```
 
@@ -680,7 +690,7 @@ The pin-priority logic lives in `thread-panel`, not in `thread-question-card`. T
   - Error state: `.alert-error` carries `fa-circle-exclamation` icon + text
 - **Touch targets (mobile):**
   - `option-row` 44px floor (48px with `.is-tablet-dense` for kitchen)
-  - Submit button 48px minimum height (consumer composes `.btn-block` + sticky-footer padding)
+  - Submit button 48px minimum height (consumer composes `.btn-block` + `.thread-question-card-actions` padding)
   - "Other" textarea 44px minimum after reveal
 - **Reduced motion:** `.is-idle` opacity transition suppressed under `(prefers-reduced-motion: reduce)`; state still applies — only the transition is suppressed.
 - **HIPAA visibility:** option titles + descriptions are agent-authored; agent must avoid raw PHI in option text where the thread is visible to non-attending users (over-shoulder views in shared workstations). The card primitive carries no PHI-awareness — redaction is consuming-app render-time concern (resolved 2026-05-08; no `is-phi-redacted` modifier in scope).
@@ -695,7 +705,7 @@ Required before PL fragment ships (Tier 1, brand-fidelity-weighted per `Lab/have
 |---|---|
 | **Pattern-library steward** | Card envelope vs `thread-approval-card` parallel — slot-pattern reuse vs class-name divergence (this primitive shares slot *patterns* but uses its own class names); `.is-idle` and `.is-historical` as primitive modifiers vs sibling primitives; preview-pane composition (info-panel + code-view per-instance vs unified `option-preview-pane` primitive — wireframe defers this to PL authoring feel-test); pin-priority `data-pin-priority` attribute as primitive contract vs thread-renderer-only concern; per-instance vs class promotions: `.thread-question-card-suggestion`, `.thread-question-card-preview`, `kbd-shortcut-hint`, `badge-pill.is-question-class`. |
 | **Information architecture** | Card scan order (header chip → prompt → recommendation → options → footer); recommendation callout (`ai-insight-callout`) + inline `(Recommended)` badge co-existence — wireframe explicitly defers this feel-test to PL authoring; question-class chip register (badge-pill weight; promote to `.is-question-class` modifier only if a second consumer warrants); pre-selection suggestion line placement (above option-row-list vs inline within first option vs separate row); idle-state collapse content (one-line summary copy "Question from Ava: [class]"); historical-state minimal info preserved. |
-| **Accessibility** | `<section role="region" aria-labelledby>` landmark; option-row-list `aria-labelledby` referencing prompt body; `aria-keyshortcuts` on Submit; bottom-sheet focus-trap + sheet-stack focus-return (Sheet 2 → Sheet 1); preview-pane `aria-live="polite"` announcements (Variant 3); SR cadence on mount; numbered keybinding layout caveat (AZERTY); 44px / 48px touch-target floors; sticky-footer at bottom-sheet-panel root (NOT inside body's scroll) — iOS Safari address-bar collision; reduced-motion handling on `.is-idle`; contrast pairs: primary-500 left border on sand-50 surface (≥3:1), sand-900 prompt on sand-50 (AA Body), sand-700 idle summary on sand-50 (AA Body). |
+| **Accessibility** | `<section role="region" aria-labelledby>` landmark; option-row-list `aria-labelledby` referencing prompt body; `aria-keyshortcuts` on Submit; bottom-sheet focus-trap + sheet-stack focus-return (Sheet 2 → Sheet 1); preview-pane `aria-live="polite"` announcements (Variant 3); SR cadence on mount; numbered keybinding layout caveat (AZERTY); 44px / 48px touch-target floors; `.thread-question-card-actions` footer at bottom-sheet-panel root (NOT inside body's scroll) — iOS Safari address-bar collision; reduced-motion handling on `.is-idle`; contrast pairs: primary-500 left border on sand-50 surface (≥3:1), sand-900 prompt on sand-50 (AA Body), sand-700 idle summary on sand-50 (AA Body). |
 | **Brand fidelity** | Card surface treatment — sand-50 with primary-500 left accent (mirrors thread-approval-card's family register; clinical/urgent/warning swap surface + accent per family); whether the question card warrants its own accent register vs reusing approval-card's primary-500 (default: reuse — same hero class, same surface family); restraint check on primary-teal usage (thread-approval-card already uses primary; this card adds another primary-bordered hero — confirm density doesn't dilute the signal in busy threads); idle-state opacity 0.65 — read as "still here but quiet" without reading as disabled; bilingual copy review ("Submit answer" / "Enviar respuesta"; "Esc to cancel" / "Esc para cancelar"; "Question from Ava" / "Pregunta de Ava"; idle-state summary copy); Cena voice on default error message ("We couldn't send your answer. Try again, or close and we'll re-ask." — utilitarian + warm without over-apologizing). |
 
 ---

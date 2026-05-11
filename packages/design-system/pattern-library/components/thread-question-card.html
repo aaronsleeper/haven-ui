@@ -9,11 +9,12 @@ classes:
   - thread-question-card-prompt
   - thread-question-card-summary
   - thread-question-card-suggestion
+  - thread-question-card-actions
   - thread-question-card.is-idle
   - thread-question-card.is-historical
 when-to-use: Use when an agent poses a structured single-select or multi-select question requiring a user commit. Render inline in the thread pane (desktop) or as a bottom-sheet overlay (mobile). Use `.is-idle` after 90s of no interaction; `.is-historical` for read-only thread-history rendering.
 preline: false (composes bottom-sheet-panel which uses data-hs-overlay in Variants 4+5)
-notes: Tier 2 novel composition primitive for the agentic-question pattern. Parallels thread-approval-card. Composes option-row + sticky-footer + ai-insight-callout + badge-pill. Pin priority via data-pin-priority attribute (cross-primitive thread-renderer-policy concern). Round 1 (2026-05-11) deferred feel-test verdicts captured here: (a) `ai-insight-callout` recommendation prose + inline `.badge-info.option-row-recommended` on a specific option-row are REINFORCING (callout = explanatory prose register; badge = scannable inline anchor on the option). Different read-order layers — not redundant. Default: both render together in single-recommend contexts. (b) Per-option numbered keybinding hints (e.g. `<kbd>1</kbd>` next to each option title) are NOT rendered in the primitive PL — consumer wires them per surface. Submit's `aria-keyshortcuts="1"` + `cmd-palette-shortcut` indicator is the only digit-binding shown here (binds to Submit, not to a specific option). Round 1 verdicts also drove: surface align to explicit `bg-sand-50`, opacity 0.70 (was 0.85), left border 4px (was 3px) — all for family parity with thread-approval-card. Historical left-border bumped sand-400 → sand-600 to clear WCAG 1.4.11 against sand-50 surface (was 1.93:1; now 3.61:1).
+notes: Tier 2 novel composition primitive for the agentic-question pattern. Parallels thread-approval-card. Composes option-row + ai-insight-callout + badge-pill; carries its own `.thread-question-card-actions` footer slot (paralleling `.thread-approval-actions` — natural-flow flex footer at the bottom of the card, NOT a viewport-fixed sticky-footer). Pin priority via data-pin-priority attribute (cross-primitive thread-renderer-policy concern). Round 1 (2026-05-11) deferred feel-test verdicts captured here: (a) `ai-insight-callout` recommendation prose + inline `.badge-info.option-row-recommended` on a specific option-row are REINFORCING (callout = explanatory prose register; badge = scannable inline anchor on the option). Different read-order layers — not redundant. Default: both render together in single-recommend contexts. (b) Per-option numbered keybinding hints (e.g. `<kbd>1</kbd>` next to each option title) are NOT rendered in the primitive PL — consumer wires them per surface. Submit's `aria-keyshortcuts="1"` + `cmd-palette-shortcut` indicator is the only digit-binding shown here (binds to Submit, not to a specific option). Round 1 verdicts also drove: surface align to explicit `bg-sand-50`, opacity 0.70 (was 0.85), left border 4px (was 3px) — all for family parity with thread-approval-card. Historical left-border bumped sand-400 → sand-600 to clear WCAG 1.4.11 against sand-50 surface (was 1.93:1; now 3.61:1).
 -->
 
 <section class="pl-page">
@@ -24,7 +25,7 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
   <div class="pl-section">
     <h2 class="section-title">Variant 1 — Single-select desktop, base case</h2>
     <p class="pl-description">
-      Full envelope: header chip + Ava avatar + prompt + recommendation callout + 3 option-rows (one Recommended) + <code>.is-other</code> + sticky-footer (Submit disabled — no selection).
+      Full envelope: header chip + Ava avatar + prompt + recommendation callout + 3 option-rows (one Recommended) + <code>.is-other</code> + <code>.thread-question-card-actions</code> footer (Submit disabled — no selection).
     </p>
     <div class="max-w-[420px]">
       <section
@@ -113,10 +114,8 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
           </div>
         </div>
 
-        <!-- Footer zone — composes sticky-footer -->
-        <div class="sticky-footer">
-          <div class="sticky-footer-inner">
-            <div class="sticky-footer-actions">
+        <!-- Footer zone — .thread-question-card-actions (natural-flow flex footer at the bottom of the card; parallels .thread-approval-actions) -->
+        <div class="thread-question-card-actions">
               <button
                 type="button"
                 class="btn-primary btn-block"
@@ -127,8 +126,6 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 Submit answer
               </button>
               <span class="text-link" aria-hidden="true">Esc to cancel</span>
-            </div>
-          </div>
         </div>
       </section>
     </div>
@@ -212,9 +209,7 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
           </div>
         </div>
 
-        <div class="sticky-footer">
-          <div class="sticky-footer-inner">
-            <div class="sticky-footer-actions">
+        <div class="thread-question-card-actions">
               <button
                 type="button"
                 class="btn-primary btn-block"
@@ -225,8 +220,6 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
                 Enviar respuesta
               </button>
               <span class="text-link" aria-hidden="true">Esc para cancelar</span>
-            </div>
-          </div>
         </div>
       </section>
     </div>
@@ -323,16 +316,12 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
           </div>
         </div>
 
-        <div class="sticky-footer">
-          <div class="sticky-footer-inner">
-            <div class="sticky-footer-actions">
+        <div class="thread-question-card-actions">
               <button type="button" class="btn-primary btn-block" aria-keyshortcuts="1">
                 <span class="cmd-palette-shortcut" aria-hidden="true"><kbd>1</kbd></span>
                 Submit answers
               </button>
               <span class="text-link" aria-hidden="true">Esc to cancel</span>
-            </div>
-          </div>
         </div>
       </section>
     </div>
@@ -430,12 +419,8 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
         </div>
 
         <!-- Sticky footer pinned to bottom-sheet-panel ROOT (sibling of body, NOT inside body's scroll context) -->
-        <div class="sticky-footer">
-          <div class="sticky-footer-inner">
-            <div class="sticky-footer-actions">
+        <div class="thread-question-card-actions">
               <button type="button" class="btn-primary btn-block" disabled>Submit answer</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -606,16 +591,12 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
         </div>
 
         <!-- Submit returns to enabled after error -->
-        <div class="sticky-footer">
-          <div class="sticky-footer-inner">
-            <div class="sticky-footer-actions">
+        <div class="thread-question-card-actions">
               <button type="button" class="btn-primary btn-block" aria-keyshortcuts="1">
                 <span class="cmd-palette-shortcut" aria-hidden="true"><kbd>1</kbd></span>
                 Submit answer
               </button>
               <span class="text-link" aria-hidden="true">Esc to cancel</span>
-            </div>
-          </div>
         </div>
       </section>
     </div>

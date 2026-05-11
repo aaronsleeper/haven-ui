@@ -9339,6 +9339,25 @@ a.list-group-item-action {
     pointer-events: none;
 }
 
+/* ----------------------------------------------------------
+   Actions footer — paralleling .thread-approval-actions.
+   Natural-flow flex footer at the bottom of the card, NOT a
+   viewport-fixed sticky-footer (the patient-app .sticky-footer
+   class is position: fixed + bottom: 64px to clear the mobile
+   bottom-nav — wrong primitive for this composition). Round 1.6
+   refactor 2026-05-11 after Aaron caught the viewport-floated
+   footer in PL preview.
+   ---------------------------------------------------------- */
+
+.thread-question-card-actions {
+    @apply flex flex-wrap items-center justify-between gap-2 px-4 py-3;
+    border-top: 1px solid var(--color-sand-200);
+}
+
+.dark .thread-question-card-actions {
+    border-top-color: var(--color-sand-700);
+}
+
 .thread-question-card.is-historical .option-row:hover {
     background-color: inherit;
     border-color: inherit;
