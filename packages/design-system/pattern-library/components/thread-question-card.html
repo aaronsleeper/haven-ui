@@ -36,7 +36,9 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
         <!-- Header zone -->
         <div class="thread-question-card-header">
           <span class="badge-pill">Match referral</span>
-          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+          <span class="avatar avatar-xs" aria-label="Ava">
+            <i class="fa-solid fa-sparkle avatar-icon" aria-hidden="true"></i>
+          </span>
         </div>
 
         <!-- Body zone -->
@@ -149,7 +151,9 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
       >
         <div class="thread-question-card-header">
           <span class="badge-pill">Emparejar referido</span>
-          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+          <span class="avatar avatar-xs" aria-label="Ava">
+            <i class="fa-solid fa-sparkle avatar-icon" aria-hidden="true"></i>
+          </span>
         </div>
 
         <div class="thread-question-card-body">
@@ -245,7 +249,9 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
       >
         <div class="thread-question-card-header">
           <span class="badge-pill">Meal substitutions</span>
-          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+          <span class="avatar avatar-xs" aria-label="Ava">
+            <i class="fa-solid fa-sparkle avatar-icon" aria-hidden="true"></i>
+          </span>
         </div>
 
         <div class="thread-question-card-body">
@@ -488,7 +494,9 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
       >
         <div class="thread-question-card-header">
           <span class="badge-pill">Match referral</span>
-          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+          <span class="avatar avatar-xs" aria-label="Ava">
+            <i class="fa-solid fa-sparkle avatar-icon" aria-hidden="true"></i>
+          </span>
         </div>
 
         <div class="thread-question-card-body">
@@ -546,7 +554,9 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
       >
         <div class="thread-question-card-header">
           <span class="badge-pill">Match referral</span>
-          <img class="avatar avatar-xs" src="/sphere-ava.png" alt="Ava">
+          <span class="avatar avatar-xs" aria-label="Ava">
+            <i class="fa-solid fa-sparkle avatar-icon" aria-hidden="true"></i>
+          </span>
         </div>
 
         <div class="thread-question-card-body">
@@ -557,8 +567,12 @@ notes: Tier 2 novel composition primitive for the agentic-question pattern. Para
             A new referral landed for Aaron Sleeper. Should I match it to the existing referral or treat it as a new one?
           </p>
 
-          <!-- Inline error above option-row-list -->
-          <div class="alert-error" role="alert">
+          <!-- Inline error above option-row-list.
+               .alert provides the flex layout (items-start gap-3 p-4 rounded-lg);
+               .alert-error provides the color variant (bg-error-50 + border + text).
+               Composing both is required — without .alert base, the icon and text
+               render as block-stacked. Round 2 + Aaron's eyes-on 2026-05-11. -->
+          <div class="alert alert-error" role="alert">
             <i class="fa-solid fa-circle-exclamation alert-icon" aria-hidden="true"></i>
             <div>
               <p>We couldn't send your answer. Try again, or close and we'll re-ask.</p>
