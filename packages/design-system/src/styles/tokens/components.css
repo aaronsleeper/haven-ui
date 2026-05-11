@@ -9326,8 +9326,9 @@ a.list-group-item-action {
        structural parity with .dark .is-historical override below. */
     background-color: var(--color-sand-50);
     /* sand-600 (not sand-400) to clear WCAG 1.4.11 against sand-50 surface
-       (sand-400 on sand-50 = 1.93:1 FAIL; sand-600 = 3.61:1 PASS).
-       Round 1 a11y verdict 2026-05-11. */
+       (sand-400 on sand-50 = 2.40:1 FAIL; sand-600 = 4.68:1 PASS under
+       Cena Color System v2). Round 1 a11y verdict 2026-05-11; recomputed
+       2026-05-12 against palette.css commit 45e8e14. */
     border-left-color: var(--color-sand-600);
     /* opacity 0.70 (not 0.85) matches thread-approval-card.is-historical
        family parity (Round 1 steward verdict 2026-05-11). */
@@ -10686,13 +10687,14 @@ a.list-group-item-action {
     border: 1px solid var(--color-border-image);
 }
 
-/* Hover — sand-600 border on sand-50 hover-fill (3.82:1) per WCAG 1.4.11.
-   Note: response-option Patch 8 cited sand-500 at 3.42:1 measured
-   against WHITE (default state). The relevant state for 1.4.11 is
-   hover, where the row's fill is sand-50 — sand-500 on sand-50
-   computes 2.81:1 (fail). Bumped to sand-600 per Round 1 a11y
-   verdict 2026-05-11 (Round 2 recomputed actual: 3.82:1; comfortable
-   headroom over 3.0 floor). Pale fill so hover reads as "considering";
+/* Hover — sand-600 border on sand-50 hover-fill (4.68:1 under Cena
+   Color System v2) per WCAG 1.4.11. Note: response-option Patch 8
+   cited sand-500 at 3.42:1 measured against WHITE (default state).
+   The relevant state for 1.4.11 here is hover, where the row's fill
+   is sand-50 — sand-500 on sand-50 computes 3.10:1 under v2 (was
+   2.81:1 fail pre-v2). v2 brings sand-500 above the 3:1 floor, but
+   the bump to sand-600 (Round 1 a11y verdict 2026-05-11) stands for
+   ~1.5× headroom. Pale fill so hover reads as "considering";
    selected reads as "committed" via teal border. */
 .option-row:hover {
     @apply bg-sand-50;
@@ -10732,7 +10734,8 @@ a.list-group-item-action {
 .option-row-glyph {
     @apply flex items-center justify-center shrink-0 w-5 h-5 mt-0.5;
     /* sand-600 (not sand-500) to clear WCAG 1.4.11 against sand-50
-       row-hover fill (3.82:1); see hover-state note above. */
+       row-hover fill (4.68:1 under Cena Color System v2); see
+       hover-state note above. */
     border: 2px solid var(--color-sand-600);
     background-color: var(--color-surface-card);
     transition: background-color var(--duration-fast) var(--ease-default),

@@ -537,8 +537,9 @@ Should never render in production — flag as bug telemetry. Consumer-app guards
        explicit redeclaration kept for structural parity with .dark .is-historical. */
     background-color: var(--color-sand-50);
     /* sand-600 (was sand-400) to clear WCAG 1.4.11 against sand-50 surface
-       (sand-400 = 1.93:1 FAIL; sand-600 = 3.61:1 PASS) — Round 1 a11y
-       verdict 2026-05-11. */
+       (sand-400 = 2.40:1 FAIL; sand-600 = 4.68:1 PASS under Cena Color
+       System v2) — Round 1 a11y verdict 2026-05-11; recomputed 2026-05-12
+       against palette.css commit 45e8e14. */
     border-left-color: var(--color-sand-600);
     /* opacity 0.70 (was 0.85) for family parity with thread-approval-card.is-historical
        — Round 1 steward verdict 2026-05-11. */
