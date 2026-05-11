@@ -1,365 +1,356 @@
+/**
+ * Cena Color System v2 — palette.css (integrated 2026-05-11)
+ *
+ * Hex values transcribed from Cena Color System v2 generator output:
+ *   Lab/cena-health-brand/_tokens/generated/palette.css (canonical OKLCH source)
+ *
+ * Why hex-only inside @theme: Tailwind v4's @layer theme silently overrides any
+ * @theme variable whose name Tailwind owns (--color-{red,blue,green,...}-*) with
+ * its own OKLCH values regardless of source order. Hex literals survive the trap.
+ * Custom names (--color-sand-*, --color-sage-*, --logo-*) survive untouched.
+ *
+ * Architecture: spec §1 (root/max/min + linear-in-L interpolation in OKLCH/P3).
+ * Family set:   spec §2 (16 Tailwind hue families + sage + sand = 18 active; sky dropped).
+ * Direction:    Tailwind canonical — 50 = lightest, 950 = darkest.
+ * Logo locks:   logo identity tokens (--logo-*) are hex-frozen per spec §5.
+ *               Family palette stops decouple from logo hex by design (spec §1.5):
+ *               --color-teal-500 matches --logo-primary; --color-teal-400 does NOT
+ *               match --logo-secondary. Use --logo-* tokens when exact logo hex required.
+ *
+ * Defensive aliases (stone/slate/gray/zinc/neutral) mirror sand values to neutralize
+ * Tailwind's cascade override. components.css must NEVER reference them — enforced
+ * by the One-Family-Per-Role gate (packages/ui-react/tests/conform/css-family.ts).
+ *
+ * Extended sand stops (15/16/150/250) preserved at pre-v2 hex values for semantic.css
+ * compatibility. Slight off-curve from new sand-50/100/200; revisit if visual regression
+ * surfaces, or extend the generator to emit them in a follow-up.
+ */
+
 @theme {
 
-  /* Color styles */
+  /* Logo identity tokens — hex-frozen per spec §5; never computed. */
+  --logo-primary: #3A8478;       /* logo primary teal (outer ring, "health" wordmark) */
+  --logo-secondary: #52A395;     /* logo secondary teal (middle ring) */
+  --logo-anchor-dark: #0D322D;   /* logo anchor-dark teal ("Cena" wordmark) */
+  --logo-sage: #81B983;          /* logo sage green (inner ring) */
 
-  /* Amber — Warning / Caution (brand-calibrated, H:80-85 ochre-gold).
-     Key stops: 50=warning-bg, 400=warning-border, 500=warning-base, 700=warning-text.
-     All values are hex literals to avoid Tailwind cascade override. */
-  --color-amber-50:  #F4EAD5;
-  --color-amber-100: #EEDCB8;
-  --color-amber-200: #E3C88E;
-  --color-amber-300: #D8B46D;
-  --color-amber-400: #CEA861;
-  --color-amber-500: #B58B20;
-  --color-amber-600: #9A7518;
-  --color-amber-700: #754B00;
-  --color-amber-800: #5E3C00;
-  --color-amber-900: #472D00;
-  --color-amber-950: #301E00;
+  /* teal — brand primary */
+  --color-teal-50:  #e9f5f2;
+  --color-teal-100: #c6ded8;
+  --color-teal-200: #a4c7bf;
+  --color-teal-300: #82b0a7;
+  --color-teal-400: #5f9a8f;
+  --color-teal-500: #3a8478;     /* matches --logo-primary */
+  --color-teal-600: #2c6a60;
+  --color-teal-700: #1e5149;
+  --color-teal-800: #113933;
+  --color-teal-900: #06231f;
+  --color-teal-950: #010f0c;
 
-  /* Blue */
-  --color-blue-50: hsla(197, 57.1%, 89%, 1);
-  --color-blue-100: hsla(201, 57.9%, 81.4%, 1);
-  --color-blue-200: hsla(202, 54.9%, 73.9%, 1);
-  --color-blue-300: hsla(204, 50.6%, 66.7%, 1);
-  --color-blue-400: hsla(206, 44.8%, 60.2%, 1);
-  --color-blue-500: hsla(209, 39.7%, 54.5%, 1);
-  --color-blue-600: hsla(211, 35.5%, 47.5%, 1);
-  --color-blue-700: hsla(213, 37.4%, 41.4%, 1);
-  --color-blue-800: hsla(217, 37.8%, 35.3%, 1);
-  --color-blue-900: hsla(220, 39.2%, 29%, 1);
-  --color-blue-950: hsla(224, 39.1%, 22.5%, 1);
+  /* sage — Cena-canonical 18th family (paired counterpart to teal) */
+  --color-sage-50:  #e7f2e8;
+  --color-sage-100: #c7dac9;
+  --color-sage-200: #a8c3aa;
+  --color-sage-300: #8aac8c;
+  --color-sage-400: #6d956f;
+  --color-sage-500: #507f53;
+  --color-sage-600: #3f6642;
+  --color-sage-700: #2f4e32;
+  --color-sage-800: #203722;
+  --color-sage-900: #122114;
+  --color-sage-950: #060d07;
 
-  /* Cyan — Info / Informational (brand-calibrated, H:235 slate blue).
-     Key stops: 50=info-bg, 400=info-border, 500=info-base, 700=info-text.
-     All values are hex literals to avoid Tailwind cascade override. */
-  --color-cyan-50:  #DFEEF7;
-  --color-cyan-100: #C3DFEF;
-  --color-cyan-200: #9ECCE3;
-  --color-cyan-300: #78B6D5;
-  --color-cyan-400: #538EB0;
-  --color-cyan-500: #287AA3;
-  --color-cyan-600: #1E678A;
-  --color-cyan-700: #155572;
-  --color-cyan-800: #0B4E6C;
-  --color-cyan-900: #073B52;
-  --color-cyan-950: #042838;
-
-  /* Emerald */
-  --color-emerald-50: hsla(111, 46.7%, 94.1%, 1);
-  --color-emerald-100: hsla(120, 42.9%, 83.5%, 1);
-  --color-emerald-200: hsla(130, 39.1%, 72.9%, 1);
-  --color-emerald-300: hsla(138, 33%, 63.1%, 1);
-  --color-emerald-400: hsla(145, 26.5%, 54.1%, 1);
-  --color-emerald-500: hsla(151, 25.6%, 45.9%, 1);
-  --color-emerald-600: hsla(156, 28.5%, 37.8%, 1);
-  --color-emerald-700: hsla(160, 30.8%, 30.6%, 1);
-  --color-emerald-800: hsla(163, 33.3%, 23.5%, 1);
-  --color-emerald-900: hsla(167, 37.2%, 16.9%, 1);
-  --color-emerald-950: hsla(172, 42.3%, 10.2%, 1);
-
-  /* Fuchsia */
-  --color-fuchsia-50: hsla(294, 27.8%, 92.9%, 1);
-  --color-fuchsia-100: hsla(300, 27%, 85.5%, 1);
-  --color-fuchsia-200: hsla(308, 27.3%, 78.4%, 1);
-  --color-fuchsia-300: hsla(315, 28.3%, 71.6%, 1);
-  --color-fuchsia-400: hsla(319, 27.8%, 64.7%, 1);
-  --color-fuchsia-500: hsla(325, 25.6%, 57.8%, 1);
-  --color-fuchsia-600: hsla(328, 21.9%, 50.8%, 1);
-  --color-fuchsia-700: hsla(333, 22.9%, 43.7%, 1);
-  --color-fuchsia-800: hsla(337, 25.1%, 36.7%, 1);
-  --color-fuchsia-900: hsla(341, 26.3%, 29.8%, 1);
-  --color-fuchsia-950: hsla(344, 28.2%, 22.9%, 1);
-
-  /* Green — Success / Confirmation (brand-calibrated, H:160 desaturated green).
-     Key stops: 50=success-bg, 400=success-border, 500=success-base, 800=success-text.
-     All values are hex literals to avoid Tailwind cascade override. */
-  --color-green-50:  #DCF0E5;
-  --color-green-100: #C2E5D1;
-  --color-green-200: #A0D5B8;
-  --color-green-300: #7DC49F;
-  --color-green-400: #4F9870;
-  --color-green-500: #3A8E64;
-  --color-green-600: #2D7350;
-  --color-green-700: #215A3E;
-  --color-green-800: #174430;
-  --color-green-900: #0F3322;
-  --color-green-950: #082115;
-
-  /* Indigo */
-  --color-indigo-50: hsla(210, 47.6%, 91.8%, 1);
-  --color-indigo-100: hsla(213, 46.2%, 84.7%, 1);
-  --color-indigo-200: hsla(215, 42.9%, 78%, 1);
-  --color-indigo-300: hsla(217, 39.7%, 71.4%, 1);
-  --color-indigo-400: hsla(221, 35.6%, 65.3%, 1);
-  --color-indigo-500: hsla(224, 31.4%, 59.4%, 1);
-  --color-indigo-600: hsla(228, 25.3%, 52.7%, 1);
-  --color-indigo-700: hsla(233, 22.9%, 46.3%, 1);
-  --color-indigo-800: hsla(239, 22.4%, 39.4%, 1);
-  --color-indigo-900: hsla(243, 23.5%, 31.8%, 1);
-  --color-indigo-950: hsla(250, 25.2%, 24.1%, 1);
-
-  /* Lime */
-  --color-lime-50: hsla(50, 42.4%, 88.4%, 1);
-  --color-lime-100: hsla(55, 37.1%, 79.4%, 1);
-  --color-lime-200: hsla(59, 31.5%, 71.4%, 1);
-  --color-lime-300: hsla(64, 27.5%, 64.3%, 1);
-  --color-lime-400: hsla(68, 23.9%, 58.2%, 1);
-  --color-lime-500: hsla(73, 20.7%, 52.5%, 1);
-  --color-lime-600: hsla(80, 19.8%, 47.5%, 1);
-  --color-lime-700: hsla(86, 20.4%, 42.4%, 1);
-  --color-lime-800: hsla(92, 20.4%, 37.5%, 1);
-  --color-lime-900: hsla(101, 20.2%, 32.9%, 1);
-  --color-lime-950: hsla(109, 19.4%, 28.2%, 1);
-
-  /* Orange */
-  --color-orange-50: hsla(0, 42.1%, 92.5%, 1);
-  --color-orange-100: hsla(0, 43.7%, 86.1%, 1);
-  --color-orange-200: hsla(4, 42.6%, 78.8%, 1);
-  --color-orange-300: hsla(7, 41.1%, 71.4%, 1);
-  --color-orange-400: hsla(9, 38.4%, 63.7%, 1);
-  --color-orange-500: hsla(13, 33%, 55.5%, 1);
-  --color-orange-600: hsla(15, 29.2%, 47.6%, 1);
-  --color-orange-700: hsla(18, 32.4%, 40%, 1);
-  --color-orange-800: hsla(20, 34.1%, 32.7%, 1);
-  --color-orange-900: hsla(23, 35.9%, 25.7%, 1);
-  --color-orange-950: hsla(24, 38.1%, 19%, 1);
-
-  /* Pink */
-  --color-pink-50: hsla(320, 33.3%, 92.9%, 1);
-  --color-pink-100: hsla(328, 37.1%, 86.3%, 1);
-  --color-pink-200: hsla(332, 37.1%, 79.4%, 1);
-  --color-pink-300: hsla(335, 36.7%, 72.7%, 1);
-  --color-pink-400: hsla(339, 34.5%, 65.9%, 1);
-  --color-pink-500: hsla(342, 31.1%, 59%, 1);
-  --color-pink-600: hsla(345, 25.2%, 51.8%, 1);
-  --color-pink-700: hsla(349, 25.1%, 44.5%, 1);
-  --color-pink-800: hsla(353, 26.3%, 37.3%, 1);
-  --color-pink-900: hsla(357, 27.3%, 30.2%, 1);
-  --color-pink-950: hsla(0, 28.8%, 23.1%, 1);
-
-  /* Purple */
-  --color-purple-50: hsla(227, 36.8%, 92.5%, 1);
-  --color-purple-100: hsla(233, 34.3%, 86.3%, 1);
-  --color-purple-200: hsla(236, 31.4%, 80%, 1);
-  --color-purple-300: hsla(242, 27.8%, 73.9%, 1);
-  --color-purple-400: hsla(248, 26.2%, 67.1%, 1);
-  --color-purple-500: hsla(254, 22.9%, 59.8%, 1);
-  --color-purple-600: hsla(260, 18.9%, 52.2%, 1);
-  --color-purple-700: hsla(266, 18.6%, 44.3%, 1);
-  --color-purple-800: hsla(271, 19.8%, 36.7%, 1);
-  --color-purple-900: hsla(276, 20.3%, 29%, 1);
-  --color-purple-950: hsla(283, 21.8%, 21.6%, 1);
-
-  /* Red — Error / Critical (brand-calibrated, H:25 warm red-orange).
-     Key stops: 50=error-bg, 400=error-border, 500=error-base, 700=error-text.
-     All values are hex literals to avoid Tailwind cascade override. */
-  --color-red-50:  #FCE5E3;
-  --color-red-100: #F8CCC8;
-  --color-red-200: #F0ADA7;
-  --color-red-300: #E48D86;
-  --color-red-400: #D87972;
-  --color-red-500: #C13C3B;
-  --color-red-600: #AB3433;
-  --color-red-700: #932B2A;
-  --color-red-800: #7A2221;
-  --color-red-900: #5E1918;
-  --color-red-950: #3F100F;
-
-  /* Rose */
-  --color-rose-50: hsla(320, 33.3%, 92.9%, 1);
-  --color-rose-100: hsla(328, 37.1%, 86.3%, 1);
-  --color-rose-200: hsla(332, 37.1%, 79.4%, 1);
-  --color-rose-300: hsla(335, 36.7%, 72.7%, 1);
-  --color-rose-400: hsla(339, 34.5%, 65.9%, 1);
-  --color-rose-500: hsla(342, 30.5%, 58.8%, 1);
-  --color-rose-600: hsla(345, 25.2%, 51.8%, 1);
-  --color-rose-700: hsla(349, 25.1%, 44.5%, 1);
-  --color-rose-800: hsla(353, 26.3%, 37.3%, 1);
-  --color-rose-900: hsla(357, 27.3%, 30.2%, 1);
-  --color-rose-950: hsla(0, 28.8%, 23.1%, 1);
-
-  /* Sand — Cena Health warm neutral palette. CANONICAL surface family.
+  /* sand — warm neutral (single neutral). CANONICAL surface family.
      All semantic classes in components.css reference sand; the alias families
-     (stone, gray, zinc, slate, neutral) below are defensive fallbacks only
-     against Tailwind's cascade trap, never component-facing vocabulary.
-     Hex values for 50/100/200 updated 2026-04-20 to DESIGN.md §Color
-     warm-beige spec (Aaron's call — Patch 1.5). Extended stops (15/16/150/250)
-     promoted from semantic.css :root into @theme so they generate utilities.
-     All values are hex literals so Tailwind's cascade cannot override them. */
+     below (stone/slate/gray/zinc/neutral) are defensive fallbacks only. */
+  --color-sand-50:  #fbfaf8;
+  --color-sand-100: #e6e4e0;
+  --color-sand-200: #d1cec8;
+  --color-sand-300: #bcb8b1;
+  --color-sand-400: #a8a39b;
+  --color-sand-500: #958e85;
+  --color-sand-600: #777069;
+  --color-sand-700: #5a544e;
+  --color-sand-800: #3f3934;
+  --color-sand-900: #25211d;
+  --color-sand-950: #0e0a08;
+
+  /* Extended sand stops (15/16/150/250) — preserved from pre-v2 palette for
+     semantic.css compatibility. Slight off-curve from new sand major stops;
+     re-derive in a follow-up if needed. */
   --color-sand-15:  #edeceb;
   --color-sand-16:  #f2f2f2;
-  --color-sand-50:  #f5eee5;
-  --color-sand-100: #eee6db;
   --color-sand-150: #e7ded2;
-  --color-sand-200: #dfd5c9;
   --color-sand-250: #d8cec0;
-  --color-sand-300: #D1CDC6;
-  --color-sand-400: #B3ADA4;
-  --color-sand-500: #958E85;
-  --color-sand-600: #787066;
-  --color-sand-700: #5B544C;
-  --color-sand-800: #3F3933;
-  --color-sand-900: #25211D;
-  --color-sand-950: #0E0A08;
+
+  /* red — error / critical */
+  --color-red-50:  #ffedea;
+  --color-red-100: #f6cbc4;
+  --color-red-200: #eca9a0;
+  --color-red-300: #df877d;
+  --color-red-400: #d1645c;
+  --color-red-500: #c13c3b;
+  --color-red-600: #a22f2f;
+  --color-red-700: #832224;
+  --color-red-800: #661619;
+  --color-red-900: #4a0a0e;
+  --color-red-950: #300205;
+
+  /* amber — warning / caution */
+  --color-amber-50:  #f8f1e3;
+  --color-amber-100: #e8dbc1;
+  --color-amber-200: #d8c49e;
+  --color-amber-300: #c8ae7c;
+  --color-amber-400: #b99859;
+  --color-amber-500: #aa8232;
+  --color-amber-600: #8e6a22;
+  --color-amber-700: #735311;
+  --color-amber-800: #593e01;
+  --color-amber-900: #412900;
+  --color-amber-950: #291600;
+
+  /* green — success / confirmation */
+  --color-green-50:  #e5f7eb;
+  --color-green-100: #c2dfcc;
+  --color-green-200: #9fc8ae;
+  --color-green-300: #7cb191;
+  --color-green-400: #579a76;
+  --color-green-500: #2c845c;
+  --color-green-600: #1b6e4c;
+  --color-green-700: #07593b;
+  --color-green-800: #00442c;
+  --color-green-900: #00301d;
+  --color-green-950: #001e0f;
+
+  /* cyan — info / informational */
+  --color-cyan-50:  #d2f2fa;
+  --color-cyan-100: #aed6e3;
+  --color-cyan-200: #8bbbcd;
+  --color-cyan-300: #69a0b8;
+  --color-cyan-400: #4785a3;
+  --color-cyan-500: #236b8f;
+  --color-cyan-600: #17597a;
+  --color-cyan-700: #0a4866;
+  --color-cyan-800: #003753;
+  --color-cyan-900: #002740;
+  --color-cyan-950: #00182e;
+
+  /* orange — terracotta / earth accent */
+  --color-orange-50:  #ffede4;
+  --color-orange-100: #f3d0c3;
+  --color-orange-200: #e4b4a2;
+  --color-orange-300: #d49884;
+  --color-orange-400: #c47b66;
+  --color-orange-500: #b45f4a;
+  --color-orange-600: #974b3a;
+  --color-orange-700: #7b392b;
+  --color-orange-800: #60271d;
+  --color-orange-900: #46160f;
+  --color-orange-950: #2d0604;
+
+  /* yellow — illumination accent */
+  --color-yellow-50:  #f8f1df;
+  --color-yellow-100: #ece2c2;
+  --color-yellow-200: #e0d2a5;
+  --color-yellow-300: #d4c288;
+  --color-yellow-400: #c8b369;
+  --color-yellow-500: #bba447;
+  --color-yellow-600: #9d8937;
+  --color-yellow-700: #7f7028;
+  --color-yellow-800: #635718;
+  --color-yellow-900: #493f08;
+  --color-yellow-950: #302900;
+
+  /* lime — sage-adjacent accent */
+  --color-lime-50:  #eaf2e0;
+  --color-lime-100: #d5e0c2;
+  --color-lime-200: #c1cea3;
+  --color-lime-300: #afbc84;
+  --color-lime-400: #9da965;
+  --color-lime-500: #8d9742;
+  --color-lime-600: #777e32;
+  --color-lime-700: #616622;
+  --color-lime-800: #4c4e12;
+  --color-lime-900: #373803;
+  --color-lime-950: #242400;
+
+  /* emerald — alt saturated green */
+  --color-emerald-50:  #e3f8ee;
+  --color-emerald-100: #bee1d1;
+  --color-emerald-200: #98cbb5;
+  --color-emerald-300: #71b59b;
+  --color-emerald-400: #469f82;
+  --color-emerald-500: #008a6a;
+  --color-emerald-600: #007258;
+  --color-emerald-700: #005c46;
+  --color-emerald-800: #004635;
+  --color-emerald-900: #003224;
+  --color-emerald-950: #001f14;
+
+  /* blue — deep slate (post sky-drop) */
+  --color-blue-50:  #e0f1fe;
+  --color-blue-100: #bad4e7;
+  --color-blue-200: #96b6d0;
+  --color-blue-300: #729ab9;
+  --color-blue-400: #4f7ea3;
+  --color-blue-500: #2c628d;
+  --color-blue-600: #205178;
+  --color-blue-700: #144064;
+  --color-blue-800: #083050;
+  --color-blue-900: #00203d;
+  --color-blue-950: #00122b;
+
+  /* indigo — external systems / partners */
+  --color-indigo-50:  #e6eeff;
+  --color-indigo-100: #c8d4f1;
+  --color-indigo-200: #abbae0;
+  --color-indigo-300: #8ea1cd;
+  --color-indigo-400: #7288bb;
+  --color-indigo-500: #5670a9;
+  --color-indigo-600: #455d91;
+  --color-indigo-700: #354b79;
+  --color-indigo-800: #253a61;
+  --color-indigo-900: #16294b;
+  --color-indigo-950: #091a36;
+
+  /* violet — data / AI / inference */
+  --color-violet-50:  #f6e9fd;
+  --color-violet-100: #deccea;
+  --color-violet-200: #c5b1d7;
+  --color-violet-300: #ad96c6;
+  --color-violet-400: #947cb4;
+  --color-violet-500: #7b63a3;
+  --color-violet-600: #66528c;
+  --color-violet-700: #524175;
+  --color-violet-800: #40315f;
+  --color-violet-900: #2e2149;
+  --color-violet-950: #1d1335;
+
+  /* purple — alt violet */
+  --color-purple-50:  #efebff;
+  --color-purple-100: #d3cdee;
+  --color-purple-200: #b6b1db;
+  --color-purple-300: #9a95c8;
+  --color-purple-400: #7e7ab5;
+  --color-purple-500: #635fa3;
+  --color-purple-600: #514e8b;
+  --color-purple-700: #403e74;
+  --color-purple-800: #2f2e5e;
+  --color-purple-900: #1f1e49;
+  --color-purple-950: #111034;
+
+  /* fuchsia — vivid magenta accent */
+  --color-fuchsia-50:  #fce7f7;
+  --color-fuchsia-100: #ebcbe5;
+  --color-fuchsia-200: #d9aed3;
+  --color-fuchsia-300: #c793c3;
+  --color-fuchsia-400: #b478b3;
+  --color-fuchsia-500: #a05da4;
+  --color-fuchsia-600: #864b8c;
+  --color-fuchsia-700: #6d3a73;
+  --color-fuchsia-800: #552a5c;
+  --color-fuchsia-900: #3e1a45;
+  --color-fuchsia-950: #290b30;
+
+  /* pink — warm-shifted pink */
+  --color-pink-50:  #fce8f1;
+  --color-pink-100: #eccddd;
+  --color-pink-200: #dcb3c9;
+  --color-pink-300: #cb9ab6;
+  --color-pink-400: #ba80a4;
+  --color-pink-500: #a86893;
+  --color-pink-600: #8d547c;
+  --color-pink-700: #724165;
+  --color-pink-800: #592f4f;
+  --color-pink-900: #411e3a;
+  --color-pink-950: #2b0e25;
+
+  /* rose — community / relational */
+  --color-rose-50:  #fee8ee;
+  --color-rose-100: #eccad3;
+  --color-rose-200: #d9acba;
+  --color-rose-300: #c690a2;
+  --color-rose-400: #b3738b;
+  --color-rose-500: #9f5774;
+  --color-rose-600: #874762;
+  --color-rose-700: #703751;
+  --color-rose-800: #59283f;
+  --color-rose-900: #44192f;
+  --color-rose-950: #2f0b1f;
 
   /* --- Neutral family aliases (DEFENSIVE FALLBACK ONLY) ----------------------
      Stone, Slate, Gray, Zinc, Neutral. All hex-identical to sand. These aliases
-     exist to neutralize Tailwind v4's @layer theme cascade override (see
-     CLAUDE.md — Tailwind @theme cascade trap). Their hex literals survive
-     cascade; sand naming prevails. components.css must NEVER reference them —
-     enforced by the One-Family-Per-Role gate (packages/ui-react/tests/conform/
+     exist to neutralize Tailwind v4's @layer theme cascade override (see palette
+     header comment for full context). components.css must NEVER reference them
+     — enforced by the One-Family-Per-Role gate (packages/ui-react/tests/conform/
      css-family.ts). New components use bg-sand-*, text-sand-*, border-sand-*. */
 
-  /* Stone — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  /* stone — alias to sand (DEFENSIVE FALLBACK ONLY) */
   --color-stone-15:  #edeceb;
   --color-stone-16:  #f2f2f2;
-  --color-stone-50:  #f5eee5;
-  --color-stone-100: #eee6db;
+  --color-stone-50:  #fbfaf8;
+  --color-stone-100: #e6e4e0;
   --color-stone-150: #e7ded2;
-  --color-stone-200: #dfd5c9;
+  --color-stone-200: #d1cec8;
   --color-stone-250: #d8cec0;
-  --color-stone-300: #D1CDC6;
-  --color-stone-400: #B3ADA4;
-  --color-stone-500: #958E85;
-  --color-stone-600: #787066;
-  --color-stone-700: #5B544C;
-  --color-stone-800: #3F3933;
-  --color-stone-900: #25211D;
-  --color-stone-950: #0E0A08;
+  --color-stone-300: #bcb8b1;
+  --color-stone-400: #a8a39b;
+  --color-stone-500: #958e85;
+  --color-stone-600: #777069;
+  --color-stone-700: #5a544e;
+  --color-stone-800: #3f3934;
+  --color-stone-900: #25211d;
+  --color-stone-950: #0e0a08;
 
-  /* Slate — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-slate-50:  #f5eee5;
-  --color-slate-100: #eee6db;
-  --color-slate-200: #dfd5c9;
-  --color-slate-300: #D1CDC6;
-  --color-slate-400: #B3ADA4;
-  --color-slate-500: #958E85;
-  --color-slate-600: #787066;
-  --color-slate-700: #5B544C;
-  --color-slate-800: #3F3933;
-  --color-slate-900: #25211D;
-  --color-slate-950: #0E0A08;
+  /* slate — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-slate-50:  #fbfaf8;
+  --color-slate-100: #e6e4e0;
+  --color-slate-200: #d1cec8;
+  --color-slate-300: #bcb8b1;
+  --color-slate-400: #a8a39b;
+  --color-slate-500: #958e85;
+  --color-slate-600: #777069;
+  --color-slate-700: #5a544e;
+  --color-slate-800: #3f3934;
+  --color-slate-900: #25211d;
+  --color-slate-950: #0e0a08;
 
-  /* Gray — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-gray-50:  #f5eee5;
-  --color-gray-100: #eee6db;
-  --color-gray-200: #dfd5c9;
-  --color-gray-300: #D1CDC6;
-  --color-gray-400: #B3ADA4;
-  --color-gray-500: #958E85;
-  --color-gray-600: #787066;
-  --color-gray-700: #5B544C;
-  --color-gray-800: #3F3933;
-  --color-gray-900: #25211D;
-  --color-gray-950: #0E0A08;
+  /* gray — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-gray-50:  #fbfaf8;
+  --color-gray-100: #e6e4e0;
+  --color-gray-200: #d1cec8;
+  --color-gray-300: #bcb8b1;
+  --color-gray-400: #a8a39b;
+  --color-gray-500: #958e85;
+  --color-gray-600: #777069;
+  --color-gray-700: #5a544e;
+  --color-gray-800: #3f3934;
+  --color-gray-900: #25211d;
+  --color-gray-950: #0e0a08;
 
-  /* Zinc — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-zinc-50:  #f5eee5;
-  --color-zinc-100: #eee6db;
-  --color-zinc-200: #dfd5c9;
-  --color-zinc-300: #D1CDC6;
-  --color-zinc-400: #B3ADA4;
-  --color-zinc-500: #958E85;
-  --color-zinc-600: #787066;
-  --color-zinc-700: #5B544C;
-  --color-zinc-800: #3F3933;
-  --color-zinc-900: #25211D;
-  --color-zinc-950: #0E0A08;
+  /* zinc — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-zinc-50:  #fbfaf8;
+  --color-zinc-100: #e6e4e0;
+  --color-zinc-200: #d1cec8;
+  --color-zinc-300: #bcb8b1;
+  --color-zinc-400: #a8a39b;
+  --color-zinc-500: #958e85;
+  --color-zinc-600: #777069;
+  --color-zinc-700: #5a544e;
+  --color-zinc-800: #3f3934;
+  --color-zinc-900: #25211d;
+  --color-zinc-950: #0e0a08;
 
-  /* Neutral — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-neutral-50:  #f5eee5;
-  --color-neutral-100: #eee6db;
-  --color-neutral-200: #dfd5c9;
-  --color-neutral-300: #D1CDC6;
-  --color-neutral-400: #B3ADA4;
-  --color-neutral-500: #958E85;
-  --color-neutral-600: #787066;
-  --color-neutral-700: #5B544C;
-  --color-neutral-800: #3F3933;
-  --color-neutral-900: #25211D;
-  --color-neutral-950: #0E0A08;
-
-  /* Stone — alias to sand (hex literals to survive Tailwind v4 cascade override) */
-  --color-stone-50:  #FBFAF8;
-  --color-stone-100: #F3F1EE;
-  --color-stone-200: #E7E4DF;
-  --color-stone-300: #D1CDC6;
-  --color-stone-400: #B3ADA4;
-  --color-stone-500: #958E85;
-  --color-stone-600: #787066;
-  --color-stone-700: #5B544C;
-  --color-stone-800: #3F3933;
-  --color-stone-900: #25211D;
-  --color-stone-950: #0E0A08;
-
-  /* Sky */
-  --color-sky-50: hsla(189, 70.1%, 86.9%, 1);
-  --color-sky-100: hsla(191, 69.2%, 77.1%, 1);
-  --color-sky-200: hsla(193, 65%, 68.6%, 1);
-  --color-sky-300: hsla(194, 56.6%, 61.2%, 1);
-  --color-sky-400: hsla(196, 48.9%, 54.7%, 1);
-  --color-sky-500: hsla(199, 43.8%, 48.8%, 1);
-  --color-sky-600: hsla(201, 46.8%, 42.7%, 1);
-  --color-sky-700: hsla(203, 48.9%, 36.9%, 1);
-  --color-sky-800: hsla(206, 51.2%, 31.4%, 1);
-  --color-sky-900: hsla(207, 53.8%, 25.5%, 1);
-  --color-sky-950: hsla(210, 58%, 19.6%, 1);
-
-  /* Sage — Cena Health warm green palette (the brand's hue-shift family).
-     The teal-to-sage shift (H:181→H:145) is the brand's signature visual move.
-     50=lightest (#E7F2E8), 950=darkest (#060D07).
-     All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
-  --color-sage-50:  #E7F2E8;
-  --color-sage-100: #D0E5D1;
-  --color-sage-200: #ACCFAD;
-  --color-sage-300: #81B983; /* LOCKED — logo sage green (inner ring) */
-  --color-sage-400: #689B6A;
-  --color-sage-500: #507F53;
-  --color-sage-600: #3A643D;
-  --color-sage-700: #2A4C2D;
-  --color-sage-800: #1C351F;
-  --color-sage-900: #0F1F11;
-  --color-sage-950: #060D07;
-
-  /* Teal — Cena Health brand teal palette.
-     50=lightest (#E9F5F2), 950=darkest (#010F0C).
-     All values are hex literals — no var() — so Tailwind's cascade cannot override them. */
-  --color-teal-50:  #E9F5F2;
-  --color-teal-100: #D0E7E2;
-  --color-teal-200: #A8D1C9;
-  --color-teal-300: #7CB9AD;
-  --color-teal-400: #52A395; /* LOCKED — logo secondary teal (middle ring) */
-  --color-teal-500: #3A8478; /* LOCKED — logo primary teal (outer ring, "health" wordmark) */
-  --color-teal-600: #1B685E;
-  --color-teal-700: #337A6E; /* Figma-canonical primary button fill (DESIGN.md §Color, 2026-04-19) */
-  --color-teal-800: #0D322D; /* LOCKED — logo anchor dark ("Cena" wordmark) */
-  --color-teal-900: #04201C;
-  --color-teal-950: #010F0C;
-
-  /* Violet */
-  --color-violet-50: hsla(260, 31.6%, 92.5%, 1);
-  --color-violet-100: hsla(265, 30.6%, 85.9%, 1);
-  --color-violet-200: hsla(271, 29%, 79%, 1);
-  --color-violet-300: hsla(277, 25.5%, 71.6%, 1);
-  --color-violet-400: hsla(284, 22.4%, 64.1%, 1);
-  --color-violet-500: hsla(292, 19.6%, 57.1%, 1);
-  --color-violet-600: hsla(297, 15.8%, 48.4%, 1);
-  --color-violet-700: hsla(305, 17.5%, 41.4%, 1);
-  --color-violet-800: hsla(312, 19.8%, 34.7%, 1);
-  --color-violet-900: hsla(317, 21.7%, 28%, 1);
-  --color-violet-950: hsla(323, 24.1%, 21.2%, 1);
-
-  /* Yellow */
-  --color-yellow-50: hsla(37, 51.1%, 91.2%, 1);
-  --color-yellow-100: hsla(38, 50%, 82.7%, 1);
-  --color-yellow-200: hsla(41, 45.5%, 74.1%, 1);
-  --color-yellow-300: hsla(44, 38.4%, 66.3%, 1);
-  --color-yellow-400: hsla(47, 32.1%, 59%, 1);
-  --color-yellow-500: hsla(50, 25.4%, 52.2%, 1);
-  --color-yellow-600: hsla(54, 23.9%, 45.9%, 1);
-  --color-yellow-700: hsla(58, 24.1%, 39.8%, 1);
-  --color-yellow-800: hsla(63, 24.6%, 34.3%, 1);
-  --color-yellow-900: hsla(68, 25.8%, 29.6%, 1);
-  --color-yellow-950: hsla(73, 26%, 24.9%, 1);
+  /* neutral — alias to sand (DEFENSIVE FALLBACK ONLY) */
+  --color-neutral-50:  #fbfaf8;
+  --color-neutral-100: #e6e4e0;
+  --color-neutral-200: #d1cec8;
+  --color-neutral-300: #bcb8b1;
+  --color-neutral-400: #a8a39b;
+  --color-neutral-500: #958e85;
+  --color-neutral-600: #777069;
+  --color-neutral-700: #5a544e;
+  --color-neutral-800: #3f3934;
+  --color-neutral-900: #25211d;
+  --color-neutral-950: #0e0a08;
 }
