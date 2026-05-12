@@ -768,7 +768,12 @@ a.btn-danger {
     margin-top: 4px;
     pointer-events: none;
 }
-.palette-swatch:hover .palette-swatch-tooltip,
+/* Tailwind v4 mangles multi-selector lists that mix :hover with other pseudo-classes
+   (strips the parent .palette-swatch:hover prefix from the first selector). Split into
+   separate rules to keep both intact. */
+.palette-swatch:hover .palette-swatch-tooltip {
+    display: block;
+}
 .palette-swatch:focus-within .palette-swatch-tooltip {
     display: block;
 }
