@@ -97,7 +97,7 @@ section {
 
 /* Pattern-library component-meta panel — rendered by pl-component-meta.js from @component-meta comment headers */
 .pl-component-meta {
-    @apply bg-surface-card border border-sand-150 rounded-md p-4 mb-6;
+    @apply bg-surface-card border border-sand-200 rounded-md p-4 mb-6;
     @apply dark:bg-sand-900 dark:border-sand-700;
 }
 .pl-meta-summary {
@@ -2746,7 +2746,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
    flush siblings left ~1px hit-test gaps between items, causing cursor to
    flicker between pointer and arrow. Seamless rectangles give continuous
    pointer affordance. Hover steps up from chrome (sand-100) to sand-200;
-   active uses sand-250 for persistent distinction. */
+   active uses sand-300 for persistent distinction. */
 .sidebar-nav-item {
     @apply flex items-center gap-x-3.5 px-2.5 text-sm text-sand-700 hover:bg-sand-200;
     @apply dark:text-sand-400 dark:hover:bg-sand-700 dark:hover:text-sand-300;
@@ -2760,7 +2760,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .sidebar-nav-item.active,
 .sidebar-nav-item[aria-current='page'] {
-    @apply bg-sand-250 text-sand-900 font-medium;
+    @apply bg-sand-300 text-sand-900 font-medium;
     @apply dark:bg-sand-700 dark:text-white;
 }
 
@@ -8763,7 +8763,7 @@ a.list-group-item-action {
 
 .notif-center-count {
     @apply inline-flex items-center justify-center text-xs font-semibold rounded-full;
-    @apply bg-sand-150 text-sand-700;
+    @apply bg-sand-200 text-sand-700;
     @apply dark:bg-sand-800 dark:text-sand-200;
     min-width: 1.25rem;
     height: 1.25rem;
@@ -9853,7 +9853,7 @@ a.list-group-item-action {
    from Patch 1a's opaque bg-white regression. */
 /* @contrast-exempt: decorative-background */
 .three-panel-shell {
-    @apply flex overflow-hidden border-[3px] border-sand-150 rounded-md;
+    @apply flex overflow-hidden border-[3px] border-sand-200 rounded-md;
     background-color: var(--color-surface-pane);
     height: calc(100vh - 2rem);
 }
@@ -9863,7 +9863,7 @@ a.list-group-item-action {
    overflows. Pane role per DESIGN.md §Surface: translucent white over page
    (not an opaque surface). Enforced by the surface-role conformance gate.
    Pane is intentionally flush with the shell interior — the shell's 3px
-   sand-150 border carries the envelope edge. */
+   sand-200 border carries the envelope edge. */
 /* @contrast-exempt: decorative-background */
 /* @surface-role: pane */
 .three-panel-shell-center {
@@ -10377,53 +10377,188 @@ a.list-group-item-action {
     @apply flex flex-col gap-3;
 }
 
-/* BasketReview — line items + totals */
-.basket-items {
+/* Cart panel internals — cart-item-list + cart-total + cart-helper.
+   The cart-panel container, cart-helper, cart-submit-button, and locked-variant
+   classes are defined below. These rules style the line items + totals composition
+   inside cart-panel; in the locked (post-submit) variant the same classes apply
+   for the order-summary display. */
+.cart-item-list {
     @apply flex flex-col;
 }
 
-.basket-item {
+.cart-item {
     @apply flex items-center justify-between py-2.5;
     border-bottom: 1px solid var(--color-sand-100);
 }
 
-.basket-item:last-child {
+.cart-item:last-child {
     border-bottom: none;
 }
 
-.basket-item-name {
-    @apply text-sm text-sand-800;
+.cart-item-name {
+    @apply text-sand-800;
     @apply dark:text-sand-200;
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
 }
 
-.basket-item-qty {
-    @apply text-xs text-sand-500 ml-1;
+.cart-item-qty {
+    @apply text-sand-500 ml-1;
     @apply dark:text-sand-400;
+    font-size: var(--text-utility-timestamp);
+    line-height: var(--text-utility-timestamp--line-height);
 }
 
-.basket-item-price {
-    @apply text-sm font-medium text-sand-900 tabular-nums;
+.cart-item-price {
+    @apply font-medium text-sand-900 tabular-nums;
     @apply dark:text-sand-100;
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
 }
 
-.basket-totals {
+.cart-total {
     @apply mt-3 pt-3 flex flex-col gap-1.5;
     border-top: 2px solid var(--color-sand-200);
 }
 
-.basket-total-row {
-    @apply flex justify-between text-sm;
+.cart-total-row {
+    @apply flex justify-between;
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
 }
 
-.basket-total-row.is-primary {
+.cart-total-row.is-primary {
     @apply font-semibold text-sand-900;
     @apply dark:text-sand-100;
 }
 
-.basket-budget-remaining {
-    @apply flex justify-between text-sm font-semibold mt-2 pt-2;
+.cart-budget-remaining {
+    @apply flex justify-between font-medium mt-2 pt-2;
     border-top: 1px solid var(--color-sand-100);
-    color: var(--color-teal-700);
+    color: var(--color-text-muted);
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
+}
+
+/* CartPanel — right-pane container for meal-ordering Steps 2–6.
+   Two variants: pre-submit (editable) and .is-locked (post-submit).
+   Pre-submit composes cart-item-list + cart-total + cart-helper + cart-submit.
+   Locked composes cart-item-list (locked, no steppers) + cart-total + the
+   header-side cart-panel-status pill; helpers + submit are hidden via the
+   .is-locked modifier. See cart-panel.html for canonical anatomy.
+
+   Surface choice: bg-surface-card (white) per DESIGN.md §Surface card-archetype
+   (cart-panel is a primary container, not grouped rows). Earlier draft used
+   bg-sand-50 which collided with the right-pane page surface — the cart-panel
+   then read as continuous with the pane rather than as a card primitive.
+   Brand-fidelity verdict 2026-05-12. */
+/* @surface-role: card */
+.cart-panel {
+    @apply flex flex-col bg-surface-card border border-sand-200 shadow-2xs rounded-md;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:shadow-sand-700/70;
+}
+
+/* @contrast-exempt: decorative-background */
+.cart-panel-header {
+    @apply flex items-center justify-between px-4 py-3 md:px-5 md:py-4 border-b border-sand-200;
+    @apply dark:border-sand-700;
+}
+
+.cart-panel-title {
+    @apply font-semibold text-sand-800 mb-0;
+    @apply dark:text-sand-200;
+    font-size: var(--text-heading-04);
+    line-height: var(--text-heading-04--line-height);
+}
+
+/* Locked-variant status indicator — "Sent to kitchen" pill.
+   Hidden by default; revealed only when .cart-panel.is-locked is set.
+   Soft teal pill register — primary-50 bg + primary-200 border + primary-700
+   text — matches meal-option-card's `.badge-primary` "Picked for you" register
+   so the two Haven soft-teal feedback beats in the meal-ordering flow share
+   visual weight. Distinct from `.badge-primary` itself because that class
+   enforces uppercase + text-xs (recommender-system chrome register); the
+   "Sent to kitchen" status copy is sentence case in restaurant-menu warm
+   register. Brand-fidelity verdict 2026-05-12. */
+.cart-panel-status {
+    @apply hidden items-center gap-1.5 px-2 py-0.5 rounded-md font-medium border;
+    background-color: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-700);
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
+    @apply dark:bg-primary-900/20 dark:border-primary-800 dark:text-primary-400;
+}
+
+.cart-panel-status i {
+    color: var(--color-primary-600);
+    @apply dark:text-primary-400;
+}
+
+.cart-panel.is-locked .cart-panel-status {
+    @apply inline-flex;
+}
+
+.cart-panel-body {
+    @apply p-4 md:p-5 flex flex-col;
+}
+
+/* Cart helper — gate copy that surfaces when the submit validator fails.
+   Two scenarios:
+     1. itemCount == 0    → "Add at least one meal to send your order."
+     2. total > budget.cap → "Remove an item or lower a quantity to send your order."
+   Hidden by default; consumer toggles .is-active on the matching helper instance
+   via cart-panel.js based on cart state. .is-gate styles the gate variant with
+   a warm amber tint (supportive register, not error red — the patient is
+   informed how to proceed, not blocked or chastised). */
+.cart-helper {
+    @apply hidden items-start gap-2 mt-3;
+    color: var(--color-sand-700);
+    @apply dark:text-sand-300;
+    font-size: var(--text-body-03);
+    line-height: var(--text-body-03--line-height);
+}
+
+.cart-helper.is-active {
+    @apply flex;
+}
+
+.cart-helper.is-gate {
+    color: var(--color-amber-700);
+    @apply dark:text-amber-300;
+}
+
+.cart-helper i {
+    color: var(--color-amber-600);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+    @apply dark:text-amber-400;
+}
+
+/* Cart submit — canonical "Send order to kitchen" button. Composes on top of
+   .btn + .btn-primary + .btn-block (primary-teal commit fill per DESIGN.md
+   §Brand-taste); this class adds the in-cart positioning (margin-top above
+   the budget area). Hidden in the .is-locked variant (the submit happened;
+   the locked variant displays the order summary instead). */
+.cart-submit {
+    @apply mt-4;
+}
+
+.cart-panel.is-locked .cart-submit,
+.cart-panel.is-locked .cart-helper {
+    @apply hidden;
+}
+
+/* Locked-variant: hide quantity-steppers inside the locked cart-item-list.
+   The post-submit composition shows quantities as static text (cart-item-qty)
+   rather than editable controls. Consumers render the locked variant by
+   adding .is-locked to .cart-panel; the markup change is replacing each
+   stepper with a quantity text node. This selector is a defense-in-depth
+   safeguard — if a consumer leaves a stepper inside a locked cart-panel,
+   the visual hides it. */
+.cart-panel.is-locked .quantity-stepper {
+    @apply hidden;
 }
 
 /* QueueList — agentic variant */
@@ -11095,12 +11230,12 @@ a.list-group-item-action {
     @apply opacity-60 cursor-not-allowed;
 }
 
-/* Index square — 36×36 with border-radius/xs (2px). Subtle sand-16 tile;
-   the numeral itself (sand-900 on sand-16) carries the visible content. */
+/* Index square — 36×36 with border-radius/xs (2px). Subtle sand-100 tile;
+   the numeral itself (sand-900 on sand-100) carries the visible content. */
 /* @contrast-exempt: decorative-background */
 .response-option-index {
     @apply flex items-center justify-center shrink-0 w-9 h-9 rounded-[2px];
-    background-color: var(--color-sand-16);
+    background-color: var(--color-sand-100);
 }
 
 .response-option[aria-checked="true"] .response-option-index {

@@ -1,0 +1,282 @@
+<!--
+  @component-meta
+  name: Cart Panel
+  category: Patient App — A2UI Right-Pane Primitives
+  file: cart-panel.html
+  classes: cart-panel, cart-panel-header, cart-panel-title, cart-panel-status, cart-panel-body, cart-item-list, cart-item, cart-item-name, cart-item-qty, cart-item-price, cart-total, cart-total-row, cart-total-row.is-primary, cart-budget-remaining, cart-helper, cart-helper.is-active, cart-helper.is-gate, cart-submit, cart-panel.is-locked
+  variants: default (pre-submit / editable — submit button + helpers active when validator fails), over-budget (pre-submit with .cart-helper.is-gate.is-active surfacing the over-budget gate copy + .btn:disabled submit), empty (pre-submit with .cart-helper.is-gate.is-active surfacing the empty-cart gate copy + .btn:disabled submit), locked (post-submit — .cart-panel.is-locked; submit + helpers hidden, cart-panel-status pill visible)
+  when-to-use: Right-pane cart container for meal-ordering Steps 2–6 (and as the locked summary card in Steps 6 → 7). Renders the live cart (cart-item-list), running total + budget remaining (cart-total + cart-budget-remaining), helper text that surfaces when the submit validator fails (cart-helper), and the canonical "Send order to kitchen" commit (cart-submit, primary-teal per DESIGN.md §Brand-taste). In Step 6 the `.is-locked` modifier converts the same DOM into an order-summary card — cart-item-list locks (no steppers), cart-total stays, helpers + submit hide, and the cart-panel-status pill in the header reads "Sent to kitchen." Subscribes to `quantity-change` CustomEvents bubbling from sibling menu-grid steppers; recomputes total + budget remaining + validator state per change.
+  do-not-use-when: The patient-app is showing a delivery summary or weekly schedule (use `meal-delivery-card` inside the idle-pane). The component is a generic content card with no commit semantics (use `.card` directly). The component is the menu browse grid (use `menu-grid` — cart-panel is the cart side; menu-grid is the menu side).
+  preline-required: no
+  notes: Pre-submit + locked share one DOM. Consumers toggle `.is-locked` on `.cart-panel` to switch variants; the submit button + cart-helpers hide under `.is-locked` and the header `.cart-panel-status` pill reveals. The locked variant typically also replaces each `.cart-item`'s embedded stepper with a static qty text node; a defense-in-depth CSS rule (`.cart-panel.is-locked .quantity-stepper { display: none; }`) hides any stepper that's left in place.
+
+    Wireframe-variant translation rule: meal-ordering wireframes declare cart-panel variants as a parameter (`{% cart-panel variant="locked" %}`). The PL primitive expresses each variant as a CSS class modifier on the container (`.cart-panel.is-locked`). General haven-ui convention: wireframe `variant=` values map to `.is-{variant}` modifier classes on the primitive's root element; never to separate components. Consumers compose the modifier at render time.
+
+    Copy authority: header titles ("Your cart" / "Your order") and gate copy live in the wireframe `{% copy %}` blocks at `meal-ordering.step-4-cart.mdoc` and `meal-ordering.step-6-submit-confirm.mdoc` (canonical authority for meal-ordering copy strings per the `define-once` rule). The primitive's exemplar HTML below renders the current values; consumers should bind to copy keys, not literal strings.
+
+    cart-helper variants: the default state has no helper visible (validator passes). When the cart violates `itemCount > 0 AND total <= budget.cap`, exactly one `.cart-helper.is-gate` becomes `.is-active`. cart-panel.js toggles `.is-active` on the matching instance per cart state. Two canonical gate-copy strings per `meal-ordering.step-4-cart.mdoc`:
+      - empty:        `copy.helper-empty`      → "Add at least one meal to send your order."
+      - over-budget:  `copy.helper-over-budget` → "Remove an item or lower a quantity to send your order."
+
+    Helper color is amber-700 (warm, supportive — not error-red). Per chat-affordance-principles "warning over hiding," the patient is informed how to proceed, not blocked or chastised; the submit button is the validator gate, not the helper.
+
+    cart-submit composes `.btn .btn-primary .btn-block .cart-submit` — the primary-teal commit fill is the canonical state-changing button per DESIGN.md §Brand-taste, reserved for moments like this one ("Send order to kitchen" is the user's first irreversible commitment in the flow). Disabled state uses the native `disabled` attribute; cart-panel.js sets it per validator (`disabled = itemCount === 0 || total > budgetCap`).
+
+    cart-panel-status pill (locked variant) is a soft-teal pill: primary-50 bg + primary-200 border + primary-700 text + leading `fa-circle-check` (aria-hidden). Shares visual weight with meal-option-card's `.badge-primary` "Picked for you" register so the two Haven soft-teal feedback beats in the flow read consistently. Distinct from `.badge-primary` directly because that class enforces uppercase + text-xs (recommender chrome); "Sent to kitchen" is sentence-case in restaurant-menu warm register.
+
+    Vanilla JS module: `packages/design-system/src/scripts/components/cart-panel.js`. Does NOT auto-subscribe to `quantity-change` events from sibling steppers — the consumer wires the stepper→cart bridge (see the wrapper page at `pages/cart-panel.html` for the canonical bridge example). The script's responsibilities: recompute total + budget remaining from the cart-item-list DOM (each `.cart-item` carries `data-cart-item-id`, `data-unit-price`, and `data-qty`); toggle `.is-active` on the matching `.cart-helper.is-gate` instance; swap the budget-row label between "Budget remaining" and "Over budget by" per validator state; set `disabled` on `[data-cart-submit]`; manage focus on `lock()`; emit announcements into the `[data-cart-announce]` polite live region on validator transitions. Programmatic API: `el._cartPanel.getState() / setQty(id, n) / addItem({...}) / removeItem(id) / lock() / unlock()`. Dispatches `cart-state-change` + `cart-submit` CustomEvents. See the script docblock for the full contract.
+
+    A11y contract (accessibility verdict 2026-05-12):
+      - List semantics: `.cart-item-list` is `role="list"` with an accessible name (aria-labelledby the panel title or aria-label="Cart items"). Each `.cart-item` is `role="listitem"`.
+      - Disabled-submit description: cart-panel.js assigns unique IDs to each `.cart-helper` instance on init and sets `aria-describedby` on `[data-cart-submit]` to reference both. Because inactive helpers are `display: none` (excluded from the AT tree), the disabled submit reads only the currently-active helper as its description ("Send order to kitchen, dimmed, Add at least one meal to send your order.").
+      - Validator-transition announcements: a debounced (400ms) sr-only `aria-live="polite" aria-atomic="true"` cell inside `.cart-panel-body` announces only on validator-state transitions (pass↔fail, fail-type swap) and on lock — not on every recompute. Matches the chatty-announcement-debounce pattern from quantity-stepper.js. The primitive owns its own AT story; no implicit dependency on a sibling chat-pane live region.
+      - Focus on lock: `_cartPanel.lock()` moves focus to `.cart-panel-status` (which carries `tabindex="-1"` for programmatic focus only). Keeps keyboard users oriented after submit.
+
+    Covers gap-doc R-7. The last meal-ordering PL primitive blocking the UConn pilot HTML delivery to Andrey.
+  interactive-usage: required (validator, helper switching, disabled-state management, focus management on lock, debounced live-region announcements)
+  interactive:
+    role: cart-submit is the canonical commit; cart-helper surfaces gate copy reactively per validator. Cart-item rows are not directly editable inside cart-panel in v1 (edit-in-place via menu-grid steppers is the v1 path).
+    keyboard: Tab moves through cart-submit (when enabled). The cart-helper text is read by AT via `aria-describedby` on the disabled submit. `.cart-panel-status` is programmatically focusable (tabindex="-1") so `_cartPanel.lock()` can move focus to it on submit-success.
+    aria:
+      label-needed: cart-submit carries its own button label ("Send order to kitchen"). `.cart-item-list` carries `role="list"` with `aria-label` (or `aria-labelledby` the title). Each `.cart-item` is `role="listitem"`. cart-panel-status pill icon (fa-circle-check) is aria-hidden; the adjacent text carries the meaning.
+      hidden-icons: cart-helper leading icon (fa-circle-info) is aria-hidden; copy carries the meaning.
+      live-region: `[data-cart-announce]` polite live region inside the body announces validator transitions (debounced 400ms) and lock events.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Cart Panel</h3>
+  <p class="pl-description">
+    Right-pane cart container for meal-ordering Steps 2–6. Pre-submit composition: cart-item-list + cart-total + cart-helper (gate copy when validator fails) + cart-submit ("Send order to kitchen", primary-teal). Locked composition: same DOM with `.is-locked` — submit + helpers hide; "Sent to kitchen" pill reveals in the header.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — pre-submit, valid cart</h4>
+    <!-- @component: cart-panel (default) -->
+    <div class="cart-panel" data-cart-panel data-budget-cap="200">
+      <div class="cart-panel-header">
+        <p class="cart-panel-title">Your cart</p>
+        <span class="cart-panel-status" tabindex="-1">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Sent to kitchen
+        </span>
+      </div>
+      <div class="cart-panel-body">
+        <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+        <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+          <div class="cart-item" data-cart-item-id="meal-1" data-unit-price="12.50" data-qty="2" role="listitem">
+            <p>
+              <span class="cart-item-name">Pollo guisado</span>
+              <span class="cart-item-qty">× 2</span>
+            </p>
+            <span class="cart-item-price">$25.00</span>
+          </div>
+          <div class="cart-item" data-cart-item-id="meal-2" data-unit-price="11.50" data-qty="3" role="listitem">
+            <p>
+              <span class="cart-item-name">Lemon chicken</span>
+              <span class="cart-item-qty">× 3</span>
+            </p>
+            <span class="cart-item-price">$34.50</span>
+          </div>
+          <div class="cart-item" data-cart-item-id="meal-3" data-unit-price="12.50" data-qty="2" role="listitem">
+            <p>
+              <span class="cart-item-name">Tofu noodle bowl</span>
+              <span class="cart-item-qty">× 2</span>
+            </p>
+            <span class="cart-item-price">$25.00</span>
+          </div>
+        </div>
+        <div class="cart-total">
+          <div class="cart-total-row is-primary">
+            <span>Total</span>
+            <span data-cart-total>$84.50</span>
+          </div>
+          <div class="cart-budget-remaining">
+            <span data-cart-budget-label>Budget remaining</span>
+            <span data-cart-budget-remaining>$115.50</span>
+          </div>
+        </div>
+        <p class="cart-helper is-gate" data-cart-helper="empty">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Add at least one meal to send your order.</span>
+        </p>
+        <p class="cart-helper is-gate" data-cart-helper="over-budget">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Remove an item or lower a quantity to send your order.</span>
+        </p>
+        <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit>
+          Send order to kitchen
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Empty — pre-submit, validator failing (itemCount == 0)</h4>
+    <!-- @component: cart-panel (empty) -->
+    <div class="cart-panel" data-cart-panel data-budget-cap="200">
+      <div class="cart-panel-header">
+        <p class="cart-panel-title">Your cart</p>
+        <span class="cart-panel-status" tabindex="-1">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Sent to kitchen
+        </span>
+      </div>
+      <div class="cart-panel-body">
+        <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+        <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+          <!-- no items -->
+        </div>
+        <div class="cart-total">
+          <div class="cart-total-row is-primary">
+            <span>Total</span>
+            <span data-cart-total>$0.00</span>
+          </div>
+          <div class="cart-budget-remaining">
+            <span data-cart-budget-label>Budget remaining</span>
+            <span data-cart-budget-remaining>$200.00</span>
+          </div>
+        </div>
+        <p class="cart-helper is-gate is-active" data-cart-helper="empty">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Add at least one meal to send your order.</span>
+        </p>
+        <p class="cart-helper is-gate" data-cart-helper="over-budget">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Remove an item or lower a quantity to send your order.</span>
+        </p>
+        <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit disabled>
+          Send order to kitchen
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Over budget — pre-submit, validator failing (total &gt; cap)</h4>
+    <!-- @component: cart-panel (over-budget) -->
+    <div class="cart-panel" data-cart-panel data-budget-cap="200">
+      <div class="cart-panel-header">
+        <p class="cart-panel-title">Your cart</p>
+        <span class="cart-panel-status" tabindex="-1">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Sent to kitchen
+        </span>
+      </div>
+      <div class="cart-panel-body">
+        <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+        <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+          <div class="cart-item" data-cart-item-id="meal-1" data-unit-price="12.50" data-qty="6">
+            <p>
+              <span class="cart-item-name">Pollo guisado</span>
+              <span class="cart-item-qty">× 6</span>
+            </p>
+            <span class="cart-item-price">$75.00</span>
+          </div>
+          <div class="cart-item" data-cart-item-id="meal-2" data-unit-price="11.50" data-qty="8">
+            <p>
+              <span class="cart-item-name">Lemon chicken</span>
+              <span class="cart-item-qty">× 8</span>
+            </p>
+            <span class="cart-item-price">$92.00</span>
+          </div>
+          <div class="cart-item" data-cart-item-id="meal-3" data-unit-price="12.50" data-qty="4">
+            <p>
+              <span class="cart-item-name">Tofu noodle bowl</span>
+              <span class="cart-item-qty">× 4</span>
+            </p>
+            <span class="cart-item-price">$50.00</span>
+          </div>
+        </div>
+        <div class="cart-total">
+          <div class="cart-total-row is-primary">
+            <span>Total</span>
+            <span data-cart-total>$217.00</span>
+          </div>
+          <div class="cart-budget-remaining">
+            <span data-cart-budget-label>Over budget by</span>
+            <span data-cart-budget-remaining>$17.00</span>
+          </div>
+        </div>
+        <p class="cart-helper is-gate" data-cart-helper="empty">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Add at least one meal to send your order.</span>
+        </p>
+        <p class="cart-helper is-gate is-active" data-cart-helper="over-budget">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Remove an item or lower a quantity to send your order.</span>
+        </p>
+        <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit disabled>
+          Send order to kitchen
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Locked — post-submit, order summary (.is-locked)</h4>
+    <!-- @component: cart-panel (locked) -->
+    <div class="cart-panel is-locked" data-cart-panel data-budget-cap="200">
+      <div class="cart-panel-header">
+        <p class="cart-panel-title">Your order</p>
+        <span class="cart-panel-status" tabindex="-1">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Sent to kitchen
+        </span>
+      </div>
+      <div class="cart-panel-body">
+        <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+        <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+          <div class="cart-item" data-cart-item-id="meal-1" data-unit-price="12.50" data-qty="2" role="listitem">
+            <p>
+              <span class="cart-item-name">Pollo guisado</span>
+              <span class="cart-item-qty">× 2</span>
+            </p>
+            <span class="cart-item-price">$25.00</span>
+          </div>
+          <div class="cart-item" data-cart-item-id="meal-2" data-unit-price="11.50" data-qty="3" role="listitem">
+            <p>
+              <span class="cart-item-name">Lemon chicken</span>
+              <span class="cart-item-qty">× 3</span>
+            </p>
+            <span class="cart-item-price">$34.50</span>
+          </div>
+          <div class="cart-item" data-cart-item-id="meal-3" data-unit-price="12.50" data-qty="2" role="listitem">
+            <p>
+              <span class="cart-item-name">Tofu noodle bowl</span>
+              <span class="cart-item-qty">× 2</span>
+            </p>
+            <span class="cart-item-price">$25.00</span>
+          </div>
+        </div>
+        <div class="cart-total">
+          <div class="cart-total-row is-primary">
+            <span>Total</span>
+            <span data-cart-total>$84.50</span>
+          </div>
+          <div class="cart-budget-remaining">
+            <span data-cart-budget-label>Budget remaining</span>
+            <span data-cart-budget-remaining>$115.50</span>
+          </div>
+        </div>
+        <p class="cart-helper is-gate" data-cart-helper="empty">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Add at least one meal to send your order.</span>
+        </p>
+        <p class="cart-helper is-gate" data-cart-helper="over-budget">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>Remove an item or lower a quantity to send your order.</span>
+        </p>
+        <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit>
+          Send order to kitchen
+        </button>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

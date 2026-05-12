@@ -127,18 +127,20 @@ Collection of meals displayed as a browsable grid.
 }
 ```
 
-### BasketReview
+### CartPanel
 
-Current order basket with budget tracking.
+Current order cart with budget tracking. Two variants: pre-submit (editable) renders the item list + total + budget + helper text + submit button; post-submit (`.is-locked`) renders the locked order summary + "Sent to kitchen" status (no submit, no helpers).
 
 ```
 {
+  variant:          "editable" | "locked"
   items:            { id: string, name: string, quantity: number, price: number }[]
   subtotal:         number
   budget_total:     number
   budget_remaining: number
   meals_remaining?: number
-  actions?:         action[]     // e.g. [{ label: "Place order", action_id: "confirm_order", style: "primary" }]
+  helper?:          { variant: "gate" | "info", text: string }   // editable variant only; selected by validator state
+  actions?:         action[]     // e.g. [{ label: "Send order to kitchen", action_id: "submit_order", style: "primary" }]
 }
 ```
 

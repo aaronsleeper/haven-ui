@@ -14,7 +14,7 @@ This doc is the **haven-ui build queue** subset of the full A2UI ↔ Haven gap a
 
 After validating each of the 51 patient-app components against `pattern-library/COMPONENT-INDEX.md`:
 
-- **exists (4)** — `complex-tag-group` partial, `complex-notification-center`, `BasketReview` (agentic), `MenuGrid` + agentic `MealOptionCard` (renamed from `MealCard` 2026-05-07). PL HTML present; React port status varies (out of scope here).
+- **exists (4)** — `complex-tag-group` partial, `complex-notification-center`, `CartPanel` (renamed from `BasketReview` 2026-05-12 with full PL authoring at `cart-panel.html`), `MenuGrid` + agentic `MealOptionCard` (renamed from `MealCard` 2026-05-07). PL HTML present; React port status varies (out of scope here).
 - **extends (12)** — existing PL pattern needs a new variant or modifier
 - **missing (~17)** — needs full PL authoring (HTML + components.css + COMPONENT-INDEX entry)
 
@@ -30,7 +30,7 @@ Per [DESIGN.md](../../../DESIGN.md) and [design-principles.md](../../../../cena-
 - **Card / right-pane surface** — `surface-card`. Cards sit on the page surface with appropriate elevation tokens.
 - **Button tier defaults**:
   - **Primary teal** — reserved for user *commitments that change state*: "Send order to kitchen", "Submit recall", "Begin assessment", "I understand" (consent ack).
-  - **Secondary (sand-150 fill)** — default for advancement chat affordances (most chip rows, action sets).
+  - **Secondary (sand-100 fill)** — default for advancement chat affordances (most chip rows, action sets).
   - **Tertiary (transparent + border)** — persistent affordances: `chat-handoff-trigger`, soft third option chips, handoff-menu's secondary buttons.
   - **Ghost / link** — inline help, "Tap to view" sheet links, spillover "See everything waiting" chip.
 - **Crisis surface** — `surface-card` with `border-l-4` left accent in `rose-04`. **Never** a fully red surface (violates Principle 3 + warm-ground mechanism).
