@@ -31,6 +31,7 @@ before creating any new component or semantic class.
 | Spacing | `foundations-spacing.html` | — | no | Reference only |
 | Motion / Animation | `foundations-motion.html` | `motion-demo-box`, `motion-demo-track` | no | Reference only. Tokens: `--duration-*`, `--ease-*`. JS: `motion-demos.js` |
 | Iconography | `foundations-icons.html` | `icon-demo-grid`, `icon-demo-card`, `icon-demo-label`, `icon-style-row` | no | Reference only. FA Pro v7.1.0 — styles, sizing, common icons, usage rules. |
+| Palette Swatch | `foundations-palette-swatch.html` | `palette-swatch`, `palette-swatch-sm`, `palette-swatch-lg`, `palette-swatch-trigger`, `palette-swatch-tooltip`, `palette-swatch-grid` | yes — hs-tooltip | Rectangular color cell with hex tooltip on hover/focus. Used by `foundations-colors.html`. Three size variants; mobile family-grid collapses to 1 column below sm. Composes Preline hs-tooltip via `data-hs-tooltip`. |
 
 ---
 

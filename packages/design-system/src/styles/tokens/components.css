@@ -723,6 +723,45 @@ a.btn-danger {
     @apply dark:bg-rose-900/20 dark:border-rose-800 dark:text-rose-400;
 }
 
+/* Palette swatch — rectangular color cell with hex tooltip on hover/focus.
+   Composes Preline hs-tooltip; used in foundations-colors.html for the system
+   overview strip, semantic role previews, and the family reference grid.
+   Spec: packages/design-system/design/new-components/palette-swatch.md */
+.palette-swatch {
+    @apply relative inline-block w-full;
+}
+.palette-swatch-trigger {
+    @apply block w-full h-8 rounded-sm border-0 outline-none cursor-pointer transition-transform;
+}
+.palette-swatch-trigger:hover {
+    @apply scale-105;
+}
+.palette-swatch-trigger:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-primary-500);
+}
+.dark .palette-swatch-trigger:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-primary-400);
+}
+.palette-swatch-sm .palette-swatch-trigger {
+    @apply h-6;
+}
+.palette-swatch-lg .palette-swatch-trigger {
+    @apply h-16 rounded;
+}
+.palette-swatch-tooltip {
+    @apply absolute z-50 px-2 py-1 text-xs font-mono rounded shadow-lg whitespace-nowrap;
+    @apply bg-sand-900 text-sand-50;
+    @apply dark:bg-sand-100 dark:text-sand-900;
+}
+.palette-swatch-grid {
+    @apply grid grid-cols-11 gap-1.5;
+}
+@media (max-width: 640px) {
+    .palette-swatch-grid {
+        @apply grid-cols-1;
+    }
+}
+
 /* Pill-shaped badge variant (for tags, status in tables) */
 .badge-pill {
     @apply rounded-full;

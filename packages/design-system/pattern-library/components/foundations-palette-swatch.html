@@ -1,0 +1,184 @@
+<!--
+  @component-meta
+  name: Palette Swatch
+  category: Foundations
+  file: foundations-palette-swatch.html
+  classes: palette-swatch, palette-swatch-sm, palette-swatch-lg, palette-swatch-trigger, palette-swatch-tooltip, palette-swatch-grid
+  when-to-use: Inside palette / color-system documentation surfaces. Wraps a rectangular color cell with a Preline hs-tooltip showing the hex value on hover/focus.
+  do-not-use-when: You need an interactive color picker (use color-picker family) or a status indicator (use indicator-dot / badge family).
+  preline-required: yes — hs-tooltip (consumer wires data-hs-tooltip on the wrapper)
+  notes: |
+    Three size variants — default (.palette-swatch, h-8), -sm (h-6), -lg (h-16 + rounded 4px).
+    Trigger is a real <button> with aria-label="{family} {stop}" and aria-describedby pointing to the tooltip.
+    Tooltip is rendered DOM element with role="tooltip" (via Preline's hs-tooltip-content); supplements the accessible name with the hex value.
+    Use .palette-swatch-grid wrapper for 11-column ladder layouts; collapses to 1 column below sm.
+  interactive-usage: required
+  interactive:
+    role: button (the trigger is the tooltip target)
+    keyboard: Tab focuses → tooltip shows; Esc dismisses
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Palette Swatch</h3>
+  <p class="pl-description">
+    Rectangular color cell with hex tooltip on hover/focus. Used to build palette and color-system documentation surfaces (foundations-colors).
+  </p>
+
+  <!-- Default size -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Default (h-8)</p>
+    <div class="flex gap-2 w-64">
+      <!-- @component: palette-swatch-default -->
+      <span class="palette-swatch" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-teal-500" aria-label="teal 500" aria-describedby="demo-tooltip-default"></button>
+        <span id="demo-tooltip-default" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#3a8478</span>
+      </span>
+      <!-- /component -->
+
+      <span class="palette-swatch" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-sage-500" aria-label="sage 500" aria-describedby="demo-tooltip-sage"></button>
+        <span id="demo-tooltip-sage" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#507f53</span>
+      </span>
+
+      <span class="palette-swatch" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-amber-500" aria-label="amber 500" aria-describedby="demo-tooltip-amber"></button>
+        <span id="demo-tooltip-amber" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#aa8232</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Compact size -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Compact (.palette-swatch-sm — h-6)</p>
+    <div class="flex gap-2 w-64">
+      <!-- @component: palette-swatch-sm -->
+      <span class="palette-swatch palette-swatch-sm" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-teal-300" aria-label="teal 300" aria-describedby="demo-tooltip-sm-300"></button>
+        <span id="demo-tooltip-sm-300" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#82b0a7</span>
+      </span>
+      <!-- /component -->
+
+      <span class="palette-swatch palette-swatch-sm" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-teal-500" aria-label="teal 500" aria-describedby="demo-tooltip-sm-500"></button>
+        <span id="demo-tooltip-sm-500" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#3a8478</span>
+      </span>
+
+      <span class="palette-swatch palette-swatch-sm" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-teal-700" aria-label="teal 700" aria-describedby="demo-tooltip-sm-700"></button>
+        <span id="demo-tooltip-sm-700" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#1e5149</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Large size -->
+  <div class="mb-6">
+    <p class="pl-variant-title">Large (.palette-swatch-lg — h-16, rounded 4px)</p>
+    <div class="flex gap-2 w-96">
+      <!-- @component: palette-swatch-lg -->
+      <span class="palette-swatch palette-swatch-lg" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-teal-500" aria-label="teal 500" aria-describedby="demo-tooltip-lg-teal"></button>
+        <span id="demo-tooltip-lg-teal" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#3a8478</span>
+      </span>
+      <!-- /component -->
+
+      <span class="palette-swatch palette-swatch-lg" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-sage-500" aria-label="sage 500" aria-describedby="demo-tooltip-lg-sage"></button>
+        <span id="demo-tooltip-lg-sage" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#507f53</span>
+      </span>
+
+      <span class="palette-swatch palette-swatch-lg" data-hs-tooltip>
+        <button type="button" class="palette-swatch-trigger bg-rose-500" aria-label="rose 500" aria-describedby="demo-tooltip-lg-rose"></button>
+        <span id="demo-tooltip-lg-rose" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#9f5774</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Grid wrapper -->
+  <div class="mb-6">
+    <p class="pl-variant-title">11-stop family ladder (.palette-swatch-grid)</p>
+    <p class="text-xs text-sand-600 dark:text-sand-400 mb-2">Below sm breakpoint, the grid collapses to a single column (vertical stack of swatches).</p>
+    <div class="palette-swatch-grid">
+      <!-- @component: palette-swatch-grid -->
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-50" aria-label="teal 50" aria-describedby="demo-ladder-50"></button>
+          <span id="demo-ladder-50" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#e9f5f2</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">50</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-100" aria-label="teal 100" aria-describedby="demo-ladder-100"></button>
+          <span id="demo-ladder-100" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#c6ded8</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">100</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-200" aria-label="teal 200" aria-describedby="demo-ladder-200"></button>
+          <span id="demo-ladder-200" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#a4c7bf</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">200</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-300" aria-label="teal 300" aria-describedby="demo-ladder-300"></button>
+          <span id="demo-ladder-300" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#82b0a7</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">300</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-400" aria-label="teal 400" aria-describedby="demo-ladder-400"></button>
+          <span id="demo-ladder-400" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#5f9a8f</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">400</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-500" aria-label="teal 500" aria-describedby="demo-ladder-500"></button>
+          <span id="demo-ladder-500" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#3a8478</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">500</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-600" aria-label="teal 600" aria-describedby="demo-ladder-600"></button>
+          <span id="demo-ladder-600" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#2c6a60</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">600</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-700" aria-label="teal 700" aria-describedby="demo-ladder-700"></button>
+          <span id="demo-ladder-700" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#1e5149</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">700</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-800" aria-label="teal 800" aria-describedby="demo-ladder-800"></button>
+          <span id="demo-ladder-800" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#113933</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">800</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-900" aria-label="teal 900" aria-describedby="demo-ladder-900"></button>
+          <span id="demo-ladder-900" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#06231f</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">900</p>
+      </div>
+      <div>
+        <span class="palette-swatch" data-hs-tooltip>
+          <button type="button" class="palette-swatch-trigger bg-teal-950" aria-label="teal 950" aria-describedby="demo-ladder-950"></button>
+          <span id="demo-ladder-950" role="tooltip" class="hs-tooltip-content palette-swatch-tooltip">#010f0c</span>
+        </span>
+        <p class="text-xs text-center mt-1 text-sand-600 dark:text-sand-400">950</p>
+      </div>
+      <!-- /component -->
+    </div>
+  </div>
+</section>
