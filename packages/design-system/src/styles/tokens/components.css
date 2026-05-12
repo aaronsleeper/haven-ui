@@ -736,11 +736,15 @@ a.btn-danger {
 .palette-swatch-trigger:hover {
     @apply scale-105;
 }
+/* Override universal button :focus ring (line 488 applies primary-500/teal ring to ALL buttons via @apply focus:ring-2).
+   Use !important to defeat Tailwind v4's compiled-then-cascaded ring system that otherwise wins. */
+.palette-swatch-trigger:focus,
 .palette-swatch-trigger:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-sand-800);
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-sand-800) !important;
 }
+.dark .palette-swatch-trigger:focus,
 .dark .palette-swatch-trigger:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-sand-200);
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-sand-200) !important;
 }
 .palette-swatch-sm .palette-swatch-trigger {
     @apply h-6;
@@ -752,15 +756,21 @@ a.btn-danger {
     @apply absolute z-50 px-2 py-1 text-xs font-mono rounded shadow-lg whitespace-nowrap;
     @apply bg-sand-900 text-sand-50;
     @apply dark:bg-sand-100 dark:text-sand-900;
-    @apply opacity-0 invisible pointer-events-none transition-opacity;
+}
+/* Pure-CSS rule (no @apply) — Tailwind v4's @apply parser strips raw CSS declarations
+   that share a rule with @apply. Splitting positioning + visibility into their own
+   rule keeps them in the compiled output. */
+.palette-swatch-tooltip {
+    display: none;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
     margin-top: 4px;
+    pointer-events: none;
 }
 .palette-swatch:hover .palette-swatch-tooltip,
 .palette-swatch:focus-within .palette-swatch-tooltip {
-    @apply opacity-100 visible;
+    display: block;
 }
 .palette-swatch-grid {
     @apply grid grid-cols-11 gap-2;
@@ -9937,6 +9947,11 @@ a.list-group-item-action {
     @apply flex-1 min-w-0;
 }
 
+.meal-option-card-name-row {
+    @apply flex items-center gap-1.5;
+    margin: 0;
+}
+
 .meal-option-card-name {
     @apply font-semibold text-sand-900;
     font-size: 0.9375rem;
@@ -9945,7 +9960,9 @@ a.list-group-item-action {
 
 .meal-option-card-description {
     font-size: 0.8125rem;
-    color: var(--color-sand-500);
+    /* sand-700 on page sand-50 ≈ 6.7:1 — meets WCAG 1.4.3 4.5:1 floor for normal text.
+       sand-500 previously used here failed at ~3.16:1 (a11y verdict 2026-05-12). */
+    color: var(--color-sand-700);
     margin-top: 0.125rem;
 }
 
@@ -9955,12 +9972,55 @@ a.list-group-item-action {
 }
 
 .meal-option-card-price {
-    @apply font-semibold;
+    @apply font-semibold tabular-nums;
     color: var(--color-teal-700);
 }
 
 .meal-option-card-tags {
     @apply flex flex-wrap gap-1 mt-1;
+}
+
+/* Tag-row badge register reset — scoped to meal-option-card only.
+   The global .badge class applies uppercase + font-bold + tracking-wider for
+   status-pill semantics (Swapped, New, etc.). That register is wrong for
+   restaurant-menu vocabulary ("Low sodium", "Vegetarian") and wrong for an
+   Ava attribution ("Picked for you") per DESIGN.md §Voice "warmth is
+   observational, not performative." This selector keeps status pills uppercase
+   everywhere else and restores warm-observational typography here only.
+   (Brand-fidelity verdict 2026-05-12.) */
+.meal-option-card-tags .badge {
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+    @apply gap-1.5;
+}
+
+/* Recommended variant — pin the "Picked for you" Ava-attribution badge first
+   in the tags row via CSS order, so consumer tag enumeration order can't
+   accidentally bury it. (UX verdict 2026-05-12.) */
+.meal-option-card.is-recommended .meal-option-card-tags .badge-primary {
+    order: -1;
+}
+
+/* Non-recommended-warned variant — always-visible inline warning row.
+   Rendered below the tags row. Per chat-affordance-principles "warning over
+   hiding," the card stays at full opacity, stepper stays active, and the help
+   affordance happens via the chat (the copy names Ava explicitly). This
+   replaces the previous hover-only info button which failed WCAG 1.4.13
+   (Content on Hover/Focus) for mobile patients. (UX + a11y verdicts 2026-05-12.) */
+.meal-option-card-warning-row {
+    @apply flex items-start gap-1.5 mt-2;
+    color: var(--color-sand-700);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
+.meal-option-card-warning-row i {
+    color: var(--color-sand-500);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    flex-shrink: 0;
 }
 
 /* PatientSummary — quick-glance patient record */
