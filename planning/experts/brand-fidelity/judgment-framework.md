@@ -75,3 +75,11 @@ When scoring is borderline (e.g., 6.5), ask:
 ### "Slice shipped before DESIGN.md landed (retrofit target)"
 
 → Score it as the retrofit diff, not the original slice. Focus review on what the retrofit changed, not what it inherited.
+
+### "Sibling primitives diverge on surface, opacity, or border-width"
+
+When two primitives serve the same role-family in the same render context (e.g., `thread-approval-card` and `thread-question-card` both rendering as hero cards in the same thread pane), they must align on the family-defining axes: surface token, opacity at parity states, border weights, and accent treatment. Drift on any of these reads as "different family" even when the underlying decisions are correct.
+
+→ Flag as iterate on dimension 2 (visual hierarchy) with the specific divergence named. Anchor the verdict on the *sibling* primitive's values — name them in the finding so the iteration cycle has a clear target. Don't accept "this primitive's value is defensible in isolation" — sibling parity is the load-bearing axis when both render in the same pane.
+
+Source: thread-question-card Round 1 panel 2026-05-11 — surface drifted to `bg-surface-card` alias (resolves to white in light mode) where the family sibling used explicit `bg-sand-50`; opacity 0.85 vs sibling's 0.70; left border 3px vs sibling's 4px. Three independent axes, same root cause — primitive authored in isolation without sibling comparison.
