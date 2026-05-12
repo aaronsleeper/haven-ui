@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <load src="../partials/pl-head.html" />
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; }
+
+    /* .chat-thread-header — non-scrolling chrome strip above the chat thread.
+       Mirrors the haven-shell.css definition in the Andrey handoff bundle so
+       this page demonstrates exactly what Andrey would render. When/if this
+       semantic class lands in components.css, this inline rule comes out. */
+    .chat-thread-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 0.5rem;
+      padding: 0.625rem 1rem;
+      border-bottom: 1px solid var(--color-sand-100);
+      background: transparent;
+    }
+    .chat-thread-header-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    Worked example — agentic shell rendered with patient-context content for
+    meal-ordering step-4-cart (returning-patient, default condition).
+
+    Pair with:
+      - apps/_shared/handoff/andrey-uconn-2026-05-12/flows/meal-ordering.step-4-cart.md (the blob doc)
+      - uconn-pilot-docs/wireframes/meal-ordering.step-4-cart.mdoc (canonical wireframe)
+      - uconn-pilot-docs/flows/flow-meal-ordering.md §Step 4 (design intent)
+
+    Right pane is PARTIAL — three composition primitives (cart-panel,
+    menu-grid, meal-option-card) are not yet authored in haven-ui PL per the
+    wireframe's {% pl-status %} block. The blocked composition is shown as
+    structured HTML comments below; only budget-meter renders.
+
+    Source: layout-agentic-shell.html (worked example), adapted to patient context.
+  -->
+
+  <div class="app-shell app-shell--agentic">
+
+  <div id="agentic-shell" class="agentic-shell">
+
+    <!-- Panel 1: Navigation -->
+    <nav id="panel-nav" class="panel-nav">
+      <div class="nav-header">
+        <div class="nav-logo">
+          <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health">
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label"><span>Quick actions</span></div>
+        <div class="nav-item">
+          <i class="fa-solid fa-calendar-plus"></i>
+          <span>Schedule a visit</span>
+        </div>
+        <div class="nav-item">
+          <i class="fa-solid fa-comment"></i>
+          <span>Message coordinator</span>
+        </div>
+        <div class="nav-item">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span>View care plan</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label"><span>Conversations</span></div>
+        <div class="nav-item active">
+          <i class="fa-solid fa-utensils"></i>
+          <span>Order this week's meals</span>
+        </div>
+        <div class="nav-item">
+          <i class="fa-regular fa-message"></i>
+          <span>Snack ideas after meds</span>
+        </div>
+        <div class="nav-item">
+          <i class="fa-regular fa-message"></i>
+          <span>Last week's appointments</span>
+        </div>
+      </div>
+
+      <!-- User menu pinned to bottom. -->
+      <div class="nav-section" style="margin-top: auto; border-top: 1px solid var(--color-sand-200);">
+        <div class="hs-dropdown relative" style="width: 100%;">
+          <button type="button" class="hs-dropdown-toggle nav-item" style="width: 100%; background: transparent; border: none; cursor: pointer;">
+            <div style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 9999px; background: var(--color-teal-100); color: var(--color-teal-700); font-size: 0.75rem; font-weight: 600; flex-shrink: 0;">MR</div>
+            <span style="flex: 1; text-align: left;">Maria Rivera</span>
+            <i class="fa-solid fa-chevron-up" style="font-size: 0.6875rem; opacity: 0.6;"></i>
+          </button>
+          <div class="hs-dropdown-menu" role="menu" style="min-width: 200px;">
+            <a class="hs-dropdown-item" href="#">
+              <i class="fa-regular fa-user" style="margin-right: 0.5rem; opacity: 0.6;"></i>
+              <span>Account</span>
+            </a>
+            <a class="hs-dropdown-item" href="#">
+              <i class="fa-regular fa-sliders" style="margin-right: 0.5rem; opacity: 0.6;"></i>
+              <span>Preferences</span>
+            </a>
+            <a class="hs-dropdown-item" href="#">
+              <i class="fa-regular fa-arrow-right-from-bracket" style="margin-right: 0.5rem; opacity: 0.6;"></i>
+              <span>Log out</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- End Panel 1 -->
+
+    <!-- Splitter: nav ↔ chat -->
+    <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="220" data-max="320"></div>
+
+    <!-- Panel 2: Chat -->
+    <main class="panel-chat">
+
+      <!-- Chat thread header — persistent chrome strip above the scrolling thread.
+           Bundle slot: <div class="chat-thread-header">
+           Layout per ux-design-lead verdict 2026-05-12: pane toggles sit
+           near the pane they control. nav-toggle on the left, content-toggle
+           on the right next to the handoff chip. -->
+      <div class="chat-thread-header">
+        <div class="chat-thread-header-group">
+          <button class="btn-panel-toggle" onclick="toggleNav()" title="Toggle navigation" aria-label="Toggle navigation">
+            <i class="fa-solid fa-sidebar"></i>
+          </button>
+        </div>
+
+        <div class="chat-thread-header-group">
+          <button class="btn-panel-toggle" onclick="toggleContent()" title="Toggle content panel" aria-label="Toggle content panel">
+            <i class="fa-solid fa-table-columns"></i>
+          </button>
+
+          <!-- Persistent talk-to-a-person affordance.
+               Wireframe tag: {% talk-to-person-trigger persistent="true" /%}
+               Resolves to: chat-handoff-trigger.is-header (desktop chip register).
+               Tap opens handoff-menu (gap-doc R-23). -->
+          <button type="button" class="chat-handoff-trigger is-header"
+                  data-i18n-en="Talk to a person"
+                  data-i18n-es="Hablar con una persona">
+            <i class="fa-solid fa-headset" aria-hidden="true"></i>
+            Talk to a person
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat thread -->
+      <div class="chat-thread">
+        <div class="chat-thread-inner">
+
+          <!-- Step 1 — Entry agent message (from flow-meal-ordering Step 1).
+               Persistent in the thread. The Step 1 "Review my selections"
+               button is ephemeral and has been removed after tap. -->
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body"
+               data-i18n-en="¡Hola Maria! I've put together a starting list of meals for next week — want to take a look?"
+               data-i18n-es="¡Hola Maria! Le preparé una lista inicial de comidas para la próxima semana — ¿quiere echarle un vistazo?">
+              ¡Hola Maria! I've put together a starting list of meals for next week — want to take a look?
+            </p>
+          </div>
+
+          <!-- Step 2 — State-read with prepared cart, returning-patient
+               (from flow-meal-ordering Step 2). Renders when the patient
+               first arrives at cart-presentation; persistent in the thread.
+               (Skipped for first-time-patient — see flow doc Step 3 fork.) -->
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body"
+               data-i18n-en="You have $200 to spend this week. I started a list based on what worked for you last time. Take a look on the right — change anything by tapping items, or just tell me what you'd swap."
+               data-i18n-es="Tiene $200 para gastar esta semana. Empecé una lista basada en lo que funcionó la vez pasada. Mire a la derecha — cambie lo que quiera tocando los artículos, o dígame qué cambiaría.">
+              You have $200 to spend this week. I started a list based on what worked for you last time. Take a look on the right — change anything by tapping items, or just tell me what you'd swap.
+            </p>
+          </div>
+
+          <!-- Wireframe tag (step-4-cart):
+               {% agent-message condition="default" key="agent.cart-default" /%}
+               Resolves to: patient-chat-message (ava variant).
+               The cart-default reads as a re-prompt after Path A edits
+               or mid-edit moments; persistent in the thread. -->
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body"
+               data-i18n-en="Take a look at your cart on the right. Tap items to change them, or just tell me what you'd swap."
+               data-i18n-es="Eche un vistazo a su carrito a la derecha. Toque los artículos para cambiarlos, o dígame qué cambiaría.">
+              Take a look at your cart on the right. Tap items to change them, or just tell me what you'd swap.
+            </p>
+          </div>
+
+          <!-- Wireframe tag (step-4-cart):
+               {% agent-message condition="layered-engagement" key="agent.engagement-prompt" /%}
+               Renders at most once per session, only when the system has a
+               genuine social/feedback signal to surface (per chat-affordance-
+               principles). Persistent in the thread once rendered. -->
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body"
+               data-i18n-en="How was that curry from last week?"
+               data-i18n-es="¿Qué tal le pareció el curry de la semana pasada?">
+              How was that curry from last week?
+            </p>
+          </div>
+
+          <!-- Wireframe tag:
+               {% courtesy-submit
+                    when="cart.itemCount > 0 AND cart.total <= budget.cap"
+                    label-key="copy.courtesy-submit" /%}
+               Resolves to: chat-button-row (single) with btn-primary (chat-anchored commit).
+               Render only when the `when=` predicate holds; hide otherwise.
+               Canonical submit lives in the right-pane cart-panel; this is the courtesy duplicate. -->
+          <div class="chat-button-row">
+            <button type="button" class="btn-primary"
+                    data-i18n-en="Send order"
+                    data-i18n-es="Enviar pedido">Send order</button>
+          </div>
+
+        </div>
+      </div>
+      <!-- End chat thread -->
+
+      <!-- Chat input — prompt-input pattern carried from layout-agentic-shell.html.
+           Send button is disabled until the textarea has content. -->
+      <div class="chat-input-area">
+        <div class="prompt-input-container relative flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl">
+          <div class="p-2">
+            <label for="prompt-textarea" class="sr-only">What can I help with?</label>
+            <textarea id="prompt-textarea"
+              class="prompt-textarea p-3 block w-full border-transparent rounded-lg text-sm focus:border-transparent focus:ring-0"
+              placeholder="What can I help with?" rows="2"></textarea>
+          </div>
+          <div class="prompt-toolbar p-2 flex justify-between items-center border-t border-gray-100">
+            <div class="flex items-center gap-x-1">
+              <button type="button" class="btn-icon" title="Attach file">
+                <i class="fa-solid fa-paperclip"></i>
+              </button>
+            </div>
+            <div class="flex items-center gap-x-2">
+              <button type="button" id="send-btn" class="btn-icon-primary" disabled>
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End chat input -->
+
+    </main>
+    <!-- End Panel 2 -->
+
+    <!-- Splitter: chat ↔ content -->
+    <div id="content-splitter" class="panel-splitter" data-panel-splitter data-target="next" data-min="480" data-max="800"></div>
+
+    <!-- Panel 3: Content (right pane) -->
+    <aside id="panel-content" class="panel-content">
+      <div class="content-body" style="display: flex; flex-direction: column; gap: 1rem;">
+
+        <!-- ============================================================
+             BLOCKED — cart-panel composition (wireframe tag below).
+             Not yet authored in haven-ui PL (gap-doc R-7).
+             Surface in feedback report under "Missing primitives."
+             Canonical wireframe spec retained as comment so the implementing
+             agent has the full composition + copy in hand.
+             ============================================================
+             {% cart-panel
+                  submit-label-key="copy.primary-submit"
+                  submit-disabled-when="cart.itemCount == 0 OR cart.total > budget.cap" %}
+               {% cart-item-list source="cart" /%}
+               {% cart-total /%}
+               {% cart-helper when="cart.itemCount == 0"     variant="gate" key="copy.helper-empty" /%}
+               {% cart-helper when="cart.total > budget.cap" variant="gate" key="copy.helper-over-budget" /%}
+             {% /cart-panel %}
+             Canonical submit label: "Send order to kitchen"
+             Gate-helper-empty: "Add at least one meal to send your order."
+             Gate-helper-over-budget: "Remove an item or lower a quantity to send your order."
+        ============================================================ -->
+        <div style="border: 1px dashed var(--color-sand-300); border-radius: 11px; padding: 1rem; background: rgba(255,255,255,0.4); color: var(--color-sand-700); font-size: 0.875rem;">
+          <p style="margin: 0 0 0.5rem; font-weight: 600;">
+            <i class="fa-regular fa-cart-shopping" style="margin-right: 0.375rem; opacity: 0.6;"></i>
+            cart-panel placeholder
+          </p>
+          <p style="margin: 0;">
+            Cart-panel + cart-item-list + cart-total + cart-helper. Submit button "Send order to kitchen" disabled when cart empty or over budget.
+            <em>Build-blocked on cart-panel primitive (gap-doc R-7).</em>
+          </p>
+        </div>
+
+        <!-- ============================================================
+             BLOCKED — menu-grid composition (wireframe tag below).
+             Not yet authored in haven-ui PL (gap-doc R-5 + R-3).
+             quantity-stepper EXISTS but is consumed inside meal-option-card.
+             ============================================================
+             {% menu-grid source="thisWeekMenu" %}
+               {% meal-option-card variant="recommended" when="item.recommended"
+                                    badge-key="copy.recommended-badge" /%}
+               {% meal-option-card variant="non-recommended-warned"
+                                    when="item.added AND NOT item.recommended"
+                                    warning-icon="info"
+                                    warning-tooltip-key="copy.non-recommended-warning" /%}
+               {% meal-option-card variant="default" /%}
+               {% quantity-stepper /%}
+             {% /menu-grid %}
+             Canonical copy:
+               recommended-badge: "Picked for you"
+               non-recommended-warning: "this isn't a typical match for your care plan — feel free to ask if you have questions"
+        ============================================================ -->
+        <div style="border: 1px dashed var(--color-sand-300); border-radius: 11px; padding: 1rem; background: rgba(255,255,255,0.4); color: var(--color-sand-700); font-size: 0.875rem;">
+          <p style="margin: 0 0 0.5rem; font-weight: 600;">
+            <i class="fa-regular fa-grid-2" style="margin-right: 0.375rem; opacity: 0.6;"></i>
+            menu-grid placeholder
+          </p>
+          <p style="margin: 0;">
+            menu-grid wrapping ~14 meal-option-card primitives (recommended / non-recommended-warned / default variants) + quantity-stepper per card.
+            <em>Build-blocked on menu-grid + meal-option-card primitives (gap-doc R-5 + R-3).</em>
+          </p>
+        </div>
+
+        <!-- Wireframe tag:
+             {% budget-meter
+                  variant-when-default="normal"
+                  variant-when="cart.total > budget.cap → error"
+                  label-key-default="copy.budget-default"
+                  label-key-error="copy.budget-error" /%}
+             Default state: $120 of $200 used, $80 left. -->
+        <div class="budget-meter">
+          <div class="budget-meter-label">
+            <span data-i18n-en="This week's meal budget"
+                  data-i18n-es="Presupuesto de comidas de esta semana">This week's meal budget</span>
+            <span class="budget-meter-amount"
+                  data-i18n-en="$120 of $200 used"
+                  data-i18n-es="$120 de $200 usados">$120 of $200 used</span>
+          </div>
+          <div class="progress progress-success">
+            <div class="progress-bar" style="width: 60%"></div>
+          </div>
+          <p class="budget-meter-message"
+             data-i18n-en="$80 left this week."
+             data-i18n-es="$80 restantes esta semana.">$80 left this week.</p>
+        </div>
+
+      </div>
+    </aside>
+    <!-- End Panel 3 -->
+
+  </div>
+  <!-- End Agentic Shell -->
+
+  </div>
+  <!-- End .app-shell -->
+
+  <load src="../partials/pl-scripts.html" />
+
+  <!-- Panel splitter (drag-to-resize) -->
+  <script src="/src/scripts/components/panel-splitter.js"></script>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('panel-nav').classList.toggle('collapsed');
+    }
+    function toggleContent() {
+      var panel = document.getElementById('panel-content');
+      var splitter = document.getElementById('content-splitter');
+      panel.classList.toggle('hidden');
+      splitter.style.display = panel.classList.contains('hidden') ? 'none' : '';
+    }
+
+    (function() {
+      var textarea = document.getElementById('prompt-textarea');
+      var sendBtn = document.getElementById('send-btn');
+      if (!textarea || !sendBtn) return;
+      var update = function() { sendBtn.disabled = !textarea.value.trim(); };
+      textarea.addEventListener('input', update);
+      update();
+    })();
+  </script>
+
+</body>
+</html>
