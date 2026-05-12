@@ -737,10 +737,10 @@ a.btn-danger {
     @apply scale-105;
 }
 .palette-swatch-trigger:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-primary-500);
+    box-shadow: 0 0 0 2px var(--color-sand-50), 0 0 0 4px var(--color-sand-800);
 }
 .dark .palette-swatch-trigger:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-primary-400);
+    box-shadow: 0 0 0 2px var(--color-sand-900), 0 0 0 4px var(--color-sand-200);
 }
 .palette-swatch-sm .palette-swatch-trigger {
     @apply h-6;
@@ -752,9 +752,21 @@ a.btn-danger {
     @apply absolute z-50 px-2 py-1 text-xs font-mono rounded shadow-lg whitespace-nowrap;
     @apply bg-sand-900 text-sand-50;
     @apply dark:bg-sand-100 dark:text-sand-900;
+    @apply opacity-0 invisible pointer-events-none transition-opacity;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 4px;
+}
+.palette-swatch:hover .palette-swatch-tooltip,
+.palette-swatch:focus-within .palette-swatch-tooltip {
+    @apply opacity-100 visible;
 }
 .palette-swatch-grid {
-    @apply grid grid-cols-11 gap-1.5;
+    @apply grid grid-cols-11 gap-2;
+}
+.palette-swatch-grid > * {
+    @apply min-w-0;
 }
 @media (max-width: 640px) {
     .palette-swatch-grid {
