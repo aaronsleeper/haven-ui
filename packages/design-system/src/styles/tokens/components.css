@@ -992,6 +992,87 @@ a.btn-danger {
 .palette-swatch-trigger.bg-rose-900:hover { background-color: var(--color-rose-900) !important; }
 .palette-swatch-trigger.bg-rose-950:hover { background-color: var(--color-rose-950) !important; }
 
+/* Semantic alias hover overrides — Zone 4 role rows use bg-{primary|secondary|success|warning|error|info|accent}-{stop}
+   instead of raw family names. Same Preline-defeat pattern as above. */
+.palette-swatch-trigger.bg-primary-50:hover { background-color: var(--color-primary-50) !important; }
+.palette-swatch-trigger.bg-primary-100:hover { background-color: var(--color-primary-100) !important; }
+.palette-swatch-trigger.bg-primary-200:hover { background-color: var(--color-primary-200) !important; }
+.palette-swatch-trigger.bg-primary-300:hover { background-color: var(--color-primary-300) !important; }
+.palette-swatch-trigger.bg-primary-400:hover { background-color: var(--color-primary-400) !important; }
+.palette-swatch-trigger.bg-primary-500:hover { background-color: var(--color-primary-500) !important; }
+.palette-swatch-trigger.bg-primary-600:hover { background-color: var(--color-primary-600) !important; }
+.palette-swatch-trigger.bg-primary-700:hover { background-color: var(--color-primary-700) !important; }
+.palette-swatch-trigger.bg-primary-800:hover { background-color: var(--color-primary-800) !important; }
+.palette-swatch-trigger.bg-primary-900:hover { background-color: var(--color-primary-900) !important; }
+.palette-swatch-trigger.bg-primary-950:hover { background-color: var(--color-primary-950) !important; }
+.palette-swatch-trigger.bg-secondary-50:hover { background-color: var(--color-secondary-50) !important; }
+.palette-swatch-trigger.bg-secondary-100:hover { background-color: var(--color-secondary-100) !important; }
+.palette-swatch-trigger.bg-secondary-200:hover { background-color: var(--color-secondary-200) !important; }
+.palette-swatch-trigger.bg-secondary-300:hover { background-color: var(--color-secondary-300) !important; }
+.palette-swatch-trigger.bg-secondary-400:hover { background-color: var(--color-secondary-400) !important; }
+.palette-swatch-trigger.bg-secondary-500:hover { background-color: var(--color-secondary-500) !important; }
+.palette-swatch-trigger.bg-secondary-600:hover { background-color: var(--color-secondary-600) !important; }
+.palette-swatch-trigger.bg-secondary-700:hover { background-color: var(--color-secondary-700) !important; }
+.palette-swatch-trigger.bg-secondary-800:hover { background-color: var(--color-secondary-800) !important; }
+.palette-swatch-trigger.bg-secondary-900:hover { background-color: var(--color-secondary-900) !important; }
+.palette-swatch-trigger.bg-secondary-950:hover { background-color: var(--color-secondary-950) !important; }
+.palette-swatch-trigger.bg-success-50:hover { background-color: var(--color-success-50) !important; }
+.palette-swatch-trigger.bg-success-100:hover { background-color: var(--color-success-100) !important; }
+.palette-swatch-trigger.bg-success-200:hover { background-color: var(--color-success-200) !important; }
+.palette-swatch-trigger.bg-success-300:hover { background-color: var(--color-success-300) !important; }
+.palette-swatch-trigger.bg-success-400:hover { background-color: var(--color-success-400) !important; }
+.palette-swatch-trigger.bg-success-500:hover { background-color: var(--color-success-500) !important; }
+.palette-swatch-trigger.bg-success-600:hover { background-color: var(--color-success-600) !important; }
+.palette-swatch-trigger.bg-success-700:hover { background-color: var(--color-success-700) !important; }
+.palette-swatch-trigger.bg-success-800:hover { background-color: var(--color-success-800) !important; }
+.palette-swatch-trigger.bg-success-900:hover { background-color: var(--color-success-900) !important; }
+.palette-swatch-trigger.bg-success-950:hover { background-color: var(--color-success-950) !important; }
+.palette-swatch-trigger.bg-warning-50:hover { background-color: var(--color-warning-50) !important; }
+.palette-swatch-trigger.bg-warning-100:hover { background-color: var(--color-warning-100) !important; }
+.palette-swatch-trigger.bg-warning-200:hover { background-color: var(--color-warning-200) !important; }
+.palette-swatch-trigger.bg-warning-300:hover { background-color: var(--color-warning-300) !important; }
+.palette-swatch-trigger.bg-warning-400:hover { background-color: var(--color-warning-400) !important; }
+.palette-swatch-trigger.bg-warning-500:hover { background-color: var(--color-warning-500) !important; }
+.palette-swatch-trigger.bg-warning-600:hover { background-color: var(--color-warning-600) !important; }
+.palette-swatch-trigger.bg-warning-700:hover { background-color: var(--color-warning-700) !important; }
+.palette-swatch-trigger.bg-warning-800:hover { background-color: var(--color-warning-800) !important; }
+.palette-swatch-trigger.bg-warning-900:hover { background-color: var(--color-warning-900) !important; }
+.palette-swatch-trigger.bg-warning-950:hover { background-color: var(--color-warning-950) !important; }
+.palette-swatch-trigger.bg-error-50:hover { background-color: var(--color-error-50) !important; }
+.palette-swatch-trigger.bg-error-100:hover { background-color: var(--color-error-100) !important; }
+.palette-swatch-trigger.bg-error-200:hover { background-color: var(--color-error-200) !important; }
+.palette-swatch-trigger.bg-error-300:hover { background-color: var(--color-error-300) !important; }
+.palette-swatch-trigger.bg-error-400:hover { background-color: var(--color-error-400) !important; }
+.palette-swatch-trigger.bg-error-500:hover { background-color: var(--color-error-500) !important; }
+.palette-swatch-trigger.bg-error-600:hover { background-color: var(--color-error-600) !important; }
+.palette-swatch-trigger.bg-error-700:hover { background-color: var(--color-error-700) !important; }
+.palette-swatch-trigger.bg-error-800:hover { background-color: var(--color-error-800) !important; }
+.palette-swatch-trigger.bg-error-900:hover { background-color: var(--color-error-900) !important; }
+.palette-swatch-trigger.bg-error-950:hover { background-color: var(--color-error-950) !important; }
+.palette-swatch-trigger.bg-info-50:hover { background-color: var(--color-info-50) !important; }
+.palette-swatch-trigger.bg-info-100:hover { background-color: var(--color-info-100) !important; }
+.palette-swatch-trigger.bg-info-200:hover { background-color: var(--color-info-200) !important; }
+.palette-swatch-trigger.bg-info-300:hover { background-color: var(--color-info-300) !important; }
+.palette-swatch-trigger.bg-info-400:hover { background-color: var(--color-info-400) !important; }
+.palette-swatch-trigger.bg-info-500:hover { background-color: var(--color-info-500) !important; }
+.palette-swatch-trigger.bg-info-600:hover { background-color: var(--color-info-600) !important; }
+.palette-swatch-trigger.bg-info-700:hover { background-color: var(--color-info-700) !important; }
+.palette-swatch-trigger.bg-info-800:hover { background-color: var(--color-info-800) !important; }
+.palette-swatch-trigger.bg-info-900:hover { background-color: var(--color-info-900) !important; }
+.palette-swatch-trigger.bg-info-950:hover { background-color: var(--color-info-950) !important; }
+.palette-swatch-trigger.bg-accent-50:hover { background-color: var(--color-accent-50) !important; }
+.palette-swatch-trigger.bg-accent-100:hover { background-color: var(--color-accent-100) !important; }
+.palette-swatch-trigger.bg-accent-200:hover { background-color: var(--color-accent-200) !important; }
+.palette-swatch-trigger.bg-accent-300:hover { background-color: var(--color-accent-300) !important; }
+.palette-swatch-trigger.bg-accent-400:hover { background-color: var(--color-accent-400) !important; }
+.palette-swatch-trigger.bg-accent-500:hover { background-color: var(--color-accent-500) !important; }
+.palette-swatch-trigger.bg-accent-600:hover { background-color: var(--color-accent-600) !important; }
+.palette-swatch-trigger.bg-accent-700:hover { background-color: var(--color-accent-700) !important; }
+.palette-swatch-trigger.bg-accent-800:hover { background-color: var(--color-accent-800) !important; }
+.palette-swatch-trigger.bg-accent-900:hover { background-color: var(--color-accent-900) !important; }
+.palette-swatch-trigger.bg-accent-950:hover { background-color: var(--color-accent-950) !important; }
+
+
 
 /* Pill-shaped badge variant (for tags, status in tables) */
 .badge-pill {
