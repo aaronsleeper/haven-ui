@@ -105,7 +105,7 @@ body {
 /* ----------------------------------------------------------------
    .agentic-shell — flex row, 11px radius, no border.
    The pages-float effect is carried by surface luminance:
-   .app-shell--agentic (sand-150 ground) below + translucent
+   .app-shell--agentic (sand-200 ground) below + translucent
    white panes above. Per DESIGN.md §Pages float (reconciled
    2026-05-12 — border treatment retired in favor of surface
    contrast after side-by-side review).

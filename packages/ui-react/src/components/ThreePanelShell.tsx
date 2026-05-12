@@ -9,7 +9,7 @@ import type { ReactNode } from 'react';
 // children beyond their placement in the flex row. The outer `.app-shell`
 // div supplies the Haven floating-page envelope (sand-50 page bg shows
 // around it via padding); the inner `.three-panel-shell` carries the 3px
-// sand-150 border + border-radius-md that makes the app float inside its frame.
+// sand-200 border + border-radius-md that makes the app float inside its frame.
 //
 // Composition note: this component accepts children: ReactNode. Layout-shell
 // carve-out — it composes other registered components (QueueSidebar, ThreadPanel,

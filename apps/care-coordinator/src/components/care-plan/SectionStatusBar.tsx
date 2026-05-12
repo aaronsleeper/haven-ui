@@ -65,7 +65,7 @@ export function SectionStatusBar({ sections, onJump }: SectionStatusBarProps) {
   return (
     <nav
       aria-label="Care plan sections"
-      className="sticky top-0 z-20 flex flex-wrap gap-x-5 gap-y-2 px-6 py-3 bg-sand-50 border-b border-sand-150"
+      className="sticky top-0 z-20 flex flex-wrap gap-x-5 gap-y-2 px-6 py-3 bg-sand-50 border-b border-sand-200"
     >
       {sections.map((section) => {
         const label = SECTION_LABELS[section.type];

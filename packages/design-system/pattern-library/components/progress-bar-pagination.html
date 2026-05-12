@@ -7,7 +7,7 @@
   variants: is-filled (completed step), is-in-progress (current step)
   when-to-use: Horizontal step indicator for assessments (GAD-7, PHQ-9) where each segment represents one question. Fills left-to-right as the user advances. Distinct from data-progress (single continuous bar) and onb-progress (text-only "Step N of M").
   preline-required: no
-  notes: N segments flex-fill the row equally. sand-15 empty / teal-300 in-progress / accent-interactive (teal-600) filled — tri-state progression scale per DESIGN.md §Assessment patterns + Patch 4 (2026-04-20). Rendered inside a <nav aria-label="Progress"> with per-segment aria-current="step" on the active question and aria-label naming completion state. aria-current is redundant with the visual is-in-progress class so the cue is not color-only (WCAG 1.3.3 / 1.4.1). Not interactive — presentational indicator only.
+  notes: N segments flex-fill the row equally. sand-500 empty / teal-300 in-progress / accent-interactive (teal-600) filled — tri-state progression scale per DESIGN.md §Assessment patterns + Patch 4 (2026-04-20). Rendered inside a <nav aria-label="Progress"> with per-segment aria-current="step" on the active question and aria-label naming completion state. aria-current is redundant with the visual is-in-progress class so the cue is not color-only (WCAG 1.3.3 / 1.4.1). Not interactive — presentational indicator only.
 
   interactive-usage: none
 

@@ -7,7 +7,7 @@
 //   chrome  — solid sand/100        (bg-surface-chrome | bg-sand-100) — nav/rails below floating pages
 //   pane    — translucent white     (bg-surface-pane only — no opaque fallback)
 //   card    — solid white or sand/100 (bg-surface-card | bg-sand-100 | bg-white)
-//   raised  — solid sand/150        (bg-surface-raised | bg-sand-150)
+//   raised  — solid sand/200        (bg-surface-raised | bg-sand-200)
 //   input   — solid white           (bg-surface-input | bg-white) — form primitives above page
 //   overlay — solid white           (bg-surface-overlay | bg-white) — floating menus/dropdowns/pickers above page/chrome/card
 //
@@ -92,9 +92,9 @@ const ROLE_ALLOWED: Record<Role, readonly string[]> = {
   ],
   raised: [
     'bg-surface-raised',
-    'bg-sand-150',
+    'bg-sand-200',
     'var(--color-surface-raised)',
-    'var(--color-sand-150)',
+    'var(--color-sand-200)',
   ],
   input: [
     // Form primitives take solid white per Brand Fidelity verdict 2026-04-22.

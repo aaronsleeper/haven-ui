@@ -1,9 +1,10 @@
 # Pre-v2 sand-outlier remediation
 
 **Date opened:** 2026-05-12
+**Date closed:** 2026-05-12 (same-day resolution)
 **Author:** Claude (session with Aaron, agentic-shell brand-fidelity refresh for UConn handoff)
-**Status:** OPEN — pick up in a new session
-**Routing:** design-system-steward (sequencing + per-usage decisions) + brand-fidelity (regenerate vs retire vs warm-surface-family decision)
+**Status:** CLOSED — brand-fidelity verdict Option 1 (retire and sweep) applied; full tree swept; conform:visual rebaseline pending in a follow-up commit
+**Routing applied:** brand-fidelity (warm-tan load-bearing question) → Option 1 verdict (accidental drift) → mechanical sweep
 
 ## What this is
 
@@ -127,12 +128,14 @@ Per-stop, the question is **regenerate via v2 OKLCH or retire and sweep**:
 
 The remediation is done when:
 
-- [ ] palette.css has no pre-v2 outlier stops (or each has an explicit annotation explaining why preserved)
-- [ ] semantic.css aliases point to v2-canonical stops only
-- [ ] components.css has zero references to sand-15, sand-16, sand-150, sand-250 (replaced or annotated)
-- [ ] Pattern-library HTML and app HTML pass the same grep cleanly
-- [ ] `conform:fast` passes; `conform:visual` rebaselined and reviewed
-- [ ] DESIGN.md §Surface section reconciled (the surface-raised role's hex value updated if changed)
+- [x] palette.css has no pre-v2 outlier stops (deleted 4 sand + 4 stone-mirror declarations)
+- [x] semantic.css aliases point to v2-canonical stops only (`surface-raised` → sand-200, `border-default` → sand-300)
+- [x] components.css has zero references to sand-15, sand-16, sand-150, sand-250 (9 refs swept; 1 historical Patch-8 comment retained as narrating-past-state)
+- [x] Pattern-library HTML and app HTML pass the same grep cleanly (4 PL files + 1 ui-react component + 1 registry entry + 1 app component + 2 design docs swept; intentional educational/historical refs retained)
+- [x] DESIGN.md §Surface section reconciled (table rewritten with v2-canonical hex values; 8 prose refs updated; surface-raised + tertiary-border + secondary-fill all aligned to v2)
+- [x] `conform:surface-role` gate updated — raised role now allows sand-200 instead of sand-150
+- [ ] `conform:fast` passes (running now)
+- [ ] `conform:visual` rebaselined and reviewed (pending Aaron's eyeball check before rebaseline)
 - [ ] commit message names the cleanup and references commit `45e8e14` (v2 integration) and this handoff
 
 ## What's done already (this session)
@@ -142,3 +145,40 @@ The remediation is done when:
 - Handoff bundle `haven-shell.css` cleaned of pre-v2 outlier `:root` declarations (only v2-canonical stops remain in the snapshot)
 
 The agentic-shell example itself is now v2-clean. Everything else listed above is this handoff's scope.
+
+## Resolution — 2026-05-12 (same-day)
+
+Brand-fidelity verdict: **accidental drift, not load-bearing** (Option 1 — retire and sweep). Evidence: DESIGN.md names sand-150/sand-250 by function only, not chromatic principle; v1 cena-brand `color.md` describes warm neutrals as "warmth is felt, not seen" at C:0.003–0.018 (v2's sand max chroma 0.0160 is inside range); pre-v2 stops carried 3-4× the R-B spread of v2 neighbors (structural family-fit failure); no canonical doc anywhere names warm-tan as load-bearing.
+
+Sweep applied per the remap recommended in §"The decision needed":
+- `sand-15` → `sand-100`
+- `sand-16` → `sand-100`
+- `sand-150` → `sand-200`
+- `sand-250` → `sand-300`
+
+Plus a secondary cleanup pass on DESIGN.md §Surface table: pre-v2 hex values for sand-50/100/200 (`#f5eee5` / `#eee6db` / `#dfd5c9`) replaced with v2-canonical (`#fbfaf8` / `#e6e4e0` / `#d1cec8`). The table had been stale pre-v2; brand-fidelity flagged it as a follow-up; folded into this session.
+
+Files touched (full list):
+- `packages/design-system/src/styles/tokens/palette.css` — 4 sand + 4 stone-mirror declarations deleted
+- `packages/design-system/src/styles/tokens/semantic.css` — `surface-raised` + `border-default` aliases updated; comment about extended stops rewritten
+- `packages/design-system/src/styles/tokens/components.css` — 9 live refs swept (1 historical Patch-8 comment retained)
+- `packages/design-system/pattern-library/components/three-panel-shell.html` — @component-meta note updated
+- `packages/design-system/pattern-library/components/progress-bar-pagination.html` — @component-meta note updated (corrected pre-existing sand-15 → sand-500 stale-doc bug)
+- `packages/design-system/pattern-library/components/layout-agentic-shell.html` — current-state mention updated; historical narration retained
+- `packages/design-system/pattern-library/COMPONENT-INDEX.md` — progress-bar row corrected
+- `packages/ui-react/src/components/ThreePanelShell.tsx` — comment updated
+- `packages/ui-react/registry.json` — ThreePanelShell note updated
+- `packages/ui-react/tests/conform/surface-role.ts` — raised-role allow-list updated (load-bearing for gate)
+- `apps/care-coordinator/src/components/care-plan/SectionStatusBar.tsx` — live `border-sand-150` swept
+- `apps/patient/design/a2ui-component-queue.md` — Secondary fill corrected (was stale sand-150; actual impl is sand-100)
+- `apps/_shared/handoff/andrey-uconn-2026-05-12/haven-shell.css` — stale "sand-150 ground" comment updated; educational warning retained
+- `DESIGN.md` — §Surface table rewritten + 6 prose refs + 1 historical narration
+
+Retained as intentional historical/educational content:
+- `components.css:11580` and `DESIGN.md:487` — Patch-8 narration ("was sand-15 pre-Patch-8, raised to sand-500")
+- `apps/_shared/handoff/andrey-uconn-2026-05-12/{haven-shell.css,README.md}` — educational warnings to Andrey about which stops are pre-v2
+- `packages/design-system/pattern-library/components/layout-agentic-shell.html:10` — historical narration of the 2026-05-12 brand-fidelity refresh and outlier correction
+- `.project-docs/handoffs/2026-05-12-patient-flow-html-blobs-phase-2.md` — separate handoff that warned Andrey about the outliers
+- This handoff doc itself
+
+Remaining: `conform:visual` rebaseline (will diff against pre-v2 baselines; visual diff expected and acceptable). Pending Aaron's eyeball pass before rebaseline so the new baseline isn't blind.

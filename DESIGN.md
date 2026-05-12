@@ -4,37 +4,68 @@ The living spec for how Haven looks, feels, and speaks. Read this before startin
 
 ## Status
 
-- **Stage:** in active reconciliation (2026-04-18)
-- **Canonical source:** Figma
-- **Next sync:** after token regeneration from Figma variable defs
+- **Stage:** in active reconciliation (2026-04-18; Figma-canonicality retired 2026-05-07)
+- **Canonical source:** this document + the haven-ui token files (`packages/design-system/src/styles/tokens/`) and pattern library (`packages/design-system/pattern-library/`)
+- **Figma:** historical reference. The design system was originally built in Figma; values were copied into haven-ui code. Haven-ui code is now operationally canonical and may diverge from Figma without back-syncing.
 
-This document is the contract. When Figma, haven-ui code, or cena-health-brand disagree, DESIGN.md names which wins and why.
+This document is the contract. When haven-ui code, cena-health-brand, or any historical Figma artifact disagree, DESIGN.md names which wins and why.
 
 ---
 
-## Upstream — three-way authority
+## Upstream — authority chain
 
-Haven's brand system lives in three places that fell out of sync. Authority flows:
+Haven's brand system has one operational canonical (haven-ui code) plus one downstream-documentation surface (cena-health-brand). Figma is historical.
 
 ```
-Figma  →  haven-ui code  →  cena-health-brand/BRAND.md
-(canonical)   (this repo)      (OKLCH spec, updated last)
+haven-ui code (canonical)   →   cena-health-brand/BRAND.md
+this repo + DESIGN.md            OKLCH spec, downstream documentation
 ```
 
-- **Figma** — current practical canonical. Aaron updates Figma first; everything downstream catches up.
-- **haven-ui code** — this repo. Pattern library HTML at `packages/design-system/pattern-library/` (authoritative — "copy, don't generate"). React ports at `packages/ui-react/src/components/` (1:1 mechanical ports via the `ui-react-porter` skill). Tokens at `packages/design-system/src/styles/tokens/`. Tokens regenerate from Figma; measurement tokens are the one exception (see §Measurement).
-- **cena-health-brand** — OKLCH brand spec at `Lab/cena-health-brand/`. Updated *after* haven-ui lands changes, so it documents what shipped rather than driving it. Not a source for implementation.
+- **haven-ui code** — this repo. Operational canonical for tokens, components, and brand decisions. Pattern library HTML at `packages/design-system/pattern-library/` (authoritative — "copy, don't generate"). The framework-port pattern (e.g., `packages/ui-react/`) mirrors the pattern library 1:1 via the relevant porter skill. Tokens at `packages/design-system/src/styles/tokens/`. Tokens were originally seeded from Figma; new token decisions land directly here. Measurement tokens stay on haven-ui's 4px Tailwind scalar (see §Measurement).
+- **cena-health-brand** — OKLCH brand spec at `Lab/cena-health-brand/`. Documents what shipped in haven-ui rather than driving it. Not a source for implementation.
+- **Figma** — historical reference. The design system was originally built in Figma circa early 2026; values were copied into haven-ui code. Haven-ui has since diverged. Treat any reference to Figma in this document as a snapshot of the seed state. New decisions are not back-synced into Figma.
 
-**Rule for new decisions:** taste lives in Figma. If you can't find it there, ask Aaron — don't invent adjacent to the system.
+**Rule for new decisions:** taste lives in this document and the haven-ui token files. If you can't find a decision recorded, ask Aaron — don't invent adjacent to the system.
 
-### Figma files
+### Figma files (historical reference)
 
-| File | URL | Use |
+These Figma files were the original source of haven-ui's tokens and component specs. They are no longer actively maintained — haven-ui code is operationally canonical. Reference them only to understand seed-state decisions; do not pull values from them as a current source of truth.
+
+| File | URL | Original use |
 |---|---|---|
 | Haven — Design System | https://www.figma.com/design/opvzZC7Ds38MNwRFvFuKZe/Haven---Design-System | Tokens, components, type/elevation/color specs |
 | temp — screen export | https://www.figma.com/design/NvZceBAZq9uLWTWUY6Teko/temp---screen-export | Screen-level mocks for apps |
 
-Pull via Figma MCP (`mcp__claude_ai_Figma__get_design_context`, `get_variable_defs`, `get_screenshot`). Extract `fileKey` and `node-id` from the URL, `nodeId` uses `:` not `-` once extracted.
+The Figma MCP (`mcp__claude_ai_Figma__get_design_context`, `get_variable_defs`, `get_screenshot`) can be used for archaeology — inspecting seed-state decisions when needed. Do not use it to drive new token or component decisions.
+
+---
+
+## Propagation discipline
+
+haven-ui exists so design-system updates propagate to every Cena app when the new code lands — without per-app, per-instance rework. Every architectural choice trades against this goal.
+
+**The principle applies up the compound tree, not just to primitives.** Updating a `Button` style should propagate to all buttons everywhere. Updating the three-panel shell's right pane — its sizing, padding, scroll behavior — should propagate to every app using it. Compound-level updates propagate the same way primitive-level updates do.
+
+**Mechanism (framework-agnostic):**
+
+- Every compound is defined first in the pattern library (`packages/design-system/pattern-library/`) — HTML structure + semantic CSS classes + ARIA / interaction contract. The pattern library is the framework-agnostic spec.
+- Each framework target ports the pattern library 1:1: today `packages/ui-react/` mirrors the spec; a future `packages/ui-angular/` or any other port would do the same.
+- Consumer apps import compounds via their framework's haven-ui port — never by copying source into app-local files, never by inlining HTML.
+- Visual styling lives in semantic classes (`components.css`) and design tokens. CSS variable changes propagate automatically across all ports; pattern-library changes propagate to ports via the `ui-react-porter` skill (and future analogues); port changes propagate to consumer apps when they re-import.
+
+**Carve-outs:**
+
+- **Already-composed app-local code** (JSX, Angular templates, etc.) — once a screen is composed from primitives in an app, structural changes don't propagate unless the screen is rewritten to use a higher-order compound. This is the gravity that drives the compound library forward: every new compound shipped converts a class of app-local composition into propagation-eligible imports.
+- **App-local components (CLAUDE.md's narrow inline carve-out)** — single-use shapes that haven't earned a pattern-library spot stay app-local. They lose propagation. The migration path is always toward the PL: when a second consumer needs the same shape, promote it.
+- **Inline styles** — `style="..."`, `style={{}}`, scoped `<style>` blocks — forbidden by CLAUDE.md regardless of framework. Listed here for completeness because they break propagation entirely.
+
+**How to apply:**
+
+- When designing a new compound, ask: can apps consume this such that future changes propagate? If the answer is "only if the app re-edits its composition," the compound is wrong.
+- Watch for utility soup in app-level code that should be a semantic class — utility soup freezes styling per-instance and breaks propagation.
+- When promoting an app-local component to PL, the propagation gain is part of the case for promotion, not an afterthought.
+
+This principle is the reason haven-ui exists. Without it, we'd be writing one-off code per app.
 
 ---
 
@@ -42,11 +73,11 @@ Pull via Figma MCP (`mcp__claude_ai_Figma__get_design_context`, `get_variable_de
 
 | Axis | Source | Translation rule |
 |---|---|---|
-| Colors (palette, semantic, surface, border, interactive) | **Figma** | Regenerate haven-ui tokens from Figma variable defs. Figma-native names map to haven-ui code names per §Figma-to-code token mapping; hex-identical across the boundary. |
-| Border radii | **Figma** | Adopt directly; round-down rule for values between existing tokens (e.g., Figma 6px → `border-radius/sm` 5px) |
-| Elevations / shadows | **Figma** | Adopt the 5-level multi-shadow stacks as haven-ui shadow tokens |
-| Typography (family, weight, scale, tokens) | **Cena brand spec** | Adopt directly: Lora (headings) + Source Sans 3 (body/UI) + Source Code Pro (mono). Per directive 2026-04-27, the Cena brand source supersedes Figma for font names; the scale and tokens here remain haven-ui's. |
-| Font-feature settings | **Figma** | Adopt as Tailwind/CSS global defaults on body (see §Typography) |
+| Colors (palette, semantic, surface, border, interactive) | **haven-ui tokens** (`colors.css`) | Hexes were originally pulled from Figma variable defs; new color decisions land directly in `packages/design-system/src/styles/tokens/colors.css`. Figma-native names map to haven-ui code names per §Figma-to-code token mapping (historical reference). |
+| Border radii | **haven-ui tokens** | Originally seeded from Figma; new decisions land here. Round-down rule was applied when seeding (e.g., Figma 6px → `border-radius/sm` 5px). |
+| Elevations / shadows | **haven-ui tokens** | Originally seeded from Figma's 5-level multi-shadow stacks; new decisions land here. |
+| Typography (family, weight, scale, tokens) | **Cena brand spec** | Adopt directly: Lora (headings) + Source Sans 3 (body/UI) + Source Code Pro (mono). Per directive 2026-04-27, the Cena brand source is the canonical font-family source; the scale and tokens here remain haven-ui's. |
+| Font-feature settings | **this document** | Codified as Tailwind/CSS global defaults on body (see §Typography). Originally pulled from Figma. |
 | Iconography | **haven-ui code** | FA Pro v7.1.0 (brand spec's inline-SVG guidance is retired) |
 | Spacing / padding / gap / margin / size | **haven-ui code** | Keep existing 4px Tailwind scalar; snap Figma values to nearest 4px utility |
 | Voice / copy tone | **Figma mocks + this doc** | Use mock-observed samples as exemplars; codify patterns here |
@@ -70,11 +101,11 @@ Canonical logo: **Cena Health wordmark** (`logo-cenahealth-teal.svg`).
 
 ### Color
 
-Haven's palette has three layers: a 9-family tag-semantic palette, a brand palette (teal + sand), and interactive/surface/text/border semantic tokens. All hexes come from Figma.
+Haven's palette has three layers: a 9-family tag-semantic palette, a brand palette (teal + sand), and interactive/surface/text/border semantic tokens. All hexes were originally pulled from Figma; haven-ui's `colors.css` is now the canonical source.
 
-#### Figma-to-code token mapping
+#### Figma-to-code token mapping (historical reference)
 
-Figma variable names and haven-ui code token names map 1:1 by hex. Designers working in Figma, and authors writing haven-ui code, see the same values under different labels.
+When values were originally pulled from Figma into haven-ui code, token names were renamed. This table documents the rename mapping for archaeology — it is historical reference only. New decisions land in haven-ui code; the Figma-side names will not be updated as haven-ui evolves.
 
 | Figma name | haven-ui code token | Notes |
 |---|---|---|
@@ -102,13 +133,10 @@ Figma variable names and haven-ui code token names map 1:1 by hex. Designers wor
 
 | Token | Hex | Role |
 |---|---|---|
-| `sand-15`  | `#edeceb` | Progress-empty / neutral bar |
-| `sand-16`  | `#f2f2f2` | Unselected response index bg |
-| `sand-50`  | `#f5eee5` | **Page background** (never white) |
-| `sand-100` | `#eee6db` | Appointment cards, grouped rows |
-| `sand-150` | `#e7ded2` | Shell container border, coach-mark bg |
-| `sand-200` | `#dfd5c9` | Close-button bg |
-| `sand-250` | `#d8cec0` | Border/default, tertiary button border |
+| `sand-50`  | `#fbfaf8` | **Page background** (never white) |
+| `sand-100` | `#e6e4e0` | Chrome, appointment cards, grouped rows, response-index bg, secondary-button fill |
+| `sand-200` | `#d1cec8` | Surface-raised (elevated panels, coach-mark cards), shell container border |
+| `sand-300` | `#bcb8b1` | Border/default, tertiary button border |
 
 Pane backgrounds use translucent white overlays (`rgba(255,255,255,0.6)` nav, `rgba(255,255,255,0.42)` nav on screens with background blobs). Pages are never pure white.
 
@@ -208,6 +236,16 @@ Inter-specific character variants (`cv01`–`cv11`) were removed during the 2026
 
 These features carry the typographic voice: stylistic alternates (ss01/ss03/ss04), discretionary ligatures, ordinals, case-sensitive forms. Disabling them is a regression.
 
+#### Lora italic — weight bump
+
+When rendering text in Lora italic, bump the weight one step above the surrounding roman context. Lora's design makes italic appear lighter than its roman counterpart at matching weights — the bump preserves visual density.
+
+- Body italic (roman 400) → Lora italic 500
+- Medium italic (roman 500) → Lora italic 600
+- Semibold italic (roman 600) → Lora italic 700
+
+Only applies to Lora — Source Sans 3 italic doesn't need the bump. When loading Lora italic weights, load the bumped-up set (e.g., if the roman set is 400 + 600, load italic 500 + 700, not 400 + 600). In `components.css` where Lora is in scope, the rule for `em`, `i`, `.italic` sets both `font-style: italic` and the bumped `font-weight`.
+
 ##### Fractions — opt-in only
 
 `'frac' 1` is **not** on the body baseline. Source Sans 3's `frac` engine substitutes digits with numerator-style glyphs in digit-adjacent prose (e.g. `Column 1` → `Column ¹`, `grid-2` → `grid-²`), regressing pattern-library text and any UI copy that mentions a numbered column, version, or hyphenated identifier. Patches 70/71/72/73 round-tripped this; the body-baseline removal + opt-in class is the system fix.
@@ -260,7 +298,7 @@ Seven surface rungs. Naming follows DESIGN.md §Pages float — pages float abov
 | **pane** | `--color-surface-pane` | `rgba(255,255,255,0.6)` | Container surfaces layered translucent over page |
 | **card** | `--color-surface-card` | `#ffffff` | Primary card primitive — solid white on page |
 | **card-grouped** | `--color-surface-card-grouped` | `sand-100` | Secondary card for grouped-row contexts |
-| **raised** | `--color-surface-raised` | `sand-150` | Elevated panels, coach-mark cards |
+| **raised** | `--color-surface-raised` | `sand-200` | Elevated panels, coach-mark cards |
 | **input** | `--color-surface-input` | `#ffffff` | Form primitives (inputs, selects, textareas) — solid white above page |
 
 **Translucent white is reserved for pane (container) role.** Form primitives use solid white even though they also sit "above" the page. Reason: inputs aggregate — a forms page with 15+ inputs at translucent-white would composite into a near-white region, violating the "pages are never pure white" brand-taste rule. Solid white inputs preserve the pane vocabulary and sit cleanly above sand-50.
@@ -390,8 +428,8 @@ One component, three priorities.
 | Priority | Fill | Border | Label color |
 |---|---|---|---|
 | Primary | `teal/700` | `teal/750` | white |
-| Secondary | `sand-150` | `border/default` | `text/on-light/normal` |
-| Tertiary | transparent | `sand-250` | `text/on-light/normal` |
+| Secondary | `sand-100` | `border/default` | `text/on-light/normal` |
+| Tertiary | transparent | `sand-300` | `text/on-light/normal` |
 
 - Height 36px (`interactive/min-height/in-input`)
 - Padding 11px horizontal, 7px gap
@@ -440,13 +478,13 @@ Pattern for numbered multi-choice responses (e.g., GAD-7 scale, Likert items).
 
 - 325px max width (`length/size/13`)
 - Index square: 36px × 36px, `border-radius/xs 2px`
-  - Unselected: `sand-16` bg + numeric index
+  - Unselected: `sand-100` bg + numeric index
   - Selected: `interactive/accent-color` bg + index (white)
 - Response label: 13.33 Source Sans 3 Semibold, letter-spacing 0.1666
 - Check icon: 24px on selected, hidden on unselected (opacity 0)
 - Border: `border/image` 1px unselected, `interactive/accent-color` 1px selected
 
-Group uses progress-bar pagination below the question (bars equal to question count, `interactive/accent-color` filled for completed, `sand-15` for remaining).
+Group uses progress-bar pagination below the question (bars equal to question count, `interactive/accent-color` filled for completed, `sand-500` for remaining — raised from `sand-15` pre-Patch-8 to clear 3:1 vs white per WCAG 1.4.11).
 
 ### Chat message patterns
 
@@ -457,14 +495,14 @@ Two variants based on author.
 | Ava | Dot-sparkle leading indicator (teal + sand) at 16px + plain `Body/02` text, no bubble |
 | User | Bordered container with `border/default`, 16px padding vertical / 7px horizontal, `border-radius/md`, `Body/02` text |
 
-Inline recommended-content cards appear within the Ava column: 42px image thumbnail + `Body/02 Semibold` title + `Body/03 muted` subtitle, `sand-50` bg + `sand-150` border + `border-radius/md` + 16px padding.
+Inline recommended-content cards appear within the Ava column: 42px image thumbnail + `Body/02 Semibold` title + `Body/03 muted` subtitle, `sand-50` bg + `sand-200` border + `border-radius/md` + 16px padding.
 
 ### Prompt input
 
 Chat-pane bottom. `border/default`, `border-radius/md`, white bg, two rows:
 
 1. Text area (min 51px, padded). Placeholder italic `text/on-light/faint`. Sample: *"You talk. I'll listen."*
-2. Action row: language toggle + image attach + mic (primary pill, teal/700) + send (secondary pill, sand-150). All pill buttons are `border-radius/xl 54px`.
+2. Action row: language toggle + image attach + mic (primary pill, teal/700) + send (secondary pill, sand-100). All pill buttons are `border-radius/xl 54px`.
 
 ### Coach-mark / tap-in card
 
@@ -499,7 +537,7 @@ Haven's voice is **warm + specific + playful + stress-literate**. Every line ear
 - **Primary teal is for commitments, not advancement.** Primary button fill reserved for "Book my visit," "Schedule," destructive confirms. `Next` buttons are secondary.
 - **Active nav state = Source Sans 3 Bold, not background color.** Weight change carries the signal; color stays consistent with the rest of the nav.
 - **Pages are never pure white.** Page bg is `sand-50`. Panes layer translucent white on top.
-- **Pages float.** The outermost shell has a 3px `sand-150` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge. Chrome (nav, rails) sits at `sand-100` as the ground below the floating page (`sand-50`). Panes layer translucent white on top of pages. Inputs layer solid white on top of whatever surface they sit on — the translucent stack is reserved for container surfaces.
+- **Pages float.** The outermost shell has a 3px `sand-200` border + `border-radius/md 11px` — apps live inside a containing frame, not edge-to-edge. Chrome (nav, rails) sits at `sand-100` as the ground below the floating page (`sand-50`). Panes layer translucent white on top of pages. Inputs layer solid white on top of whatever surface they sit on — the translucent stack is reserved for container surfaces.
 - **Logo is chrome; Ava is agent.** Don't mix the two.
 - **Warmth is observational, not performative.** Specific details land; generic positivity doesn't.
 
@@ -533,7 +571,7 @@ Expert definition for brand fidelity: `planning/experts/brand-fidelity/`.
 Slice-opening checklist:
 
 - [ ] Read this DESIGN.md
-- [ ] Load relevant Figma frames via MCP
+- [ ] (optional, historical) Load relevant Figma frames via MCP if researching seed-state decisions — do not treat what you find as canonical
 - [ ] Identify which existing components apply (haven-ui has 139 built components)
 - [ ] Name the delta between Figma and existing components, if any
 - [ ] Score the slice against all 4 expert dimensions before shipping
@@ -556,5 +594,6 @@ Living list. Closed via DESIGN.md updates (not by silent consensus).
 
 | Date | Change | Author |
 |---|---|---|
+| 2026-05-07 | Figma-canonicality retired. Updated §Status, §Upstream, §Figma files, §Sources of truth, §Color intro, §Figma-to-code token mapping intro, and the slice-opening checklist to reflect haven-ui code as operationally canonical. Figma reframed as historical reference / archaeology — values were originally seeded from Figma, but new decisions land in haven-ui code (token files + this document) and are not back-synced. cena-health-brand remains downstream documentation. Per Aaron's directive 2026-05-06 ("Figma is no longer a canonical source of truth for anything"). | Claude (session with Aaron) |
 | 2026-04-20 | Nomenclature reconciliation: surface family renamed `stone/*` → `sand-*` throughout §Color, §Surface, and in-body references. Added §Figma-to-code token mapping. Tag-semantic `stone` family (§9-color tag-semantic palette) preserved pending Figma tag-token pull. Patch 11 / slice-1 debt item 7. | Token Steward + Registry Steward |
 | 2026-04-18 | Initial DESIGN.md from census + Figma pulls (shell 1-472, design-system tokens, button, dialog, tag, assessments). Reconciliation direction: Figma canonical per-axis; haven-ui keeps measurement tokens on 4px scalar. | Claude (session with Aaron) |

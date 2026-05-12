@@ -75,14 +75,6 @@
   --color-sand-900: #25211d;
   --color-sand-950: #0e0a08;
 
-  /* Extended sand stops (15/16/150/250) — preserved from pre-v2 palette for
-     semantic.css compatibility. Slight off-curve from new sand major stops;
-     re-derive in a follow-up if needed. */
-  --color-sand-15:  #edeceb;
-  --color-sand-16:  #f2f2f2;
-  --color-sand-150: #e7ded2;
-  --color-sand-250: #d8cec0;
-
   /* red — error / critical */
   --color-red-50:  #ffedea;
   --color-red-100: #f6cbc4;
@@ -286,13 +278,9 @@
      css-family.ts). New components use bg-sand-*, text-sand-*, border-sand-*. */
 
   /* stone — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-stone-15:  #edeceb;
-  --color-stone-16:  #f2f2f2;
   --color-stone-50:  #fbfaf8;
   --color-stone-100: #e6e4e0;
-  --color-stone-150: #e7ded2;
   --color-stone-200: #d1cec8;
-  --color-stone-250: #d8cec0;
   --color-stone-300: #bcb8b1;
   --color-stone-400: #a8a39b;
   --color-stone-500: #958e85;
