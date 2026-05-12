@@ -1,0 +1,365 @@
+/* ============================================================
+   Haven Shell — standalone CSS for the agentic-shell template
+   ============================================================
+   Self-contained snapshot of the haven-ui agentic-shell layout +
+   the tokens it depends on. Plain CSS — no Tailwind compilation
+   required.
+
+   Snapshot taken: 2026-05-12. Source of truth lives at:
+   Lab/haven-ui/packages/design-system/src/styles/tokens/components.css
+   and adjacent token files (palette.css, semantic.css). If you
+   need to refresh later, regenerate from there — don't drift
+   forward in this file.
+
+   Scope: agentic-shell layout + its 3 panes + splitters + nav
+   chrome + chat thread chrome + content body. No app-specific
+   components (buttons, cards, message bubbles, prompt input);
+   those compose inside the slots and live in components.css.
+   ============================================================ */
+
+
+/* ----------------------------------------------------------------
+   Tokens — palette, surface, text. Mirrors haven-ui values exactly
+   ---------------------------------------------------------------- */
+
+:root {
+    /* Sand neutrals (chrome + page bg + borders) — Cena Color System v2
+       generator output (cena-brand commit 5d1b5e5). Family is low-chroma,
+       near-neutral, slightly warm. Only standard Tailwind stops (50/100/
+       200/300/...) are v2-canonical; if you see references to sand-15,
+       sand-16, sand-150, or sand-250 elsewhere, those are pre-v2 outliers
+       being remediated separately. */
+    --color-sand-50:  #fbfaf8;
+    --color-sand-100: #e6e4e0;
+    --color-sand-200: #d1cec8;
+    --color-sand-500: #958e85;
+    --color-sand-700: #5a544e;
+    --color-sand-800: #3f3934;
+    --color-sand-900: #25211d;
+
+    /* Teal — brand primary */
+    --color-teal-50:  #e9f5f2;
+    --color-teal-400: #5f9a8f;
+    --color-teal-500: #3a8478;     /* matches logo-primary */
+    --color-teal-700: #1e5149;
+    --color-teal-800: #113933;
+
+    /* Aliased primary family */
+    --color-primary-400: var(--color-teal-400);
+    --color-primary-500: var(--color-teal-500);
+    --color-primary-700: var(--color-teal-700);
+
+    /* Semantic surface tokens — see DESIGN.md §Surface for the seven-rung system */
+    --color-surface-chrome: var(--color-sand-100);     /* Nav / persistent app chrome — one step darker than page so center reads as floating */
+    --color-surface-page:   var(--color-sand-50);      /* Page background — never pure white */
+    --color-surface-pane:   rgba(255, 255, 255, 0.6);  /* Translucent white over page */
+
+    /* Text tokens */
+    --color-text-normal: var(--color-sand-900);
+    --color-text-muted:  var(--color-sand-700);
+    --color-text-faint:  var(--color-sand-500);
+}
+
+
+/* ----------------------------------------------------------------
+   Base — html/body reset + brand font stack
+   Load Lora + Source Sans 3 via <link> in the HTML head.
+   ---------------------------------------------------------------- */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    background-color: var(--color-surface-page);
+    color: var(--color-text-normal);
+    font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'case' 1, 'cpsp' 1, 'ordn' 1, 'salt' 1,
+                           'ss01' 1, 'ss03' 1, 'ss04' 1, 'dlig' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+
+/* ----------------------------------------------------------------
+   .app-shell — outer page padding around the floating shell
+   .app-shell--agentic — darker sand-200 (v2-canonical) ground that
+   carries the float-by-surface treatment (no border on the inner
+   shell).
+   ---------------------------------------------------------------- */
+
+.app-shell {
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.app-shell--agentic {
+    background-color: var(--color-sand-200);
+}
+
+
+/* ----------------------------------------------------------------
+   .agentic-shell — flex row, 11px radius, no border.
+   The pages-float effect is carried by surface luminance:
+   .app-shell--agentic (sand-150 ground) below + translucent
+   white panes above. Per DESIGN.md §Pages float (reconciled
+   2026-05-12 — border treatment retired in favor of surface
+   contrast after side-by-side review).
+   ---------------------------------------------------------------- */
+
+.agentic-shell {
+    display: flex;
+    overflow: hidden;
+    border-radius: 11px;
+    height: calc(100vh - 2rem);
+}
+
+
+/* ----------------------------------------------------------------
+   .panel-nav — left chrome rail (260 default, 220–320 range)
+   ---------------------------------------------------------------- */
+
+.panel-nav {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 260px;
+    min-width: 220px;
+    max-width: 320px;
+    background: var(--color-surface-chrome);
+    transition: width 0.2s ease, min-width 0.2s ease;
+}
+
+.panel-nav.collapsed {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.panel-nav.collapsed .nav-section-label,
+.panel-nav.collapsed .nav-item span { display: none; }
+
+.panel-nav.collapsed .nav-item {
+    justify-content: center;
+    padding: 0.625rem;
+}
+
+.panel-nav.collapsed .nav-header {
+    justify-content: center;
+    padding: 0.75rem;
+}
+
+
+/* ----------------------------------------------------------------
+   .panel-chat — center pane (translucent white over page)
+   min-width 480 = the floor; never collapses
+   ---------------------------------------------------------------- */
+
+.panel-chat {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    background: var(--color-surface-pane);
+    min-width: 480px;
+}
+
+
+/* ----------------------------------------------------------------
+   .panel-content — right pane (translucent white over page)
+   Default 640, range 480–800
+   ---------------------------------------------------------------- */
+
+.panel-content {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 640px;
+    min-width: 480px;
+    max-width: 800px;
+    background: var(--color-surface-pane);
+}
+
+.panel-content.hidden { display: none; }
+
+
+/* ----------------------------------------------------------------
+   .panel-splitter — inter-pane divider, 1px static + 3px on hover
+   ---------------------------------------------------------------- */
+
+.panel-splitter {
+    position: relative;
+    flex-shrink: 0;
+    user-select: none;
+    width: 1px;
+    background-color: var(--color-sand-200);
+    cursor: col-resize;
+    transition: background-color 0.1s, width 0.1s;
+}
+
+.panel-splitter:hover,
+.panel-splitter.is-dragging {
+    width: 3px;
+    margin-left: -1px;
+    margin-right: -1px;
+    background-color: var(--color-teal-500);
+}
+
+.panel-splitter::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -3px;
+    right: -3px;
+}
+
+
+/* ----------------------------------------------------------------
+   Nav chrome — header + logo + sections + items
+   Active nav uses font-weight (Bold), NOT background color
+   ---------------------------------------------------------------- */
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--color-sand-200);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-logo img {
+    height: 36px;
+    width: auto;
+    max-height: 36px;
+}
+
+.nav-section {
+    padding: 1rem;
+}
+
+.nav-section-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-sand-500);
+    margin-bottom: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.625rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-sand-700);
+    transition: background 0.15s;
+}
+
+.nav-item:hover {
+    background: var(--color-sand-200);
+}
+
+.nav-item.active {
+    color: var(--color-teal-700);
+    font-weight: 700;
+}
+
+.nav-item i {
+    width: 1.25rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+
+/* ----------------------------------------------------------------
+   Chat pane chrome — thread scroll + input area
+   The actual message components, bubbles, and prompt-input
+   composer are app-level. This is just the layout of the pane.
+   ---------------------------------------------------------------- */
+
+.chat-thread {
+    flex: 1 1 0%;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.chat-thread-inner {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 720px;
+    gap: 1.5rem;
+}
+
+.chat-input-area {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--color-sand-100);
+}
+
+
+/* ----------------------------------------------------------------
+   Content pane chrome — header strip + scrollable body
+   ---------------------------------------------------------------- */
+
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-sand-200);
+    background: white;
+}
+
+.content-header-title {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-sand-800);
+}
+
+.content-body {
+    flex: 1 1 0%;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+
+/* ----------------------------------------------------------------
+   Optional — panel toggle buttons (header strip chrome)
+   Include if you want the nav-collapse / content-hide affordances
+   ---------------------------------------------------------------- */
+
+.btn-panel-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 0.375rem;
+    color: var(--color-sand-500);
+    transition: background 0.15s, color 0.15s;
+}
+
+.btn-panel-toggle:hover {
+    background: var(--color-sand-200);
+    color: var(--color-sand-700);
+}
