@@ -60,7 +60,14 @@
                Typical content: panel-toggle buttons (.btn-panel-toggle),
                persistent affordances (chat-handoff-trigger.is-header),
                app-context indicators. Stays fixed above the scrolling
-               thread; never compresses.                                  -->
+               thread; never compresses.
+
+               Layout discipline: the strip uses justify-content:
+               space-between, so wrap content in left/right groups
+               (<div style="display:flex; gap:.25rem">...</div>) when
+               you have more than two items. Pane toggles should sit
+               near the pane they control: nav-toggle on the left,
+               content-toggle on the right (next to the handoff chip). -->
 
         </div>
         <div class="chat-thread">
