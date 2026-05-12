@@ -679,6 +679,50 @@ a.btn-danger {
     @apply dark:bg-info-900/20 dark:border-info-800 dark:text-info-400;
 }
 
+/* v2 expanded family variants — raw utility chips for data viz, illustration, and
+   forthcoming role assignments. Don't reach for these to express new semantics
+   without brand review; promote a dedicated semantic class first (see DESIGN.md). */
+.badge-orange {
+    @apply text-orange-600 bg-orange-50 border border-orange-200;
+    @apply dark:bg-orange-900/20 dark:border-orange-800 dark:text-orange-400;
+}
+.badge-yellow {
+    @apply text-yellow-600 bg-yellow-50 border border-yellow-200;
+    @apply dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-400;
+}
+.badge-lime {
+    @apply text-lime-600 bg-lime-50 border border-lime-200;
+    @apply dark:bg-lime-900/20 dark:border-lime-800 dark:text-lime-400;
+}
+.badge-emerald {
+    @apply text-emerald-600 bg-emerald-50 border border-emerald-200;
+    @apply dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-400;
+}
+.badge-blue {
+    @apply text-blue-600 bg-blue-50 border border-blue-200;
+    @apply dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400;
+}
+.badge-indigo {
+    @apply text-indigo-600 bg-indigo-50 border border-indigo-200;
+    @apply dark:bg-indigo-900/20 dark:border-indigo-800 dark:text-indigo-400;
+}
+.badge-purple {
+    @apply text-purple-600 bg-purple-50 border border-purple-200;
+    @apply dark:bg-purple-900/20 dark:border-purple-800 dark:text-purple-400;
+}
+.badge-fuchsia {
+    @apply text-fuchsia-600 bg-fuchsia-50 border border-fuchsia-200;
+    @apply dark:bg-fuchsia-900/20 dark:border-fuchsia-800 dark:text-fuchsia-400;
+}
+.badge-pink {
+    @apply text-pink-600 bg-pink-50 border border-pink-200;
+    @apply dark:bg-pink-900/20 dark:border-pink-800 dark:text-pink-400;
+}
+.badge-rose {
+    @apply text-rose-600 bg-rose-50 border border-rose-200;
+    @apply dark:bg-rose-900/20 dark:border-rose-800 dark:text-rose-400;
+}
+
 /* Pill-shaped badge variant (for tags, status in tables) */
 .badge-pill {
     @apply rounded-full;

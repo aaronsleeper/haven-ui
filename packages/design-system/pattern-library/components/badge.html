@@ -3,7 +3,7 @@
   name: Badge
   category: Primitives — Badges & Status
   file: badge.html
-  classes: badge, badge-primary, badge-secondary, badge-neutral, badge-success, badge-warning, badge-error, badge-info, badge-pill, badge-sm
+  classes: badge, badge-primary, badge-secondary, badge-neutral, badge-success, badge-warning, badge-error, badge-info, badge-orange, badge-yellow, badge-lime, badge-emerald, badge-blue, badge-indigo, badge-purple, badge-fuchsia, badge-pink, badge-rose, badge-pill, badge-sm
   when-to-use: Inline labels for categories, types, counts, and status indicators. Use in tables, cards, and headers.
   do-not-use-when: You need a full inline message — use an alert instead. Do not use badges for actions — use buttons.
   preline-required: no
@@ -15,6 +15,9 @@
     - badge-info: Informational, delivery-related, neutral highlight
     - badge-neutral: Inactive, historical, archived, disabled
     - badge-primary: Default brand emphasis, general categorization
+    - badge-{orange|yellow|lime|emerald|blue|indigo|purple|fuchsia|pink|rose}: v2 expanded family
+      variants — raw color chips for data viz, illustration, and future semantic role assignments.
+      Don't invent semantic meaning for these ad-hoc; promote through brand review first.
     Combine with badge-pill for rounded-full shape. Combine with badge-sm for compact table use.
   @end-meta
 -->
@@ -37,6 +40,24 @@
       <span class="badge badge-warning">Warning</span>
       <span class="badge badge-error">Error</span>
       <span class="badge badge-info">Info</span>
+      <!-- /component -->
+  </div>
+
+  <!-- v2 Expanded Family Variants -->
+  <div class="mb-6">
+    <p class="pl-variant-title">v2 Expanded Family Variants</p>
+    <p class="text-xs text-gray-600 dark:text-neutral-400 mb-2">Raw family chips. Reserved for data visualization, illustration, and forthcoming semantic role assignments. Don't invent semantic meaning ad-hoc — promote through brand review.</p>
+      <!-- @component: badge-family-variants -->
+      <span class="badge badge-orange">Orange</span>
+      <span class="badge badge-yellow">Yellow</span>
+      <span class="badge badge-lime">Lime</span>
+      <span class="badge badge-emerald">Emerald</span>
+      <span class="badge badge-blue">Blue</span>
+      <span class="badge badge-indigo">Indigo</span>
+      <span class="badge badge-purple">Purple</span>
+      <span class="badge badge-fuchsia">Fuchsia</span>
+      <span class="badge badge-pink">Pink</span>
+      <span class="badge badge-rose">Rose</span>
       <!-- /component -->
   </div>
 

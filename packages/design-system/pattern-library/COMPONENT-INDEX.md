@@ -104,7 +104,7 @@ before creating any new component or semantic class.
 
 | Component | File | Classes | Preline | Notes |
 |---|---|---|---|---|
-| Badge (base + variants) | `badge.html` | `badge`, `badge-primary`, `badge-secondary`, `badge-neutral`, `badge-success`, `badge-warning`, `badge-error`, `badge-info`, `badge-pill`, `badge-sm` | no | Use `badge-pill` for tags/status; `badge-sm` in dense layouts |
+| Badge (base + variants) | `badge.html` | `badge`, `badge-primary`, `badge-secondary`, `badge-neutral`, `badge-success`, `badge-warning`, `badge-error`, `badge-info`, `badge-orange`, `badge-yellow`, `badge-lime`, `badge-emerald`, `badge-blue`, `badge-indigo`, `badge-purple`, `badge-fuchsia`, `badge-pink`, `badge-rose`, `badge-pill`, `badge-sm` | no | Use `badge-pill` for tags/status; `badge-sm` in dense layouts. v2 expanded family variants (orange/yellow/lime/emerald/blue/indigo/purple/fuchsia/pink/rose) are raw color chips reserved for data viz, illustration, and future semantic role assignments — not for inventing new semantics ad-hoc |
 | Trend Badge | `badge-trend.html` | `trend-badge`, `trend-up`, `trend-improving`, `trend-down`, `trend-worsening`, `trend-flat` | no | `.trend-improving` and `.trend-worsening` are semantic aliases |
 | Severity Badge | `badge-severity.html` | `severity-badge`, `severity-high`, `severity-medium`, `severity-low` | no | Replaces colored-dot pattern in alert tables |
 | Sentiment Badge | `badge-sentiment.html` | `sentiment-badge`, `sentiment-satisfied`, `sentiment-neutral`, `sentiment-dissatisfied` | no | Patient feedback sentiment |
