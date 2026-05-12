@@ -3648,11 +3648,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-500;
 }
 
-/* FA paper-plane geometric center sits lower-left of its visual weight;
-   nudge it so it reads optically centered inside the send button. */
-.btn-icon-primary .fa-paper-plane {
-    transform: translate(1px, -1px);
+/* Disabled state — used by send-button-until-typed UX. */
+.btn-icon-primary:disabled,
+.btn-icon-primary[disabled] {
+    @apply opacity-40 cursor-not-allowed pointer-events-none;
 }
+
+/* Geometric centering — flex on .btn-icon-primary handles the icon. The
+   previous optical-nudge translate(1px,-1px) for fa-paper-plane was retired
+   2026-05-12 along with the icon swap to fa-arrow-up (UX consult: AI-chat
+   industry convention since ~2023). fa-arrow-up's geometric center matches
+   its visual weight so no optical nudge is needed. */
 
 .btn-dark-mode-toggle,
 .dark-mode-toggle {
@@ -9466,13 +9472,25 @@ a.list-group-item-action {
 
 /* .queue-sidebar canonical rule lives above in the queue/section-header block. */
 
-/* Floating-page envelope. Per DESIGN.md §Brand-taste rules:
-   "Pages float. The outermost shell has a 3px sand-150 border + border-radius/md 11px
-    — apps live inside a containing frame, not edge-to-edge."
-   The envelope pads the body so the sand-50 bg shows around the shell; the shell
-   carries the border + radius. */
+/* Floating-page envelope. Per DESIGN.md §Brand-taste:
+   "Pages float — apps live inside a containing frame, not edge-to-edge."
+   Default envelope pads viewport so the page bg shows around the shell.
+   Specific shell modifiers (.app-shell--agentic) can change the envelope's
+   bg to provide a darker ground when the shell expresses float-by-surface
+   rather than float-by-border. */
 .app-shell {
     @apply min-h-screen p-4;
+}
+
+/* Agentic-shell envelope modifier — darker ground (sand-200, v2-canonical)
+   replaces the 3px border treatment per brand-taste reconciliation 2026-05-12.
+   Surface luminance carries the float; no border needed. sand-200 (v2 family)
+   gives ~8.6% luminance delta vs surface-chrome (sand-100) — meaningful
+   contrast while staying inside the v2 sand hue family. Three-panel-shell
+   still uses its border treatment until its own reconciliation lands. */
+/* @contrast-exempt: decorative-background */
+.app-shell--agentic {
+    background-color: var(--color-sand-200);
 }
 
 /* Outermost shell for all four personas (care-coordinator, provider, kitchen, patient).
@@ -9532,26 +9550,39 @@ a.list-group-item-action {
    Agentic Shell — 3-panel layout (nav, chat, content)
    ============================================================ */
 
+/* Outermost shell for agent-led workflows. The floating-page metaphor is
+   carried by surface luminance, not a border: the wrapper .app-shell--agentic
+   sits at a darker ground (sand-200, v2-canonical) and the shell's panes
+   layer translucent white above it. Per DESIGN.md §Brand-taste "Pages float"
+   — border treatment retired 2026-05-12 in favor of surface contrast after
+   side-by-side review (DESIGN.md §Pages-float prose update pending). */
 .agentic-shell {
-    @apply flex;
-    height: 100vh;
+    @apply flex overflow-hidden rounded-md;
+    height: calc(100vh - 2rem);
 }
 
 /* --- Nav panel (left) --- */
 
+/* Chrome role per DESIGN.md §Surface — persistent app nav surface
+   = surface-chrome (sand-100), one step darker than page so center pane
+   reads as floating above. Widths per DESIGN.md §Panel widths
+   (Material 3 Navigation Drawer + Carbon: 260 default, 220-320 range). */
+/* @surface-role: chrome */
 .panel-nav {
     @apply flex flex-col flex-shrink-0 overflow-y-auto overflow-x-hidden;
-    width: 240px;
-    min-width: 140px;
-    max-width: 480px;
-    background: var(--color-sand-50);
+    width: 260px;
+    min-width: 220px;
+    max-width: 320px;
+    background: var(--color-surface-chrome);
     transition: width 0.2s ease, min-width 0.2s ease;
 }
 
+/* Icon-rail collapsed width per DESIGN.md §Responsive (Material 3 Navigation
+   Rail spec: 80px). */
 .panel-nav.collapsed {
-    width: 64px;
-    min-width: 64px;
-    max-width: 64px;
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
 }
 
 .panel-nav.collapsed .nav-section-label,
@@ -9572,20 +9603,27 @@ a.list-group-item-action {
 
 /* --- Chat panel (center) --- */
 
+/* Pane role per DESIGN.md §Surface — translucent white over page (sand-50).
+   Center chat is the product surface; never collapses. min-width 480 is the
+   floor per DESIGN.md §Panel widths (NN/G + Baymard line-length research). */
+/* @surface-role: pane */
 .panel-chat {
     @apply flex flex-col flex-1;
-    background: white;
-    min-width: 320px;
+    background: var(--color-surface-pane);
+    min-width: 480px;
 }
 
 /* --- Content panel (right) --- */
 
+/* Pane role per DESIGN.md §Surface — translucent white over page. Default
+   640, range 480-800 per DESIGN.md §Panel widths (Fluent 2 Drawer M tier). */
+/* @surface-role: pane */
 .panel-content {
     @apply flex flex-col flex-shrink-0 overflow-hidden;
-    width: 420px;
-    min-width: 240px;
-    max-width: 720px;
-    background: var(--color-sand-50);
+    width: 640px;
+    min-width: 480px;
+    max-width: 800px;
+    background: var(--color-surface-pane);
 }
 
 .panel-content.hidden { display: none; }
@@ -9671,10 +9709,12 @@ a.list-group-item-action {
     background: var(--color-sand-200);
 }
 
+/* Active nav uses font weight, not background color, per DESIGN.md
+   §Brand-taste rules: "Active nav state = Source Sans 3 Bold, not a
+   background color." Weight carries the signal; color stays consistent. */
 .nav-item.active {
-    background: var(--color-teal-50);
     color: var(--color-teal-700);
-    @apply font-medium;
+    @apply font-bold;
 }
 
 .nav-item i {
@@ -9731,12 +9771,13 @@ a.list-group-item-action {
     margin-bottom: 0.5rem;
 }
 
+/* The Ava avatar PNG (sphere-ava.png) carries its own dimensional bubble
+   sculpture against a transparent bg; no surface fill behind it. Per Aaron
+   brand-taste 2026-05-12. */
 .message-agent .message-avatar {
     @apply flex items-center justify-center rounded-full overflow-hidden;
     width: 28px;
     height: 28px;
-    background: var(--color-teal-500);
-    color: white;
     font-size: 0.75rem;
 }
 

@@ -3,11 +3,11 @@
   name: Agentic Shell
   category: Layout
   file: layout-agentic-shell.html
-  classes: agentic-shell, panel-nav, panel-chat, panel-content, panel-splitter
+  classes: app-shell, agentic-shell, panel-nav, panel-chat, panel-content, panel-splitter
   variants: none
   when-to-use: Outermost shell for agent-led workflows where the chat thread is the primary surface (middle pane) and the right pane carries a contextual artifact opened by the agent. Replaces three-panel-shell when the app's center of gravity is conversation, not record review. First consumer: care-coordinator (cc-05 onward, 2026-04-28).
   preline-required: no
-  notes: Desktop-only shell. agentic-shell sets height:100vh + flex-row; child panels are direct flex items. Drag-resize splitters and panel-toggle interactivity are deferred to a follow-up — render visual `panel-splitter` divs for the spec but skip wiring `data-panel-splitter` until a React port of the splitter behavior exists. Right pane (panel-content) supports two composition modes: chrome-led (content-header + content-body) and record-led (RecordHeader as first child of a flex-1 overflow-y-auto wrapper). See pages/layout-agentic-shell.html for the full demo + the record-led carve-out doc. Nested panel-nav, panel-chat, panel-content remain inline carve-outs in app code until a second consumer needs them.
+  notes: Desktop-only shell. Wrap in .app-shell.app-shell--agentic for outer page padding + sand-150 ground; .agentic-shell carries the border-radius/md 11px (no border — float-by-surface, not float-by-border) and height calc(100vh - 2rem). Child panels are direct flex items inside .agentic-shell. Drag-resize splitters and panel-toggle interactivity are deferred to a follow-up — render visual `panel-splitter` divs for the spec but skip wiring `data-panel-splitter` until a React port of the splitter behavior exists. Right pane (panel-content) supports two composition modes: chrome-led (content-header + content-body) and record-led (RecordHeader as first child of a flex-1 overflow-y-auto wrapper). See pages/layout-agentic-shell.html for the full demo + the record-led carve-out doc. Nested panel-nav, panel-chat, panel-content remain inline carve-outs in app code until a second consumer needs them. Brand-fidelity refresh 2026-05-12: pane backgrounds adopt surface-pane (translucent white), nav adopts surface-chrome (sand-100), active-nav uses font-bold not background color, panel widths align to DESIGN.md spec (nav 260/220-320, chat min 480, content 640/480-800). Wrapper iteration 2026-05-12: pages-float now expressed via surface luminance (sand-200 v2-canonical ground vs translucent-white panes) instead of 3px sand-150 border (which produced a visual "frame around frame" effect against the sand-50 body). Earlier iteration used sand-150 ground; corrected to sand-200 after pre-v2 outlier audit — sand-150 is a pre-v2 manually-preserved stop, not part of the Cena Color System v2 generator output, so it doesn't sit cleanly in the v2 sand family.
 
   interactive-usage: panel-splitter drag (deferred), btn-panel-toggle nav-collapse + content-hide (deferred)
 
@@ -23,44 +23,46 @@
 </head>
 <body>
 
-  <div class="agentic-shell">
+  <div class="app-shell app-shell--agentic">
+    <div class="agentic-shell">
 
-    <!-- Slot 1: nav. Typically queue/conversation list. Use panel-nav semantics. -->
-    <nav class="panel-nav" aria-label="Primary">
-      <div class="nav-header">
-        <div class="nav-logo">
-          <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health">
+      <!-- Slot 1: nav. Typically queue/conversation list. Use panel-nav semantics. -->
+      <nav class="panel-nav" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="/src/assets/images/logo-cenahealth-teal.svg" alt="Cena Health">
+          </div>
         </div>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-label"><span>Section label</span></div>
-      </div>
-    </nav>
-
-    <div class="panel-splitter" aria-hidden="true"></div>
-
-    <!-- Slot 2: chat thread. flex-1; chat-thread (scroll) + chat-input-area (sticky bottom). -->
-    <main class="panel-chat" aria-label="Activity">
-      <div class="chat-thread">
-        <div class="chat-thread-inner">
-          <p>Thread content goes here.</p>
+        <div class="nav-section">
+          <div class="nav-section-label"><span>Section label</span></div>
         </div>
-      </div>
-      <div class="chat-input-area">
-        <p>Composer goes here.</p>
-      </div>
-    </main>
+      </nav>
 
-    <div class="panel-splitter" aria-hidden="true"></div>
+      <div class="panel-splitter" aria-hidden="true"></div>
 
-    <!-- Slot 3: contextual artifact. See pages/layout-agentic-shell.html for chrome-led
-         vs record-led composition modes. -->
-    <aside class="panel-content" aria-label="Content">
-      <div class="content-body">
-        <p>Artifact content goes here.</p>
-      </div>
-    </aside>
+      <!-- Slot 2: chat thread. flex-1; chat-thread (scroll) + chat-input-area (sticky bottom). -->
+      <main class="panel-chat" aria-label="Activity">
+        <div class="chat-thread">
+          <div class="chat-thread-inner">
+            <p>Thread content goes here.</p>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <p>Composer goes here.</p>
+        </div>
+      </main>
 
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <!-- Slot 3: contextual artifact. See pages/layout-agentic-shell.html for chrome-led
+           vs record-led composition modes. -->
+      <aside class="panel-content" aria-label="Content">
+        <div class="content-body">
+          <p>Artifact content goes here.</p>
+        </div>
+      </aside>
+
+    </div>
   </div>
 
   <script type="module" src="/src/scripts/main.js"></script>
