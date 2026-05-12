@@ -288,10 +288,21 @@ body {
 
 
 /* ----------------------------------------------------------------
-   Chat pane chrome — thread scroll + input area
+   Chat pane chrome — header strip + thread scroll + input area
    The actual message components, bubbles, and prompt-input
    composer are app-level. This is just the layout of the pane.
    ---------------------------------------------------------------- */
+
+.chat-thread-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--color-sand-100);
+    background: transparent;
+}
 
 .chat-thread {
     flex: 1 1 0%;

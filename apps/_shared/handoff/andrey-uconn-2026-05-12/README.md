@@ -31,6 +31,7 @@ This reconciles DESIGN.md §Pages-float — the spec's earlier "3px sand-150 bor
 | Slot | Empty marker in HTML | Typical content |
 |---|---|---|
 | Nav sections | `<!-- Slot: nav sections + nav items go here -->` | `.nav-section` blocks containing `.nav-section-label` + `.nav-item` rows |
+| Chat thread header | `<!-- Slot: persistent chat-pane chrome -->` | Persistent affordances (`chat-handoff-trigger.is-header`), `.btn-panel-toggle` nav/content toggles, app-context indicators — sit inside `.chat-thread-header` and stay fixed above the scrolling thread |
 | Chat thread | `<!-- Slot: thread content goes here -->` | Agent messages, user messages, tool calls — sit inside `.chat-thread-inner` |
 | Chat composer | `<!-- Slot: prompt input / composer goes here -->` | Your prompt input pattern — textarea + send button |
 | Content body | `<!-- Slot: artifact content goes here -->` | Whatever the agent is showing — cards, lists, forms, records |

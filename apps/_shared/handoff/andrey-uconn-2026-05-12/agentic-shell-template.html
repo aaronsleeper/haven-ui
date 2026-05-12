@@ -48,8 +48,21 @@
            Pane surface; translucent white over page. Primary surface
            for agent conversation. flex-1; min-width 480 floor; never
            collapses. Composer is sticky-bottom.
+
+           Three children: chat-thread-header (chrome strip for
+           persistent affordances; non-scrolling) + chat-thread
+           (scrolling messages region) + chat-input-area (composer).
            ============================================================ -->
       <main class="panel-chat" aria-label="Activity">
+        <div class="chat-thread-header">
+
+          <!-- Slot: persistent chat-pane chrome.
+               Typical content: panel-toggle buttons (.btn-panel-toggle),
+               persistent affordances (chat-handoff-trigger.is-header),
+               app-context indicators. Stays fixed above the scrolling
+               thread; never compresses.                                  -->
+
+        </div>
         <div class="chat-thread">
           <div class="chat-thread-inner">
 
