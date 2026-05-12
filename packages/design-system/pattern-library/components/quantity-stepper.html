@@ -4,20 +4,25 @@
   category: Patient App — Right-Pane Primitives
   file: quantity-stepper.html
   classes: quantity-stepper, quantity-stepper-btn, quantity-stepper-value
-  variants: default, at-min (decrement disabled), at-max (increment disabled)
+  variants: default, at-min (decrement disabled), at-max (increment disabled), bounded (data-min + data-max set), unbounded (no data-max)
   when-to-use: Patient-app +/- stepper for adjusting a numeric quantity (meal portions, item count) in the chat flow or right-pane order summary. Distinct from kitchen-meal-assignment-grid's `meal-qty-cell` (tabular kitchen-only pattern).
   do-not-use-when: Quantity is a free-text numeric input (use `chat-numeric-input`). Quantity is bound to a specific cell in a kitchen partial (use `meal-qty-cell` + kitchen partial). Quantity should be picker-style (use a select dropdown).
   preline-required: no
-  notes: Pill-shaped row with secondary-100 surface; minus and plus icon buttons + a tabular-numeric value cell. Disabled state on each button via the native `disabled` attribute (accessible) — no aria-disabled needed. Value cell uses tabular-nums so the digit-width doesn't shift when the value changes.
-  interactive-usage: required
+  notes: Pill-shaped row with secondary-100 surface; minus and plus icon buttons + a tabular-numeric value cell. Disabled state on each button is set automatically by the JS module when value hits `data-min` / `data-max` bounds. The value cell uses tabular-nums so the digit-width doesn't shift when the value changes.
+
+    **Behavior ships as `src/scripts/components/quantity-stepper.js`** — a tightly-scoped, framework-agnostic vanilla ES module. Consumers (Angular, React, vanilla) can either drop the JS in unchanged or port to their framework's conventions using the contract below. Module attaches to any element with `[data-quantity-stepper]` and reads `data-value` / `data-min` / `data-max` / `data-step` attributes. On change, dispatches a bubbling `quantity-change` CustomEvent with detail `{ value, previousValue, source }`. Exposes a programmatic API on the element at `_quantityStepper.setValue(n)` for state-controlled updates.
+
+    Accessibility: visible value cell is `aria-hidden="true"` (sighted-only); a separate `sr-only` live region with `aria-live="polite" aria-atomic="true"` and `data-quantity-stepper-announce` carries SR announcements. The JS debounces the live-region update by 400ms so rapid clicks announce the final settled value rather than each intermediate step (resolves the chatty-announcement concern flagged in the 2026-05-12 a11y verdict). Tab order is decrement → increment via natural DOM order.
+  interactive-usage: required (vanilla JS module wires behavior; see notes for the contract)
   interactive:
-    role: composite — two buttons + a non-interactive value display
-    keyboard: Tab between buttons; Enter / Space activates
+    role: composite — two buttons + a non-interactive value display + an SR-only live region
+    keyboard: Tab between buttons; Enter / Space activates (native button semantics)
     aria:
-      label-needed: true on each button (e.g., "Decrease quantity", "Increase quantity"); the value cell is read by screen-reader as adjacent text
+      label-needed: true on each button ("Decrease quantity", "Increase quantity")
       hidden-icons: minus/plus icons aria-hidden
+      live-region: SR-only span with aria-live polite + atomic; debounced 400ms via the JS module
     focus:
-      visible: focus:ring-sand-700 ring-offset-2 (with ring-offset-color matching parent surface)
+      visible: focus:ring-sand-700 ring-offset-2
   @end-meta
 -->
 
@@ -25,18 +30,19 @@
 <section>
   <h3 class="section-title mb-4">Quantity Stepper</h3>
   <p class="pl-description">
-    Patient-app +/- stepper for adjusting numeric quantities. Pill-shaped, secondary register.
+    Patient-app +/- stepper for adjusting numeric quantities. Pill-shaped, secondary register. Behavior ships as <code>src/scripts/components/quantity-stepper.js</code>; consumers wire by including that file or by porting the contract to their framework.
   </p>
 
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default</h4>
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default (unbounded)</h4>
     <!-- @component: quantity-stepper (default) -->
-    <div class="quantity-stepper">
-      <button type="button" class="quantity-stepper-btn" aria-label="Decrease quantity">
+    <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0">
+      <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
         <i class="fa-solid fa-minus" aria-hidden="true"></i>
       </button>
-      <span class="quantity-stepper-value" aria-live="polite">2</span>
-      <button type="button" class="quantity-stepper-btn" aria-label="Increase quantity">
+      <span class="quantity-stepper-value" aria-hidden="true">2</span>
+      <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+      <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
         <i class="fa-solid fa-plus" aria-hidden="true"></i>
       </button>
     </div>
@@ -44,14 +50,31 @@
   </div>
 
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">At minimum</h4>
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Bounded — data-min="0" data-max="10"</h4>
+    <!-- @component: quantity-stepper (bounded) -->
+    <div class="quantity-stepper" data-quantity-stepper data-value="5" data-min="0" data-max="10">
+      <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+        <i class="fa-solid fa-minus" aria-hidden="true"></i>
+      </button>
+      <span class="quantity-stepper-value" aria-hidden="true">5</span>
+      <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+      <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">At minimum — auto-disables decrement (data-value="0" data-min="0")</h4>
     <!-- @component: quantity-stepper (at-min) -->
-    <div class="quantity-stepper">
-      <button type="button" class="quantity-stepper-btn" aria-label="Decrease quantity" disabled>
+    <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+      <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
         <i class="fa-solid fa-minus" aria-hidden="true"></i>
       </button>
-      <span class="quantity-stepper-value" aria-live="polite">1</span>
-      <button type="button" class="quantity-stepper-btn" aria-label="Increase quantity">
+      <span class="quantity-stepper-value" aria-hidden="true">0</span>
+      <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+      <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
         <i class="fa-solid fa-plus" aria-hidden="true"></i>
       </button>
     </div>
@@ -59,14 +82,15 @@
   </div>
 
   <div class="mb-8">
-    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">At maximum</h4>
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">At maximum — auto-disables increment (data-value="10" data-max="10")</h4>
     <!-- @component: quantity-stepper (at-max) -->
-    <div class="quantity-stepper">
-      <button type="button" class="quantity-stepper-btn" aria-label="Decrease quantity">
+    <div class="quantity-stepper" data-quantity-stepper data-value="10" data-min="0" data-max="10">
+      <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
         <i class="fa-solid fa-minus" aria-hidden="true"></i>
       </button>
-      <span class="quantity-stepper-value" aria-live="polite">10</span>
-      <button type="button" class="quantity-stepper-btn" aria-label="Increase quantity" disabled>
+      <span class="quantity-stepper-value" aria-hidden="true">10</span>
+      <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+      <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
         <i class="fa-solid fa-plus" aria-hidden="true"></i>
       </button>
     </div>

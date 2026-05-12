@@ -1,0 +1,180 @@
+<!--
+  @component-meta
+  name: Meal Option Card
+  category: Patient App — A2UI Right-Pane Primitives
+  file: meal-option-card.html
+  classes: meal-option-card, meal-option-card-image, meal-option-card-placeholder, meal-option-card-content, meal-option-card-name-row, meal-option-card-name, meal-option-card-description, meal-option-card-tags, meal-option-card-warning-row, meal-option-card-footer, meal-option-card-price, meal-option-card.is-recommended, meal-option-card.is-non-recommended-warned
+  variants: default, recommended ("Picked for you" badge as the leading tag), non-recommended-warned (info icon + tooltip next to name; full opacity, never blocks), placeholder (missing image)
+  when-to-use: Agentic browse + select in the patient-app meal-ordering right-pane — one card per menu item, composed inside `menu-grid`. Each card carries an inline `quantity-stepper` as the add/remove control. The recommended variant signals an agent "Picked for you" pick with a leading sparkle icon + soft-teal badge (badge-primary register — NOT a primary-teal commit fill, which is reserved for state-changing buttons per DESIGN.md §Brand-taste). The non-recommended-warned variant renders an always-visible inline warning row below the tags when the patient picks an item that doesn't match their care-plan tags — supportive register only; per chat-affordance-principles "warning over hiding," the card stays at full opacity and the stepper stays active. The patient asks Ava in chat if they want to discuss (two-path equivalence preserved — no in-card handoff control needed).
+  do-not-use-when: The card represents a delivery-scheduled meal in the idle-pane weekly view (use `meal-delivery-card.html` — same visual family, different role: delivery + swap rather than browse + select). The component is a tabular kitchen-side cell (use `meal-qty-cell` inside the kitchen partial). The card represents a clinical/therapy intervention rather than a food item (different surface entirely; not covered by this primitive).
+  preline-required: no
+  notes: 80×80 image at the left with sand-100 placeholder bg when the image is missing (browser shows the placeholder via the empty img + the `.meal-option-card-placeholder` fallback). Image uses `object-cover` so portrait/landscape photos crop cleanly. Distinct from `meal-delivery-card`: that card carries a swap CTA + day of week; this card carries a price + quantity-stepper + recommendation/warning state. Both cards share visual register (image left, content right, sand-100 placeholder) so the patient learns one mental model across browse and delivery surfaces.
+
+    Recommended-variant badge is a `.badge.badge-primary` with leading `fa-sparkles` icon, placed first in `.meal-option-card-tags` via CSS `order` on the `.is-recommended` selector (so consumer tag enumeration order can't accidentally bury it). Reads as Ava's pick with soft teal register (primary-50 bg + primary-600 text) and warm-observational typography (text-transform: none, font-medium — see `.meal-option-card-tags .badge` reset). Does NOT use primary-teal-700 fill, which is reserved per DESIGN.md §Brand-taste for state-changing commits. Per DESIGN.md §Ava presence scope item 3, the sparkle marks agent-action citations — this is the canonical Ava-attribution badge in the menu surface.
+
+    Non-recommended-warned variant renders an always-visible inline warning row (`.meal-option-card-warning-row`) below the tags. Display is gated by `.meal-option-card.is-non-recommended-warned` — default cards omit the row entirely. The copy is supportive and names Ava as the help affordance ("This isn't a usual pick for your care plan — ask Ava if you want to talk it through."). Per chat-affordance-principles "warning over hiding," the card stays at full opacity and the stepper stays active; the patient is informed, not blocked. No in-card button — help happens via the chat surface (two-path equivalence).
+
+    Diet tags compose from the existing `.badge.badge-*` family. `.meal-option-card-tags .badge` resets the global badge typography (text-transform: none; letter-spacing: normal; font-weight: 500) for restaurant-menu register — "Low sodium" reads warm and observational, not "LOW SODIUM" recommender-system chrome. Status pills elsewhere ("Swapped", "New") keep the global uppercase register correctly because the reset is scoped to this primitive's tag-row only. Tag enumeration is owned by the consumer (Andrey's build) — this card renders whatever tag strings it's given.
+
+    Covers gap-doc R-3 / R-5 (carried-forward block on cart-panel + menu-grid). Promoted from the 2026-05-07 MealCard rename — was `MealCard` (agentic) before the rename collapsed the class collision with `patient-meal-card.html` → `meal-delivery-card.html`. The semantic CSS classes were present in `components.css` since the rename; this is the canonical PL HTML completing the primitive.
+  interactive-usage: required (composes interactive children — quantity-stepper)
+  interactive:
+    role: the card itself is not tappable in v1; the inline quantity-stepper is the add/remove control. Future tappable-to-add behavior is a possible extension but out of scope here.
+    keyboard: Tab moves through the two quantity-stepper buttons.
+    aria:
+      label-needed: image gets meaningful `alt` text; quantity-stepper buttons carry their own aria-labels per the primitive's contract.
+      hidden-icons: badge-leading sparkle and warning-row info icon are `aria-hidden="true"`; the adjacent text carries the meaning.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Meal Option Card</h3>
+  <p class="pl-description">
+    Agentic browse + select card for the patient-app meal-ordering right-pane menu grid. Image, name, description, diet tags, price, and an inline quantity-stepper. Variants: default, recommended, non-recommended-warned, placeholder.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default</h4>
+    <!-- @component: meal-option-card (default) -->
+    <div class="meal-option-card">
+      <div class="meal-option-card-image">
+        <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=1" alt="Tofu noodle bowl with broccoli and sesame">
+      </div>
+      <div class="meal-option-card-content">
+        <p class="meal-option-card-name-row">
+          <span class="meal-option-card-name">Tofu noodle bowl</span>
+        </p>
+        <p class="meal-option-card-description">Soft tofu, soba, broccoli, sesame.</p>
+        <div class="meal-option-card-tags">
+          <span class="badge badge-info">Low sodium</span>
+          <span class="badge badge-neutral">Vegetarian</span>
+        </div>
+        <div class="meal-option-card-footer">
+          <span class="meal-option-card-price">$12.50</span>
+          <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+            <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+              <i class="fa-solid fa-minus" aria-hidden="true"></i>
+            </button>
+            <span class="quantity-stepper-value" aria-hidden="true">0</span>
+            <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+            <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Recommended — Ava-attributed "Picked for you"</h4>
+    <!-- @component: meal-option-card (recommended) -->
+    <div class="meal-option-card is-recommended">
+      <div class="meal-option-card-image">
+        <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=2" alt="Pollo guisado with rice and black beans">
+      </div>
+      <div class="meal-option-card-content">
+        <p class="meal-option-card-name-row">
+          <span class="meal-option-card-name">Pollo guisado</span>
+        </p>
+        <p class="meal-option-card-description">Stewed chicken, rice, black beans.</p>
+        <div class="meal-option-card-tags">
+          <span class="badge badge-primary">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+            Picked for you
+          </span>
+          <span class="badge badge-info">Low sodium</span>
+        </div>
+        <div class="meal-option-card-footer">
+          <span class="meal-option-card-price">$12.50</span>
+          <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0" data-max="10">
+            <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+              <i class="fa-solid fa-minus" aria-hidden="true"></i>
+            </button>
+            <span class="quantity-stepper-value" aria-hidden="true">2</span>
+            <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+            <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Non-recommended, added (supportive warning — always visible, never blocks, never dims)</h4>
+    <!-- @component: meal-option-card (non-recommended-warned) -->
+    <div class="meal-option-card is-non-recommended-warned">
+      <div class="meal-option-card-image">
+        <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=3" alt="Fried plantains platter with garlic dipping sauce">
+      </div>
+      <div class="meal-option-card-content">
+        <p class="meal-option-card-name-row">
+          <span class="meal-option-card-name">Fried plantains platter</span>
+        </p>
+        <p class="meal-option-card-description">Sweet plantains, garlic mojo, side of rice.</p>
+        <div class="meal-option-card-tags">
+          <span class="badge badge-neutral">Vegetarian</span>
+        </div>
+        <p class="meal-option-card-warning-row">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>This isn't a usual pick for your care plan — ask Ava if you want to talk it through.</span>
+        </p>
+        <div class="meal-option-card-footer">
+          <span class="meal-option-card-price">$10.00</span>
+          <div class="quantity-stepper" data-quantity-stepper data-value="1" data-min="0" data-max="10">
+            <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+              <i class="fa-solid fa-minus" aria-hidden="true"></i>
+            </button>
+            <span class="quantity-stepper-value" aria-hidden="true">1</span>
+            <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+            <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Placeholder — missing image</h4>
+    <!-- @component: meal-option-card (placeholder) -->
+    <div class="meal-option-card">
+      <div class="meal-option-card-image">
+        <div class="meal-option-card-placeholder" aria-hidden="true">
+          <i class="fa-regular fa-utensils"></i>
+        </div>
+      </div>
+      <div class="meal-option-card-content">
+        <p class="meal-option-card-name-row">
+          <span class="meal-option-card-name">Lemon chicken</span>
+        </p>
+        <p class="meal-option-card-description">Image coming soon.</p>
+        <div class="meal-option-card-tags">
+          <span class="badge badge-info">Low sodium</span>
+        </div>
+        <div class="meal-option-card-footer">
+          <span class="meal-option-card-price">$11.50</span>
+          <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+            <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+              <i class="fa-solid fa-minus" aria-hidden="true"></i>
+            </button>
+            <span class="quantity-stepper-value" aria-hidden="true">0</span>
+            <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+            <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>

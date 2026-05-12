@@ -358,6 +358,22 @@ These are NOT duplicative. They sit on opposite sides of the spec → port line.
 - No CSS modules, styled-components, or runtime CSS-in-JS
 - Utility classes only for layout (spacing, grid, flex positioning not covered by a semantic class)
 
+### Vanilla JS per primitive — framework-agnostic behavior ships with the PL
+
+For PL primitives with `interactive-usage: required` that encode **non-trivial design decisions** in behavior (debouncing, focus management, bounds/disabled-state logic, drag/resize, focus trap, keyboard-handling beyond native button clicks), ship a tightly-scoped vanilla ES module alongside the HTML/CSS. The JS makes the primitive drop-in usable by any consumer (Angular, React, vanilla) — they import the file unchanged, or port the contract to their framework's idioms. Either path beats from-scratch.
+
+- **Location:** `packages/design-system/src/scripts/components/{name}.js` (matches the panel-splitter precedent)
+- **Shape:** IIFE that runs on script load; `document.querySelectorAll('[data-{name}]')` to find instances; attach behavior via data attributes (no class-name coupling)
+- **Events:** dispatch bubbling `CustomEvent`s on the host element with a `detail` object describing the state change. Document the event name + detail shape in the `@component-meta` `notes:` block.
+- **Programmatic API:** expose a non-enumerable property on the host element (e.g., `el._{primitiveName}`) with read/write methods for state-controlled consumers.
+- **A11y:** if the primitive needs live-region announcements, JS owns the debounce — never rely on raw `aria-live` for rapid state changes (chatty-announcement a11y failure).
+- **Wiring:** each PL page that consumes the primitive `<script src="/src/scripts/components/{name}.js"></script>` after the partials. No auto-import in `main.js` (per the panel-splitter convention — keeps the bundle lean).
+- **Document the contract** in the component's `@component-meta` `notes:` block: usage example, attributes, events, programmatic API, a11y behavior. Andrey (or any consumer) reads the contract and either uses or ports.
+
+**When NOT to ship JS:** trivial native interactions (a button that runs a consumer-supplied handler, a link that navigates). Those don't encode design decisions — they're ceremony in code form.
+
+Existing examples following this convention: `panel-splitter.js`, `quantity-stepper.js`.
+
 ---
 
 ## Framework Usage
