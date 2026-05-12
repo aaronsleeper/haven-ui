@@ -140,6 +140,28 @@ Tasks that ONLY edit an existing `components/{name}.html` (no new fragment) are 
 
 Source incident: Task 01 of the agentic-question slice (2026-05-11) shipped `option-row.html` as a fragment without `pages/` or nav entry. The QA agent marked INT-03/INT-04 as N/A based on Task 01's literal scope. Aaron could not load the rendered page for review — the fragment loaded standalone produced raw browser-default buttons with mojibake on em-dashes and Spanish accents. A follow-up commit (`d070ee6`) added the wrapper. This check exists so the failure mode is blocked structurally.
 
+### 10. Contrast value freshness (hard)
+
+For every WCAG contrast ratio cited in a new-component spec (`apps/[persona]/design/new-components/[name].md`) or in a `components.css` comment block touching a class introduced by this slice, the citation must declare:
+
+- The palette source: `palette.css @ {short-sha}` or a named version (e.g. `Cena Color System v2`).
+- The verification date: `verified YYYY-MM-DD` or `recomputed YYYY-MM-DD`.
+- Both must appear in the same paragraph or comment block as the ratio.
+
+Reviewer must recompute every cited ratio from the named palette's hex literals before marking the spec ready. Trusting peer-reviewer citations is forbidden — the recurring incident below shows the second panel anchoring on the first panel's wrong number.
+
+- Pass: every cited ratio carries a palette anchor + verification date, and recomputation agrees within ±0.05.
+- Fail: any cited ratio lacks the anchor, OR recomputation disagrees with the cited value by more than 0.05.
+
+Scope: forward-only. Specs and comments authored before this check landed are exempt until the next time their class is touched; existing primitives (e.g. `response-option`) carry their pre-check citations until a slice modifies them.
+
+Source incidents (2026-05-11 → 2026-05-12):
+
+- Round 2 a11y polish (option-row, commit `0b75050`) cited `sand-600/sand-50 = 3.82:1`. Actual against the then-current palette was 4.23:1 — probable confusion with `primary-500/sand-50 = 3.84:1`. A second panel run (thread-question-card Round 2, commit `b1a70d9`) cited the same pair as `3.79:1` — different wrong number, same miscomputation. Two panel passes, two miscomputations, neither caught.
+- Color System v2 (commit `45e8e14`) shifted every load-bearing pair by +0.3 to +0.5; all cited ratios across spec + CSS became stale silently. Caught the next day during follow-up verification (commit `d4cc26a`).
+
+The check prevents both failure modes — reviewer anchoring on prior cited numbers, and palette commits silently invalidating prior citations.
+
 ## Output format
 
 ```markdown
@@ -166,6 +188,7 @@ Source incident: Task 01 of the agentic-question slice (2026-05-11) shipped `opt
 | 7 | Decisions-log rules | pass/concern/fail | [one line] |
 | 8 | Copy verbatim | pass/concern/fail | [one line] |
 | 9 | PL fragment reviewability | pass/fail | [one line] |
+| 10 | Contrast value freshness | pass/fail | [one line] |
 
 ### Concerns (if any)
 - [Concern] — suggested resolution: [what Aaron can do now or defer]
@@ -186,7 +209,7 @@ Proceeding to `/build` first task.
 
 ## Decision rules for the verdict
 
-- Any **fail** on checks 1–5 or check 9 (the hard checks) → NOT-READY.
+- Any **fail** on checks 1–5, 9, or 10 (the hard checks) → NOT-READY.
 - Any **fail** on checks 6–8 (the soft checks) → CONCERNS (not NOT-READY).
 - Any **concern** on any check with no fails → CONCERNS.
 - All pass → READY.
