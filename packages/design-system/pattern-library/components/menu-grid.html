@@ -1,0 +1,200 @@
+<!--
+  @component-meta
+  name: Menu Grid
+  category: Patient App — A2UI Right-Pane Primitives
+  file: menu-grid.html
+  classes: menu-grid, menu-grid-header, menu-grid-title, menu-grid-subtitle
+  variants: default (with header), headless (no header — bare grid)
+  when-to-use: Patient-app right-pane wrapper for a collection of meal-option-cards during meal-ordering Step 4. Renders the agent-prepared weekly menu as a vertically-stacked grid (gap-3) with an optional header carrying a title and subtitle (e.g., "This week's menu" / "14 dishes available"). Composition primitive — owns layout only; visual register of each item comes from `meal-option-card`.
+  do-not-use-when: The list is a delivery schedule (use a list of `meal-delivery-card` instead — that's the idle-pane delivery surface). The list needs cart semantics + totals + submit (use `cart-panel` — meal-grid is the menu side; cart-panel is the cart side). The list is a single-item showcase (just use `meal-option-card` directly).
+  preline-required: no
+  notes: Layout-only composition wrapper. `.menu-grid` is flex flex-col gap-3 (12px vertical gap between cards). `.menu-grid-header` sits above the card list with `mb-3` separation and a flex justify-between row carrying title + subtitle on the left (any auxiliary chip / icon could compose to the right via additional children).
+
+    For the right-pane shell the menu-grid lives in `.content-body` typically below `cart-panel` (Step 2/3/4 of meal-ordering); see `meal-ordering.step-2-state-read.mdoc` and `meal-ordering.step-4-cart.mdoc` for the canonical composition order: cart-panel (top) → menu-grid (middle) → budget-meter (bottom).
+
+    Each child `meal-option-card` brings its own inline `quantity-stepper`; menu-grid does not handle quantity logic — that's per-card via `data-quantity-stepper`. Cart totals + budget tracking live in cart-panel (sibling) which subscribes to `quantity-change` CustomEvents bubbled from the steppers.
+
+    Covers gap-doc R-5. Promoted from the 2026-05-07 MealCard rename queue — the agentic `MenuGrid` semantic CSS classes were present in `components.css` since the rename; this is the canonical PL HTML completing the primitive.
+  interactive-usage: no (composes interactive children; the grid itself has no behavior)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Menu Grid</h3>
+  <p class="pl-description">
+    Right-pane wrapper for a collection of meal-option-cards during meal-ordering. Layout-only composition; cards bring their own visual register and quantity-stepper behavior.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Default — with header</h4>
+    <!-- @component: menu-grid (default) -->
+    <div class="menu-grid">
+      <div class="menu-grid-header">
+        <div>
+          <p class="menu-grid-title">This week's menu</p>
+          <p class="menu-grid-subtitle">14 dishes available</p>
+        </div>
+      </div>
+
+      <div class="meal-option-card is-recommended">
+        <div class="meal-option-card-image">
+          <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=2" alt="Pollo guisado with rice and black beans">
+        </div>
+        <div class="meal-option-card-content">
+          <p class="meal-option-card-name-row">
+            <span class="meal-option-card-name">Pollo guisado</span>
+          </p>
+          <p class="meal-option-card-description">Stewed chicken, rice, black beans.</p>
+          <div class="meal-option-card-tags">
+            <span class="badge badge-primary">
+              <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+              Picked for you
+            </span>
+            <span class="badge badge-info">Low sodium</span>
+          </div>
+          <div class="meal-option-card-footer">
+            <span class="meal-option-card-price">$12.50</span>
+            <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0" data-max="10">
+              <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                <i class="fa-solid fa-minus" aria-hidden="true"></i>
+              </button>
+              <span class="quantity-stepper-value" aria-hidden="true">2</span>
+              <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+              <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meal-option-card">
+        <div class="meal-option-card-image">
+          <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=1" alt="Tofu noodle bowl with broccoli and sesame">
+        </div>
+        <div class="meal-option-card-content">
+          <p class="meal-option-card-name-row">
+            <span class="meal-option-card-name">Tofu noodle bowl</span>
+          </p>
+          <p class="meal-option-card-description">Soft tofu, soba, broccoli, sesame.</p>
+          <div class="meal-option-card-tags">
+            <span class="badge badge-info">Low sodium</span>
+            <span class="badge badge-neutral">Vegetarian</span>
+          </div>
+          <div class="meal-option-card-footer">
+            <span class="meal-option-card-price">$12.50</span>
+            <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+              <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                <i class="fa-solid fa-minus" aria-hidden="true"></i>
+              </button>
+              <span class="quantity-stepper-value" aria-hidden="true">0</span>
+              <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+              <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meal-option-card is-non-recommended-warned">
+        <div class="meal-option-card-image">
+          <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=3" alt="Fried plantains platter with garlic dipping sauce">
+        </div>
+        <div class="meal-option-card-content">
+          <p class="meal-option-card-name-row">
+            <span class="meal-option-card-name">Fried plantains platter</span>
+          </p>
+          <p class="meal-option-card-description">Sweet plantains, garlic mojo, side of rice.</p>
+          <div class="meal-option-card-tags">
+            <span class="badge badge-neutral">Vegetarian</span>
+          </div>
+          <p class="meal-option-card-warning-row">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span>This isn't a usual pick for your care plan — ask Ava if you want to talk it through.</span>
+          </p>
+          <div class="meal-option-card-footer">
+            <span class="meal-option-card-price">$10.00</span>
+            <div class="quantity-stepper" data-quantity-stepper data-value="1" data-min="0" data-max="10">
+              <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                <i class="fa-solid fa-minus" aria-hidden="true"></i>
+              </button>
+              <span class="quantity-stepper-value" aria-hidden="true">1</span>
+              <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+              <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Headless — bare grid (no title row)</h4>
+    <!-- @component: menu-grid (headless) -->
+    <div class="menu-grid">
+      <div class="meal-option-card">
+        <div class="meal-option-card-image">
+          <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=4" alt="Mole verde with rice">
+        </div>
+        <div class="meal-option-card-content">
+          <p class="meal-option-card-name-row">
+            <span class="meal-option-card-name">Mole verde</span>
+          </p>
+          <p class="meal-option-card-description">Pumpkin-seed mole, chicken, rice.</p>
+          <div class="meal-option-card-tags">
+            <span class="badge badge-info">Low sodium</span>
+          </div>
+          <div class="meal-option-card-footer">
+            <span class="meal-option-card-price">$13.00</span>
+            <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+              <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                <i class="fa-solid fa-minus" aria-hidden="true"></i>
+              </button>
+              <span class="quantity-stepper-value" aria-hidden="true">0</span>
+              <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+              <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meal-option-card">
+        <div class="meal-option-card-image">
+          <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=5" alt="Black bean soup with avocado">
+        </div>
+        <div class="meal-option-card-content">
+          <p class="meal-option-card-name-row">
+            <span class="meal-option-card-name">Black bean soup</span>
+          </p>
+          <p class="meal-option-card-description">Slow-cooked beans, avocado, lime.</p>
+          <div class="meal-option-card-tags">
+            <span class="badge badge-info">Low sodium</span>
+            <span class="badge badge-neutral">Vegetarian</span>
+          </div>
+          <div class="meal-option-card-footer">
+            <span class="meal-option-card-price">$9.50</span>
+            <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+              <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                <i class="fa-solid fa-minus" aria-hidden="true"></i>
+              </button>
+              <span class="quantity-stepper-value" aria-hidden="true">0</span>
+              <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+              <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+  </div>
+
+</section>
