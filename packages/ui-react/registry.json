@@ -52,6 +52,31 @@
       }
     },
     {
+      "name": "app-shell",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/AppShell.tsx", "type": "registry:component" },
+        { "path": "components/AppShell.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/layout-app-shell-responsive.html",
+        "composition": {
+          "propSchema": "./components/AppShell.props.ts",
+          "markdocTag": null,
+          "allowedChildren": [],
+          "slotModel": "named-slots"
+        },
+        "isAppShell": true,
+        "stories": [],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Responsive non-agentic shell — sidebar nav at ≥lg, bottom-nav at <lg, persistent topbar across both. Five named slots via props: topBar, sidebar, bottomNav, banner, children. The shell owns the <main> landmark and the content-width contract (--app-shell-content-max-w, default 48rem ~75ch per DESIGN.md right-pane sizing; .app-shell-content--full-bleed escape for dense screens). Sidebar slot renders into <nav aria-label='Primary'>; bottomNav slot mirrors the same landmark label for cross-breakpoint AT consistency. First consumer: patient app (UConn MVP, Dieckhaus demo 2026-05-22). 4-expert panel verdict 2026-05-13: iterate; 12 demo-blocking fixes applied through commits 8416d2d → this commit."
+      }
+    },
+    {
       "name": "queue-sidebar",
       "type": "registry:component",
       "files": [

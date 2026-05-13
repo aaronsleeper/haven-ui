@@ -244,13 +244,15 @@ form > div {
    MOBILE BOTTOM NAV (Patient App)
    =================================== */
 
-/* Fixed tab bar — present on all post-onboarding screens */
+/* Tab bar layout — positioning-agnostic. Lives inside .app-shell-bottom-nav
+   (which owns sticky + bg + border-t + lg:hidden gating) so this class only
+   provides the grid + safe-area padding. Earlier iteration had `position: fixed
+   + max-width: 430px` baked in for the legacy .mobile-shell context; that
+   produced double-positioning inside the responsive AppShell wrapper and
+   chrome conflicts (sand-50 over white). Fix #12 from 2026-05-13 design panel. */
 .mobile-bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 bg-sand-50 border-t border-sand-200 shadow-lg;
-  max-width: 430px;
-  margin-inline: auto;
+  @apply grid grid-cols-5;
   padding-bottom: env(safe-area-inset-bottom);
-  @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
 /* Individual tab item — <a> or <button> */
@@ -1128,8 +1130,10 @@ a.btn-danger {
     @apply mb-0;
 }
 
+/* Heading/02 — Lora Medium per DESIGN.md §Typography. Sans-semibold reads as
+   bootstrap-generic; Lora carries the Haven brand on every card surface. */
 .card-title {
-    @apply text-2xl font-semibold text-sand-800 mb-0;
+    @apply text-heading-02 font-serif font-medium text-sand-800 mb-0;
     @apply dark:text-sand-200;
 }
 
@@ -10591,15 +10595,26 @@ a.list-group-item-action {
     @apply flex flex-wrap gap-1 mt-1;
 }
 
-/* Tag-row badge register reset — scoped to meal-option-card only.
-   The global .badge class applies uppercase + font-bold + tracking-wider for
-   status-pill semantics (Swapped, New, etc.). That register is wrong for
-   restaurant-menu vocabulary ("Low sodium", "Vegetarian") and wrong for an
-   Ava attribution ("Picked for you") per DESIGN.md §Voice "warmth is
-   observational, not performative." This selector keeps status pills uppercase
-   everywhere else and restores warm-observational typography here only.
-   (Brand-fidelity verdict 2026-05-12.) */
-.meal-option-card-tags .badge {
+/* Attribute-tag modifier — sentence-case descriptive badges. The global
+   .badge class applies uppercase + font-bold + tracking-wider for status-pill
+   semantics (Delivered, In Transit, New, Swapped). That register is wrong for
+   restaurant-menu vocabulary ("Low sodium", "Vegetarian", "Heart-healthy")
+   and wrong for an Ava attribution ("Picked for you") per DESIGN.md §Voice
+   "warmth is observational, not performative." Apply `.badge.attribute-tag`
+   (or `.attribute-tag` standalone) anywhere descriptive metadata reads in
+   restaurant-menu register; status pills keep the global .badge register.
+   (Brand-fidelity verdicts 2026-05-12 + 2026-05-13.) */
+.attribute-tag {
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 500;
+    @apply gap-1.5;
+}
+
+/* Auto-apply to meal-option-card-tags and meal-delivery-card-tags so existing
+   consumers don't need to add the modifier explicitly. */
+.meal-option-card-tags .badge,
+.meal-delivery-card-tags .badge {
     text-transform: none;
     letter-spacing: normal;
     font-weight: 500;
