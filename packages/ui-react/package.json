@@ -46,7 +46,8 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@haven/design-system": "workspace:*"
+    "@haven/design-system": "workspace:*",
+    "chart.js": "^4.4.0"
   },
   "devDependencies": {
     "@markdoc/markdoc": "^0.5.7",

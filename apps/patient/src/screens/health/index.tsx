@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Sparkline } from '@haven/ui-react';
 import { useLanguage } from '../../lib/useLanguage';
 
 interface TrendMetric {
@@ -8,6 +9,8 @@ interface TrendMetric {
   trendLabel: { en: string; es: string };
   lastUpdated: { en: string; es: string };
   assessmentHref: string;
+  /** 6 weeks of mocked values for v1 demo. Scale arbitrary — sparkline axes hidden. */
+  data: number[];
 }
 
 const DEMO_METRICS: TrendMetric[] = [
@@ -18,6 +21,7 @@ const DEMO_METRICS: TrendMetric[] = [
     trendLabel: { en: 'Improving', es: 'Mejorando' },
     lastUpdated: { en: 'Updated 2 days ago', es: 'Actualizado hace 2 días' },
     assessmentHref: '/assessment/gad-7',
+    data: [3, 3, 4, 5, 5, 6],
   },
   {
     id: 'energy',
@@ -26,6 +30,7 @@ const DEMO_METRICS: TrendMetric[] = [
     trendLabel: { en: 'Stable', es: 'Estable' },
     lastUpdated: { en: 'Updated 4 days ago', es: 'Actualizado hace 4 días' },
     assessmentHref: '/assessment/gad-7',
+    data: [5, 4, 5, 5, 4, 5],
   },
   {
     id: 'meal-satisfaction',
@@ -34,6 +39,7 @@ const DEMO_METRICS: TrendMetric[] = [
     trendLabel: { en: 'Improving', es: 'Mejorando' },
     lastUpdated: { en: 'Updated 2 days ago', es: 'Actualizado hace 2 días' },
     assessmentHref: '/assessment/phq-9',
+    data: [4, 4, 5, 6, 7, 7],
   },
 ];
 
@@ -47,6 +53,14 @@ const TREND_ICON_MAP = {
   improving: 'fa-arrow-trend-up',
   stable: 'fa-minus',
   worsening: 'fa-arrow-trend-down',
+} as const;
+
+// Sparkline accent colors per trend direction. HSLA values mirror
+// haven-chart-config.js HAVEN palette so the React port matches PL.
+const TREND_COLOR_MAP = {
+  improving: 'hsla(173, 38.5%, 35.1%, 1)', // HAVEN.primary[600] teal
+  stable: 'hsla(26, 14.3%, 56.1%, 1)',     // HAVEN.sand[400] neutral
+  worsening: 'hsla(2, 26%, 51.8%, 1)',     // HAVEN.danger[600]
 } as const;
 
 export function MyHealth() {
@@ -82,12 +96,12 @@ export function MyHealth() {
                   {metric.trendLabel[lang]}
                 </span>
               </div>
-              <div
-                className="trend-card-chart"
-                aria-label={`${metric.name[lang]} sparkline: ${metric.trendLabel[lang]}`}
-              >
-                {/* TODO v1.1: initialize Chart.js sparkline canvas here */}
-                <div className="chart-sparkline bg-sand-100 rounded" />
+              <div className="trend-card-chart">
+                <Sparkline
+                  data={metric.data}
+                  color={TREND_COLOR_MAP[metric.trend]}
+                  ariaLabel={`${metric.name[lang]} sparkline: ${metric.trendLabel[lang]}`}
+                />
               </div>
               <p className="text-xs text-sand-400 mt-2">{metric.lastUpdated[lang]}</p>
             </div>

@@ -127,3 +127,6 @@ export type {
   ThreadApprovalAttachment,
   ThreadApprovalEffects,
 } from './components/ThreadApprovalCard';
+
+export { Sparkline } from './components/Sparkline';
+export type { SparklineProps } from './components/Sparkline';
