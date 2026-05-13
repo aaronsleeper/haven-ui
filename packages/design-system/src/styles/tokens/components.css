@@ -2676,11 +2676,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 /* @surface-role: chrome */
 .app-sidebar {
     @apply fixed top-0 start-0 bottom-0 z-[60] w-64;
-    @apply border-e border-sand-200 pt-7 pb-10 overflow-y-auto;
-    @apply dark:bg-sand-900 dark:border-sand-800;
+    @apply bg-sand-100 dark:bg-sand-900;
+    @apply border-e border-sand-200 dark:border-sand-800 pt-7 pb-10 overflow-y-auto;
     /* Mobile: off-screen left. lg+: always visible. Preline .open slides it in on mobile. */
     @apply -translate-x-full transition-all duration-300 transform lg:translate-x-0 lg:end-auto lg:bottom-0;
-    background-color: var(--color-surface-chrome);
 }
 
 /* When Preline opens the sidebar overlay on mobile, slide it into view */
