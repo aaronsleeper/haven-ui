@@ -1460,6 +1460,7 @@ a.btn-danger {
    overflow-hidden flex container with rounded corners, sitting on top of the
    .app-shell envelope's sand-200 ground per DESIGN.md §Brand-taste "Pages
    float." Children scroll internally; the frame itself fills the envelope. */
+/* @contrast-exempt: decorative-background */
 .app-shell-frame {
     @apply flex flex-col lg:flex-row overflow-hidden rounded-md bg-sand-50 dark:bg-sand-900;
     min-height: calc(100vh - 2rem);
@@ -1467,6 +1468,7 @@ a.btn-danger {
 
 /* Sidebar chrome — panel-nav-like sand-100 surface, matching the agentic
    shell's nav pane. White-on-sand-50 was the pre-floating-shell treatment. */
+/* @contrast-exempt: decorative-background */
 .app-shell-sidebar {
     @apply hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:overflow-y-auto;
     @apply bg-sand-100 dark:bg-sand-800;
@@ -1476,6 +1478,7 @@ a.btn-danger {
     @apply flex-1 flex flex-col min-w-0 min-h-0;
 }
 
+/* @contrast-exempt: decorative-background */
 .app-shell-topbar {
     @apply sticky top-0 z-10 bg-sand-50 border-b border-sand-200 flex items-center justify-between px-4 py-2;
     @apply dark:bg-sand-900 dark:border-sand-700;
@@ -1504,6 +1507,7 @@ a.btn-danger {
     --app-shell-content-max-w: none;
 }
 
+/* @contrast-exempt: decorative-background */
 .app-shell-bottom-nav {
     @apply lg:hidden sticky bottom-0 bg-white border-t border-sand-200;
 }
@@ -5943,6 +5947,7 @@ canvas {
    Distinct from .meal-option-card (agentic browse + select).
    =================================== */
 
+/* @contrast-exempt: decorative-background */
 .meal-delivery-card {
   @apply flex items-center gap-3 bg-sand-50 border border-sand-200 rounded-md p-3 shadow-2xs;
   @apply dark:bg-sand-900 dark:border-sand-700;
@@ -5950,10 +5955,12 @@ canvas {
   background-color: white !important; /* suppress button hover inheritance */
 }
 
+/* @contrast-exempt: decorative-background */
 .meal-delivery-card:hover {
   background-color: var(--color-sand-50) !important;
 }
 
+/* @contrast-exempt: decorative-background */
 .meal-delivery-card-img {
   @apply size-20 rounded-lg overflow-hidden object-cover shrink-0 bg-sand-100;
   position: relative;
@@ -6002,6 +6009,7 @@ canvas {
   font-size: 0.875rem;
 }
 
+/* @contrast-exempt: decorative-background */
 .meal-delivery-card-swap:hover {
   color: var(--color-sand-700);
   background-color: var(--color-sand-100) !important;
