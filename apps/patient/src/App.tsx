@@ -18,15 +18,24 @@ import { MyHealth } from './screens/health';
 import { Care } from './screens/care';
 import { Gad7Routes } from './screens/gad-7';
 import { Phq9Routes } from './screens/phq-9';
+import { OnboardingRoutes } from './screens/onboarding';
 
-// Helper: hide bottom nav inside assessment flows (full-screen stepper)
+// Helper: hide bottom nav inside assessment flows (full-screen stepper) and
+// onboarding (linear stepper — bottom-nav appears only after All done).
 const ASSESSMENT_PREFIXES = ['/assessment/'];
+const ONBOARDING_PREFIXES = ['/onboarding/'];
 
 function useShowBottomNav(): boolean {
   const { pathname } = useLocation();
-  return !ASSESSMENT_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  return (
+    !ASSESSMENT_PREFIXES.some((prefix) => pathname.startsWith(prefix)) &&
+    !ONBOARDING_PREFIXES.some((prefix) => pathname.startsWith(prefix))
+  );
 }
 
+// i18n bar hidden during assessment; remains visible during onboarding so the
+// patient can toggle language on the welcome screen and Preferences re-renders
+// stay in sync with the bar.
 function useShowI18nBar(): boolean {
   const { pathname } = useLocation();
   return !ASSESSMENT_PREFIXES.some((prefix) => pathname.startsWith(prefix));
@@ -67,6 +76,9 @@ export function App() {
           {/* Existing assessment flows — do not modify */}
           <Route path="/assessment/gad-7/*" element={<Gad7Routes />} />
           <Route path="/assessment/phq-9/*" element={<Phq9Routes />} />
+
+          {/* Onboarding flow — linear stepper, bottom-nav suppressed */}
+          <Route path="/onboarding/*" element={<OnboardingRoutes />} />
         </Routes>
       </div>
 
