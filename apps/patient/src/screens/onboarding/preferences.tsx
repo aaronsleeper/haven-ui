@@ -29,9 +29,9 @@ const CUISINES: CuisineCopy[] = [
 ];
 
 const CONTACT_METHODS: { id: ContactMethod; label: { en: string; es: string }; icon: string }[] = [
-  { id: 'phone', label: { en: 'Phone call', es: 'Llamada' }, icon: 'call' },
-  { id: 'text', label: { en: 'Text message', es: 'Mensaje de texto' }, icon: 'sms' },
-  { id: 'app', label: { en: 'App only', es: 'Solo la app' }, icon: 'notifications' },
+  { id: 'phone', label: { en: 'Phone', es: 'Llamada' }, icon: 'call' },
+  { id: 'text', label: { en: 'Text', es: 'Mensaje' }, icon: 'sms' },
+  { id: 'app', label: { en: 'App only', es: 'Solo app' }, icon: 'notifications' },
 ];
 
 const TIME_WINDOWS: { id: TimeWindow; label: { en: string; es: string } }[] = [

@@ -60,7 +60,7 @@ export function MealDeliveryCard({
             aria-label={`${swapLabel} — ${name}`}
             onClick={onSwap}
           >
-            {swapLabel}
+            <span className="material-symbols-outlined" aria-hidden="true">swap_horiz</span>
           </button>
         )}
       </div>

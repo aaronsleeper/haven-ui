@@ -31,6 +31,14 @@ export function Sparkline({ data, color, ariaLabel }: SparklineProps) {
       ? color.replace(/, 1\)$/, ', 0.15)')
       : color;
 
+    // Tighten Y-domain around the actual data range so the wobble reads
+    // visually (default 0-anchored axes flatten small variations to a line).
+    // Padding = 10% of the range (with a floor) keeps the line off the edges.
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const range = max - min;
+    const pad = Math.max(range * 0.1, 0.5);
+
     const config: ChartConfiguration<'line'> = {
       type: 'line',
       data: {
@@ -54,7 +62,7 @@ export function Sparkline({ data, color, ariaLabel }: SparklineProps) {
         layout: { padding: 0 },
         scales: {
           x: { display: false },
-          y: { display: false },
+          y: { display: false, min: min - pad, max: max + pad },
         },
         plugins: {
           legend: { display: false },

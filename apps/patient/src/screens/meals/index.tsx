@@ -82,8 +82,8 @@ const STATUS_COPY = {
     icon: 'schedule',
     classes: 'bg-warning-50 border border-warning-200 text-warning-700',
     text: {
-      en: 'Please confirm your meals by Wednesday at 5pm.',
-      es: 'Por favor confirme sus comidas antes del miércoles a las 5pm.',
+      en: 'Please confirm your meals by Wednesday, May 27 at 5pm.',
+      es: 'Por favor confirme sus comidas antes del miércoles 27 de mayo a las 5pm.',
     },
   },
   confirmed: {
@@ -106,8 +106,8 @@ const STATUS_COPY = {
 
 const SUBTITLE_COPY: Record<OrderState, { en: string; es: string }> = {
   unconfirmed: {
-    en: 'Confirm by Wednesday at 5pm',
-    es: 'Confirme antes del miércoles a las 5pm',
+    en: 'Confirm by Wednesday, May 27 at 5pm',
+    es: 'Confirme antes del miércoles 27 de mayo a las 5pm',
   },
   confirmed: {
     en: 'Confirmed for delivery Monday',

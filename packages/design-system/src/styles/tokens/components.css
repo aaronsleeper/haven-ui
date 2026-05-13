@@ -6401,6 +6401,7 @@ canvas {
 
 .trend-card-chart {
   @apply mt-3;
+  min-height: 64px;
 }
 
 /* ===================================
