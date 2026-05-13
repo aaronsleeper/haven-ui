@@ -1096,12 +1096,12 @@ a.btn-danger {
    radius prescription. */
 /* @contrast-exempt: decorative-background */
 .card {
-    @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
+    @apply flex flex-col bg-white border border-sand-200 shadow-2xs rounded-md dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
 }
 
 /* @contrast-exempt: decorative-background */
 .card-header {
-    @apply px-4 py-3 md:px-5 md:py-4 border-b border-sand-200;
+    @apply flex items-center justify-between gap-3 px-4 py-3 md:px-5 md:py-4 border-b border-sand-200;
     @apply dark:border-sand-700;
 }
 
@@ -1446,8 +1446,25 @@ a.btn-danger {
     @apply sticky top-0 z-10 bg-white border-b border-sand-200 flex items-center justify-between px-4 py-2;
 }
 
+/* Content region. Background inherits sand-50 from .app-shell so cards (now white)
+   read as elevated against the ambient surface — DESIGN.md surface canon.
+
+   --app-shell-content-max-w constrains the inner content flow to 48rem (~768px / 75ch),
+   matching the right-pane sizing rule in DESIGN.md. Direct children get centered via
+   margin-inline:auto. Dense screens (dashboards) can opt out with .app-shell-content--full-bleed. */
 .app-shell-content {
-    @apply flex-1 bg-white;
+    @apply flex-1;
+    --app-shell-content-max-w: 48rem;
+}
+
+.app-shell-content > * {
+    max-width: var(--app-shell-content-max-w);
+    margin-inline: auto;
+    width: 100%;
+}
+
+.app-shell-content--full-bleed {
+    --app-shell-content-max-w: none;
 }
 
 .app-shell-bottom-nav {

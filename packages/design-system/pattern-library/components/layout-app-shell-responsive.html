@@ -36,12 +36,16 @@ notes: |
   complexity without UX payoff for this app class.
 
   Class composition discipline:
-    - The shell ONLY handles layout + breakpoint switching. It does NOT style nav-item
-      appearance, topbar contents, or screen layouts. Those are the consumer's choice.
+    - The shell handles layout + breakpoint switching + content-width contract. It does NOT
+      style nav-item appearance, topbar contents, or screen layouts. Those are the consumer's choice.
     - Sidebar nav items typically use .sidebar-nav-item (from layout-app-shell.html).
     - Bottom nav typically uses .mobile-bottom-nav + .mobile-bottom-nav-tab (from
       layout-mobile-bottom-nav.html).
-    - The shell does not impose a max-width on content; pages decide their own content density.
+    - Content-width contract: .app-shell-content constrains direct children to
+      --app-shell-content-max-w (default 48rem / max-w-3xl / ~75ch, matching DESIGN.md
+      right-pane sizing). Centered via margin-inline:auto. Dense screens (dashboards,
+      data tables) opt out with .app-shell-content--full-bleed on the content region,
+      or override the variable inline per-screen.
 
   Distinct from .agentic-shell:
     - Agentic shell = 3 vertical panes (nav, chat, content) for the agent-led right-pane model.
