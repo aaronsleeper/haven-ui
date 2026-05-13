@@ -70,10 +70,14 @@
           "slotModel": "named-slots"
         },
         "isAppShell": true,
-        "stories": [],
+        "stories": [
+          "AppShell.Default",
+          "AppShell.WithBanner",
+          "AppShell.NoNav"
+        ],
         "brandReviewed": false,
         "a11yReviewed": false,
-        "notes": "Responsive non-agentic shell — sidebar nav at ≥lg, bottom-nav at <lg, persistent topbar across both. Five named slots via props: topBar, sidebar, bottomNav, banner, children. The shell owns the <main> landmark and the content-width contract (--app-shell-content-max-w, default 48rem ~75ch per DESIGN.md right-pane sizing; .app-shell-content--full-bleed escape for dense screens). Sidebar slot renders into <nav aria-label='Primary'>; bottomNav slot mirrors the same landmark label for cross-breakpoint AT consistency. First consumer: patient app (UConn MVP, Dieckhaus demo 2026-05-22). 4-expert panel verdict 2026-05-13: iterate; 12 demo-blocking fixes applied through commits 8416d2d → this commit."
+        "notes": "Responsive non-agentic shell — sidebar nav at ≥lg, bottom-nav at <lg, persistent topbar across both. Five named slots via props: topBar, sidebar, bottomNav, banner, children. The shell owns the <main> landmark and the content-width contract (--app-shell-content-max-w, default 48rem ~75ch per DESIGN.md right-pane sizing; .app-shell-content--full-bleed escape for dense screens). Sidebar slot renders into <nav aria-label='Primary'>; bottomNav slot mirrors the same landmark label for cross-breakpoint AT consistency. Brand mark belongs with the nav (.nav-header) at ≥lg, matching the agentic-shell canon; topbar shows brand only on mobile via `lg:hidden`. First consumer: patient app (UConn MVP, Dieckhaus demo 2026-05-22). 4-expert panel verdict 2026-05-13: iterate; 12 demo-blocking fixes applied through commits 8416d2d → 79ff701."
       }
     },
     {
@@ -632,6 +636,63 @@
         ],
         "brandReviewed": false,
         "a11yReviewed": false
+      }
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/Sparkline.tsx", "type": "registry:component" },
+        { "path": "components/Sparkline.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": ["chart.js"],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/chart-containers.html",
+        "composition": {
+          "propSchema": "./components/Sparkline.props.ts",
+          "markdocTag": "sparkline",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "Sparkline.TrendDown",
+          "Sparkline.TrendUp",
+          "Sparkline.Flat"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Chart.js wrapper for the chart-sparkline pattern — canvas inside chart-canvas-wrapper, smooth fill-line, no axes. Color is consumer-supplied per HAVEN palette; TREND_COLOR_MAP in apps/patient/src/screens/health drives the route-bound mapping. First consumer: /health screen (patient app, 2026-05-13). aria-label should describe the trend in plain language."
+      }
+    },
+    {
+      "name": "meal-delivery-card",
+      "type": "registry:component",
+      "files": [
+        { "path": "components/MealDeliveryCard.tsx", "type": "registry:component" },
+        { "path": "components/MealDeliveryCard.props.ts", "type": "registry:file" }
+      ],
+      "registryDependencies": [],
+      "dependencies": [],
+      "cssVars": {},
+      "haven": {
+        "patternLibraryHtml": "../design-system/pattern-library/components/meal-delivery-card.html",
+        "composition": {
+          "propSchema": "./components/MealDeliveryCard.props.ts",
+          "markdocTag": "meal-delivery-card",
+          "allowedChildren": [],
+          "slotModel": "typed-props"
+        },
+        "stories": [
+          "MealDeliveryCard.Default",
+          "MealDeliveryCard.NoImage",
+          "MealDeliveryCard.Swapped",
+          "MealDeliveryCard.BottomSheetCandidate"
+        ],
+        "brandReviewed": false,
+        "a11yReviewed": false,
+        "notes": "Horizontal card for the weekly meals list (MEALS-01) and swap bottom-sheet. Tags use the attribute-tag register automatically via the .meal-delivery-card-tags .badge selector — sentence-case descriptive metadata, not uppercase status pills. onSwap undefined hides the swap button (use in bottom-sheet contexts). isSwapped applies .is-swapped: hides swap button and shows 'Swapped' status pill. First consumer: /meals screen (patient app, 2026-05-13)."
       }
     }
   ]
