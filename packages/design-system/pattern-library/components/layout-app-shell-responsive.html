@@ -43,6 +43,12 @@ notes: |
       state = font-bold + teal-700, no background fill (per DESIGN.md §Voice).
       .sidebar-nav-item from layout-app-shell.html is reserved for the dense
       PL-server vertical nav and is NOT used for app shells.
+    - Brand mark belongs WITH the nav (sidebar .nav-header) at ≥lg, matching the
+      agentic-shell canonical pattern. The topbar shows the brand only on mobile
+      (where the sidebar is hidden) via `lg:hidden` on the topbar logo, and a
+      `hidden lg:inline-block` spacer keeps the language toggle right-aligned at
+      desktop. The topbar at desktop is intentionally minimal — utility surface,
+      not the brand surface.
     - Bottom nav typically uses .mobile-bottom-nav + .mobile-bottom-nav-tab (from
       layout-mobile-bottom-nav.html).
     - Content-width contract: .app-shell-content constrains direct children to
@@ -67,6 +73,11 @@ notes: |
   <!-- @component: layout-app-shell-responsive -->
   <div class="app-shell border border-sand-200 rounded-xl overflow-hidden" style="min-height: 400px;">
     <nav class="app-shell-sidebar" aria-label="Primary">
+      <div class="nav-header">
+        <div class="nav-logo">
+          <span class="font-serif text-lg text-sand-900">Cena Health</span>
+        </div>
+      </div>
       <div class="nav-section">
         <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
         <a href="#" class="nav-item"><i class="fa-solid fa-heart-pulse"></i><span>My Health</span></a>
@@ -81,7 +92,9 @@ notes: |
 
     <div class="app-shell-main">
       <header class="app-shell-topbar">
-        <span class="font-serif text-base text-sand-900">Cena Health</span>
+        <!-- Brand mark visible <lg only; sidebar carries brand at ≥lg. -->
+        <span class="font-serif text-base text-sand-900 lg:hidden">Cena Health</span>
+        <span class="hidden lg:inline-block" aria-hidden="true"></span>
         <div role="radiogroup" aria-label="Language" class="flex gap-1">
           <button type="button" role="radio" aria-checked="true" class="mobile-i18n-toggle">EN</button>
           <button type="button" role="radio" aria-checked="false" class="mobile-i18n-toggle">ES</button>

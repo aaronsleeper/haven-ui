@@ -1,10 +1,10 @@
 // apps/patient/src/components/I18nBar.tsx
-// Content for the AppShell topbar — Cena Health logo on left + EN/ES toggle
-// pair on right. The shell's `app-shell-topbar` region provides the layout
-// (flex justify-between, sticky positioning); this component only owns the
-// content within. The brand mark is the topbar's at all viewports — sidebar
-// nav carries no logo, per DESIGN.md §Brand (topbar is the canonical brand
-// surface across breakpoints).
+// Content for the AppShell topbar — Cena Health logo on left (mobile only) +
+// EN/ES toggle pair on right. The shell's `app-shell-topbar` region provides
+// the layout (flex justify-between, sticky positioning); this component only
+// owns the content within. At ≥lg the sidebar's .nav-header carries the brand
+// mark (canonical pattern, mirrors agentic-shell .panel-nav); the topbar logo
+// hides via `lg:hidden`.
 //
 // Language toggle uses the radiogroup APG pattern: single-select between EN
 // and ES is semantically a radio group, not a pair of independent toggles.
@@ -35,12 +35,15 @@ export function I18nBar({ lang, onToggle }: I18nBarProps) {
 
   return (
     <>
+      {/* Brand mark — visible <lg; sidebar carries brand on ≥lg */}
       <img
         src={logoSrc}
         alt="Cena Health"
         height="24"
-        className="h-6 w-auto"
+        className="h-6 w-auto lg:hidden"
       />
+      {/* Spacer for ≥lg so toggle stays right-aligned */}
+      <span className="hidden lg:inline-block" aria-hidden="true" />
       <div role="radiogroup" aria-label="Language" className="flex gap-1">
         <button
           type="button"
