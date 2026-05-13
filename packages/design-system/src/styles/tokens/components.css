@@ -5012,6 +5012,7 @@ canvas {
 
 .section-nav-item.active {
     @apply text-primary-700 bg-primary-50;
+    @apply dark:text-primary-400 dark:bg-primary-900/20;
 }
 
 /* ===================================
@@ -9858,7 +9859,7 @@ a.list-group-item-action {
 }
 /* @contrast-exempt: decorative-background */
 .dark .three-panel-shell {
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: rgba(255, 255, 255, 0.10);
 }
 
 /* Center panel. flex-1 handles flex-grow; min-width guarantees a readable
@@ -9967,7 +9968,7 @@ a.list-group-item-action {
     min-width: 480px;
 }
 .dark .panel-chat {
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: rgba(255, 255, 255, 0.10);
 }
 
 /* --- Content panel (right) --- */
@@ -9983,7 +9984,7 @@ a.list-group-item-action {
     max-width: 800px;
 }
 .dark .panel-content {
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: rgba(255, 255, 255, 0.10);
 }
 
 .panel-content.hidden { display: none; }
@@ -10319,6 +10320,27 @@ a.list-group-item-action {
 }
 .dark .chat-header {
     border-bottom-color: var(--color-sand-800);
+}
+
+/* Chat thread header — variant of .chat-header with grouped controls,
+   used in patient-cart shells (left group: nav toggle; right group:
+   content toggle + handoff trigger). Promoted from page-local <style>
+   blocks 2026-05-13 (was in cart + cart-overbudget pages with the
+   same dark-mode bug as .chat-header). */
+.chat-thread-header {
+    @apply flex items-center justify-between flex-shrink-0;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--color-sand-100);
+    background: transparent;
+}
+.dark .chat-thread-header {
+    border-bottom-color: var(--color-sand-800);
+}
+
+.chat-thread-header-group {
+    @apply flex items-center;
+    gap: 0.5rem;
 }
 
 /* Pinned-bottom nav section — anchors the user-menu trigger to the
