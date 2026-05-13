@@ -43,7 +43,7 @@ export function AppShell({
   return (
     <div className="app-shell">
       {sidebar && (
-        <aside className="app-shell-sidebar" aria-label="Main navigation">
+        <aside className="app-shell-sidebar" aria-label="Primary">
           {sidebar}
         </aside>
       )}

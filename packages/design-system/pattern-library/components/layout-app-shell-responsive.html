@@ -38,7 +38,11 @@ notes: |
   Class composition discipline:
     - The shell handles layout + breakpoint switching + content-width contract. It does NOT
       style nav-item appearance, topbar contents, or screen layouts. Those are the consumer's choice.
-    - Sidebar nav items typically use .sidebar-nav-item (from layout-app-shell.html).
+    - Sidebar nav items use .nav-header + .nav-section + .nav-item — the canonical
+      brand-correct nav-item family shared with .panel-nav (agentic shell). Active
+      state = font-bold + teal-700, no background fill (per DESIGN.md §Voice).
+      .sidebar-nav-item from layout-app-shell.html is reserved for the dense
+      PL-server vertical nav and is NOT used for app shells.
     - Bottom nav typically uses .mobile-bottom-nav + .mobile-bottom-nav-tab (from
       layout-mobile-bottom-nav.html).
     - Content-width contract: .app-shell-content constrains direct children to
@@ -62,19 +66,19 @@ notes: |
 
   <!-- @component: layout-app-shell-responsive -->
   <div class="app-shell border border-sand-200 rounded-xl overflow-hidden" style="min-height: 400px;">
-    <aside class="app-shell-sidebar">
-      <div class="px-4 pt-6 pb-2">
-        <span class="font-serif text-lg text-sand-900">Cena Health</span>
+    <aside class="app-shell-sidebar" aria-label="Primary">
+      <div class="nav-header">
+        <div class="nav-logo">
+          <span class="font-serif text-lg text-sand-900">Cena Health</span>
+        </div>
       </div>
-      <nav class="px-2 py-2 flex-1">
-        <ul class="sidebar-nav-list">
-          <li><a href="#" class="sidebar-nav-item active"><i class="fa-solid fa-house fa-fw"></i> Dashboard</a></li>
-          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-heart-pulse fa-fw"></i> My Health</a></li>
-          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-message fa-fw"></i> Messages</a></li>
-          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-stethoscope fa-fw"></i> Care</a></li>
-          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-gear fa-fw"></i> Settings</a></li>
-        </ul>
-      </nav>
+      <div class="nav-section">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-heart-pulse"></i><span>My Health</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-message"></i><span>Messages</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-stethoscope"></i><span>Care</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+      </div>
     </aside>
 
     <div class="app-shell-main">
