@@ -9804,6 +9804,9 @@ a.list-group-item-action {
     cursor: col-resize;
     @apply transition-colors duration-100;
 }
+.dark .panel-splitter {
+    background-color: var(--color-sand-700);
+}
 
 .panel-splitter:hover,
 .panel-splitter.is-dragging {
@@ -9998,6 +10001,9 @@ a.list-group-item-action {
 .agentic-shell .panel-splitter {
     width: 1px;
     background-color: var(--color-sand-200);
+}
+.dark .agentic-shell .panel-splitter {
+    background-color: var(--color-sand-700);
 }
 
 .agentic-shell .panel-splitter:hover,
