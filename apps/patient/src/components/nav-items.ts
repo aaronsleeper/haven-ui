@@ -14,6 +14,7 @@ export interface NavItem {
 export const PATIENT_NAV_ITEMS: readonly NavItem[] = [
   { to: '/',         icon: 'home',           labelEn: 'Dashboard', labelEs: 'Inicio',    end: true  },
   { to: '/health',   icon: 'monitor_heart',  labelEn: 'My Health', labelEs: 'Mi Salud',  end: false },
+  { to: '/meals',    icon: 'lunch_dining',   labelEn: 'Meals',     labelEs: 'Comidas',   end: false },
   { to: '/messages', icon: 'chat',           labelEn: 'Messages',  labelEs: 'Mensajes',  end: false },
   { to: '/care',     icon: 'stethoscope',    labelEn: 'Care',      labelEs: 'Cuidado',   end: false },
   { to: '/settings', icon: 'settings',       labelEn: 'Settings',  labelEs: 'Ajustes',   end: false },

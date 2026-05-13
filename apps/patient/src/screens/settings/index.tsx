@@ -100,7 +100,7 @@ export function Settings() {
             </h2>
           </div>
           <div className="card-body">
-            <div className="toggle-group">
+            <div className="space-y-4">
               {/* Push notifications */}
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -125,7 +125,7 @@ export function Settings() {
                 </label>
               </div>
               {/* Delivery updates */}
-              <div className="flex items-start justify-between gap-4 mt-3">
+              <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="toggle-label">
                     {lang === 'es' ? 'Actualizaciones de entrega' : 'Delivery updates'}
@@ -148,7 +148,7 @@ export function Settings() {
                 </label>
               </div>
               {/* Check-in reminders */}
-              <div className="flex items-start justify-between gap-4 mt-3">
+              <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="toggle-label">
                     {lang === 'es' ? 'Recordatorios de revisión' : 'Check-in reminders'}

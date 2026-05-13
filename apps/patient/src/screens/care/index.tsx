@@ -19,7 +19,7 @@ const DEMO_APPOINTMENTS = [
   {
     id: 'appt-1',
     title: { en: 'Nutrition check-in with Dr. Soto', es: 'Revisión con Dr. Soto' },
-    dateTime: { en: 'Thursday, May 8 · 10:00 AM', es: 'Jueves, 8 de mayo · 10:00 AM' },
+    dateTime: { en: 'Thursday, May 28 · 10:00 AM', es: 'Jueves, 28 de mayo · 10:00 AM' },
   },
 ];
 

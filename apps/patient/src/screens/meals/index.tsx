@@ -24,7 +24,7 @@ interface DemoMeal {
 const DEMO_MEALS: DemoMeal[] = [
   {
     id: 'mon',
-    imgSrc: 'https://loremflickr.com/240/240/healthy,bowl?lock=11',
+    imgSrc: 'https://picsum.photos/seed/cena-chicken-verde/240/240',
     imgAlt: { en: 'Chicken Verde with rice and beans', es: 'Pollo verde con arroz y frijoles' },
     name: { en: 'Chicken Verde', es: 'Pollo Verde' },
     day: { en: 'Monday', es: 'Lunes' },
@@ -35,7 +35,7 @@ const DEMO_MEALS: DemoMeal[] = [
   },
   {
     id: 'tue',
-    imgSrc: 'https://loremflickr.com/240/240/healthy,salmon?lock=12',
+    imgSrc: 'https://picsum.photos/seed/cena-lemon-salmon/240/240',
     imgAlt: { en: 'Lemon salmon with quinoa', es: 'Salmón al limón con quinoa' },
     name: { en: 'Lemon Salmon', es: 'Salmón al limón' },
     day: { en: 'Tuesday', es: 'Martes' },
@@ -45,7 +45,7 @@ const DEMO_MEALS: DemoMeal[] = [
   },
   {
     id: 'wed',
-    imgSrc: 'https://loremflickr.com/240/240/healthy,tofu?lock=13',
+    imgSrc: 'https://picsum.photos/seed/cena-tofu-noodles/240/240',
     imgAlt: { en: 'Tofu noodle bowl with broccoli', es: 'Tazón de fideos con tofu y brócoli' },
     name: { en: 'Tofu Noodle Bowl', es: 'Tazón de fideos con tofu' },
     day: { en: 'Wednesday', es: 'Miércoles' },
@@ -56,7 +56,7 @@ const DEMO_MEALS: DemoMeal[] = [
   },
   {
     id: 'thu',
-    imgSrc: 'https://loremflickr.com/240/240/healthy,beef?lock=14',
+    imgSrc: 'https://picsum.photos/seed/cena-beef-stirfry/240/240',
     imgAlt: { en: 'Beef stir-fry with vegetables', es: 'Salteado de res con verduras' },
     name: { en: 'Beef Stir-fry', es: 'Salteado de res' },
     day: { en: 'Thursday', es: 'Jueves' },
@@ -66,7 +66,7 @@ const DEMO_MEALS: DemoMeal[] = [
   },
   {
     id: 'fri',
-    imgSrc: 'https://loremflickr.com/240/240/healthy,turkey?lock=15',
+    imgSrc: 'https://picsum.photos/seed/cena-turkey-chili/240/240',
     imgAlt: { en: 'Turkey chili with side salad', es: 'Chili de pavo con ensalada' },
     name: { en: 'Turkey Chili', es: 'Chili de pavo' },
     day: { en: 'Friday', es: 'Viernes' },

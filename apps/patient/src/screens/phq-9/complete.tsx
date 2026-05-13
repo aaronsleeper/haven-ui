@@ -24,7 +24,10 @@ export function Phq9Complete() {
     }
   }, [responses, navigate]);
 
-  const score = scorePhq9(responses);
+  // Score computed for in-memory persistence (care-team view, eventual API);
+  // intentionally NOT rendered — patient sees warm affirmation only per
+  // assess-04 wireframe + AHRQ PHQ-9 clinical convention.
+  scorePhq9(responses);
 
   return (
     <div className="flex flex-col min-h-dvh">
@@ -37,12 +40,6 @@ export function Phq9Complete() {
         <h1 className="text-xl font-serif font-semibold mt-4">Thank you</h1>
         <p className="text-sm text-sand-500 mt-2 max-w-xs">
           Your care team will review your answers.
-        </p>
-
-        {/* Debug/demo only — score band visible while slice is prototype.
-            Production wireframe (assess-04) hides raw score from patient. */}
-        <p className="text-xs text-sand-400 mt-6">
-          [prototype] score {score.total} of 27 — {score.band}
         </p>
       </div>
 
