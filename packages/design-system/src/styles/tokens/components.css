@@ -9840,7 +9840,7 @@ a.list-group-item-action {
    still uses its border treatment until its own reconciliation lands. */
 /* @contrast-exempt: decorative-background */
 .app-shell--agentic {
-    background-color: var(--color-sand-200);
+    @apply bg-sand-200 dark:bg-sand-700;
 }
 
 /* Outermost shell for all four personas (care-coordinator, provider, kitchen, patient).
@@ -9852,9 +9852,13 @@ a.list-group-item-action {
    from Patch 1a's opaque bg-white regression. */
 /* @contrast-exempt: decorative-background */
 .three-panel-shell {
-    @apply flex overflow-hidden border-[3px] border-sand-200 rounded-md;
+    @apply flex overflow-hidden border-[3px] border-sand-200 dark:border-sand-700 rounded-md;
     background-color: var(--color-surface-pane);
     height: calc(100vh - 2rem);
+}
+/* @contrast-exempt: decorative-background */
+.dark .three-panel-shell {
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 /* Center panel. flex-1 handles flex-grow; min-width guarantees a readable
@@ -9920,10 +9924,10 @@ a.list-group-item-action {
 /* @surface-role: chrome */
 .panel-nav {
     @apply flex flex-col flex-shrink-0 overflow-y-auto overflow-x-hidden;
+    @apply bg-sand-100 dark:bg-sand-900;
     width: 260px;
     min-width: 220px;
     max-width: 320px;
-    background: var(--color-surface-chrome);
     transition: width 0.2s ease, min-width 0.2s ease;
 }
 
@@ -9959,8 +9963,11 @@ a.list-group-item-action {
 /* @surface-role: pane */
 .panel-chat {
     @apply flex flex-col flex-1;
-    background: var(--color-surface-pane);
+    background-color: var(--color-surface-pane);
     min-width: 480px;
+}
+.dark .panel-chat {
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 /* --- Content panel (right) --- */
@@ -9970,10 +9977,13 @@ a.list-group-item-action {
 /* @surface-role: pane */
 .panel-content {
     @apply flex flex-col flex-shrink-0 overflow-hidden;
+    background-color: var(--color-surface-pane);
     width: 640px;
     min-width: 480px;
     max-width: 800px;
-    background: var(--color-surface-pane);
+}
+.dark .panel-content {
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 .panel-content.hidden { display: none; }
@@ -11353,11 +11363,11 @@ a.list-group-item-action {
 
 .option-row-glyph {
     @apply flex items-center justify-center shrink-0 w-5 h-5 mt-0.5;
+    @apply bg-white dark:bg-sand-800;
     /* sand-600 (not sand-500) to clear WCAG 1.4.11 against sand-50
        row-hover fill (4.68:1 under Cena Color System v2); see
        hover-state note above. */
     border: 2px solid var(--color-sand-600);
-    background-color: var(--color-surface-card);
     transition: background-color var(--duration-fast) var(--ease-default),
                 border-color var(--duration-fast) var(--ease-default);
 }
