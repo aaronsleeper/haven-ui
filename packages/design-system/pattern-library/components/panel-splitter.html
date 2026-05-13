@@ -12,16 +12,16 @@ notes: Drag-to-resize handle between panels. Uses data-panel-splitter to init. J
 <head>
   <load src="../partials/pl-head.html" />
 </head>
-<body class="p-8 bg-gray-100 dark:bg-neutral-950">
+<body class="p-8 bg-sand-100 dark:bg-sand-950">
 
   <h1 class="text-lg font-semibold mb-6">Panel Splitter</h1>
 
-  <div class="flex h-[400px] overflow-hidden rounded-lg border border-gray-200 dark:border-neutral-800">
+  <div class="flex h-[400px] overflow-hidden rounded-lg border border-sand-200 dark:border-sand-800">
 
     <!-- Left panel (resizable) -->
     <div class="w-60 shrink-0 queue-sidebar flex flex-col overflow-hidden" style="min-width: 180px; max-width: 400px;">
-      <div class="px-4 py-3 border-b border-gray-100 dark:border-neutral-800">
-        <span class="text-sm font-semibold text-gray-900 dark:text-white">Left Panel</span>
+      <div class="px-4 py-3 border-b border-sand-100 dark:border-sand-800">
+        <span class="text-sm font-semibold text-sand-900 dark:text-white">Left Panel</span>
       </div>
       <div class="flex-1 overflow-y-auto queue-list" role="list">
         <div class="queue-item is-urgent active" role="listitem">
@@ -47,21 +47,21 @@ notes: Drag-to-resize handle between panels. Uses data-panel-splitter to init. J
     <div class="panel-splitter" data-panel-splitter data-target="previous" data-min="180" data-max="400"></div>
 
     <!-- Center panel -->
-    <div class="flex-1 min-w-0 bg-gray-50 dark:bg-neutral-950 flex items-center justify-center">
-      <span class="text-sm text-gray-400">Center Panel (flex-grow)</span>
+    <div class="flex-1 min-w-0 bg-sand-50 dark:bg-sand-950 flex items-center justify-center">
+      <span class="text-sm text-sand-400">Center Panel (flex-grow)</span>
     </div>
 
     <!-- Splitter (targets next sibling) -->
     <div class="panel-splitter" data-panel-splitter data-target="next" data-min="280" data-max="500"></div>
 
     <!-- Right panel (resizable) -->
-    <div class="w-[380px] shrink-0 bg-white dark:bg-neutral-900 flex items-center justify-center" style="min-width: 280px; max-width: 500px;">
-      <span class="text-sm text-gray-400">Right Panel (380px default)</span>
+    <div class="w-[380px] shrink-0 bg-white dark:bg-sand-900 flex items-center justify-center" style="min-width: 280px; max-width: 500px;">
+      <span class="text-sm text-sand-400">Right Panel (380px default)</span>
     </div>
 
   </div>
 
-  <p class="text-xs text-gray-500 mt-4">Drag the vertical bars between panels to resize. Panels respect min/max constraints set via data attributes.</p>
+  <p class="text-xs text-sand-500 mt-4">Drag the vertical bars between panels to resize. Panels respect min/max constraints set via data attributes.</p>
 
   <script type="module" src="/src/scripts/main.js"></script>
   <script src="/src/scripts/components/panel-splitter.js"></script>
