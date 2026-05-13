@@ -10215,6 +10215,83 @@ a.list-group-item-action {
 }
 
 /* ============================================================
+   Agentic Shell — Dark mode overrides
+   ============================================================
+   Tuning text/icon contrast for nav (chrome role, dark bg = sand-900)
+   and chat/content panes (translucent dark, effective bg = sand-950).
+   Each override uses the established .dark .X precedent (see option-row
+   dark overrides line 11529+) — palette stops have stable values across
+   modes, so .dark specificity wins cleanly.
+   ============================================================ */
+
+/* --- Panel toggle (icon button on chrome) --- */
+.dark .btn-panel-toggle {
+    color: var(--color-sand-400);
+}
+.dark .btn-panel-toggle:hover {
+    background: var(--color-sand-700);
+    color: var(--color-sand-200);
+}
+
+/* --- Nav (on sand-900 chrome) --- */
+.dark .nav-header {
+    border-bottom-color: var(--color-sand-700);
+}
+.dark .nav-section-label {
+    color: var(--color-sand-400);
+}
+.dark .nav-item {
+    color: var(--color-sand-200);
+}
+.dark .nav-item:hover {
+    background: var(--color-sand-800);
+}
+.dark .nav-item.active {
+    color: var(--color-teal-400);
+}
+
+/* --- Chat input area (on translucent pane) --- */
+.dark .chat-input-area {
+    border-top-color: var(--color-sand-800);
+}
+.dark .chat-input-area textarea {
+    color: var(--color-sand-100);
+}
+.dark .chat-input-area textarea::placeholder {
+    color: var(--color-sand-400);
+}
+
+/* --- Agent messages (on translucent pane) --- */
+.dark .message-agent .message-name {
+    color: var(--color-sand-300);
+}
+.dark .message-agent .message-body {
+    color: var(--color-sand-100);
+}
+
+/* --- User message (teal bubble, mirror the light palette darkward) --- */
+.dark .message-user {
+    background: var(--color-teal-900);
+    border-color: var(--color-teal-700);
+}
+
+/* --- Tool call indicator (sand chip on translucent pane) --- */
+.dark .tool-call {
+    background: var(--color-sand-800);
+    color: var(--color-sand-300);
+}
+/* tool-call i keeps teal-500 — sufficient contrast on dark bg */
+
+/* --- Content panel header (was solid white in light mode) --- */
+.dark .content-header {
+    background: transparent;
+    border-bottom-color: var(--color-sand-700);
+}
+.dark .content-header-title {
+    color: var(--color-sand-100);
+}
+
+/* ============================================================
    Agentic Components — Content Cards
    ============================================================ */
 
