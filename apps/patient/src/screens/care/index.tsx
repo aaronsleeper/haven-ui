@@ -127,6 +127,9 @@ export function Care() {
             <h2 className="card-title">
               {lang === 'es' ? 'Entregas recientes' : 'Recent deliveries'}
             </h2>
+            <Link to="/meals" className="text-link text-sm">
+              {lang === 'es' ? 'Ver mis comidas' : 'View my meals'}
+            </Link>
           </div>
           <div className="card-body">
             {DEMO_DELIVERIES.length === 0 ? (
