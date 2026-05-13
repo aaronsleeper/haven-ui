@@ -9875,7 +9875,7 @@ a.list-group-item-action {
 }
 /* @contrast-exempt: decorative-background */
 .dark .three-panel-shell {
-    background-color: rgba(255, 255, 255, 0.10);
+    background-color: var(--color-sand-800);
 }
 
 /* Center panel. flex-1 handles flex-grow; min-width guarantees a readable
@@ -9984,7 +9984,7 @@ a.list-group-item-action {
     min-width: 480px;
 }
 .dark .panel-chat {
-    background-color: rgba(255, 255, 255, 0.10);
+    background-color: var(--color-sand-800);
 }
 
 /* --- Content panel (right) --- */
@@ -10000,7 +10000,7 @@ a.list-group-item-action {
     max-width: 800px;
 }
 .dark .panel-content {
-    background-color: rgba(255, 255, 255, 0.10);
+    background-color: var(--color-sand-800);
 }
 
 .panel-content.hidden { display: none; }
