@@ -137,3 +137,6 @@ export type {
   MealDeliveryTag,
   MealDeliveryTagVariant,
 } from './components/MealDeliveryCard';
+
+export { AppShell } from './components/AppShell';
+export type { AppShellProps } from './components/AppShell';

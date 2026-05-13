@@ -1,0 +1,119 @@
+<!--
+@component-meta
+name: Responsive App Shell
+category: Layout
+file: layout-app-shell-responsive.html
+classes: app-shell, app-shell-sidebar, app-shell-main, app-shell-topbar, app-shell-content, app-shell-bottom-nav
+when-to-use: Non-agentic app pages that need to render at both mobile and desktop widths. Composes a desktop sidebar (≥lg) with a mobile bottom-nav (<lg), sharing the same nav-item set. Used by the patient app and any future non-agentic persona app. Non-agentic counterpart to .agentic-shell.
+do-not-use-when: The page IS the agentic-chat surface (use .agentic-shell). The page is mobile-only by design and never renders on desktop (use .mobile-shell — kept as a separate primitive for native-mobile-only contexts).
+preline-required: no
+notes: |
+  Five regions, each with a fixed semantic role:
+    - app-shell             : root container. Flex column at <lg, flex row at ≥lg.
+    - app-shell-sidebar     : desktop vertical nav (≥lg). Hidden on mobile via lg:hidden equivalent.
+                              Holds: brand mark, primary nav items (1:1 with bottom-nav set), optional
+                              section dividers, optional footer (sign-out / version).
+    - app-shell-main        : content column wrapper inside which the topbar + content + bottom-nav
+                              stack vertically. Flex-1 to fill remaining horizontal space at ≥lg.
+    - app-shell-topbar      : sticky top bar, all viewports. Holds: brand mark (mobile), language
+                              toggle, optional profile / notifications affordances. The ONLY
+                              persistent shell surface across breakpoints.
+    - app-shell-content     : the route content. Scrollable; flex-grows to fill remaining vertical
+                              space. Screens render their <main aria-label="..."> inside this region.
+    - app-shell-bottom-nav  : mobile horizontal nav (<lg). Hidden on desktop.
+                              Holds: same nav-item set as sidebar, rendered horizontally.
+
+  Region contract:
+    - Sidebar and bottom-nav carry the SAME nav items — they are two renderings of one nav state.
+      Consumer authors nav items ONCE and provides both renderings.
+    - Topbar is the only persistent surface — every screen sees it across both breakpoints.
+    - Content is the only mandatory region. Sidebar / topbar / bottom-nav are conditional per
+      page (e.g., onboarding suppresses both navs; assessments suppress all three non-content
+      regions for a full-screen stepper experience).
+
+  Breakpoint: lg (1024px). Below lg → mobile pattern; at lg+ → desktop pattern. This single
+  breakpoint is intentional — two-breakpoint shells (md → lg progression) add transition
+  complexity without UX payoff for this app class.
+
+  Class composition discipline:
+    - The shell ONLY handles layout + breakpoint switching. It does NOT style nav-item
+      appearance, topbar contents, or screen layouts. Those are the consumer's choice.
+    - Sidebar nav items typically use .sidebar-nav-item (from layout-app-shell.html).
+    - Bottom nav typically uses .mobile-bottom-nav + .mobile-bottom-nav-tab (from
+      layout-mobile-bottom-nav.html).
+    - The shell does not impose a max-width on content; pages decide their own content density.
+
+  Distinct from .agentic-shell:
+    - Agentic shell = 3 vertical panes (nav, chat, content) for the agent-led right-pane model.
+    - App shell    = sidebar OR bottom-nav + topbar + content for the traditional app model.
+@end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Responsive App Shell</h3>
+  <p class="pl-description">
+    Generalized non-agentic app layout. Sidebar nav on desktop (≥lg), bottom-nav on mobile (&lt;lg), persistent topbar across both. Five regions, each with a fixed semantic role. Reusable across persona apps.
+  </p>
+
+  <!-- @component: layout-app-shell-responsive -->
+  <div class="app-shell border border-sand-200 rounded-xl overflow-hidden" style="min-height: 400px;">
+    <aside class="app-shell-sidebar">
+      <div class="px-4 pt-6 pb-2">
+        <span class="font-serif text-lg text-sand-900">Cena Health</span>
+      </div>
+      <nav class="px-2 py-2 flex-1">
+        <ul class="sidebar-nav-list">
+          <li><a href="#" class="sidebar-nav-item active"><i class="fa-solid fa-house fa-fw"></i> Dashboard</a></li>
+          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-heart-pulse fa-fw"></i> My Health</a></li>
+          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-message fa-fw"></i> Messages</a></li>
+          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-stethoscope fa-fw"></i> Care</a></li>
+          <li><a href="#" class="sidebar-nav-item"><i class="fa-solid fa-gear fa-fw"></i> Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="app-shell-main">
+      <header class="app-shell-topbar">
+        <span class="font-serif text-base text-sand-900">Cena Health</span>
+        <div class="flex gap-1">
+          <button type="button" class="mobile-i18n-toggle" aria-pressed="true">EN</button>
+          <button type="button" class="mobile-i18n-toggle" aria-pressed="false">ES</button>
+        </div>
+      </header>
+
+      <div class="app-shell-content p-4">
+        <h1 class="page-title">Welcome back, Maria</h1>
+        <p class="text-sm text-sand-500 mt-1">
+          Route content renders here. Scrollable. Flex-grows to fill remaining vertical space.
+        </p>
+      </div>
+
+      <div class="app-shell-bottom-nav">
+        <nav class="mobile-bottom-nav" aria-label="Main navigation">
+          <a href="#" class="mobile-bottom-nav-tab active">
+            <i class="fa-solid fa-house" aria-hidden="true"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="mobile-bottom-nav-tab">
+            <i class="fa-solid fa-heart-pulse" aria-hidden="true"></i>
+            <span>My Health</span>
+          </a>
+          <a href="#" class="mobile-bottom-nav-tab">
+            <i class="fa-solid fa-message" aria-hidden="true"></i>
+            <span>Messages</span>
+          </a>
+          <a href="#" class="mobile-bottom-nav-tab">
+            <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
+            <span>Care</span>
+          </a>
+          <a href="#" class="mobile-bottom-nav-tab">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1413,6 +1413,48 @@ a.btn-danger {
 }
 
 /* ===================================
+   RESPONSIVE APP SHELL
+   Non-agentic counterpart to .agentic-shell. Generalizes the
+   patient / clinical app layout across mobile and desktop.
+
+   Five regions, each with a fixed semantic role:
+     - app-shell           : root; flex column at <lg, flex row at ≥lg
+     - app-shell-sidebar   : desktop nav (≥lg). Hidden on mobile.
+     - app-shell-main      : content column (topbar + content + bottom-nav)
+     - app-shell-topbar    : top bar, all viewports (i18n + brand)
+     - app-shell-content   : route content area; flex-grows to fill
+     - app-shell-bottom-nav: mobile nav (<lg). Hidden on desktop.
+
+   Consumer provides the nav-item set ONCE; sidebar and bottom-nav
+   render it differently per viewport. Topbar is the only persistent
+   surface across viewports. Content is the only mandatory region.
+   =================================== */
+
+.app-shell {
+    @apply flex flex-col lg:flex-row min-h-dvh bg-sand-50;
+}
+
+.app-shell-sidebar {
+    @apply hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:bg-white lg:border-r lg:border-sand-200 lg:overflow-y-auto;
+}
+
+.app-shell-main {
+    @apply flex-1 flex flex-col min-w-0 min-h-dvh;
+}
+
+.app-shell-topbar {
+    @apply sticky top-0 z-10 bg-white border-b border-sand-200 flex items-center justify-between px-4 py-2;
+}
+
+.app-shell-content {
+    @apply flex-1 bg-white;
+}
+
+.app-shell-bottom-nav {
+    @apply lg:hidden sticky bottom-0 bg-white border-t border-sand-200;
+}
+
+/* ===================================
    RECORD HEADER
    Identity bar at the top of a center-pane record (referral, care plan,
    care plan diff, patient record). Lora display title per DESIGN.md

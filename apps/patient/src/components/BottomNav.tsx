@@ -1,9 +1,12 @@
 // apps/patient/src/components/BottomNav.tsx
-// Persistent fixed-bottom 5-tab nav for the patient app.
-// Uses `mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge` classes.
+// 5-tab horizontal nav for the patient app, rendered inside the AppShell's
+// app-shell-bottom-nav region (<lg breakpoint).
 // Active tab determined by current route path. Language-aware tab labels.
+// Nav items sourced from nav-items.ts so BottomNav (mobile) and Sidebar
+// (desktop) share one source of truth.
 
 import { NavLink } from 'react-router-dom';
+import { PATIENT_NAV_ITEMS } from './nav-items';
 import type { Language } from '../lib/useLanguage';
 
 interface BottomNavProps {
@@ -11,18 +14,10 @@ interface BottomNavProps {
   unreadCount?: number;
 }
 
-const tabs = [
-  { to: '/',         icon: 'fa-house',        labelEn: 'Dashboard', labelEs: 'Inicio',    end: true },
-  { to: '/health',   icon: 'fa-heart-pulse',  labelEn: 'My Health', labelEs: 'Mi Salud',  end: false },
-  { to: '/messages', icon: 'fa-message',      labelEn: 'Messages',  labelEs: 'Mensajes',  end: false },
-  { to: '/care',     icon: 'fa-stethoscope',  labelEn: 'Care',      labelEs: 'Cuidado',   end: false },
-  { to: '/settings', icon: 'fa-gear',         labelEn: 'Settings',  labelEs: 'Ajustes',   end: false },
-] as const;
-
 export function BottomNav({ lang, unreadCount = 0 }: BottomNavProps) {
   return (
     <nav className="mobile-bottom-nav" aria-label="Main navigation">
-      {tabs.map((tab) => (
+      {PATIENT_NAV_ITEMS.map((tab) => (
         <NavLink
           key={tab.to}
           to={tab.to}

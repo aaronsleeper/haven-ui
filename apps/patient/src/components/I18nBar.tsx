@@ -1,8 +1,13 @@
 // apps/patient/src/components/I18nBar.tsx
-// Persistent fixed-top language toggle bar for the patient app.
-// Uses `mobile-i18n-bar` + `mobile-i18n-toggle` semantic classes from the PL.
-// Cena Health logo at left (~24px tall); EN/ES button pair at right.
-// Lang pref reads from / writes to localStorage key `cena-lang`.
+// Content for the AppShell topbar — Cena Health logo on left + EN/ES toggle
+// pair on right. The shell's `app-shell-topbar` region provides the layout
+// (flex justify-between, sticky positioning); this component only owns the
+// content within. The brand mark is hidden ≥lg when a sidebar takes over the
+// brand surface, leaving the topbar to carry just the language toggle on
+// desktop.
+//
+// Lang pref reads from / writes to localStorage key `cena-lang` via
+// useLanguage hook.
 
 import logoSrc from '../assets/logo-cenahealth-teal.svg';
 import type { Language } from '../lib/useLanguage';
@@ -14,13 +19,16 @@ interface I18nBarProps {
 
 export function I18nBar({ lang, onToggle }: I18nBarProps) {
   return (
-    <div className="mobile-i18n-bar">
+    <>
+      {/* Brand mark — visible <lg; sidebar carries brand on ≥lg */}
       <img
         src={logoSrc}
         alt="Cena Health"
         height="24"
-        className="h-6 w-auto"
+        className="h-6 w-auto lg:hidden"
       />
+      {/* Spacer for ≥lg so toggle stays right-aligned */}
+      <span className="hidden lg:inline-block" aria-hidden="true" />
       <div className="flex gap-1">
         <button
           type="button"
@@ -41,6 +49,6 @@ export function I18nBar({ lang, onToggle }: I18nBarProps) {
           ES
         </button>
       </div>
-    </div>
+    </>
   );
 }
