@@ -10289,10 +10289,10 @@ a.list-group-item-action {
     color: var(--color-sand-100);
 }
 
-/* --- User message (teal bubble, mirror the light palette darkward) --- */
+/* --- User message (teal bubble, lifted above sand-900 pane) --- */
 .dark .message-user {
-    background: var(--color-teal-900);
-    border-color: var(--color-teal-700);
+    background: var(--color-teal-800);
+    border-color: var(--color-teal-500);
 }
 
 /* --- Tool call indicator (sand chip on translucent pane) ---
