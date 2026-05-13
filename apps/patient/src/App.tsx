@@ -13,13 +13,19 @@
 // Nav-suppression rules:
 //   /assessment/* — full-screen stepper. Suppress sidebar + bottomNav.
 //   /onboarding/* — linear stepper. Suppress sidebar + bottomNav.
+//
+// First-visit gate: patients without the `cena-onboarded` localStorage flag
+// are redirected to /onboarding/welcome from any non-assessment, non-
+// onboarding route. /assessment/* is exempt so demo deep-links into an
+// assessment still work even if onboarding hasn't been completed.
 
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppShell } from '@haven/ui-react';
 import { BottomNav } from './components/BottomNav';
 import { Sidebar } from './components/Sidebar';
 import { OfflineBanner } from './components/OfflineBanner';
 import { useLanguage } from './lib/useLanguage';
+import { useOnboardingState } from './lib/useOnboardingState';
 import { useOnlineStatus } from './lib/useOnlineStatus';
 import { Dashboard } from './screens/dashboard';
 import { Messages } from './screens/messages';
@@ -42,13 +48,26 @@ function useShowNav(): boolean {
   );
 }
 
+function useFirstVisitRedirect(): string | null {
+  const { pathname } = useLocation();
+  const [isOnboarded] = useOnboardingState();
+  if (isOnboarded) return null;
+  const isInOnboarding = ONBOARDING_PREFIXES.some((p) => pathname.startsWith(p));
+  const isInAssessment = ASSESSMENT_PREFIXES.some((p) => pathname.startsWith(p));
+  if (isInOnboarding || isInAssessment) return null;
+  return '/onboarding/welcome';
+}
+
 export function App() {
   const [lang] = useLanguage();
   const showNav = useShowNav();
   const isOnline = useOnlineStatus();
+  const redirectTo = useFirstVisitRedirect();
 
   // TODO v1: read unreadCount from messages API
   const unreadCount = 1;
+
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   return (
     <AppShell

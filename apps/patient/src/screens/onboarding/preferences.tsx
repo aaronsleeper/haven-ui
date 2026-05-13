@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@haven/ui-react';
 import { useLanguage } from '../../lib/useLanguage';
 import type { Language } from '../../lib/useLanguage';
+import { useOnboardingState } from '../../lib/useOnboardingState';
 
 // Onboarding step 3 — preferences. Mirror of onb-03-preferences wireframe.
 // Single scrollable page: Language → Food → Communication. All sections
@@ -43,6 +44,7 @@ const TIME_WINDOWS: { id: TimeWindow; label: { en: string; es: string } }[] = [
 export function Preferences() {
   const [lang, setLang] = useLanguage();
   const navigate = useNavigate();
+  const [, setOnboarded] = useOnboardingState();
 
   const [cuisines, setCuisines] = useState<Set<CuisineId>>(new Set());
   const [contactMethod, setContactMethod] = useState<ContactMethod | null>(null);
@@ -80,6 +82,7 @@ export function Preferences() {
       contactMethod,
       timeWindows: Array.from(timeWindows),
     });
+    setOnboarded(true);
     navigate('/');
   }
 
