@@ -130,3 +130,10 @@ export type {
 
 export { Sparkline } from './components/Sparkline';
 export type { SparklineProps } from './components/Sparkline';
+
+export { MealDeliveryCard } from './components/MealDeliveryCard';
+export type {
+  MealDeliveryCardProps,
+  MealDeliveryTag,
+  MealDeliveryTagVariant,
+} from './components/MealDeliveryCard';

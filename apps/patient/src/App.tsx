@@ -19,6 +19,7 @@ import { Care } from './screens/care';
 import { Gad7Routes } from './screens/gad-7';
 import { Phq9Routes } from './screens/phq-9';
 import { OnboardingRoutes } from './screens/onboarding';
+import { Meals } from './screens/meals';
 
 // Helper: hide bottom nav inside assessment flows (full-screen stepper) and
 // onboarding (linear stepper — bottom-nav appears only after All done).
@@ -72,6 +73,7 @@ export function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/health" element={<MyHealth />} />
           <Route path="/care" element={<Care />} />
+          <Route path="/meals" element={<Meals />} />
 
           {/* Existing assessment flows — do not modify */}
           <Route path="/assessment/gad-7/*" element={<Gad7Routes />} />
