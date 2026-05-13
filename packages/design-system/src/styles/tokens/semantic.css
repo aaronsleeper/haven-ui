@@ -187,7 +187,7 @@
     /* Surface tokens */
     --color-surface-page:         var(--color-sand-950);
     --color-surface-chrome:       var(--color-sand-900);
-    --color-surface-pane:         var(--color-sand-800);
+    --color-surface-pane:         var(--color-sand-900);
     --color-surface-card:         var(--color-sand-800);
     --color-surface-card-grouped: var(--color-sand-900);
     --color-surface-raised:       var(--color-sand-700);

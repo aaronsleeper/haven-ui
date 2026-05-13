@@ -9857,7 +9857,7 @@ a.list-group-item-action {
    still uses its border treatment until its own reconciliation lands. */
 /* @contrast-exempt: decorative-background */
 .app-shell--agentic {
-    @apply bg-sand-200 dark:bg-sand-700;
+    @apply bg-sand-200 dark:bg-sand-950;
 }
 
 /* Outermost shell for all four personas (care-coordinator, provider, kitchen, patient).
@@ -9875,7 +9875,7 @@ a.list-group-item-action {
 }
 /* @contrast-exempt: decorative-background */
 .dark .three-panel-shell {
-    background-color: var(--color-sand-800);
+    background-color: var(--color-sand-900);
 }
 
 /* Center panel. flex-1 handles flex-grow; min-width guarantees a readable
@@ -9984,7 +9984,7 @@ a.list-group-item-action {
     min-width: 480px;
 }
 .dark .panel-chat {
-    background-color: var(--color-sand-800);
+    background-color: var(--color-sand-900);
 }
 
 /* --- Content panel (right) --- */
@@ -10000,7 +10000,7 @@ a.list-group-item-action {
     max-width: 800px;
 }
 .dark .panel-content {
-    background-color: var(--color-sand-800);
+    background-color: var(--color-sand-900);
 }
 
 .panel-content.hidden { display: none; }
