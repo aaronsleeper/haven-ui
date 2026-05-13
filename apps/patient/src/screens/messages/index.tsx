@@ -73,7 +73,7 @@ export function Messages() {
     <main className="flex flex-col pb-safe-8" aria-label="Messages">
       {/* Header */}
       <div className="p-4">
-        <h1 className="text-[27.65px] font-serif font-medium text-sand-900">
+        <h1 className="page-title">
           {lang === 'es' ? 'Mensajes' : 'Messages'}
         </h1>
         <p className="text-sm text-sand-500 mt-1">

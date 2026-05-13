@@ -43,6 +43,7 @@ before creating any new component or semantic class.
 | Stat Card | `layout-stat-card.html` | `card-stat`, `stat-label`, `stat-value` | no | Dashboard metric cards. No pie/donut charts. |
 | Container | `layout-container.html` | `container` | no | Max-width page wrapper |
 | Page Header | `layout-page-header.html` | `page-header` | no | Title left, actions right |
+| Page Title | `typography-page-title.html` | `page-title` | no | Heading/01 register (Lora 27.65px Medium on sand-900). Used as `<h1>` at the top of route content. Spec fixed in DESIGN.md §Typography. Composes with `page-header` when actions sit to the right on desktop. |
 | Record Header | `layout-record-header.html` | `record-header`, `record-header-main`, `record-header-title`, `record-header-subtitle`, `record-header-trailing`, `record-header-meta` | no | Identity bar at top of a center-pane record (referral, care plan, care plan diff, patient record). Lora display title per DESIGN.md §Typography. Title left + subtitle, status badge + meta right. Reusable across cc-04/cc-05/cc-06/cc-07. |
 | Section Title | `layout-section-title.html` | `section-title` | no | Subheading inside a section |
 | Sticky Footer | `layout-sticky-footer.html` | `sticky-footer`, `sticky-footer-inner`, `sticky-footer-info`, `sticky-footer-actions` | no | Fixed bottom action bar |

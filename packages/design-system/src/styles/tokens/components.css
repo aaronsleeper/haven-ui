@@ -1400,6 +1400,19 @@ a.btn-danger {
 }
 
 /* ===================================
+   PAGE TITLE
+   Heading/01 register: Lora 27.65px Medium on sand-900.
+   Used as <h1> at the top of route content across persona apps.
+   Spec is fixed in DESIGN.md §Typography Heading/01; this class is
+   the reusable wrapper around that canonical type spec, not a new
+   design decision.
+   =================================== */
+
+.page-title {
+    @apply text-[27.65px] font-serif font-medium text-sand-900;
+}
+
+/* ===================================
    RECORD HEADER
    Identity bar at the top of a center-pane record (referral, care plan,
    care plan diff, patient record). Lora display title per DESIGN.md

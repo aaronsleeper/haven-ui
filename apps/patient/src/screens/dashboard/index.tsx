@@ -51,7 +51,7 @@ export function Dashboard() {
     <main className="pb-safe-8" aria-label="Dashboard">
       {/* Greeting */}
       <div className="p-4">
-        <h1 className="text-[27.65px] font-serif font-medium text-sand-900">
+        <h1 className="page-title">
           {lang === 'es' ? 'Bienvenida, María' : 'Welcome back, Maria'}
         </h1>
         <p className="text-sm text-sand-500 mt-1">
