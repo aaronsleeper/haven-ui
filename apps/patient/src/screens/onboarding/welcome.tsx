@@ -83,7 +83,9 @@ export function Welcome() {
                     aria-pressed={showPassword}
                     onClick={() => setShowPassword((s) => !s)}
                   >
-                    <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
+                    <span className="material-symbols-outlined" aria-hidden="true">
+                      {showPassword ? 'visibility_off' : 'visibility'}
+                    </span>
                   </button>
                 </div>
                 <p id="onb-password-help" className="field-help">
@@ -128,7 +130,9 @@ export function Welcome() {
                     aria-pressed={showConfirm}
                     onClick={() => setShowConfirm((s) => !s)}
                   >
-                    <i className={`fa-regular ${showConfirm ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
+                    <span className="material-symbols-outlined" aria-hidden="true">
+                      {showConfirm ? 'visibility_off' : 'visibility'}
+                    </span>
                   </button>
                 </div>
                 {passwordsMismatch && (

@@ -25,14 +25,14 @@ type Story = StoryObj<typeof IconButton>;
 
 export const Default: Story = {
   args: {
-    icon: 'fa-solid fa-ellipsis-vertical',
+    icon: 'more_vert',
     ariaLabel: 'More options',
   },
 };
 
 export const Primary: Story = {
   args: {
-    icon: 'fa-solid fa-gear',
+    icon: 'settings',
     ariaLabel: 'Settings',
     variant: 'primary',
   },
@@ -40,7 +40,7 @@ export const Primary: Story = {
 
 export const Anchor: Story = {
   args: {
-    icon: 'fa-solid fa-chevron-left',
+    icon: 'chevron_left',
     ariaLabel: 'Previous question',
     href: '/assessment/gad-7/start',
   },
@@ -64,7 +64,7 @@ const StubLink = ({
 
 export const AsComponent: Story = {
   args: {
-    icon: 'fa-solid fa-xmark',
+    icon: 'close',
     ariaLabel: 'Save and exit',
     asComponent: StubLink,
     linkProps: { to: '/' },

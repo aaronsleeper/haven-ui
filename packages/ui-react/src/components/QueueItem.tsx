@@ -10,8 +10,8 @@ export type { QueueItemProps, QueueItemSla, QueueItemUrgency } from './QueueItem
 // See queue-sidebar.html for the canonical composition.
 
 const slaIcon: Record<QueueItemSla['status'], string> = {
-  warning: 'fa-clock',
-  breached: 'fa-circle-exclamation',
+  warning: 'schedule',
+  breached: 'error',
 };
 
 export function QueueItem({
@@ -53,7 +53,9 @@ export function QueueItem({
             className={`queue-item-sla is-${sla.status}`}
             aria-label={sla.label}
           >
-            <i className={`fa-solid ${slaIcon[sla.status]}`} aria-hidden="true"></i>{' '}
+            <span className="material-symbols-outlined" aria-hidden="true">
+              {slaIcon[sla.status]}
+            </span>{' '}
             {sla.text}
           </span>
         )}

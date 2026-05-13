@@ -10,10 +10,11 @@ export interface NavItem {
   end: boolean;
 }
 
+// `icon` is a Material Symbols Outlined glyph name.
 export const PATIENT_NAV_ITEMS: readonly NavItem[] = [
-  { to: '/',         icon: 'fa-house',        labelEn: 'Dashboard', labelEs: 'Inicio',    end: true  },
-  { to: '/health',   icon: 'fa-heart-pulse',  labelEn: 'My Health', labelEs: 'Mi Salud',  end: false },
-  { to: '/messages', icon: 'fa-message',      labelEn: 'Messages',  labelEs: 'Mensajes',  end: false },
-  { to: '/care',     icon: 'fa-stethoscope',  labelEn: 'Care',      labelEs: 'Cuidado',   end: false },
-  { to: '/settings', icon: 'fa-gear',         labelEn: 'Settings',  labelEs: 'Ajustes',   end: false },
+  { to: '/',         icon: 'home',           labelEn: 'Dashboard', labelEs: 'Inicio',    end: true  },
+  { to: '/health',   icon: 'monitor_heart',  labelEn: 'My Health', labelEs: 'Mi Salud',  end: false },
+  { to: '/messages', icon: 'chat',           labelEn: 'Messages',  labelEs: 'Mensajes',  end: false },
+  { to: '/care',     icon: 'stethoscope',    labelEn: 'Care',      labelEs: 'Cuidado',   end: false },
+  { to: '/settings', icon: 'settings',       labelEn: 'Settings',  labelEs: 'Ajustes',   end: false },
 ] as const;

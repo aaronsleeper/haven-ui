@@ -27,7 +27,7 @@ export function BottomNav({ lang, unreadCount = 0 }: BottomNavProps) {
           }
         >
           <span className="relative">
-            <i className={`fa-solid ${tab.icon}`} aria-hidden="true" />
+            <span className="material-symbols-outlined" aria-hidden="true">{tab.icon}</span>
             {tab.to === '/messages' && unreadCount > 0 && (
               <span className="nav-badge" aria-label={`${unreadCount} unread messages`}>
                 {unreadCount}

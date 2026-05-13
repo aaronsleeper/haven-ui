@@ -31,7 +31,7 @@ const variantClass: Record<NonNullable<ThreadApprovalCardProps['variant']>, stri
 
 export function ThreadApprovalCard({
   variant = 'standard',
-  icon = 'fa-hand',
+  icon = 'pan_tool',
   title,
   headingLevel = 3,
   contextTitle,
@@ -64,7 +64,7 @@ export function ThreadApprovalCard({
     attachmentClasses.push('thread-approval-attachment-unviewed');
   }
   const attachmentIcon =
-    attachment && attachment.viewed === false ? 'fa-circle-exclamation' : 'fa-paperclip';
+    attachment && attachment.viewed === false ? 'error' : 'attach_file';
 
   const heading = createElement(
     `h${headingLevel}`,
@@ -75,7 +75,9 @@ export function ThreadApprovalCard({
   return (
     <section className={classes} role="region" aria-labelledby={titleId}>
       <div className="thread-approval-header">
-        <i className={`fa-solid ${icon}`} aria-hidden="true"></i>
+        <span className="material-symbols-outlined" aria-hidden="true">
+          {icon}
+        </span>
         {heading}
       </div>
       <div className="thread-approval-body">
@@ -98,7 +100,9 @@ export function ThreadApprovalCard({
         )}
         {attachment && (
           <div className={attachmentClasses.join(' ')}>
-            <i className={`fa-solid ${attachmentIcon}`} aria-hidden="true"></i>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              {attachmentIcon}
+            </span>
             <span>{attachment.label}</span>
             {attachment.viewHref ? (
               <a

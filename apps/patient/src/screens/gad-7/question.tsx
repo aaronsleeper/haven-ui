@@ -85,13 +85,13 @@ export function Gad7Question() {
       {/* Header — back + close */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <IconButton
-          icon="fa-solid fa-chevron-left"
+          icon="chevron_left"
           ariaLabel="Previous question"
           asComponent={Link}
           linkProps={{ to: backTo }}
         />
         <IconButton
-          icon="fa-solid fa-xmark"
+          icon="close"
           ariaLabel="Save and exit"
           asComponent={Link}
           linkProps={{ to: '/' }}

@@ -11,8 +11,8 @@ export interface TaskCardProps {
   name: string;
   /** Secondary text — time estimate, due date, completion date, etc. */
   meta: string;
-  /** FontAwesome class fragment for the leading avatar icon (e.g. 'fa-solid fa-brain'). */
-  iconClass: string;
+  /** Material Symbols Outlined icon name for the leading avatar icon (e.g. `psychology`). */
+  iconName: string;
   /** Avatar color modifier; defaults to 'primary'. */
   avatarColor?: AvatarColor;
   /**

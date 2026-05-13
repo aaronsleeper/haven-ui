@@ -32,7 +32,7 @@ export interface ThreadApprovalAttachment {
   viewLabel: string;
   /**
    * Whether the attachment has been viewed. When false, the attachment line
-   * gets warning-weight styling (amber color, fa-circle-exclamation icon)
+   * gets warning-weight styling (amber color, `error` Material Symbol icon)
    * to surface the silent-failure risk per IA review.
    * @default true
    */
@@ -53,7 +53,7 @@ export interface ThreadApprovalEffects {
 export interface ThreadApprovalCardProps {
   /** Variant — drives the modifier class. Default: 'standard' (no modifier). */
   variant?: ThreadApprovalCardVariant;
-  /** FontAwesome icon class for the header. Default: 'fa-hand'. */
+  /** Material Symbols Outlined icon name for the header. Default: 'pan_tool'. */
   icon?: string;
   /** Header label rendered next to the icon (e.g., "Final Approval — Care Plan v1.0"). */
   title: string;

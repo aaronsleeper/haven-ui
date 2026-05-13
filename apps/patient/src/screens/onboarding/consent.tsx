@@ -110,7 +110,7 @@ export function Consent() {
     <div className="flex flex-col min-h-dvh">
       <div className="flex items-center px-4 pt-4 pb-2">
         <IconButton
-          icon="fa-solid fa-chevron-left"
+          icon="chevron_left"
           ariaLabel={lang === 'es' ? 'Volver' : 'Go back'}
           asComponent="button"
           linkProps={{ type: 'button', onClick: handleBack }}
@@ -194,10 +194,12 @@ export function Consent() {
               onClick={() => setAccordionOpen((o) => !o)}
             >
               {lang === 'es' ? 'Leer el texto completo' : 'Read the full text'}
-              <i
-                className={`fa-solid fa-chevron-${accordionOpen ? 'up' : 'down'} text-xs`}
+              <span
+                className="material-symbols-outlined text-xs"
                 aria-hidden="true"
-              />
+              >
+                {accordionOpen ? 'expand_less' : 'expand_more'}
+              </span>
             </button>
             {accordionOpen && (
               <div className="mt-3 p-4 bg-sand-50 rounded-lg text-sm text-sand-600 max-h-64 overflow-y-auto">

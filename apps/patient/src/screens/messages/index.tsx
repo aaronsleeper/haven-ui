@@ -93,7 +93,7 @@ export function Messages() {
             return (
               <div key={msg.id} className="notif-item">
                 <div className="notif-item-icon notif-item-icon-info" aria-hidden="true">
-                  <i className="fa-solid fa-circle-info" />
+                  <span className="material-symbols-outlined">info</span>
                 </div>
                 <div className="notif-item-content">
                   <p className="notif-item-description">{msg.body[lang]}</p>
@@ -186,7 +186,7 @@ export function Messages() {
             onClick={() => setReplyExpanded(true)}
             aria-label={lang === 'es' ? 'Escribir mensaje' : 'Write a message'}
           >
-            <i className="fa-solid fa-pen-to-square" aria-hidden="true" />
+            <span className="material-symbols-outlined" aria-hidden="true">edit</span>
             <span>
               {lang === 'es' ? 'Escriba a su coordinadora…' : 'Write to your coordinator…'}
             </span>

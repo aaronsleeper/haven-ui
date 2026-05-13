@@ -37,7 +37,7 @@ export function Sidebar({ lang, unreadCount = 0 }: SidebarProps) {
               isActive ? 'nav-item active' : 'nav-item'
             }
           >
-            <i className={`fa-solid ${item.icon}`} aria-hidden="true" />
+            <span className="material-symbols-outlined" aria-hidden="true">{item.icon}</span>
             <span>{lang === 'es' ? item.labelEs : item.labelEn}</span>
             {item.to === '/messages' && unreadCount > 0 && (
               <span

@@ -79,7 +79,7 @@ const DEMO_MEALS: DemoMeal[] = [
 
 const STATUS_COPY = {
   unconfirmed: {
-    icon: 'fa-clock',
+    icon: 'schedule',
     classes: 'bg-warning-50 border border-warning-200 text-warning-700',
     text: {
       en: 'Please confirm your meals by Wednesday at 5pm.',
@@ -87,7 +87,7 @@ const STATUS_COPY = {
     },
   },
   confirmed: {
-    icon: 'fa-circle-check',
+    icon: 'check_circle',
     classes: 'bg-success-50 border border-success-200 text-success-700',
     text: {
       en: 'Your meals are confirmed. Delivery on Monday.',
@@ -95,7 +95,7 @@ const STATUS_COPY = {
     },
   },
   'auto-confirmed': {
-    icon: 'fa-circle-info',
+    icon: 'info',
     classes: 'bg-info-50 border border-info-200 text-info-700',
     text: {
       en: 'Your meals were automatically confirmed. Delivery on Monday.',
@@ -147,7 +147,7 @@ export function Meals() {
       {/* Status banner */}
       <div className="px-4 pb-4">
         <div className={`flex items-start gap-3 p-3 rounded-lg text-sm ${status.classes}`} role="status">
-          <i className={`fa-solid ${status.icon} mt-0.5`} aria-hidden="true" />
+          <span className="material-symbols-outlined mt-0.5" aria-hidden="true">{status.icon}</span>
           <span>{status.text[lang as Language]}</span>
         </div>
       </div>
@@ -180,7 +180,7 @@ export function Meals() {
       <div className="px-4 pt-4">
         <div className="card bg-primary-50 border border-primary-100">
           <div className="card-body flex items-start gap-3">
-            <i className="fa-solid fa-comment text-primary-600 text-lg mt-0.5" aria-hidden="true" />
+            <span className="material-symbols-outlined text-primary-600 text-lg mt-0.5" aria-hidden="true">chat_bubble</span>
             <div>
               <p className="text-sm text-sand-800 mb-1">
                 {lang === 'es'

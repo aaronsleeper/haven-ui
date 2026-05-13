@@ -28,7 +28,7 @@ export const Default: Story = {
   args: {
     name: 'How have you been feeling?',
     meta: 'About 2 min',
-    iconClass: 'fa-solid fa-brain',
+    iconName: 'psychology',
     href: '/assessment/gad-7',
   },
 };
@@ -37,7 +37,7 @@ export const Overdue: Story = {
   args: {
     name: 'Weekly mood check-in',
     meta: 'About 1 min',
-    iconClass: 'fa-solid fa-face-smile',
+    iconName: 'mood',
     state: 'overdue',
     href: '#',
   },
@@ -47,7 +47,7 @@ export const InProgress: Story = {
   args: {
     name: 'Housing and safety questions',
     meta: 'In progress',
-    iconClass: 'fa-solid fa-people-group',
+    iconName: 'groups',
     avatarColor: 'secondary',
     state: 'in-progress',
     href: '#',
@@ -58,7 +58,7 @@ export const Completed: Story = {
   args: {
     name: 'How have you been feeling?',
     meta: 'Completed Mar 28',
-    iconClass: 'fa-solid fa-brain',
+    iconName: 'psychology',
     state: 'completed',
   },
 };
@@ -81,7 +81,7 @@ export const AsComponent: Story = {
   args: {
     name: 'Anxiety check-in',
     meta: '7 questions · about 2 minutes',
-    iconClass: 'fa-solid fa-brain',
+    iconName: 'psychology',
     asComponent: StubLink,
     linkProps: { to: '/assessment/gad-7' },
   },

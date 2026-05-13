@@ -8,7 +8,7 @@ import { useLanguage } from '../../lib/useLanguage';
 const DEMO_TASK = {
   name: { en: 'Anxiety check-in', es: 'Revisión de ansiedad' },
   meta: { en: '7 questions · about 2 minutes', es: '7 preguntas · unos 2 minutos' },
-  icon: 'fa-clipboard-list',
+  icon: 'assignment',
   state: 'default' as const, // 'default' | 'in-progress' | 'overdue'
   href: '/assessment/gad-7',
 };
@@ -67,7 +67,7 @@ export function Dashboard() {
         <TaskCard
           name={DEMO_TASK.name[lang]}
           meta={DEMO_TASK.meta[lang]}
-          iconClass={`fa-solid ${DEMO_TASK.icon}`}
+          iconName={DEMO_TASK.icon}
           asComponent={Link}
           linkProps={{ to: DEMO_TASK.href }}
         />
@@ -109,7 +109,7 @@ export function Dashboard() {
         <div className="delivery-status-card">
           <div className="delivery-status-top">
             <div className="delivery-status-icon">
-              <i className="fa-solid fa-truck" aria-hidden="true" />
+              <span className="material-symbols-outlined" aria-hidden="true">local_shipping</span>
             </div>
             <div>
               <div className="delivery-status-label">

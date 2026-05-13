@@ -31,7 +31,11 @@ export function IconButton({
   linkProps,
 }: IconButtonProps) {
   const className = variant === 'primary' ? 'btn-icon-primary' : 'btn-icon';
-  const iconNode = <i className={icon} aria-hidden="true" />;
+  const iconNode = (
+    <span className="material-symbols-outlined" aria-hidden="true">
+      {icon}
+    </span>
+  );
 
   if (AsComponent) {
     return (

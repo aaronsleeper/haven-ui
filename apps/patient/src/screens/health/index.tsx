@@ -50,9 +50,9 @@ const TREND_CLASS_MAP = {
 } as const;
 
 const TREND_ICON_MAP = {
-  improving: 'fa-arrow-trend-up',
-  stable: 'fa-minus',
-  worsening: 'fa-arrow-trend-down',
+  improving: 'trending_up',
+  stable: 'remove',
+  worsening: 'trending_down',
 } as const;
 
 // Sparkline accent colors per trend direction. HSLA values mirror
@@ -92,7 +92,7 @@ export function MyHealth() {
                   {metric.name[lang]}
                 </span>
                 <span className={TREND_CLASS_MAP[metric.trend]}>
-                  <i className={`fa-solid ${TREND_ICON_MAP[metric.trend]}`} aria-hidden="true" />
+                  <span className="material-symbols-outlined" aria-hidden="true">{TREND_ICON_MAP[metric.trend]}</span>
                   {metric.trendLabel[lang]}
                 </span>
               </div>

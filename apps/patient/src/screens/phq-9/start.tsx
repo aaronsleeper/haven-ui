@@ -18,7 +18,7 @@ export function Phq9Start() {
       {/* Header — back chevron only */}
       <div className="flex items-center px-4 pt-4 pb-2">
         <IconButton
-          icon="fa-solid fa-chevron-left"
+          icon="chevron_left"
           ariaLabel="Back to home"
           asComponent={Link}
           linkProps={{ to: '/' }}
@@ -28,7 +28,7 @@ export function Phq9Start() {
       {/* Content — vertically centered */}
       <div className="flex-1 px-6 flex flex-col items-center justify-center text-center">
         <Avatar size="xl" color="primary" alt="Mood check-in">
-          <i className="fa-solid fa-cloud-sun avatar-icon" aria-hidden="true"></i>
+          <span className="material-symbols-outlined avatar-icon" aria-hidden="true">partly_cloudy_day</span>
         </Avatar>
 
         <h1 className="text-xl font-serif font-semibold mt-4">Mood check-in</h1>
@@ -38,7 +38,7 @@ export function Phq9Start() {
         </p>
 
         <p className="text-xs text-sand-400 mt-3 flex items-center gap-1.5">
-          <i className="fa-regular fa-clock text-sand-400" aria-hidden="true"></i>
+          <span className="material-symbols-outlined text-sand-400" aria-hidden="true">schedule</span>
           About 3 minutes — {PHQ9_QUESTIONS.length} questions
         </p>
       </div>

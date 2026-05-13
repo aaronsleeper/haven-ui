@@ -15,8 +15,8 @@ export interface AvatarProps {
   alt?: string;
   /**
    * Avatar contents: initials (string), an <img class="avatar-img">, or an
-   * <i class="fa-* avatar-icon">. Authored by the caller because the PL HTML
-   * uses any of three shapes.
+   * <span class="material-symbols-outlined avatar-icon">. Authored by the caller
+   * because the PL HTML uses any of three shapes.
    */
   children: ReactNode;
 }

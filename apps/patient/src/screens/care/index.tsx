@@ -74,10 +74,12 @@ export function Care() {
             <ul className="space-y-2">
               {DEMO_CARE_PLAN_GOALS[lang].map((goal, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-sand-800">
-                  <i
-                    className="fa-solid fa-check text-primary-600 mt-0.5 shrink-0"
+                  <span
+                    className="material-symbols-outlined text-primary-600 mt-0.5 shrink-0"
                     aria-hidden="true"
-                  />
+                  >
+                    check
+                  </span>
                   <span>{goal}</span>
                 </li>
               ))}
@@ -107,7 +109,7 @@ export function Care() {
                 {DEMO_APPOINTMENTS.map((appt) => (
                   <li key={appt.id} className="list-group-item">
                     <span className="list-group-item-icon" aria-hidden="true">
-                      <i className="fa-solid fa-calendar-check" />
+                      <span className="material-symbols-outlined">event_available</span>
                     </span>
                     <div className="list-group-item-content">
                       <div className="list-group-item-title">{appt.title[lang]}</div>

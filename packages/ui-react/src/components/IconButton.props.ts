@@ -7,7 +7,7 @@ export type IconButtonVariant = 'neutral' | 'primary';
 export type IconButtonType = 'submit' | 'button';
 
 export interface IconButtonProps {
-  /** FontAwesome class fragment without the `fa-` prefix on the family — pass e.g. `fa-solid fa-chevron-left`. */
+  /** Material Symbols Outlined icon name (e.g. `chevron_left`, `close`, `settings`). */
   icon: string;
   /** Required. Icon-only buttons must announce their action; this becomes the aria-label. */
   ariaLabel: string;

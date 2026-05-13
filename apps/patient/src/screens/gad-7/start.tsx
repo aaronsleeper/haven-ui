@@ -19,7 +19,7 @@ export function Gad7Start() {
       {/* Header — back chevron only */}
       <div className="flex items-center px-4 pt-4 pb-2">
         <IconButton
-          icon="fa-solid fa-chevron-left"
+          icon="chevron_left"
           ariaLabel="Back to home"
           asComponent={Link}
           linkProps={{ to: '/' }}
@@ -29,7 +29,7 @@ export function Gad7Start() {
       {/* Content — vertically centered */}
       <div className="flex-1 px-6 flex flex-col items-center justify-center text-center">
         <Avatar size="xl" color="primary" alt="Anxiety check-in">
-          <i className="fa-solid fa-brain avatar-icon" aria-hidden="true"></i>
+          <span className="material-symbols-outlined avatar-icon" aria-hidden="true">psychology</span>
         </Avatar>
 
         <h1 className="text-xl font-serif font-semibold mt-4">Anxiety check-in</h1>
@@ -39,7 +39,7 @@ export function Gad7Start() {
         </p>
 
         <p className="text-xs text-sand-400 mt-3 flex items-center gap-1.5">
-          <i className="fa-regular fa-clock text-sand-400" aria-hidden="true"></i>
+          <span className="material-symbols-outlined text-sand-400" aria-hidden="true">schedule</span>
           About 2 minutes — {GAD7_QUESTIONS.length} questions
         </p>
       </div>

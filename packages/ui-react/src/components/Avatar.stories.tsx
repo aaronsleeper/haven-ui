@@ -24,7 +24,11 @@ export const IconXL: Story = {
     size: 'xl',
     color: 'primary',
     alt: 'Behavioral assessment',
-    children: <i className="fa-solid fa-brain avatar-icon" aria-hidden="true" />,
+    children: (
+      <span className="material-symbols-outlined avatar-icon" aria-hidden="true">
+        psychology
+      </span>
+    ),
   },
 };
 

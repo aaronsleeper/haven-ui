@@ -16,8 +16,8 @@ export type {
 // useId() is required by Preline HSCollapse — see ThreadMessageToolCall for context.
 
 const outcomeIcon: Record<ThreadMessageResponseOutcome, string> = {
-  approved: 'fa-circle-check',
-  rejected: 'fa-circle-xmark',
+  approved: 'check_circle',
+  rejected: 'cancel',
 };
 
 export function ThreadMessageResponse({
@@ -50,7 +50,9 @@ export function ThreadMessageResponse({
         aria-expanded={defaultExpanded}
         aria-controls={detailId}
       >
-        <i className={`fa-solid ${outcomeIcon[outcome]}`} aria-hidden="true"></i>
+        <span className="material-symbols-outlined" aria-hidden="true">
+          {outcomeIcon[outcome]}
+        </span>
         <span>{toggleContent}</span>
       </button>
       <div id={detailId} className={detailClass}>

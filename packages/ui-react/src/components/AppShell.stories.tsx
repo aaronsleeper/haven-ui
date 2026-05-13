@@ -26,24 +26,24 @@ const sidebar = (
     </div>
     <div className="nav-section">
       <a href="#" className="nav-item active">
-        <i className="fa-solid fa-house" aria-hidden="true" />
+        <span className="material-symbols-outlined" aria-hidden="true">home</span>
         <span>Dashboard</span>
       </a>
       <a href="#" className="nav-item">
-        <i className="fa-solid fa-heart-pulse" aria-hidden="true" />
+        <span className="material-symbols-outlined" aria-hidden="true">monitor_heart</span>
         <span>My Health</span>
       </a>
       <a href="#" className="nav-item">
-        <i className="fa-solid fa-message" aria-hidden="true" />
+        <span className="material-symbols-outlined" aria-hidden="true">chat</span>
         <span>Messages</span>
         <span className="nav-badge" aria-label="1 unread">1</span>
       </a>
       <a href="#" className="nav-item">
-        <i className="fa-solid fa-stethoscope" aria-hidden="true" />
+        <span className="material-symbols-outlined" aria-hidden="true">stethoscope</span>
         <span>Care</span>
       </a>
       <a href="#" className="nav-item">
-        <i className="fa-solid fa-gear" aria-hidden="true" />
+        <span className="material-symbols-outlined" aria-hidden="true">settings</span>
         <span>Settings</span>
       </a>
     </div>
@@ -53,26 +53,26 @@ const sidebar = (
 const bottomNav = (
   <nav className="mobile-bottom-nav" aria-label="Primary">
     <a href="#" className="mobile-bottom-nav-tab active">
-      <i className="fa-solid fa-house" aria-hidden="true" />
+      <span className="material-symbols-outlined" aria-hidden="true">home</span>
       <span>Dashboard</span>
     </a>
     <a href="#" className="mobile-bottom-nav-tab">
-      <i className="fa-solid fa-heart-pulse" aria-hidden="true" />
+      <span className="material-symbols-outlined" aria-hidden="true">monitor_heart</span>
       <span>My Health</span>
     </a>
     <a href="#" className="mobile-bottom-nav-tab">
       <span className="relative">
-        <i className="fa-solid fa-message" aria-hidden="true" />
+        <span className="material-symbols-outlined" aria-hidden="true">chat</span>
         <span className="nav-badge" aria-label="1 unread">1</span>
       </span>
       <span>Messages</span>
     </a>
     <a href="#" className="mobile-bottom-nav-tab">
-      <i className="fa-solid fa-stethoscope" aria-hidden="true" />
+      <span className="material-symbols-outlined" aria-hidden="true">stethoscope</span>
       <span>Care</span>
     </a>
     <a href="#" className="mobile-bottom-nav-tab">
-      <i className="fa-solid fa-gear" aria-hidden="true" />
+      <span className="material-symbols-outlined" aria-hidden="true">settings</span>
       <span>Settings</span>
     </a>
   </nav>

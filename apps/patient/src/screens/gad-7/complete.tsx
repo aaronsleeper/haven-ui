@@ -35,7 +35,7 @@ export function Gad7Complete() {
 
       {/* Content — centered confirmation */}
       <div className="flex-1 px-6 flex flex-col items-center justify-center text-center">
-        <i className="fa-solid fa-circle-check text-success-500 text-4xl" aria-hidden="true"></i>
+        <span className="material-symbols-outlined text-success-500 text-4xl" aria-hidden="true">check_circle</span>
         <h1 className="text-xl font-serif font-semibold mt-4">Thank you</h1>
         <p className="text-sm text-sand-500 mt-2 max-w-xs">
           Your care team will review your answers.

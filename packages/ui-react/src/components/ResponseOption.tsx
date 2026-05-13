@@ -28,7 +28,9 @@ export function ResponseOption({
         <span className="response-option-index-num">{index}</span>
       </span>
       <span className="response-option-label">{label}</span>
-      <i className="fa-solid fa-check response-option-check" aria-hidden="true"></i>
+      <span className="material-symbols-outlined response-option-check" aria-hidden="true">
+        check
+      </span>
     </button>
   );
 }

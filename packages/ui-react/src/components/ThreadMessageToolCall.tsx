@@ -31,7 +31,9 @@ export function ThreadMessageToolCall({
   return (
     <div className={classes}>
       <div className="thread-msg-tool-icon">
-        <i className="fa-solid fa-bolt" aria-hidden="true"></i>
+        <span className="material-symbols-outlined" aria-hidden="true">
+          bolt
+        </span>
       </div>
       <div className="thread-msg-tool-content">
         <button

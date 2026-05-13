@@ -17,7 +17,7 @@ export function OfflineBanner({ lang }: OfflineBannerProps) {
       aria-live="assertive"
     >
       <span className="alert-icon" aria-hidden="true">
-        <i className="fa-solid fa-wifi-slash" />
+        <span className="material-symbols-outlined">wifi_off</span>
       </span>
       <span className="text-sm">
         {lang === 'es'

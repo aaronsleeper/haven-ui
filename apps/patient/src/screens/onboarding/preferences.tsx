@@ -19,18 +19,19 @@ interface CuisineCopy {
   icon: string;
 }
 
+// `icon` is a Material Symbols Outlined glyph name.
 const CUISINES: CuisineCopy[] = [
-  { id: 'latin', label: { en: 'Latin American', es: 'Latinoamericana' }, icon: 'fa-pepper-hot' },
-  { id: 'soul', label: { en: 'Soul Food', es: 'Comida del sur' }, icon: 'fa-drumstick-bite' },
-  { id: 'mediterranean', label: { en: 'Mediterranean', es: 'Mediterránea' }, icon: 'fa-leaf' },
-  { id: 'asian', label: { en: 'Asian', es: 'Asiática' }, icon: 'fa-bowl-food' },
-  { id: 'no-preference', label: { en: 'No preference', es: 'Sin preferencia' }, icon: 'fa-check-double' },
+  { id: 'latin', label: { en: 'Latin American', es: 'Latinoamericana' }, icon: 'local_fire_department' },
+  { id: 'soul', label: { en: 'Soul Food', es: 'Comida del sur' }, icon: 'kebab_dining' },
+  { id: 'mediterranean', label: { en: 'Mediterranean', es: 'Mediterránea' }, icon: 'eco' },
+  { id: 'asian', label: { en: 'Asian', es: 'Asiática' }, icon: 'lunch_dining' },
+  { id: 'no-preference', label: { en: 'No preference', es: 'Sin preferencia' }, icon: 'done_all' },
 ];
 
 const CONTACT_METHODS: { id: ContactMethod; label: { en: string; es: string }; icon: string }[] = [
-  { id: 'phone', label: { en: 'Phone call', es: 'Llamada' }, icon: 'fa-phone' },
-  { id: 'text', label: { en: 'Text message', es: 'Mensaje de texto' }, icon: 'fa-comment-sms' },
-  { id: 'app', label: { en: 'App only', es: 'Solo la app' }, icon: 'fa-bell' },
+  { id: 'phone', label: { en: 'Phone call', es: 'Llamada' }, icon: 'call' },
+  { id: 'text', label: { en: 'Text message', es: 'Mensaje de texto' }, icon: 'sms' },
+  { id: 'app', label: { en: 'App only', es: 'Solo la app' }, icon: 'notifications' },
 ];
 
 const TIME_WINDOWS: { id: TimeWindow; label: { en: string; es: string } }[] = [
@@ -86,7 +87,7 @@ export function Preferences() {
     <div className="flex flex-col min-h-dvh">
       <div className="flex items-center px-4 pt-4 pb-2">
         <IconButton
-          icon="fa-solid fa-chevron-left"
+          icon="chevron_left"
           ariaLabel={lang === 'es' ? 'Volver' : 'Go back'}
           asComponent="button"
           linkProps={{ type: 'button', onClick: () => navigate('/onboarding/consent') }}
@@ -168,10 +169,12 @@ export function Preferences() {
                     onChange={() => toggleCuisine(c.id)}
                     className="sr-only"
                   />
-                  <i
-                    className={`fa-solid ${c.icon} text-2xl ${selected ? 'text-primary-700' : 'text-sand-500'}`}
+                  <span
+                    className={`material-symbols-outlined text-2xl ${selected ? 'text-primary-700' : 'text-sand-500'}`}
                     aria-hidden="true"
-                  />
+                  >
+                    {c.icon}
+                  </span>
                   <span className={selected ? 'text-primary-700 font-medium' : 'text-sand-700'}>
                     {c.label[lang as Language]}
                   </span>
@@ -210,7 +213,7 @@ export function Preferences() {
                     onChange={() => setContactMethod(m.id)}
                     className="sr-only"
                   />
-                  <i className={`fa-solid ${m.icon} text-lg`} aria-hidden="true" />
+                  <span className="material-symbols-outlined text-lg" aria-hidden="true">{m.icon}</span>
                   <span>{m.label[lang as Language]}</span>
                 </label>
               );
@@ -238,10 +241,12 @@ export function Preferences() {
                     onChange={() => toggleTimeWindow(t.id)}
                     className="sr-only"
                   />
-                  <i
-                    className={`fa-solid ${selected ? 'fa-square-check' : 'fa-square'} text-base`}
+                  <span
+                    className="material-symbols-outlined text-base"
                     aria-hidden="true"
-                  />
+                  >
+                    {selected ? 'check_box' : 'crop_square'}
+                  </span>
                   <span>{t.label[lang as Language]}</span>
                 </label>
               );

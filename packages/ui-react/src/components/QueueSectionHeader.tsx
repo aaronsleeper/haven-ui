@@ -16,9 +16,9 @@ export interface QueueSectionHeaderProps {
 }
 
 const tierIcon: Record<QueueSectionTier, string> = {
-  urgent: 'fa-circle-exclamation',
-  attention: 'fa-bell',
-  info: 'fa-circle-info',
+  urgent: 'error',
+  attention: 'notifications',
+  info: 'info',
 };
 
 export function QueueSectionHeader({
@@ -33,7 +33,9 @@ export function QueueSectionHeader({
 
   return (
     <h2 id={id} className={classes}>
-      <i className={`fa-solid ${tierIcon[tier]}`} aria-hidden="true"></i>
+      <span className="material-symbols-outlined" aria-hidden="true">
+        {tierIcon[tier]}
+      </span>
       <span>{children}</span>
     </h2>
   );

@@ -27,7 +27,7 @@ const STATE_CLASS: Record<TaskCardState, string> = {
 export function TaskCard({
   name,
   meta,
-  iconClass,
+  iconName,
   avatarColor = 'primary',
   state = 'default',
   href,
@@ -37,16 +37,22 @@ export function TaskCard({
   const className = `task-card${STATE_CLASS[state]}`;
   const trailing =
     state === 'completed' ? (
-      <i className="fa-solid fa-circle-check text-success-500" aria-hidden="true" />
+      <span className="material-symbols-outlined text-success-500" aria-hidden="true">
+        check_circle
+      </span>
     ) : (
-      <i className="fa-solid fa-chevron-right text-sand-300" aria-hidden="true" />
+      <span className="material-symbols-outlined text-sand-300" aria-hidden="true">
+        chevron_right
+      </span>
     );
 
   const body: ReactNode = (
     <>
       <div className="task-card-icon">
         <Avatar size="sm" color={avatarColor}>
-          <i className={`${iconClass} avatar-icon`} aria-hidden="true" />
+          <span className="material-symbols-outlined avatar-icon" aria-hidden="true">
+            {iconName}
+          </span>
         </Avatar>
       </div>
       <div className="task-card-content">

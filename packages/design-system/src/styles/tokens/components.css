@@ -266,7 +266,8 @@ form > div {
   cursor: pointer;
 }
 
-.mobile-bottom-nav-tab i {
+.mobile-bottom-nav-tab i,
+.mobile-bottom-nav-tab .material-symbols-outlined {
   @apply text-xl;
 }
 
@@ -10188,10 +10189,27 @@ a.list-group-item-action {
     @apply font-bold;
 }
 
-.nav-item i {
+/* Material Symbols Outlined — canonical icon font in Haven per project
+   memory 2026-05-13. Variable font; tune the axes here for the brand:
+   FILL=0 (outlined, not filled), wght=400 (matches body weight), GRAD=0
+   (neutral), opsz=24 (mid optical size for sidebar/button context). Inline
+   elements need vertical-align baseline correction since Material Symbols
+   ships slightly off the baseline. */
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+    vertical-align: -0.15em;
+    line-height: 1;
+}
+
+.nav-item i,
+.nav-item .material-symbols-outlined {
     width: 1.25rem;
     @apply text-center;
-    font-size: 0.875rem;
+    font-size: 1.125rem;
 }
 
 /* ============================================================
