@@ -70,7 +70,7 @@ export function Messages() {
   }
 
   return (
-    <main className="flex flex-col pb-safe-8" aria-label="Messages">
+    <div className="flex flex-col pb-safe-8">
       {/* Header */}
       <div className="p-4">
         <h1 className="page-title">
@@ -193,6 +193,6 @@ export function Messages() {
           </button>
         )}
       </div>
-    </main>
+    </div>
   );
 }

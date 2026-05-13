@@ -230,10 +230,14 @@ form > div {
   background-color: var(--color-sand-100) !important;
 }
 
-/* Open state — Preline sets aria-expanded=true on the trigger */
-.mobile-i18n-toggle[aria-expanded="true"] {
-  @apply text-sand-900;
+/* Selected radio (current language) — APG radiogroup pattern */
+.mobile-i18n-toggle[aria-checked="true"] {
+  @apply text-sand-900 font-semibold;
   background-color: var(--color-sand-100) !important;
+}
+
+.mobile-i18n-toggle:focus-visible {
+  @apply outline-none ring-2 ring-inset ring-primary-500;
 }
 
 /* ===================================
@@ -269,15 +273,28 @@ form > div {
   @apply text-primary-600 dark:text-primary-400;
 }
 
-/* Unread count badge — positioned on the Care Team tab icon */
-.mobile-bottom-nav-badge {
-  @apply absolute -top-1.5 -right-2.5 flex items-center justify-center;
+/* Unread / notification count badge — visual styling only. Positioning is
+   composition-specific: bottom-nav (icon-column-stack) anchors via absolute
+   over the icon; nav-item (row layout) sits inline at the end of the row.
+   Promoted from .mobile-bottom-nav-badge per design panel verdict 2026-05-13. */
+.nav-badge {
+  @apply inline-flex items-center justify-center;
   @apply bg-error-500 text-white font-bold rounded-full;
   @apply dark:bg-error-600;
   min-width: 18px;
   height: 18px;
   padding: 0 3px;
   font-size: 10px;
+}
+
+/* Bottom-nav context: absolute over the icon (requires .relative wrapper). */
+.mobile-bottom-nav-tab .nav-badge {
+  @apply absolute -top-1.5 -right-2.5;
+}
+
+/* Nav-item (sidebar) context: inline at row end. */
+.nav-item .nav-badge {
+  margin-left: auto;
 }
 
 /* ===================================

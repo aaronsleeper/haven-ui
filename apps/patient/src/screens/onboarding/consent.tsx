@@ -107,7 +107,7 @@ export function Consent() {
   }
 
   return (
-    <main className="flex flex-col min-h-dvh" aria-label="Onboarding — consent">
+    <div className="flex flex-col min-h-dvh">
       <div className="flex items-center px-4 pt-4 pb-2">
         <IconButton
           icon="fa-solid fa-chevron-left"
@@ -225,7 +225,7 @@ export function Consent() {
           </p>
         )}
       </div>
-    </main>
+    </div>
   );
 }
 

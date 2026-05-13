@@ -138,7 +138,7 @@ export function Meals() {
   const showConfirmCta = orderState === 'unconfirmed';
 
   return (
-    <main className="pb-safe-8" aria-label="Meals">
+    <div className="pb-safe-8">
       <div className="p-4">
         <h1 className="page-title">{lang === 'es' ? 'Sus Comidas' : 'Your Meals'}</h1>
         <p className="text-sm text-sand-500 mt-1">{subtitle[lang as Language]}</p>
@@ -203,6 +203,6 @@ export function Meals() {
           </button>
         </div>
       )}
-    </main>
+    </div>
   );
 }

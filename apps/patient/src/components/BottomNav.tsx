@@ -16,7 +16,7 @@ interface BottomNavProps {
 
 export function BottomNav({ lang, unreadCount = 0 }: BottomNavProps) {
   return (
-    <nav className="mobile-bottom-nav" aria-label="Main navigation">
+    <nav className="mobile-bottom-nav" aria-label="Primary">
       {PATIENT_NAV_ITEMS.map((tab) => (
         <NavLink
           key={tab.to}
@@ -29,7 +29,7 @@ export function BottomNav({ lang, unreadCount = 0 }: BottomNavProps) {
           <span className="relative">
             <i className={`fa-solid ${tab.icon}`} aria-hidden="true" />
             {tab.to === '/messages' && unreadCount > 0 && (
-              <span className="mobile-bottom-nav-badge" aria-label={`${unreadCount} unread messages`}>
+              <span className="nav-badge" aria-label={`${unreadCount} unread messages`}>
                 {unreadCount}
               </span>
             )}

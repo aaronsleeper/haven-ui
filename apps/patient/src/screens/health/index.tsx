@@ -67,7 +67,7 @@ export function MyHealth() {
   const [lang] = useLanguage();
 
   return (
-    <main className="pb-safe-8" aria-label="My Health">
+    <div className="pb-safe-8">
       {/* Header */}
       <div className="p-4">
         <h1 className="page-title">
@@ -108,6 +108,6 @@ export function MyHealth() {
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

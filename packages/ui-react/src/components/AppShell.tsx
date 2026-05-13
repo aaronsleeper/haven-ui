@@ -29,9 +29,10 @@ export type { AppShellProps } from './AppShell.props';
 //     │          │                           │
 //     └──────────┴───────────────────────────┘
 //
-// Breakpoint switching is pure CSS via Tailwind lg: variants on the shell classes.
-// Consumers don't need viewport awareness — pass both `sidebar` and `bottomNav`
-// when nav is desired; the shell shows the correct one per viewport.
+// Landmarks: sidebar + bottom-nav both use <nav aria-label="Primary"> — same label
+// across breakpoints because only one is in the AT tree at a time (CSS-gated). The
+// content region is <main>; screens supply an <h1 class="page-title"> as the label.
+// Breakpoint switching is pure CSS via Tailwind lg: variants.
 
 export function AppShell({
   topBar,
@@ -43,14 +44,14 @@ export function AppShell({
   return (
     <div className="app-shell">
       {sidebar && (
-        <aside className="app-shell-sidebar" aria-label="Primary">
+        <nav className="app-shell-sidebar" aria-label="Primary">
           {sidebar}
-        </aside>
+        </nav>
       )}
       <div className="app-shell-main">
         {topBar !== null && <header className="app-shell-topbar">{topBar}</header>}
         {banner}
-        <div className="app-shell-content">{children}</div>
+        <main className="app-shell-content">{children}</main>
         {bottomNav && <div className="app-shell-bottom-nav">{bottomNav}</div>}
       </div>
     </div>

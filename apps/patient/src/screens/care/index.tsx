@@ -49,7 +49,7 @@ export function Care() {
   const [lang] = useLanguage();
 
   return (
-    <main className="pb-safe-8" aria-label="Care">
+    <div className="pb-safe-8">
       {/* Header */}
       <div className="p-4">
         <h1 className="page-title">
@@ -168,6 +168,6 @@ export function Care() {
           </Link>
         </p>
       </div>
-    </main>
+    </div>
   );
 }

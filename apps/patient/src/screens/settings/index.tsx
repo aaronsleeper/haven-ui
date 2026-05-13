@@ -35,7 +35,7 @@ export function Settings() {
   }
 
   return (
-    <main className="pb-safe-8" aria-label="Settings">
+    <div className="pb-safe-8">
       {/* Header */}
       <div className="p-4">
         <h1 className="page-title">
@@ -259,6 +259,6 @@ export function Settings() {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }

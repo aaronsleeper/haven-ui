@@ -33,7 +33,7 @@ export function Welcome() {
   }
 
   return (
-    <main className="flex flex-col min-h-dvh" aria-label="Onboarding — welcome">
+    <div className="flex flex-col min-h-dvh">
       <div className="p-4">
         <p
           className="onb-progress text-center text-xs text-sand-500"
@@ -160,6 +160,6 @@ export function Welcome() {
             : 'Need help? Call us: (555) 123-CENA'}
         </p>
       </div>
-    </main>
+    </div>
   );
 }

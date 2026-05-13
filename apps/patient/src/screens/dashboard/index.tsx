@@ -48,7 +48,7 @@ export function Dashboard() {
   const greetingVariant: GreetingVariant = 'action-recent'; // demo: pick action-recent
 
   return (
-    <main className="pb-safe-8" aria-label="Dashboard">
+    <div className="pb-safe-8">
       {/* Greeting */}
       <div className="p-4">
         <h1 className="page-title">
@@ -128,6 +128,6 @@ export function Dashboard() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
