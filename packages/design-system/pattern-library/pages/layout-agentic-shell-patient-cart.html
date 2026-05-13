@@ -90,10 +90,10 @@
       </div>
 
       <!-- User menu pinned to bottom. -->
-      <div class="nav-section" style="margin-top: auto; border-top: 1px solid var(--color-sand-200);">
+      <div class="nav-section nav-section--pinned-bottom">
         <div class="hs-dropdown relative" style="width: 100%;">
           <button type="button" class="hs-dropdown-toggle nav-item" style="width: 100%; background: transparent; border: none; cursor: pointer;">
-            <div style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 9999px; background: var(--color-teal-100); color: var(--color-teal-700); font-size: 0.75rem; font-weight: 600; flex-shrink: 0;">MR</div>
+            <div class="nav-avatar">MR</div>
             <span style="flex: 1; text-align: left;">Maria Rivera</span>
             <i class="fa-solid fa-chevron-up" style="font-size: 0.6875rem; opacity: 0.6;"></i>
           </button>
@@ -237,14 +237,14 @@
       <!-- Chat input — prompt-input pattern carried from layout-agentic-shell.html.
            Send button is disabled until the textarea has content. -->
       <div class="chat-input-area">
-        <div class="prompt-input-container relative flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl">
+        <div class="prompt-input-container relative flex flex-col">
           <div class="p-2">
             <label for="prompt-textarea" class="sr-only">What can I help with?</label>
             <textarea id="prompt-textarea"
               class="prompt-textarea p-3 block w-full border-transparent rounded-lg text-sm focus:border-transparent focus:ring-0"
               placeholder="What can I help with?" rows="2"></textarea>
           </div>
-          <div class="prompt-toolbar p-2 flex justify-between items-center border-t border-gray-100">
+          <div class="prompt-toolbar p-2 flex justify-between items-center">
             <div class="flex items-center gap-x-1">
               <button type="button" class="btn-icon" title="Attach file">
                 <i class="fa-solid fa-paperclip"></i>
@@ -289,7 +289,7 @@
              Gate-helper-empty: "Add at least one meal to send your order."
              Gate-helper-over-budget: "Remove an item or lower a quantity to send your order."
         ============================================================ -->
-        <div style="border: 1px dashed var(--color-sand-300); border-radius: 11px; padding: 1rem; background: rgba(255,255,255,0.4); color: var(--color-sand-700); font-size: 0.875rem;">
+        <div class="pl-placeholder-block">
           <p style="margin: 0 0 0.5rem; font-weight: 600;">
             <i class="fa-regular fa-cart-shopping" style="margin-right: 0.375rem; opacity: 0.6;"></i>
             cart-panel placeholder
@@ -319,7 +319,7 @@
                recommended-badge: "Picked for you"
                non-recommended-warning: "this isn't a typical match for your care plan — feel free to ask if you have questions"
         ============================================================ -->
-        <div style="border: 1px dashed var(--color-sand-300); border-radius: 11px; padding: 1rem; background: rgba(255,255,255,0.4); color: var(--color-sand-700); font-size: 0.875rem;">
+        <div class="pl-placeholder-block">
           <p style="margin: 0 0 0.5rem; font-weight: 600;">
             <i class="fa-regular fa-grid-2" style="margin-right: 0.375rem; opacity: 0.6;"></i>
             menu-grid placeholder

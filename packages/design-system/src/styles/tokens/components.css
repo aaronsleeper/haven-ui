@@ -2839,7 +2839,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 
 .prompt-toolbar {
-    @apply rounded-b-xl;
+    @apply rounded-b-xl border-t border-sand-200 dark:border-sand-700;
 }
 
 .category-chip {
@@ -10275,12 +10275,22 @@ a.list-group-item-action {
     border-color: var(--color-teal-700);
 }
 
-/* --- Tool call indicator (sand chip on translucent pane) --- */
+/* --- Tool call indicator (sand chip on translucent pane) ---
+   Rises above pane (sand-700) per ux-design-lead 2026-05-13: light-mode
+   pattern is chip-lighter-than-pane; dark should mirror that lift, not
+   recess. teal-500 icon gets adequate separation against sand-700. */
 .dark .tool-call {
-    background: var(--color-sand-800);
-    color: var(--color-sand-300);
+    background: var(--color-sand-700);
+    color: var(--color-sand-200);
 }
-/* tool-call i keeps teal-500 — sufficient contrast on dark bg */
+
+/* --- Ava avatar halo on dark pane ---
+   sphere-ava.png was tuned for warm-light surfaces; on translucent dark
+   the sphere's mid-tones fall inside the surface's luminance band. Halo
+   lifts her off the pane so agent identity reads. Brand-fidelity 2026-05-13. */
+.dark .message-agent .message-avatar {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
 
 /* --- Content panel header (was solid white in light mode) --- */
 .dark .content-header {
@@ -10289,6 +10299,114 @@ a.list-group-item-action {
 }
 .dark .content-header-title {
     color: var(--color-sand-100);
+}
+
+/* ============================================================
+   Agentic Shell — Promoted semantic classes (was inline)
+   ============================================================
+   Five inline-styled regions in layout-agentic-shell.html were silently
+   bypassing the .dark cascade. Promoting each to a semantic class with
+   light + dark variants per ux-design-lead + brand-fidelity panel review
+   2026-05-13. Also fixes the inline-style class of bug across the
+   pattern library (cart pages have the same pattern).
+   ============================================================ */
+
+/* Chat-pane header bar — panel-toggle row above the chat thread. */
+.chat-header {
+    @apply flex items-center justify-between;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--color-sand-100);
+}
+.dark .chat-header {
+    border-bottom-color: var(--color-sand-800);
+}
+
+/* Pinned-bottom nav section — anchors the user-menu trigger to the
+   bottom of the nav panel. Composition slot, not a primitive. */
+.nav-section--pinned-bottom {
+    margin-top: auto;
+    border-top: 1px solid var(--color-sand-200);
+}
+.dark .nav-section--pinned-bottom {
+    border-top-color: var(--color-sand-800);
+}
+
+/* Avatar circle for the nav footer user-menu trigger.
+   Mirrors light-mode teal-100/teal-700 to teal-800/teal-100 in dark per
+   ux-design-lead — palette stops are stable; the mirror has to be explicit. */
+.nav-avatar {
+    @apply flex items-center justify-center flex-shrink-0;
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    background: var(--color-teal-100);
+    color: var(--color-teal-700);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.dark .nav-avatar {
+    background: var(--color-teal-800);
+    color: var(--color-teal-100);
+}
+
+/* Content-pane empty state — quieter, Lora-led variant of .empty-state.
+   Used when a pane is open but the artifact slot is intentionally empty
+   ("when Ava has something to show you..."). Separate from .empty-state
+   because the voice is observational, not informational, and the type
+   scale is smaller (1.125rem heading vs lg). */
+.content-pane-empty {
+    @apply flex flex-col items-center justify-center text-center;
+    padding: 2rem;
+    height: 100%;
+}
+
+.content-pane-empty-icon {
+    font-size: 2rem;
+    color: var(--color-sand-400);
+    margin-bottom: 1rem;
+}
+.dark .content-pane-empty-icon {
+    color: var(--color-sand-500);
+}
+
+.content-pane-empty-title {
+    margin: 0 0 0.5rem;
+    font-family: 'Lora', serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-sand-900);
+}
+.dark .content-pane-empty-title {
+    color: var(--color-sand-100);
+}
+
+.content-pane-empty-body {
+    margin: 0;
+    font-size: 0.875rem;
+    max-width: 280px;
+    line-height: 1.5;
+    color: var(--color-sand-700);
+}
+.dark .content-pane-empty-body {
+    color: var(--color-sand-300);
+}
+
+/* Placeholder scaffolding for PL pages with build-blocked primitives
+   (e.g., cart-panel, menu-grid). Dashed border, soft-white over page —
+   in dark mode the white needs to be a soft-dark over the dark page.
+   Used by layout-agentic-shell-patient-cart{,-overbudget}.html. */
+.pl-placeholder-block {
+    border: 1px dashed var(--color-sand-300);
+    border-radius: 11px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--color-sand-700);
+    font-size: 0.875rem;
+}
+.dark .pl-placeholder-block {
+    border-color: var(--color-sand-700);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-sand-300);
 }
 
 /* ============================================================
