@@ -1451,30 +1451,42 @@ a.btn-danger {
    surface across viewports. Content is the only mandatory region.
    =================================== */
 
-.app-shell {
-    @apply flex flex-col lg:flex-row min-h-dvh bg-sand-50;
+/* Inner floating shell — the rounded frame that holds the responsive layout.
+   Mirrors .agentic-shell's role for the agentic 3-pane shell: a single
+   overflow-hidden flex container with rounded corners, sitting on top of the
+   .app-shell envelope's sand-200 ground per DESIGN.md §Brand-taste "Pages
+   float." Children scroll internally; the frame itself fills the envelope. */
+.app-shell-frame {
+    @apply flex flex-col lg:flex-row overflow-hidden rounded-md bg-sand-50 dark:bg-sand-900;
+    min-height: calc(100vh - 2rem);
 }
 
+/* Sidebar chrome — panel-nav-like sand-100 surface, matching the agentic
+   shell's nav pane. White-on-sand-50 was the pre-floating-shell treatment. */
 .app-shell-sidebar {
-    @apply hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:bg-white lg:border-r lg:border-sand-200 lg:overflow-y-auto;
+    @apply hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 lg:overflow-y-auto;
+    @apply bg-sand-100 dark:bg-sand-800;
 }
 
 .app-shell-main {
-    @apply flex-1 flex flex-col min-w-0 min-h-dvh;
+    @apply flex-1 flex flex-col min-w-0 min-h-0;
 }
 
 .app-shell-topbar {
-    @apply sticky top-0 z-10 bg-white border-b border-sand-200 flex items-center justify-between px-4 py-2;
+    @apply sticky top-0 z-10 bg-sand-50 border-b border-sand-200 flex items-center justify-between px-4 py-2;
+    @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
-/* Content region. Background inherits sand-50 from .app-shell so cards (now white)
-   read as elevated against the ambient surface — DESIGN.md surface canon.
+/* Content region. Background inherits sand-50 from .app-shell-frame so cards
+   (now white) read as elevated against the ambient surface. Scrolls internally
+   when content exceeds the frame's calc-height — matches agentic-shell's
+   pane-scrolls-not-page model.
 
    --app-shell-content-max-w constrains the inner content flow to 48rem (~768px / 75ch),
    matching the right-pane sizing rule in DESIGN.md. Direct children get centered via
    margin-inline:auto. Dense screens (dashboards) can opt out with .app-shell-content--full-bleed. */
 .app-shell-content {
-    @apply flex-1;
+    @apply flex-1 overflow-y-auto;
     --app-shell-content-max-w: 48rem;
 }
 
@@ -9921,20 +9933,19 @@ a.list-group-item-action {
 
 /* Floating-page envelope. Per DESIGN.md §Brand-taste:
    "Pages float — apps live inside a containing frame, not edge-to-edge."
-   Default envelope pads viewport so the page bg shows around the shell.
-   Specific shell modifiers (.app-shell--agentic) can change the envelope's
-   bg to provide a darker ground when the shell expresses float-by-surface
-   rather than float-by-border. */
+   Sand-200 ground provides float-by-surface (no border needed); inner shell
+   classes (.app-shell-frame, .agentic-shell, .three-panel-shell) carry the
+   rounded-md corners and bg-sand-50 floating-page surface above the ground.
+   Default applies to all shell consumers — agentic, three-panel, responsive.
+   Reconciliation 2026-05-13: ground moved from .app-shell--agentic modifier
+   onto the base class so all shells share the same envelope. */
+/* @contrast-exempt: decorative-background */
 .app-shell {
-    @apply min-h-screen p-4;
+    @apply min-h-screen p-4 bg-sand-200 dark:bg-sand-950;
 }
 
-/* Agentic-shell envelope modifier — darker ground (sand-200, v2-canonical)
-   replaces the 3px border treatment per brand-taste reconciliation 2026-05-12.
-   Surface luminance carries the float; no border needed. sand-200 (v2 family)
-   gives ~8.6% luminance delta vs surface-chrome (sand-100) — meaningful
-   contrast while staying inside the v2 sand hue family. Three-panel-shell
-   still uses its border treatment until its own reconciliation lands. */
+/* Kept for back-compat with consumers that author <div class="app-shell app-shell--agentic">.
+   Same ground as the base; modifier no longer carries semantic difference. */
 /* @contrast-exempt: decorative-background */
 .app-shell--agentic {
     @apply bg-sand-200 dark:bg-sand-950;

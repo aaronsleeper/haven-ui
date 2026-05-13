@@ -50,17 +50,6 @@ const sidebar = (
   </>
 );
 
-const topBar = (
-  <>
-    <span className="font-serif text-base text-sand-900 lg:hidden">Cena Health</span>
-    <span className="hidden lg:inline-block" aria-hidden="true" />
-    <div role="radiogroup" aria-label="Language" className="flex gap-1">
-      <button type="button" role="radio" aria-checked="true" className="mobile-i18n-toggle">EN</button>
-      <button type="button" role="radio" aria-checked="false" className="mobile-i18n-toggle">ES</button>
-    </div>
-  </>
-);
-
 const bottomNav = (
   <nav className="mobile-bottom-nav" aria-label="Primary">
     <a href="#" className="mobile-bottom-nav-tab active">
@@ -100,7 +89,7 @@ const screenContent = (
 
 export const Default: Story = {
   render: () => (
-    <AppShell topBar={topBar} sidebar={sidebar} bottomNav={bottomNav}>
+    <AppShell topBar={null} sidebar={sidebar} bottomNav={bottomNav}>
       {screenContent}
     </AppShell>
   ),
@@ -109,7 +98,7 @@ export const Default: Story = {
 export const WithBanner: Story = {
   render: () => (
     <AppShell
-      topBar={topBar}
+      topBar={null}
       sidebar={sidebar}
       bottomNav={bottomNav}
       banner={
@@ -128,12 +117,12 @@ export const NoNav: Story = {
     docs: {
       description: {
         story:
-          'Full-screen experiences (onboarding stepper, assessment) suppress sidebar + bottom-nav. Topbar may stay for language toggle.',
+          'Full-screen experiences (onboarding stepper, assessment) suppress sidebar + bottom-nav. topBar=null leaves the content region as the only chrome.',
       },
     },
   },
   render: () => (
-    <AppShell topBar={topBar}>
+    <AppShell topBar={null}>
       <div className="p-4">
         <h1 className="page-title">Welcome to Cena Health</h1>
         <p className="text-sm text-sand-500 mt-1">

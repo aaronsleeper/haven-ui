@@ -71,44 +71,40 @@ notes: |
   </p>
 
   <!-- @component: layout-app-shell-responsive -->
-  <div class="app-shell border border-sand-200 rounded-xl overflow-hidden" style="min-height: 400px;">
-    <nav class="app-shell-sidebar" aria-label="Primary">
-      <div class="nav-header">
-        <div class="nav-logo">
-          <span class="font-serif text-lg text-sand-900">Cena Health</span>
+  <div class="app-shell" style="min-height: 400px;">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <span class="font-serif text-lg text-sand-900">Cena Health</span>
+          </div>
         </div>
-      </div>
-      <div class="nav-section">
-        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-heart-pulse"></i><span>My Health</span></a>
-        <a href="#" class="nav-item">
-          <i class="fa-solid fa-message"></i><span>Messages</span>
-          <span class="nav-badge" aria-label="1 unread">1</span>
-        </a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-stethoscope"></i><span>Care</span></a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
-      </div>
-    </nav>
-
-    <div class="app-shell-main">
-      <header class="app-shell-topbar">
-        <!-- Brand mark visible <lg only; sidebar carries brand at ≥lg. -->
-        <span class="font-serif text-base text-sand-900 lg:hidden">Cena Health</span>
-        <span class="hidden lg:inline-block" aria-hidden="true"></span>
-        <div role="radiogroup" aria-label="Language" class="flex gap-1">
-          <button type="button" role="radio" aria-checked="true" class="mobile-i18n-toggle">EN</button>
-          <button type="button" role="radio" aria-checked="false" class="mobile-i18n-toggle">ES</button>
+        <div class="nav-section">
+          <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-heart-pulse"></i><span>My Health</span></a>
+          <a href="#" class="nav-item">
+            <i class="fa-solid fa-message"></i><span>Messages</span>
+            <span class="nav-badge" aria-label="1 unread">1</span>
+          </a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-stethoscope"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
         </div>
-      </header>
+      </nav>
 
-      <main class="app-shell-content p-4">
-        <h1 class="page-title">Welcome back, Maria</h1>
-        <p class="text-sm text-sand-500 mt-1">
-          Route content renders here. Scrollable. Flex-grows to fill remaining vertical space.
-        </p>
-      </main>
+      <div class="app-shell-main">
+        <!-- Topbar region is optional; omit when the app has no persistent topbar
+             content (i18n toggle, notifications, profile menu). Patient app omits
+             it at launch (English-only, no toggle). -->
 
-      <div class="app-shell-bottom-nav">
+        <main class="app-shell-content p-4">
+          <h1 class="page-title">Welcome back, Maria</h1>
+          <p class="text-sm text-sand-500 mt-1">
+            Route content renders here. Scrolls internally when content exceeds
+            the frame's calc-height — pane-scrolls-not-page model.
+          </p>
+        </main>
+
+        <div class="app-shell-bottom-nav">
         <nav class="mobile-bottom-nav" aria-label="Primary">
           <a href="#" class="mobile-bottom-nav-tab active">
             <i class="fa-solid fa-house" aria-hidden="true"></i>
@@ -132,6 +128,7 @@ notes: |
           </a>
         </nav>
       </div>
+    </div>
     </div>
   </div>
   <!-- /component -->

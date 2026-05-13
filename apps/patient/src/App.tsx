@@ -1,23 +1,21 @@
 // apps/patient/src/App.tsx
 // Patient app root. Composes the @haven/ui-react AppShell — responsive
 // non-agentic shell that switches between sidebar nav (≥lg) and bottom-nav
-// (<lg) with a persistent topbar across both.
+// (<lg). Topbar suppressed at launch (English-only, no language toggle).
 //
 // Region content:
-//   topBar    — I18nBar (brand + EN/ES toggle)
-//   sidebar   — Sidebar (vertical nav, ≥lg)
+//   topBar    — null (no topbar at launch; revisit when i18n returns)
+//   sidebar   — Sidebar (vertical nav + brand mark, ≥lg)
 //   bottomNav — BottomNav (horizontal nav, <lg)
 //   banner    — OfflineBanner (when offline)
 //   children  — Routes
 //
 // Nav-suppression rules:
-//   /assessment/* — full-screen stepper. Suppress topBar + sidebar + bottomNav.
-//   /onboarding/* — linear stepper. Keep topBar (so patient can toggle language
-//                    on welcome screen). Suppress sidebar + bottomNav.
+//   /assessment/* — full-screen stepper. Suppress sidebar + bottomNav.
+//   /onboarding/* — linear stepper. Suppress sidebar + bottomNav.
 
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AppShell } from '@haven/ui-react';
-import { I18nBar } from './components/I18nBar';
 import { BottomNav } from './components/BottomNav';
 import { Sidebar } from './components/Sidebar';
 import { OfflineBanner } from './components/OfflineBanner';
@@ -44,15 +42,9 @@ function useShowNav(): boolean {
   );
 }
 
-function useShowTopBar(): boolean {
-  const { pathname } = useLocation();
-  return !ASSESSMENT_PREFIXES.some((prefix) => pathname.startsWith(prefix));
-}
-
 export function App() {
-  const [lang, setLang] = useLanguage();
+  const [lang] = useLanguage();
   const showNav = useShowNav();
-  const showTopBar = useShowTopBar();
   const isOnline = useOnlineStatus();
 
   // TODO v1: read unreadCount from messages API
@@ -60,7 +52,7 @@ export function App() {
 
   return (
     <AppShell
-      topBar={showTopBar ? <I18nBar lang={lang} onToggle={setLang} /> : null}
+      topBar={null}
       sidebar={showNav ? <Sidebar lang={lang} unreadCount={unreadCount} /> : undefined}
       bottomNav={showNav ? <BottomNav lang={lang} unreadCount={unreadCount} /> : undefined}
       banner={!isOnline ? <OfflineBanner lang={lang} /> : undefined}
