@@ -213,7 +213,7 @@ export function Consent() {
       <div className="px-4 pb-safe-4">
         <button
           type="button"
-          className="btn-primary btn-block"
+          className="btn-secondary btn-block"
           onClick={handleAgree}
           aria-label={copy.ariaLabel[lang as Language]}
         >

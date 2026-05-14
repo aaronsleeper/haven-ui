@@ -130,7 +130,7 @@ export function Gad7Question() {
         <div className="max-w-2xl mx-auto">
           <button
             type="button"
-            className="btn-primary btn-block"
+            className={`${isLast ? 'btn-primary' : 'btn-secondary'} btn-block`}
             onClick={handleContinue}
             disabled={!answered}
           >

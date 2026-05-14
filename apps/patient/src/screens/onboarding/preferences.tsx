@@ -259,7 +259,7 @@ export function Preferences() {
       </div>
 
       <div className="px-4 pt-4 pb-safe-4">
-        <button type="button" className="btn-primary btn-block" onClick={handleAllDone}>
+        <button type="button" className="btn-secondary btn-block" onClick={handleAllDone}>
           {lang === 'es' ? 'Listo' : 'All done'}
         </button>
         <p className="text-xs text-sand-400 text-center mt-3">

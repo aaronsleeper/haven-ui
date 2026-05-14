@@ -175,7 +175,7 @@ export function Welcome() {
       <div className="px-4 pb-safe-4">
         <button
           type="button"
-          className="btn-primary btn-block"
+          className="btn-secondary btn-block"
           onClick={handleContinue}
           disabled={!canContinue}
           aria-disabled={!canContinue}
