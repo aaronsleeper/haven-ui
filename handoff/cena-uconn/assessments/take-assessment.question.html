@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take assessment — Step 3: Question · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../../../packages/design-system/src/styles/main.css" />
+</head>
+<body>
+  <!--
+    Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc
+    State: in-progress (the working surface)
+    Chat is silent unless patient asks for help (mid-question-help variant of agent-message).
+    Right pane composes: assessment-header > progress-bar-pagination, questionnaire-panel { card-header (save-pause), card-body (response-option-group, pagination-row, submit-region when last item) }.
+    questionnaire-panel is an app-local carve-out for slice 1 (per PL Steward verdict 2026-05-14 PM).
+  -->
+  <main class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8 p-8 min-h-screen max-w-[1400px] mx-auto">
+
+    <!-- chat-pane (silent during question administration) -->
+    <section class="space-y-4" aria-label="Agent chat">
+      <header class="space-y-1 border-b border-sand-200 pb-3">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question</p>
+        <p class="text-xs text-fg-muted">Chat silent; mid-question-help renders only on patient-initiated help</p>
+      </header>
+
+      <!-- talk-to-person-trigger persistent (always available) -->
+      <div class="chat-handoff-trigger is-header">
+        <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+      </div>
+
+      <!-- agent-message variant="mid-question-help" — example shown for reference; conditionally rendered when patient asks -->
+      <div class="patient-chat-message" aria-hidden="true" style="opacity: 0.4;">
+        <p><em>Example mid-question help (renders on patient ask):</em> "Often" here means more than once a week. Pick whatever fits best.</p>
+      </div>
+    </section>
+
+    <!-- right-pane: questionnaire-panel composition -->
+    <aside aria-label="Working surface">
+
+      <!-- assessment-header with progress-bar-pagination -->
+      <header class="assessment-header">
+        <h2 class="assessment-header-title">[instrument.plainLanguageName]</h2>
+        <p class="assessment-header-meta">Question 3 of 9</p>
+        <div
+          class="progress-bar-pagination"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="9"
+          aria-valuenow="3"
+          aria-valuetext="3 of 9"
+        >
+          <span class="progress-bar-pagination-segment is-filled"></span>
+          <span class="progress-bar-pagination-segment is-filled"></span>
+          <span class="progress-bar-pagination-segment is-filled"></span>
+          <span class="progress-bar-pagination-segment"></span>
+          <span class="progress-bar-pagination-segment"></span>
+          <span class="progress-bar-pagination-segment"></span>
+          <span class="progress-bar-pagination-segment"></span>
+          <span class="progress-bar-pagination-segment"></span>
+          <span class="progress-bar-pagination-segment"></span>
+        </div>
+      </header>
+
+      <!-- questionnaire-panel: app-local carve-out (layout-card + card-header + card-body) -->
+      <article class="card mt-6">
+        <div class="card-header flex items-center justify-between">
+          <span class="text-sm font-medium">Question 3 of 9</span>
+          <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+        </div>
+        <div class="card-body space-y-6">
+
+          <!-- response-option-group (frequency-likert) — primary-source content gates [VERIFY] until PDFs land -->
+          <fieldset class="response-option-group" role="radiogroup" aria-labelledby="q3-prompt">
+            <legend id="q3-prompt" class="response-option-group-prompt">[VERIFY: HFIAS Q3 prompt text from primary source]</legend>
+            <div class="response-option-group-list">
+              <button type="button" class="response-option" role="radio" aria-checked="false">
+                <span class="response-option-index"><span class="response-option-index-num">0</span></span>
+                <span class="response-option-label">Never</span>
+                <span class="response-option-check"></span>
+              </button>
+              <button type="button" class="response-option" role="radio" aria-checked="false">
+                <span class="response-option-index"><span class="response-option-index-num">1</span></span>
+                <span class="response-option-label">Rarely (1–2 times in past 4 weeks)</span>
+                <span class="response-option-check"></span>
+              </button>
+              <button type="button" class="response-option" role="radio" aria-checked="true">
+                <span class="response-option-index"><span class="response-option-index-num">2</span></span>
+                <span class="response-option-label">Sometimes (3–10 times in past 4 weeks)</span>
+                <span class="response-option-check"></span>
+              </button>
+              <button type="button" class="response-option" role="radio" aria-checked="false">
+                <span class="response-option-index"><span class="response-option-index-num">3</span></span>
+                <span class="response-option-label">Often (more than 10 times in past 4 weeks)</span>
+                <span class="response-option-check"></span>
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- pagination-row -->
+          <nav class="pagination-row" aria-label="Question navigation">
+            <button type="button" class="btn btn-outline">Previous</button>
+            <button type="button" class="btn btn-secondary">Next</button>
+          </nav>
+
+          <!--
+            submit-region (inline config under questionnaire-panel) renders only on last item.
+            Disabled until allRequiredAnswered; aria-describedby anchors to stable id on helper text.
+            Example below shown for structural reference; real render gates on progress.currentItemIndex == progress.total - 1.
+          -->
+          <div class="submit-region" hidden>
+            <button
+              type="button"
+              class="btn btn-primary"
+              disabled
+              aria-describedby="submit-helper"
+            >
+              Submit answers
+            </button>
+            <p id="submit-helper" class="text-sm text-fg-muted mt-2">
+              <span data-bind="progress.unansweredCount">[N]</span> questions still need an answer — tap any item in the list to jump to it.
+            </p>
+          </div>
+        </div>
+      </article>
+    </aside>
+  </main>
+</body>
+</html>

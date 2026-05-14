@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take assessment — Step 1: Entry · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../../../packages/design-system/src/styles/main.css" />
+</head>
+<body>
+  <!--
+    Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-1-entry.mdoc
+    State: assessment-due-first-pass | assessment-due-resume
+    Right-pane primes the preflight card on entry so the patient previews what's coming.
+  -->
+  <main class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8 p-8 min-h-screen max-w-[1400px] mx-auto">
+
+    <!-- chat-pane -->
+    <section class="space-y-4" aria-label="Agent chat">
+      <header class="space-y-1 border-b border-sand-200 pb-3">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
+        <p class="text-xs text-fg-muted">Wireframe condition: <code class="font-mono">assessment-due-first-pass</code></p>
+      </header>
+
+      <!-- agent-message — assessment-due-first-pass -->
+      <div class="patient-chat-message">
+        <p>Hi <strong>[patient.firstName]</strong>. You're due for a short questionnaire about <strong>[instrument.plainLanguageFrame]</strong>. It usually takes about <strong>[instrument.timeEstimateMinutes]</strong> minutes. Want to start now or come back to it?</p>
+      </div>
+
+      <!-- single-button-row — start chip -->
+      <div class="chat-button-row">
+        <button type="button" class="btn btn-secondary">Start the questionnaire</button>
+      </div>
+
+      <!-- talk-to-person-trigger persistent -->
+      <div class="chat-handoff-trigger is-header">
+        <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+      </div>
+    </section>
+
+    <!-- right-pane: preflight card primed -->
+    <aside aria-label="Working surface">
+      <!-- assessment-preflight-card -->
+      <article class="assessment-preflight-card">
+        <div class="assessment-preflight-card-body">
+          <h2 class="assessment-preflight-card-title">[instrument.plainLanguageName]</h2>
+          <ul class="assessment-preflight-card-meta">
+            <li class="assessment-preflight-card-meta-item">[instrument.itemCount] questions</li>
+            <li class="assessment-preflight-card-meta-item">About [instrument.timeEstimateMinutes] minutes</li>
+          </ul>
+          <p class="assessment-preflight-card-disclosure">
+            <!-- per-register disclosure: default for sensitive/knowledge-quiz/satisfaction; screener uses copy.preflight-disclosure-screener -->
+            Your answers go to your care team.
+          </p>
+          <div class="assessment-preflight-card-actions">
+            <button type="button" class="btn btn-primary">Start the questionnaire</button>
+          </div>
+        </div>
+      </article>
+    </aside>
+  </main>
+</body>
+</html>

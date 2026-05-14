@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take assessment — Step 2: Preflight · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../../../packages/design-system/src/styles/main.css" />
+</head>
+<body>
+  <!--
+    Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-2-preflight.mdoc
+    State: per-register tone framing — sensitive | knowledge-quiz | satisfaction | screener
+    Default render below: sensitive register (HFIAS / WHOQOL-HIV BREF). Other register copy lives in the wireframe {% copy %} block.
+  -->
+  <main class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8 p-8 min-h-screen max-w-[1400px] mx-auto">
+
+    <!-- chat-pane -->
+    <section class="space-y-4" aria-label="Agent chat">
+      <header class="space-y-1 border-b border-sand-200 pb-3">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight</p>
+        <p class="text-xs text-fg-muted">Wireframe condition: <code class="font-mono">sensitive</code></p>
+      </header>
+
+      <!-- agent-message — sensitive register -->
+      <div class="patient-chat-message">
+        <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
+      </div>
+
+      <!-- single-button-row — ready chip -->
+      <div class="chat-button-row">
+        <button type="button" class="btn btn-secondary">I'm ready</button>
+      </div>
+
+      <!-- talk-to-person-trigger persistent -->
+      <div class="chat-handoff-trigger is-header">
+        <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+      </div>
+    </section>
+
+    <!-- right-pane: preflight card with relabeled CTA -->
+    <aside aria-label="Working surface">
+      <!-- assessment-preflight-card -->
+      <article class="assessment-preflight-card">
+        <div class="assessment-preflight-card-body">
+          <h2 class="assessment-preflight-card-title">[instrument.plainLanguageName]</h2>
+          <ul class="assessment-preflight-card-meta">
+            <li class="assessment-preflight-card-meta-item">[instrument.itemCount] questions</li>
+            <li class="assessment-preflight-card-meta-item">About [instrument.timeEstimateMinutes] minutes</li>
+          </ul>
+          <p class="assessment-preflight-card-disclosure">
+            Your answers go to your care team.
+          </p>
+          <div class="assessment-preflight-card-actions">
+            <button type="button" class="btn btn-primary">I'm ready</button>
+          </div>
+        </div>
+      </article>
+    </aside>
+  </main>
+</body>
+</html>
