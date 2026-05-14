@@ -32,11 +32,18 @@ Each state is a separate HTML page in this folder. The wireframes specify dynami
 
 State 4 (save/resume) is a behavioral re-entry into State 3 with `assessment.lastUnansweredIndex`, not a separate page.
 
-### Resolved instance — pre-enrollment screener (real content)
+### Resolved instances — single-page narrative demos with primary-source content
 
-| File | Purpose |
-|---|---|
-| [`take-screener.html`](./take-screener.html) | Single-page narrative demo of the 4 runner states with real screener content (Aaron-approved 2026-05-14 PM). Demonstrates the screener register specifically: preflight + confirmation copy variants, Q1 eligibility-gate with early-exit predicate, and 3 outcome-path-differentiated confirmation copies (eligible / not-eligible / refer-to-team). Source content: [`screener-pre-enrollment-content-draft.md`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/screener-pre-enrollment-content-draft.md). |
+Each instance page walks the 4 runner states top-to-bottom for one specific instrument, with primary-source content (verbatim, cited) and the per-instrument structural shape that the abstract template can't show.
+
+| File | Instrument | What it demonstrates that the abstract template doesn't |
+|---|---|---|
+| [`take-screener.html`](./take-screener.html) | Pre-enrollment screener (6 questions; Aaron-approved 2026-05-14 PM) | Screener register copy variants (preflight + 3 outcome-path confirmations); Q1 eligibility-gate with early-exit predicate |
+| [`take-hfias.html`](./take-hfias.html) | HFIAS — Coates/Swindale/Bilinsky 2007 (via SPIROMICS III implementation) | Two-step occurrence → frequency skip logic (Q1 Yes reveals Q1a; No advances to Q2). 9 occurrence questions; 4-category HFIAP scoring computed at submit. |
+| [`take-whoqol.html`](./take-whoqol.html) | WHOQOL-HIV BREF — WHO/MSD/MER/02.2 2002 | Per-item response-scale variation (5 distinct scales across 31 items; runner reads each item's `responseScale` field). 6-domain scoring; 6 items reverse-scored. Foregrounded talk-to-a-person bridge per CC-01 distress-signal verdict. |
+| [`take-gnkq.html`](./take-gnkq.html) | GNKQ-R — Kliemann et al. 2016 EJCN open-access | Multi-section structure (4 sections, 88 scored items); food-list multi-item pattern (one prompt → N sub-items, each its own radio group). 3 image-dependent items + Section 5 UK ethnicity adaptation are Aaron-pending; not in slice 1. |
+
+Source content for all 3 instruments: [`instrument-content-primary-sources.md`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/instrument-content-primary-sources.md). Source content for the screener: [`screener-pre-enrollment-content-draft.md`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/screener-pre-enrollment-content-draft.md).
 
 ## State transitions
 

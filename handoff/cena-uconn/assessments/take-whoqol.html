@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take WHOQOL-HIV BREF — Quality of Life · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    WHOQOL-HIV BREF — single-page narrative demo of the runner flow with REAL content.
+
+    Instrument: WHOQOL-HIV BREF (WHO Quality of Life for People Living with HIV, Brief)
+    Source: WHO/MSD/MER/02.2, 2002. Copyright © WHO 2002 — freely reproducible for
+    non-commercial purposes.
+
+    Key engineering note for Andrey:
+    WHOQOL uses 5 distinct per-item response scales across 31 items. The runner MUST
+    read each item's `responseScale` field and render the matching options. A single
+    hardcoded Likert is NOT sufficient. Two scales are demonstrated in Step 3 below.
+
+    Sensitivity register: SENSITIVE — probes psychological, social, environmental, and
+    spiritual quality of life for HIV-positive patients. Most personally sensitive of
+    the 4 instruments in this slice. The "Talk to a person" bridge in Step 5 is
+    foregrounded per CC-01 / distress-signal gap-gate verdict 2026-05-14 PM.
+
+    Wireframes: take-assessment.step-{1-entry,2-preflight,3-question,5-submit-confirm}.mdoc
+    Instrument content: instrument-content-primary-sources.md § WHOQOL-HIV BREF (lines 174–336)
+
+    All 4 states are stacked for hand-port reference. The runner in production flips
+    one state at a time via JS state machine. This page renders them top-to-bottom.
+  -->
+  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+
+    <header class="space-y-2 border-b border-sand-200 pb-6">
+      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · WHOQOL-HIV BREF instance</p>
+      <h1 class="text-3xl font-semibold tracking-tight">WHOQOL-HIV BREF</h1>
+      <p class="text-base text-fg-muted max-w-3xl">A demo of the runner with real WHOQOL-HIV BREF content. Sensitivity register: <strong>sensitive</strong>. The key engineering point is the <strong>5 distinct per-item response scales</strong> — Step 3 demonstrates two of them on the same page so Andrey can see the data-binding requirement. For the abstract runner template, see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
+    </header>
+
+    <!-- ─────────── Step 1 · Entry ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
+        <p class="text-xs text-fg-muted">Sensitive register — agent surfaces quality-of-life frame; right pane primes with WHOQOL metadata.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Hi <strong>[firstName]</strong>. You're due for a short questionnaire about <strong>your quality of life living with HIV</strong>. It usually takes about <strong>10–15</strong> minutes. Want to start now or come back to it?</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">Start the questionnaire</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">WHOQOL-HIV BREF</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">31 questions</li>
+                <li class="assessment-preflight-card-meta-item">About 10–15 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">Start the questionnaire</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 2 · Preflight ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (sensitive register)</p>
+        <p class="text-xs text-fg-muted">Agent frames the instrument's personal tone before the patient starts. Disclosure: care team (not program team — WHOQOL is a within-care-relationship instrument).</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">I'm ready</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">WHOQOL-HIV BREF</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">31 questions</li>
+                <li class="assessment-preflight-card-meta-item">About 10–15 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">I'm ready</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Question Administration ─────────── -->
+    <!--
+      TWO example questions are shown here to demonstrate per-item scale variation.
+
+      Example 1  — Q3 (F1.4) uses scale: "Not at all / A little / A moderate amount / Very much / An extreme amount"
+                   (the most common group in WHOQOL-HIV BREF; Q3–Q10, 8 items)
+      Example 2  — Q21 (F3.3) uses scale: "Very dissatisfied / Dissatisfied / Neither satisfied nor dissatisfied / Satisfied / Very satisfied"
+                   (10 items; Q21–Q30)
+
+      Andrey: the runner reads each item's `responseScale` field and renders the
+      matching option set. Neither scale is universal. See source artifact for all
+      5 distinct scales and the per-item mapping.
+    -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q3 of 31 (example 1 of 2 shown)</p>
+        <p class="text-xs text-fg-muted">Right pane is the working surface; chat is silent unless the patient asks for help. groupingMode = one-per-screen (sensitive instrument).</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">WHOQOL-HIV BREF</h2>
+            <p class="assessment-header-meta">Question 3 of 31</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="31"
+              aria-valuenow="2"
+              aria-valuetext="Question 3 of 31"
+            >
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <!-- Example Question 1: responseScale = "Not at all / A little / A moderate amount / Very much / An extreme amount" -->
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 3 of 31</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-6">
+
+              <p class="text-xs text-fg-muted italic">Think about your life in the <strong>last two weeks</strong>.</p>
+
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="whoqol-q3">
+                <legend id="whoqol-q3" class="response-option-group-prompt">To what extent do you feel that physical pain prevents you from doing what you need to do?</legend>
+                <p class="text-xs text-fg-muted mt-1 mb-3 font-mono">responseScale: "not-at-all–extreme-amount" · Q3 (F1.4) · Domain 1: Physical · reverse-scored</p>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">1</span></span>
+                    <span class="response-option-label">Not at all</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">2</span></span>
+                    <span class="response-option-label">A little</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">3</span></span>
+                    <span class="response-option-label">A moderate amount</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">4</span></span>
+                    <span class="response-option-label">Very much</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">5</span></span>
+                    <span class="response-option-label">An extreme amount</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline">Previous</button>
+                <button type="button" class="btn btn-secondary" disabled>Next</button>
+              </nav>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Step 3 · Example Question 2 — different responseScale -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q21 of 31 (example 2 of 2 shown — different response scale)</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">WHOQOL-HIV BREF</h2>
+            <p class="assessment-header-meta">Question 21 of 31</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="31"
+              aria-valuenow="20"
+              aria-valuetext="Question 21 of 31"
+            >
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <!-- Example Question 2: responseScale = "Very dissatisfied / Dissatisfied / Neither / Satisfied / Very satisfied" -->
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 21 of 31</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-6">
+
+              <p class="text-xs text-fg-muted italic">Think about your life in the <strong>last two weeks</strong>.</p>
+
+              <p class="text-xs text-fg-muted italic">↑ Different items use different response anchors. WHOQOL has 5 distinct scales across 31 items — the runner reads each item's <code class="font-mono">responseScale</code> field and renders the matching options.</p>
+
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="whoqol-q21">
+                <legend id="whoqol-q21" class="response-option-group-prompt">How satisfied are you with your sleep?</legend>
+                <p class="text-xs text-fg-muted mt-1 mb-3 font-mono">responseScale: "very-dissatisfied–very-satisfied" · Q21 (F3.3) · Domain 1: Physical</p>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">1</span></span>
+                    <span class="response-option-label">Very dissatisfied</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">2</span></span>
+                    <span class="response-option-label">Dissatisfied</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">3</span></span>
+                    <span class="response-option-label">Neither satisfied nor dissatisfied</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">4</span></span>
+                    <span class="response-option-label">Satisfied</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">5</span></span>
+                    <span class="response-option-label">Very satisfied</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline">Previous</button>
+                <button type="button" class="btn btn-secondary" disabled>Next</button>
+              </nav>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 5 · Submit confirmation ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation (sensitive register)</p>
+        <p class="text-xs text-fg-muted">Per CC-01 / distress-signal gap-gate verdict 2026-05-14 PM: "Talk to a person" is foregrounded — not an afterthought — because WHOQOL probes acute psychological distress signals. No score shown to patient (no-score invariant).</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Thanks — your answers are in. Your care team will review them at your next session. If anything in there raised something you want to talk about sooner, tap 'Talk to a person.'</p>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-confirmation">
+            <div class="receipt">
+              <header class="receipt-header">
+                <h2 class="receipt-title">WHOQOL-HIV BREF</h2>
+              </header>
+              <div class="receipt-body space-y-2">
+                <p class="text-base">Submitted just now.</p>
+                <p class="text-sm text-fg-muted">Your care team has it.</p>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Footer ─────────── -->
+    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-fg-muted">
+      <p><strong>Source:</strong> WHOQOL HIV Group. 2002. <em>WHOQOL-HIV BREF.</em> Document code WHO/MSD/MER/02.2. World Health Organization, Geneva. Copyright © WHO 2002 — may be freely reviewed, abstracted, or reproduced in part or whole, but not for sale or use in conjunction with commercial purposes.</p>
+      <p><strong>Response scales:</strong> 31 items use 5 distinct response scales. This page demonstrates 2; see <code class="font-mono">instrument-content-primary-sources.md § WHOQOL-HIV BREF</code> for the full per-item mapping. The runner MUST bind each item's <code class="font-mono">responseScale</code> field — a single hardcoded scale is incorrect.</p>
+      <p><strong>The 5 distinct scales (summary):</strong></p>
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Not at all / A little / A moderate amount / Very much / An extreme amount</strong> — Q3–Q10 (8 items)</li>
+        <li><strong>Not at all / A little / A moderate amount / Very much / Extremely</strong> — Q11–Q13 (3 items)</li>
+        <li><strong>Not at all / A little / Moderately / Mostly / Completely</strong> — Q14–Q19 (6 items)</li>
+        <li><strong>Very poor / Poor / Neither poor nor good / Good / Very good</strong> — Q1 global + Q20 (2 items)</li>
+        <li><strong>Very dissatisfied / Dissatisfied / Neither satisfied nor dissatisfied / Satisfied / Very satisfied</strong> — Q2 global + Q21–Q30 (11 items)</li>
+        <li><strong>Never / Seldom / Quite often / Very often / Always</strong> — Q31 (1 item; frequency scale; reverse-positive direction — flag for QA)</li>
+      </ul>
+      <p><strong>Scoring (computed at submit, never shown to patient):</strong> 6 domains — Physical (D1), Psychological (D2), Level of Independence (D3), Social Relations (D4), Environment (D5), Spiritual/Religion/Beliefs (D6) — plus 2 global items (Q1, Q2) not assigned to a scored domain. Raw domain scores can be transformed to 0–100 per the full WHOQOL-HIV scoring manual.</p>
+      <p><strong>Reverse-scored items:</strong> 6 items use (6 − Qn) notation — Q3, Q4, Q5, Q8, Q9, Q10, Q31. See source artifact § Scoring for the full domain formulas.</p>
+      <p><strong>Reference period:</strong> All items ask about the <em>last two weeks</em> — this phrase must be visible in the question header per instrument instructions.</p>
+      <p><strong>Full instrument content + per-item scale mapping:</strong> <code class="font-mono">Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/instrument-content-primary-sources.md § WHOQOL-HIV BREF</code></p>
+    </footer>
+  </main>
+</body>
+</html>

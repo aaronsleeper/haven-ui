@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take HFIAS — Household Food Insecurity Access Scale · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    HFIAS — Household Food Insecurity Access Scale — single-page narrative demo.
+
+    This page renders the HFIAS runner in the sensitive register, illustrating the
+    two-step occurrence → frequency skip logic that is the instrument's defining
+    structural feature. Q1 is rendered in full detail to show the skip-logic shape;
+    Q2–Q9 follow the same shape (see footer note).
+
+    Source: Coates, Swindale & Bilinsky 2007 (FANTA), via SPIROMICS III (v1.0, 2024-09-03).
+    Content ref: instrument-content-primary-sources.md § HFIAS (lines 9–172).
+    Wireframes: take-assessment.step-{1-entry,2-preflight,3-question,5-submit-confirm}.mdoc
+    Register: sensitive (HFIAS carries sensitivityRegister = "sensitive")
+
+    The runner in production flips one state at a time via JS state machine.
+    This page renders all states stacked for hand-port reference.
+    Scoring (HFIAP) is computed at submit, server-side — never shown to the patient.
+  -->
+  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+
+    <header class="space-y-2 border-b border-sand-200 pb-6">
+      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · HFIAS instance</p>
+      <h1 class="text-3xl font-semibold tracking-tight">Household Food Insecurity Access Scale (HFIAS)</h1>
+      <p class="text-base text-fg-muted max-w-3xl">Sensitive-register demo of the runner with the HFIAS instrument. The key pedagogical point of this page is the <strong>two-step occurrence → frequency skip logic</strong> — every question is an occurrence gate; a "Yes" reveals a frequency follow-up before advancing to the next gate. "No" skips directly to the next occurrence question. Q1 is rendered in full detail; Q2–Q9 follow the same shape (see footer).</p>
+    </header>
+
+    <!-- ─────────── Step 1 · Entry ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
+        <p class="text-xs text-fg-muted">Register: sensitive. Instrument: HFIAS. Plain-language frame: "food security at home." Item count: 9 occurrence questions + up to 9 frequency follow-ups (up to 18 total). Time: 5–10 minutes.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Hi <strong>[firstName]</strong>. You're due for a short questionnaire about <strong>food security at home</strong>. It usually takes about <strong>5–10</strong> minutes. Want to start now or come back to it?</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">Start the questionnaire</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">Household Food Insecurity Access Scale</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">9 questions (up to 18 with skip logic)</li>
+                <li class="assessment-preflight-card-meta-item">5–10 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">Start the questionnaire</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 2 · Preflight ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (sensitive register)</p>
+        <p class="text-xs text-fg-muted">HFIAS carries sensitivityRegister = "sensitive." Agent frames personal disclosure before the first question. Right pane mirrors the preflight card for the two-path model.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">I'm ready</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">Household Food Insecurity Access Scale</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">9 questions (up to 18 with skip logic)</li>
+                <li class="assessment-preflight-card-meta-item">5–10 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">I'm ready</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Question Administration — Q1 skip-logic exemplar ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q1 of 9 — skip-logic exemplar</p>
+        <p class="text-xs text-fg-muted">Q1 renders first as an occurrence gate (Yes/No). A "Yes" response reveals the frequency follow-up (Q1a) before advancing to Q2. A "No" response skips Q1a and advances directly to Q2. Both branches are shown below in the same panel to illustrate the skip-logic shape for Andrey — in the live runner, only one branch is visible at a time.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+
+          <!-- Assessment header + progress bar -->
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">Household Food Insecurity Access Scale</h2>
+            <p class="assessment-header-meta">Question 1 of 9</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="9"
+              aria-valuenow="0"
+              aria-valuetext="Question 1 of 9"
+            >
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <!-- Questionnaire panel (card + card-header save-pause + card-body) -->
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 1 of 9</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-8">
+
+              <!-- ── OCCURRENCE QUESTION (Q1) ──────────────────────────────────────────── -->
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q1-occurrence">
+                <legend id="hfias-q1-occurrence" class="response-option-group-prompt">In the past four weeks (30 days), did you worry that your household would not have enough food?</legend>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                    <span class="response-option-label">Yes</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                    <span class="response-option-label">No</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <!-- ── FREQUENCY FOLLOW-UP (Q1a) — conditional reveal ───────────────────── -->
+              <div class="space-y-3">
+                <p class="text-xs text-fg-muted italic">↑ The block below reveals when "Yes" is selected above. "No" skips Q1a and advances to Q2 (the next occurrence gate).</p>
+                <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q1a-frequency">
+                  <legend id="hfias-q1a-frequency" class="response-option-group-prompt">How often did this happen?</legend>
+                  <div class="response-option-group-list">
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                      <span class="response-option-label">Rarely <span class="text-sm text-fg-muted font-normal">(once or twice in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                      <span class="response-option-label">Sometimes <span class="text-sm text-fg-muted font-normal">(three to ten times in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                      <span class="response-option-label">Often <span class="text-sm text-fg-muted font-normal">(more than ten times in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- ── SKIP-LOGIC ANNOTATION ──────────────────────────────────────────────── -->
+              <div class="space-y-1 border-t border-sand-200 pt-4">
+                <p class="text-xs font-medium text-fg-muted uppercase tracking-wider">Skip-logic shape — Q1 (same for Q2–Q9)</p>
+                <ul class="text-xs text-fg-muted space-y-1 pl-1">
+                  <li><strong>Yes</strong> → Q1a (frequency follow-up) appears → answer frequency → advance to Q2 (occurrence)</li>
+                  <li><strong>No</strong> → Q1a is skipped entirely → advance directly to Q2 (occurrence)</li>
+                  <li>Score contribution: No = 0; Yes + Rarely = 1; Yes + Sometimes = 2; Yes + Often = 3</li>
+                  <li>9 occurrence gates × max 3 = HFIAS continuous score 0–27; scored at submit, not shown to patient</li>
+                </ul>
+              </div>
+
+              <!-- Pagination row -->
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline" disabled>Previous</button>
+                <button type="button" class="btn btn-secondary">Next</button>
+              </nav>
+
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Q2 shape note ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q2 of 9 — same shape</p>
+        <p class="text-xs text-fg-muted">Q2 through Q9 repeat the identical occurrence → frequency structure. Shown below at reduced fidelity to confirm the repeat shape without re-rendering all 9 question pairs.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">Household Food Insecurity Access Scale</h2>
+            <p class="assessment-header-meta">Question 2 of 9</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="9"
+              aria-valuenow="1"
+              aria-valuetext="Question 2 of 9"
+            >
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 2 of 9</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-8">
+
+              <!-- Occurrence: Q2 -->
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q2-occurrence">
+                <legend id="hfias-q2-occurrence" class="response-option-group-prompt">In the past four weeks (30 days), were you or any household member not able to eat the kinds of foods you preferred because of a lack of resources?</legend>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                    <span class="response-option-label">Yes</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                    <span class="response-option-label">No</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <!-- Frequency: Q2a (conditional) -->
+              <div class="space-y-3">
+                <p class="text-xs text-fg-muted italic">↑ Reveals when "Yes" is selected above. "No" advances to Q3.</p>
+                <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q2a-frequency">
+                  <legend id="hfias-q2a-frequency" class="response-option-group-prompt">How often did this happen?</legend>
+                  <div class="response-option-group-list">
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                      <span class="response-option-label">Rarely <span class="text-sm text-fg-muted font-normal">(once or twice in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                      <span class="response-option-label">Sometimes <span class="text-sm text-fg-muted font-normal">(three to ten times in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                      <span class="response-option-label">Often <span class="text-sm text-fg-muted font-normal">(more than ten times in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                  </div>
+                </fieldset>
+              </div>
+
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline">Previous</button>
+                <button type="button" class="btn btn-secondary">Next</button>
+              </nav>
+
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Q9 — last question + submit ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q9 of 9 — last item with submit region</p>
+        <p class="text-xs text-fg-muted">Final occurrence gate. After Q9a (if shown), the submit region replaces the "Next" button. Submit is disabled until all required answers are filled.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">Household Food Insecurity Access Scale</h2>
+            <p class="assessment-header-meta">Question 9 of 9</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="9"
+              aria-valuenow="8"
+              aria-valuetext="Question 9 of 9"
+            >
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 9 of 9</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-8">
+
+              <!-- Occurrence: Q9 -->
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q9-occurrence">
+                <legend id="hfias-q9-occurrence" class="response-option-group-prompt">In the past four weeks (30 days), did you or any household member go a whole day and night without eating anything because there was not enough food?</legend>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                    <span class="response-option-label">Yes</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                    <span class="response-option-label">No</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <!-- Frequency: Q9a (conditional) -->
+              <div class="space-y-3">
+                <p class="text-xs text-fg-muted italic">↑ Reveals when "Yes" is selected above. "No" advances to the submit region.</p>
+                <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q9a-frequency">
+                  <legend id="hfias-q9a-frequency" class="response-option-group-prompt">How often did this happen?</legend>
+                  <div class="response-option-group-list">
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                      <span class="response-option-label">Rarely <span class="text-sm text-fg-muted font-normal">(once or twice in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                      <span class="response-option-label">Sometimes <span class="text-sm text-fg-muted font-normal">(three to ten times in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                      <span class="response-option-label">Often <span class="text-sm text-fg-muted font-normal">(more than ten times in the past four weeks)</span></span>
+                      <span class="response-option-check"></span>
+                    </button>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Submit region (replaces Next on last item) -->
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline">Previous</button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  aria-describedby="submit-helper-hfias"
+                >Submit answers</button>
+              </nav>
+              <p id="submit-helper-hfias" class="text-xs text-fg-muted">All questions must be answered before submitting.</p>
+
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 5 · Submit confirmation (sensitive register) ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation · sensitive register</p>
+        <p class="text-xs text-fg-muted">Sensitive register adds the "talk to a person" call-out — HFIAS may surface acute food security need. Score (HFIAP category) is computed server-side and routes to the clinician surface only. No score is shown to the patient.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Thanks — your answers are in. Your care team will review them at your next session. If anything in there raised something you want to talk about sooner, tap "Talk to a person."</p>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-confirmation">
+            <div class="receipt">
+              <header class="receipt-header">
+                <h2 class="receipt-title">Household Food Insecurity Access Scale</h2>
+              </header>
+              <div class="receipt-body space-y-2">
+                <p class="text-base">Submitted just now.</p>
+                <p class="text-sm text-fg-muted">Your care team has it.</p>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Footer · instrument reference + scoring ─────────── -->
+    <footer class="space-y-4 border-t border-sand-200 pt-6 text-sm text-fg-muted">
+
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-wider font-medium">Q2–Q9 not rendered above in full</p>
+        <p>Q2 through Q9 follow the identical shape as Q1: a Yes/No occurrence question followed by a conditionally revealed three-option frequency follow-up (Rarely / Sometimes / Often). Q2 is rendered at reduced fidelity above to confirm the repeat shape. The eight remaining occurrence questions are listed here verbatim for completeness:</p>
+        <ul class="mt-2 space-y-1 list-disc pl-5">
+          <li><strong>Q2.</strong> "…were you or any household member not able to eat the kinds of foods you preferred because of a lack of resources?"</li>
+          <li><strong>Q3.</strong> "…did you or any household member have to eat a limited variety of foods due to a lack of resources?"</li>
+          <li><strong>Q4.</strong> "…did you or any household member have to eat some foods that you really did not want to eat because of a lack of resources to obtain other types of food?"</li>
+          <li><strong>Q5.</strong> "…did you or any household member have to eat a smaller meal than you felt you needed because there was not enough food?"</li>
+          <li><strong>Q6.</strong> "…did you or any household member have to eat fewer meals in a day because there was not enough food?"</li>
+          <li><strong>Q7.</strong> "…was there ever no food to eat of any kind in your household because of lack of resources to get food?"</li>
+          <li><strong>Q8.</strong> "…did you or any household member go to sleep at night hungry because there was not enough food?"</li>
+          <li><strong>Q9.</strong> "…did you or any household member go a whole day and night without eating anything because there was not enough food?"</li>
+        </ul>
+        <p class="mt-2">All questions share the same response options (occurrence: Yes / No; frequency: Rarely / Sometimes / Often) and the same skip rule (No skips frequency; Yes reveals it).</p>
+      </div>
+
+      <div class="space-y-1 border-t border-sand-200 pt-4">
+        <p class="text-xs uppercase tracking-wider font-medium">HFIAP scoring — server-side only, never shown to patient</p>
+        <p>The HFIAS continuous score (0–27) sums the nine frequency responses (No = 0; Rarely = 1; Sometimes = 2; Often = 3). The HFIAS Access Prevalence (HFIAP) categorical score is derived from the continuous score:</p>
+        <ul class="mt-2 space-y-1 list-disc pl-5">
+          <li><strong>Food Secure</strong> — Q1 = No; OR Q1 = Rarely AND Q2–Q9 all = No</li>
+          <li><strong>Mildly Food Insecure</strong> — Q1 = Sometimes or Often; OR Q2 or Q3 = Yes (any frequency); AND Q4–Q9 all = No</li>
+          <li><strong>Moderately Food Insecure</strong> — Q4 or Q5 or Q6 = Yes (any frequency); AND Q7–Q9 all = No</li>
+          <li><strong>Severely Food Insecure</strong> — Q7 = Yes (any frequency); OR Q8 = Yes; OR Q9 = Yes</li>
+        </ul>
+        <p class="mt-2">Categories are hierarchical — the household is classified at the most severe level that applies. Scoring runs at submit, routes to the clinician surface (cap-51), and is never surfaced to the patient.</p>
+      </div>
+
+      <div class="space-y-1 border-t border-sand-200 pt-4">
+        <p class="text-xs uppercase tracking-wider font-medium">Source</p>
+        <p>Coates, Jennifer, Anne Swindale, and Paula Bilinsky. 2007. <em>Household Food Insecurity Access Scale (HFIAS) for Measurement of Household Food Access: Indicator Guide (v. 3).</em> Washington, D.C.: FHI 360/FANTA. Instrument text sourced via SPIROMICS III clinical implementation (FIS form, v1.0, 2024-09-03). Full item set, scoring rules, and rendering notes: <code class="font-mono">Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/instrument-content-primary-sources.md</code> § HFIAS.</p>
+      </div>
+
+    </footer>
+  </main>
+</body>
+</html>
