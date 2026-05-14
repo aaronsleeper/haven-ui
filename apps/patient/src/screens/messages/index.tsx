@@ -134,6 +134,9 @@ export function Messages() {
                   <span className="material-symbols-outlined">info</span>
                 </div>
                 <div className="notif-item-content">
+                  <p className="text-xs font-semibold text-sand-500 mb-1">
+                    {lang === 'es' ? 'Recordatorio de cuidado' : 'Care reminder'}
+                  </p>
                   <p className="notif-item-description">{bodyFor(msg)}</p>
                   <time
                     className="notif-item-time"

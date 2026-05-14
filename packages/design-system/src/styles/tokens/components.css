@@ -5732,8 +5732,9 @@ canvas {
     @apply border-b-0;
 }
 
-.kv-table td:first-child {
-    @apply py-2 pr-4 font-semibold text-sand-600 dark:text-sand-300 text-sm;
+.kv-table td:first-child,
+.kv-table th:first-child {
+    @apply py-2 pr-4 font-semibold text-sand-600 dark:text-sand-300 text-sm text-left;
 }
 
 .kv-table td:last-child {

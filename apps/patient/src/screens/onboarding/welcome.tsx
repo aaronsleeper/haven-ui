@@ -22,8 +22,10 @@ export function Welcome() {
   });
 
   const passwordTooShort = touched.password && password.length > 0 && password.length < MIN_PASSWORD_LENGTH;
+  const passwordOk = password.length >= MIN_PASSWORD_LENGTH;
   const passwordsMismatch = touched.confirm && confirm.length > 0 && confirm !== password;
-  const canContinue = password.length >= MIN_PASSWORD_LENGTH && confirm === password;
+  const passwordsMatch = passwordOk && confirm.length > 0 && confirm === password;
+  const canContinue = passwordOk && confirm === password;
 
   function handleContinue() {
     if (!canContinue) return;
@@ -98,6 +100,17 @@ export function Welcome() {
                       : 'Too short — needs at least 8 characters'}
                   </p>
                 )}
+                {passwordOk && (
+                  <p className="flex items-center gap-1 text-xs text-success-600 mt-1">
+                    <span
+                      className="material-symbols-outlined text-base"
+                      aria-hidden="true"
+                    >
+                      check
+                    </span>
+                    {lang === 'es' ? 'Bien' : 'Looks good'}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -140,6 +153,17 @@ export function Welcome() {
                     {lang === 'es'
                       ? 'Las contraseñas no coinciden'
                       : "Passwords don't match"}
+                  </p>
+                )}
+                {passwordsMatch && (
+                  <p className="flex items-center gap-1 text-xs text-success-600 mt-1">
+                    <span
+                      className="material-symbols-outlined text-base"
+                      aria-hidden="true"
+                    >
+                      check
+                    </span>
+                    {lang === 'es' ? 'Coinciden' : 'Passwords match'}
                   </p>
                 )}
               </div>

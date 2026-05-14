@@ -100,37 +100,43 @@ export function Gad7Question() {
 
       {/* Progress + title */}
       <div className="px-6 pt-2">
-        <AssessmentHeader
-          title="Anxiety check-in"
-          meta={`Question ${currentIdx + 1} of ${GAD7_QUESTIONS.length}`}
-          progress={{
-            ariaLabel: `Assessment progress: question ${currentIdx + 1} of ${GAD7_QUESTIONS.length}`,
-            steps: progressSteps,
-          }}
-        />
+        <div className="max-w-2xl mx-auto">
+          <AssessmentHeader
+            title="Anxiety check-in"
+            meta={`Question ${currentIdx + 1} of ${GAD7_QUESTIONS.length}`}
+            progress={{
+              ariaLabel: `Assessment progress: question ${currentIdx + 1} of ${GAD7_QUESTIONS.length}`,
+              steps: progressSteps,
+            }}
+          />
+        </div>
       </div>
 
       {/* Response area */}
       <div className="flex-1 sm:flex-initial px-6 pt-6 pb-4">
-        <ResponseOptionGroup
-          promptId={`gad7-${current.id}-prompt`}
-          prompt={current.text}
-          options={options}
-          selectedIndex={selected}
-          onChange={handleSelect}
-        />
+        <div className="max-w-2xl mx-auto">
+          <ResponseOptionGroup
+            promptId={`gad7-${current.id}-prompt`}
+            prompt={current.text}
+            options={options}
+            selectedIndex={selected}
+            onChange={handleSelect}
+          />
+        </div>
       </div>
 
       {/* Footer — sticky on mobile, natural-flow on desktop */}
       <div className="sticky bottom-0 bg-white border-t border-sand-200 px-6 pt-4 pb-safe-4 sm:static sm:bg-transparent sm:border-t-0 sm:pb-4">
-        <button
-          type="button"
-          className="btn-primary btn-block"
-          onClick={handleContinue}
-          disabled={!answered}
-        >
-          {isLast ? 'Submit' : 'Next'}
-        </button>
+        <div className="max-w-2xl mx-auto">
+          <button
+            type="button"
+            className="btn-primary btn-block"
+            onClick={handleContinue}
+            disabled={!answered}
+          >
+            {isLast ? 'Submit' : 'Next'}
+          </button>
+        </div>
       </div>
     </div>
   );
