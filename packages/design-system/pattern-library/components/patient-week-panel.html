@@ -3,9 +3,9 @@
   name: Patient Week Panel
   category: Patient App — Tier 2 Composition
   file: patient-week-panel.html
-  classes: patient-week-panel, patient-week-panel-section, patient-week-panel-section-label (composes budget-meter, patient-delivery-status-card, appointment-card)
-  variants: idle-state (default — no active flow)
-  when-to-use: Idle-state right-pane composition for the patient app — when no chat-driven flow is active, this panel summarizes the week (budget + delivery + next appointment). Stacks three existing primitives: `budget-meter` (top), `patient-delivery-status-card` (middle), `appointment-card` (bottom).
+  classes: patient-week-panel, patient-week-panel-section, patient-week-panel-section-label
+  variants: idle-state (default — no active flow), active-order (post-submit; middle slot composes delivery-status-timeline)
+  when-to-use: Right-pane composition for the patient app. Section-wrapper — the wrapper provides vertical rhythm + optional eyebrow labels; the middle slot composes any time-bounded primitive (patient-delivery-status-card for idle-state, delivery-status-timeline for active-order, or any future time-bounded primitive that fits the rhythm). The PL demo documents the idle-state composition (budget → patient-delivery-status-card → appointment-card); consumers compose alternatives using the same `.patient-week-panel-section` wrappers.
   do-not-use-when: A flow is active (the relevant flow primitive should occupy the right-pane — patient-recall-list, chat-tag-group sheet, handoff-menu, crisis-resources-card, etc.). Mid-onboarding (different composition — onboarding-orientation-card + week-rhythm-card). Coordinator surface (different surface — coordinator's right-pane has its own composition).
   preline-required: no
   notes: Tier 2 composition — no new visual primitives, just a layout wrapper that establishes consistent vertical rhythm between the three sections. Each section has an optional eyebrow label. Renamed from at-a-glance-panel to slot with the patient-* family. Covers gap-doc R-30.
