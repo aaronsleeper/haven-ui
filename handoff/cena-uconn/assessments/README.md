@@ -21,14 +21,16 @@ A patient-facing questionnaire runner with four states (entry → preflight → 
 
 Each state is a separate HTML page in this folder. The wireframes specify dynamic transitions; the static HTML pages demonstrate the structural shape per state for hand-port purposes.
 
-### Runner template — abstract states inside the agentic shell
+### Runner template — abstract states inside the responsive app shell
 
-The 4 abstract template pages each wrap their state in the **agentic shell** (`layout-agentic-shell.html` from haven-ui PL). Each renders the production-equivalent surround:
+The 4 abstract template pages each wrap their state in the **responsive app shell** (`layout-app-shell-responsive.html` from haven-ui PL). The 4-expert UX panel verdict 2026-05-14 PM is in [`SHELL-DECISION.md`](./SHELL-DECISION.md) — switched from agentic-shell to responsive-app-shell because the assessment runner is a deterministic multi-step form with no live agent / chat surface during admin (chat would carry only a single pre-scripted framing sentence; agentic-shell's right-pane affordance is structurally inert here).
 
-- Left rail: `panel-nav` — patient nav (Home, Health check, Meals, Care, Messages) + pinned-bottom user menu
-- Center: `panel-chat` — agent messages + chips for the state, plus persistent talk-to-a-person trigger
-- Right: `panel-content` — the state's working surface (preflight card / questionnaire panel / confirmation receipt)
-- `panel-splitter` between panes (visual; drag-resize wiring deferred per PL `interactive-usage` note)
+Each page renders the production-equivalent surround:
+
+- Desktop sidebar (≥lg): `app-shell-sidebar` — patient nav (Home, Health check, Meals, Care, Messages) + pinned-bottom "Talk to a person" + user menu
+- Content region: `app-shell-content` — the state's working surface (any pre-flow agent framing renders inline above the working surface as `patient-chat-message`)
+- Mobile bottom nav (<lg): `app-shell-bottom-nav` — same 5 nav items rendered as horizontal tabs
+- Topbar omitted: patient app is English-only at pilot, no language toggle / no notifications surface for this slice
 
 The shell uses the sensitive register (HFIAS / WHOQOL framing) by default and renders representative copy per state. Instrument content is HFIAS Q3a (the only non-placeholder; primary-source via SPIROMICS III). For per-instrument content variation across the four states top-to-bottom, see the resolved instance pages in the next section.
 
@@ -41,7 +43,7 @@ The shell uses the sensitive register (HFIAS / WHOQOL framing) by default and re
 
 State 4 (save/resume) is a behavioral re-entry into State 3 with `assessment.lastUnansweredIndex`, not a separate page.
 
-Shell composition note: the panel-chat composer (`chat-input-area`) is omitted because the deterministic-first runner doesn't take free-text chat input — the chat thread renders agent messages + button chips. When agentic chat lands later, `chat-input-area` slots in below `chat-thread` per the PL agentic-shell spec; no rebuild of the right-pane runner is needed.
+Cross-slice shell-divergence note: assessments uses `layout-app-shell-responsive.html` (deterministic, single content area). Meals will use `layout-agentic-shell.html` (chat-primary; cart vs menu is a genuine two-surface problem). The sidebar nav-item family is identical in both shells (`.nav-header`, `.nav-section`, `.nav-item`), so the sidebar chrome reads as continuous; what changes is the content column's shape per the slice's interaction model. Documented in [`SHELL-DECISION.md`](./SHELL-DECISION.md).
 
 ### Resolved instances — single-page narrative demos with primary-source content
 

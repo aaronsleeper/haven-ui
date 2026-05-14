@@ -8,36 +8,37 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="../assets/haven.css" />
-  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
 </head>
 <body>
   <!--
     Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc
     State: in-progress (the working surface)
-    Chat is silent unless patient asks for help (mid-question-help variant of agent-message). Right pane composes:
-      assessment-header > progress-bar-pagination, questionnaire-panel { card-header (save-pause), card-body (response-option-group, pagination-row, submit-region when last item) }.
+    Per the flow doc § Step 3: chat is silent during administration. Mid-question help renders only on
+    patient-initiated help — not represented inline here (production wires via toast or transient banner).
+    Right pane composes: assessment-header > progress-bar-pagination, questionnaire-panel { card-header
+    (save-pause), card-body (response-option-group, pagination-row, submit-region when last item) }.
     questionnaire-panel is an app-local carve-out for slice 1 (per PL Steward verdict 2026-05-14 PM).
-    Shell: layout-agentic-shell.html — full 3-pane.
+    Shell: layout-app-shell-responsive.html. No chat pane (silent state); content fills the working area.
     Real-content example: HFIAS Q3a frequency follow-up. Source: SPIROMICS III v1.0 (2024-09-03), citing Coates/Swindale/Bilinsky 2007 verbatim.
   -->
-  <div class="app-shell app-shell--agentic">
-    <div class="agentic-shell">
+  <div class="app-shell">
+    <div class="app-shell-frame">
 
-      <nav class="panel-nav" aria-label="Primary">
+      <nav class="app-shell-sidebar" aria-label="Primary">
         <div class="nav-header">
           <div class="nav-logo">
             <img src="../assets/logo-cena.svg" alt="Cena Health" />
           </div>
         </div>
         <div class="nav-section">
-          <div class="nav-section-label"><span>This week</span></div>
-          <div class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></div>
-          <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></div>
-          <div class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></div>
-          <div class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></div>
-          <div class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></div>
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
         </div>
         <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
           <div class="nav-item">
             <div class="nav-avatar">MR</div>
             <span>Maria Rivera</span>
@@ -45,32 +46,9 @@
         </div>
       </nav>
 
-      <div class="panel-splitter" aria-hidden="true"></div>
+      <div class="app-shell-main">
 
-      <main class="panel-chat" aria-label="Conversation">
-        <div class="chat-thread">
-          <div class="chat-thread-inner">
-
-            <div class="patient-chat-message">
-              <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
-            </div>
-
-            <div class="patient-chat-message" aria-hidden="true" style="opacity: 0.4;">
-              <p><em>Example mid-question help (renders only on patient ask):</em> "Often" here means more than once a week. Pick whatever fits best.</p>
-            </div>
-
-            <div class="chat-handoff-trigger is-header">
-              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-            </div>
-
-          </div>
-        </div>
-      </main>
-
-      <div class="panel-splitter" aria-hidden="true"></div>
-
-      <aside class="panel-content" aria-label="Working surface">
-        <div class="content-body">
+        <main class="app-shell-content p-6 lg:p-10 space-y-6" aria-label="Health check">
 
           <header class="assessment-header">
             <h2 class="assessment-header-title">Food security at home</h2>
@@ -95,7 +73,7 @@
             </div>
           </header>
 
-          <article class="card mt-6">
+          <article class="card">
             <div class="card-header flex items-center justify-between">
               <span class="text-sm font-medium">Question 3 of 9</span>
               <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
@@ -144,9 +122,19 @@
             </div>
           </article>
 
-        </div>
-      </aside>
+        </main>
 
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Health</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Meals</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i><span>Care</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-message" aria-hidden="true"></i><span>Messages</span></a>
+          </nav>
+        </div>
+
+      </div>
     </div>
   </div>
 </body>

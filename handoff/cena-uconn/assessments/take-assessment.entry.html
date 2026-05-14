@@ -8,32 +8,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="../assets/haven.css" />
-  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
 </head>
 <body>
   <!--
     Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-1-entry.mdoc
     State: assessment-due-first-pass | assessment-due-resume
-    Shell: layout-agentic-shell.html — desktop 3-pane (panel-nav | panel-chat | panel-content). Right pane primes the preflight card on entry.
+    Shell: layout-app-shell-responsive.html (NOT layout-agentic-shell — see SHELL-DECISION.md).
+    Reasoning: deterministic-first runner; no live agent / chat surface during admin. The agent
+    framing sentence + start chip render inline above the preflight card. "Talk to a person"
+    pinned to sidebar footer (always-reachable; doesn't compete with content controls).
   -->
-  <div class="app-shell app-shell--agentic">
-    <div class="agentic-shell">
+  <div class="app-shell">
+    <div class="app-shell-frame">
 
-      <nav class="panel-nav" aria-label="Primary">
+      <nav class="app-shell-sidebar" aria-label="Primary">
         <div class="nav-header">
           <div class="nav-logo">
             <img src="../assets/logo-cena.svg" alt="Cena Health" />
           </div>
         </div>
         <div class="nav-section">
-          <div class="nav-section-label"><span>This week</span></div>
-          <div class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></div>
-          <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></div>
-          <div class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></div>
-          <div class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></div>
-          <div class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></div>
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
         </div>
         <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
           <div class="nav-item">
             <div class="nav-avatar">MR</div>
             <span>Maria Rivera</span>
@@ -41,32 +43,14 @@
         </div>
       </nav>
 
-      <div class="panel-splitter" aria-hidden="true"></div>
+      <div class="app-shell-main">
 
-      <main class="panel-chat" aria-label="Conversation">
-        <div class="chat-thread">
-          <div class="chat-thread-inner">
+        <main class="app-shell-content p-6 lg:p-10 space-y-6" aria-label="Health check">
 
-            <div class="patient-chat-message">
-              <p>Hi <strong>Maria</strong>. You're due for a short questionnaire about <strong>food security at home</strong>. It usually takes about <strong>5</strong> minutes. Want to start now or come back to it?</p>
-            </div>
-
-            <div class="chat-button-row">
-              <button type="button" class="btn btn-secondary">Start the questionnaire</button>
-            </div>
-
-            <div class="chat-handoff-trigger is-header">
-              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-            </div>
-
+          <div class="patient-chat-message">
+            <p>Hi <strong>Maria</strong>. You're due for a short questionnaire about <strong>food security at home</strong>. It usually takes about <strong>5</strong> minutes. Want to start now or come back to it?</p>
           </div>
-        </div>
-      </main>
 
-      <div class="panel-splitter" aria-hidden="true"></div>
-
-      <aside class="panel-content" aria-label="Working surface">
-        <div class="content-body">
           <article class="assessment-preflight-card">
             <div class="assessment-preflight-card-body">
               <h2 class="assessment-preflight-card-title">Food security at home</h2>
@@ -82,9 +66,19 @@
               </div>
             </div>
           </article>
-        </div>
-      </aside>
+        </main>
 
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Health</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Meals</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i><span>Care</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-message" aria-hidden="true"></i><span>Messages</span></a>
+          </nav>
+        </div>
+
+      </div>
     </div>
   </div>
 </body>
