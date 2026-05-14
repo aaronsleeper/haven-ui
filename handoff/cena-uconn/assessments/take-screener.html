@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take screener — Pre-enrollment · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Pre-enrollment screener — single-page narrative demo of the runner flow with REAL content.
+
+    Distinct from the 4 take-assessment.*.html state pages (which show the abstract runner
+    template with sensitive register + [VERIFY]-tagged instrument content). This page walks
+    the screener register top-to-bottom so Andrey can see one fully-resolved instance.
+
+    Source content: screener-pre-enrollment-content-draft.md (Aaron-approved 2026-05-14 PM).
+    Wireframes: take-assessment.step-{1,2,3,5}.mdoc; this page is a narrative composition
+    of those states for one instance, NOT a replacement for the per-state spec.
+
+    The runner in production flips one state at a time via JS state machine + per-item
+    early-exit predicates. This page renders all states stacked for hand-port reference.
+  -->
+  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+
+    <header class="space-y-2 border-b border-sand-200 pb-6">
+      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · screener instance</p>
+      <h1 class="text-3xl font-semibold tracking-tight">Pre-enrollment screener</h1>
+      <p class="text-base text-fg-muted max-w-3xl">A demo of the runner with real screener content (eligible / not-eligible / refer-to-team rule-based outcome). For the abstract runner template, see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
+    </header>
+
+    <!-- ─────────── Step 1 · Entry ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Hi <strong>[firstName]</strong>. We've got a few quick questions to see if Cena's program might be a good fit. It usually takes about <strong>3</strong> minutes. Want to start?</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">Start the questionnaire</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">Pre-enrollment screener</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">6 questions</li>
+                <li class="assessment-preflight-card-meta-item">About 3 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers will be reviewed by someone on the program team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">Start the questionnaire</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 2 · Preflight ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (screener register)</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>A few quick questions to see if this program is a good fit for you. This isn't enrollment yet — it's just a check. Your answers help the team understand your situation.</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">I'm ready</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">Pre-enrollment screener</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">6 questions</li>
+                <li class="assessment-preflight-card-meta-item">About 3 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers will be reviewed by someone on the program team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">I'm ready</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Question Administration (Q1, the eligibility gate) ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q1 of 6</p>
+        <p class="text-xs text-fg-muted">Q1 declares early-exit predicates: "No" → not-eligible, "I'd rather not say" → refer-to-team. Other questions follow with no early-exit.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">Pre-enrollment screener</h2>
+            <p class="assessment-header-meta">Question 1 of 6</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="6"
+              aria-valuenow="0"
+              aria-valuetext="Question 1 of 6"
+            >
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 1 of 6</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-6">
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="screener-q1">
+                <legend id="screener-q1" class="response-option-group-prompt">Are you currently being treated for HIV?</legend>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                    <span class="response-option-label">Yes</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                    <span class="response-option-label">No</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                    <span class="response-option-label">I'd rather not say</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline" disabled>Previous</button>
+                <button type="button" class="btn btn-secondary">Next</button>
+              </nav>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 5 · Submit confirmation (3 outcome variants) ─────────── -->
+    <section class="space-y-6">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation · 3 outcome variants</p>
+        <p class="text-xs text-fg-muted">Per CC-02 panel verdict + Aaron 2026-05-14 PM: copy varies by outcome path without naming the classification (no-score invariant preserved).</p>
+      </header>
+
+      <!-- Variant: eligible -->
+      <div class="space-y-2">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Variant 1 · eligible</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+          <div class="space-y-3" aria-label="Agent chat">
+            <div class="patient-chat-message">
+              <p>Thanks — that's everything we needed. Someone from the team will be in touch to get you started.</p>
+            </div>
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+          </div>
+          <aside aria-label="Working surface">
+            <article class="assessment-confirmation">
+              <div class="receipt">
+                <header class="receipt-header">
+                  <h2 class="receipt-title">Pre-enrollment screener</h2>
+                </header>
+                <div class="receipt-body space-y-2">
+                  <p class="text-base">Submitted just now.</p>
+                  <p class="text-sm text-fg-muted">The program team has it.</p>
+                </div>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Variant: not-eligible -->
+      <div class="space-y-2 border-t border-sand-200 pt-6">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Variant 2 · not-eligible</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+          <div class="space-y-3" aria-label="Agent chat">
+            <div class="patient-chat-message">
+              <p>Thanks for taking the time. Based on your answers, the program may not be the right fit right now — someone from our team will follow up to share other options that might help.</p>
+            </div>
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+          </div>
+          <aside aria-label="Working surface">
+            <article class="assessment-confirmation">
+              <div class="receipt">
+                <header class="receipt-header">
+                  <h2 class="receipt-title">Pre-enrollment screener</h2>
+                </header>
+                <div class="receipt-body space-y-2">
+                  <p class="text-base">Submitted just now.</p>
+                  <p class="text-sm text-fg-muted">The program team has it.</p>
+                </div>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Variant: refer-to-team -->
+      <div class="space-y-2 border-t border-sand-200 pt-6">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Variant 3 · refer-to-team</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+          <div class="space-y-3" aria-label="Agent chat">
+            <div class="patient-chat-message">
+              <p>Thanks — a member of the team will review your answers and reach out to talk through next steps.</p>
+            </div>
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+          </div>
+          <aside aria-label="Working surface">
+            <article class="assessment-confirmation">
+              <div class="receipt">
+                <header class="receipt-header">
+                  <h2 class="receipt-title">Pre-enrollment screener</h2>
+                </header>
+                <div class="receipt-body space-y-2">
+                  <p class="text-base">Submitted just now.</p>
+                  <p class="text-sm text-fg-muted">The program team has it.</p>
+                </div>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── Footer · remaining 5 questions reference ─────────── -->
+    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-fg-muted">
+      <p><strong>Q2–Q6 not rendered above</strong> — they follow the same shape as Q1 with no early-exit. Full content + outcome routing logic in <code class="font-mono">Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/screener-pre-enrollment-content-draft.md</code>.</p>
+      <p><strong>Outcome routing</strong> — rule-based, not scored. Default to refer-to-team for ambiguity. See the screener content draft § Outcome Routing for the full rule table.</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -21,6 +21,8 @@ A patient-facing questionnaire runner with four states (entry → preflight → 
 
 Each state is a separate HTML page in this folder. The wireframes specify dynamic transitions; the static HTML pages demonstrate the structural shape per state for hand-port purposes.
 
+### Runner template — abstract states (sensitive register; instrument content [VERIFY]-gated)
+
 | State | File | Wireframe | Purpose |
 |---|---|---|---|
 | 1. Entry | [`take-assessment.entry.html`](./take-assessment.entry.html) | [`take-assessment.step-1-entry.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-1-entry.mdoc) | Agent surfaces the due assessment at greeting; right pane primes preflight |
@@ -29,6 +31,12 @@ Each state is a separate HTML page in this folder. The wireframes specify dynami
 | 5. Confirm | [`take-assessment.confirm.html`](./take-assessment.confirm.html) | [`take-assessment.step-5-submit-confirm.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-5-submit-confirm.mdoc) | Submit acknowledgement; per-register confirmation; no score shown |
 
 State 4 (save/resume) is a behavioral re-entry into State 3 with `assessment.lastUnansweredIndex`, not a separate page.
+
+### Resolved instance — pre-enrollment screener (real content)
+
+| File | Purpose |
+|---|---|
+| [`take-screener.html`](./take-screener.html) | Single-page narrative demo of the 4 runner states with real screener content (Aaron-approved 2026-05-14 PM). Demonstrates the screener register specifically: preflight + confirmation copy variants, Q1 eligibility-gate with early-exit predicate, and 3 outcome-path-differentiated confirmation copies (eligible / not-eligible / refer-to-team). Source content: [`screener-pre-enrollment-content-draft.md`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/screener-pre-enrollment-content-draft.md). |
 
 ## State transitions
 
