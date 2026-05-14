@@ -2,6 +2,8 @@
 
 Plug-and-play patient-facing content areas for the UConn pilot, designed for hand-port into Cena's Angular codebase by Andrey.
 
+> **AI coding agents:** read [`AGENTS.md`](./AGENTS.md) before touching files in this folder. Each slice subfolder has its own `AGENTS.md` with slice-specific conventions, hard invariants, and pointers to the canonical spec. The artifact vocabulary and porting completeness criteria live there.
+
 ## What this folder is
 
 Self-contained HTML composites that render the patient-facing surfaces of the UConn pilot's contracted features (assessments, meal ordering, cart). Each composite is a content area, not a route — Cena's Angular shell wraps these into the agentic chat experience. Composites consume the haven-ui pattern library directly; the HTML in this folder demonstrates structure, copy, validators, and JS contracts that Andrey ports to Angular templates + services.
