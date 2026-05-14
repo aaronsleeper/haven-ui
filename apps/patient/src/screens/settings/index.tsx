@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../lib/useLanguage';
 import type { Language } from '../../lib/useLanguage';
-import { demoPatient, PENDING, patientFullName } from '../../lib/demo-patient';
+import { demoCareTeam, demoPatient, PENDING, patientFullName } from '../../lib/demo-patient';
 
 // Demo notification prefs (in production: loaded from user profile API)
 interface NotifPrefs {
@@ -38,14 +38,14 @@ export function Settings() {
   return (
     <div className="pb-safe-8">
       {/* Header */}
-      <div className="p-4">
+      <div className="px-4 pt-4 pb-6">
         <h1 className="page-title">
           {lang === 'es' ? 'Ajustes' : 'Settings'}
         </h1>
-        <p className="text-sm text-sand-600 mt-1">
+        <p className="text-sm text-sand-600 mt-0.5">
           {lang === 'es'
-            ? 'Administre su idioma, notificaciones y cuenta.'
-            : 'Manage your language, notifications, and account.'}
+            ? 'Actualice su idioma, lo que le enviamos y cómo contactarle.'
+            : 'Update your language, what we send you, and how to reach you.'}
         </p>
       </div>
 
@@ -56,39 +56,37 @@ export function Settings() {
             <h2 className="card-title">{lang === 'es' ? 'Idioma' : 'Language'}</h2>
           </div>
           <div className="card-body">
-            <div className="field-row field-row-horizontal">
+            <div className="field-row">
               <label className="field-label">
                 {lang === 'es' ? 'Idioma de la app' : 'App language'}
               </label>
-              <div className="field-body">
-                <div
-                  className="segmented-control"
-                  role="group"
-                  aria-label={lang === 'es' ? 'Idioma' : 'Language'}
+              <div
+                className="segmented-control"
+                role="group"
+                aria-label={lang === 'es' ? 'Idioma' : 'Language'}
+              >
+                <button
+                  type="button"
+                  className={`segmented-control-btn${lang === 'en' ? ' active' : ''}`}
+                  onClick={() => handleLangChange('en')}
+                  aria-pressed={lang === 'en'}
                 >
-                  <button
-                    type="button"
-                    className={`segmented-control-btn${lang === 'en' ? ' active' : ''}`}
-                    onClick={() => handleLangChange('en')}
-                    aria-pressed={lang === 'en'}
-                  >
-                    English
-                  </button>
-                  <button
-                    type="button"
-                    className={`segmented-control-btn${lang === 'es' ? ' active' : ''}`}
-                    onClick={() => handleLangChange('es')}
-                    aria-pressed={lang === 'es'}
-                  >
-                    Español
-                  </button>
-                </div>
-                <p className="field-help mt-2">
-                  {lang === 'es'
-                    ? 'Sus mensajes y revisiones usarán este idioma.'
-                    : 'Your messages and check-ins will use this language.'}
-                </p>
+                  English
+                </button>
+                <button
+                  type="button"
+                  className={`segmented-control-btn${lang === 'es' ? ' active' : ''}`}
+                  onClick={() => handleLangChange('es')}
+                  aria-pressed={lang === 'es'}
+                >
+                  Español
+                </button>
               </div>
+              <p className="field-help">
+                {lang === 'es'
+                  ? 'Sus mensajes y revisiones usarán este idioma.'
+                  : 'Your messages and check-ins will use this language.'}
+              </p>
             </div>
           </div>
         </div>
@@ -103,15 +101,15 @@ export function Settings() {
           <div className="card-body">
             <div className="space-y-4">
               {/* Push notifications */}
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="toggle-label">
                     {lang === 'es' ? 'Notificaciones push' : 'Push notifications'}
                   </div>
                   <div className="toggle-description">
                     {lang === 'es'
-                      ? 'Le avisaremos cuando algo lo necesite.'
-                      : "We'll let you know when something needs you."}
+                      ? 'Un aviso rápido cuando lleguen sus comidas o su equipo le responda.'
+                      : 'A quick alert when your meals arrive or your team writes back.'}
                   </div>
                 </div>
                 <label className="toggle toggle-success shrink-0">
@@ -126,15 +124,15 @@ export function Settings() {
                 </label>
               </div>
               {/* Delivery updates */}
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="toggle-label">
                     {lang === 'es' ? 'Actualizaciones de entrega' : 'Delivery updates'}
                   </div>
                   <div className="toggle-description">
                     {lang === 'es'
-                      ? 'Cuando sus comidas van en camino.'
-                      : 'When your meals are on the way.'}
+                      ? 'Cuando sus comidas salen de la cocina y cuando llegan.'
+                      : 'When your meals leave the kitchen and when they arrive.'}
                   </div>
                 </div>
                 <label className="toggle toggle-success shrink-0">
@@ -149,15 +147,15 @@ export function Settings() {
                 </label>
               </div>
               {/* Check-in reminders */}
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="toggle-label">
                     {lang === 'es' ? 'Recordatorios de revisión' : 'Check-in reminders'}
                   </div>
                   <div className="toggle-description">
                     {lang === 'es'
-                      ? 'Recordatorios semanales para sus revisiones.'
-                      : 'Weekly nudges for your health check-ins.'}
+                      ? 'Un recordatorio semanal para contarnos cómo se siente.'
+                      : "A weekly reminder to tell us how you're feeling."}
                   </div>
                 </div>
                 <label className="toggle toggle-success shrink-0">
@@ -191,11 +189,13 @@ export function Settings() {
             <div className="divider" />
             <p className="text-sm text-sand-600 mb-2">
               {lang === 'es'
-                ? 'Para actualizar sus datos, envíe un mensaje a su coordinadora.'
-                : 'To update your details, message your care coordinator.'}
+                ? `Para cambiar su nombre, correo o teléfono, envíele un mensaje a ${demoCareTeam.coordinator.shortName}.`
+                : `To change your name, email, or phone, send ${demoCareTeam.coordinator.shortName} a message.`}
               {' '}
               <Link to="/messages" className="text-link">
-                {lang === 'es' ? 'Abrir mensajes' : 'Open Messages'}
+                {lang === 'es'
+                  ? `Enviar mensaje a ${demoCareTeam.coordinator.shortName}`
+                  : `Message ${demoCareTeam.coordinator.shortName}`}
               </Link>
             </p>
             <button
@@ -210,11 +210,10 @@ export function Settings() {
 
         {/* Footer */}
         <p className="text-xs text-sand-600 text-center pb-4">
-          Haven · v1.0 ·{' '}
           <a href={PENDING.privacyUrl.value} className="text-link">
             {lang === 'es' ? 'Privacidad' : 'Privacy'}
-          </a>{' '}
-          ·{' '}
+          </a>
+          {' · '}
           <a href={PENDING.termsUrl.value} className="text-link">
             {lang === 'es' ? 'Términos' : 'Terms'}
           </a>

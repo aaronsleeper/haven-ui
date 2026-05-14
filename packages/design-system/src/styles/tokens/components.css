@@ -10224,6 +10224,12 @@ a.list-group-item-action {
     width: 1.25rem;
     @apply text-center;
     font-size: 1.125rem;
+    /* Material Symbols ship with a baseline offset corrected via the global
+       vertical-align:-0.15em rule meant for INLINE contexts. In flex parents
+       (which .nav-item is), vertical-align is ignored and the glyph renders
+       slightly below the adjacent text's visual center. Compensate with a
+       small transform so icon + label centers visually align. */
+    transform: translateY(-0.075em);
 }
 
 /* ============================================================
@@ -10579,9 +10585,26 @@ a.list-group-item-action {
 
 /* MealOptionCard — image + content + price + action.
    Agentic browse + select for chat-pane meal-ordering.
-   Distinct from .meal-delivery-card (idle-pane delivery + swap). */
+   Distinct from .meal-delivery-card (idle-pane delivery + swap).
+
+   Card chrome (border + white bg + radius + padding) is part of the primitive
+   so each card reads as a discrete unit per gestalt principles — the previous
+   chromeless rule made stacked cards run together visually (post-build patient
+   review 2026-05-14). Consumers needing a chromeless variant can opt out via a
+   future `.is-bare` modifier if a real use case emerges. */
 .meal-option-card {
     @apply flex gap-4 items-start;
+    @apply border border-sand-200 bg-white rounded-md p-3;
+    @apply dark:bg-sand-900 dark:border-sand-700;
+}
+
+/* In-cart visual state — patient sees at a glance which menu items are part
+   of the order without having to read the stepper count. Soft primary-50
+   tint + primary-200 border. Composes additively with .is-recommended (the
+   recommended badge still pins via `order: -1` in tags row). */
+.meal-option-card.is-in-cart {
+    @apply border-primary-300 bg-primary-50;
+    @apply dark:border-primary-700 dark:bg-primary-950;
 }
 
 .meal-option-card-image {

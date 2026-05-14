@@ -212,3 +212,175 @@ export const demoMessageThread = {
 // demo session. Used by Dashboard (to clear "New" pill) and Messages (to show
 // the reply bubble in the thread).
 export const MESSAGE_REPLY_KEY = 'cena-demo-message-replied';
+
+// ----------------------------------------------------------------------------
+// Meal ordering — this week's menu + pre-selected cart
+//
+// Canonical source for the /meals screen per the meal-ordering wireframes
+// (`Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/meal-ordering.*.mdoc`).
+//
+// Shape: 14 meal options published for the week (per cap-17 May 6 decision —
+// "show all 14 meals"). Pre-selected cart simulates Maria's state-read in
+// Step 2 of the flow: "I started a list based on what worked for you last
+// time." Patient can edit (qty up/down, add/remove) until submit.
+//
+// Budget cap is $200/week per UConn contract Ex B.B.a.ii (cap-18 / cap-40).
+// ----------------------------------------------------------------------------
+
+export const BUDGET_CAP = 200;
+
+export type MealTagVariant = 'info' | 'secondary' | 'neutral';
+
+export interface MealTag {
+  variant: MealTagVariant;
+  label: { en: string; es: string };
+}
+
+export interface MealOption {
+  id: string;
+  name: { en: string; es: string };
+  description: { en: string; es: string };
+  /** Patient-facing price per portion (Cena markup already applied — kitchen cost is invisible). */
+  price: number;
+  tags: MealTag[];
+  /** Picked-for-you per care-plan + history. Renders the leading `badge-primary` recommended badge. */
+  recommended: boolean;
+}
+
+const T = (en: string, es: string, variant: MealTagVariant = 'info'): MealTag => ({
+  variant,
+  label: { en, es },
+});
+
+export const THIS_WEEK_MENU: MealOption[] = [
+  {
+    id: 'pollo-verde',
+    name: { en: 'Chicken Verde', es: 'Pollo Verde' },
+    description: { en: 'Tomatillo-braised chicken with cilantro rice and pinto beans.', es: 'Pollo en salsa de tomatillo con arroz al cilantro y frijoles pintos.' },
+    price: 12.5,
+    tags: [T('Low sodium', 'Bajo en sodio'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: true,
+  },
+  {
+    id: 'sopa-lentejas',
+    name: { en: 'Sopa de Lentejas con Verduras', es: 'Sopa de Lentejas con Verduras' },
+    description: { en: 'Lentil soup with carrots, celery, and warm spices.', es: 'Sopa de lentejas con zanahoria, apio y especias suaves.' },
+    price: 11.0,
+    tags: [T('Low sodium', 'Bajo en sodio'), T('Vegetarian', 'Vegetariano', 'neutral'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: true,
+  },
+  {
+    id: 'salmon-limon',
+    name: { en: 'Lemon Salmon', es: 'Salmón al limón' },
+    description: { en: 'Roasted salmon with quinoa and lemon-herb broccoli.', es: 'Salmón al horno con quinoa y brócoli al limón y hierbas.' },
+    price: 14.5,
+    tags: [T('Heart-healthy', 'Saludable para el corazón'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: true,
+  },
+  {
+    id: 'pollo-horno',
+    name: { en: 'Pollo al Horno con Calabaza', es: 'Pollo al Horno con Calabaza' },
+    description: { en: 'Roasted chicken thighs with butternut squash and brown rice.', es: 'Muslos de pollo al horno con calabaza y arroz integral.' },
+    price: 12.5,
+    tags: [T('Low sodium', 'Bajo en sodio'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: true,
+  },
+  {
+    id: 'turkey-chili',
+    name: { en: 'Turkey Chili', es: 'Chili de pavo' },
+    description: { en: 'Slow-cooked ground turkey, black beans, and tomatoes over rice.', es: 'Pavo molido cocinado lentamente con frijoles negros y tomate sobre arroz.' },
+    price: 11.5,
+    tags: [T('High protein', 'Alto en proteína'), T('Low sodium', 'Bajo en sodio'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: true,
+  },
+  {
+    id: 'tofu-noodle',
+    name: { en: 'Tofu Noodle Bowl', es: 'Tazón de Fideos con Tofu' },
+    description: { en: 'Soba noodles with ginger-soy tofu, edamame, and scallions.', es: 'Fideos soba con tofu al jengibre y soya, edamame y cebolla verde.' },
+    price: 12.0,
+    tags: [T('Vegetarian', 'Vegetariano', 'neutral'), T('High protein', 'Alto en proteína')],
+    recommended: false,
+  },
+  {
+    id: 'arroz-pollo',
+    name: { en: 'Arroz con Pollo', es: 'Arroz con Pollo' },
+    description: { en: 'Saffron-tinted rice with chicken, peas, and bell peppers.', es: 'Arroz con azafrán, pollo, guisantes y pimientos.' },
+    price: 12.0,
+    tags: [T('Low sodium', 'Bajo en sodio'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: true,
+  },
+  {
+    id: 'pescado-veracruz',
+    name: { en: 'Pescado a la Veracruzana', es: 'Pescado a la Veracruzana' },
+    description: { en: 'White fish in tomato-olive sauce with rice and plantains.', es: 'Pescado blanco en salsa de tomate y aceitunas con arroz y plátanos.' },
+    price: 13.5,
+    tags: [T('Heart-healthy', 'Saludable para el corazón'), T('Low sodium', 'Bajo en sodio')],
+    recommended: false,
+  },
+  {
+    id: 'frijoles-arroz',
+    name: { en: 'Frijoles Negros con Arroz', es: 'Frijoles Negros con Arroz' },
+    description: { en: 'Black beans with brown rice, sofrito, and avocado.', es: 'Frijoles negros con arroz integral, sofrito y aguacate.' },
+    price: 10.5,
+    tags: [T('Vegetarian', 'Vegetariano', 'neutral'), T('High protein', 'Alto en proteína'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: false,
+  },
+  {
+    id: 'ensalada-pollo',
+    name: { en: 'Grilled Chicken Salad', es: 'Ensalada de Pollo a la Parrilla' },
+    description: { en: 'Mixed greens with grilled chicken, tomato, cucumber, and a lime vinaigrette.', es: 'Mezcla de verdes con pollo a la parrilla, tomate, pepino y vinagreta de limón.' },
+    price: 11.0,
+    tags: [T('Low sodium', 'Bajo en sodio'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: false,
+  },
+  {
+    id: 'sopa-pollo',
+    name: { en: 'Sopa de Pollo', es: 'Sopa de Pollo' },
+    description: { en: 'Chicken soup with carrots, celery, and rice — gentle on digestion.', es: 'Sopa de pollo con zanahoria, apio y arroz — suave para la digestión.' },
+    price: 10.5,
+    tags: [T('Low sodium', 'Bajo en sodio')],
+    recommended: false,
+  },
+  {
+    id: 'pavo-arroz',
+    name: { en: 'Ground Turkey & Rice Bowl', es: 'Tazón de Pavo Molido con Arroz' },
+    description: { en: 'Seasoned ground turkey over brown rice with sautéed peppers.', es: 'Pavo molido sazonado sobre arroz integral con pimientos salteados.' },
+    price: 11.5,
+    tags: [T('High protein', 'Alto en proteína'), T('Diabetic-friendly', 'Para diabetes', 'secondary')],
+    recommended: false,
+  },
+  {
+    id: 'salmon-yuca',
+    name: { en: 'Salmon with Yuca', es: 'Salmón con Yuca' },
+    description: { en: 'Pan-seared salmon, boiled yuca with mojo sauce, and side greens.', es: 'Salmón a la sartén con yuca hervida y mojo, y verduras.' },
+    price: 14.0,
+    tags: [T('Heart-healthy', 'Saludable para el corazón')],
+    recommended: false,
+  },
+  {
+    id: 'pollo-curry',
+    name: { en: 'Coconut Curry Chicken', es: 'Pollo al Curry de Coco' },
+    description: { en: 'Mildly spiced chicken in coconut milk with jasmine rice.', es: 'Pollo en leche de coco con un toque de curry y arroz jazmín.' },
+    price: 12.5,
+    tags: [T('Low sodium', 'Bajo en sodio')],
+    recommended: false,
+  },
+];
+
+/**
+ * Pre-selected items the agent prepared for Maria this week, simulating the
+ * Step-2 state-read: "I started a list based on what worked for you last time."
+ * Patient enters /meals with this cart populated; can edit before submit.
+ */
+export const PRE_SELECTED_CART: Array<{ mealId: string; qty: number }> = [
+  { mealId: 'pollo-verde', qty: 1 },
+  { mealId: 'sopa-lentejas', qty: 2 },
+  { mealId: 'salmon-limon', qty: 1 },
+  { mealId: 'pollo-horno', qty: 1 },
+  { mealId: 'turkey-chili', qty: 1 },
+  { mealId: 'arroz-pollo', qty: 1 },
+];
+
+/** Localstorage key for the demo's persisted cart state — survives reloads
+ *  so Dieckhaus can navigate away and back without losing the simulated state. */
+export const MEAL_ORDER_STATE_KEY = 'cena-demo-meal-order';
