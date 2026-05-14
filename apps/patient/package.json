@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf dist .turbo",
+    "pending": "tsx scripts/list-pending.ts"
   },
   "dependencies": {
     "@haven/design-system": "workspace:*",
@@ -24,6 +25,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.0",
+    "tsx": "^4.21.0",
     "vite": "^6.0.0"
   }
 }

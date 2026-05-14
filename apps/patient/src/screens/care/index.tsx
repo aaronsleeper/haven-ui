@@ -1,25 +1,20 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../lib/useLanguage';
-
-// Demo data for v1
-const DEMO_CARE_PLAN_GOALS = {
-  en: [
-    'Eat balanced meals to keep your blood sugar steady.',
-    'Watch your salt intake.',
-    "Check in once a week so your team knows how you're doing.",
-  ],
-  es: [
-    'Comer comidas balanceadas para mantener el azúcar estable.',
-    'Cuidar la sal en sus comidas.',
-    'Revisar una vez a la semana para que su equipo sepa cómo va.',
-  ],
-};
+import {
+  carePlanGoals,
+  carePlanSectionTitle,
+  demoCareTeam,
+  demoDates,
+} from '../../lib/demo-patient';
 
 const DEMO_APPOINTMENTS = [
   {
     id: 'appt-1',
-    title: { en: 'Nutrition check-in with Dr. Soto', es: 'Revisión con Dr. Soto' },
-    dateTime: { en: 'Thursday, May 28 · 10:00 AM', es: 'Jueves, 28 de mayo · 10:00 AM' },
+    title: {
+      en: `Nutrition check-in with ${demoCareTeam.clinicalLead.name}`,
+      es: `Revisión de nutrición con ${demoCareTeam.clinicalLead.name}`,
+    },
+    dateTime: demoDates.nextAppointmentDateTime,
   },
 ];
 
@@ -33,13 +28,13 @@ interface DeliveryItem {
 const DEMO_DELIVERIES: DeliveryItem[] = [
   {
     id: 'del-1',
-    date: { en: 'Wednesday, Apr 30', es: 'Miércoles, 30 de abril' },
+    date: demoDates.recentDelivery1,
     status: 'delivered',
     statusLabel: { en: 'Delivered', es: 'Entregado' },
   },
   {
     id: 'del-2',
-    date: { en: 'Wednesday, Apr 23', es: 'Miércoles, 23 de abril' },
+    date: demoDates.recentDelivery2,
     status: 'delivered',
     statusLabel: { en: 'Delivered', es: 'Entregado' },
   },
@@ -63,16 +58,14 @@ export function Care() {
       </div>
 
       <div className="px-4 space-y-4">
-        {/* Section 1 — Care plan */}
+        {/* Section 1 — Nutrition & wellness plan */}
         <div className="card">
           <div className="card-header">
-            <h2 className="card-title">
-              {lang === 'es' ? 'Su plan de cuidado' : 'Your care plan'}
-            </h2>
+            <h2 className="card-title">{carePlanSectionTitle[lang]}</h2>
           </div>
           <div className="card-body">
             <ul className="space-y-2">
-              {DEMO_CARE_PLAN_GOALS[lang].map((goal, i) => (
+              {carePlanGoals[lang].map((goal, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-sand-800">
                   <span
                     className="material-symbols-outlined text-primary-600 mt-0.5 shrink-0"
@@ -115,7 +108,6 @@ export function Care() {
                       <div className="list-group-item-title">{appt.title[lang]}</div>
                       <div className="list-group-item-description">{appt.dateTime[lang]}</div>
                     </div>
-                    {/* Details link deferred to v1.1 */}
                   </li>
                 ))}
               </ul>

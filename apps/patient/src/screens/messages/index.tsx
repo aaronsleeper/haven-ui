@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLanguage } from '../../lib/useLanguage';
+import {
+  demoCareTeam,
+  demoDates,
+  demoMessageThread,
+  MESSAGE_REPLY_KEY,
+} from '../../lib/demo-patient';
 
 type AllowedMessageType = 'notification' | 'human_message' | 'status_change_patient';
 
@@ -8,7 +14,7 @@ interface MessageEvent {
   type: AllowedMessageType;
   direction?: 'in' | 'out';
   sender?: { en: string; es: string };
-  body: { en: string; es: string };
+  body: { en: string; es: string } | string;
   timestamp: string; // ISO 8601
   isUnread?: boolean;
 }
@@ -19,37 +25,41 @@ interface MessageEvent {
 // If a non-allowlist event arrives, drop silently and log P0 to telemetry.
 const ALLOWED_TYPES: AllowedMessageType[] = ['notification', 'human_message', 'status_change_patient'];
 
+// localStorage key for the patient's reply text (so the demo persists across reload).
+const REPLY_TEXT_KEY = 'cena-demo-message-reply-text';
+
+function getSenderLabels(): { en: string; es: string } {
+  return {
+    en: `${demoCareTeam.coordinator.shortName}, Care Coordinator`,
+    es: `${demoCareTeam.coordinator.shortName}, Coordinadora`,
+  };
+}
+
 const DEMO_MESSAGES: MessageEvent[] = [
   {
-    id: 'msg-1',
-    type: 'human_message',
-    direction: 'in',
-    sender: { en: 'Sarah K., Care Coordinator', es: 'Sarah K., Coordinadora' },
-    body: {
-      en: "Your delivery was rescheduled to Wednesday — let me know if that doesn't work for you.",
-      es: 'Su entrega se cambió al miércoles — avíseme si no le funciona.',
-    },
-    timestamp: '2026-05-03T10:15:00Z',
-    isUnread: false,
-  },
-  {
-    id: 'msg-2',
+    id: 'msg-patient-earlier',
     type: 'human_message',
     direction: 'out',
-    body: {
-      en: 'Wednesday is fine. Thank you!',
-      es: 'El miércoles está bien. ¡Gracias!',
-    },
-    timestamp: '2026-05-03T10:22:00Z',
+    body: demoMessageThread.patientEarlier,
+    timestamp: demoDates.messageFromPatient,
   },
   {
-    id: 'notif-1',
+    id: 'notif-checkin',
     type: 'notification',
     body: {
       en: 'Your weekly check-in is ready. It takes about 2 minutes.',
       es: 'Su revisión semanal está lista. Toma como 2 minutos.',
     },
-    timestamp: '2026-05-03T08:00:00Z',
+    timestamp: '2026-05-21T14:00:00Z',
+  },
+  {
+    id: 'msg-coordinator-latest',
+    type: 'human_message',
+    direction: 'in',
+    sender: getSenderLabels(),
+    body: demoMessageThread.coordinatorLatest,
+    timestamp: demoDates.messageFromCoordinator,
+    isUnread: true,
   },
 ];
 
@@ -57,16 +67,44 @@ export function Messages() {
   const [lang] = useLanguage();
   const [replyExpanded, setReplyExpanded] = useState(false);
   const [replyText, setReplyText] = useState('');
+  const [persistedReply, setPersistedReply] = useState<string | null>(null);
 
-  // Client-backstop: filter non-allowed types
-  const safeMessages = DEMO_MESSAGES.filter((m) => ALLOWED_TYPES.includes(m.type));
+  // Restore previously sent reply from localStorage (survives demo refreshes).
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(MESSAGE_REPLY_KEY) === 'yes') {
+        const text = localStorage.getItem(REPLY_TEXT_KEY);
+        if (text) setPersistedReply(text);
+      }
+    } catch {
+      // localStorage unavailable — show no persisted reply
+    }
+  }, []);
+
+  // Once the patient has read the latest coordinator message, suppress the
+  // unread pill. The pill should only fire as a "new" beat on cold-start.
+  const suppressUnread = persistedReply !== null;
+  const safeMessages = DEMO_MESSAGES.filter((m) => ALLOWED_TYPES.includes(m.type)).map((m) =>
+    suppressUnread ? { ...m, isUnread: false } : m,
+  );
 
   function handleSend() {
-    if (!replyText.trim()) return;
-    // v1: log to console; production: POST to messages API
-    console.info('[Messages] Patient reply:', replyText);
+    const text = replyText.trim();
+    if (!text) return;
+    try {
+      localStorage.setItem(MESSAGE_REPLY_KEY, 'yes');
+      localStorage.setItem(REPLY_TEXT_KEY, text);
+    } catch {
+      // localStorage unavailable — state stays in-session only
+    }
+    setPersistedReply(text);
     setReplyText('');
     setReplyExpanded(false);
+  }
+
+  function bodyFor(msg: MessageEvent): string {
+    if (typeof msg.body === 'string') return msg.body;
+    return msg.body[lang];
   }
 
   return (
@@ -96,7 +134,7 @@ export function Messages() {
                   <span className="material-symbols-outlined">info</span>
                 </div>
                 <div className="notif-item-content">
-                  <p className="notif-item-description">{msg.body[lang]}</p>
+                  <p className="notif-item-description">{bodyFor(msg)}</p>
                   <time
                     className="notif-item-time"
                     dateTime={msg.timestamp}
@@ -114,7 +152,7 @@ export function Messages() {
             return (
               <div key={msg.id} className="flex flex-col items-end">
                 <article className="message-bubble-out">
-                  <p className="text-sm">{msg.body[lang]}</p>
+                  <p className="text-sm">{bodyFor(msg)}</p>
                 </article>
                 <time className="message-timestamp" dateTime={msg.timestamp}>
                   {new Intl.DateTimeFormat(lang === 'es' ? 'es-MX' : 'en-US', {
@@ -137,7 +175,7 @@ export function Messages() {
                     {lang === 'es' ? 'Nuevo' : 'New'}
                   </span>
                 )}
-                <p className="text-sm">{msg.body[lang]}</p>
+                <p className="text-sm">{bodyFor(msg)}</p>
               </article>
               <time className="message-timestamp" dateTime={msg.timestamp}>
                 {new Intl.DateTimeFormat(lang === 'es' ? 'es-MX' : 'en-US', {
@@ -147,6 +185,20 @@ export function Messages() {
             </div>
           );
         })}
+
+        {/* Patient's reply (after sending) — sits below the thread */}
+        {persistedReply && (
+          <div className="flex flex-col items-end">
+            <article className="message-bubble-out">
+              <p className="text-sm">{persistedReply}</p>
+            </article>
+            <time className="message-timestamp">
+              {new Intl.DateTimeFormat(lang === 'es' ? 'es-MX' : 'en-US', {
+                hour: 'numeric', minute: '2-digit',
+              }).format(new Date())}
+            </time>
+          </div>
+        )}
       </div>
 
       {/* Reply composer (sticky above bottom-nav) */}
@@ -160,6 +212,7 @@ export function Messages() {
               onChange={(e) => setReplyText(e.target.value)}
               aria-label={lang === 'es' ? 'Escribir respuesta' : 'Write a reply'}
               placeholder={lang === 'es' ? 'Escriba su mensaje…' : 'Write your message…'}
+              autoFocus
             />
             <div className="flex gap-2 justify-end">
               <button

@@ -1,25 +1,21 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TaskCard } from '@haven/ui-react';
 import { useLanguage } from '../../lib/useLanguage';
+import {
+  demoCareTeam,
+  demoDates,
+  demoMessageThread,
+  demoPatient,
+  MESSAGE_REPLY_KEY,
+} from '../../lib/demo-patient';
 
-// Demo data drives which variant of the dashboard renders.
-// In production these come from the API; for v1 demo, static data shows the
-// "loaded with task + message + delivery" state.
 const DEMO_TASK = {
   name: { en: 'Anxiety check-in', es: 'Revisión de ansiedad' },
   meta: { en: '7 questions · about 2 minutes', es: '7 preguntas · unos 2 minutos' },
   icon: 'assignment',
-  state: 'default' as const, // 'default' | 'in-progress' | 'overdue'
+  state: 'default' as const,
   href: '/assessment/gad-7',
-};
-
-const DEMO_MESSAGE = {
-  sender: { en: 'Sarah K., Care Coordinator', es: 'Sarah K., Coordinadora de cuidado' },
-  preview: {
-    en: "Your delivery was rescheduled to Wednesday — let me know if that doesn't work for you.",
-    es: 'Su entrega se cambió al miércoles — avíseme si no le funciona.',
-  },
-  isUnread: true,
 };
 
 type GreetingVariant = 'action-recent' | 'action-none' | 'time-of-day';
@@ -27,16 +23,16 @@ type GreetingVariant = 'action-recent' | 'action-none' | 'time-of-day';
 function getGreetingSubline(variant: GreetingVariant, lang: 'en' | 'es'): string {
   const strings = {
     'action-recent': {
-      en: "It's a sunny Tuesday. You logged your weight this morning — great job.",
-      es: 'Es un martes soleado. Pesó esta mañana — ¡buen trabajo!',
+      en: "It's a sunny Friday. You logged your weekly check-in this morning — great job.",
+      es: 'Es un viernes soleado. Envió su revisión semanal esta mañana — ¡buen trabajo!',
     },
     'action-none': {
       en: "Hope you're having a good morning.",
       es: 'Esperamos que esté teniendo un buen día.',
     },
     'time-of-day': {
-      en: 'Good morning, Maria.',
-      es: 'Buenos días, María.',
+      en: 'Good morning.',
+      es: 'Buenos días.',
     },
   };
   return strings[variant][lang];
@@ -45,14 +41,26 @@ function getGreetingSubline(variant: GreetingVariant, lang: 'en' | 'es'): string
 export function Dashboard() {
   const [lang] = useLanguage();
 
-  const greetingVariant: GreetingVariant = 'action-recent'; // demo: pick action-recent
+  // Read message-reply state from localStorage so the dashboard reflects
+  // whether the patient has already replied to Sarah in this demo session.
+  const [hasReplied, setHasReplied] = useState(false);
+  useEffect(() => {
+    try {
+      setHasReplied(localStorage.getItem(MESSAGE_REPLY_KEY) === 'yes');
+    } catch {
+      // localStorage unavailable — default to unread
+    }
+  }, []);
+
+  const greetingVariant: GreetingVariant = 'action-recent';
+  const patientName = demoPatient.firstName[lang];
 
   return (
     <div className="pb-safe-8">
       {/* Greeting */}
       <div className="p-4">
         <h1 className="page-title">
-          {lang === 'es' ? 'Bienvenida, María' : 'Welcome back, Maria'}
+          {lang === 'es' ? `Bienvenida, ${patientName}` : `Welcome back, ${patientName}`}
         </h1>
         <p className="text-sm text-sand-500 mt-1">
           {getGreetingSubline(greetingVariant, lang)}
@@ -83,13 +91,15 @@ export function Dashboard() {
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-semibold text-sand-500 mb-1">
-                  {DEMO_MESSAGE.sender[lang]}
+                  {lang === 'es'
+                    ? `${demoCareTeam.coordinator.shortName}, Coordinadora`
+                    : `${demoCareTeam.coordinator.shortName}, Care Coordinator`}
                 </p>
                 <p className="text-sm text-sand-800 line-clamp-2">
-                  {DEMO_MESSAGE.preview[lang]}
+                  {demoMessageThread.coordinatorLatest[lang]}
                 </p>
               </div>
-              {DEMO_MESSAGE.isUnread && (
+              {!hasReplied && (
                 <span className="message-new-pill shrink-0">
                   {lang === 'es' ? 'Nuevo' : 'New'}
                 </span>
@@ -113,10 +123,10 @@ export function Dashboard() {
             </div>
             <div>
               <div className="delivery-status-label">
-                {lang === 'es' ? 'En camino' : 'On the way'}
+                {lang === 'es' ? 'Próxima entrega' : 'Next delivery'}
               </div>
               <div className="delivery-status-timing">
-                {lang === 'es' ? 'Llegando entre 2pm y 4pm' : 'Arriving between 2pm and 4pm'}
+                {demoDates.mealDeliveryDate[lang]}
               </div>
             </div>
           </div>

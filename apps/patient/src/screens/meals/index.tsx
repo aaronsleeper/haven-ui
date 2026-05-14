@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import { MealDeliveryCard, type MealDeliveryTag } from '@haven/ui-react';
 import { useLanguage } from '../../lib/useLanguage';
 import type { Language } from '../../lib/useLanguage';
+import { demoDates } from '../../lib/demo-patient';
 
 // MEALS-01 view + confirm + swap weekly meals.
 // Per Lab/haven-ui/.project-docs/wireframes/meals-01-weekly-meals.md.
 // Demo state: starts unconfirmed; Confirm flips banner to success and hides
 // the sticky CTA. Swap buttons log to console for v1 (bottom-sheet substitute
 // picker deferred to v1.1).
+// Meal selection updated 2026-05-13 per nutrition + clinical-care synthesis:
+// Wed swapped to Sopa de Lentejas (cuisine-on-profile + clinical lentil > tofu+noodles);
+// Thu swapped to Pollo al Horno (beef stir-fry sodium+sugar load); Tue + Fri
+// gain Diabetic-friendly tag.
 
 type OrderState = 'unconfirmed' | 'confirmed' | 'auto-confirmed';
 
@@ -41,26 +46,41 @@ const DEMO_MEALS: DemoMeal[] = [
     day: { en: 'Tuesday', es: 'Martes' },
     tags: [
       { variant: 'info', label: { en: 'Heart-healthy', es: 'Saludable para el corazón' } },
+      { variant: 'secondary', label: { en: 'Diabetic-friendly', es: 'Para diabetes' } },
     ],
   },
   {
     id: 'wed',
-    imgSrc: 'https://picsum.photos/seed/cena-tofu-noodles/240/240',
-    imgAlt: { en: 'Tofu noodle bowl with broccoli', es: 'Tazón de fideos con tofu y brócoli' },
-    name: { en: 'Tofu Noodle Bowl', es: 'Tazón de fideos con tofu' },
+    imgSrc: 'https://picsum.photos/seed/cena-sopa-lentejas/240/240',
+    imgAlt: {
+      en: 'Lentil soup with vegetables',
+      es: 'Sopa de lentejas con verduras',
+    },
+    name: {
+      en: 'Sopa de Lentejas con Verduras',
+      es: 'Sopa de Lentejas con Verduras',
+    },
     day: { en: 'Wednesday', es: 'Miércoles' },
     tags: [
       { variant: 'info', label: { en: 'Low sodium', es: 'Bajo en sodio' } },
       { variant: 'neutral', label: { en: 'Vegetarian', es: 'Vegetariano' } },
+      { variant: 'secondary', label: { en: 'Diabetic-friendly', es: 'Para diabetes' } },
     ],
   },
   {
     id: 'thu',
-    imgSrc: 'https://picsum.photos/seed/cena-beef-stirfry/240/240',
-    imgAlt: { en: 'Beef stir-fry with vegetables', es: 'Salteado de res con verduras' },
-    name: { en: 'Beef Stir-fry', es: 'Salteado de res' },
+    imgSrc: 'https://picsum.photos/seed/cena-pollo-al-horno/240/240',
+    imgAlt: {
+      en: 'Roasted chicken with squash',
+      es: 'Pollo al horno con calabaza',
+    },
+    name: {
+      en: 'Pollo al Horno con Calabaza',
+      es: 'Pollo al Horno con Calabaza',
+    },
     day: { en: 'Thursday', es: 'Jueves' },
     tags: [
+      { variant: 'info', label: { en: 'Low sodium', es: 'Bajo en sodio' } },
       { variant: 'secondary', label: { en: 'Diabetic-friendly', es: 'Para diabetes' } },
     ],
   },
@@ -73,6 +93,7 @@ const DEMO_MEALS: DemoMeal[] = [
     tags: [
       { variant: 'info', label: { en: 'High protein', es: 'Alto en proteína' } },
       { variant: 'info', label: { en: 'Low sodium', es: 'Bajo en sodio' } },
+      { variant: 'secondary', label: { en: 'Diabetic-friendly', es: 'Para diabetes' } },
     ],
   },
 ];
@@ -82,40 +103,40 @@ const STATUS_COPY = {
     icon: 'schedule',
     classes: 'bg-warning-50 border border-warning-200 text-warning-700',
     text: {
-      en: 'Please confirm your meals by Wednesday, May 27 at 5pm.',
-      es: 'Por favor confirme sus comidas antes del miércoles 27 de mayo a las 5pm.',
+      en: `Please confirm your meals by ${demoDates.mealConfirmBy.en}.`,
+      es: `Por favor confirme sus comidas antes del ${demoDates.mealConfirmBy.es}.`,
     },
   },
   confirmed: {
     icon: 'check_circle',
     classes: 'bg-success-50 border border-success-200 text-success-700',
     text: {
-      en: 'Your meals are confirmed. Delivery on Monday.',
-      es: 'Sus comidas están confirmadas. Entrega el lunes.',
+      en: `Your meals are confirmed. Delivery ${demoDates.mealDeliveryShort.en}.`,
+      es: `Sus comidas están confirmadas. Entrega el ${demoDates.mealDeliveryShort.es}.`,
     },
   },
   'auto-confirmed': {
     icon: 'info',
     classes: 'bg-info-50 border border-info-200 text-info-700',
     text: {
-      en: 'Your meals were automatically confirmed. Delivery on Monday.',
-      es: 'Sus comidas fueron confirmadas automáticamente. Entrega el lunes.',
+      en: `Your meals were automatically confirmed. Delivery ${demoDates.mealDeliveryShort.en}.`,
+      es: `Sus comidas fueron confirmadas automáticamente. Entrega el ${demoDates.mealDeliveryShort.es}.`,
     },
   },
 } as const;
 
 const SUBTITLE_COPY: Record<OrderState, { en: string; es: string }> = {
   unconfirmed: {
-    en: 'Confirm by Wednesday, May 27 at 5pm',
-    es: 'Confirme antes del miércoles 27 de mayo a las 5pm',
+    en: `Confirm by ${demoDates.mealConfirmBy.en}`,
+    es: `Confirme antes del ${demoDates.mealConfirmBy.es}`,
   },
   confirmed: {
-    en: 'Confirmed for delivery Monday',
-    es: 'Confirmado para entrega el lunes',
+    en: `Confirmed for delivery ${demoDates.mealDeliveryShort.en}`,
+    es: `Confirmado para entrega el ${demoDates.mealDeliveryShort.es}`,
   },
   'auto-confirmed': {
-    en: 'Auto-confirmed for delivery Monday',
-    es: 'Confirmado automáticamente para el lunes',
+    en: `Auto-confirmed for delivery ${demoDates.mealDeliveryShort.en}`,
+    es: `Confirmado automáticamente para el ${demoDates.mealDeliveryShort.es}`,
   },
 };
 

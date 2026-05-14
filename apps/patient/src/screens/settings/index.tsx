@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../lib/useLanguage';
 import type { Language } from '../../lib/useLanguage';
+import { demoPatient, PENDING, patientFullName } from '../../lib/demo-patient';
 
 // Demo notification prefs (in production: loaded from user profile API)
 interface NotifPrefs {
@@ -182,9 +183,9 @@ export function Settings() {
           <div className="card-body">
             <table className="kv-table w-full text-sm">
               <tbody>
-                <tr><th scope="row">{lang === 'es' ? 'Nombre' : 'Name'}</th><td>Maria Rivera</td></tr>
-                <tr><th scope="row">{lang === 'es' ? 'Correo' : 'Email'}</th><td>m.rivera@example.com</td></tr>
-                <tr><th scope="row">{lang === 'es' ? 'Teléfono' : 'Phone'}</th><td>(555) 123-4567</td></tr>
+                <tr><th scope="row">{lang === 'es' ? 'Nombre' : 'Name'}</th><td>{patientFullName(lang)}</td></tr>
+                <tr><th scope="row">{lang === 'es' ? 'Correo' : 'Email'}</th><td>{demoPatient.email}</td></tr>
+                <tr><th scope="row">{lang === 'es' ? 'Teléfono' : 'Phone'}</th><td>{demoPatient.phone}</td></tr>
               </tbody>
             </table>
             <div className="divider" />
@@ -209,9 +210,14 @@ export function Settings() {
 
         {/* Footer */}
         <p className="text-xs text-sand-400 text-center pb-4">
-          {lang === 'es'
-            ? 'Haven · v1.0 · Privacidad · Términos'
-            : 'Haven · v1.0 · Privacy · Terms'}
+          Haven · v1.0 ·{' '}
+          <a href={PENDING.privacyUrl.value} className="text-link">
+            {lang === 'es' ? 'Privacidad' : 'Privacy'}
+          </a>{' '}
+          ·{' '}
+          <a href={PENDING.termsUrl.value} className="text-link">
+            {lang === 'es' ? 'Términos' : 'Terms'}
+          </a>
         </p>
       </div>
 
