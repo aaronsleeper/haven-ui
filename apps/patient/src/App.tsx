@@ -19,6 +19,7 @@
 // onboarding route. /assessment/* is exempt so demo deep-links into an
 // assessment still work even if onboarding hasn't been completed.
 
+import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppShell } from '@haven/ui-react';
 import { BottomNav } from './components/BottomNav';
@@ -27,6 +28,7 @@ import { OfflineBanner } from './components/OfflineBanner';
 import { useLanguage } from './lib/useLanguage';
 import { useOnboardingState } from './lib/useOnboardingState';
 import { useOnlineStatus } from './lib/useOnlineStatus';
+import { MESSAGE_REPLY_KEY } from './lib/demo-patient';
 import { Dashboard } from './screens/dashboard';
 import { Messages } from './screens/messages';
 import { Settings } from './screens/settings';
@@ -58,14 +60,30 @@ function useFirstVisitRedirect(): string | null {
   return '/onboarding/welcome';
 }
 
+function readReplied(): boolean {
+  try {
+    return localStorage.getItem(MESSAGE_REPLY_KEY) === 'yes';
+  } catch {
+    return false;
+  }
+}
+
 export function App() {
   const [lang] = useLanguage();
   const showNav = useShowNav();
   const isOnline = useOnlineStatus();
   const redirectTo = useFirstVisitRedirect();
+  const location = useLocation();
 
-  // TODO v1: read unreadCount from messages API
-  const unreadCount = 1;
+  // Sidebar + BottomNav Messages badge tracks the demo message-reply state so
+  // it stays in sync with the dashboard "New" pill. Re-read on every route
+  // change so navigation back from /messages picks up a freshly-sent reply.
+  // TODO v1: replace with real unreadCount from messages API.
+  const [hasReplied, setHasReplied] = useState<boolean>(readReplied);
+  useEffect(() => {
+    setHasReplied(readReplied());
+  }, [location.pathname]);
+  const unreadCount = hasReplied ? 0 : 1;
 
   if (redirectTo) return <Navigate to={redirectTo} replace />;
 

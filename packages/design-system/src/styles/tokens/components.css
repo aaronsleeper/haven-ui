@@ -6108,9 +6108,11 @@ canvas {
    PATIENT APP — MESSAGE BUBBLES
    =================================== */
 
-/* Outgoing (patient) bubble — right-aligned */
+/* Outgoing (patient) bubble — right-aligned. primary-600 fill brings the
+   white-on-teal body text to 6.25:1, clearing WCAG 1.4.3 AA (4.5:1 floor)
+   that primary-500 (4.42:1) failed by 0.08. */
 .message-bubble-out {
-  @apply bg-primary-500 text-white rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
+  @apply bg-primary-600 text-white rounded-2xl px-4 py-2 max-w-[80%] text-sm leading-relaxed;
   border-bottom-right-radius: 4px;
   @apply dark:bg-primary-600;
 }
@@ -6140,14 +6142,13 @@ canvas {
   @apply dark:text-sand-400;
 }
 
-/* Floating "new message" pill — sits above compose bar when new messages arrive */
-/* Bottom offset: 64px nav + 64px compose = 128px */
+/* Inline "new" pill — corner-anchored unread indicator on a message preview
+   card (Dashboard) or first bubble of an unread care-team message (Messages
+   thread). Inline-flex so it positions naturally in its parent's flow
+   instead of viewport-fixed. */
 .message-new-pill {
-  @apply fixed left-1/2 -translate-x-1/2 z-30;
-  @apply bg-primary-500 text-white rounded-full text-sm px-3 flex items-center gap-1.5 shadow-md;
+  @apply inline-flex items-center gap-1 bg-primary-600 text-white rounded-full text-xs px-2 py-0.5 font-medium;
   @apply dark:bg-primary-600;
-  bottom: 136px;
-  height: 32px;
 }
 
 /* ===================================
