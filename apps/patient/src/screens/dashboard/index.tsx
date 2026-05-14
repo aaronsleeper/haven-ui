@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TaskCard } from '@haven/ui-react';
 import { useLanguage } from '../../lib/useLanguage';
+import { useAssessmentResponses } from '../../lib/useAssessmentResponses';
 import {
   demoCareTeam,
   demoDates,
@@ -9,6 +10,7 @@ import {
   demoPatient,
   MESSAGE_REPLY_KEY,
 } from '../../lib/demo-patient';
+import { GAD7_QUESTIONS } from '../gad-7/questions';
 
 const DEMO_TASK = {
   name: { en: 'Anxiety check-in', es: 'Revisión de ansiedad' },
@@ -18,31 +20,13 @@ const DEMO_TASK = {
   href: '/assessment/gad-7',
 };
 
-type GreetingVariant = 'action-recent' | 'action-none' | 'time-of-day';
-
-function getGreetingSubline(variant: GreetingVariant, lang: 'en' | 'es'): string {
-  const strings = {
-    'action-recent': {
-      en: "It's a sunny Friday. You logged your weekly check-in this morning — great job.",
-      es: 'Es un viernes soleado. Envió su revisión semanal esta mañana — ¡buen trabajo!',
-    },
-    'action-none': {
-      en: "Hope you're having a good morning.",
-      es: 'Esperamos que esté teniendo un buen día.',
-    },
-    'time-of-day': {
-      en: 'Good morning.',
-      es: 'Buenos días.',
-    },
-  };
-  return strings[variant][lang];
-}
-
 export function Dashboard() {
   const [lang] = useLanguage();
 
-  // Read message-reply state from localStorage so the dashboard reflects
-  // whether the patient has already replied to Sarah in this demo session.
+  // Demo state — dashboard reflects two interactive moments:
+  // 1. Message reply (Sarah → Maria) clears the "New" pill once Maria replies.
+  // 2. GAD-7 check-in completion (7/7 answered) flips the task card to a
+  //    "Done" state and adapts the greeting subline.
   const [hasReplied, setHasReplied] = useState(false);
   useEffect(() => {
     try {
@@ -52,19 +36,26 @@ export function Dashboard() {
     }
   }, []);
 
-  const greetingVariant: GreetingVariant = 'action-recent';
+  const { responses } = useAssessmentResponses('gad-7');
+  const checkInComplete = Object.keys(responses).length === GAD7_QUESTIONS.length;
+
   const patientName = demoPatient.firstName[lang];
+
+  const greeting = lang === 'es' ? `Bienvenida, ${patientName}` : `Welcome back, ${patientName}`;
+  const subline = checkInComplete
+    ? lang === 'es'
+      ? 'Su revisión está enviada. Su equipo le contactará si algo necesita atención.'
+      : 'Your check-in is in. Your care team will follow up if anything stands out.'
+    : lang === 'es'
+      ? 'Esperamos que esté teniendo un buen día.'
+      : "Hope you're having a good day.";
 
   return (
     <div className="pb-safe-8">
       {/* Greeting */}
       <div className="p-4">
-        <h1 className="page-title">
-          {lang === 'es' ? `Bienvenida, ${patientName}` : `Welcome back, ${patientName}`}
-        </h1>
-        <p className="text-sm text-sand-500 mt-1">
-          {getGreetingSubline(greetingVariant, lang)}
-        </p>
+        <h1 className="page-title">{greeting}</h1>
+        <p className="text-sm text-sand-500 mt-1">{subline}</p>
       </div>
 
       {/* Today's task */}
@@ -72,13 +63,36 @@ export function Dashboard() {
         <h2 className="text-base font-serif font-medium text-sand-800 mb-3">
           {lang === 'es' ? 'Su revisión de hoy' : "Today's check-in"}
         </h2>
-        <TaskCard
-          name={DEMO_TASK.name[lang]}
-          meta={DEMO_TASK.meta[lang]}
-          iconName={DEMO_TASK.icon}
-          asComponent={Link}
-          linkProps={{ to: DEMO_TASK.href }}
-        />
+        {checkInComplete ? (
+          <div className="card">
+            <div className="card-body flex items-start gap-3">
+              <span
+                className="material-symbols-outlined text-success-600 text-2xl mt-0.5"
+                aria-hidden="true"
+              >
+                check_circle
+              </span>
+              <div>
+                <p className="text-sm font-medium text-sand-800">
+                  {DEMO_TASK.name[lang]}
+                </p>
+                <p className="text-xs text-sand-500 mt-0.5">
+                  {lang === 'es'
+                    ? 'Listo — su equipo de cuidado tiene sus respuestas.'
+                    : 'Done — your care team has your responses.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <TaskCard
+            name={DEMO_TASK.name[lang]}
+            meta={DEMO_TASK.meta[lang]}
+            iconName={DEMO_TASK.icon}
+            asComponent={Link}
+            linkProps={{ to: DEMO_TASK.href }}
+          />
+        )}
       </div>
 
       {/* Recent message preview */}
