@@ -8,130 +8,146 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="../assets/haven.css" />
+  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
 </head>
 <body>
   <!--
     Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc
     State: in-progress (the working surface)
-    Chat is silent unless patient asks for help (mid-question-help variant of agent-message).
-    Right pane composes: assessment-header > progress-bar-pagination, questionnaire-panel { card-header (save-pause), card-body (response-option-group, pagination-row, submit-region when last item) }.
+    Chat is silent unless patient asks for help (mid-question-help variant of agent-message). Right pane composes:
+      assessment-header > progress-bar-pagination, questionnaire-panel { card-header (save-pause), card-body (response-option-group, pagination-row, submit-region when last item) }.
     questionnaire-panel is an app-local carve-out for slice 1 (per PL Steward verdict 2026-05-14 PM).
+    Shell: layout-agentic-shell.html — full 3-pane.
+    Real-content example: HFIAS Q3a frequency follow-up. Source: SPIROMICS III v1.0 (2024-09-03), citing Coates/Swindale/Bilinsky 2007 verbatim.
   -->
-  <main class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8 p-8 min-h-screen max-w-[1400px] mx-auto">
+  <div class="app-shell app-shell--agentic">
+    <div class="agentic-shell">
 
-    <!-- chat-pane (silent during question administration) -->
-    <section class="space-y-4" aria-label="Agent chat">
-      <header class="space-y-1 border-b border-sand-200 pb-3">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question</p>
-        <p class="text-xs text-fg-muted">Chat silent; mid-question-help renders only on patient-initiated help</p>
-      </header>
-
-      <!-- talk-to-person-trigger persistent (always available) -->
-      <div class="chat-handoff-trigger is-header">
-        <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-      </div>
-
-      <!-- agent-message variant="mid-question-help" — example shown for reference; conditionally rendered when patient asks -->
-      <div class="patient-chat-message" aria-hidden="true" style="opacity: 0.4;">
-        <p><em>Example mid-question help (renders on patient ask):</em> "Often" here means more than once a week. Pick whatever fits best.</p>
-      </div>
-    </section>
-
-    <!-- right-pane: questionnaire-panel composition -->
-    <aside aria-label="Working surface">
-
-      <!-- assessment-header with progress-bar-pagination -->
-      <header class="assessment-header">
-        <h2 class="assessment-header-title">[instrument.plainLanguageName]</h2>
-        <p class="assessment-header-meta">Question 3 of 9</p>
-        <div
-          class="progress-bar-pagination"
-          role="progressbar"
-          aria-valuemin="0"
-          aria-valuemax="9"
-          aria-valuenow="3"
-          aria-valuetext="3 of 9"
-        >
-          <span class="progress-bar-pagination-segment is-filled"></span>
-          <span class="progress-bar-pagination-segment is-filled"></span>
-          <span class="progress-bar-pagination-segment is-filled"></span>
-          <span class="progress-bar-pagination-segment"></span>
-          <span class="progress-bar-pagination-segment"></span>
-          <span class="progress-bar-pagination-segment"></span>
-          <span class="progress-bar-pagination-segment"></span>
-          <span class="progress-bar-pagination-segment"></span>
-          <span class="progress-bar-pagination-segment"></span>
-        </div>
-      </header>
-
-      <!-- questionnaire-panel: app-local carve-out (layout-card + card-header + card-body) -->
-      <article class="card mt-6">
-        <div class="card-header flex items-center justify-between">
-          <span class="text-sm font-medium">Question 3 of 9</span>
-          <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
-        </div>
-        <div class="card-body space-y-6">
-
-          <!--
-            Real-content example: HFIAS Q3 frequency follow-up (Q3a). Source: SPIROMICS III
-            implementation v1.0 (2024-09-03), citing Coates/Swindale/Bilinsky 2007 verbatim.
-            See instrument-content-primary-sources.md § HFIAS for the full 9-question set + skip
-            logic + 4-category HFIAP scoring.
-
-            Note: HFIAS uses two-step structure — the occurrence question (Q3) appears first
-            ("did you have to eat a limited variety of foods..."); a "yes" reveals this Q3a
-            frequency follow-up. Skip logic is essential; "no" → next occurrence question.
-            This page renders the Q3a frequency state for visual reference; the runner state
-            machine handles the occurrence → frequency reveal.
-          -->
-          <fieldset class="response-option-group" role="radiogroup" aria-labelledby="q3-prompt">
-            <legend id="q3-prompt" class="response-option-group-prompt">How often did this happen? <span class="text-sm text-fg-muted">(In the past four weeks, you said you had to eat a limited variety of foods due to a lack of resources.)</span></legend>
-            <div class="response-option-group-list">
-              <button type="button" class="response-option" role="radio" aria-checked="false">
-                <span class="response-option-index"><span class="response-option-index-num">A</span></span>
-                <span class="response-option-label">Rarely (once or twice in the past four weeks)</span>
-                <span class="response-option-check"></span>
-              </button>
-              <button type="button" class="response-option" role="radio" aria-checked="true">
-                <span class="response-option-index"><span class="response-option-index-num">B</span></span>
-                <span class="response-option-label">Sometimes (three to ten times in the past four weeks)</span>
-                <span class="response-option-check"></span>
-              </button>
-              <button type="button" class="response-option" role="radio" aria-checked="false">
-                <span class="response-option-index"><span class="response-option-index-num">C</span></span>
-                <span class="response-option-label">Often (more than ten times in the past four weeks)</span>
-                <span class="response-option-check"></span>
-              </button>
-            </div>
-          </fieldset>
-
-          <!-- pagination-row -->
-          <nav class="pagination-row" aria-label="Question navigation">
-            <button type="button" class="btn btn-outline">Previous</button>
-            <button type="button" class="btn btn-secondary">Next</button>
-          </nav>
-
-          <!--
-            submit-region (inline config under questionnaire-panel) renders only on last item.
-            Disabled until allRequiredAnswered; aria-describedby anchors to stable id on helper text.
-            Example below shown for structural reference; real render gates on progress.currentItemIndex == progress.total - 1.
-          -->
-          <div class="submit-region" hidden>
-            <button
-              type="button"
-              class="btn btn-primary"
-              disabled
-              aria-describedby="submit-helper"
-            >
-              Submit answers
-            </button>
-            <p id="submit-helper" class="text-sm text-fg-muted mt-2">
-              <span data-bind="progress.unansweredCount">[N]</span> questions still need an answer — tap any item in the list to jump to it.
-            </p>
+      <nav class="panel-nav" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
           </div>
         </div>
-      </article>
-    </aside>
-  </main>
+        <div class="nav-section">
+          <div class="nav-section-label"><span>This week</span></div>
+          <div class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></div>
+          <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></div>
+          <div class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></div>
+          <div class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></div>
+          <div class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></div>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <main class="panel-chat" aria-label="Conversation">
+        <div class="chat-thread">
+          <div class="chat-thread-inner">
+
+            <div class="patient-chat-message">
+              <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
+            </div>
+
+            <div class="patient-chat-message" aria-hidden="true" style="opacity: 0.4;">
+              <p><em>Example mid-question help (renders only on patient ask):</em> "Often" here means more than once a week. Pick whatever fits best.</p>
+            </div>
+
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <aside class="panel-content" aria-label="Working surface">
+        <div class="content-body">
+
+          <header class="assessment-header">
+            <h2 class="assessment-header-title">Food security at home</h2>
+            <p class="assessment-header-meta">Question 3 of 9</p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="9"
+              aria-valuenow="3"
+              aria-valuetext="3 of 9"
+            >
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment is-filled"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+              <span class="progress-bar-pagination-segment"></span>
+            </div>
+          </header>
+
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium">Question 3 of 9</span>
+              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+            </div>
+            <div class="card-body space-y-6">
+
+              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="q3-prompt">
+                <legend id="q3-prompt" class="response-option-group-prompt">How often did this happen? <span class="text-sm text-fg-muted">(In the past four weeks, you said you had to eat a limited variety of foods due to a lack of resources.)</span></legend>
+                <div class="response-option-group-list">
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                    <span class="response-option-label">Rarely (once or twice in the past four weeks)</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="true">
+                    <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                    <span class="response-option-label">Sometimes (three to ten times in the past four weeks)</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                  <button type="button" class="response-option" role="radio" aria-checked="false">
+                    <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                    <span class="response-option-label">Often (more than ten times in the past four weeks)</span>
+                    <span class="response-option-check"></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <nav class="pagination-row" aria-label="Question navigation">
+                <button type="button" class="btn btn-outline">Previous</button>
+                <button type="button" class="btn btn-secondary">Next</button>
+              </nav>
+
+              <div class="submit-region" hidden>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  disabled
+                  aria-describedby="submit-helper"
+                >
+                  Submit answers
+                </button>
+                <p id="submit-helper" class="text-sm text-fg-muted mt-2">
+                  <span data-bind="progress.unansweredCount">[N]</span> questions still need an answer — tap any item in the list to jump to it.
+                </p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
 </body>
 </html>

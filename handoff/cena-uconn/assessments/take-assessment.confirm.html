@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="../assets/haven.css" />
+  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
 </head>
 <body>
   <!--
@@ -15,43 +16,70 @@
     State: per-register confirmation — sensitive | knowledge-quiz | satisfaction | screener
     Default render below: sensitive register (HFIAS / WHOQOL-HIV BREF). Sensitive register foregrounds the talk-to-a-person bridge for distress signals (per CC-01 panel verdict).
     HARD INVARIANT: NO score is shown to the patient. PL primitive `assessment-confirmation` enforces this structurally.
+    Shell: layout-agentic-shell.html — full 3-pane.
   -->
-  <main class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8 p-8 min-h-screen max-w-[1400px] mx-auto">
+  <div class="app-shell app-shell--agentic">
+    <div class="agentic-shell">
 
-    <!-- chat-pane -->
-    <section class="space-y-4" aria-label="Agent chat">
-      <header class="space-y-1 border-b border-sand-200 pb-3">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation</p>
-        <p class="text-xs text-fg-muted">Wireframe condition: <code class="font-mono">sensitive</code></p>
-      </header>
-
-      <!-- agent-message — sensitive register confirmation -->
-      <div class="patient-chat-message">
-        <p>Thanks — your answers are in. Your care team will review them at your next session. If anything in there raised something you want to talk about sooner, tap "Talk to a person."</p>
-      </div>
-
-      <!-- talk-to-person-trigger persistent -->
-      <div class="chat-handoff-trigger is-header">
-        <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-      </div>
-    </section>
-
-    <!-- right-pane: confirmation card -->
-    <aside aria-label="Working surface">
-      <!-- assessment-confirmation (composes .receipt) -->
-      <article class="assessment-confirmation">
-        <div class="receipt">
-          <header class="receipt-header">
-            <h2 class="receipt-title">[instrument.plainLanguageName]</h2>
-          </header>
-          <div class="receipt-body space-y-2">
-            <p class="text-base">Submitted just now.</p>
-            <p class="text-sm text-fg-muted">Your care team has it.</p>
-            <!-- NO score field. Per PL spec: scoring routes to clinician surface (cap-51), never patient. -->
+      <nav class="panel-nav" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
           </div>
         </div>
-      </article>
-    </aside>
-  </main>
+        <div class="nav-section">
+          <div class="nav-section-label"><span>This week</span></div>
+          <div class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></div>
+          <div class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></div>
+          <div class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></div>
+          <div class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></div>
+          <div class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></div>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <main class="panel-chat" aria-label="Conversation">
+        <div class="chat-thread">
+          <div class="chat-thread-inner">
+
+            <div class="patient-chat-message">
+              <p>Thanks — your answers are in. Your care team will review them at your next session. If anything in there raised something you want to talk about sooner, tap "Talk to a person."</p>
+            </div>
+
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <aside class="panel-content" aria-label="Working surface">
+        <div class="content-body">
+          <article class="assessment-confirmation">
+            <div class="receipt">
+              <header class="receipt-header">
+                <h2 class="receipt-title">Food security at home</h2>
+              </header>
+              <div class="receipt-body space-y-2">
+                <p class="text-base">Submitted just now.</p>
+                <p class="text-sm text-fg-muted">Your care team has it.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </aside>
+
+    </div>
+  </div>
 </body>
 </html>

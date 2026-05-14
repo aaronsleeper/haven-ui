@@ -16,7 +16,7 @@ Three kinds of artifact live here. An agent should always know which kind it is 
 
 - **Bundle scaffolding** (`README.md`, `index.html`, `AGENTS.md`, `assets/`) — orientation + nav + the self-contained CSS/font assets that all pages consume. Edits here affect every consumer.
 
-- **Abstract template pages** (`{slice}/take-{flow}.{state}.html`) — one per state of a runner. They show the structural shape of one state with placeholder or representative content. They are the spec for the runner shell — every instance follows the same shape. Receiving agents port the template once; instances are data.
+- **Abstract template pages** (`{slice}/take-{flow}.{state}.html`) — one per state of a runner. They show the structural shape of one state with placeholder or representative content, **wrapped in the agentic shell** (`layout-agentic-shell.html` from haven-ui PL): left nav rail + chat thread + right-pane working surface. They are the spec for both the shell composition and the per-state runner content. Receiving agents port the template once; instances are data.
 
 - **Resolved instance pages** (`{slice}/take-{instrument}.html`) — single-page narrative demos that walk all states top-to-bottom for one specific instance with primary-source content. They demonstrate per-instrument variation that the abstract template can't show (e.g., HFIAS's skip logic, WHOQOL's per-item response scales, the screener's outcome-path-differentiated copy variants). Use these to understand what real content looks like in the runner; do NOT port them as the production page (the production runner is parameterized; instance pages are demonstrations).
 

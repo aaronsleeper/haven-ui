@@ -21,20 +21,31 @@ A patient-facing questionnaire runner with four states (entry → preflight → 
 
 Each state is a separate HTML page in this folder. The wireframes specify dynamic transitions; the static HTML pages demonstrate the structural shape per state for hand-port purposes.
 
-### Runner template — abstract states (sensitive register; instrument content [VERIFY]-gated)
+### Runner template — abstract states inside the agentic shell
 
-| State | File | Wireframe | Purpose |
-|---|---|---|---|
-| 1. Entry | [`take-assessment.entry.html`](./take-assessment.entry.html) | [`take-assessment.step-1-entry.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-1-entry.mdoc) | Agent surfaces the due assessment at greeting; right pane primes preflight |
-| 2. Preflight | [`take-assessment.preflight.html`](./take-assessment.preflight.html) | [`take-assessment.step-2-preflight.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-2-preflight.mdoc) | Per-register tone framing; preflight card mirrors the chat chip |
-| 3. Question | [`take-assessment.question.html`](./take-assessment.question.html) | [`take-assessment.step-3-question.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc) | Question administration — the working surface |
-| 5. Confirm | [`take-assessment.confirm.html`](./take-assessment.confirm.html) | [`take-assessment.step-5-submit-confirm.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-5-submit-confirm.mdoc) | Submit acknowledgement; per-register confirmation; no score shown |
+The 4 abstract template pages each wrap their state in the **agentic shell** (`layout-agentic-shell.html` from haven-ui PL). Each renders the production-equivalent surround:
+
+- Left rail: `panel-nav` — patient nav (Home, Health check, Meals, Care, Messages) + pinned-bottom user menu
+- Center: `panel-chat` — agent messages + chips for the state, plus persistent talk-to-a-person trigger
+- Right: `panel-content` — the state's working surface (preflight card / questionnaire panel / confirmation receipt)
+- `panel-splitter` between panes (visual; drag-resize wiring deferred per PL `interactive-usage` note)
+
+The shell uses the sensitive register (HFIAS / WHOQOL framing) by default and renders representative copy per state. Instrument content is HFIAS Q3a (the only non-placeholder; primary-source via SPIROMICS III). For per-instrument content variation across the four states top-to-bottom, see the resolved instance pages in the next section.
+
+| State | File | Wireframe |
+|---|---|---|
+| 1. Entry | [`take-assessment.entry.html`](./take-assessment.entry.html) | [`take-assessment.step-1-entry.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-1-entry.mdoc) |
+| 2. Preflight | [`take-assessment.preflight.html`](./take-assessment.preflight.html) | [`take-assessment.step-2-preflight.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-2-preflight.mdoc) |
+| 3. Question | [`take-assessment.question.html`](./take-assessment.question.html) | [`take-assessment.step-3-question.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc) |
+| 5. Confirm | [`take-assessment.confirm.html`](./take-assessment.confirm.html) | [`take-assessment.step-5-submit-confirm.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-5-submit-confirm.mdoc) |
 
 State 4 (save/resume) is a behavioral re-entry into State 3 with `assessment.lastUnansweredIndex`, not a separate page.
 
+Shell composition note: the panel-chat composer (`chat-input-area`) is omitted because the deterministic-first runner doesn't take free-text chat input — the chat thread renders agent messages + button chips. When agentic chat lands later, `chat-input-area` slots in below `chat-thread` per the PL agentic-shell spec; no rebuild of the right-pane runner is needed.
+
 ### Resolved instances — single-page narrative demos with primary-source content
 
-Each instance page walks the 4 runner states top-to-bottom for one specific instrument, with primary-source content (verbatim, cited) and the per-instrument structural shape that the abstract template can't show.
+Each instance page walks the 4 runner states top-to-bottom for one specific instrument, with primary-source content (verbatim, cited) and the per-instrument structural shape that the abstract template can't show. **These pages do not wrap in the agentic shell** — they're scrollable narratives where the shell would compete with the per-state stacking. For shell context, see the abstract template pages above.
 
 | File | Instrument | What it demonstrates that the abstract template doesn't |
 |---|---|---|

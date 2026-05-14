@@ -12,7 +12,7 @@ The slice covers cap-07 (multi-instrument assessment), cap-09 (satisfaction surv
 
 ### Four states
 
-Each state has its own abstract template page in this folder. The runner transitions between them; the production framework wires the state machine.
+Each state has its own abstract template page in this folder. The runner transitions between them; the production framework wires the state machine. **All four abstract template pages wrap in the agentic shell** (`layout-agentic-shell.html` from haven-ui PL): left rail = patient nav, center = chat thread, right = working surface (the runner state). The deterministic-first runner does not take free-text chat input, so `chat-input-area` is omitted from the chat panel; agent messages + button chips render in the thread. When agentic chat lands later, `chat-input-area` slots in below `chat-thread` per the PL spec — no rebuild of the right-pane runner is needed.
 
 - **Step 1 — Entry** ([`take-assessment.entry.html`](./take-assessment.entry.html)) — agent surfaces the due assessment at greeting; right pane primes the preflight card. Two condition variants: `assessment-due-first-pass` and `assessment-due-resume`. Resume copy includes a stale-prefix when the last touch was more than ~7 days ago.
 - **Step 2 — Preflight** ([`take-assessment.preflight.html`](./take-assessment.preflight.html)) — per-register tone framing in chat; preflight card mirrors the chat chip in the right pane. The CTA relabels from "Start the questionnaire" → "I'm ready" semantically (visually identical).
