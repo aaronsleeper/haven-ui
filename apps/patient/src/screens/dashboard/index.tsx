@@ -55,7 +55,7 @@ export function Dashboard() {
       {/* Greeting */}
       <div className="p-4">
         <h1 className="page-title">{greeting}</h1>
-        <p className="text-sm text-sand-500 mt-1">{subline}</p>
+        <p className="text-sm text-sand-600 mt-1">{subline}</p>
       </div>
 
       {/* Today's task */}
@@ -76,7 +76,7 @@ export function Dashboard() {
                 <p className="text-sm font-medium text-sand-800">
                   {DEMO_TASK.name[lang]}
                 </p>
-                <p className="text-xs text-sand-500 mt-0.5">
+                <p className="text-xs text-sand-600 mt-0.5">
                   {lang === 'es'
                     ? 'Listo — su equipo de cuidado tiene sus respuestas.'
                     : 'Done — your care team has your responses.'}
@@ -104,7 +104,7 @@ export function Dashboard() {
           <div className="card-body">
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-sand-500 mb-1">
+                <p className="text-xs font-semibold text-sand-600 mb-1">
                   {lang === 'es'
                     ? `${demoCareTeam.coordinator.shortName}, Coordinadora`
                     : `${demoCareTeam.coordinator.shortName}, Care Coordinator`}

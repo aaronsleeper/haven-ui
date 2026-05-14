@@ -119,12 +119,12 @@ export function Consent() {
 
       <div className="px-4 pb-2">
         <p
-          className="onb-progress text-center text-xs text-sand-500"
+          className="onb-progress text-center text-xs text-sand-600"
           aria-label={lang === 'es' ? 'Paso 2 de 3' : 'Step 2 of 3'}
         >
           {lang === 'es' ? 'Paso 2 de 3' : 'Step 2 of 3'}
         </p>
-        <p className="text-xs uppercase tracking-wide text-sand-500 mt-3">
+        <p className="text-xs uppercase tracking-wide text-sand-600 mt-3">
           {copy.label[lang as Language]}
         </p>
         <h1 className="page-title mt-1">{copy.headline[lang as Language]}</h1>
@@ -178,7 +178,7 @@ export function Consent() {
                 </span>
               </label>
             </div>
-            <p className="px-4 pb-4 text-xs text-sand-500">
+            <p className="px-4 pb-4 text-xs text-sand-600">
               {lang === 'es'
                 ? 'Cualquier opción está bien. Puede cambiarlo en cualquier momento en Ajustes.'
                 : 'Either choice is fine. You can change this anytime in Settings.'}
@@ -220,7 +220,7 @@ export function Consent() {
           {copy.buttonLabel[lang as Language]}
         </button>
         {(stage === 'A' || stage === 'B') && (
-          <p className="text-xs text-sand-400 text-center mt-3">
+          <p className="text-xs text-sand-600 text-center mt-3">
             {lang === 'es'
               ? "Al tocar 'Acepto', confirma que ha leído y entendido lo anterior."
               : "By tapping 'I agree', you confirm you have read and understood the above."}

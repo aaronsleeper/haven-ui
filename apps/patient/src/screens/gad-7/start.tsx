@@ -34,12 +34,12 @@ export function Gad7Start() {
 
         <h1 className="text-xl font-serif font-semibold mt-4">Anxiety check-in</h1>
 
-        <p className="text-sm text-sand-500 mt-2 max-w-xs">
+        <p className="text-sm text-sand-600 mt-2 max-w-xs">
           {GAD7_LEAD_IN} Your answers help your care team support you.
         </p>
 
-        <p className="text-xs text-sand-400 mt-3 flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-sand-400" aria-hidden="true">schedule</span>
+        <p className="text-xs text-sand-600 mt-3 flex items-center gap-1.5">
+          <span className="material-symbols-outlined text-sand-600" aria-hidden="true">schedule</span>
           About 2 minutes — {GAD7_QUESTIONS.length} questions
         </p>
       </div>
@@ -55,7 +55,7 @@ export function Gad7Start() {
             onClick: () => clear(),
           }}
         />
-        <p className="text-xs text-sand-400 text-center mt-3">
+        <p className="text-xs text-sand-600 text-center mt-3">
           Your answers are private and shared only with your care team.
         </p>
       </div>

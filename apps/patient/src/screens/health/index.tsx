@@ -73,7 +73,7 @@ export function MyHealth() {
         <h1 className="page-title">
           {lang === 'es' ? 'Mi Salud' : 'My Health'}
         </h1>
-        <p className="text-sm text-sand-500 mt-1">
+        <p className="text-sm text-sand-600 mt-1">
           {lang === 'es' ? 'Su progreso, su historia.' : 'Your progress, your story.'}
         </p>
       </div>
@@ -103,7 +103,7 @@ export function MyHealth() {
                   ariaLabel={`${metric.name[lang]} sparkline: ${metric.trendLabel[lang]}`}
                 />
               </div>
-              <p className="text-xs text-sand-400 mt-2">{metric.lastUpdated[lang]}</p>
+              <p className="text-xs text-sand-600 mt-2">{metric.lastUpdated[lang]}</p>
             </div>
           </Link>
         ))}

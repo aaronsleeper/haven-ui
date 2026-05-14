@@ -50,7 +50,7 @@ export function Care() {
         <h1 className="page-title">
           {lang === 'es' ? 'Cuidado' : 'Care'}
         </h1>
-        <p className="text-sm text-sand-500 mt-1">
+        <p className="text-sm text-sand-600 mt-1">
           {lang === 'es'
             ? 'Su plan, citas y entregas.'
             : 'Your plan, appointments, and deliveries.'}
@@ -77,7 +77,7 @@ export function Care() {
                 </li>
               ))}
             </ul>
-            <p className="text-xs text-sand-400 mt-3">
+            <p className="text-xs text-sand-600 mt-3">
               {lang === 'es'
                 ? 'Su coordinadora actualiza este plan con su equipo.'
                 : 'Your care coordinator updates this plan with your team.'}
@@ -94,7 +94,7 @@ export function Care() {
           </div>
           <div className="card-body">
             {DEMO_APPOINTMENTS.length === 0 ? (
-              <p className="text-sm text-sand-500">
+              <p className="text-sm text-sand-600">
                 {lang === 'es' ? 'Nada programado en este momento.' : 'Nothing scheduled right now.'}
               </p>
             ) : (
@@ -127,7 +127,7 @@ export function Care() {
           </div>
           <div className="card-body">
             {DEMO_DELIVERIES.length === 0 ? (
-              <p className="text-sm text-sand-500">
+              <p className="text-sm text-sand-600">
                 {lang === 'es'
                   ? 'Sus comidas aparecerán aquí cuando vayan en camino.'
                   : "Your meals will show up here once they're on the way."}
@@ -152,7 +152,7 @@ export function Care() {
         </div>
 
         {/* Footer helper */}
-        <p className="text-sm text-sand-500 text-center pb-4">
+        <p className="text-sm text-sand-600 text-center pb-4">
           {lang === 'es'
             ? 'Para cambiar algo, envíe un mensaje a su coordinadora.'
             : 'To change anything, message your care coordinator.'}

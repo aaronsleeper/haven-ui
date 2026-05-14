@@ -99,7 +99,7 @@ export function Preferences() {
 
       <div className="px-4 pb-2">
         <p
-          className="onb-progress text-center text-xs text-sand-500"
+          className="onb-progress text-center text-xs text-sand-600"
           aria-label={lang === 'es' ? 'Paso 3 de 3' : 'Step 3 of 3'}
         >
           {lang === 'es' ? 'Paso 3 de 3' : 'Step 3 of 3'}
@@ -107,7 +107,7 @@ export function Preferences() {
         <h1 className="page-title mt-3">
           {lang === 'es' ? 'Personalicemos su experiencia' : "Let's personalize your experience"}
         </h1>
-        <p className="text-sm text-sand-500 mt-1">
+        <p className="text-sm text-sand-600 mt-1">
           {lang === 'es'
             ? 'Siempre puede actualizarlos después.'
             : 'You can always update these later.'}
@@ -149,7 +149,7 @@ export function Preferences() {
           <legend className="text-sm font-semibold text-sand-800">
             {lang === 'es' ? '¿Qué tipo de comida le hace sentir en casa?' : 'What kind of food feels like home?'}
           </legend>
-          <p className="text-xs text-sand-500 mt-1 mb-3">
+          <p className="text-xs text-sand-600 mt-1 mb-3">
             {lang === 'es'
               ? 'Usaremos esto para personalizar sus comidas. Puede elegir más de una.'
               : "We'll use this to personalize your meals. You can pick more than one."}
@@ -173,7 +173,7 @@ export function Preferences() {
                     className="sr-only"
                   />
                   <span
-                    className={`material-symbols-outlined text-2xl ${selected ? 'text-primary-700' : 'text-sand-500'}`}
+                    className={`material-symbols-outlined text-2xl ${selected ? 'text-primary-700' : 'text-sand-600'}`}
                     aria-hidden="true"
                   >
                     {c.icon}
@@ -195,7 +195,7 @@ export function Preferences() {
             {lang === 'es' ? '¿Cómo nos contactamos con usted?' : 'How should we reach you?'}
           </legend>
 
-          <p className="text-xs text-sand-500 mb-2">
+          <p className="text-xs text-sand-600 mb-2">
             {lang === 'es' ? 'Método de contacto preferido' : 'Preferred contact method'}
           </p>
           <div className="grid grid-cols-3 gap-2 mb-4">
@@ -223,7 +223,7 @@ export function Preferences() {
             })}
           </div>
 
-          <p className="text-xs text-sand-500 mb-2">
+          <p className="text-xs text-sand-600 mb-2">
             {lang === 'es' ? 'Mejores horarios para contactarle' : 'Best times to reach you'}
           </p>
           <div className="space-y-2">
@@ -262,7 +262,7 @@ export function Preferences() {
         <button type="button" className="btn-secondary btn-block" onClick={handleAllDone}>
           {lang === 'es' ? 'Listo' : 'All done'}
         </button>
-        <p className="text-xs text-sand-400 text-center mt-3">
+        <p className="text-xs text-sand-600 text-center mt-3">
           {lang === 'es'
             ? 'Está bien saltar — usaremos predeterminados y puede actualizar cuando quiera.'
             : "Skipping is okay — we'll use defaults and you can update anytime."}

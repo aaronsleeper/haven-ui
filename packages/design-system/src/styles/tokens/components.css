@@ -6000,10 +6000,10 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 0.5rem;
-  color: var(--color-sand-400);
+  color: var(--color-sand-700);
   background: transparent !important;
   border: none !important;
   cursor: pointer;

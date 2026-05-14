@@ -42,7 +42,7 @@ export function Settings() {
         <h1 className="page-title">
           {lang === 'es' ? 'Ajustes' : 'Settings'}
         </h1>
-        <p className="text-sm text-sand-500 mt-1">
+        <p className="text-sm text-sand-600 mt-1">
           {lang === 'es'
             ? 'Administre su idioma, notificaciones y cuenta.'
             : 'Manage your language, notifications, and account.'}
@@ -189,7 +189,7 @@ export function Settings() {
               </tbody>
             </table>
             <div className="divider" />
-            <p className="text-sm text-sand-500 mb-2">
+            <p className="text-sm text-sand-600 mb-2">
               {lang === 'es'
                 ? 'Para actualizar sus datos, envíe un mensaje a su coordinadora.'
                 : 'To update your details, message your care coordinator.'}
@@ -209,7 +209,7 @@ export function Settings() {
         </div>
 
         {/* Footer */}
-        <p className="text-xs text-sand-400 text-center pb-4">
+        <p className="text-xs text-sand-600 text-center pb-4">
           Haven · v1.0 ·{' '}
           <a href={PENDING.privacyUrl.value} className="text-link">
             {lang === 'es' ? 'Privacidad' : 'Privacy'}
@@ -239,7 +239,7 @@ export function Settings() {
                 <p id="signout-title" className="text-base font-semibold text-sand-900 mb-2">
                   {lang === 'es' ? '¿Cerrar sesión?' : 'Sign out?'}
                 </p>
-                <p className="text-sm text-sand-500 mb-4">
+                <p className="text-sm text-sand-600 mb-4">
                   {lang === 'es'
                     ? 'Puede volver a iniciar sesión en cualquier momento con su teléfono o correo.'
                     : 'You can sign back in anytime with your phone or email.'}

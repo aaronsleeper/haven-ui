@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../../lib/useLanguage';
 import {
   demoCareTeam,
@@ -68,6 +68,9 @@ export function Messages() {
   const [replyExpanded, setReplyExpanded] = useState(false);
   const [replyText, setReplyText] = useState('');
   const [persistedReply, setPersistedReply] = useState<string | null>(null);
+  const [sendAnnouncement, setSendAnnouncement] = useState<string>('');
+  const composeButtonRef = useRef<HTMLButtonElement>(null);
+  const shouldRestoreFocusRef = useRef<boolean>(false);
 
   // Restore previously sent reply from localStorage (survives demo refreshes).
   useEffect(() => {
@@ -80,6 +83,16 @@ export function Messages() {
       // localStorage unavailable — show no persisted reply
     }
   }, []);
+
+  // Return focus to the compose trigger after Cancel/Send. The trigger is
+  // re-mounted when replyExpanded flips back to false, so the focus call has
+  // to wait for the next render — useEffect fires after commit.
+  useEffect(() => {
+    if (!replyExpanded && shouldRestoreFocusRef.current) {
+      composeButtonRef.current?.focus();
+      shouldRestoreFocusRef.current = false;
+    }
+  }, [replyExpanded]);
 
   // Once the patient has read the latest coordinator message, suppress the
   // unread pill. The pill should only fire as a "new" beat on cold-start.
@@ -100,6 +113,18 @@ export function Messages() {
     setPersistedReply(text);
     setReplyText('');
     setReplyExpanded(false);
+    shouldRestoreFocusRef.current = true;
+    setSendAnnouncement(
+      lang === 'es' ? 'Mensaje enviado' : 'Message sent',
+    );
+    // Clear the announcement after the SR has had time to read it.
+    window.setTimeout(() => setSendAnnouncement(''), 2000);
+  }
+
+  function handleCancelReply() {
+    setReplyExpanded(false);
+    setReplyText('');
+    shouldRestoreFocusRef.current = true;
   }
 
   function bodyFor(msg: MessageEvent): string {
@@ -114,7 +139,7 @@ export function Messages() {
         <h1 className="page-title">
           {lang === 'es' ? 'Mensajes' : 'Messages'}
         </h1>
-        <p className="text-sm text-sand-500 mt-1">
+        <p className="text-sm text-sand-600 mt-1">
           {lang === 'es' ? 'De su equipo de cuidado.' : 'From your care team.'}
         </p>
       </div>
@@ -134,7 +159,7 @@ export function Messages() {
                   <span className="material-symbols-outlined">info</span>
                 </div>
                 <div className="notif-item-content">
-                  <p className="text-xs font-semibold text-sand-500 mb-1">
+                  <p className="text-xs font-semibold text-sand-600 mb-1">
                     {lang === 'es' ? 'Recordatorio de cuidado' : 'Care reminder'}
                   </p>
                   <p className="notif-item-description">{bodyFor(msg)}</p>
@@ -204,6 +229,11 @@ export function Messages() {
         )}
       </div>
 
+      {/* Status announcement for screen readers after Send */}
+      <div role="status" aria-live="polite" className="sr-only">
+        {sendAnnouncement}
+      </div>
+
       {/* Reply composer (sticky above bottom-nav) */}
       <div className="sticky bottom-0 border-t border-sand-200 bg-white pb-safe-4">
         {replyExpanded ? (
@@ -221,7 +251,7 @@ export function Messages() {
               <button
                 type="button"
                 className="btn-ghost btn-sm"
-                onClick={() => { setReplyExpanded(false); setReplyText(''); }}
+                onClick={handleCancelReply}
               >
                 {lang === 'es' ? 'Cancelar' : 'Cancel'}
               </button>
@@ -230,6 +260,11 @@ export function Messages() {
                 className="btn-primary btn-sm"
                 onClick={handleSend}
                 disabled={!replyText.trim()}
+                aria-label={
+                  lang === 'es'
+                    ? 'Enviar mensaje a su coordinadora de cuidado'
+                    : 'Send message to your care coordinator'
+                }
               >
                 {lang === 'es' ? 'Enviar' : 'Send'}
               </button>
@@ -237,8 +272,9 @@ export function Messages() {
           </div>
         ) : (
           <button
+            ref={composeButtonRef}
             type="button"
-            className="flex items-center gap-2 w-full p-3 text-sm text-sand-400 text-left"
+            className="flex items-center gap-2 w-full p-3 text-sm text-sand-600 text-left"
             onClick={() => setReplyExpanded(true)}
             aria-label={lang === 'es' ? 'Escribir mensaje' : 'Write a message'}
           >

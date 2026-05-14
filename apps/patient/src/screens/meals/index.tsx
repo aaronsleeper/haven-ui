@@ -143,10 +143,19 @@ const SUBTITLE_COPY: Record<OrderState, { en: string; es: string }> = {
 export function Meals() {
   const [lang] = useLanguage();
   const [orderState, setOrderState] = useState<OrderState>('unconfirmed');
+  const [swapToast, setSwapToast] = useState<string>('');
 
   function handleSwap(mealId: string, mealName: string) {
-    // v1: log to console; production: open substitute bottom sheet
+    // v1: surface a confirmation toast so the patient sees the request was
+    // received. The bottom-sheet substitute picker is deferred to v1.1; the
+    // toast keeps demo flows from dead-ending on Swap.
     console.info(`[Meals] Swap requested for ${mealName} (id: ${mealId})`);
+    setSwapToast(
+      lang === 'es'
+        ? `Cambio solicitado: ${mealName}. Su equipo de cuidado le sugerirá alternativas pronto.`
+        : `Swap requested: ${mealName}. Your care team will follow up with alternatives shortly.`,
+    );
+    window.setTimeout(() => setSwapToast(''), 4000);
   }
 
   function handleConfirm() {
@@ -162,7 +171,7 @@ export function Meals() {
     <div className="pb-safe-8">
       <div className="p-4">
         <h1 className="page-title">{lang === 'es' ? 'Sus Comidas' : 'Your Meals'}</h1>
-        <p className="text-sm text-sand-500 mt-1">{subtitle[lang as Language]}</p>
+        <p className="text-sm text-sand-600 mt-1">{subtitle[lang as Language]}</p>
       </div>
 
       {/* Status banner */}
@@ -215,6 +224,20 @@ export function Meals() {
           </div>
         </div>
       </div>
+
+      {/* Swap-requested toast — transient confirmation after a Swap tap */}
+      {swapToast && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 max-w-md w-[calc(100%-2rem)] bg-sand-900 text-white text-sm px-4 py-3 rounded-lg shadow-lg flex items-start gap-2"
+        >
+          <span className="material-symbols-outlined text-base mt-0.5" aria-hidden="true">
+            check
+          </span>
+          <span>{swapToast}</span>
+        </div>
+      )}
 
       {/* Sticky Confirm CTA */}
       {showConfirmCta && (

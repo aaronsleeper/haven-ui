@@ -38,7 +38,7 @@ export function Welcome() {
     <div className="flex flex-col min-h-dvh">
       <div className="p-4">
         <p
-          className="onb-progress text-center text-xs text-sand-500"
+          className="onb-progress text-center text-xs text-sand-600"
           aria-label={lang === 'es' ? 'Paso 1 de 3' : 'Step 1 of 3'}
         >
           {lang === 'es' ? 'Paso 1 de 3' : 'Step 1 of 3'}
@@ -46,7 +46,7 @@ export function Welcome() {
         <h1 className="page-title mt-3">
           {lang === 'es' ? 'Bienvenida a Cena Health' : 'Welcome to Cena Health'}
         </h1>
-        <p className="text-sm text-sand-500 mt-1">
+        <p className="text-sm text-sand-600 mt-1">
           {lang === 'es'
             ? 'Sus comidas y equipo de cuidado están listos. Vamos a configurar su cuenta.'
             : "Your meals and care team are ready. Let's set up your account."}
@@ -76,7 +76,7 @@ export function Welcome() {
                   />
                   <button
                     type="button"
-                    className="field-addon absolute right-2 top-1/2 -translate-y-1/2 text-sand-500"
+                    className="field-addon absolute right-2 top-1/2 -translate-y-1/2 text-sand-600"
                     aria-label={
                       showPassword
                         ? lang === 'es' ? 'Ocultar contraseña' : 'Hide password'
@@ -134,7 +134,7 @@ export function Welcome() {
                   />
                   <button
                     type="button"
-                    className="field-addon absolute right-2 top-1/2 -translate-y-1/2 text-sand-500"
+                    className="field-addon absolute right-2 top-1/2 -translate-y-1/2 text-sand-600"
                     aria-label={
                       showConfirm
                         ? lang === 'es' ? 'Ocultar contraseña' : 'Hide password'
