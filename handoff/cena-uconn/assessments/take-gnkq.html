@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Take assessment — GNKQ-R · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    GNKQ-R (General Nutrition Knowledge Questionnaire Revised) — single-page narrative demo
+    of the runner flow with REAL content from the Kliemann 2016 instrument.
+
+    Distinct from the 4 take-assessment.*.html state pages (which show the abstract runner
+    template). This page walks the knowledge-quiz register top-to-bottom so Andrey can see
+    one fully-resolved instance for the GNKQ-R.
+
+    Source content: instrument-content-primary-sources.md § GNKQ-R (lines 337–803).
+    Kliemann, N., et al. 2016. EJCN, 70, 1174–1180. doi:10.1038/ejcn.2016.87
+    Wireframes: take-assessment.step-{1-entry,2-preflight,3-question,5-submit-confirm}.mdoc
+    Register: knowledge-quiz
+
+    SLICE 1 SCOPE — image-dependent items OMITTED (Aaron 2026-05-14 PM):
+      - Section 3, Items 12–13 (nutrition label images, Product 1 and Product 2)
+      - Section 4, Item 16 (body shape illustration)
+    These 3 items are Aaron-pending. See footer and instrument-content-primary-sources.md
+    § Open issues — Aaron pending.
+
+    The runner in production flips one state at a time via JS state machine. This page renders
+    all states stacked for hand-port reference.
+  -->
+  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+
+    <header class="space-y-2 border-b border-sand-200 pb-6">
+      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · GNKQ-R instance · knowledge-quiz register</p>
+      <h1 class="text-3xl font-semibold tracking-tight">General Nutrition Knowledge Questionnaire Revised (GNKQ-R)</h1>
+      <p class="text-base text-fg-muted max-w-3xl">A demo of the runner with real GNKQ-R content. 88 scored items across 4 sections; Section 5 demographics is unscored. For the abstract runner template, see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>. For the screener instance, see <a class="link" href="./take-screener.html">take-screener.html</a>.</p>
+    </header>
+
+    <!-- ─────────── Step 1 · Entry ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
+        <p class="text-xs text-fg-muted">agent.entry-first-pass copy from take-assessment.step-1-entry.mdoc; preflight card primed with GNKQ-R metadata.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Hi <strong>[firstName]</strong>. You're due for a short questionnaire about <strong>your nutrition knowledge</strong>. It usually takes about <strong>20–30</strong> minutes. Want to start now or come back to it?</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">Start the questionnaire</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">Nutrition Knowledge Survey</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">88 questions across 4 sections</li>
+                <li class="assessment-preflight-card-meta-item">About 20–30 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">Start the questionnaire</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 2 · Preflight ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (knowledge-quiz register)</p>
+        <p class="text-xs text-fg-muted">agent.preflight-knowledge from take-assessment.step-2-preflight.mdoc; "There are right answers in this one…" register. Disclosure: care team (not screener register).</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>There are right answers in this one, but it's a check of the program, not a check of you. Just go with what feels right.</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn btn-secondary">I'm ready</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-preflight-card">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">Nutrition Knowledge Survey</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">88 questions across 4 sections</li>
+                <li class="assessment-preflight-card-meta-item">About 20–30 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <button type="button" class="btn btn-primary">I'm ready</button>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Question Administration ─────────── -->
+    <section class="space-y-6">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · two example questions</p>
+        <p class="text-xs text-fg-muted">Shows Section 1 (single-select, multi-choice-knowledge) and Section 2 (food-list, multi-item sub-questions) to demonstrate the two dominant item shapes in GNKQ-R. Image-dependent items (S3 Q12–13, S4 Q16) are omitted from slice 1.</p>
+      </header>
+
+      <!-- ── Example 1: Section 1 Item 2 (single-select, Dietary Recommendations) ── -->
+      <div class="space-y-2">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Example A · Section 1: Dietary Recommendations · single-select item (S1 Item 2)</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+          <div class="space-y-3" aria-label="Agent chat">
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+          </div>
+          <aside aria-label="Working surface">
+            <header class="assessment-header">
+              <h2 class="assessment-header-title">Nutrition Knowledge Survey</h2>
+              <p class="assessment-header-meta">Section 1 of 4 · Question 2 of 18</p>
+              <div
+                class="progress-bar-pagination"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="4"
+                aria-valuenow="1"
+                aria-valuetext="Section 1 of 4"
+              >
+                <span class="progress-bar-pagination-segment is-filled"></span>
+                <span class="progress-bar-pagination-segment"></span>
+                <span class="progress-bar-pagination-segment"></span>
+                <span class="progress-bar-pagination-segment"></span>
+              </div>
+              <p class="text-xs text-fg-muted mt-2 italic">Section 1: Dietary Recommendations (18 items) · Section 2: Food Groups (36 items) · Section 3: Healthy Food Choices (13 items) · Section 4: Diet, Disease &amp; Weight Management (21 items)</p>
+            </header>
+
+            <article class="card mt-6">
+              <div class="card-header flex items-center justify-between">
+                <span class="text-sm font-medium">Section 1 · Question 2 of 18</span>
+                <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+              </div>
+              <div class="card-body space-y-6">
+                <p class="text-xs text-fg-muted italic">The first few items are about what advice you think experts are giving us.</p>
+
+                <fieldset class="response-option-group" role="radiogroup" aria-labelledby="gnkq-s1-q2">
+                  <legend id="gnkq-s1-q2" class="response-option-group-prompt">How many servings of fruit and vegetables per day do experts advise people to eat as a minimum? (One serving could be, for example, an apple or a handful of chopped carrots)</legend>
+                  <div class="response-option-group-list">
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                      <span class="response-option-label">2</span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                      <span class="response-option-label">3</span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                      <span class="response-option-label">4</span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">D</span></span>
+                      <span class="response-option-label">5 or more</span>
+                      <span class="response-option-check"></span>
+                    </button>
+                    <button type="button" class="response-option" role="radio" aria-checked="false">
+                      <span class="response-option-index"><span class="response-option-index-num">E</span></span>
+                      <span class="response-option-label">Not sure</span>
+                      <span class="response-option-check"></span>
+                    </button>
+                  </div>
+                </fieldset>
+
+                <nav class="pagination-row" aria-label="Question navigation">
+                  <button type="button" class="btn btn-outline">Previous</button>
+                  <button type="button" class="btn btn-secondary">Next</button>
+                </nav>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Section divider note -->
+      <div class="border-t border-sand-200 pt-4">
+        <p class="text-xs text-fg-muted italic">↑ GNKQ-R has 4 sections (Dietary Recommendations / Food Groups / Healthy Food Choices / Diet, Disease &amp; Weight Management). Items vary in shape — single-select, food-list multi-item, agree/disagree. Sections can be administered independently per Kliemann 2016 scoring documentation.</p>
+      </div>
+
+      <!-- ── Example 2: Section 2 Item 1 (food-list multi-item, Food Groups) ── -->
+      <div class="space-y-2 border-t border-sand-200 pt-6">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Example B · Section 2: Food Groups · food-list multi-item (S2 Item 1)</p>
+        <p class="text-xs text-fg-muted">This item type presents multiple foods as sub-questions with the same response scale. Each food is a separate scored point. Section 2 has 6 such food-list items (Items 1–6) totalling 26 sub-item scores, plus 4 single-select items (Items 7–10).</p>
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+          <div class="space-y-3" aria-label="Agent chat">
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+          </div>
+          <aside aria-label="Working surface">
+            <header class="assessment-header">
+              <h2 class="assessment-header-title">Nutrition Knowledge Survey</h2>
+              <p class="assessment-header-meta">Section 2 of 4 · Question 1 of 36</p>
+              <div
+                class="progress-bar-pagination"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="4"
+                aria-valuenow="2"
+                aria-valuetext="Section 2 of 4"
+              >
+                <span class="progress-bar-pagination-segment is-filled"></span>
+                <span class="progress-bar-pagination-segment is-filled"></span>
+                <span class="progress-bar-pagination-segment"></span>
+                <span class="progress-bar-pagination-segment"></span>
+              </div>
+            </header>
+
+            <article class="card mt-6">
+              <div class="card-header flex items-center justify-between">
+                <span class="text-sm font-medium">Section 2 · Question 1 of 36</span>
+                <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+              </div>
+              <div class="card-body space-y-6">
+                <p class="text-xs text-fg-muted italic">Experts classify foods into groups. We are interested to see whether people are aware of food groups and the nutrients they contain.</p>
+
+                <fieldset class="space-y-4" aria-labelledby="gnkq-s2-q1-prompt">
+                  <legend id="gnkq-s2-q1-prompt" class="response-option-group-prompt">Do you think these foods and drinks are typically high or low in added sugar?</legend>
+                  <p class="text-xs text-fg-muted">Answer for each food below.</p>
+
+                  <!-- Sub-item: Diet cola drinks -->
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-fg-default">Diet cola drinks</p>
+                    <div class="response-option-group" role="radiogroup" aria-label="Diet cola drinks — added sugar">
+                      <div class="response-option-group-list">
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                          <span class="response-option-label">High in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                          <span class="response-option-label">Low in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                          <span class="response-option-label">Not sure</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-item: Natural yoghurt -->
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-fg-default">Natural yoghurt</p>
+                    <div class="response-option-group" role="radiogroup" aria-label="Natural yoghurt — added sugar">
+                      <div class="response-option-group-list">
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                          <span class="response-option-label">High in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                          <span class="response-option-label">Low in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                          <span class="response-option-label">Not sure</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-item: Ice cream -->
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-fg-default">Ice cream</p>
+                    <div class="response-option-group" role="radiogroup" aria-label="Ice cream — added sugar">
+                      <div class="response-option-group-list">
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                          <span class="response-option-label">High in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                          <span class="response-option-label">Low in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                          <span class="response-option-label">Not sure</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-item: Tomato ketchup -->
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-fg-default">Tomato ketchup</p>
+                    <div class="response-option-group" role="radiogroup" aria-label="Tomato ketchup — added sugar">
+                      <div class="response-option-group-list">
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                          <span class="response-option-label">High in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                          <span class="response-option-label">Low in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                          <span class="response-option-label">Not sure</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-item: Melon -->
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-fg-default">Melon</p>
+                    <div class="response-option-group" role="radiogroup" aria-label="Melon — added sugar">
+                      <div class="response-option-group-list">
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">A</span></span>
+                          <span class="response-option-label">High in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">B</span></span>
+                          <span class="response-option-label">Low in added sugar</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                        <button type="button" class="response-option" role="radio" aria-checked="false">
+                          <span class="response-option-index"><span class="response-option-index-num">C</span></span>
+                          <span class="response-option-label">Not sure</span>
+                          <span class="response-option-check"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <p class="text-xs text-fg-muted italic">5 sub-items above, each scored separately. Unanswered sub-items score 0 (same as "Not sure"). Section 2 has 6 food-list items of this shape plus 4 single-select items.</p>
+
+                <nav class="pagination-row" aria-label="Question navigation">
+                  <button type="button" class="btn btn-outline" disabled>Previous</button>
+                  <button type="button" class="btn btn-secondary">Next</button>
+                </nav>
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 5 · Submit confirmation (knowledge-quiz register) ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation · knowledge-quiz register</p>
+        <p class="text-xs text-fg-muted">agent.confirm-knowledge from take-assessment.step-5-submit-confirm.mdoc. No score shown to patient — per no-score invariant (flow-take-assessment.md Step 5). Receipt card carries instrument title only.</p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <p>Thanks — your answers are in. Your care team will review them at your next session.</p>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <article class="assessment-confirmation">
+            <div class="receipt">
+              <header class="receipt-header">
+                <h2 class="receipt-title">Nutrition Knowledge Survey</h2>
+              </header>
+              <div class="receipt-body space-y-2">
+                <p class="text-base">Submitted just now.</p>
+                <p class="text-sm text-fg-muted">Your care team has it.</p>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Footer ─────────── -->
+    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-fg-muted">
+      <p><strong>Source instrument:</strong> Kliemann, N., Wardle, J., Johnson, F., and Croker, H. (2016). "Reliability and validity of a revised version of the General Nutrition Knowledge Questionnaire." <em>European Journal of Clinical Nutrition</em>, 70, 1174–1180. doi:10.1038/ejcn.2016.87. Open-access; instrument text sourced from the open-access deposit at juanrevenga.com.</p>
+      <p><strong>Sections and maxima:</strong> Section 1 (Dietary Recommendations) = 18 pts · Section 2 (Food Groups) = 36 pts · Section 3 (Healthy Food Choices) = 13 pts · Section 4 (Diet, Disease &amp; Weight Management) = 21 pts · Total = 88 scored items. Section 5 (Demographics) is unscored.</p>
+      <p><strong>Scoring:</strong> Correct-answer count per section. "Not sure" scores 0 (same as incorrect). Scoring is computed at submit. Per the no-score invariant (flow-take-assessment.md Step 5), scores are never shown to the patient — they route to the clinician surface (cap-51) only.</p>
+      <p><strong>Slice 1 gaps — Aaron pending (2026-05-14 PM):</strong></p>
+      <ul class="list-disc ml-5 space-y-1">
+        <li><strong>Section 3, Items 12–13 not rendered</strong> — these items require printed nutrition label images (Product 1 and Product 2) from the original Kliemann document. Digital equivalents are not yet sourced; Aaron decision pending. Items 1–11 in Section 3 are deliverable now.</li>
+        <li><strong>Section 4, Item 16 not rendered</strong> — this item requires a body shape illustration (apple vs. pear shape) from the original document. Digital equivalent not yet sourced; Aaron decision pending. Items 1–15 in Section 4 are deliverable now.</li>
+        <li><strong>Section 5 UK ethnicity adaptation</strong> — the unscored demographics section uses UK ethnicity categories (White British, Black African, Asian Indian, etc.). US deployment requires adaptation to HHS or US Census race/ethnicity standards. Aaron decision pending on whether to adapt or preserve for direct UK validation comparison.</li>
+      </ul>
+      <p>Full instrument content at <code class="font-mono">Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/instrument-content-primary-sources.md</code> § GNKQ-R. Open issues documented in § Open issues — Aaron pending.</p>
+    </footer>
+  </main>
+</body>
+</html>
