@@ -29,18 +29,8 @@
   -->
   <main class="mx-auto max-w-[1400px] p-8 space-y-12" data-assessment-root aria-label="Pre-enrollment screener">
 
-    <header class="space-y-2 border-b border-sand-200 pb-6">
-      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · screener instance · interactive</p>
-      <h1 class="text-3xl font-semibold tracking-tight">Pre-enrollment screener</h1>
-      <p class="text-base text-fg-muted max-w-3xl">Working demo. Press <em>Start</em> to step through. For the per-state shell composition (sidebar + bottom-nav), see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
-      <p class="text-xs text-fg-muted"><button type="button" class="link" data-action="reset">Reset to entry</button></p>
-    </header>
-
     <!-- ─────────── State 1 · Entry ─────────── -->
     <section data-state="entry" class="space-y-4" aria-label="Entry">
-      <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
-      </header>
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
@@ -49,9 +39,7 @@
           <div class="chat-button-row">
             <button type="button" class="btn btn-secondary" data-action="start">Start the questionnaire</button>
           </div>
-          <div class="chat-handoff-trigger is-header">
-            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-          </div>
+          <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
         </div>
         <aside aria-label="Working surface">
           <article class="assessment-preflight-card">
@@ -75,9 +63,6 @@
 
     <!-- ─────────── State 2 · Preflight ─────────── -->
     <section data-state="preflight" class="space-y-4" aria-label="Preflight" hidden>
-      <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (screener register)</p>
-      </header>
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
@@ -86,9 +71,7 @@
           <div class="chat-button-row">
             <button type="button" class="btn btn-secondary" data-action="ready">I'm ready</button>
           </div>
-          <div class="chat-handoff-trigger is-header">
-            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-          </div>
+          <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
         </div>
         <aside aria-label="Working surface">
           <article class="assessment-preflight-card">
@@ -110,17 +93,15 @@
       </div>
     </section>
 
-    <!-- ─────────── State 3 · Question administration ─────────── -->
+    <!--
+      ─────────── State 3 · Question administration ───────────
+      Q1 declares early-exit predicates: "No" → not-eligible, "I'd rather not say" → refer-to-team.
+      Other questions advance through Q6 unless outcome rules route otherwise at submit.
+    -->
     <section data-state="question" class="space-y-4" aria-label="Question administration" hidden>
-      <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration</p>
-        <p class="text-xs text-fg-muted">Q1 declares early-exit predicates: "No" → not-eligible, "I'd rather not say" → refer-to-team. Other questions advance through Q6 unless outcome rules route otherwise at submit.</p>
-      </header>
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
         <div class="space-y-3" aria-label="Agent chat">
-          <div class="chat-handoff-trigger is-header">
-            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-          </div>
+          <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
         </div>
         <aside aria-label="Working surface">
           <header class="assessment-header">
@@ -163,12 +144,13 @@
       </div>
     </section>
 
-    <!-- ─────────── State 5 · Submit confirmation (3 outcome variants) ─────────── -->
+    <!--
+      ─────────── State 5 · Submit confirmation (3 outcome variants) ───────────
+      Per CC-02 panel verdict + Aaron 2026-05-14 PM: copy varies by outcome path
+      without naming the classification (no-score invariant preserved). The engine
+      reveals the [data-confirm-variant] matching the computed outcome.
+    -->
     <section data-state="confirm" class="space-y-4" aria-label="Submit confirmation" hidden>
-      <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation</p>
-        <p class="text-xs text-fg-muted">Per CC-02 panel verdict + Aaron 2026-05-14 PM: copy varies by outcome path without naming the classification (no-score invariant preserved).</p>
-      </header>
 
       <!-- Variant: eligible -->
       <div data-confirm-variant="eligible" hidden>
@@ -177,9 +159,7 @@
             <div class="patient-chat-message">
               <p>Thanks — that's everything we needed. Someone from the team will be in touch to get you started.</p>
             </div>
-            <div class="chat-handoff-trigger is-header">
-              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-            </div>
+            <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
           </div>
           <aside aria-label="Working surface">
             <article class="assessment-confirmation">
@@ -204,9 +184,7 @@
             <div class="patient-chat-message">
               <p>Thanks for taking the time. Based on your answers, the program may not be the right fit right now — someone from our team will follow up to share other options that might help.</p>
             </div>
-            <div class="chat-handoff-trigger is-header">
-              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-            </div>
+            <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
           </div>
           <aside aria-label="Working surface">
             <article class="assessment-confirmation">
@@ -231,9 +209,7 @@
             <div class="patient-chat-message">
               <p>Thanks — a member of the team will review your answers and reach out to talk through next steps.</p>
             </div>
-            <div class="chat-handoff-trigger is-header">
-              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
-            </div>
+            <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
           </div>
           <aside aria-label="Working surface">
             <article class="assessment-confirmation">
@@ -252,10 +228,15 @@
       </div>
     </section>
 
-    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-fg-muted">
-      <p><strong>All 6 questions wired</strong> from <code class="font-mono">screener-pre-enrollment-content-draft.md</code>. Rule-based outcome routing matches that doc § Outcome Routing.</p>
-      <p><strong>Try the three paths:</strong> answer Q1 "No" → not-eligible exit. Answer Q1 "I'd rather not say" → refer-to-team exit. Answer Q1 "Yes" then continue, picking positive options for Q2/Q4/Q5 → eligible at submit. Any mixed positive/refer answer → refer-to-team at submit.</p>
-    </footer>
+    <!--
+      Try the three paths in a browser:
+        Q1 = "No"                  → not-eligible (early-exit)
+        Q1 = "I'd rather not say"  → refer-to-team (early-exit)
+        Q1 = "Yes", positive Q2/Q4/Q5  → eligible at submit
+        Any mixed positive/refer answer → refer-to-team at submit
+      All 6 questions wired from screener-pre-enrollment-content-draft.md;
+      rule-based outcome routing matches that doc § Outcome Routing.
+    -->
   </main>
 
   <!--
