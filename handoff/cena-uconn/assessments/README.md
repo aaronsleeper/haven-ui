@@ -51,7 +51,7 @@ Each instance page walks the 4 runner states top-to-bottom for one specific inst
 
 | File | Instrument | What it demonstrates that the abstract template doesn't |
 |---|---|---|
-| [`take-screener.html`](./take-screener.html) | Pre-enrollment screener (6 questions; Aaron-approved 2026-05-14 PM) | Screener register copy variants (preflight + 3 outcome-path confirmations); Q1 eligibility-gate with early-exit predicate |
+| [`take-screener.html`](./take-screener.html) | Pre-enrollment screener (6 questions; Aaron-approved 2026-05-14 PM) — **interactive** via [`assessment-runner.js`](./assessment-runner.js) | Screener register copy variants (preflight + 3 outcome-path confirmations); Q1 eligibility-gate with early-exit predicate; rule-based outcome routing computed at submit |
 | [`take-hfias.html`](./take-hfias.html) | HFIAS — Coates/Swindale/Bilinsky 2007 (via SPIROMICS III implementation) | Two-step occurrence → frequency skip logic (Q1 Yes reveals Q1a; No advances to Q2). 9 occurrence questions; 4-category HFIAP scoring computed at submit. |
 | [`take-whoqol.html`](./take-whoqol.html) | WHOQOL-HIV BREF — WHO/MSD/MER/02.2 2002 | Per-item response-scale variation (5 distinct scales across 31 items; runner reads each item's `responseScale` field). 6-domain scoring; 6 items reverse-scored. Foregrounded talk-to-a-person bridge per CC-01 distress-signal verdict. |
 | [`take-gnkq.html`](./take-gnkq.html) | GNKQ-R — Kliemann et al. 2016 EJCN open-access | Multi-section structure (4 sections, 88 scored items); food-list multi-item pattern (one prompt → N sub-items, each its own radio group). 3 image-dependent items + Section 5 UK ethnicity adaptation are Aaron-pending; not in slice 1. |
@@ -100,13 +100,10 @@ These classes live in `packages/design-system/src/styles/tokens/components.css`.
 
 ## JS contracts
 
-Vanilla JS modules from `packages/design-system/src/scripts/components/` carry primitive behavior. Andrey reads the contract + ports to Angular services / directives.
+- [`assessment-runner.js`](./assessment-runner.js) — runner engine for the 4-state machine (entry → preflight → question → confirm). Vanilla ES, zero deps. Drives `take-screener.html`; other resolved instances port to it incrementally. The file header documents the wiring contract, custom events (`assessment:state-change` / `:answer` / `:submit`), and the programmatic API (`el._assessment`). Andrey reads + ports to an Angular service or component.
+- The PL primitive at `packages/design-system/src/scripts/components/assessment.js` is an older prototype with a different DOM contract (PHQ-2 hardcoded, `.pref-row` classes); the runner here was authored as isolated handoff JS to avoid colliding with what backs the React port. Future consolidation is a separate task.
 
-- `assessment.js` — questionnaire panel state machine (TBD; may need to author for slice 1 if existing module doesn't cover the runner)
-- `assess-slider.js` — assessment slider primitive (used by `patient-assess-slider`; not in slice 1)
-- Future per-slice: any new behavior modules ship alongside the HTML
-
-Contract format follows haven-ui's "Vanilla JS per primitive" convention — `data-*` attribute attachment, dispatched `CustomEvent`s on the host element with detail shapes documented in the primitive's `@component-meta` block, programmatic API on `el._<primitiveName>`. See `Lab/haven-ui/CLAUDE.md` § "Vanilla JS per primitive."
+Contract format follows haven-ui's "Vanilla JS per primitive" convention — `data-*` attribute attachment, bubbling `CustomEvent`s with structured `detail`, programmatic API on `el._<primitiveName>`. See `Lab/haven-ui/CLAUDE.md` § "Vanilla JS per primitive."
 
 ## Data shapes
 

@@ -44,7 +44,7 @@ The four resolved instance pages in this folder walk all four states top-to-bott
 
 | Instance | Why it exists |
 |---|---|
-| [`take-screener.html`](./take-screener.html) | Demonstrates the `screener` register (preflight + 3 outcome-path-differentiated confirmation variants), the early-exit predicate on Q1 (eligibility gate), and the program-team disclosure |
+| [`take-screener.html`](./take-screener.html) — **interactive**, drives via [`assessment-runner.js`](./assessment-runner.js) | Demonstrates the `screener` register (preflight + 3 outcome-path-differentiated confirmation variants), the early-exit predicate on Q1 (eligibility gate), the program-team disclosure, and rule-based outcome routing at submit. Open the file and step through — Q1 'No' early-exits to `not-eligible`, Q1 'I'd rather not say' early-exits to `refer-to-team`, all-positive answers route to `eligible`, any rule-table miss falls through to `refer-to-team` |
 | [`take-hfias.html`](./take-hfias.html) | Demonstrates the two-step occurrence → frequency skip logic that's unique to HFIAS. Q1 occurrence "Yes" reveals Q1a frequency follow-up; "No" advances to Q2. |
 | [`take-whoqol.html`](./take-whoqol.html) | Demonstrates per-item response-scale variation. WHOQOL has 5 distinct response scales across 31 items; the runner reads each item's `responseScale` field and renders matching options. The instance page renders 2 different scales on the same Step 3 page to make the variation visible. |
 | [`take-gnkq.html`](./take-gnkq.html) | Demonstrates the multi-section structure (4 sections, 88 scored items) and the food-list multi-item pattern (one prompt → N sub-items, each its own radio group). |

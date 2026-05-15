@@ -11,29 +11,33 @@
 </head>
 <body>
   <!--
-    Pre-enrollment screener — single-page narrative demo of the runner flow with REAL content.
+    Pre-enrollment screener — interactive single-page runner demo.
 
-    Distinct from the 4 take-assessment.*.html state pages (which show the abstract runner
-    template with sensitive register + [VERIFY]-tagged instrument content). This page walks
-    the screener register top-to-bottom so Andrey can see one fully-resolved instance.
+    Walks the patient through entry → preflight → question (6 items, with per-item
+    early-exit on Q1) → outcome-differentiated confirmation. The runner engine in
+    `./assessment-runner.js` reads `window.ASSESSMENT_INSTANCE` (defined inline
+    below) and toggles `[hidden]` on each <section data-state="…"> block.
 
-    Source content: screener-pre-enrollment-content-draft.md (Aaron-approved 2026-05-14 PM).
-    Wireframes: take-assessment.step-{1,2,3,5}.mdoc; this page is a narrative composition
-    of those states for one instance, NOT a replacement for the per-state spec.
+    Andrey: read assessment-runner.js for the contract; lift the JSON
+    instance data into a TS module; bind a component to the same DOM shape (or
+    swap classes for your Angular Material equivalents). Custom events on the
+    root: assessment:state-change | assessment:answer | assessment:submit.
 
-    The runner in production flips one state at a time via JS state machine + per-item
-    early-exit predicates. This page renders all states stacked for hand-port reference.
+    Source content: screener-pre-enrollment-content-draft.md (Aaron-approved
+    2026-05-14 PM). Outcome routing rules in `outcomeRules` mirror the rule
+    table in that doc § Outcome Routing.
   -->
-  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+  <main class="mx-auto max-w-[1400px] p-8 space-y-12" data-assessment-root aria-label="Pre-enrollment screener">
 
     <header class="space-y-2 border-b border-sand-200 pb-6">
-      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · screener instance</p>
+      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · screener instance · interactive</p>
       <h1 class="text-3xl font-semibold tracking-tight">Pre-enrollment screener</h1>
-      <p class="text-base text-fg-muted max-w-3xl">A demo of the runner with real screener content (eligible / not-eligible / refer-to-team rule-based outcome). For the abstract runner template, see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
+      <p class="text-base text-fg-muted max-w-3xl">Working demo. Press <em>Start</em> to step through. For the per-state shell composition (sidebar + bottom-nav), see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
+      <p class="text-xs text-fg-muted"><button type="button" class="link" data-action="reset">Reset to entry</button></p>
     </header>
 
-    <!-- ─────────── Step 1 · Entry ─────────── -->
-    <section class="space-y-4">
+    <!-- ─────────── State 1 · Entry ─────────── -->
+    <section data-state="entry" class="space-y-4" aria-label="Entry">
       <header class="space-y-1">
         <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
       </header>
@@ -43,7 +47,7 @@
             <p>Hi <strong>[firstName]</strong>. We've got a few quick questions to see if Cena's program might be a good fit. It usually takes about <strong>3</strong> minutes. Want to start?</p>
           </div>
           <div class="chat-button-row">
-            <button type="button" class="btn btn-secondary">Start the questionnaire</button>
+            <button type="button" class="btn btn-secondary" data-action="start">Start the questionnaire</button>
           </div>
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -61,7 +65,7 @@
                 Your answers will be reviewed by someone on the program team.
               </p>
               <div class="assessment-preflight-card-actions">
-                <button type="button" class="btn btn-primary">Start the questionnaire</button>
+                <button type="button" class="btn btn-primary" data-action="start">Start the questionnaire</button>
               </div>
             </div>
           </article>
@@ -69,8 +73,8 @@
       </div>
     </section>
 
-    <!-- ─────────── Step 2 · Preflight ─────────── -->
-    <section class="space-y-4">
+    <!-- ─────────── State 2 · Preflight ─────────── -->
+    <section data-state="preflight" class="space-y-4" aria-label="Preflight" hidden>
       <header class="space-y-1">
         <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (screener register)</p>
       </header>
@@ -80,7 +84,7 @@
             <p>A few quick questions to see if this program is a good fit for you. This isn't enrollment yet — it's just a check. Your answers help the team understand your situation.</p>
           </div>
           <div class="chat-button-row">
-            <button type="button" class="btn btn-secondary">I'm ready</button>
+            <button type="button" class="btn btn-secondary" data-action="ready">I'm ready</button>
           </div>
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -98,7 +102,7 @@
                 Your answers will be reviewed by someone on the program team.
               </p>
               <div class="assessment-preflight-card-actions">
-                <button type="button" class="btn btn-primary">I'm ready</button>
+                <button type="button" class="btn btn-primary" data-action="ready">I'm ready</button>
               </div>
             </div>
           </article>
@@ -106,11 +110,11 @@
       </div>
     </section>
 
-    <!-- ─────────── Step 3 · Question Administration (Q1, the eligibility gate) ─────────── -->
-    <section class="space-y-4">
+    <!-- ─────────── State 3 · Question administration ─────────── -->
+    <section data-state="question" class="space-y-4" aria-label="Question administration" hidden>
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q1 of 6</p>
-        <p class="text-xs text-fg-muted">Q1 declares early-exit predicates: "No" → not-eligible, "I'd rather not say" → refer-to-team. Other questions follow with no early-exit.</p>
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration</p>
+        <p class="text-xs text-fg-muted">Q1 declares early-exit predicates: "No" → not-eligible, "I'd rather not say" → refer-to-team. Other questions advance through Q6 unless outcome rules route otherwise at submit.</p>
       </header>
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
         <div class="space-y-3" aria-label="Agent chat">
@@ -120,72 +124,54 @@
         </div>
         <aside aria-label="Working surface">
           <header class="assessment-header">
-            <h2 class="assessment-header-title">Pre-enrollment screener</h2>
-            <p class="assessment-header-meta">Question 1 of 6</p>
+            <h2 class="assessment-header-title"><!-- engine fills --></h2>
+            <p class="assessment-header-meta"><!-- engine fills --></p>
             <div
               class="progress-bar-pagination"
               role="progressbar"
               aria-valuemin="0"
               aria-valuemax="6"
               aria-valuenow="0"
-              aria-valuetext="Question 1 of 6"
             >
-              <span class="progress-bar-pagination-segment"></span>
-              <span class="progress-bar-pagination-segment"></span>
-              <span class="progress-bar-pagination-segment"></span>
-              <span class="progress-bar-pagination-segment"></span>
-              <span class="progress-bar-pagination-segment"></span>
-              <span class="progress-bar-pagination-segment"></span>
+              <!-- engine rebuilds segments per item count -->
             </div>
           </header>
 
           <article class="card mt-6">
             <div class="card-header flex items-center justify-between">
-              <span class="text-sm font-medium">Question 1 of 6</span>
-              <button type="button" class="btn btn-ghost btn-sm">Save and pause</button>
+              <span class="text-sm font-medium" data-bind="item.counter"><!-- engine fills --></span>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="save-pause">Save and pause</button>
             </div>
             <div class="card-body space-y-6">
-              <fieldset class="response-option-group" role="radiogroup" aria-labelledby="screener-q1">
-                <legend id="screener-q1" class="response-option-group-prompt">Are you currently being treated for HIV?</legend>
-                <div class="response-option-group-list">
-                  <button type="button" class="response-option" role="radio" aria-checked="false">
-                    <span class="response-option-index"><span class="response-option-index-num">A</span></span>
-                    <span class="response-option-label">Yes</span>
-                    <span class="response-option-check"></span>
-                  </button>
-                  <button type="button" class="response-option" role="radio" aria-checked="false">
-                    <span class="response-option-index"><span class="response-option-index-num">B</span></span>
-                    <span class="response-option-label">No</span>
-                    <span class="response-option-check"></span>
-                  </button>
-                  <button type="button" class="response-option" role="radio" aria-checked="false">
-                    <span class="response-option-index"><span class="response-option-index-num">C</span></span>
-                    <span class="response-option-label">I'd rather not say</span>
-                    <span class="response-option-check"></span>
-                  </button>
-                </div>
+              <fieldset class="response-option-group" role="radiogroup">
+                <legend class="response-option-group-prompt"><!-- engine fills --></legend>
+                <div class="response-option-group-list"><!-- engine fills --></div>
               </fieldset>
 
               <nav class="pagination-row" aria-label="Question navigation">
-                <button type="button" class="btn btn-outline" disabled>Previous</button>
-                <button type="button" class="btn btn-secondary">Next</button>
+                <button type="button" class="btn btn-outline" data-action="prev" disabled>Previous</button>
+                <button type="button" class="btn btn-secondary" data-action="next" disabled>Next</button>
               </nav>
+
+              <div class="submit-region" hidden>
+                <button type="button" class="btn btn-primary" data-action="submit" disabled>Submit answers</button>
+                <p class="text-sm text-fg-muted mt-2">Your answers go straight to the program team.</p>
+              </div>
             </div>
           </article>
         </aside>
       </div>
     </section>
 
-    <!-- ─────────── Step 5 · Submit confirmation (3 outcome variants) ─────────── -->
-    <section class="space-y-6">
+    <!-- ─────────── State 5 · Submit confirmation (3 outcome variants) ─────────── -->
+    <section data-state="confirm" class="space-y-4" aria-label="Submit confirmation" hidden>
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation · 3 outcome variants</p>
+        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation</p>
         <p class="text-xs text-fg-muted">Per CC-02 panel verdict + Aaron 2026-05-14 PM: copy varies by outcome path without naming the classification (no-score invariant preserved).</p>
       </header>
 
       <!-- Variant: eligible -->
-      <div class="space-y-2">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Variant 1 · eligible</p>
+      <div data-confirm-variant="eligible" hidden>
         <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
           <div class="space-y-3" aria-label="Agent chat">
             <div class="patient-chat-message">
@@ -212,8 +198,7 @@
       </div>
 
       <!-- Variant: not-eligible -->
-      <div class="space-y-2 border-t border-sand-200 pt-6">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Variant 2 · not-eligible</p>
+      <div data-confirm-variant="not-eligible" hidden>
         <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
           <div class="space-y-3" aria-label="Agent chat">
             <div class="patient-chat-message">
@@ -240,8 +225,7 @@
       </div>
 
       <!-- Variant: refer-to-team -->
-      <div class="space-y-2 border-t border-sand-200 pt-6">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Variant 3 · refer-to-team</p>
+      <div data-confirm-variant="refer-to-team" hidden>
         <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
           <div class="space-y-3" aria-label="Agent chat">
             <div class="patient-chat-message">
@@ -268,11 +252,115 @@
       </div>
     </section>
 
-    <!-- ─────────── Footer · remaining 5 questions reference ─────────── -->
     <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-fg-muted">
-      <p><strong>Q2–Q6 not rendered above</strong> — they follow the same shape as Q1 with no early-exit. Full content + outcome routing logic in <code class="font-mono">Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/screener-pre-enrollment-content-draft.md</code>.</p>
-      <p><strong>Outcome routing</strong> — rule-based, not scored. Default to refer-to-team for ambiguity. See the screener content draft § Outcome Routing for the full rule table.</p>
+      <p><strong>All 6 questions wired</strong> from <code class="font-mono">screener-pre-enrollment-content-draft.md</code>. Rule-based outcome routing matches that doc § Outcome Routing.</p>
+      <p><strong>Try the three paths:</strong> answer Q1 "No" → not-eligible exit. Answer Q1 "I'd rather not say" → refer-to-team exit. Answer Q1 "Yes" then continue, picking positive options for Q2/Q4/Q5 → eligible at submit. Any mixed positive/refer answer → refer-to-team at submit.</p>
     </footer>
   </main>
+
+  <!--
+    Per-instance data — lift this into a TS module on the Angular side.
+    Shape matches AssessmentInstance / AssessmentItem in AGENTS.md.
+  -->
+  <script>
+    window.ASSESSMENT_INSTANCE = {
+      id: 'screener-pre-enrollment',
+      plainLanguageName: 'Pre-enrollment screener',
+      itemCount: 6,
+      timeEstimateMinutes: 3,
+      sensitivityRegister: 'screener',
+      items: [
+        {
+          id: 'q1',
+          promptText: 'Are you currently being treated for HIV?',
+          inputType: 'single-select',
+          required: true,
+          options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' },
+            { value: 'i-rather-not-say', label: 'I’d rather not say' }
+          ],
+          earlyExitWhen: [
+            { answer: 'no', outcome: 'not-eligible' },
+            { answer: 'i-rather-not-say', outcome: 'refer-to-team' }
+          ]
+        },
+        {
+          id: 'q2',
+          promptText: 'Are you currently a patient at UConn Health?',
+          inputType: 'single-select',
+          required: true,
+          options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' },
+            { value: 'not-sure', label: 'Not sure' }
+          ]
+        },
+        {
+          id: 'q3',
+          promptText: 'In the last month, how often did you worry about having enough food?',
+          inputType: 'frequency-likert',
+          required: true,
+          options: [
+            { value: 'never', label: 'Never' },
+            { value: 'rarely', label: 'Rarely (once or twice)' },
+            { value: 'sometimes', label: 'Sometimes (a few times a month)' },
+            { value: 'often', label: 'Often (almost every week or more)' }
+          ]
+        },
+        {
+          id: 'q4',
+          promptText: 'Are you interested in getting support with food and nutrition as part of your care?',
+          inputType: 'single-select',
+          required: true,
+          options: [
+            { value: 'yes-definitely', label: 'Yes, definitely' },
+            { value: 'im-open', label: 'I’m open to it' },
+            { value: 'not-really', label: 'Not really' },
+            { value: 'not-sure', label: 'Not sure' }
+          ]
+        },
+        {
+          id: 'q5',
+          promptText: 'Would you be able to participate in occasional video or phone check-ins as part of the program?',
+          inputType: 'single-select',
+          required: true,
+          options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'probably-flex', label: 'Probably, with some flexibility' },
+            { value: 'no-hard', label: 'No, that would be hard for me' },
+            { value: 'not-sure', label: 'Not sure' }
+          ]
+        },
+        {
+          id: 'q6',
+          promptText: 'Has your doctor or care provider mentioned nutrition or diet as part of managing your health?',
+          inputType: 'single-select',
+          required: true,
+          options: [
+            { value: 'yes', label: 'Yes' },
+            { value: 'no', label: 'No' },
+            { value: 'not-remember', label: 'Not that I remember' }
+          ]
+        }
+      ],
+      // Outcome routing — rule-based per screener-pre-enrollment-content-draft.md § Outcome Routing.
+      // Evaluated in order; first match wins. Default fires if no rule matches.
+      // Q1 'no' / 'i-rather-not-say' never reach this — earlyExitWhen on Q1 fires first.
+      outcomeRules: [
+        {
+          outcome: 'eligible',
+          all: {
+            q1: 'yes',
+            q2: 'yes',
+            q4: ['yes-definitely', 'im-open'],
+            q5: ['yes', 'probably-flex']
+          }
+        },
+        { default: 'refer-to-team' }
+      ]
+    };
+  </script>
+  <script src="./assessment-runner.js"></script>
 </body>
 </html>
