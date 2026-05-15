@@ -4,7 +4,9 @@ Take-assessment runner covering four instruments + a pre-enrollment screener for
 
 ## What this is
 
-A patient-facing questionnaire runner with four states (entry → preflight → question administration → submit confirmation). One generalized shape across all five variants — per-instrument differences live in data (instrument name, item count, time estimate) and copy register (sensitive / knowledge-quiz / satisfaction / screener).
+A patient-facing questionnaire runner that opens at preflight and walks through question administration (with optional identity capture for the screener) to a submit confirmation. One generalized shape across all five variants — per-instrument differences live in data (instrument name, item count, time estimate) and copy register (sensitive / knowledge-quiz / satisfaction / screener).
+
+Home-view "Entry" surfacing (agent greets at home, due-assessment chip) is a separate pre-runner component, not a runner state. The earlier 4-state framing (entry → preflight → question → confirm) conflated the home-view component with the runner; the current shape separates them — the runner opens at Preflight, and home-view surfacing lives wherever the home view does.
 
 **In scope this slice:**
 - HFIAS (Household Food Insecurity Access Scale) — sensitive register
@@ -36,10 +38,12 @@ The shell uses the sensitive register (HFIAS / WHOQOL framing) by default and re
 
 | State | File | Wireframe |
 |---|---|---|
-| 1. Entry | [`take-assessment.entry.html`](./take-assessment.entry.html) | [`take-assessment.step-1-entry.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-1-entry.mdoc) |
-| 2. Preflight | [`take-assessment.preflight.html`](./take-assessment.preflight.html) | [`take-assessment.step-2-preflight.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-2-preflight.mdoc) |
-| 3. Question | [`take-assessment.question.html`](./take-assessment.question.html) | [`take-assessment.step-3-question.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc) |
-| 5. Confirm | [`take-assessment.confirm.html`](./take-assessment.confirm.html) | [`take-assessment.step-5-submit-confirm.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-5-submit-confirm.mdoc) |
+| 1. Preflight | [`take-assessment.preflight.html`](./take-assessment.preflight.html) | [`take-assessment.step-2-preflight.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-2-preflight.mdoc) |
+| 2. Question | [`take-assessment.question.html`](./take-assessment.question.html) | [`take-assessment.step-3-question.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3-question.mdoc) |
+| 2a. Identity (screener only) | inline in [`take-screener.html`](./take-screener.html) | [`take-assessment.step-3a-identity.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3a-identity.mdoc) |
+| 3. Confirm | [`take-assessment.confirm.html`](./take-assessment.confirm.html) | [`take-assessment.step-5-submit-confirm.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-5-submit-confirm.mdoc) |
+
+The earlier `take-assessment.entry.html` template page is preserved as a static reference for the prior 4-state framing, but Entry is no longer a runner state — see the rationale at the top of this README. The `take-assessment.step-1-entry.mdoc` wireframe describes a home-view surfacing component, not a runner state.
 
 State 4 (save/resume) is a behavioral re-entry into State 3 with `assessment.lastUnansweredIndex`, not a separate page.
 
@@ -61,16 +65,16 @@ Source content for all 3 instruments: [`instrument-content-primary-sources.md`](
 ## State transitions
 
 ```
-[step-1 entry] → tap "Start" / "Begin" / "Keep going"
-       ↓
-[step-2 preflight] → tap "I'm ready" / "Begin"
-       ↓
-[step-3 question] → answer items; "Submit answers" (last item, when allRequiredAnswered)
-       ↓                 ↓
-       │            (early-exit predicate: e.g., screener Q1='no' → outcome='not-eligible')
-       ↓                 ↓
-[step-5 submit-confirm] ←┘
-       ↓
+[preflight] → tap "I'm ready"
+     ↓
+[question] → answer items; advance via "Next" / "Submit answers" (last item)
+     ↓                 ↓
+     │            (early-exit predicate: e.g., screener Q1='no' → outcome='not-eligible')
+     │                 │
+     │            (screener-only: after Q1=Yes → identity → back to question at Q2)
+     ↓                 ↓
+[submit-confirm] ←─────┘
+     ↓
 [idle: at-a-glance] (existing patient-week-panel composition; out of slice 1)
 ```
 
@@ -100,7 +104,7 @@ These classes live in `packages/design-system/src/styles/tokens/components.css`.
 
 ## JS contracts
 
-- [`assessment-runner.js`](./assessment-runner.js) — runner engine for the 4-state machine (entry → preflight → question → confirm). Vanilla ES, zero deps. Drives `take-screener.html`; other resolved instances port to it incrementally. The file header documents the wiring contract, custom events (`assessment:state-change` / `:answer` / `:submit`), and the programmatic API (`el._assessment`). Andrey reads + ports to an Angular service or component.
+- [`assessment-runner.js`](./assessment-runner.js) — runner engine for the state machine (preflight → question → [identity, screener-only] → confirm). Vanilla ES, zero deps. Drives `take-screener.html`; other resolved instances port to it incrementally. The file header documents the wiring contract, custom events (`assessment:state-change` / `:answer` / `:submit`), and the programmatic API (`el._assessment`). Andrey reads + ports to an Angular service or component.
 - The PL primitive at `packages/design-system/src/scripts/components/assessment.js` is an older prototype with a different DOM contract (PHQ-2 hardcoded, `.pref-row` classes); the runner here was authored as isolated handoff JS to avoid colliding with what backs the React port. Future consolidation is a separate task.
 
 Contract format follows haven-ui's "Vanilla JS per primitive" convention — `data-*` attribute attachment, bubbling `CustomEvent`s with structured `detail`, programmatic API on `el._<primitiveName>`. See `Lab/haven-ui/CLAUDE.md` § "Vanilla JS per primitive."

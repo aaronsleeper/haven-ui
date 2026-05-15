@@ -29,37 +29,13 @@
   -->
   <main class="mx-auto max-w-[1400px] p-8 space-y-12" data-assessment-root aria-label="Pre-enrollment screener">
 
-    <!-- ─────────── State 1 · Entry ─────────── -->
-    <section data-state="entry" class="space-y-4" aria-label="Entry">
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
-        <div class="space-y-3" aria-label="Agent chat">
-          <div class="patient-chat-message">
-            <p>Hi <strong>[firstName]</strong>. We've got a few quick questions to see if Cena's program might be a good fit. It usually takes about <strong>3</strong> minutes. Want to start?</p>
-          </div>
-          <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
-        </div>
-        <aside aria-label="Working surface">
-          <article class="assessment-preflight-card">
-            <div class="assessment-preflight-card-body">
-              <p class="assessment-preflight-card-title">Pre-enrollment screener</p>
-              <div class="assessment-preflight-card-meta">
-                <span class="assessment-preflight-card-meta-item"><i class="fa-solid fa-list-check" aria-hidden="true"></i> 6 questions</span>
-                <span class="assessment-preflight-card-meta-item"><i class="fa-solid fa-clock" aria-hidden="true"></i> About 3 minutes</span>
-              </div>
-              <p class="assessment-preflight-card-disclosure">
-                Your answers will be reviewed by someone on the program team.
-              </p>
-              <div class="assessment-preflight-card-actions">
-                <button type="button" class="btn btn-primary" data-action="start">Start the questionnaire</button>
-              </div>
-            </div>
-          </article>
-        </aside>
-      </div>
-    </section>
-
-    <!-- ─────────── State 2 · Preflight ─────────── -->
-    <section data-state="preflight" class="space-y-4" aria-label="Preflight" hidden>
+    <!--
+      ─────────── State · Preflight ───────────
+      Runner opens here. Home-view "Entry" surfacing (agent greets at home, due-
+      assessment chip) is a separate pre-runner component, not a runner state —
+      and for the screener it doesn't apply at all (referral-link entry, no home view).
+    -->
+    <section data-state="preflight" class="space-y-4" aria-label="Preflight">
       <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">

@@ -1,11 +1,17 @@
 /**
  * Assessment runner — Cena × UConn pilot handoff
  *
- * Drives the runner state machine: entry → preflight → question → [identity] → confirm.
+ * Drives the runner state machine: preflight → question → [identity] → confirm.
  * The `identity` state is conditional — present in the items array as an item
  * with inputType: 'identity-form'. The screener uses it after Q1=Yes; other
  * instruments (HFIAS / WHOQOL / GNKQ-R) don't include the identity item, so
  * the state is never entered.
+ *
+ * Note: home-view "Entry" surfacing (agent greets, due-assessment chip) is a
+ * separate pre-runner component, not a runner state. The runner opens at
+ * Preflight because the home-view surfacing already happened (for enrolled
+ * patients) or doesn't apply (for the screener, which arrives via referral
+ * link with no home view).
  *
  * Vanilla ES (no deps). Drop-in for the cena-uconn handoff demos so Andrey
  * can step through them in a browser; port the contract to Angular.
@@ -16,7 +22,7 @@
  * ── Wiring contract ─────────────────────────────────────────────────────────
  *
  * HTML provides one root element [data-assessment-root], with child sections
- * <section data-state="entry|preflight|question|identity|confirm">. The engine
+ * <section data-state="preflight|question|identity|confirm">. The engine
  * toggles [hidden] on those sections.
  *
  * Question state: .assessment-header (title + meta + bar), .response-option-group
@@ -53,7 +59,7 @@
  *
  * ── Programmatic API (on the root element, non-enumerable) ──────────────────
  *
- *   el._assessment.getState()    → 'entry' | 'preflight' | 'question' | 'identity' | 'confirm'
+ *   el._assessment.getState()    → 'preflight' | 'question' | 'identity' | 'confirm'
  *   el._assessment.getAnswers()  → { [itemId]: value | object }
  *   el._assessment.getOutcome()  → outcome class | undefined
  *   el._assessment.reset()       → return to entry, clear answers
@@ -62,7 +68,7 @@
 (function () {
   'use strict';
 
-  const STATES = ['entry', 'preflight', 'question', 'identity', 'confirm'];
+  const STATES = ['preflight', 'question', 'identity', 'confirm'];
 
   // ─── Validators (named, referenced by field.validator) ────────────────────
 
@@ -132,7 +138,7 @@
 
   function createEngine(rootEl, instance) {
     const state = {
-      currentState: 'entry',
+      currentState: 'preflight',
       currentItemIndex: 0,
       answers: {},
       outcome: undefined,
@@ -532,9 +538,6 @@
     // ─── Wiring ────────────────────────────────────────────────────────────
 
     function wireActions() {
-      rootEl.querySelectorAll('[data-action="start"]').forEach((b) => {
-        b.addEventListener('click', () => showState('preflight'));
-      });
       rootEl.querySelectorAll('[data-action="ready"]').forEach((b) => {
         b.addEventListener('click', () => showCurrentItemState());
       });
@@ -560,12 +563,12 @@
       getAnswers: () => ({ ...state.answers }),
       getOutcome: () => state.outcome,
       reset: () => {
-        state.currentState = 'entry';
+        state.currentState = 'preflight';
         state.currentItemIndex = 0;
         state.answers = {};
         state.outcome = undefined;
         state.identityTouched = false;
-        STATES.forEach((s) => { if (sections[s]) sections[s].hidden = (s !== 'entry'); });
+        STATES.forEach((s) => { if (sections[s]) sections[s].hidden = (s !== 'preflight'); });
         // Clear identity-form inputs in DOM
         if (iSection) {
           iSection.querySelectorAll('input, textarea').forEach((el) => {
@@ -575,14 +578,14 @@
           iSection.querySelectorAll('[id^="error-identity-"]').forEach((el) => { el.hidden = true; });
         }
         if (iHelperText) iHelperText.hidden = true;
-        dispatch('assessment:state-change', { from: null, to: 'entry' });
+        dispatch('assessment:state-change', { from: null, to: 'preflight' });
       },
     };
 
     Object.defineProperty(rootEl, '_assessment', { value: api, configurable: true });
 
-    // Init: ensure only the entry section is visible at boot.
-    STATES.forEach((s) => { if (sections[s]) sections[s].hidden = (s !== 'entry'); });
+    // Init: ensure only the preflight section is visible at boot.
+    STATES.forEach((s) => { if (sections[s]) sections[s].hidden = (s !== 'preflight'); });
     wireActions();
 
     return api;

@@ -8,24 +8,24 @@ A patient-facing questionnaire runner for the UConn pilot. One generalized runne
 
 The slice covers cap-07 (multi-instrument assessment), cap-09 (satisfaction surveys, deferred to slice 2), and the pre-enrollment screener (operational; precedes IRB consent + program enrollment).
 
-## The runner — four states + four registers
+## The runner — states + registers
 
-### Four states
+### Runner states
 
-Each state has its own abstract template page in this folder. The runner transitions between them; the production framework wires the state machine. **All four abstract template pages wrap in the responsive app shell** (`layout-app-shell-responsive.html` from haven-ui PL): desktop sidebar (≥lg) + content region + mobile bottom-nav (<lg). Topbar omitted (English-only pilot, no language toggle / notifications surface for this slice).
+The runner is a state machine the production framework wires. **All template pages wrap in the responsive app shell** (`layout-app-shell-responsive.html` from haven-ui PL): desktop sidebar (≥lg) + content region + mobile bottom-nav (<lg). Topbar omitted (English-only pilot).
 
-Shell rationale per the 4-expert UX panel verdict 2026-05-14 PM ([`SHELL-DECISION.md`](./SHELL-DECISION.md)): the agentic shell is for chat-primary flows where the right pane carries an agent-opened artifact. The assessment runner is a deterministic multi-step form — chat is silent during admin, the questionnaire IS the primary task. Wrapping it in agentic-shell mis-signals the interaction model and (per the brand-fidelity scorecard) drops the slice below ship threshold because Ava identity scores 0 when chat carries only pre-scripted messages.
+Shell rationale per the 4-expert UX panel verdict 2026-05-14 PM ([`SHELL-DECISION.md`](./SHELL-DECISION.md)): the agentic shell is for chat-primary flows where the right pane carries an agent-opened artifact. The assessment runner is a deterministic multi-step form — chat is silent during admin, the questionnaire IS the primary task.
 
-Per-state agent framing (one sentence at entry/preflight, post-submit acknowledgement at confirm) renders inline above the working surface as `patient-chat-message`. The "Talk to a person" handoff affordance lives in the sidebar pinned-bottom for always-reachable visibility without competing with content-area controls.
+Per-state agent framing (one sentence at preflight, post-submit acknowledgement at confirm) renders inline above the working surface as `patient-chat-message`. The "Talk to a person" handoff affordance lives in the sidebar pinned-bottom for always-reachable visibility.
 
-When the agentic chat layer ships later (separate slice), the assessment runner's components do not change. The shell could swap to agentic-shell at that point if chat-primary interaction becomes the patient-app default, OR the agentic chat surface could be added inside the existing content region as a docked drawer — that decision is deferred to the chat-primary slice.
+- **Preflight** ([`take-assessment.preflight.html`](./take-assessment.preflight.html)) — runner opens here. Per-register tone framing in chat; preflight card in the right pane with assessment metadata + disclosure + "I'm ready" CTA. The runner does NOT include a separate "Entry" state — home-view surfacing (the agent greeting the patient at home with a due-assessment chip) is a pre-runner component that lives in the home view, not in the runner state machine. For the screener specifically, no home view exists pre-enrollment (referral-link entry), so home-view surfacing doesn't apply at all.
+- **Question administration** ([`take-assessment.question.html`](./take-assessment.question.html)) — the working surface. Chat is silent unless the patient asks for help. Right pane composes assessment-header + progress-bar-pagination + a `card`-shaped questionnaire panel.
+- **Identity capture** (screener-only; inline in [`take-screener.html`](./take-screener.html); wireframe [`take-assessment.step-3a-identity.mdoc`](../../../../Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/take-assessment.step-3a-identity.mdoc)) — inserted into the items array as an item with `inputType: 'identity-form'`. Screener positions it after Q1=Yes; Q1's early-exit predicates bypass it entirely. Other instruments don't include the identity item.
+- **Submit confirmation** ([`take-assessment.confirm.html`](./take-assessment.confirm.html)) — per-register acknowledgement in chat; assessment-confirmation card in right pane. **HARD INVARIANT: no score is shown to the patient.** The score routes to the clinician surface (cap-51) asynchronously.
 
-- **Step 1 — Entry** ([`take-assessment.entry.html`](./take-assessment.entry.html)) — agent surfaces the due assessment at greeting; right pane primes the preflight card. Two condition variants: `assessment-due-first-pass` and `assessment-due-resume`. Resume copy includes a stale-prefix when the last touch was more than ~7 days ago.
-- **Step 2 — Preflight** ([`take-assessment.preflight.html`](./take-assessment.preflight.html)) — per-register tone framing in chat; preflight card mirrors the chat chip in the right pane. The CTA relabels from "Start the questionnaire" → "I'm ready" semantically (visually identical).
-- **Step 3 — Question administration** ([`take-assessment.question.html`](./take-assessment.question.html)) — the working surface. Chat is silent unless the patient asks for help (mid-question-help is a `variant` of `agent-message`). Right pane composes assessment-header + progress-bar-pagination + a `card`-shaped questionnaire panel containing response-option-group(s) + pagination-row + (on last item) submit-region.
-- **Step 5 — Submit confirmation** ([`take-assessment.confirm.html`](./take-assessment.confirm.html)) — per-register acknowledgement in chat; assessment-confirmation card in right pane. **HARD INVARIANT: no score is shown to the patient.** The score routes to the clinician surface (cap-51) asynchronously.
+Save/resume is a behavioral re-entry into the question state with `assessment.lastUnansweredIndex`, not a separate state.
 
-State 4 (save/resume) is a behavioral re-entry into Step 3 with `assessment.lastUnansweredIndex`, not a separate state with its own page.
+The earlier `take-assessment.entry.html` and `take-assessment.step-1-entry.mdoc` describe a home-view surfacing component, retained as historical reference but no longer part of the runner.
 
 ### Four sensitivity registers
 
@@ -55,7 +55,7 @@ These are not stylistic preferences. They are load-bearing rules from clinical /
 
 - **No score shown to the patient at Step 5.** Scoring is clinical context; it routes to the clinician surface (cap-51), not the patient. The PL primitive `assessment-confirmation` encodes this structurally.
 - **Two interaction paths are always available during question administration.** Patient can answer questions directly in the right pane OR ask the agent in chat for clarification. Both paths edit the same answer set; the chat path uses `agent-message variant="mid-question-help"` and does NOT re-render the question in chat.
-- **No "Not now" chip at Step 1 entry.** Per chat-affordance-principles: affordances render only when they are a productive next move. Patient defers by closing the chat or navigating away.
+- **No "Not now" chip at preflight.** Per chat-affordance-principles: affordances render only when they are a productive next move. Patient defers by closing the chat or navigating away.
 - **Screener disclosure says "program team," not "care team."** Pre-enrollment patients have no care relationship; "care team" is factually wrong and HIPAA-misleading. Wired via `disclosure-key="copy.preflight-disclosure-screener"` for `instrument.sensitivityRegister == 'screener'`. Same applies to the confirmation card's care-team-disclosure.
 - **Screener answers route to a separate backend payload destination from cap-07 instrument data.** Screener data is pre-consent operational (HIPAA TPO, not Common Rule research). Access controls scope to the enrollment team, not the full RDN/research team. Front-end runner is shared; backend routing is distinct.
 - **No correctness feedback shown to the patient on knowledge-quiz items (GNKQ-R).** Items use `feedback-on-select="false"`; correctness is computed at submit and never surfaced.
