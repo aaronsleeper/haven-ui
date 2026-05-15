@@ -139,6 +139,122 @@
     </section>
 
     <!--
+      ─────────── State 3a · Identity capture (screener-only, after Q1=Yes) ───────────
+      Wireframe: capabilities/development/wireframes/take-assessment.step-3a-identity.mdoc
+      Rationale: capabilities/development/wireframes/take-assessment.step-3a-identity.rationale.md
+      Triggered when items[currentItemIndex].inputType === 'identity-form'. Q1's early-exit
+      predicates fire BEFORE this state is entered, so non-eligible and refer-to-team paths
+      skip identity entirely. Patient resumes Q2 after Continue.
+    -->
+    <section data-state="identity" class="space-y-4" aria-label="Identity capture" hidden>
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="space-y-3" aria-label="Agent chat">
+          <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
+        </div>
+        <aside aria-label="Working surface">
+          <header class="assessment-header">
+            <h2 class="assessment-header-title"><!-- engine fills --></h2>
+            <p class="assessment-header-meta"><!-- engine fills --></p>
+            <div
+              class="progress-bar-pagination"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="7"
+              aria-valuenow="1"
+            >
+              <!-- engine rebuilds segments per item count -->
+            </div>
+          </header>
+
+          <article class="card mt-6">
+            <div class="card-header flex items-center justify-between">
+              <span class="text-sm font-medium" data-bind="item.counter"><!-- engine fills --></span>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="save-pause">Save and pause</button>
+            </div>
+            <div class="card-body space-y-6">
+
+              <div class="patient-chat-message">
+                <p>A few quick details so the team can follow up. Your name and contact info goes to the program team — there's no clinical record yet.</p>
+              </div>
+
+              <fieldset>
+                <legend>How to reach you</legend>
+
+                <div>
+                  <label for="identity-firstName">First name <span aria-hidden="true">*</span><span class="sr-only">required</span></label>
+                  <input type="text" id="identity-firstName" name="identity-firstName" required aria-required="true" autocomplete="given-name" aria-describedby="error-identity-firstName">
+                  <p id="error-identity-firstName" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400" hidden>
+                    <i class="fa-solid fa-circle-exclamation text-xs" aria-hidden="true"></i>
+                    <span>Please enter your first name.</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label for="identity-lastName">Last name <span aria-hidden="true">*</span><span class="sr-only">required</span></label>
+                  <input type="text" id="identity-lastName" name="identity-lastName" required aria-required="true" autocomplete="family-name" aria-describedby="error-identity-lastName">
+                  <p id="error-identity-lastName" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400" hidden>
+                    <i class="fa-solid fa-circle-exclamation text-xs" aria-hidden="true"></i>
+                    <span>Please enter your last name.</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label for="identity-email">Email <span aria-hidden="true">*</span><span class="sr-only">required</span></label>
+                  <input type="email" id="identity-email" name="identity-email" required aria-required="true" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="error-identity-email">
+                  <p id="error-identity-email" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400" hidden>
+                    <i class="fa-solid fa-circle-exclamation text-xs" aria-hidden="true"></i>
+                    <span>That doesn't look like an email address — check the format?</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label for="identity-phone">Phone <span aria-hidden="true">*</span><span class="sr-only">required</span></label>
+                  <input type="tel" id="identity-phone" name="identity-phone" required aria-required="true" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555" aria-describedby="error-identity-phone">
+                  <p id="error-identity-phone" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400" hidden>
+                    <i class="fa-solid fa-circle-exclamation text-xs" aria-hidden="true"></i>
+                    <span>That doesn't look like a phone number — check the digits?</span>
+                  </p>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Helpful if you have it</legend>
+
+                <div>
+                  <label for="identity-dob">Date of birth (optional)</label>
+                  <input type="date" id="identity-dob" name="identity-dob" autocomplete="bday" aria-describedby="helper-identity-dob error-identity-dob">
+                  <p id="helper-identity-dob" class="text-xs text-fg-muted mt-1">Helpful for the program team but not needed today.</p>
+                  <p id="error-identity-dob" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400" hidden>
+                    <i class="fa-solid fa-circle-exclamation text-xs" aria-hidden="true"></i>
+                    <span>That date doesn't look right — check the format?</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label for="identity-address">Mailing address (optional)</label>
+                  <textarea id="identity-address" name="identity-address" rows="3" autocomplete="street-address" placeholder="Street, city, state, ZIP" aria-describedby="helper-identity-address"></textarea>
+                  <p id="helper-identity-address" class="text-xs text-fg-muted mt-1">Street, city, state, ZIP.</p>
+                </div>
+              </fieldset>
+
+              <p class="text-xs text-fg-muted flex items-start gap-2">
+                <i class="fa-solid fa-circle-info mt-0.5" aria-hidden="true"></i>
+                <span>Your contact info goes to the program team for follow-up. No clinical record is created yet.</span>
+              </p>
+
+              <nav class="pagination-row" aria-label="Identity navigation">
+                <span></span>
+                <button type="button" class="btn btn-primary" data-action="identity-continue" aria-describedby="identity-continue-helper" disabled>Continue</button>
+              </nav>
+              <p id="identity-continue-helper" class="text-sm text-fg-muted" data-bind="identity.helper" hidden></p>
+
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <!--
       ─────────── State 5 · Submit confirmation (3 outcome variants) ───────────
       Per CC-02 panel verdict + Aaron 2026-05-14 PM: copy varies by outcome path
       without naming the classification (no-score invariant preserved). The engine
@@ -241,7 +357,7 @@
     window.ASSESSMENT_INSTANCE = {
       id: 'screener-pre-enrollment',
       plainLanguageName: 'Pre-enrollment screener',
-      itemCount: 6,
+      itemCount: 7,
       timeEstimateMinutes: 3,
       sensitivityRegister: 'screener',
       items: [
@@ -258,6 +374,21 @@
           earlyExitWhen: [
             { answer: 'no', outcome: 'not-eligible' },
             { answer: 'i-rather-not-say', outcome: 'refer-to-team' }
+          ]
+        },
+        {
+          // Identity-capture step — screener-only, inserted between Q1 and Q2.
+          // Wireframe: take-assessment.step-3a-identity.mdoc; rationale: ...rationale.md
+          id: 'identity',
+          inputType: 'identity-form',
+          required: true,
+          fields: [
+            { id: 'firstName', required: true,  prefillFrom: 'firstName', validator: 'nonEmpty' },
+            { id: 'lastName',  required: true,  prefillFrom: 'lastName',  validator: 'nonEmpty' },
+            { id: 'email',     required: true,  prefillFrom: 'email',     validator: 'email' },
+            { id: 'phone',     required: true,  prefillFrom: 'phone',     validator: 'usPhone', displayFormatter: 'usPhone' },
+            { id: 'dob',       required: false,                           validator: 'plausibleDob' },
+            { id: 'address',   required: false }
           ]
         },
         {
