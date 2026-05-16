@@ -55,6 +55,7 @@ before creating any new component or semantic class.
 | Mobile Shell | `layout-mobile-shell.html` | `mobile-app`, `mobile-shell`, `pb-safe-4`, `pb-safe-8` | no | Patient app only. Apply `mobile-app` to `<body>`, `mobile-shell` to inner wrapper. Compose `pb-safe-4` / `pb-safe-8` on sticky footers / page-end containers for iOS home-indicator clearance via `max(floor, env(safe-area-inset-bottom))`. |
 | Mobile i18n Bar | `layout-mobile-i18n-bar.html` | `mobile-i18n-bar`, `mobile-i18n-toggle` | no | Patient app only. Partial: `src/partials/patient-i18n-bar.html`. JS: `src/scripts/components/i18n.js` |
 | Mobile Bottom Nav | `layout-mobile-bottom-nav.html` | `mobile-bottom-nav`, `mobile-bottom-nav-tab`, `mobile-bottom-nav-badge` | no | Patient app only. Shared partial: `src/partials/patient-bottom-nav.html`. Copy + set `.active` per screen. |
+| Two-Pane Layout | _(no PL page — utility classes)_ | `layout-two-pane`, `layout-two-pane-grid` | no | Bounded page width (1400px) + a rail/main two-column grid. `layout-two-pane` on the page container; `layout-two-pane-grid` on the grid wrapper — 420px rail + fluid main at `lg`, single column below. Promoted 2026-05-16 from inline arbitrary-value utilities used across the cena-uconn handoff. |
 | Onboarding Progress | `layout-onb-progress.html` | `onb-progress` | no | Patient app only. Used on ONB-01, 02, 03. Set `aria-label="Step N of 3"`. |
 | Divider | `layout-divider.html` | `divider`, `divider-compact`, `divider-spacious`, `divider-labeled`, `divider-label`, `divider-vertical` | no | Horizontal rule, labeled divider, vertical divider. Spacing variants: compact/default/spacious. |
 | Issues Sidebar Layout | `(layout page only)` | `issues-layout`, `issues-layout-main`, `issues-layout-aside`, `issues-layout-toggle`, `issues-layout-backdrop` | no | 2-column layout with persistent right issues panel. Mobile: slides off-screen, toggled via `[data-issues-toggle]`. JS: `issues-sidebar-toggle.js`. |
@@ -211,6 +212,7 @@ before creating any new component or semantic class.
 | Component | File | Classes | Preline | Notes |
 |---|---|---|---|---|
 | Text Link | `text-link.html` | `text-link`, `text-link-danger` | no | Inline action links |
+| Skip Link | _(no PL page — utility class)_ | `skip-link` | no | WCAG 2.4.1 bypass-blocks affordance. Visually hidden until focused, then pinned top-left. Pair with a matching `id` target (e.g. `<a class="skip-link" href="#main">`). |
 | Accordion Toggle | `util-accordion-toggle.html` | `hs-accordion-toggle`, `accordion-chevron-up`, `accordion-chevron-down` | yes | Sidebar accordion pattern |
 | Instruction Card | `util-instruction-card.html` | `instruction-title`, `instruction-text` | no | Helper text block |
 | Sidebar Toggle Bar | `util-sidebar-toggle.html` | `sidebar-toggle-bar`, `sidebar-toggle-btn` | yes | Mobile sidebar open trigger |

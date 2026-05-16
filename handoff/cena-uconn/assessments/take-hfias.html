@@ -27,21 +27,21 @@
     This page renders all states stacked for hand-port reference.
     Scoring (HFIAP) is computed at submit, server-side — never shown to the patient.
   -->
-  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+  <main class="layout-two-pane p-8 space-y-12">
 
     <header class="space-y-2 border-b border-sand-200 pb-6">
-      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · HFIAS instance</p>
+      <p class="text-xs uppercase tracking-wider text-sand-600">Slice 1 · Take assessment runner · HFIAS instance</p>
       <h1 class="text-3xl font-semibold tracking-tight">Household Food Insecurity Access Scale (HFIAS)</h1>
-      <p class="text-base text-fg-muted max-w-3xl">Sensitive-register demo of the runner with the HFIAS instrument. The key pedagogical point of this page is the <strong>two-step occurrence → frequency skip logic</strong> — every question is an occurrence gate; a "Yes" reveals a frequency follow-up before advancing to the next gate. "No" skips directly to the next occurrence question. Q1 is rendered in full detail; Q2–Q9 follow the same shape (see footer).</p>
+      <p class="text-base text-sand-600 max-w-3xl">Sensitive-register demo of the runner with the HFIAS instrument. The key pedagogical point of this page is the <strong>two-step occurrence → frequency skip logic</strong> — every question is an occurrence gate; a "Yes" reveals a frequency follow-up before advancing to the next gate. "No" skips directly to the next occurrence question. Q1 is rendered in full detail; Q2–Q9 follow the same shape (see footer).</p>
     </header>
 
     <!-- ─────────── Step 1 · Entry ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
-        <p class="text-xs text-fg-muted">Register: sensitive. Instrument: HFIAS. Plain-language frame: "food security at home." Item count: 9 occurrence questions + up to 9 frequency follow-ups (up to 18 total). Time: 5–10 minutes.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 1 · Entry</p>
+        <p class="text-xs text-sand-600">Register: sensitive. Instrument: HFIAS. Plain-language frame: "food security at home." Item count: 9 occurrence questions + up to 9 frequency follow-ups (up to 18 total). Time: 5–10 minutes.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>Hi <strong>[firstName]</strong>. You're due for a short questionnaire about <strong>food security at home</strong>. It usually takes about <strong>5–10</strong> minutes. Want to start now or come back to it?</p>
@@ -76,10 +76,10 @@
     <!-- ─────────── Step 2 · Preflight ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (sensitive register)</p>
-        <p class="text-xs text-fg-muted">HFIAS carries sensitivityRegister = "sensitive." Agent frames personal disclosure before the first question. Right pane mirrors the preflight card for the two-path model.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 2 · Preflight (sensitive register)</p>
+        <p class="text-xs text-sand-600">HFIAS carries sensitivityRegister = "sensitive." Agent frames personal disclosure before the first question. Right pane mirrors the preflight card for the two-path model.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
@@ -114,10 +114,10 @@
     <!-- ─────────── Step 3 · Question Administration — Q1 skip-logic exemplar ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q1 of 9 — skip-logic exemplar</p>
-        <p class="text-xs text-fg-muted">Q1 renders first as an occurrence gate (Yes/No). A "Yes" response reveals the frequency follow-up (Q1a) before advancing to Q2. A "No" response skips Q1a and advances directly to Q2. Both branches are shown below in the same panel to illustrate the skip-logic shape for Andrey — in the live runner, only one branch is visible at a time.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 3 · Question administration · Q1 of 9 — skip-logic exemplar</p>
+        <p class="text-xs text-sand-600">Q1 renders first as an occurrence gate (Yes/No). A "Yes" response reveals the frequency follow-up (Q1a) before advancing to Q2. A "No" response skips Q1a and advances directly to Q2. Both branches are shown below in the same panel to illustrate the skip-logic shape for Andrey — in the live runner, only one branch is visible at a time.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -176,23 +176,23 @@
 
               <!-- ── FREQUENCY FOLLOW-UP (Q1a) — conditional reveal ───────────────────── -->
               <div class="space-y-3">
-                <p class="text-xs text-fg-muted italic">↑ The block below reveals when "Yes" is selected above. "No" skips Q1a and advances to Q2 (the next occurrence gate).</p>
+                <p class="text-xs text-sand-600 italic">↑ The block below reveals when "Yes" is selected above. "No" skips Q1a and advances to Q2 (the next occurrence gate).</p>
                 <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q1a-frequency">
                   <legend id="hfias-q1a-frequency" class="response-option-group-prompt">How often did this happen?</legend>
                   <div class="response-option-group-list">
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">A</span></span>
-                      <span class="response-option-label">Rarely <span class="text-sm text-fg-muted font-normal">(once or twice in the past four weeks)</span></span>
+                      <span class="response-option-label">Rarely <span class="text-sm text-sand-600 font-normal">(once or twice in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">B</span></span>
-                      <span class="response-option-label">Sometimes <span class="text-sm text-fg-muted font-normal">(three to ten times in the past four weeks)</span></span>
+                      <span class="response-option-label">Sometimes <span class="text-sm text-sand-600 font-normal">(three to ten times in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">C</span></span>
-                      <span class="response-option-label">Often <span class="text-sm text-fg-muted font-normal">(more than ten times in the past four weeks)</span></span>
+                      <span class="response-option-label">Often <span class="text-sm text-sand-600 font-normal">(more than ten times in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                   </div>
@@ -201,8 +201,8 @@
 
               <!-- ── SKIP-LOGIC ANNOTATION ──────────────────────────────────────────────── -->
               <div class="space-y-1 border-t border-sand-200 pt-4">
-                <p class="text-xs font-medium text-fg-muted uppercase tracking-wider">Skip-logic shape — Q1 (same for Q2–Q9)</p>
-                <ul class="text-xs text-fg-muted space-y-1 pl-1">
+                <p class="text-xs font-medium text-sand-600 uppercase tracking-wider">Skip-logic shape — Q1 (same for Q2–Q9)</p>
+                <ul class="text-xs text-sand-600 space-y-1 pl-1">
                   <li><strong>Yes</strong> → Q1a (frequency follow-up) appears → answer frequency → advance to Q2 (occurrence)</li>
                   <li><strong>No</strong> → Q1a is skipped entirely → advance directly to Q2 (occurrence)</li>
                   <li>Score contribution: No = 0; Yes + Rarely = 1; Yes + Sometimes = 2; Yes + Often = 3</li>
@@ -225,10 +225,10 @@
     <!-- ─────────── Step 3 · Q2 shape note ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q2 of 9 — same shape</p>
-        <p class="text-xs text-fg-muted">Q2 through Q9 repeat the identical occurrence → frequency structure. Shown below at reduced fidelity to confirm the repeat shape without re-rendering all 9 question pairs.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 3 · Question administration · Q2 of 9 — same shape</p>
+        <p class="text-xs text-sand-600">Q2 through Q9 repeat the identical occurrence → frequency structure. Shown below at reduced fidelity to confirm the repeat shape without re-rendering all 9 question pairs.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -285,23 +285,23 @@
 
               <!-- Frequency: Q2a (conditional) -->
               <div class="space-y-3">
-                <p class="text-xs text-fg-muted italic">↑ Reveals when "Yes" is selected above. "No" advances to Q3.</p>
+                <p class="text-xs text-sand-600 italic">↑ Reveals when "Yes" is selected above. "No" advances to Q3.</p>
                 <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q2a-frequency">
                   <legend id="hfias-q2a-frequency" class="response-option-group-prompt">How often did this happen?</legend>
                   <div class="response-option-group-list">
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">A</span></span>
-                      <span class="response-option-label">Rarely <span class="text-sm text-fg-muted font-normal">(once or twice in the past four weeks)</span></span>
+                      <span class="response-option-label">Rarely <span class="text-sm text-sand-600 font-normal">(once or twice in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">B</span></span>
-                      <span class="response-option-label">Sometimes <span class="text-sm text-fg-muted font-normal">(three to ten times in the past four weeks)</span></span>
+                      <span class="response-option-label">Sometimes <span class="text-sm text-sand-600 font-normal">(three to ten times in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">C</span></span>
-                      <span class="response-option-label">Often <span class="text-sm text-fg-muted font-normal">(more than ten times in the past four weeks)</span></span>
+                      <span class="response-option-label">Often <span class="text-sm text-sand-600 font-normal">(more than ten times in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                   </div>
@@ -322,10 +322,10 @@
     <!-- ─────────── Step 3 · Q9 — last question + submit ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q9 of 9 — last item with submit region</p>
-        <p class="text-xs text-fg-muted">Final occurrence gate. After Q9a (if shown), the submit region replaces the "Next" button. Submit is disabled until all required answers are filled.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 3 · Question administration · Q9 of 9 — last item with submit region</p>
+        <p class="text-xs text-sand-600">Final occurrence gate. After Q9a (if shown), the submit region replaces the "Next" button. Submit is disabled until all required answers are filled.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -382,23 +382,23 @@
 
               <!-- Frequency: Q9a (conditional) -->
               <div class="space-y-3">
-                <p class="text-xs text-fg-muted italic">↑ Reveals when "Yes" is selected above. "No" advances to the submit region.</p>
+                <p class="text-xs text-sand-600 italic">↑ Reveals when "Yes" is selected above. "No" advances to the submit region.</p>
                 <fieldset class="response-option-group" role="radiogroup" aria-labelledby="hfias-q9a-frequency">
                   <legend id="hfias-q9a-frequency" class="response-option-group-prompt">How often did this happen?</legend>
                   <div class="response-option-group-list">
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">A</span></span>
-                      <span class="response-option-label">Rarely <span class="text-sm text-fg-muted font-normal">(once or twice in the past four weeks)</span></span>
+                      <span class="response-option-label">Rarely <span class="text-sm text-sand-600 font-normal">(once or twice in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">B</span></span>
-                      <span class="response-option-label">Sometimes <span class="text-sm text-fg-muted font-normal">(three to ten times in the past four weeks)</span></span>
+                      <span class="response-option-label">Sometimes <span class="text-sm text-sand-600 font-normal">(three to ten times in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                     <button type="button" class="response-option" role="radio" aria-checked="false">
                       <span class="response-option-index"><span class="response-option-index-num">C</span></span>
-                      <span class="response-option-label">Often <span class="text-sm text-fg-muted font-normal">(more than ten times in the past four weeks)</span></span>
+                      <span class="response-option-label">Often <span class="text-sm text-sand-600 font-normal">(more than ten times in the past four weeks)</span></span>
                       <span class="response-option-check"></span>
                     </button>
                   </div>
@@ -414,7 +414,7 @@
                   aria-describedby="submit-helper-hfias"
                 >Submit answers</button>
               </nav>
-              <p id="submit-helper-hfias" class="text-xs text-fg-muted">All questions must be answered before submitting.</p>
+              <p id="submit-helper-hfias" class="text-xs text-sand-600">All questions must be answered before submitting.</p>
 
             </div>
           </article>
@@ -425,10 +425,10 @@
     <!-- ─────────── Step 5 · Submit confirmation (sensitive register) ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation · sensitive register</p>
-        <p class="text-xs text-fg-muted">Sensitive register adds the "talk to a person" call-out — HFIAS may surface acute food security need. Score (HFIAP category) is computed server-side and routes to the clinician surface only. No score is shown to the patient.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 5 · Submit confirmation · sensitive register</p>
+        <p class="text-xs text-sand-600">Sensitive register adds the "talk to a person" call-out — HFIAS may surface acute food security need. Score (HFIAP category) is computed server-side and routes to the clinician surface only. No score is shown to the patient.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>Thanks — your answers are in. Your care team will review them at your next session. If anything in there raised something you want to talk about sooner, tap "Talk to a person."</p>
@@ -440,12 +440,12 @@
         <aside aria-label="Working surface">
           <article class="assessment-confirmation">
             <div class="receipt">
-              <header class="receipt-header">
+              <header>
                 <h2 class="receipt-title">Household Food Insecurity Access Scale</h2>
               </header>
-              <div class="receipt-body space-y-2">
+              <div class="space-y-2">
                 <p class="text-base">Submitted just now.</p>
-                <p class="text-sm text-fg-muted">Your care team has it.</p>
+                <p class="text-sm text-sand-600">Your care team has it.</p>
               </div>
             </div>
           </article>
@@ -454,7 +454,7 @@
     </section>
 
     <!-- ─────────── Footer · instrument reference + scoring ─────────── -->
-    <footer class="space-y-4 border-t border-sand-200 pt-6 text-sm text-fg-muted">
+    <footer class="space-y-4 border-t border-sand-200 pt-6 text-sm text-sand-600">
 
       <div class="space-y-1">
         <p class="text-xs uppercase tracking-wider font-medium">Q2–Q9 not rendered above in full</p>

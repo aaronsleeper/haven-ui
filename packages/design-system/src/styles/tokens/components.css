@@ -12436,3 +12436,41 @@ span.diagram-icon::before {
        are hooks for future visible-variant authoring + parser tooling that
        generates draft long-descs from the Layer 2 {nodes, edges} spec. */
 }
+
+
+/* ===================================
+   SKIP LINK
+   =================================== */
+
+/* WCAG 2.4.1 bypass-blocks affordance. Visually hidden until focused, then
+   pinned to the top-left of the viewport. */
+.skip-link {
+    @apply sr-only;
+}
+.skip-link:focus {
+    @apply not-sr-only fixed top-2 left-2 z-50 px-4 py-2 rounded-md no-underline;
+    background: var(--color-surface-overlay);
+    color: var(--color-accent-interactive);
+    @apply ring-2 ring-primary-500;
+}
+
+/* ===================================
+   TWO-PANE LAYOUT
+   =================================== */
+
+/* Bounded page width + a rail/main two-column grid. The rail collapses
+   below lg. Promoted 2026-05-16 from the inline arbitrary-value utilities
+   (max-w-[1400px] + lg:grid-cols-[minmax(0,420px)_1fr]) used across the
+   cena-uconn handoff — a named pattern rather than an ad-hoc layout. */
+.layout-two-pane {
+    @apply mx-auto w-full;
+    max-width: 87.5rem; /* 1400px */
+}
+.layout-two-pane-grid {
+    @apply grid grid-cols-1 gap-8;
+}
+@media (min-width: 64rem) { /* lg */
+    .layout-two-pane-grid {
+        grid-template-columns: minmax(0, 26.25rem) 1fr; /* 420px rail + fluid main */
+    }
+}

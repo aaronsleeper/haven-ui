@@ -48,7 +48,7 @@ Each slice has its own `AGENTS.md`. Read it before working on slice files.
 These apply across every page in the bundle. When you author or modify HTML here, your output should preserve these:
 
 - **Copy semantic classes from `assets/haven.css`. Do not regenerate equivalents.** The CSS is the spec. If a class you need does not exist in `assets/haven.css`, treat that as a gap and surface it in your work output — do not invent a substitute.
-- **Layout-only utilities are acceptable inline.** Tailwind-family layout utilities (`grid`, `flex`, `gap-*`, `mx-auto`, `max-w-*`, `space-y-*`, `p-*`, etc.) appear inline on layout containers. Component styling lives in semantic classes.
+- **Layout-only utilities are acceptable inline — within the closed vocabulary.** Standard Tailwind-family layout utilities (`grid`, `flex`, `gap-*`, `mx-auto`, `p-*`, etc.) appear inline on layout containers. But an inline utility is realizable only if it is sanctioned — see **Closed-vocabulary contract** below. Arbitrary-value utilities (`max-w-[1400px]`, `grid-cols-[minmax(...)]`) are not sanctioned; promote those to a named pattern. Component styling lives in semantic classes.
 - **Brand fonts load from Google Fonts CDN.** Lora (headings), Source Sans 3 (body), Source Code Pro (code). Every page links them in the head. The receiving environment needs internet access for fonts; this is the standard pattern.
 - **Reference the canonical wireframes for every state's structural decisions.** Each page's HTML comment block names the wireframe path; follow the link before second-guessing the structure.
 - **Cite the source for clinical content.** Every instrument question, response option, and scoring rule traces to a primary-source citation in `instrument-content-primary-sources.md` (the receiving environment may not have access to that file; the per-page comment blocks name the source inline as well).
@@ -61,6 +61,25 @@ These apply across every page in the bundle. When you author or modify HTML here
 - **Do not change the no-score invariant on assessment confirmations.** Step 5 confirmation pages show submission acknowledgement only; the computed score routes to the clinician surface, never the patient. This is encoded structurally in `assessment-confirmation` and reinforced in every slice's confirm page.
 - **Do not consolidate the per-register copy variants into a single message.** Sensitive / knowledge-quiz / satisfaction / screener registers each carry different framing; the variation is editorially load-bearing (a "care team" disclosure for a pre-enrollment screener is factually wrong, for example).
 - **Do not invent state-machine behavior beyond what the wireframes spec.** The runner's transitions, save-pause, early-exit predicates, and submit validators are all spec'd in the wireframes. Adding novel behavior creates drift.
+
+## Closed-vocabulary contract
+
+The bundle uses a **closed vocabulary**, declared independently of these pages. A class is realizable here only if it is one of:
+
+- a **design-system component class** defined in `packages/design-system/src/styles/tokens/components.css` (e.g. `card`, `receipt`, `text-link`, `skip-link`, `layout-two-pane`), or
+- a **sanctioned utility** — either a standard Tailwind utility the design-system build already scans, or one explicitly safelisted in the `@source inline(...)` block in `packages/design-system/src/styles/main.css`.
+
+The design-system Tailwind build scans only its own pattern library — it never scans `handoff/cena-uconn/**`. A utility a handoff page uses is in the bundle only if some pattern-library page also uses it, or it is in the safelist. Decided 2026-05-16 on the workflow's determinism tenet: the vocabulary is declared independently of these pages — that independence is what gives the render gate teeth.
+
+When you need a class that is not realizable:
+
+- **A standard utility** (a token / spacing / type utility on the normal scale) — add it to the `@source inline(...)` safelist in `main.css`, rebuild, re-run the gate.
+- **An arbitrary-value utility** (`max-w-[1400px]`, `grid-cols-[minmax(...)]`) — do NOT safelist it. Promote the layout to a named design-system pattern (see `layout-two-pane` / `layout-two-pane-grid`) and use that.
+- **A component class that does not exist** — add it to `components.css` + `COMPONENT-INDEX.md`, or correct the page to an existing class. Never invent a class with no rule behind it (a "phantom" — e.g. `text-fg-muted`, which has no backing token; use `text-sand-600`).
+
+### The render gate
+
+`scripts/handoff-render-gate.sh` (in the haven-ui repo) renders all 9 pages with `render-check.mjs` and fails if any page references a class the bundle cannot realize. Run it after every `haven.css` rebuild — the closed vocabulary holds only because the gate runs. See `README.md` → Rebuilding the assets.
 
 ## Where canonical sources live
 

@@ -27,7 +27,7 @@
     2026-05-14 PM). Outcome routing rules in `outcomeRules` mirror the rule
     table in that doc § Outcome Routing.
   -->
-  <main class="mx-auto max-w-[1400px] p-8 space-y-12" data-assessment-root aria-label="Pre-enrollment screener">
+  <main class="layout-two-pane p-8 space-y-12" data-assessment-root aria-label="Pre-enrollment screener">
 
     <!--
       ─────────── State · Preflight ───────────
@@ -36,7 +36,7 @@
       and for the screener it doesn't apply at all (referral-link entry, no home view).
     -->
     <section data-state="preflight" class="space-y-4" aria-label="Preflight">
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>A few quick questions to see if this program is a good fit for you. This isn't enrollment yet — it's just a check. Your answers help the team understand your situation.</p>
@@ -69,7 +69,7 @@
       Other questions advance through Q6 unless outcome rules route otherwise at submit.
     -->
     <section data-state="question" class="space-y-4" aria-label="Question administration" hidden>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
         </div>
@@ -104,9 +104,9 @@
                 <button type="button" class="btn btn-secondary" data-action="next" disabled>Next</button>
               </nav>
 
-              <div class="submit-region" hidden>
+              <div hidden>
                 <button type="button" class="btn btn-primary" data-action="submit" disabled>Submit answers</button>
-                <p class="text-sm text-fg-muted mt-2">Your answers go straight to the program team.</p>
+                <p class="text-sm text-sand-600 mt-2">Your answers go straight to the program team.</p>
               </div>
             </div>
           </article>
@@ -123,7 +123,7 @@
       skip identity entirely. Patient resumes Q2 after Continue.
     -->
     <section data-state="identity" class="space-y-4" aria-label="Identity capture" hidden>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <button type="button" class="btn btn-outline btn-sm">Talk to a person</button>
         </div>
@@ -199,7 +199,7 @@
                 <div>
                   <label for="identity-dob">Date of birth (optional)</label>
                   <input type="date" id="identity-dob" name="identity-dob" autocomplete="bday" aria-describedby="helper-identity-dob error-identity-dob">
-                  <p id="helper-identity-dob" class="text-xs text-fg-muted mt-1">Helpful for the program team but not needed today.</p>
+                  <p id="helper-identity-dob" class="text-xs text-sand-600 mt-1">Helpful for the program team but not needed today.</p>
                   <p id="error-identity-dob" class="text-sm text-error-600 mt-1.5 flex items-center gap-1 dark:text-error-400" hidden>
                     <i class="fa-solid fa-circle-exclamation text-xs" aria-hidden="true"></i>
                     <span>That date doesn't look right — check the format?</span>
@@ -209,11 +209,11 @@
                 <div>
                   <label for="identity-address">Mailing address (optional)</label>
                   <textarea id="identity-address" name="identity-address" rows="3" autocomplete="street-address" placeholder="Street, city, state, ZIP" aria-describedby="helper-identity-address"></textarea>
-                  <p id="helper-identity-address" class="text-xs text-fg-muted mt-1">Street, city, state, ZIP.</p>
+                  <p id="helper-identity-address" class="text-xs text-sand-600 mt-1">Street, city, state, ZIP.</p>
                 </div>
               </fieldset>
 
-              <p class="text-xs text-fg-muted flex items-start gap-2">
+              <p class="text-xs text-sand-600 flex items-start gap-2">
                 <i class="fa-solid fa-circle-info mt-0.5" aria-hidden="true"></i>
                 <span>Your contact info goes to the program team for follow-up. No clinical record is created yet.</span>
               </p>
@@ -222,7 +222,7 @@
                 <span></span>
                 <button type="button" class="btn btn-primary" data-action="identity-continue" aria-describedby="identity-continue-helper" disabled>Continue</button>
               </nav>
-              <p id="identity-continue-helper" class="text-sm text-fg-muted" data-bind="identity.helper" hidden></p>
+              <p id="identity-continue-helper" class="text-sm text-sand-600" data-bind="identity.helper" hidden></p>
 
             </div>
           </article>
@@ -240,7 +240,7 @@
 
       <!-- Variant: eligible -->
       <div data-confirm-variant="eligible" hidden>
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="layout-two-pane-grid">
           <div class="space-y-3" aria-label="Agent chat">
             <div class="patient-chat-message">
               <p>Thanks — that's everything we needed. Someone from the team will be in touch to get you started.</p>
@@ -250,12 +250,12 @@
           <aside aria-label="Working surface">
             <article class="assessment-confirmation">
               <div class="receipt">
-                <header class="receipt-header">
+                <header>
                   <h2 class="receipt-title">Pre-enrollment screener</h2>
                 </header>
-                <div class="receipt-body space-y-2">
+                <div class="space-y-2">
                   <p class="text-base">Submitted just now.</p>
-                  <p class="text-sm text-fg-muted">The program team has it.</p>
+                  <p class="text-sm text-sand-600">The program team has it.</p>
                 </div>
               </div>
             </article>
@@ -265,7 +265,7 @@
 
       <!-- Variant: not-eligible -->
       <div data-confirm-variant="not-eligible" hidden>
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="layout-two-pane-grid">
           <div class="space-y-3" aria-label="Agent chat">
             <div class="patient-chat-message">
               <p>Thanks for taking the time. Based on your answers, the program may not be the right fit right now — someone from our team will follow up to share other options that might help.</p>
@@ -275,12 +275,12 @@
           <aside aria-label="Working surface">
             <article class="assessment-confirmation">
               <div class="receipt">
-                <header class="receipt-header">
+                <header>
                   <h2 class="receipt-title">Pre-enrollment screener</h2>
                 </header>
-                <div class="receipt-body space-y-2">
+                <div class="space-y-2">
                   <p class="text-base">Submitted just now.</p>
-                  <p class="text-sm text-fg-muted">The program team has it.</p>
+                  <p class="text-sm text-sand-600">The program team has it.</p>
                 </div>
               </div>
             </article>
@@ -290,7 +290,7 @@
 
       <!-- Variant: refer-to-team -->
       <div data-confirm-variant="refer-to-team" hidden>
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+        <div class="layout-two-pane-grid">
           <div class="space-y-3" aria-label="Agent chat">
             <div class="patient-chat-message">
               <p>Thanks — a member of the team will review your answers and reach out to talk through next steps.</p>
@@ -300,12 +300,12 @@
           <aside aria-label="Working surface">
             <article class="assessment-confirmation">
               <div class="receipt">
-                <header class="receipt-header">
+                <header>
                   <h2 class="receipt-title">Pre-enrollment screener</h2>
                 </header>
-                <div class="receipt-body space-y-2">
+                <div class="space-y-2">
                   <p class="text-base">Submitted just now.</p>
-                  <p class="text-sm text-fg-muted">The program team has it.</p>
+                  <p class="text-sm text-sand-600">The program team has it.</p>
                 </div>
               </div>
             </article>

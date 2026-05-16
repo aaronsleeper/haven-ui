@@ -60,7 +60,15 @@ sed -E 's|url\(/assets/|url(./|g' packages/design-system/dist/assets/haven-ui.cs
 
 The `sed` step rewrites `url(/assets/haven-ui.woff2)` → `url(./haven-ui.woff2)` so the CSS resolves font URLs relative to its own location — required for self-contained operation.
 
-When ready, this rebuild can move into a `pnpm --filter @haven/design-system handoff:bundle` script.
+### Render gate — required after every rebuild
+
+```
+bash scripts/handoff-render-gate.sh
+```
+
+Renders all 9 handoff pages with `render-check.mjs` and exits non-zero if any page references a class the rebuilt bundle cannot realize (undefined-class drift). The bundle uses a **closed vocabulary** — design-system component classes plus an explicit `@source inline(...)` safelist in `packages/design-system/src/styles/main.css`, declared independently of these pages (see `AGENTS.md` → Closed-vocabulary contract). The gate is what keeps the drift from silently recurring; a bundle the gate rejects is not shippable. Fix per the gate's output — safelist a standard utility, or correct the page to real vocabulary — then rebuild and re-run.
+
+When ready, the rebuild + gate can move into a `pnpm --filter @haven/design-system handoff:bundle` script.
 
 ## How to read this for porting
 

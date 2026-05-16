@@ -33,21 +33,21 @@
     All 4 states are stacked for hand-port reference. The runner in production flips
     one state at a time via JS state machine. This page renders them top-to-bottom.
   -->
-  <main class="mx-auto max-w-[1400px] p-8 space-y-12">
+  <main class="layout-two-pane p-8 space-y-12">
 
     <header class="space-y-2 border-b border-sand-200 pb-6">
-      <p class="text-xs uppercase tracking-wider text-fg-muted">Slice 1 · Take assessment runner · WHOQOL-HIV BREF instance</p>
+      <p class="text-xs uppercase tracking-wider text-sand-600">Slice 1 · Take assessment runner · WHOQOL-HIV BREF instance</p>
       <h1 class="text-3xl font-semibold tracking-tight">WHOQOL-HIV BREF</h1>
-      <p class="text-base text-fg-muted max-w-3xl">A demo of the runner with real WHOQOL-HIV BREF content. Sensitivity register: <strong>sensitive</strong>. The key engineering point is the <strong>5 distinct per-item response scales</strong> — Step 3 demonstrates two of them on the same page so Andrey can see the data-binding requirement. For the abstract runner template, see <a class="link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
+      <p class="text-base text-sand-600 max-w-3xl">A demo of the runner with real WHOQOL-HIV BREF content. Sensitivity register: <strong>sensitive</strong>. The key engineering point is the <strong>5 distinct per-item response scales</strong> — Step 3 demonstrates two of them on the same page so Andrey can see the data-binding requirement. For the abstract runner template, see <a class="text-link" href="./take-assessment.entry.html">take-assessment.entry.html</a> through <a class="text-link" href="./take-assessment.confirm.html">take-assessment.confirm.html</a>.</p>
     </header>
 
     <!-- ─────────── Step 1 · Entry ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 1 · Entry</p>
-        <p class="text-xs text-fg-muted">Sensitive register — agent surfaces quality-of-life frame; right pane primes with WHOQOL metadata.</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 1 · Entry</p>
+        <p class="text-xs text-sand-600">Sensitive register — agent surfaces quality-of-life frame; right pane primes with WHOQOL metadata.</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>Hi <strong>[firstName]</strong>. You're due for a short questionnaire about <strong>your quality of life living with HIV</strong>. It usually takes about <strong>10–15</strong> minutes. Want to start now or come back to it?</p>
@@ -82,10 +82,10 @@
     <!-- ─────────── Step 2 · Preflight ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 2 · Preflight (sensitive register)</p>
-        <p class="text-xs text-fg-muted">Agent frames the instrument's personal tone before the patient starts. Disclosure: care team (not program team — WHOQOL is a within-care-relationship instrument).</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 2 · Preflight (sensitive register)</p>
+        <p class="text-xs text-sand-600">Agent frames the instrument's personal tone before the patient starts. Disclosure: care team (not program team — WHOQOL is a within-care-relationship instrument).</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>Some of the questions are personal — answer how things actually are, not how you think they should be. There are no wrong answers. You can pause anytime; I'll save your spot.</p>
@@ -132,10 +132,10 @@
     -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q3 of 31 (example 1 of 2 shown)</p>
-        <p class="text-xs text-fg-muted">Right pane is the working surface; chat is silent unless the patient asks for help. groupingMode = one-per-screen (sensitive instrument).</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 3 · Question administration · Q3 of 31 (example 1 of 2 shown)</p>
+        <p class="text-xs text-sand-600">Right pane is the working surface; chat is silent unless the patient asks for help. groupingMode = one-per-screen (sensitive instrument).</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -195,11 +195,11 @@
             </div>
             <div class="card-body space-y-6">
 
-              <p class="text-xs text-fg-muted italic">Think about your life in the <strong>last two weeks</strong>.</p>
+              <p class="text-xs text-sand-600 italic">Think about your life in the <strong>last two weeks</strong>.</p>
 
               <fieldset class="response-option-group" role="radiogroup" aria-labelledby="whoqol-q3">
                 <legend id="whoqol-q3" class="response-option-group-prompt">To what extent do you feel that physical pain prevents you from doing what you need to do?</legend>
-                <p class="text-xs text-fg-muted mt-1 mb-3 font-mono">responseScale: "not-at-all–extreme-amount" · Q3 (F1.4) · Domain 1: Physical · reverse-scored</p>
+                <p class="text-xs text-sand-600 mt-1 mb-3 font-mono">responseScale: "not-at-all–extreme-amount" · Q3 (F1.4) · Domain 1: Physical · reverse-scored</p>
                 <div class="response-option-group-list">
                   <button type="button" class="response-option" role="radio" aria-checked="false">
                     <span class="response-option-index"><span class="response-option-index-num">1</span></span>
@@ -242,9 +242,9 @@
     <!-- Step 3 · Example Question 2 — different responseScale -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 3 · Question administration · Q21 of 31 (example 2 of 2 shown — different response scale)</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 3 · Question administration · Q21 of 31 (example 2 of 2 shown — different response scale)</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="chat-handoff-trigger is-header">
             <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
@@ -304,13 +304,13 @@
             </div>
             <div class="card-body space-y-6">
 
-              <p class="text-xs text-fg-muted italic">Think about your life in the <strong>last two weeks</strong>.</p>
+              <p class="text-xs text-sand-600 italic">Think about your life in the <strong>last two weeks</strong>.</p>
 
-              <p class="text-xs text-fg-muted italic">↑ Different items use different response anchors. WHOQOL has 5 distinct scales across 31 items — the runner reads each item's <code class="font-mono">responseScale</code> field and renders the matching options.</p>
+              <p class="text-xs text-sand-600 italic">↑ Different items use different response anchors. WHOQOL has 5 distinct scales across 31 items — the runner reads each item's <code class="font-mono">responseScale</code> field and renders the matching options.</p>
 
               <fieldset class="response-option-group" role="radiogroup" aria-labelledby="whoqol-q21">
                 <legend id="whoqol-q21" class="response-option-group-prompt">How satisfied are you with your sleep?</legend>
-                <p class="text-xs text-fg-muted mt-1 mb-3 font-mono">responseScale: "very-dissatisfied–very-satisfied" · Q21 (F3.3) · Domain 1: Physical</p>
+                <p class="text-xs text-sand-600 mt-1 mb-3 font-mono">responseScale: "very-dissatisfied–very-satisfied" · Q21 (F3.3) · Domain 1: Physical</p>
                 <div class="response-option-group-list">
                   <button type="button" class="response-option" role="radio" aria-checked="false">
                     <span class="response-option-index"><span class="response-option-index-num">1</span></span>
@@ -353,10 +353,10 @@
     <!-- ─────────── Step 5 · Submit confirmation ─────────── -->
     <section class="space-y-4">
       <header class="space-y-1">
-        <p class="text-xs uppercase tracking-wider text-fg-muted">Step 5 · Submit confirmation (sensitive register)</p>
-        <p class="text-xs text-fg-muted">Per CC-01 / distress-signal gap-gate verdict 2026-05-14 PM: "Talk to a person" is foregrounded — not an afterthought — because WHOQOL probes acute psychological distress signals. No score shown to patient (no-score invariant).</p>
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 5 · Submit confirmation (sensitive register)</p>
+        <p class="text-xs text-sand-600">Per CC-01 / distress-signal gap-gate verdict 2026-05-14 PM: "Talk to a person" is foregrounded — not an afterthought — because WHOQOL probes acute psychological distress signals. No score shown to patient (no-score invariant).</p>
       </header>
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-8">
+      <div class="layout-two-pane-grid">
         <div class="space-y-3" aria-label="Agent chat">
           <div class="patient-chat-message">
             <p>Thanks — your answers are in. Your care team will review them at your next session. If anything in there raised something you want to talk about sooner, tap 'Talk to a person.'</p>
@@ -368,12 +368,12 @@
         <aside aria-label="Working surface">
           <article class="assessment-confirmation">
             <div class="receipt">
-              <header class="receipt-header">
+              <header>
                 <h2 class="receipt-title">WHOQOL-HIV BREF</h2>
               </header>
-              <div class="receipt-body space-y-2">
+              <div class="space-y-2">
                 <p class="text-base">Submitted just now.</p>
-                <p class="text-sm text-fg-muted">Your care team has it.</p>
+                <p class="text-sm text-sand-600">Your care team has it.</p>
               </div>
             </div>
           </article>
@@ -382,7 +382,7 @@
     </section>
 
     <!-- ─────────── Footer ─────────── -->
-    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-fg-muted">
+    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-sand-600">
       <p><strong>Source:</strong> WHOQOL HIV Group. 2002. <em>WHOQOL-HIV BREF.</em> Document code WHO/MSD/MER/02.2. World Health Organization, Geneva. Copyright © WHO 2002 — may be freely reviewed, abstracted, or reproduced in part or whole, but not for sale or use in conjunction with commercial purposes.</p>
       <p><strong>Response scales:</strong> 31 items use 5 distinct response scales. This page demonstrates 2; see <code class="font-mono">instrument-content-primary-sources.md § WHOQOL-HIV BREF</code> for the full per-item mapping. The runner MUST bind each item's <code class="font-mono">responseScale</code> field — a single hardcoded scale is incorrect.</p>
       <p><strong>The 5 distinct scales (summary):</strong></p>
