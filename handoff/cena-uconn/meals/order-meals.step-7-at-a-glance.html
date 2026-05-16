@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order meals — Step 7: This week at a glance · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+  <!-- The agentic shell sizes to the viewport (.agentic-shell is height: calc(100vh - 2rem)).
+       This body/html sizing is shell-mandated, not component styling — the design-system's
+       own pattern-library/components/layout-agentic-shell.html carries the identical block. -->
+  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
+</head>
+<body>
+  <!--
+    Order meals — Step 7: "This week at a glance" · Cena × UConn handoff · slice 2 (meals)
+    Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/meal-ordering.step-7-at-a-glance.mdoc
+    State: post-order idle — the right pane returns to the at-a-glance composition the patient
+    sees outside any active flow. The agent surfaces the change-order window.
+    Shell: layout-agentic-shell (chat-primary three-pane). DESKTOP-ONLY per slice-2 Gate-2
+    decision 2026-05-16 — the agentic-shell mobile-sheet collapse is a deferred fast-follow.
+    Right pane composes patient-week-panel { budget-meter (post-order) + delivery-status-timeline
+    (awaiting-confirmation) + appointment-card }.
+    Deadline copy ("Friday at 5pm") is a demo placeholder — runtime binds the kitchen cutoff
+    (Fire by Forge); see the wireframe @Aaron note.
+  -->
+  <div class="app-shell app-shell--agentic">
+    <div class="agentic-shell">
+
+      <nav class="panel-nav" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <main class="panel-chat" aria-label="Meal ordering assistant">
+        <div class="chat-thread">
+          <div class="chat-thread-inner">
+
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+
+            <!-- agent.all-set-deadline — the change-order-window beat. Deadline is a runtime
+                 variable; "Friday at 5pm" is the demo placeholder. -->
+            <div class="patient-chat-message" role="status">
+              <span class="patient-chat-message-indicator" aria-hidden="true"></span>
+              <p class="patient-chat-message-body">You're all set. You can change this order until Friday at 5pm.</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="meal-composer" placeholder="Type a message…" aria-label="Type a message to your care assistant" />
+        </div>
+      </main>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <aside class="panel-content" aria-label="This week at a glance">
+        <div class="content-body">
+
+          <div class="patient-week-panel">
+
+            <div class="patient-week-panel-section">
+              <p class="patient-week-panel-section-label">This week's meal budget</p>
+              <div class="budget-meter">
+                <div class="budget-meter-label">
+                  <span>This week's meal budget</span>
+                  <span class="budget-meter-amount">$190 of $200</span>
+                </div>
+                <div class="progress progress-success">
+                  <div class="progress-bar" style="width: 95%"></div>
+                </div>
+                <p class="budget-meter-message">Final amount may vary based on what the kitchen prepares.</p>
+              </div>
+            </div>
+
+            <div class="patient-week-panel-section">
+              <p class="patient-week-panel-section-label">Delivery status</p>
+              <div class="delivery-status-timeline">
+                <div class="delivery-status-timeline-body">
+                  <ol class="delivery-status-timeline-list">
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Order placed</p>
+                        <p class="delivery-status-timeline-when">Today · 9:12 AM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-current">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-user-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Approved by your dietitian</p>
+                        <p class="delivery-status-timeline-when">In review</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Preparing your meals</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-truck" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Out for delivery</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Delivered</p>
+                      </div>
+                    </li>
+                  </ol>
+                  <p class="delivery-status-timeline-window">We'll share your delivery window as soon as the kitchen confirms your order.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="patient-week-panel-section">
+              <p class="patient-week-panel-section-label">Next appointment</p>
+              <div class="appointment-card">
+                <div class="appointment-card-header">
+                  <div class="appointment-card-avatar">
+                    <span class="avatar avatar-primary"><span>SO</span></span>
+                  </div>
+                  <div class="appointment-card-meta">
+                    <p class="appointment-card-title">Dr. Sarah Soto, RDN</p>
+                    <p class="appointment-card-subtitle">Registered Dietitian</p>
+                  </div>
+                </div>
+                <div class="appointment-card-details">
+                  <div class="appointment-card-detail-row">
+                    <i class="fa-solid fa-calendar-day appointment-card-detail-icon" aria-hidden="true"></i>
+                    <span>Thursday, May 21 · 10:30 AM</span>
+                  </div>
+                  <div class="appointment-card-detail-row">
+                    <i class="fa-solid fa-video appointment-card-detail-icon" aria-hidden="true"></i>
+                    <span>Telehealth (link sent the day before)</span>
+                  </div>
+                </div>
+                <div class="appointment-card-actions">
+                  <button type="button" class="btn-secondary btn-sm">
+                    <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+                    Add to calendar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</body>
+</html>

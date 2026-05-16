@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order meals — First-time patient · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Order meals — FIRST-TIME patient · single-page narrative demo of the meal-ordering flow
+    with REAL cap-17 menu content.
+
+    Patient: a first-time patient (no prior orders, no saved preferences). Walks the first-time
+    path top-to-bottom:
+      Entry (preferences bridge-in) → Step 3 Preferences → Step 4 Cart → Step 6 Submit → Step 7 At-a-glance.
+
+    Wireframes: meal-ordering.step-{1-entry, 3-preferences, 4-cart, 6-submit-confirm, 7-at-a-glance}.mdoc
+    Flow: flows/flow-meal-ordering.md — first-time path. Per the flow + step-3 wireframe, a
+    first-time patient has no prepared cart and no preferences yet; the entry beat IS the
+    preferences bridge-in (agent.first-time-bridge-in). After Save, the agent picks a list and
+    presents the cart (treat first-time-as-newly-equipped == returning for cart-presentation copy).
+    Menu content: cap-17-weekly-meal-ordering.md — 14 meals (7 hot + 7 cold), ~$10/meal placeholder.
+    Budget: $200/week (cap-40). Patient dummies (Dr. Sarah Soto, RDN) per PL demo conventions.
+
+    All 5 states are stacked for hand-port reference; the production runner flips one at a time.
+    Flat instance pattern (no agentic shell chrome) — see assessments/take-whoqol.html for the
+    slice-1 precedent. Copy traced verbatim to each wireframe's {% copy %} block.
+  -->
+  <main class="layout-two-pane p-8 space-y-12">
+
+    <header class="space-y-2 border-b border-sand-200 pb-6">
+      <p class="text-xs uppercase tracking-wider text-sand-600">Slice 2 · Meal-ordering flow · First-time-patient instance</p>
+      <h1 class="text-3xl font-semibold tracking-tight">Order meals — first-time patient</h1>
+      <p class="text-base text-sand-600 max-w-3xl">A demo of the meal-ordering flow with real cap-17 menu content for a <strong>first-time</strong> patient. With no order history and no saved preferences, the agent opens with a preferences bridge-in instead of a prepared cart. The flow walks <strong>Entry → Preferences → Cart → Submit → This week at a glance</strong>. Pricing is a <strong>$10/meal placeholder</strong> per cap-17. For the returning-patient walk-through, see <a class="text-link" href="./order-meals.returning-patient.html">order-meals.returning-patient.html</a>.</p>
+    </header>
+
+    <!-- ─────────── Step 1 · Entry (first-time — preferences bridge-in) ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 1 · Entry (first-time)</p>
+        <p class="text-xs text-sand-600">No prepared cart for a first-time patient — the entry beat is the preferences bridge-in. The right pane shows an empty cart and the is-empty budget-meter ($0 of $200).</p>
+      </header>
+      <div class="layout-two-pane-grid">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">You have $200 to spend on meals this week. Before I pick anything, let me ask a few quick questions about how you like to eat.</p>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <div class="cart-panel" data-cart-panel data-budget-cap="200">
+            <div class="cart-panel-header">
+              <p class="cart-panel-title">Your cart</p>
+              <span class="cart-panel-status" tabindex="-1">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sent to kitchen
+              </span>
+            </div>
+            <div class="cart-panel-body">
+              <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+              <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                <!-- no items — first-time patient, preferences not yet saved -->
+              </div>
+              <div class="cart-total">
+                <div class="cart-total-row is-primary">
+                  <span>Total</span>
+                  <span data-cart-total>$0.00</span>
+                </div>
+                <div class="cart-budget-remaining">
+                  <span data-cart-budget-label>Budget remaining</span>
+                  <span data-cart-budget-remaining>$200.00</span>
+                </div>
+              </div>
+              <p class="cart-helper is-gate is-active" data-cart-helper="empty">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Add at least one meal to send your order.</span>
+              </p>
+              <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Remove an item or lower a quantity to send your order.</span>
+              </p>
+              <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit disabled>
+                Send order to kitchen
+              </button>
+            </div>
+          </div>
+          <div class="budget-meter is-empty mt-6">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$0 of $200</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <p class="budget-meter-message">Your weekly budget resets every Monday.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 3 · Preferences (first-time-fresh) ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 3 · Preferences (first-time-required)</p>
+        <p class="text-xs text-sand-600">The first-time-fresh chat-tag-group: empty selection, Save disabled until ≥1 chip or "Skip — no restrictions." The right pane stays empty until preferences save.</p>
+      </header>
+      <div class="layout-two-pane-grid">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">Tap any tags that fit how you like to eat. Skip what doesn't apply.</p>
+          </div>
+          <div class="chat-tag-group">
+            <p id="ft-tag-prompt" class="chat-tag-group-prompt">Which of these would you like to see more of?</p>
+            <div class="chat-tag-list" role="group" aria-labelledby="ft-tag-prompt">
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Vegetarian</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Low sodium</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Gluten-free</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Lactose-free</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>No pork</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>No shellfish</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Spicy</button>
+              <button type="button" class="chat-chip chat-tag" aria-pressed="false"><i class="fa-solid fa-check chat-tag-check" aria-hidden="true"></i>Comfort food</button>
+            </div>
+            <div class="chat-button-row">
+              <button type="button" class="btn-secondary">Skip — no restrictions</button>
+              <button type="button" class="btn-primary" disabled>Save</button>
+            </div>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <div class="cart-panel" data-cart-panel data-budget-cap="200">
+            <div class="cart-panel-header">
+              <p class="cart-panel-title">Your cart</p>
+              <span class="cart-panel-status" tabindex="-1">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sent to kitchen
+              </span>
+            </div>
+            <div class="cart-panel-body">
+              <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+              <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                <!-- still empty — preferences not yet saved -->
+              </div>
+              <div class="cart-total">
+                <div class="cart-total-row is-primary">
+                  <span>Total</span>
+                  <span data-cart-total>$0.00</span>
+                </div>
+                <div class="cart-budget-remaining">
+                  <span data-cart-budget-label>Budget remaining</span>
+                  <span data-cart-budget-remaining>$200.00</span>
+                </div>
+              </div>
+              <p class="cart-helper is-gate is-active" data-cart-helper="empty">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Add at least one meal to send your order.</span>
+              </p>
+              <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Remove an item or lower a quantity to send your order.</span>
+              </p>
+              <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit disabled>
+                Send order to kitchen
+              </button>
+            </div>
+          </div>
+          <div class="budget-meter is-empty mt-6">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$0 of $200</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <p class="budget-meter-message">Your weekly budget resets every Monday.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 4 · Cart (post-Save — agent picked a list) ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 4 · Cart presentation (the working surface)</p>
+        <p class="text-xs text-sand-600">After Save, the agent picks a starting list from the saved preferences and presents the cart (first-time-as-newly-equipped == returning copy). Full 14-dish menu shown; cart is in budget at $110.</p>
+      </header>
+      <div class="layout-two-pane-grid">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">Take a look at your cart on the right. Tap items to change them, or just tell me what you'd swap.</p>
+          </div>
+          <div class="chat-button-row">
+            <button type="button" class="btn-primary">Send order</button>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <div class="cart-panel" data-cart-panel data-budget-cap="200">
+            <div class="cart-panel-header">
+              <p class="cart-panel-title">Your cart</p>
+              <span class="cart-panel-status" tabindex="-1">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sent to kitchen
+              </span>
+            </div>
+            <div class="cart-panel-body">
+              <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+              <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                <div class="cart-item" data-cart-item-id="hot-5" data-unit-price="10.00" data-qty="4" role="listitem">
+                  <p><span class="cart-item-name">Tofu noodle bowl</span><span class="cart-item-qty">× 4</span></p>
+                  <span class="cart-item-price">$40.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="hot-7" data-unit-price="10.00" data-qty="3" role="listitem">
+                  <p><span class="cart-item-name">Lentil stew</span><span class="cart-item-qty">× 3</span></p>
+                  <span class="cart-item-price">$30.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="cold-4" data-unit-price="10.00" data-qty="2" role="listitem">
+                  <p><span class="cart-item-name">Hummus veggie wrap</span><span class="cart-item-qty">× 2</span></p>
+                  <span class="cart-item-price">$20.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="cold-2" data-unit-price="10.00" data-qty="2" role="listitem">
+                  <p><span class="cart-item-name">Quinoa garden salad</span><span class="cart-item-qty">× 2</span></p>
+                  <span class="cart-item-price">$20.00</span>
+                </div>
+              </div>
+              <div class="cart-total">
+                <div class="cart-total-row is-primary">
+                  <span>Total</span>
+                  <span data-cart-total>$110.00</span>
+                </div>
+                <div class="cart-budget-remaining">
+                  <span data-cart-budget-label>Budget remaining</span>
+                  <span data-cart-budget-remaining>$90.00</span>
+                </div>
+              </div>
+              <p class="cart-helper is-gate" data-cart-helper="empty">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Add at least one meal to send your order.</span>
+              </p>
+              <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Remove an item or lower a quantity to send your order.</span>
+              </p>
+              <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit>
+                Send order to kitchen
+              </button>
+            </div>
+          </div>
+
+          <div class="menu-grid mt-6">
+            <div class="menu-grid-header">
+              <div>
+                <p class="menu-grid-title">This week's menu</p>
+                <p class="menu-grid-subtitle">14 dishes available · 7 hot, 7 cold</p>
+              </div>
+            </div>
+
+            <!-- ── 7 hot dishes ── -->
+            <div class="meal-option-card is-recommended">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,tofu,food?lock=25" alt="Tofu noodle bowl with broccoli and sesame" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Tofu noodle bowl</span></p>
+                <p class="meal-option-card-description">Soft tofu, soba, broccoli, sesame.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-primary"><i class="fa-solid fa-sparkles" aria-hidden="true"></i>Picked for you</span>
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="4" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">4</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card is-recommended">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,lentil,food?lock=27" alt="Lentil stew with vegetables" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Lentil stew</span></p>
+                <p class="meal-option-card-description">Brown lentils, carrots, cumin, crusty bread.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-primary"><i class="fa-solid fa-sparkles" aria-hidden="true"></i>Picked for you</span>
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="3" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">3</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,chicken,food?lock=21" alt="Pollo guisado with rice and black beans" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Pollo guisado</span></p>
+                <p class="meal-option-card-description">Stewed chicken, rice, black beans.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,beef,food?lock=22" alt="Ropa vieja with sweet plantains" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Ropa vieja</span></p>
+                <p class="meal-option-card-description">Braised shredded beef, peppers, brown rice.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">High protein</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=23" alt="Mole verde with rice" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Mole verde</span></p>
+                <p class="meal-option-card-description">Pumpkin-seed mole, chicken, rice.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,fish,food?lock=24" alt="Baked tilapia with citrus" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Citrus baked tilapia</span></p>
+                <p class="meal-option-card-description">Baked tilapia, lime, roasted vegetables.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-info">High protein</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,turkey,food?lock=26" alt="Turkey picadillo with rice" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Turkey picadillo</span></p>
+                <p class="meal-option-card-description">Ground turkey, olives, tomato, rice.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">High protein</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── 7 cold dishes ── -->
+            <div class="meal-option-card is-recommended">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,wrap,food?lock=31" alt="Hummus and vegetable wrap" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Hummus veggie wrap</span></p>
+                <p class="meal-option-card-description">Hummus, cucumber, peppers, whole-grain wrap.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-primary"><i class="fa-solid fa-sparkles" aria-hidden="true"></i>Picked for you</span>
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">2</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card is-recommended">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,salad,food?lock=29" alt="Quinoa and roasted vegetable salad" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Quinoa garden salad</span></p>
+                <p class="meal-option-card-description">Quinoa, roasted vegetables, lemon vinaigrette.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-primary"><i class="fa-solid fa-sparkles" aria-hidden="true"></i>Picked for you</span>
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">2</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,soup,food?lock=28" alt="Black bean soup with avocado" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Black bean soup</span></p>
+                <p class="meal-option-card-description">Slow-cooked beans, avocado, lime. Served chilled.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,chicken,salad?lock=30" alt="Grilled chicken Caesar salad" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Grilled chicken salad</span></p>
+                <p class="meal-option-card-description">Grilled chicken, romaine, light dressing.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">High protein</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,tuna,food?lock=32" alt="Tuna and white bean salad" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Tuna white bean salad</span></p>
+                <p class="meal-option-card-description">Albacore tuna, white beans, herbs, olive oil.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">High protein</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,gazpacho,food?lock=33" alt="Chilled gazpacho with herbs" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Garden gazpacho</span></p>
+                <p class="meal-option-card-description">Chilled tomato soup, cucumber, fresh herbs.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,fruit,food?lock=34" alt="Greek yogurt and fruit parfait" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row"><span class="meal-option-card-name">Yogurt fruit parfait</span></p>
+                <p class="meal-option-card-description">Greek yogurt, seasonal fruit, toasted oats.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">High protein</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="budget-meter mt-6">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$110 of $200</span>
+            </div>
+            <div class="progress progress-success">
+              <div class="progress-bar" style="width: 55%"></div>
+            </div>
+            <p class="budget-meter-message">$90 left this week.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 6 · Submit + confirmation ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 6 · Submit + confirmation</p>
+        <p class="text-xs text-sand-600">The first-time patient committed the order. cart-panel locks to the order summary; the menu-grid is removed; the cap-40 disclaimer rides on the budget-meter message.</p>
+      </header>
+      <div class="layout-two-pane-grid">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message" role="status">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">Your order is in. We'll text you once the kitchen confirms a delivery window.</p>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <div class="cart-panel is-locked" data-cart-panel data-budget-cap="200">
+            <div class="cart-panel-header">
+              <p class="cart-panel-title">Your order</p>
+              <span class="cart-panel-status" tabindex="-1">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sent to kitchen
+              </span>
+            </div>
+            <div class="cart-panel-body">
+              <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+              <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                <div class="cart-item" data-cart-item-id="hot-5" data-unit-price="10.00" data-qty="4" role="listitem">
+                  <p><span class="cart-item-name">Tofu noodle bowl</span><span class="cart-item-qty">× 4</span></p>
+                  <span class="cart-item-price">$40.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="hot-7" data-unit-price="10.00" data-qty="3" role="listitem">
+                  <p><span class="cart-item-name">Lentil stew</span><span class="cart-item-qty">× 3</span></p>
+                  <span class="cart-item-price">$30.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="cold-4" data-unit-price="10.00" data-qty="2" role="listitem">
+                  <p><span class="cart-item-name">Hummus veggie wrap</span><span class="cart-item-qty">× 2</span></p>
+                  <span class="cart-item-price">$20.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="cold-2" data-unit-price="10.00" data-qty="2" role="listitem">
+                  <p><span class="cart-item-name">Quinoa garden salad</span><span class="cart-item-qty">× 2</span></p>
+                  <span class="cart-item-price">$20.00</span>
+                </div>
+              </div>
+              <div class="cart-total">
+                <div class="cart-total-row is-primary">
+                  <span>Total</span>
+                  <span data-cart-total>$110.00</span>
+                </div>
+                <div class="cart-budget-remaining">
+                  <span data-cart-budget-label>Budget remaining</span>
+                  <span data-cart-budget-remaining>$90.00</span>
+                </div>
+              </div>
+              <p class="cart-helper is-gate" data-cart-helper="empty">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Add at least one meal to send your order.</span>
+              </p>
+              <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Remove an item or lower a quantity to send your order.</span>
+              </p>
+              <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit>
+                Send order to kitchen
+              </button>
+            </div>
+          </div>
+          <div class="budget-meter mt-6">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$110 of $200</span>
+            </div>
+            <div class="progress progress-success">
+              <div class="progress-bar" style="width: 55%"></div>
+            </div>
+            <p class="budget-meter-message">Final amount may vary based on what the kitchen prepares.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Step 7 · This week at a glance ─────────── -->
+    <section class="space-y-4">
+      <header class="space-y-1">
+        <p class="text-xs uppercase tracking-wider text-sand-600">Step 7 · This week at a glance</p>
+        <p class="text-xs text-sand-600">The right pane returns to the idle at-a-glance composition — post-order budget, delivery status, next RDN appointment. The agent surfaces the change-order window.</p>
+      </header>
+      <div class="layout-two-pane-grid">
+        <div class="space-y-3" aria-label="Agent chat">
+          <div class="patient-chat-message" role="status">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">You're all set. You can change this order until Friday at 5pm.</p>
+          </div>
+          <div class="chat-handoff-trigger is-header">
+            <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+          </div>
+        </div>
+        <aside aria-label="Working surface">
+          <div class="patient-week-panel">
+
+            <div class="patient-week-panel-section">
+              <p class="patient-week-panel-section-label">This week's meal budget</p>
+              <div class="budget-meter">
+                <div class="budget-meter-label">
+                  <span>This week's meal budget</span>
+                  <span class="budget-meter-amount">$110 of $200</span>
+                </div>
+                <div class="progress progress-success">
+                  <div class="progress-bar" style="width: 55%"></div>
+                </div>
+                <p class="budget-meter-message">Final amount may vary based on what the kitchen prepares.</p>
+              </div>
+            </div>
+
+            <div class="patient-week-panel-section">
+              <p class="patient-week-panel-section-label">Delivery status</p>
+              <div class="delivery-status-timeline">
+                <div class="delivery-status-timeline-body">
+                  <ol class="delivery-status-timeline-list">
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Order placed</p>
+                        <p class="delivery-status-timeline-when">Today · 2:40 PM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-current">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-user-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Approved by your dietitian</p>
+                        <p class="delivery-status-timeline-when">In review</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Preparing your meals</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-truck" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Out for delivery</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Delivered</p>
+                      </div>
+                    </li>
+                  </ol>
+                  <p class="delivery-status-timeline-window">We'll share your delivery window as soon as the kitchen confirms your order.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="patient-week-panel-section">
+              <p class="patient-week-panel-section-label">Next appointment</p>
+              <div class="appointment-card">
+                <div class="appointment-card-header">
+                  <div class="appointment-card-avatar">
+                    <span class="avatar avatar-primary"><span>SO</span></span>
+                  </div>
+                  <div class="appointment-card-meta">
+                    <p class="appointment-card-title">Dr. Sarah Soto, RDN</p>
+                    <p class="appointment-card-subtitle">Registered Dietitian</p>
+                  </div>
+                </div>
+                <div class="appointment-card-details">
+                  <div class="appointment-card-detail-row">
+                    <i class="fa-solid fa-calendar-day appointment-card-detail-icon" aria-hidden="true"></i>
+                    <span>Tuesday, May 26 · 2:00 PM</span>
+                  </div>
+                  <div class="appointment-card-detail-row">
+                    <i class="fa-solid fa-video appointment-card-detail-icon" aria-hidden="true"></i>
+                    <span>Telehealth (link sent the day before)</span>
+                  </div>
+                </div>
+                <div class="appointment-card-actions">
+                  <button type="button" class="btn-secondary btn-sm">
+                    <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+                    Add to calendar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ─────────── Footer ─────────── -->
+    <footer class="space-y-3 border-t border-sand-200 pt-6 text-sm text-sand-600">
+      <p><strong>First-time path:</strong> a first-time patient has no order history and no saved preferences. The entry beat is the preferences bridge-in (no prepared cart); after Save, the agent picks a starting list and the flow continues as the returning-flavored cart presentation (per <code class="font-mono">flow-meal-ordering.md</code> Step 3 — "treat first-time-as-newly-equipped == returning for cart-presentation copy").</p>
+      <p><strong>Menu content:</strong> 14 dishes (7 hot + 7 cold) per <code class="font-mono">cap-17-weekly-meal-ordering.md</code> — all 14 shown regardless of strict care-plan adherence (2026-05-06 Tech Talk decision).</p>
+      <p><strong>Pricing:</strong> a flat <strong>$10/meal placeholder</strong> per the 2026-05-06 Tech Talk decision. Final pricing model pending Vanessa's input (cap-41).</p>
+      <p><strong>Budget:</strong> $200/week per cap-40. The cap-40 disclaimer ("Final amount may vary based on what the kitchen prepares") rides on the budget-meter message slot at the order-summary state.</p>
+      <p><strong>Deadline copy:</strong> "Friday at 5pm" (Step 7) is a demo placeholder — runtime binds the kitchen cutoff (Fire by Forge).</p>
+    </footer>
+  </main>
+</body>
+</html>

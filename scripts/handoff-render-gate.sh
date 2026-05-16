@@ -30,7 +30,7 @@ OUT="$(mktemp -d)"
 trap 'rm -rf "$OUT"' EXIT
 
 cd "$BUNDLE"
-pages=( index.html assessments/take-*.html )
+pages=( index.html assessments/take-*.html meals/order-meals.*.html )
 fail=0
 
 for page in "${pages[@]}"; do
@@ -58,4 +58,4 @@ if [[ "$fail" -ne 0 ]]; then
   echo "  real DS vocabulary, then rebuild haven.css. See handoff/cena-uconn/AGENTS.md."
   exit 1
 fi
-echo "handoff-render-gate: PASS — all 9 pages render with zero undefined classes."
+echo "handoff-render-gate: PASS — all ${#pages[@]} pages render with zero undefined classes."

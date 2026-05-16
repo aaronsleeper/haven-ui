@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order meals — Step 6: Submit + confirmation · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+  <!-- The agentic shell sizes to the viewport (.agentic-shell is height: calc(100vh - 2rem)).
+       This body/html sizing is shell-mandated, not component styling — the design-system's
+       own pattern-library/components/layout-agentic-shell.html carries the identical block. -->
+  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
+</head>
+<body>
+  <!--
+    Order meals — Step 6: "Submit + confirmation" · Cena × UConn handoff · slice 2 (meals)
+    Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/meal-ordering.step-6-submit-confirm.mdoc
+    State: post-submit — the patient committed the order. The right-pane cart-panel switches to
+    its .is-locked variant ("Your order" title; "Sent to kitchen" status pill; submit + helpers
+    hidden). The menu-grid is INTENTIONALLY ABSENT post-submit — the order summary replaces the
+    menu. budget-meter shifts to post-order register; the cap-40 disclaimer rides on the
+    budget-meter-message slot ("Final amount may vary based on what the kitchen prepares").
+    Shell: layout-agentic-shell (chat-primary three-pane). DESKTOP-ONLY per slice-2 Gate-2
+    decision 2026-05-16 — the agentic-shell mobile-sheet collapse is a deferred fast-follow.
+    Copy from the wireframe {% copy %} block; pricing is a $10/meal placeholder per cap-17.
+  -->
+  <div class="app-shell app-shell--agentic">
+    <div class="agentic-shell">
+
+      <nav class="panel-nav" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <main class="panel-chat" aria-label="Meal ordering assistant">
+        <div class="chat-thread">
+          <div class="chat-thread-inner">
+
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+
+            <!-- agent.submit-confirmed -->
+            <div class="patient-chat-message" role="status">
+              <span class="patient-chat-message-indicator" aria-hidden="true">
+                <i class="fa-solid fa-sparkle"></i>
+              </span>
+              <p class="patient-chat-message-body">Your order is in. We'll text you once the kitchen confirms a delivery window.</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="meal-composer" placeholder="Type a message…" aria-label="Type a message to your care assistant" />
+        </div>
+      </main>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <aside class="panel-content" aria-label="Your order">
+        <div class="content-body">
+
+          <!-- cart-panel (locked — post-submit order summary; submit + helpers hidden, status pill visible) -->
+          <div class="cart-panel is-locked" data-cart-panel data-budget-cap="200">
+            <div class="cart-panel-header">
+              <p class="cart-panel-title">Your order</p>
+              <span class="cart-panel-status" tabindex="-1">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sent to kitchen
+              </span>
+            </div>
+            <div class="cart-panel-body">
+              <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+              <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                <div class="cart-item" data-cart-item-id="meal-1" data-unit-price="10.00" data-qty="4" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Pollo guisado</span>
+                    <span class="cart-item-qty">× 4</span>
+                  </p>
+                  <span class="cart-item-price">$40.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="meal-2" data-unit-price="10.00" data-qty="3" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Tofu noodle bowl</span>
+                    <span class="cart-item-qty">× 3</span>
+                  </p>
+                  <span class="cart-item-price">$30.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="meal-3" data-unit-price="10.00" data-qty="3" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Black bean soup</span>
+                    <span class="cart-item-qty">× 3</span>
+                  </p>
+                  <span class="cart-item-price">$30.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="meal-4" data-unit-price="10.00" data-qty="3" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Fried plantains platter</span>
+                    <span class="cart-item-qty">× 3</span>
+                  </p>
+                  <span class="cart-item-price">$30.00</span>
+                </div>
+              </div>
+              <div class="cart-total">
+                <div class="cart-total-row is-primary">
+                  <span>Total</span>
+                  <span data-cart-total>$130.00</span>
+                </div>
+                <div class="cart-budget-remaining">
+                  <span data-cart-budget-label>Budget remaining</span>
+                  <span data-cart-budget-remaining>$70.00</span>
+                </div>
+              </div>
+              <p class="cart-helper is-gate" data-cart-helper="empty">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Add at least one meal to send your order.</span>
+              </p>
+              <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Remove an item or lower a quantity to send your order.</span>
+              </p>
+              <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit>
+                Send order to kitchen
+              </button>
+            </div>
+          </div>
+
+          <!-- menu-grid is INTENTIONALLY ABSENT post-submit — the order summary replaces the menu (wireframe Step 6). -->
+
+          <!-- budget-meter (post-order register; cap-40 disclaimer rides on budget-meter-message) -->
+          <div class="budget-meter">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$130 of $200</span>
+            </div>
+            <div class="progress progress-success">
+              <div class="progress-bar" style="width: 65%"></div>
+            </div>
+            <p class="budget-meter-message">Final amount may vary based on what the kitchen prepares.</p>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</body>
+</html>

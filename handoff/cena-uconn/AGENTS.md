@@ -119,5 +119,6 @@ If any of those four cannot be met, surface the gap in your work output. Do not 
 ## Slice index
 
 - [`assessments/`](./assessments/) — UConn pilot assessment runner: HFIAS, WHOQOL-HIV BREF, GNKQ-R, satisfaction (slice 2), pre-enrollment screener. Read [`assessments/AGENTS.md`](./assessments/AGENTS.md) first.
+- [`meals/`](./meals/) — UConn pilot weekly meal-ordering flow: entry, state-read, preferences, cart, submit, at-a-glance. Chat-primary agentic shell; desktop-only (≥1440px). Read [`meals/AGENTS.md`](./meals/AGENTS.md) first.
 
 Future slices will land here when authored. Each will have its own `AGENTS.md`.

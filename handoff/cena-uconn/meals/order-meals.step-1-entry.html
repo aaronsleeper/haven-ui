@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order meals — Step 1: Entry · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+  <!-- The agentic shell sizes to the viewport (.agentic-shell is height: calc(100vh - 2rem)).
+       This body/html sizing is shell-mandated, not component styling — the design-system's
+       own pattern-library/components/layout-agentic-shell.html carries the identical block. -->
+  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
+</head>
+<body>
+  <!--
+    Order meals — Step 1: "Entry" · Cena × UConn handoff · slice 2 (meals)
+    Wireframe: Knowledge/Projects/Cena Health/Partners/UCONN Health/capabilities/development/wireframes/meal-ordering.step-1-entry.mdoc
+    State: returning-patient entry — agent reveals the prepared list; patient acknowledges to engage.
+    The right-pane composition (cart-panel + menu-grid + budget-meter) transitions in immediately
+    on entry; the agent's chat message is the move. Patient can tap "Review my selections" or
+    bypass the button by editing the right pane directly.
+    Shell: layout-agentic-shell (chat-primary three-pane). DESKTOP-ONLY per slice-2 Gate-2
+    decision 2026-05-16 — the agentic-shell mobile-sheet collapse is a deferred fast-follow.
+    Copy from the wireframe {% copy %} block; pricing is a $10/meal placeholder per cap-17.
+  -->
+  <div class="app-shell app-shell--agentic">
+    <div class="agentic-shell">
+
+      <nav class="panel-nav" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <main class="panel-chat" aria-label="Meal ordering assistant">
+        <div class="chat-thread">
+          <div class="chat-thread-inner">
+
+            <div class="chat-handoff-trigger is-header">
+              <button type="button" class="btn btn-ghost btn-sm">Talk to a person</button>
+            </div>
+
+            <!-- agent.entry-returning -->
+            <div class="patient-chat-message">
+              <span class="patient-chat-message-indicator" aria-hidden="true">
+                <i class="fa-solid fa-sparkle"></i>
+              </span>
+              <p class="patient-chat-message-body">¡Hola Maria! I've put together a starting list of meals for next week — want to take a look?</p>
+            </div>
+
+            <!-- single-button-row: copy.review-selections. Ephemeral — removes on tap. -->
+            <div class="chat-button-row">
+              <button type="button" class="btn-secondary">Review my selections</button>
+            </div>
+
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="meal-composer" placeholder="Type a message…" aria-label="Type a message to your care assistant" />
+        </div>
+      </main>
+
+      <div class="panel-splitter" aria-hidden="true"></div>
+
+      <aside class="panel-content" aria-label="Meal ordering">
+        <div class="content-body">
+
+          <!-- cart-panel (default — pre-submit, valid cart) -->
+          <div class="cart-panel" data-cart-panel data-budget-cap="200">
+            <div class="cart-panel-header">
+              <p class="cart-panel-title">Your cart</p>
+              <span class="cart-panel-status" tabindex="-1">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Sent to kitchen
+              </span>
+            </div>
+            <div class="cart-panel-body">
+              <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
+              <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                <div class="cart-item" data-cart-item-id="meal-1" data-unit-price="10.00" data-qty="3" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Pollo guisado</span>
+                    <span class="cart-item-qty">× 3</span>
+                  </p>
+                  <span class="cart-item-price">$30.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="meal-2" data-unit-price="10.00" data-qty="2" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Tofu noodle bowl</span>
+                    <span class="cart-item-qty">× 2</span>
+                  </p>
+                  <span class="cart-item-price">$20.00</span>
+                </div>
+                <div class="cart-item" data-cart-item-id="meal-3" data-unit-price="10.00" data-qty="2" role="listitem">
+                  <p>
+                    <span class="cart-item-name">Black bean soup</span>
+                    <span class="cart-item-qty">× 2</span>
+                  </p>
+                  <span class="cart-item-price">$20.00</span>
+                </div>
+              </div>
+              <div class="cart-total">
+                <div class="cart-total-row is-primary">
+                  <span>Total</span>
+                  <span data-cart-total>$70.00</span>
+                </div>
+                <div class="cart-budget-remaining">
+                  <span data-cart-budget-label>Budget remaining</span>
+                  <span data-cart-budget-remaining>$130.00</span>
+                </div>
+              </div>
+              <p class="cart-helper is-gate" data-cart-helper="empty">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Add at least one meal to send your order.</span>
+              </p>
+              <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                <span>Remove an item or lower a quantity to send your order.</span>
+              </p>
+              <button type="button" class="btn btn-primary btn-block cart-submit" data-cart-submit>
+                Send order to kitchen
+              </button>
+            </div>
+          </div>
+
+          <!-- menu-grid (default — with header) -->
+          <div class="menu-grid">
+            <div class="menu-grid-header">
+              <div>
+                <p class="menu-grid-title">This week's menu</p>
+                <p class="menu-grid-subtitle">14 dishes available</p>
+              </div>
+            </div>
+
+            <div class="meal-option-card is-recommended">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=2" alt="Pollo guisado with rice and black beans" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row">
+                  <span class="meal-option-card-name">Pollo guisado</span>
+                </p>
+                <p class="meal-option-card-description">Stewed chicken, rice, black beans.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-primary">
+                    <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                    Picked for you
+                  </span>
+                  <span class="badge badge-info">Low sodium</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="3" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                      <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <span class="quantity-stepper-value" aria-hidden="true">3</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card is-recommended">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,asian,food?lock=1" alt="Tofu noodle bowl with broccoli and sesame" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row">
+                  <span class="meal-option-card-name">Tofu noodle bowl</span>
+                </p>
+                <p class="meal-option-card-description">Soft tofu, soba, broccoli, sesame.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-primary">
+                    <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                    Picked for you
+                  </span>
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                      <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <span class="quantity-stepper-value" aria-hidden="true">2</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,soup,food?lock=5" alt="Black bean soup with avocado" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row">
+                  <span class="meal-option-card-name">Black bean soup</span>
+                </p>
+                <p class="meal-option-card-description">Slow-cooked beans, avocado, lime.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                  <span class="badge badge-neutral">Vegetarian</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="2" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                      <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <span class="quantity-stepper-value" aria-hidden="true">2</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meal-option-card">
+              <div class="meal-option-card-image">
+                <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=4" alt="Mole verde with rice" />
+              </div>
+              <div class="meal-option-card-content">
+                <p class="meal-option-card-name-row">
+                  <span class="meal-option-card-name">Mole verde</span>
+                </p>
+                <p class="meal-option-card-description">Pumpkin-seed mole, chicken, rice.</p>
+                <div class="meal-option-card-tags">
+                  <span class="badge badge-info">Low sodium</span>
+                </div>
+                <div class="meal-option-card-footer">
+                  <span class="meal-option-card-price">$10.00</span>
+                  <div class="quantity-stepper" data-quantity-stepper data-value="0" data-min="0" data-max="10">
+                    <button type="button" class="quantity-stepper-btn" data-action="decrement" aria-label="Decrease quantity">
+                      <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                    <span class="sr-only" data-quantity-stepper-announce aria-live="polite" aria-atomic="true"></span>
+                    <button type="button" class="quantity-stepper-btn" data-action="increment" aria-label="Increase quantity">
+                      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- budget-meter (default — normal) -->
+          <div class="budget-meter">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$70 of $200</span>
+            </div>
+            <div class="progress progress-success">
+              <div class="progress-bar" style="width: 35%"></div>
+            </div>
+            <p class="budget-meter-message">$130 left this week.</p>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</body>
+</html>
