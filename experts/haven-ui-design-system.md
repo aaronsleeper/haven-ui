@@ -100,6 +100,11 @@ Which utilities the `@source inline(...)` safelist guarantees; whether a custom 
 - **Check:** are new rules in the correct `@layer`, and do raw-CSS rules carry a real property?
 - **On fail:** halt — a silently-dropped or layer-overridden rule is not a fix
 
+### Existing-primitive check
+- **Triggers:** any dispatch that recommends DEFINING a new component class
+- **Check:** has `pattern-library/COMPONENT-INDEX.md` been grepped for an existing class that already covers the need (including near-synonyms — `link` vs `text-link`)?
+- **On fail:** halt — recommend reuse or page-correction; never define a duplicate. Added 2026-05-16 after the first dispatch recommended a new `.link` despite `.text-link` already existing.
+
 ## Artifacts this expert maintains
 
 - `Lab/haven-ui/packages/design-system/src/styles/main.css` — `@source inline(...)` safelist block (the sanctioned utility surface)
@@ -108,3 +113,4 @@ Which utilities the `@source inline(...)` safelist guarantees; whether a custom 
 ## Retro log
 
 - 2026-05-16 — Created via `/route` gap detection during the cena-uconn handoff bundle-drift fix. No expert covered DS technical/Tailwind decisions (Haven Visual Designer is taste-only). First dispatch: define the `@source inline(...)` safelist surface + per-class component decisions (`receipt-header`, `receipt-body`, `submit-region`, `link`, `skip-link`) + arbitrary-value layout promotion. — Recommendation: 12-utility safelist block (no color utilities — `text-fg-muted`/`text-fg-default` verified as PHANTOM classes, no `fg-*` token family exists, so they are Fix B page-correction not Fix A safelist — this overturns the audit's "sharpest signal"); 2 DEFINE (`link`, `skip-link` — genuine DS primitive gaps), 3 CORRECT (`receipt-header`, `receipt-body`, `submit-region` — invented names, real vocabulary exists); promote `layout-two-pane` composite for the arbitrary-value grid. — outcome: delivered, pending Aaron sign-off on `.link` color + `layout-two-pane` promotion — criteria: 6 evaluated, 1 failure (audit phantom-class misclassification, caught + corrected), 3 escalations (`.link` color → Haven Visual Designer; `layout-two-pane` promotion → Aaron; `text-fg-muted` replacement choice → Aaron/Visual Designer)
+- 2026-05-16 (execution feedback) — The consult's per-class verdict for `link` (DEFINE a new `.link` — premise "the DS has no link primitive") was WRONG: `.text-link` already exists (`components.css:2081`, `text-primary-600`). Caught during execution by following haven-ui CLAUDE.md's mandate to check `COMPONENT-INDEX.md` before creating any class. Corrected to page-correction (`link`→`text-link`); no `.link` defined. New escalation criterion added — *Existing-primitive check*. The consult had grepped `components.css` for `.link` (found none) but did not check for synonyms or consult the index. Rest of the consult shipped clean: safelist, `skip-link`, `layout-two-pane`, phantom-class catch all held up; all 9 handoff pages pass the undefined-class gate (haven-ui `5e0816f`).
