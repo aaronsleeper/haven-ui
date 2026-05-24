@@ -120,5 +120,6 @@ If any of those four cannot be met, surface the gap in your work output. Do not 
 
 - [`assessments/`](./assessments/) — UConn pilot assessment runner: HFIAS, WHOQOL-HIV BREF, GNKQ-R, satisfaction (slice 2), pre-enrollment screener. Read [`assessments/AGENTS.md`](./assessments/AGENTS.md) first.
 - [`meals/`](./meals/) — UConn pilot weekly meal-ordering flow: entry, state-read, preferences, cart, submit, at-a-glance. Chat-primary agentic shell; desktop-only (≥1440px). Read [`meals/AGENTS.md`](./meals/AGENTS.md) first.
+- [`log-outcome/`](./log-outcome/) — UConn pilot self-reported-outcomes log (cap-20): one card per measure (weight, BP, A1C, free-form note), each independently savable. Deterministic form (the agentic chat version is post-launch); responsive app shell (same as assessments). Read [`log-outcome/AGENTS.md`](./log-outcome/AGENTS.md) first.
 
 Future slices will land here when authored. Each will have its own `AGENTS.md`.

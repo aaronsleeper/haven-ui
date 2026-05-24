@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # handoff-render-gate.sh — build gate for the cena-uconn handoff bundle.
 #
-# Renders all 9 handoff pages with render-check.mjs and fails if any page
+# Renders all handoff pages with render-check.mjs and fails if any page
 # references a class the bundle cannot realize (undefined-class drift).
 # Run after rebuilding handoff/cena-uconn/assets/haven.css — the closed-
 # vocabulary contract (DS component classes + the @source inline(...)
@@ -30,7 +30,7 @@ OUT="$(mktemp -d)"
 trap 'rm -rf "$OUT"' EXIT
 
 cd "$BUNDLE"
-pages=( index.html assessments/take-*.html meals/order-meals.*.html )
+pages=( index.html assessments/take-*.html meals/order-meals.*.html log-outcome/log-*.html )
 fail=0
 
 for page in "${pages[@]}"; do

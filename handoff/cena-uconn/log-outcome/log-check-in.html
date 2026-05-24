@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log a check-in — resolved instance · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Resolved instance — single-page narrative demo. Walks the per-card states top-to-bottom with
+    representative content + the edge cases the abstract templates (log-outcome.form.html,
+    log-outcome.confirm.html) can't show in one frame: the gentle out-of-range confirm and the
+    fillable→saved transition. Like the assessments instance pages, this does NOT wrap in the app shell —
+    it is a scrollable narrative where the shell would compete with the per-state stacking. For shell
+    context see the abstract templates.
+
+    Do NOT port this page as a production surface. The production runner renders ONE measure-card per state;
+    this page stacks several states for demonstration.
+
+    KEY EDGE CASE — out-of-range = GENTLE CONFIRM, never a block (flow-log-outcome.md Edge cases):
+    a value far from the last reading shows an amber field-row-warning ("double-check?") but the Save button
+    STAYS ENABLED. This is a typo-catch, not clinical advice — clinical alerting on out-of-range values is
+    cap-62's job, downstream of capture, not this flow's. Patient-facing copy never diagnoses or alarms.
+  -->
+  <main class="mx-auto max-w-3xl px-6 py-12 space-y-10">
+
+    <header class="space-y-3 border-b border-sand-200 pb-6">
+      <p class="text-xs uppercase tracking-wider text-sand-600">Resolved instance · log-outcome (cap-20)</p>
+      <h1 class="font-serif text-3xl font-semibold tracking-tight">Log a check-in — narrative demo</h1>
+      <p class="text-base text-sand-600">Maria opens her check-in to add a weight and a note. One card per measure, each saved on its own. Below: the empty card, the gentle out-of-range confirm, the saved state, and the calm acknowledgement — stacked for demonstration.</p>
+    </header>
+
+    <!-- 1 · Empty / fillable -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">1 · Fillable — weight, no value yet</p>
+      <article class="card">
+        <div class="card-header">
+          <h2 class="font-serif text-base font-semibold">Weight</h2>
+        </div>
+        <div class="card-body space-y-4">
+          <div class="field-row">
+            <label class="field-label" for="d-weight-1">Today's weight</label>
+            <div class="field-input-group">
+              <input type="number" id="d-weight-1" inputmode="decimal" step="0.1" placeholder="—" />
+              <button type="button" class="field-addon" aria-label="Toggle unit, currently pounds">lb</button>
+            </div>
+            <p class="field-help">Morning, before eating, is the most consistent — but any time is fine.</p>
+          </div>
+          <div class="trend-snippet-list">
+            <div class="trend-snippet-list-body">
+              <p class="trend-snippet-list-title">Recent</p>
+              <div class="trend-snippet-list-row"><span class="trend-snippet-list-row-when">Apr 30</span><span class="trend-snippet-list-row-value">184 lb</span></div>
+              <div class="trend-snippet-list-row"><span class="trend-snippet-list-row-when">Apr 23</span><span class="trend-snippet-list-row-value">185 lb</span></div>
+              <div class="trend-snippet-list-row"><span class="trend-snippet-list-row-when">Apr 16</span><span class="trend-snippet-list-row-value">186 lb</span></div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button type="button" class="btn btn-primary">Save weight</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 2 · Out-of-range gentle confirm -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">2 · Gentle out-of-range confirm — Save stays enabled (typo-catch, not a block)</p>
+      <article class="card">
+        <div class="card-header">
+          <h2 class="font-serif text-base font-semibold">Weight</h2>
+        </div>
+        <div class="card-body space-y-4">
+          <div class="field-row field-row-warning">
+            <label class="field-label" for="d-weight-2">Today's weight</label>
+            <div class="field-input-group">
+              <input type="number" id="d-weight-2" inputmode="decimal" step="0.1" value="158" aria-describedby="d-weight-2-warn" />
+              <button type="button" class="field-addon" aria-label="Toggle unit, currently pounds">lb</button>
+            </div>
+            <p class="field-warning" id="d-weight-2-warn">
+              <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+              That's a fair bit lower than your last reading (184 lb). Want to double-check, or is that right?
+            </p>
+          </div>
+          <div class="flex justify-end">
+            <button type="button" class="btn btn-primary">Save weight</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 3 · Saved -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">3 · Saved — value read back + Edit; trend now leads with today</p>
+      <article class="card" data-state="saved">
+        <div class="card-header flex items-center justify-between">
+          <h2 class="font-serif text-base font-semibold">Weight</h2>
+          <button type="button" class="btn btn-ghost btn-sm">Edit</button>
+        </div>
+        <div class="card-body space-y-3">
+          <div class="flex items-baseline gap-2">
+            <span class="text-2xl font-semibold">182</span>
+            <span class="text-base text-sand-600">lb</span>
+          </div>
+          <p class="text-sm text-sand-600">This morning · saved just now</p>
+          <div class="trend-snippet-list">
+            <div class="trend-snippet-list-body">
+              <p class="trend-snippet-list-title">Recent</p>
+              <div class="trend-snippet-list-row"><span class="trend-snippet-list-row-when">Today</span><span class="trend-snippet-list-row-value">182 lb</span></div>
+              <div class="trend-snippet-list-row"><span class="trend-snippet-list-row-when">Apr 30</span><span class="trend-snippet-list-row-value">184 lb</span></div>
+              <div class="trend-snippet-list-row"><span class="trend-snippet-list-row-when">Apr 23</span><span class="trend-snippet-list-row-value">185 lb</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 4 · Blood pressure, paired input -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">4 · Blood pressure — paired systolic / diastolic</p>
+      <article class="card">
+        <div class="card-header">
+          <h2 class="font-serif text-base font-semibold">Blood pressure</h2>
+        </div>
+        <div class="card-body space-y-4">
+          <div class="field-row">
+            <label class="field-label" for="d-bp-sys">Reading</label>
+            <div class="flex items-center gap-2">
+              <input type="number" id="d-bp-sys" inputmode="numeric" value="128" class="w-28" aria-label="Systolic (top number)" />
+              <span aria-hidden="true" class="text-sand-500">/</span>
+              <input type="number" id="d-bp-dia" inputmode="numeric" value="82" class="w-28" aria-label="Diastolic (bottom number)" />
+              <span class="field-addon">mmHg</span>
+            </div>
+            <p class="field-help">Top number over bottom number. If you have a cuff at home, sit still for a few minutes first.</p>
+          </div>
+          <div class="flex justify-end">
+            <button type="button" class="btn btn-primary">Save reading</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 5 · A1C, gentle out-of-range -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">5 · A1C — % suffix; gentle confirm on a jump (still a typo-catch, not clinical advice)</p>
+      <article class="card">
+        <div class="card-header">
+          <h2 class="font-serif text-base font-semibold">A1C</h2>
+        </div>
+        <div class="card-body space-y-4">
+          <div class="field-row field-row-warning">
+            <label class="field-label" for="d-a1c">Most recent A1C</label>
+            <div class="field-input-group">
+              <input type="number" id="d-a1c" inputmode="decimal" step="0.1" value="9.4" aria-describedby="d-a1c-warn" />
+              <span class="field-addon">%</span>
+            </div>
+            <p class="field-warning" id="d-a1c-warn">
+              <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+              That's higher than the last one you added (6.4%). Double-check the number — then it's good to save.
+            </p>
+          </div>
+          <div class="flex justify-end">
+            <button type="button" class="btn btn-primary">Save A1C</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 6 · Note saved -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">6 · Free-form check-in — saved</p>
+      <article class="card" data-state="saved">
+        <div class="card-header flex items-center justify-between">
+          <h2 class="font-serif text-base font-semibold">How are things?</h2>
+          <button type="button" class="btn btn-ghost btn-sm">Edit</button>
+        </div>
+        <div class="card-body space-y-3">
+          <p class="text-base">"Energy's been low this week but I've been keeping up with the meals. Knee's bothering me on the stairs."</p>
+          <p class="text-sm text-sand-600">Saved just now</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 7 · Acknowledgement -->
+    <section class="space-y-3">
+      <p class="text-xs uppercase tracking-wider text-sand-600">7 · Acknowledgement — calm, names where it goes, no celebration</p>
+      <div class="patient-chat-message">
+        <span class="patient-chat-message-indicator" aria-hidden="true">
+          <i class="fa-solid fa-sparkle"></i>
+        </span>
+        <p class="patient-chat-message-body">Got it — saved. Your care team will see this before your next check-in. Add more whenever you like, or come back another day.</p>
+      </div>
+    </section>
+
+    <footer class="space-y-2 border-t border-sand-200 pt-6 text-xs text-sand-600">
+      <p>Representative content (Maria Rivera, demo patient). Capability cap-20; Care-tier measures per candidate-measures.md §3.2. MVP is a deterministic form — the agentic chat version (flow-log-outcome.md) is post-launch. See <code class="font-mono">README.md</code> + <code class="font-mono">AGENTS.md</code> in this folder.</p>
+    </footer>
+
+  </main>
+</body>
+</html>

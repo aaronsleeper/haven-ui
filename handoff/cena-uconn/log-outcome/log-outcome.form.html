@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log a check-in — measure cards · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Capability: cap-20 (self-reported outcomes). MVP = DETERMINISTIC structured form + notes textarea.
+    Spec source: cap-20-self-reported-outcomes.md ("ship a small structured form, dated, optional + notes textarea");
+    candidate-measures.md §3.2 (Care tier: weight, BP, A1C self-report + free-form check-in — all optional/opportunistic).
+    Design-intent / tone reference (NOT the MVP build spec): flows/flow-log-outcome.md — that doc specs the
+    POST-LAUNCH agentic chat version. This page is the pre-agentic deterministic form.
+    No wireframe exists for log-outcome (only take-assessment.* + meal-ordering.*); states authored from cap-20.
+
+    State: empty / fillable. The working surface is a STACK OF MEASURE CARDS — one card per measure
+    (weight, BP, A1C, notes). Each card is independently fillable + savable; there is no single batched submit.
+    All measures are optional and opportunistic — log what you have, skip what you don't.
+
+    Shell: layout-app-shell-responsive.html (same as assessments). Rationale carries over from
+    assessments/SHELL-DECISION.md — this is a deterministic form with no live agent/chat during entry, so the
+    chat-primary agentic shell's right-pane affordance is structurally inert here. The single agent framing
+    sentence renders inline above the cards as patient-chat-message.
+
+    Primitives composed (all exist in COMPONENT-INDEX; Tier 2, no components.css edits):
+      card / card-header / card-body · field-row / field-label / field-input-group / field-addon / field-help
+      · trend-snippet-list · btn-primary (Save = a commitment) / btn-ghost · patient-chat-message.
+    measure-card is an app-local composition of these (precedent: assessments questionnaire-panel carve-out).
+    Behavior (per-card save, unit toggle, gentle out-of-range confirm) ships in log-outcome.js — see README.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-6" aria-label="Log a check-in" data-log-outcome>
+
+          <header class="space-y-1">
+            <h1 class="font-serif text-2xl font-semibold tracking-tight">Log a check-in</h1>
+            <p class="text-sm text-sand-600">Add whatever you have today. Everything here is optional.</p>
+          </header>
+
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">Whenever you've got a number to add, this is the place — log what you have, skip what you don't. None of it is required, and there's no wrong time to check in.</p>
+          </div>
+
+          <!-- Weight card -->
+          <article class="card" data-measure-card data-measure="weight">
+            <div class="card-header">
+              <h2 class="font-serif text-base font-semibold">Weight</h2>
+            </div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label" for="weight-value">Today's weight</label>
+                <div class="field-input-group">
+                  <input type="number" id="weight-value" inputmode="decimal" step="0.1" placeholder="—" aria-describedby="weight-help" />
+                  <button type="button" class="field-addon" data-unit-toggle data-units="lb,kg" aria-label="Toggle unit, currently pounds">lb</button>
+                </div>
+                <p class="field-help" id="weight-help">Morning, before eating, is the most consistent — but any time is fine.</p>
+              </div>
+              <div class="field-row">
+                <label class="field-label" for="weight-date">Date</label>
+                <input type="date" id="weight-date" />
+              </div>
+              <div class="trend-snippet-list">
+                <div class="trend-snippet-list-body">
+                  <p class="trend-snippet-list-title">Recent</p>
+                  <div class="trend-snippet-list-row">
+                    <span class="trend-snippet-list-row-when">Apr 30</span>
+                    <span class="trend-snippet-list-row-value">184 lb</span>
+                  </div>
+                  <div class="trend-snippet-list-row">
+                    <span class="trend-snippet-list-row-when">Apr 23</span>
+                    <span class="trend-snippet-list-row-value">185 lb</span>
+                  </div>
+                  <div class="trend-snippet-list-row">
+                    <span class="trend-snippet-list-row-when">Apr 16</span>
+                    <span class="trend-snippet-list-row-value">186 lb</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <button type="button" class="btn btn-primary" data-action="save">Save weight</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blood pressure card -->
+          <article class="card" data-measure-card data-measure="bp">
+            <div class="card-header">
+              <h2 class="font-serif text-base font-semibold">Blood pressure</h2>
+            </div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label" for="bp-systolic">Reading</label>
+                <div class="flex items-center gap-2">
+                  <input type="number" id="bp-systolic" inputmode="numeric" placeholder="—" class="w-28" aria-label="Systolic (top number)" />
+                  <span aria-hidden="true" class="text-sand-500">/</span>
+                  <input type="number" id="bp-diastolic" inputmode="numeric" placeholder="—" class="w-28" aria-label="Diastolic (bottom number)" />
+                  <span class="field-addon">mmHg</span>
+                </div>
+                <p class="field-help">Top number over bottom number. If you have a cuff at home, sit still for a few minutes first.</p>
+              </div>
+              <div class="field-row">
+                <label class="field-label" for="bp-date">Date</label>
+                <input type="date" id="bp-date" />
+              </div>
+              <div class="flex justify-end">
+                <button type="button" class="btn btn-primary" data-action="save">Save reading</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- A1C card -->
+          <article class="card" data-measure-card data-measure="a1c">
+            <div class="card-header">
+              <h2 class="font-serif text-base font-semibold">A1C</h2>
+            </div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label" for="a1c-value">Most recent A1C</label>
+                <div class="field-input-group">
+                  <input type="number" id="a1c-value" inputmode="decimal" step="0.1" placeholder="—" aria-describedby="a1c-help" />
+                  <span class="field-addon">%</span>
+                </div>
+                <p class="field-help" id="a1c-help">From a recent lab or home test — add it when you have one. No need to repeat between tests.</p>
+              </div>
+              <div class="field-row">
+                <label class="field-label" for="a1c-date">Test date</label>
+                <input type="date" id="a1c-date" />
+              </div>
+              <div class="flex justify-end">
+                <button type="button" class="btn btn-primary" data-action="save">Save A1C</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Free-form check-in card -->
+          <article class="card" data-measure-card data-measure="note">
+            <div class="card-header">
+              <h2 class="font-serif text-base font-semibold">How are things?</h2>
+            </div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label" for="note-text">A note for your care team</label>
+                <textarea id="note-text" rows="4" placeholder="Anything you want to add — how you're feeling, what's going on, questions for your next session."></textarea>
+                <p class="field-help">Optional. Your coordinator reads these before your weekly check-in.</p>
+              </div>
+              <div class="flex justify-end">
+                <button type="button" class="btn btn-primary" data-action="save">Save note</button>
+              </div>
+            </div>
+          </article>
+
+        </main>
+
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Health</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Meals</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i><span>Care</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-message" aria-hidden="true"></i><span>Messages</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script src="./log-outcome.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log a check-in — saved state · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Capability: cap-20. State: SAVED (post-save acknowledgement).
+    Unlike the assessment runner (single submit → separate confirm page), log-outcome saves PER CARD:
+    confirmation is an inline state on each card, not a route transition. A saved card swaps its inputs
+    for a read-back of the logged value + a timestamp + an Edit affordance (btn-ghost). The patient can
+    re-open any card to correct a value.
+
+    This template shows a realistic mixed state: weight + note logged today (saved cards); BP + A1C
+    untouched (still fillable — omitted here for focus, see log-outcome.form.html for the empty cards).
+
+    TONE INVARIANT (per flow-log-outcome.md Decisions log): no celebratory framing, no streak counters,
+    no "great job". Logging is a tool, not a game — this population may find cheerleading patronizing.
+    The acknowledgement is calm and names where the data goes. Showing the patient their OWN logged number
+    back is correct (it is their data); this is distinct from the assessments no-score invariant, which
+    hides a COMPUTED clinical score — there is no computed score in self-report logging.
+
+    Shell: layout-app-shell-responsive.html. Acknowledgement renders inline as patient-chat-message above the cards.
+    Primitives: card / card-header / card-body · btn-ghost / btn-sm (Edit) · trend-snippet-list · patient-chat-message.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+          <a href="#" class="nav-item active"><i class="fa-solid fa-clipboard-list"></i><span>Health check</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils"></i><span>Meals</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor"></i><span>Care</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-message"></i><span>Messages</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-6" aria-label="Log a check-in" data-log-outcome>
+
+          <header class="space-y-1">
+            <h1 class="font-serif text-2xl font-semibold tracking-tight">Log a check-in</h1>
+            <p class="text-sm text-sand-600">Add whatever you have today. Everything here is optional.</p>
+          </header>
+
+          <div class="patient-chat-message">
+            <span class="patient-chat-message-indicator" aria-hidden="true">
+              <i class="fa-solid fa-sparkle"></i>
+            </span>
+            <p class="patient-chat-message-body">Got it — saved. Your care team will see this before your next check-in. Add more whenever you like, or come back another day.</p>
+          </div>
+
+          <!-- Weight card — SAVED state -->
+          <article class="card" data-measure-card data-measure="weight" data-state="saved">
+            <div class="card-header flex items-center justify-between">
+              <h2 class="font-serif text-base font-semibold">Weight</h2>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="edit">Edit</button>
+            </div>
+            <div class="card-body space-y-3">
+              <div class="flex items-baseline gap-2">
+                <span class="text-2xl font-semibold">182</span>
+                <span class="text-base text-sand-600">lb</span>
+              </div>
+              <p class="text-sm text-sand-600">This morning · saved just now</p>
+              <div class="trend-snippet-list">
+                <div class="trend-snippet-list-body">
+                  <p class="trend-snippet-list-title">Recent</p>
+                  <div class="trend-snippet-list-row">
+                    <span class="trend-snippet-list-row-when">Today</span>
+                    <span class="trend-snippet-list-row-value">182 lb</span>
+                  </div>
+                  <div class="trend-snippet-list-row">
+                    <span class="trend-snippet-list-row-when">Apr 30</span>
+                    <span class="trend-snippet-list-row-value">184 lb</span>
+                  </div>
+                  <div class="trend-snippet-list-row">
+                    <span class="trend-snippet-list-row-when">Apr 23</span>
+                    <span class="trend-snippet-list-row-value">185 lb</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Note card — SAVED state -->
+          <article class="card" data-measure-card data-measure="note" data-state="saved">
+            <div class="card-header flex items-center justify-between">
+              <h2 class="font-serif text-base font-semibold">How are things?</h2>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="edit">Edit</button>
+            </div>
+            <div class="card-body space-y-3">
+              <p class="text-base">"Energy's been low this week but I've been keeping up with the meals. Knee's bothering me on the stairs."</p>
+              <p class="text-sm text-sand-600">Saved just now</p>
+            </div>
+          </article>
+
+        </main>
+
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Health</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Meals</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i><span>Care</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-message" aria-hidden="true"></i><span>Messages</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
