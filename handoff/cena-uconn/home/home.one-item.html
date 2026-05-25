@@ -39,10 +39,11 @@
             <h1 class="page-title">Hi Maria</h1>
           </div>
 
-          <!-- Things-to-do zone: ONE focus card (the most-relevant due item). -->
-          <section aria-live="polite" aria-atomic="true" aria-label="What needs your attention">
+          <!-- Things-to-do zone: ONE focus card (the most-relevant due item). home.js owns the live behavior (announce, "Not now" dismiss-memory, post-dismiss focus). -->
+          <section data-home-zone aria-live="polite" aria-atomic="true" aria-label="What needs your attention">
+            <span data-home-announce class="sr-only" aria-live="polite" aria-atomic="true"></span>
             <p class="text-sm text-sand-600 mb-3">One thing when you have a moment —</p>
-            <div class="patient-focus-card">
+            <div class="patient-focus-card" data-focus-card data-focus-primary data-item-id="order-reminder">
               <div class="patient-focus-card-icon">
                 <span class="avatar avatar-sm avatar-primary" aria-hidden="true"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
               </div>
@@ -51,9 +52,14 @@
                 <p class="patient-focus-card-context">The menu's open through Thursday.</p>
                 <div class="patient-focus-card-actions">
                   <a href="#" class="btn-primary">Review your order</a>
-                  <button type="button" class="btn-ghost">Not now</button>
+                  <button type="button" class="btn-ghost" data-dismiss>Not now</button>
                 </div>
               </div>
+            </div>
+            <!-- Revealed by home.js when the patient dismisses the last item — completion lands in calm. -->
+            <div data-caught-up hidden class="space-y-1">
+              <p class="text-base text-sand-800">You're all set for today.</p>
+              <p class="text-sm text-sand-600">Nothing needs your attention right now.</p>
             </div>
           </section>
 
@@ -115,5 +121,6 @@
       </div>
     </div>
   </div>
+  <script src="./home.js"></script>
 </body>
 </html>
