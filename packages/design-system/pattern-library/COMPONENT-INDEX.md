@@ -384,6 +384,8 @@ components. They are tightly coupled to the kitchen app and must not be used in 
 
 ## Deck Library — separate design system (do not normalize to haven-ui conventions)
 
+> ⚠ **TOKEN BASIS IS STALE v1 — v2 migration pending (2026-05-25).** The vendored `deck/tokens/*.css` were copied from `cena-health-brand/src/css/tokens-color.css`, which is the **stale v1** color system (inverted scale, `warm`/`ochre` families, teal-400 `#1B685E`). Canon is **Cena Color System v2** (`cena-health-brand/_tokens/generated/palette.css`: conventional scale, `sand`/`amber`/`orange`, teal-400 `#5f9a8f`). The deck must migrate to v2 (re-vendor v2 palette + v2 semantic layer; remap `deck.css`: warm→sand, ochre→amber/orange, scale-flip light tints, climax teal-400→teal-700). Coordinates below + in the deck spec still reference v1 until then. Gated on the brand-repo v1→v2 migration + Aaron's D1–D4 (`Knowledge/Projects/Cena Health/Brand/token-reconciliation-recommendation.md`).
+
 The `deck/` subtree is the **Cena Deck Design System** (the [[Branded Deck Pipeline]]'s output medium), hosted here only because haven-ui's vite auto-globs `pattern-library/**/*.html` and serves it at :5173 with zero build-config change. It is **not** part of the Haven app design system. Treat it as a guest system with deliberate, sanctioned deviations from the rules above:
 
 - **Own tokens.** Deck components ride the **cena-health-brand** token SoT (full multi-hue palette: teal/sage/ochre/rose/violet/indigo), vendored into `deck/tokens/*.css` with provenance headers — NOT haven-ui's `src/styles/tokens/`. cena-health-brand maps `--color-primary`→teal-400 (the WCAG-safe climax fill); haven-ui maps it→teal-700. The two token systems are intentionally distinct. Confirmed by Aaron 2026-05-25.

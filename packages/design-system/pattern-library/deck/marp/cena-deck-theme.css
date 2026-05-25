@@ -1,0 +1,61 @@
+/* @theme cena-deck */
+
+/* ==========================================================================
+   Cena Deck — MARP theme
+   --------------------------------------------------------------------------
+   The emit-path theme for the Branded Deck Pipeline. MARP renders deck
+   markdown → HTML/PDF/PPTX; this theme makes each MARP `section` a full-bleed
+   16:9 Cena slide canvas and pulls in the deck component layer + brand tokens.
+
+   Single source of truth: the component classes (.deck-card, .deck-stat, the
+   chrome, the motif, etc.) come from ../deck.css UNCHANGED via @import — the
+   same classes the vite archetype gallery uses. This theme only (a) maps
+   `section` to the slide canvas (what .deck-slide does in the gallery) and
+   (b) remaps the cover/divider variant rules from .deck-slide--* onto
+   section.cover / section.divider. No component CSS is duplicated here.
+
+   Render:  npx @marp-team/marp-cli@latest <deck>.md \
+              --theme ./cena-deck-theme.css --html -o <out>.html
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Code+Pro:wght@200..900&display=swap');
+@import url('../tokens/tokens-color.css');
+@import url('../tokens/tokens-typography.css');
+@import url('../tokens/tokens-spacing.css');
+@import url('../deck.css');
+
+/* The slide canvas — full-bleed warm ground (brand rule #1), 16:9.
+   container-type makes the cqw units in deck.css resolve against the slide. */
+section {
+  width: 1280px;
+  height: 720px;
+  box-sizing: border-box;
+  position: relative;
+  container-type: inline-size;
+  overflow: hidden;
+  background: var(--color-surface-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+  padding: 4.4cqw 5.4cqw 3.4cqw;
+  /* quiet inset frame (A.2) */
+  outline: 1px solid color-mix(in srgb, var(--color-border-default) 60%, transparent);
+  outline-offset: -1.6cqw;
+}
+
+/* Structural-slide variants (set per slide via `<!-- _class: cover -->` etc.).
+   Remaps .deck-slide--cover / --divider inner rules from deck.css onto section. */
+section.cover  { justify-content: center; }
+section.cover .deck-slide__content {
+  justify-content: center;
+  padding: 0;
+  max-width: 64%;
+  z-index: 1;
+}
+section.divider { justify-content: center; align-items: flex-start; }
+section.divider .deck-slide__content {
+  justify-content: center;
+  max-width: 60%;
+  z-index: 1;
+}
