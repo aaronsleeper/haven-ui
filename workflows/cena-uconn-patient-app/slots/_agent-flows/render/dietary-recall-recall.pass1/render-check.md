@@ -1,7 +1,7 @@
-# Render Check — order.browse.html
+# Render Check — recall.pass1.html
 
-- **Source:** `/Users/aaronsleeper/Vaults/Lab/haven-ui/handoff/cena-uconn/order/order.browse.html`
-- **Rendered:** 2026-05-25T17:05:08.535Z
+- **Source:** `/Users/aaronsleeper/Vaults/Lab/haven-ui/handoff/cena-uconn/dietary-recall/recall.pass1.html`
+- **Rendered:** 2026-05-25T16:08:48.178Z
 - **Tool:** `render-check.mjs` — slot-22 render sub-step (Principle 13), assertion-free
 - **Viewports:** desktop 1280×900, mobile 390×844
 - **Verdict:** PASS
@@ -23,7 +23,7 @@ Stylesheet load failures — pass: no failed stylesheet requests.
 
 ### Undefined classes
 
-Undefined classes — pass: all 109 markup classes resolve to a CSS rule.
+Undefined classes — pass: all 38 markup classes resolve to a CSS rule.
 
 ## Per-viewport checks
 

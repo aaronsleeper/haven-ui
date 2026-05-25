@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Order — Browse this week's meals · Cena × UConn handoff</title>
+  <title>Order — This week's meals · Cena × UConn handoff</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
@@ -11,24 +11,14 @@
 </head>
 <body>
   <!--
-    Surface: Order — Browse (IA-v1 — surface-primary). The Order nav tab landing.
-    State: menu open, two items pre-selected. Patient browses this week's meals within budget.
+    Surface: Order — Browse (IA-v1 — surface-primary). Live cart: steppers wire to cart-panel.js
+    via order.js bridge. Budget = $60/week, meals $10 each. Over-budget → submit disabled +
+    is-error on budget-meter. Submit → ../order-status/order-status.active.html.
     Shell: layout-app-shell-responsive (sidebar desktop · bottom-nav mobile). Nav = IA-v1 3 tabs:
       Home · Order (active) · Activity.
-    Design decisions honored:
-      - Show all meals; agent highlights care-plan-aligned ones (badge-primary "Suggested for you")
-        without hiding or dimming others — warning over hiding principle (cap-17 / flow-meal-ordering).
-      - Budget is a $/week ceiling shown as a budget-meter (mirrors home.caught-up.html markup exactly).
-      - Over-budget = hard block; no auto-eviction (not modeled in static — behavioral contract for port).
-      - Plain warm copy; no scores, no gamification, large tap targets.
-      - Surface-primary: meal cards are the working surface, not a chat pane.
-      - Off-plan meal (fried plantains): warning row visible, card fully interactive, never dimmed.
-    Demo patient: Maria Rivera. Population: HIV+/food-insecure, low-tech-literacy, sensitive.
-    Static state: 2 items in cart ($20 spent of $60 budget), $40 remaining.
-    Ordering window open through Thursday.
-    Nav hrefs: Home → ../home/home.caught-up.html, Order → ./order.browse.html,
-      Activity → ../activity/activity.list.html.
-    Review order CTA → ../order-status/order-status.active.html.
+    Demo patient: Maria Rivera. Population: HIV+/food-insecure, low-tech-literacy.
+    8 meals: 3 "Suggested for you" (is-recommended), 1 off-plan warning row, rest standard.
+    Initial state: 2 items pre-loaded (1× Pollo guisado + 1× Black bean soup = $20).
   -->
   <div class="app-shell">
     <div class="app-shell-frame">
@@ -41,7 +31,7 @@
         </div>
         <div class="nav-section">
           <a href="../home/home.caught-up.html" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
-          <a href="../order/order.browse.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="./order.browse.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
           <a href="../activity/activity.list.html" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
         </div>
         <div class="nav-section nav-section--pinned-bottom">
@@ -55,222 +45,448 @@
 
       <div class="app-shell-main">
 
-        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Order — browse meals">
+        <main class="app-shell-content app-shell-content--full-bleed p-6 lg:p-10 space-y-8" aria-label="Order — browse meals">
 
           <!-- Page header -->
           <div class="page-header">
             <h1 class="page-title">This week's meals</h1>
           </div>
 
-          <!-- Intro line — plain, warm, no jargon -->
+          <!-- Intro line -->
           <p class="text-base text-sand-800">The menu's open through Thursday. Pick what you'd like.</p>
 
-          <!-- Budget meter — markup mirrors home.caught-up.html lines 68-77 exactly.
-               Static state: $20 of $60 spent (2 pre-selected items × $10 each). -->
-          <div class="budget-meter">
+          <!-- Budget meter — live; JS updates .budget-meter-amount, progress-bar width, and
+               .is-error state on this element. data-budget-meter wires the bridge target. -->
+          <div class="budget-meter" id="budget-meter">
             <div class="budget-meter-label">
               <span>Food budget</span>
-              <span class="budget-meter-amount">$40 of $60 left</span>
+              <span class="budget-meter-amount" id="budget-meter-amount">$40 of $60 left</span>
             </div>
             <div class="progress progress-sm">
-              <div class="progress-bar progress-success" style="width: 33%"></div>
+              <div class="progress-bar progress-success" id="budget-progress-bar" style="width: 33%"></div>
             </div>
-            <p class="budget-meter-message">Your order can't go over $60 total.</p>
+            <p class="budget-meter-message" id="budget-meter-message">Your order can't go over $60 total.</p>
           </div>
 
-          <!-- Menu list — 8 meal cards (4 hot, 4 cold).
-               Cards use card + card-body as the container.
-               Each card has: name, description, price, type label (meal-label-hot/cold),
-               optional badge-primary "Suggested for you" tag, optional warning row.
-               Add = btn-outline (not selected); Added = btn-primary (pre-selected).
-               Layout utilities (flex, gap, etc.) are inline layout — not component styling. -->
+          <!-- Two-pane layout: cart rail (desktop left) + menu grid (main).
+               On mobile both columns stack; cart-panel floats as sticky-footer summary only. -->
+          <div class="layout-two-pane">
+            <div class="layout-two-pane-grid">
 
-          <div class="space-y-4" aria-label="Menu">
+              <!-- RAIL: cart-panel — pre-submit editable variant.
+                   data-budget-cap="60": $60/week ceiling; meals $10 each.
+                   Initial items seeded in DOM so cart-panel.js computes correctly on init.
+                   On mobile this rail is hidden; sticky-footer carries the cart summary instead. -->
+              <aside aria-label="Your cart" class="hidden lg:block">
+                <div class="cart-panel" id="cart-panel" data-cart-panel data-budget-cap="60">
+                  <div class="cart-panel-header">
+                    <p class="cart-panel-title">Your cart</p>
+                    <span class="cart-panel-status" tabindex="-1">
+                      <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                      Sent to kitchen
+                    </span>
+                  </div>
+                  <div class="cart-panel-body">
+                    <span class="sr-only" data-cart-announce aria-live="polite" aria-atomic="true"></span>
 
-            <!-- HOT 1 — Suggested + pre-selected -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap mb-1">
-                      <p class="card-title">Pollo guisado</p>
-                      <span class="badge badge-primary badge-sm">
-                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Suggested for you
-                      </span>
+                    <div class="cart-item-list" data-cart-item-list role="list" aria-label="Cart items">
+                      <!-- Pre-seeded: 1× Pollo guisado ($10), 1× Black bean soup ($10) = $20 -->
+                      <div class="cart-item" data-cart-item-id="meal-pollo" data-unit-price="10" data-qty="1" role="listitem">
+                        <p>
+                          <span class="cart-item-name">Pollo guisado</span>
+                          <span class="cart-item-qty">× 1</span>
+                        </p>
+                        <span class="cart-item-price">$10.00</span>
+                      </div>
+                      <div class="cart-item" data-cart-item-id="meal-blackbean" data-unit-price="10" data-qty="1" role="listitem">
+                        <p>
+                          <span class="cart-item-name">Black bean soup</span>
+                          <span class="cart-item-qty">× 1</span>
+                        </p>
+                        <span class="cart-item-price">$10.00</span>
+                      </div>
                     </div>
-                    <p class="text-sm text-sand-600 mb-2">Stewed chicken, rice, black beans.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-hot">Hot</span>
-                      <span class="badge badge-info badge-sm">Low sodium</span>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Added — Pollo guisado" class="btn-primary btn-sm" aria-pressed="true">Added</button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <!-- COLD 1 — Suggested + pre-selected -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap mb-1">
-                      <p class="card-title">Black bean soup</p>
-                      <span class="badge badge-primary badge-sm">
-                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Suggested for you
-                      </span>
+                    <div class="cart-total">
+                      <div class="cart-total-row is-primary">
+                        <span>Total</span>
+                        <span data-cart-total>$20.00</span>
+                      </div>
+                      <div class="cart-budget-remaining">
+                        <span data-cart-budget-label>Budget remaining</span>
+                        <span data-cart-budget-remaining>$40.00</span>
+                      </div>
                     </div>
-                    <p class="text-sm text-sand-600 mb-2">Slow-cooked beans, avocado, lime.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-cold">Cold</span>
-                      <span class="badge badge-info badge-sm">Low sodium</span>
-                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Added — Black bean soup" class="btn-primary btn-sm" aria-pressed="true">Added</button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <!-- HOT 2 — Suggested, not yet added -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap mb-1">
-                      <p class="card-title">Tofu noodle bowl</p>
-                      <span class="badge badge-primary badge-sm">
-                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Suggested for you
-                      </span>
-                    </div>
-                    <p class="text-sm text-sand-600 mb-2">Soft tofu, soba, broccoli, sesame.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-hot">Hot</span>
-                      <span class="badge badge-info badge-sm">Low sodium</span>
-                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Add Tofu noodle bowl" class="btn-outline btn-sm">Add</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- COLD 2 — Not suggested, not added -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <p class="card-title mb-1">Mole verde</p>
-                    <p class="text-sm text-sand-600 mb-2">Pumpkin-seed mole, chicken, rice.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-cold">Cold</span>
-                      <span class="badge badge-info badge-sm">Low sodium</span>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Add Mole verde" class="btn-outline btn-sm">Add</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- HOT 3 — Not suggested, not added -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <p class="card-title mb-1">Lemon herb salmon</p>
-                    <p class="text-sm text-sand-600 mb-2">Baked salmon, roasted vegetables, lemon.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-hot">Hot</span>
-                      <span class="badge badge-info badge-sm">Low sodium</span>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Add Lemon herb salmon" class="btn-outline btn-sm">Add</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- COLD 3 — Not suggested, not added -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <p class="card-title mb-1">Chicken verde bowl</p>
-                    <p class="text-sm text-sand-600 mb-2">Grilled chicken, green salsa, rice, beans.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-cold">Cold</span>
-                      <span class="badge badge-info badge-sm">Low sodium</span>
-                    </div>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Add Chicken verde bowl" class="btn-outline btn-sm">Add</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- HOT 4 — Not suggested, not added; off-plan choice: warning row visible (warning over hiding).
-                 Card fully interactive, never dimmed. -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <p class="card-title mb-1">Fried plantains platter</p>
-                    <p class="text-sm text-sand-600 mb-2">Sweet plantains, garlic mojo, side of rice.</p>
-                    <div class="flex items-center gap-2 flex-wrap mb-2">
-                      <span class="meal-label-hot">Hot</span>
-                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
-                    </div>
-                    <!-- Supportive warning — never blocks, card stays fully interactive -->
-                    <p class="meal-option-card-warning-row">
+                    <p class="cart-helper is-gate" data-cart-helper="empty">
                       <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                      <span>This one isn't a usual pick for your care plan — still fine to order if you'd like it.</span>
+                      <span>Add at least one meal to send your order.</span>
                     </p>
-                  </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Add Fried plantains platter" class="btn-outline btn-sm">Add</button>
+                    <p class="cart-helper is-gate" data-cart-helper="over-budget">
+                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                      <span>Remove an item or lower a quantity to send your order.</span>
+                    </p>
+
+                    <a href="../order-status/order-status.active.html"
+                       class="btn btn-primary btn-block cart-submit"
+                       id="cart-submit-link"
+                       data-cart-submit
+                       role="button">
+                      Send order to kitchen
+                    </a>
                   </div>
                 </div>
-              </div>
-            </div>
+              </aside>
 
-            <!-- COLD 4 — Not suggested, not added -->
-            <div class="card">
-              <div class="card-body">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="flex-1 min-w-0">
-                    <p class="card-title mb-1">Mediterranean grain bowl</p>
-                    <p class="text-sm text-sand-600 mb-2">Farro, roasted peppers, feta, olives.</p>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="meal-label-cold">Cold</span>
-                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
+              <!-- MAIN: menu-grid with 8 meal-option-cards + quantity-steppers.
+                   Each card carries data-meal-id + data-meal-name on the card root so order.js
+                   can read them when wiring the stepper→cart bridge. -->
+              <div>
+                <div class="menu-grid" id="menu-grid">
+                  <div class="menu-grid-header">
+                    <div>
+                      <p class="menu-grid-title">This week's menu</p>
+                      <p class="menu-grid-subtitle">8 dishes available · open through Thursday</p>
                     </div>
                   </div>
-                  <div class="flex flex-col items-end gap-2 shrink-0">
-                    <p class="text-base font-medium text-sand-900">$10.00</p>
-                    <button type="button" aria-label="Add Mediterranean grain bowl" class="btn-outline btn-sm">Add</button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-          </div>
+                  <!-- SUGGESTED 1: Pollo guisado (hot) — recommended, pre-selected qty 1 -->
+                  <div class="meal-option-card is-recommended"
+                       data-meal-id="meal-pollo"
+                       data-meal-name="Pollo guisado"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=2"
+                           alt="Pollo guisado with rice and black beans" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Pollo guisado</span>
+                      </p>
+                      <p class="meal-option-card-description">Stewed chicken, rice, black beans.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="badge badge-primary">
+                          <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                          Suggested for you
+                        </span>
+                        <span class="meal-label-hot">Hot</span>
+                        <span class="badge badge-info">Low sodium</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="1" data-min="0" data-max="6"
+                             aria-label="Quantity for Pollo guisado">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Pollo guisado quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">1</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Pollo guisado quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SUGGESTED 2: Black bean soup (cold) — recommended, pre-selected qty 1 -->
+                  <div class="meal-option-card is-recommended"
+                       data-meal-id="meal-blackbean"
+                       data-meal-name="Black bean soup"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,soup,food?lock=5"
+                           alt="Black bean soup with avocado" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Black bean soup</span>
+                      </p>
+                      <p class="meal-option-card-description">Slow-cooked beans, avocado, lime.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="badge badge-primary">
+                          <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                          Suggested for you
+                        </span>
+                        <span class="meal-label-cold">Cold</span>
+                        <span class="badge badge-info">Low sodium</span>
+                        <span class="badge badge-neutral">Vegetarian</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="1" data-min="0" data-max="6"
+                             aria-label="Quantity for Black bean soup">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Black bean soup quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">1</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Black bean soup quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SUGGESTED 3: Tofu noodle bowl (hot) — recommended, qty 0 -->
+                  <div class="meal-option-card is-recommended"
+                       data-meal-id="meal-tofu"
+                       data-meal-name="Tofu noodle bowl"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,asian,food?lock=1"
+                           alt="Tofu noodle bowl with broccoli and sesame" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Tofu noodle bowl</span>
+                      </p>
+                      <p class="meal-option-card-description">Soft tofu, soba, broccoli, sesame.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="badge badge-primary">
+                          <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                          Suggested for you
+                        </span>
+                        <span class="meal-label-hot">Hot</span>
+                        <span class="badge badge-info">Low sodium</span>
+                        <span class="badge badge-neutral">Vegetarian</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="0" data-min="0" data-max="6"
+                             aria-label="Quantity for Tofu noodle bowl">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Tofu noodle bowl quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Tofu noodle bowl quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- STANDARD 1: Mole verde (cold) — qty 0 -->
+                  <div class="meal-option-card"
+                       data-meal-id="meal-mole"
+                       data-meal-name="Mole verde"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=4"
+                           alt="Mole verde with rice and chicken" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Mole verde</span>
+                      </p>
+                      <p class="meal-option-card-description">Pumpkin-seed mole, chicken, rice.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="meal-label-cold">Cold</span>
+                        <span class="badge badge-info">Low sodium</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="0" data-min="0" data-max="6"
+                             aria-label="Quantity for Mole verde">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Mole verde quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Mole verde quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- STANDARD 2: Lemon herb salmon (hot) — qty 0 -->
+                  <div class="meal-option-card"
+                       data-meal-id="meal-salmon"
+                       data-meal-name="Lemon herb salmon"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,salmon,food?lock=7"
+                           alt="Lemon herb salmon with roasted vegetables" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Lemon herb salmon</span>
+                      </p>
+                      <p class="meal-option-card-description">Baked salmon, roasted vegetables, lemon.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="meal-label-hot">Hot</span>
+                        <span class="badge badge-info">Low sodium</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="0" data-min="0" data-max="6"
+                             aria-label="Quantity for Lemon herb salmon">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Lemon herb salmon quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Lemon herb salmon quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- STANDARD 3: Chicken verde bowl (cold) — qty 0 -->
+                  <div class="meal-option-card"
+                       data-meal-id="meal-verde"
+                       data-meal-name="Chicken verde bowl"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,chicken,food?lock=9"
+                           alt="Chicken verde bowl with green salsa, rice, and beans" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Chicken verde bowl</span>
+                      </p>
+                      <p class="meal-option-card-description">Grilled chicken, green salsa, rice, beans.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="meal-label-cold">Cold</span>
+                        <span class="badge badge-info">Low sodium</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="0" data-min="0" data-max="6"
+                             aria-label="Quantity for Chicken verde bowl">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Chicken verde bowl quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Chicken verde bowl quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- STANDARD 4: Mediterranean grain bowl (cold) — qty 0 -->
+                  <div class="meal-option-card"
+                       data-meal-id="meal-med"
+                       data-meal-name="Mediterranean grain bowl"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,mediterranean,food?lock=11"
+                           alt="Mediterranean grain bowl with farro, roasted peppers, and feta" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Mediterranean grain bowl</span>
+                      </p>
+                      <p class="meal-option-card-description">Farro, roasted peppers, feta, olives.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="meal-label-cold">Cold</span>
+                        <span class="badge badge-neutral">Vegetarian</span>
+                      </div>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="0" data-min="0" data-max="6"
+                             aria-label="Quantity for Mediterranean grain bowl">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Mediterranean grain bowl quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Mediterranean grain bowl quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- OFF-PLAN: Fried plantains platter (hot) — warning row, never blocked.
+                       Per chat-affordance-principles: warning over hiding. Card fully interactive. -->
+                  <div class="meal-option-card"
+                       data-meal-id="meal-plantains"
+                       data-meal-name="Fried plantains platter"
+                       data-meal-price="10">
+                    <div class="meal-option-card-image">
+                      <img src="https://loremflickr.com/160/160/healthy,plantain,food?lock=3"
+                           alt="Fried plantains platter with garlic mojo sauce" />
+                    </div>
+                    <div class="meal-option-card-content">
+                      <p class="meal-option-card-name-row">
+                        <span class="meal-option-card-name">Fried plantains platter</span>
+                      </p>
+                      <p class="meal-option-card-description">Sweet plantains, garlic mojo, side of rice.</p>
+                      <div class="meal-option-card-tags">
+                        <span class="meal-label-hot">Hot</span>
+                        <span class="badge badge-neutral">Vegetarian</span>
+                      </div>
+                      <!-- Supportive warning — never blocks, never dims, card stays fully interactive. -->
+                      <p class="meal-option-card-warning-row">
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                        <span>This one isn't a usual pick for your care plan — still fine to order if you'd like it.</span>
+                      </p>
+                      <div class="meal-option-card-footer">
+                        <span class="meal-option-card-price">$10.00</span>
+                        <div class="quantity-stepper" data-quantity-stepper
+                             data-value="0" data-min="0" data-max="6"
+                             aria-label="Quantity for Fried plantains platter">
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="decrement" aria-label="Decrease Fried plantains platter quantity">
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                          </button>
+                          <span class="quantity-stepper-value" aria-hidden="true">0</span>
+                          <span class="sr-only" data-quantity-stepper-announce
+                                aria-live="polite" aria-atomic="true"></span>
+                          <button type="button" class="quantity-stepper-btn"
+                                  data-action="increment" aria-label="Increase Fried plantains platter quantity">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div><!-- /menu-grid -->
+              </div><!-- /main -->
+
+            </div><!-- /layout-two-pane-grid -->
+          </div><!-- /layout-two-pane -->
 
           <!-- Talk to a person — always present -->
           <div class="list-group">
@@ -284,24 +500,25 @@
             </a>
           </div>
 
-          <!-- Bottom clearance so sticky footer doesn't cover the last card on mobile.
-               Using pb-safe-8 from Mobile Shell (layout-mobile-shell.html) is the sanctioned
-               pattern; since this shell is app-shell-responsive (not mobile-shell), a spacer
-               div with a Tailwind utility is the inline-layout carve-out equivalent. -->
+          <!-- Bottom clearance for sticky footer on mobile -->
           <div class="pb-safe-8" aria-hidden="true"></div>
 
         </main>
 
-        <!-- Sticky footer — "Review your order" CTA; shows when items are in cart.
-             sticky-footer / sticky-footer-inner / sticky-footer-info / sticky-footer-actions
-             are the canonical classes per layout-sticky-footer.html. -->
-        <div class="sticky-footer">
+        <!-- Sticky footer — live cart summary + "Review order" CTA.
+             Shown only when itemCount > 0. Hidden when empty via order.js.
+             data-sticky-cart: bridge hook for order.js. -->
+        <div class="sticky-footer" id="sticky-footer" data-sticky-cart hidden>
           <div class="sticky-footer-inner">
             <div class="sticky-footer-info">
-              <p class="text-sm text-sand-700">2 items · $20.00</p>
+              <p class="text-sm text-sand-700" id="sticky-cart-summary">2 items · $20.00</p>
             </div>
             <div class="sticky-footer-actions">
-              <a href="../order-status/order-status.active.html" class="btn-primary">Review your order</a>
+              <a href="../order-status/order-status.active.html"
+                 class="btn-primary"
+                 id="sticky-submit-btn">
+                Review your order
+              </a>
             </div>
           </div>
         </div>
@@ -310,13 +527,17 @@
         <div class="app-shell-bottom-nav">
           <nav class="mobile-bottom-nav" aria-label="Primary">
             <a href="../home/home.caught-up.html" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
-            <a href="../order/order.browse.html" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="./order.browse.html" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
             <a href="../activity/activity.list.html" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
           </nav>
         </div>
 
-      </div>
-    </div>
-  </div>
+      </div><!-- /app-shell-main -->
+    </div><!-- /app-shell-frame -->
+  </div><!-- /app-shell -->
+
+  <script src="../assets/quantity-stepper.js"></script>
+  <script src="../assets/cart-panel.js"></script>
+  <script src="./order.js"></script>
 </body>
 </html>
