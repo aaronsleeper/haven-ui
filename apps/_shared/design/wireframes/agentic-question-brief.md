@@ -2,6 +2,7 @@
 status: brief
 intended_artifact: wireframe + PL composition entry
 working_name: thread-question-card
+shells: [] # pre-wireframe brief, not a screen composing inside a shell — gate skips
 ---
 
 # Agentic Question — wireframe brief

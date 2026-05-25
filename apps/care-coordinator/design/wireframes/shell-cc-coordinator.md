@@ -1,7 +1,7 @@
 ---
 shells:
   - name: agentic-shell
-    pl_shell_version: sha256:fe787a5f68f247b9e3c21f8c2c9fa75896510f769a04129ab3fac0afc70c92c1
+    pl_shell_version: sha256:ad941b49f775658633dc7e30121545c3a092fb6d712a7fd1c37167c6d3346940
 ---
 
 # shell-cc-coordinator: Care Coordinator Shell (Universal Agentic Base)

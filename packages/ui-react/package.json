@@ -35,7 +35,7 @@
     "conform:token-theme-parity": "tsx tests/conform/token-theme-parity.ts",
     "conform:token": "playwright test tests/conform/token.spec.ts",
     "conform:visual": "playwright test tests/conform/visual.spec.ts",
-    "conform:fast": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:surface-role && pnpm conform:plain-language && pnpm conform:contrast-pairs && pnpm conform:wireframe-completeness && pnpm conform:font-features && pnpm conform:brand-fonts && pnpm conform:button-font-size && pnpm conform:radius-pill && pnpm conform:token-theme-parity",
+    "conform:fast": "pnpm conform:manifest && pnpm conform:app-shell && pnpm conform:css-family && pnpm conform:surface-role && pnpm conform:plain-language && pnpm conform:contrast-pairs && pnpm conform:wireframe-completeness && HAVEN_WIREFRAME_SHELL_STRICT=1 pnpm conform:wireframe-shell && pnpm conform:font-features && pnpm conform:brand-fonts && pnpm conform:button-font-size && pnpm conform:radius-pill && pnpm conform:token-theme-parity",
     "conform": "pnpm conform:fast && pnpm conform:token && pnpm conform:visual",
     "shell-canon": "tsx scripts/print-shell-canon.ts",
     "test:wireframe-shell": "tsx tests/conform/__tests__/wireframe-shell.test.ts",
