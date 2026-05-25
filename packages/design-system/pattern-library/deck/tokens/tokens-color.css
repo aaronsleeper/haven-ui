@@ -1,0 +1,189 @@
+/* ==========================================================================
+   VENDORED — Cena Deck token copy (color)
+   --------------------------------------------------------------------------
+   SOURCE OF TRUTH: Lab/cena-health-brand/src/css/tokens-color.css
+   This is a verbatim vendored copy, NOT a source of truth. Do not hand-edit.
+   Re-sync from cena-health-brand when the brand SoT changes (delta D-10).
+
+   Why vendored: the deck library renders inside haven-ui's vite (root =
+   design-system package). A live <link> to cena-health-brand sits outside
+   that root and would require a build-config change — which the deck
+   architecture deliberately avoids (zero build-config change). Vendoring with
+   this provenance header is the bounded-duplication tradeoff; reconciliation
+   (consume cena-health-brand as a workspace package) is polish-pass work.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Full Palette
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Teal Family */
+  --color-teal-50:  #010F0C;
+  --color-teal-100: #04201C;
+  --color-teal-200: #0D322D; /* LOCKED logo anchor */
+  --color-teal-300: #124D45;
+  --color-teal-400: #1B685E;
+  --color-teal-500: #3A8478; /* LOCKED logo primary */
+  --color-teal-600: #52A395; /* LOCKED logo secondary */
+  --color-teal-700: #7CB9AD;
+  --color-teal-800: #A8D1C9;
+  --color-teal-900: #D0E7E2;
+  --color-teal-950: #E9F5F2;
+
+  /* Sage Family */
+  --color-sage-50:  #060D07;
+  --color-sage-100: #0F1F11;
+  --color-sage-200: #1C351F;
+  --color-sage-300: #2A4C2D;
+  --color-sage-400: #3A643D;
+  --color-sage-500: #507F53;
+  --color-sage-600: #689B6A;
+  --color-sage-700: #81B983; /* LOCKED logo sage */
+  --color-sage-800: #ACCFAD;
+  --color-sage-900: #D0E5D1;
+  --color-sage-950: #E7F2E8;
+
+  /* Warm Neutral Family */
+  --color-warm-50:  #0E0A08;
+  --color-warm-100: #25211D;
+  --color-warm-200: #3F3933;
+  --color-warm-300: #5B544C;
+  --color-warm-400: #787066;
+  --color-warm-500: #958E85;
+  --color-warm-600: #B3ADA4;
+  --color-warm-700: #D1CDC6;
+  --color-warm-800: #E7E4DF;
+  --color-warm-900: #F3F1EE;
+  --color-warm-950: #FBFAF8;
+
+  /* Ochre Family — Extended Palette */
+  --color-ochre-50:  #110906;
+  --color-ochre-100: #241711;
+  --color-ochre-200: #402719;
+  --color-ochre-300: #5E3722;
+  --color-ochre-400: #7D4929;
+  --color-ochre-500: #9E603C;
+  --color-ochre-600: #B67D5C;
+  --color-ochre-700: #C99D82;
+  --color-ochre-800: #D9BEAC;
+  --color-ochre-900: #EADBD0;
+  --color-ochre-950: #F4EDE6;
+
+  /* Rose Family — Extended Palette */
+  --color-rose-50:  #11080D;
+  --color-rose-100: #26141E;
+  --color-rose-200: #422233;
+  --color-rose-300: #5F3049;
+  --color-rose-400: #7F405F;
+  --color-rose-500: #9D587A;
+  --color-rose-600: #B67593;
+  --color-rose-700: #CB96AC;
+  --color-rose-800: #DDB9C5;
+  --color-rose-900: #EDD8DE;
+  --color-rose-950: #F7EBEE;
+
+  /* Violet Family — Extended Palette */
+  --color-violet-50:  #0C0912;
+  --color-violet-100: #1E1728;
+  --color-violet-200: #332744;
+  --color-violet-300: #4B3763;
+  --color-violet-400: #644982;
+  --color-violet-500: #7F62A0;
+  --color-violet-600: #9A7EB8;
+  --color-violet-700: #B39DCB;
+  --color-violet-800: #CDBDDA;
+  --color-violet-900: #E4DAEA;
+  --color-violet-950: #F2ECF5;
+
+  /* Indigo Family — Extended Palette */
+  --color-indigo-50:  #070B14;
+  --color-indigo-100: #121A2B;
+  --color-indigo-200: #1F2D49;
+  --color-indigo-300: #2F4168;
+  --color-indigo-400: #3F568A;
+  --color-indigo-500: #5670A9;
+  --color-indigo-600: #748BC0;
+  --color-indigo-700: #95A7D2;
+  --color-indigo-800: #BAC3DF;
+  --color-indigo-900: #D9DDED;
+  --color-indigo-950: #ECEEF7;
+
+  /* Functional — Error */
+  --color-error-bg:     #FCE5E3;
+  --color-error-border: #D87972;
+  --color-error-base:   #C13C3B;
+  --color-error-text:   #932B2A;
+
+  /* Functional — Warning */
+  --color-warning-bg:     #F4EAD5;
+  --color-warning-border: #CEA861;
+  --color-warning-base:   #B58B20;
+  --color-warning-text:   #754B00;
+
+  /* Functional — Success */
+  --color-success-bg:     #DCF0E5;
+  --color-success-border: #4F9870;
+  --color-success-base:   #3A8E64;
+  --color-success-text:   #174430;
+
+  /* Functional — Info */
+  --color-info-bg:     #DFEEF7;
+  --color-info-border: #538EB0;
+  --color-info-base:   #287AA3;
+  --color-info-text:   #0B4E6C;
+}
+
+/* --------------------------------------------------------------------------
+   2. Semantic Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Brand */
+  --color-brand-anchor:    var(--color-teal-200);
+  --color-brand-primary:   var(--color-teal-500);
+  --color-brand-secondary: var(--color-teal-600);
+  --color-brand-sage:      var(--color-sage-700);
+
+  /* Primary Action */
+  --color-primary:        var(--color-teal-400);
+  --color-primary-hover:  var(--color-teal-300);
+  --color-primary-active: var(--color-teal-300);
+  --color-primary-subtle: var(--color-teal-900);
+  --color-on-primary:     var(--color-warm-950);
+
+  /* Text */
+  --color-text-primary:   var(--color-teal-200);
+  --color-text-secondary: var(--color-warm-300);
+  --color-text-tertiary:  #6B645C; /* adjusted — not a palette step */
+  --color-text-disabled:  var(--color-warm-500);
+  --color-text-inverse:   var(--color-warm-950);
+  --color-text-brand:     var(--color-teal-400);
+
+  /* Surface */
+  --color-surface-page:      var(--color-warm-950);
+  --color-surface-primary:   var(--color-warm-900);
+  --color-surface-secondary: var(--color-warm-800);
+  --color-surface-teal:      var(--color-teal-950);
+  --color-surface-sage:      var(--color-sage-950);
+  --color-surface-overlay:   oklch(15.0% 0.025 183 / 60%);
+
+  /* Border */
+  --color-border-default: var(--color-warm-700);
+  --color-border-strong:  #857E75; /* adjusted — not a palette step */
+  --color-border-brand:   var(--color-teal-600);
+  --color-border-focus:   var(--color-teal-500);
+
+  /* Shadow base colors */
+  --shadow-color-on-page:    oklch(45% 0.008 70 / 8%);
+  --shadow-color-on-surface: oklch(45% 0.008 70 / 10%);
+}
+
+/* Legacy fallback for overlay */
+@supports not (color: oklch(0% 0 0)) {
+  :root {
+    --color-surface-overlay: rgba(1, 15, 12, 0.60);
+    --shadow-color-on-page:    rgba(91, 84, 76, 0.08);
+    --shadow-color-on-surface: rgba(91, 84, 76, 0.10);
+  }
+}

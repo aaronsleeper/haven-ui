@@ -1,0 +1,15 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cena Deck Library</title>
+<!-- NOTE: the Google Fonts link lives in each page's own document-head, NOT in
+     this partial. conform:brand-fonts statically scans each standalone HTML doc
+     and can't see through a Vite load-include to a non-pl-head partial — so deck
+     pages inline the font block (the same convention apps/*/index.html follow).
+     This partial carries only the deck token bundle + component CSS.
+     (Phrasing avoids the literal head-tag token so the gate skips this fragment.) -->
+<!-- Deck token SoT (vendored copy of cena-health-brand; see tokens/*.css headers) -->
+<link rel="stylesheet" href="/pattern-library/deck/tokens/tokens-color.css">
+<link rel="stylesheet" href="/pattern-library/deck/tokens/tokens-typography.css">
+<link rel="stylesheet" href="/pattern-library/deck/tokens/tokens-spacing.css">
+<!-- Deck component layer -->
+<link rel="stylesheet" href="/pattern-library/deck/deck.css">

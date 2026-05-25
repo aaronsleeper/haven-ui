@@ -1,0 +1,431 @@
+/* ==========================================================================
+   Cena Deck Library — component layer
+   --------------------------------------------------------------------------
+   The deck-machinery CSS. Implements the team-defined deck design system
+   (Part B of "Deck Assets/Deck Design System.md") on the cena-health-brand
+   token SoT (vendored in ./tokens/). This file is NEW deck-library machinery,
+   authored fresh — NOT a copy of any SoT.
+
+   Approach: standalone CSS linked directly in deck/partials/deck-head.html,
+   not routed through haven-ui's Tailwind entry — so plain var()-based classes,
+   no Tailwind utilities, no dependency on haven-ui's narrower palette.
+
+   Scaling: slides are authored at a 16:9 ratio and sized in container query
+   width units (cqw) so the whole slide scales to any viewport (B.2.1 —
+   web-native is the master; exports are downstream). 1cqw = 1% of slide width;
+   at a 1280px slide, 1cqw ≈ 12.8px.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Reset + stage (review chrome — not part of a slide)
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body.deck-body {
+  margin: 0;
+  /* Neutral cool ground so the warm slides read as floating artifacts. */
+  background: #2A2C2E;
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.deck-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2.5rem clamp(1rem, 4vw, 4rem) 4rem;
+}
+
+.deck-stage__title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9A9CA0;
+  align-self: flex-start;
+  margin: 0 0 -1rem;
+}
+
+.deck-slide-label {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: #C7C9CC;
+  background: #3A3D40;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: -1.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   The slide canvas
+   -------------------------------------------------------------------------- */
+
+.deck-slide {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, 1280px);
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface-page);   /* warm off-white — brand rule #1 */
+  border: var(--space-px) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  /* Subtle quiet inset frame (A.2). */
+  outline: 1px solid color-mix(in srgb, var(--color-border-default) 60%, transparent);
+  outline-offset: -1.6cqw;
+  display: flex;
+  flex-direction: column;
+  padding: 4.4cqw 5.4cqw 3.4cqw;
+}
+
+/* --------------------------------------------------------------------------
+   Chrome — eyebrow / headline / footer (B.2.1)
+   -------------------------------------------------------------------------- */
+
+.deck-slide__chrome { flex: none; }
+
+.deck-eyebrow {
+  margin: 0 0 1.6cqw;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05cqw;
+  line-height: 1;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.deck-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 3cqw;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  max-width: 24ch;
+}
+
+/* Italic accent clause (B.3.3) — the sole headline-emphasis device.
+   One clause only; never the whole line. */
+.deck-accent { font-style: italic; }
+.deck-accent--brand { color: var(--color-text-brand); }
+
+.deck-slide__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+  padding: 2.6cqw 0;
+}
+
+.deck-slide__footer {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95cqw;
+  color: var(--color-text-tertiary);
+}
+
+.deck-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7cqw;
+  font-family: var(--font-display);
+  font-size: 1.25cqw;
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-snug);
+}
+.deck-logo__mark { width: 1.6cqw; height: 1.6cqw; flex: none; }
+.deck-logo__mark path { fill: var(--color-brand-primary); }
+
+/* --------------------------------------------------------------------------
+   Cards — multi-hue tint system (A.5 / B.3.7). Tints are the family
+   light-steps; titles dark (text-primary) for AA contrast on light tints.
+   Surface shift + faint warm hairline first, no shadow (brand rule #4).
+   -------------------------------------------------------------------------- */
+
+.deck-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+  padding: 2cqw 2.2cqw;
+  border-radius: var(--radius-lg);
+  border: var(--space-px) solid color-mix(in srgb, var(--color-text-primary) 9%, transparent);
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+}
+
+.deck-card--ochre   { background: var(--color-ochre-900); }
+.deck-card--rose    { background: var(--color-rose-900); }
+.deck-card--violet  { background: var(--color-violet-900); }
+.deck-card--indigo  { background: var(--color-indigo-900); }
+.deck-card--sage    { background: var(--color-sage-900); }
+.deck-card--teal    { background: var(--color-surface-teal); }
+.deck-card--neutral { background: var(--color-surface-secondary); }
+
+/* Climax card (B.3.6) — teal-400 fill + warm-950 text ≈ 6.1:1 AA. */
+.deck-card--climax {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: transparent;
+}
+.deck-card--climax .deck-card__title { color: var(--color-on-primary); }
+.deck-card--climax .deck-card__body  { color: color-mix(in srgb, var(--color-on-primary) 88%, transparent); }
+
+/* Card title font is by job (B.3.5): serif on editorial archetypes (default),
+   bold-sans on data/utility archetypes via .deck-card__title--label. */
+.deck-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.75cqw;
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+}
+.deck-card__title--label {
+  font-family: var(--font-body);
+  font-weight: 650;
+  font-size: 1.4cqw;
+  letter-spacing: var(--tracking-wide);
+}
+.deck-card__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.3cqw;
+  line-height: var(--leading-body-sm);
+  color: color-mix(in srgb, var(--color-text-primary) 90%, var(--color-warm-400));
+}
+.deck-card__eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95cqw;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   C4 · Tinted-card row
+   -------------------------------------------------------------------------- */
+
+.deck-row {
+  display: flex;
+  align-items: stretch;
+  gap: 1.8cqw;
+}
+.deck-row > .deck-card { flex: 1 1 0; }
+
+.deck-row__sep {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 2.4cqw;
+  color: var(--color-text-tertiary);
+  flex: none;
+}
+
+.deck-emphasis-bar {
+  margin-top: 1.8cqw;
+  padding: 1.4cqw 2.2cqw;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-teal);
+  border-left: 0.5cqw solid var(--color-primary);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.55cqw;
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   C5 · Capability sequence — stepped cards + arrows → climax (B.3.6)
+   -------------------------------------------------------------------------- */
+
+.deck-seq {
+  display: flex;
+  align-items: stretch;
+  gap: 0.6cqw;
+}
+.deck-seq > .deck-card { flex: 1 1 0; }
+
+.deck-seq__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.6cqw;
+  color: var(--color-border-strong);
+}
+.deck-seq__arrow svg { width: 100%; height: auto; }
+
+.deck-step-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4cqw;
+  height: 2.4cqw;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-page);
+  border: var(--space-px) solid var(--color-border-default);
+  font-family: var(--font-display);
+  font-size: 1.2cqw;
+  color: var(--color-text-primary);
+}
+.deck-card--climax .deck-step-chip {
+  background: color-mix(in srgb, var(--color-on-primary) 18%, transparent);
+  border-color: color-mix(in srgb, var(--color-on-primary) 40%, transparent);
+  color: var(--color-on-primary);
+}
+
+/* --------------------------------------------------------------------------
+   C8 · Stat triple / proof band
+   -------------------------------------------------------------------------- */
+
+.deck-stats {
+  display: flex;
+  align-items: stretch;
+  gap: 1.8cqw;
+}
+.deck-stat {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqw;
+  padding: 2.2cqw 2cqw;
+  border-radius: var(--radius-lg);
+  border: var(--space-px) solid color-mix(in srgb, var(--color-text-primary) 9%, transparent);
+  background: var(--color-surface-secondary);
+}
+.deck-stat--climax {
+  background: var(--color-primary);
+  border-color: transparent;
+}
+.deck-stat__num {
+  font-family: var(--font-display);   /* numerals in Lora for editorial weight (B.2.1) */
+  font-weight: 600;
+  font-size: 6cqw;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+.deck-stat--climax .deck-stat__num { color: var(--color-on-primary); }
+.deck-stat__label {
+  font-family: var(--font-body);
+  font-size: 1.25cqw;
+  line-height: var(--leading-body-sm);
+  color: var(--color-text-secondary);
+}
+.deck-stat--climax .deck-stat__label { color: color-mix(in srgb, var(--color-on-primary) 90%, transparent); }
+
+/* --------------------------------------------------------------------------
+   Citation line (B.3.7) — every quantitative claim carries its source (D-DIV-7)
+   -------------------------------------------------------------------------- */
+
+.deck-citation {
+  margin-top: 1.8cqw;
+  padding-top: 0.9cqw;
+  border-top: var(--space-px) solid var(--color-border-default);
+  font-family: var(--font-body);
+  font-size: 0.85cqw;
+  letter-spacing: var(--tracking-normal);
+  color: var(--color-text-tertiary);
+}
+.deck-citation::before { content: "▸ "; color: var(--color-text-brand); }
+
+/* --------------------------------------------------------------------------
+   C1 · Cover
+   -------------------------------------------------------------------------- */
+
+.deck-slide--cover { justify-content: center; }
+.deck-slide--cover .deck-slide__content {
+  justify-content: center;
+  padding: 0;
+  max-width: 64%;
+  z-index: 1;
+}
+.deck-cover__logo { margin-bottom: 3cqw; }
+.deck-cover__title {
+  margin: 0 0 1.8cqw;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 5.4cqw;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+.deck-cover__subtitle {
+  margin: 0 0 3cqw;
+  font-family: var(--font-body);
+  font-size: 1.6cqw;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 40ch;
+}
+.deck-cover__presenter {
+  font-family: var(--font-body);
+  font-size: 1.2cqw;
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+}
+.deck-cover__presenter strong { font-weight: 650; }
+.deck-cover__presenter span { color: var(--color-text-tertiary); }
+
+/* Concentric-circle hero (B.3.7) — large, off-center, may overlap title. */
+.deck-motif {
+  position: absolute;
+  pointer-events: none;
+}
+.deck-motif--cover {
+  right: -10cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64cqw;
+  height: 64cqw;
+  opacity: 0.9;
+}
+.deck-motif svg { width: 100%; height: 100%; display: block; }
+
+/* --------------------------------------------------------------------------
+   C2 · Section divider — quiet, big circle, no chrome/footer (B.3.7 role b)
+   -------------------------------------------------------------------------- */
+
+.deck-slide--divider { justify-content: center; align-items: flex-start; }
+.deck-slide--divider .deck-slide__content {
+  justify-content: center;
+  max-width: 60%;
+  z-index: 1;
+}
+.deck-divider__kicker {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.1cqw;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-brand);
+  margin: 0 0 1.4cqw;
+}
+.deck-divider__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 4.4cqw;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  max-width: 18ch;
+}
+.deck-motif--divider {
+  right: -14cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52cqw;
+  height: 52cqw;
+}

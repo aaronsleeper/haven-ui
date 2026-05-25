@@ -382,6 +382,29 @@ components. They are tightly coupled to the kitchen app and must not be used in 
 
 ---
 
+## Deck Library — separate design system (do not normalize to haven-ui conventions)
+
+The `deck/` subtree is the **Cena Deck Design System** (the [[Branded Deck Pipeline]]'s output medium), hosted here only because haven-ui's vite auto-globs `pattern-library/**/*.html` and serves it at :5173 with zero build-config change. It is **not** part of the Haven app design system. Treat it as a guest system with deliberate, sanctioned deviations from the rules above:
+
+- **Own tokens.** Deck components ride the **cena-health-brand** token SoT (full multi-hue palette: teal/sage/ochre/rose/violet/indigo), vendored into `deck/tokens/*.css` with provenance headers — NOT haven-ui's `src/styles/tokens/`. cena-health-brand maps `--color-primary`→teal-400 (the WCAG-safe climax fill); haven-ui maps it→teal-700. The two token systems are intentionally distinct. Confirmed by Aaron 2026-05-25.
+- **Own CSS, no `@apply`.** Styling lives in `deck/deck.css` as plain `var()`-based classes (mirroring cena-health-brand's own slide CSS), linked directly — NOT routed through haven-ui's Tailwind entry or `components.css`. **Do not migrate `deck.css` into `components.css`** — it would pull in haven-ui's narrower palette and break the deck system.
+- **No React port.** Deck slides are a presentation medium, not Haven app primitives. They are not ported to `ui-react/`, not tracked in `registry.json`, and not subject to the 4-expert PL panel (the deck design system has its own review via the Deck Production expert).
+- **Donut charts permitted here.** haven-ui forbids pie/donut (Tufte); the deck design system (Part B B.3.7) permits a Donut chart family. Different system, different rule.
+
+Spec (canonical): `Knowledge/Projects/Cena Health/Deck Assets/Deck Design System.md` Part B (team-defined). Identity: Atlas → [[Branded Deck Pipeline]]. Built archetypes (cqw-scaled 16:9 slides):
+
+| Archetype | Fragment | Page | Notes |
+|---|---|---|---|
+| C1 · Cover | `deck/components/slide-c1-cover.html` | `deck/archetypes/c1-cover.html` | Lora title + italic brand accent + concentric flower hero. Chrome-less (structural). |
+| C2 · Section divider | `deck/components/slide-c2-divider.html` | `deck/archetypes/c2-section-divider.html` | Quiet Lora title + large solid teal-400 circle. No footer. |
+| C4 · Tinted-card row | `deck/components/slide-c4-tinted-card-row.html` | `deck/archetypes/c4-tinted-card-row.html` | Multi-hue tinted cards (ochre/rose/indigo) + × separators + emphasis bar. Serif card titles (editorial). |
+| C5 · Capability sequence | `deck/components/slide-c5-capability-sequence.html` | `deck/archetypes/c5-capability-sequence.html` | Stepped cards + arrows → single solid climax card (teal-400 + warm-950, ≈6.1:1 AA). |
+| C8 · Stat triple | `deck/components/slide-c8-stat-triple.html` | `deck/archetypes/c8-stat-triple.html` | Oversized Lora numerals + one climax stat + mandatory citation line. |
+
+Gallery (all archetypes stacked): `deck/index.html` → http://localhost:5173/pattern-library/deck/. Remaining core/situational archetypes (C3, C6, C7, C9, C10, S1–S6) and the B.3.7 components are pending.
+
+---
+
 ## Adding New Components
 
 When you add a new component:
