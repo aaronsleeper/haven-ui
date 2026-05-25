@@ -17,8 +17,11 @@ paginate: false
 <!-- _class: cover -->
 
 <div class="deck-cover__media" aria-hidden="true">
-<span class="deck-cover__media-label">photography</span>
+<span class="deck-cover__media-label">FPO · cover hero<br>IMAGE-PROMPTS.md #1</span>
 </div>
+<!-- When the Gemini image returns: replace the label span with
+     <img src="/pattern-library/deck/assets/img/01-cover-hero.webp" alt=""> -->
+
 
 <div class="deck-slide__content">
 <img class="deck-cover__logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
