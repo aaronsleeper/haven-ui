@@ -30,7 +30,7 @@ OUT="$(mktemp -d)"
 trap 'rm -rf "$OUT"' EXIT
 
 cd "$BUNDLE"
-pages=( index.html assessments/take-*.html meals/order-meals.*.html log-outcome/log-*.html )
+pages=( index.html assessments/take-*.html meals/order-meals.*.html log-outcome/log-*.html home/home.*.html )
 fail=0
 
 for page in "${pages[@]}"; do

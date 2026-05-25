@@ -8702,7 +8702,7 @@ canvas {
 .list-group-item-action {
     @apply flex items-center gap-3 px-4 py-3 text-sm text-sand-800 w-full text-left;
     @apply border-b border-sand-200 last:border-b-0 cursor-pointer;
-    @apply hover:bg-sand-50 focus:bg-sand-50 transition-colors;
+    @apply hover:bg-sand-100 focus:bg-sand-100 transition-colors;
     @apply dark:text-sand-200 dark:border-sand-700 dark:hover:bg-sand-800 dark:focus:bg-sand-800;
 }
 

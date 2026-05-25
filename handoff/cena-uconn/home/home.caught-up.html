@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home — Caught up · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Home (IA v1 — surface-primary). State (a): caught-up / nothing due — THE DEFAULT.
+    Spec: ~/.claude/plans/patient-app-home-surface.md §3a + §2 composition.
+    Shell: layout-app-shell-responsive (sidebar desktop · bottom-nav mobile). Nav = IA-v1 3 tabs: Home · Order · Activity.
+    My Health + Appointments are promoted-from-Home ENTRY AFFORDANCES in content (not tabs). Talk to a person is global.
+    Caught-up zone holds a calm AFFIRMATION block (NOT a focus-card) — chrome-less, no "0 tasks", no empty illustration.
+    Demo patient: Maria Rivera.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Home">
+
+          <!-- B. Greeting [furniture] — Surfacer voice, low-key, time-aware -->
+          <div class="page-header">
+            <h1 class="page-title">Good morning, Maria</h1>
+          </div>
+
+          <!-- C. Things-to-do reserved zone [surfaced] — caught-up affirmation (NOT a focus-card). aria-live for dynamic surfacing. -->
+          <section class="space-y-1" aria-live="polite" aria-atomic="true" aria-label="What needs your attention">
+            <p class="text-base text-sand-800">You're all set for today.</p>
+            <p class="text-sm text-sand-600">Nothing needs your attention right now.</p>
+            <p class="text-sm text-sand-500">Your next meal order opens Friday.</p>
+          </section>
+
+          <!-- D. At-a-glance tiles [furniture] — state of things, not state of you -->
+          <div class="grid-2">
+            <a href="#" class="card card-body">
+              <p class="text-xs uppercase tracking-wider text-sand-500">This week's order</p>
+              <p class="text-base font-medium text-sand-900 mt-1">Opens Friday</p>
+              <p class="text-sm text-sand-500 mt-0.5">No order yet this week</p>
+            </a>
+
+            <div class="budget-meter">
+              <div class="budget-meter-label">
+                <span>Food budget</span>
+                <span class="budget-meter-amount">$60 of $60</span>
+              </div>
+              <div class="progress progress-sm">
+                <div class="progress-bar progress-success" style="width: 100%"></div>
+              </div>
+              <p class="budget-meter-message">Full budget available this week.</p>
+            </div>
+          </div>
+
+          <!-- E. Entry affordances [furniture] — promoted-from-Home doors + human -->
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">My Health</p>
+                <p class="list-group-item-description">Your numbers and notes</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Appointments</p>
+                <p class="list-group-item-description">Request or see a time with your team</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+          <!-- F. Talk to a person [furniture] — persistent, visibly human, never agent-gated -->
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Talk to a person</p>
+                <p class="list-group-item-description">Reach your care team</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+        </main>
+
+        <!-- G. Bottom tab bar [chrome] — IA-v1: Home · Order · Activity -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
