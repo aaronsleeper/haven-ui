@@ -31,6 +31,15 @@ The "framework" for this engagement is the **static-HTML handoff bundle** discip
 
 - None (no framework). State is expressed structurally per-page. Behavior contracts (save-pause, validators, transitions) are **documented in the wireframe + states.md** for the eventual production port to implement — they are spec, not shipped runtime logic, in the static bundle.
 
+## Shared chrome — partials + flatten build (2026-05-25)
+
+Per-page chrome copy caused nav drift + dead-end links. Chrome is now **defined once** and injected by a build, while output stays flat self-contained HTML (the Andrey artifact — no separate export stack).
+
+- **Single source:** the app shell sidebar + bottom nav live in `scripts/handoff-partials-build.mjs` (canonical chrome + the active-tab logic + the cross-surface link targets). Change nav there → rebuild → every page updates. No page hand-edits its nav blocks.
+- **Build:** `node scripts/handoff-partials-build.mjs` injects the chrome into each page's managed nav regions (idempotent region-replace) and **link-checks** every output — any relative href resolving to a missing file fails the build (dead ends fail loudly, not by clicking). `--check-only` skips injection and just link-checks.
+- **Output is the deliverable:** pages remain flat, self-contained, `file://`-openable — exactly what Andrey consumes. The "local render" and "emit for Andrey" collapse into one build because the output already is the self-contained artifact.
+- **Canonical-pipeline note:** the static-HTML `target-framework` should mandate a partials+flatten build like this (define-once chrome) rather than per-page copy. Recorded as a change-proposal in `retro-log.md`.
+
 ## Build / test toolchain
 
 - **Build:** `scripts/handoff-rebuild-bundle.sh` (the only supported path — builds `@haven/design-system`, copies FA Pro font binaries + SVG fallbacks + logo, rewrites absolute→relative `url()`). Idempotent. **Never run the CSS step alone** (scrambles FA glyphs bundle-wide; render gate can't catch it — Guardrail 1, commit `77cd7ae`).

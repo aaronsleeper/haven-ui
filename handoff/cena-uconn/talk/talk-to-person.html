@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Appointments — Request sent · Cena × UConn handoff</title>
+  <title>Talk to a person · Cena × UConn</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
@@ -11,21 +11,13 @@
 </head>
 <body>
   <!--
-    Surface: Appointments — pending (post-submit).
-    Capability: cap-21 (self-service scheduling, request-only v1).
-    Spec: flow-request-appointment.md § Step 4 Path A + Step 5 (pending-request card; CC confirms within 1 business day).
-    Shell: layout-app-shell-responsive — IA-v1 3-tab nav. Appointments is a Home-row destination.
-    Active tab: Home.
-    State: patient submitted a preference; the request is pending CC response.
-    Primitives composed:
-      - patient-chat-message — reassurance copy post-submit
-      - pending-request-card — type + preference window + badge-warning "Pending" + ETA line
-    Demo patient: Maria Rivera. Demo preference: weekday afternoons.
+    Surface: Talk to a person (cap-27, patient-initiated path). Visibly HUMAN, never a chatbot doorway.
+    Nav is build-managed (handoff-partials-build.mjs) — do not hand-edit the nav blocks.
+    Note: the agent-DETECTED distress-escalation path is a separate open agent-behavior spec (-> Vanessa).
   -->
   <div class="app-shell">
     <div class="app-shell-frame">
 
-      <!-- Sidebar nav (desktop) -->
       <nav class="app-shell-sidebar" aria-label="Primary">
         <div class="nav-header">
           <div class="nav-logo">
@@ -47,50 +39,40 @@
       </nav>
 
       <div class="app-shell-main">
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Talk to a person">
 
-        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Appointments">
-
-          <!-- Page header -->
           <div class="page-header">
-            <h1 class="page-title">Appointments</h1>
+            <h1 class="page-title">Talk to a person</h1>
           </div>
 
-          <!-- Agent confirmation — calm, no celebration -->
-          <!-- @component: patient-chat-message -->
-          <div class="patient-chat-message" role="status" aria-live="polite" aria-label="From your care team">
-            <p>Got it. Your care coordinator will reach out to confirm a time, usually within one business day.</p>
-          </div>
-          <!-- /component -->
+          <section class="space-y-1" aria-label="Reach a person">
+            <p class="text-base text-sand-800">Your care team is here for you.</p>
+            <p class="text-sm text-sand-600">A real person — not a bot. Reach us whichever way is easiest.</p>
+          </section>
 
-          <!-- Pending request card — top of the appointments list per Path A flow -->
-          <!-- @component: pending-request-card (appointment-request) -->
-          <div class="pending-request-card">
-            <div class="pending-request-card-body">
-              <p class="pending-request-card-type">Appointment with your dietitian</p>
-              <p class="pending-request-card-detail">Preferred: weekday afternoons.</p>
-              <div class="pending-request-card-status-row">
-                <span class="badge badge-pill badge-warning">Pending</span>
-                <span class="pending-request-card-eta">Expect a reply within 1 business day.</span>
-              </div>
-            </div>
-          </div>
-          <!-- /component -->
-
-          <!-- Talk to a person — persistent affordance -->
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action" title="Not built in this preview">
-              <span class="list-group-item-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+            <a href="tel:+18605551234" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
               <div class="list-group-item-content">
-                <p class="list-group-item-title">Talk to a person</p>
-                <p class="list-group-item-description">Reach your care team</p>
+                <p class="list-group-item-title">Call your care team</p>
+                <p class="list-group-item-description">(860) 555-1234 · Monday to Friday, 9am–5pm</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" title="Request a call — not built in this preview">
+              <span class="list-group-item-icon"><i class="fa-regular fa-comment" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Ask us to call you</p>
+                <p class="list-group-item-description">Leave a note and we'll reach out.</p>
               </div>
               <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
             </a>
           </div>
 
+          <p class="text-sm text-sand-500">If this is an emergency, call 911.</p>
+
         </main>
 
-        <!-- Bottom tab bar (mobile) — IA-v1: Home · Order · Activity -->
         <div class="app-shell-bottom-nav">
           <nav class="mobile-bottom-nav" aria-label="Primary">
             <a href="../home/home.caught-up.html" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
