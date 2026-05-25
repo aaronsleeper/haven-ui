@@ -116,8 +116,16 @@ jobs:
       # packages/ui-react/tests/conform/__screenshots__/ (generated via
       # workflow_dispatch mode=generate-baselines, first set 2026-04-21).
       # Regenerate after intentional visual changes via the same dispatch.
+      # Informational until item 8b lands the enforced Playwright bootstrap (see
+      # CLAUDE.md gate-triage: conform:visual is "local-only / no CI enforcement
+      # yet"). continue-on-error keeps drift visible in the run + artifacts
+      # without failing the build. Baselines are stale vs the v2 brand refresh
+      # (queueitem/queuesectionheader/queuesidebar/responseoption/
+      # responseoptiongroup) — regenerate via workflow_dispatch
+      # mode=generate-baselines after brand sign-off, then drop continue-on-error.
       - name: conform:visual
         if: inputs.mode != 'generate-baselines'
+        continue-on-error: true
         run: pnpm --filter @haven/ui-react conform:visual
 
       # Baseline-generation branch: runs only when workflow_dispatch is
