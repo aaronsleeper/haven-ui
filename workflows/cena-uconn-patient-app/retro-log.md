@@ -13,6 +13,17 @@ Workflow-level retrospective per [workflow-spec](../../../../workflows/ui-develo
 <!-- Append as encountered. Each entry: what, which slot/step, proposed canonical change. -->
 - 2026-05-24: Orchestrator initially scoped the run to a single surface (Home) despite the app having ~13 caps across 6 surfaces. Root: defaulted to the most-developed prior (Home spec) as the unit, not the app. Canonical mitigation already exists — Principle 16 (composition is first-class) + slot-7 app-scoped mode. **Proposed:** the brief template / Phase-0 ordering should make "enumerate the full formative-doc set before any surface" an explicit first step, so app-scope is the default unit, not surface-scope. Surfaced as a candidate canonical change; logged here, not yet a PR.
 
+## Run 2 — 2026-05-25 (Angular-emit reconciliation, slots 4 + 17)
+
+- **Trigger:** Aaron — scoped re-entry for the Angular-emit variant; Frontend Architecture expert synthesis of two prior read-only surveys (his Angular build + the HTML app).
+- **Mode:** synthesis; reviewer + skeptic pass scheduled after.
+- **Scope reached:** authored `slots/framework-binding-angular.md` (slot-4 sibling to the static-HTML binding) and `slots/component-plan-angular-reuse.md` (slot-17 new-vs-reuse audit). Grounded against `cena-health-spark/patients/` @ b205df2.
+
+### Friction observed (for slot-34 clustering)
+
+- 2026-05-25: A slot can need **two framework-binding variants in one engagement** (static-HTML owned realization + Angular-emit production target). The slot-4 doc already anticipated this ("a sibling framework-binding is authored for that target"), but the workflow dir had no naming/registration convention for variant slot docs. Resolved ad-hoc with a `variant:` frontmatter field + `-angular` filename suffix. **Proposed:** canonical slot-list should bless a `variant` convention so multi-target engagements don't improvise it.
+- 2026-05-25: Preferences-ledger row #6 ("separate `.html`+`.scss`, never inline") is contradicted by his route-level page components (inline `template:`). The ledger encoded an idiom that holds for his reusable `components/*` but not his pages. **Proposed (to the ledger, not the workflow):** soften row #6 + confirm with Andrey. Logged here so slot-34 sees the assumption-vs-code drift pattern (idioms extracted from a partial read of the code).
+
 ### Change-proposal to the canonical pipeline (slot-34 cluster)
 
 - 2026-05-25: **Static-HTML `target-framework` should mandate a partials+flatten build, not per-page chrome copy.** Friction: copying nav into every page drifted and rotted cross-surface links — Aaron walked the wired build and hit dead ends; "doesn't feel like walking through an app." Fix shipped this engagement: `scripts/handoff-partials-build.mjs` (chrome defined once, injected into managed nav regions, link-check fails on broken links, output stays flat self-contained HTML for the downstream dev). **Proposed canonical change:** `principles.md` / the static-HTML framework-binding template should require (a) shared chrome via partials/build, (b) a link-check gate over the navigable set, (c) **the build bundles the design-system's framework-agnostic JS primitives** (`src/scripts/components/*.js` — flow-actions, assess-slider, quantity-stepper, cart-panel, …) and pages include the ones they use, so flows ship *interactive and completable*; do NOT author one-off flow JS in the output. PR against the workflow specs, gated by the workflow owner (Principle 10). Logged, not yet a PR.
