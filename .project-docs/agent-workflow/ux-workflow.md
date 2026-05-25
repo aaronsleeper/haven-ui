@@ -1,3 +1,5 @@
+> [!warning] DEPRECATED — superseded by `workflows/ui-development/` (canonical 34-slot pipeline; Atlas entity `Knowledge/Areas/Meta/Entities/workflows/ui-pipeline.md`). This linear choreography (ux-architect → ux-wireframe → … → dev-tasker) is the **prototype** the canonical pipeline was lifted + generalized from — do not run it as "the pipeline." The haven-ui-specific `skills/` (haven-mapper, ui-react-porter, haven-pl-builder, haven-pl-qa) remain valid as applying-mode realizations of canonical slots; invoke them as the canonical workflow directs.
+
 # Haven UX Design & Build Workflow
 
 ## Purpose

@@ -1,3 +1,8 @@
+> [!warning] DEPRECATED — superseded by the canonical vault-level UI pipeline.
+> The end-to-end **workflow choreography** in this folder is a prototype. The canonical, maintained pipeline is **`workflows/ui-development/`** (34 role-shaped slots: brief → discovery → design → build → verify → release → retro). Identity + boundary: Atlas entity `Knowledge/Areas/Meta/Entities/workflows/ui-pipeline.md`. Opt-in + variables: `workflows/ui-development/README.md`. **Run that, not this.**
+> Running this prototype caused a real failure (2026-05-24): an agent executed an ad-hoc subset and reintroduced *app-scoped-IA-blindness* that the canonical pipeline had already fixed at slot 7 on 2026-05-23.
+> **Still valid:** the haven-ui-specific *applying-mode skills* in `skills/` — `haven-mapper`, `ui-react-porter`, `haven-pl-builder`, `haven-pl-qa` — remain haven-ui's realizations of canonical slots. Invoke them **as the canonical workflow's slots direct**, not via this prototype's linear flow.
+
 # Agent Workflow — README
 
 This folder contains the UX design-to-build pipeline for haven-ui. It was developed in a prior project (`cena-health-spark/haven-tailwind-theme`) and migrated here with path and structure updates to match haven-ui conventions.

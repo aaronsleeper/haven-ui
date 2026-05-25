@@ -536,28 +536,17 @@ jumping to wireframes.
 
 ## UX Design & Build Workflow
 
-A full design-to-build pipeline lives in `.project-docs/agent-workflow/`.
-Read `.project-docs/agent-workflow/README.md` for an overview.
+> [!warning] The canonical UI pipeline is **vault-level, NOT this repo's `.project-docs/agent-workflow/`.**
+> For ANY UI design/build engagement (new feature, screen, app, or redesign), run **`workflows/ui-development/`** — 34 role-shaped slots (brief → discovery → design → build → verify → release → retro), two work modes (deciding/applying), re-entry from any slot. Identity + boundary: Atlas entity `Knowledge/Areas/Meta/Entities/workflows/ui-pipeline.md`. Entry + opt-in + project variables: `workflows/ui-development/README.md`; the 34 slots: `workflows/ui-development/slot-list.md`; cross-cutting rules: `workflows/ui-development/principles.md`.
+> The local `.project-docs/agent-workflow/` is the **deprecated prototype** the canonical pipeline was lifted + generalized from. Do **not** run its linear `ux-architect → … → dev-tasker` flow as "the pipeline." (Running it on 2026-05-24 reintroduced app-scoped-IA-blindness the canonical pipeline already fixed at slot 7 — `~/.claude/plans/closure-obligations/2026-05-24-ui-pipeline-fork-collapse.md`.)
 
-**When to use it:** Any time Aaron describes a new feature, screen, or application
-to design and build. Also for redesigns of existing screens.
+**To run UI work in haven-ui:**
+1. Read `workflows/ui-development/README.md` (opt-in), `slot-list.md`, `principles.md`.
+2. Declare haven-ui's project variables: `design-system` = this repo's `DESIGN.md` + `packages/design-system/pattern-library/`; `target-framework` per slot-3 stack-declaration; `pattern-library` = `packages/design-system/pattern-library/`; `wireframe-syntax` (project-declared); `qa-panel` (haven-ui's 4-expert panel + skeptic); `tier-model` = haven-ui Tier 1/2/3.
+3. Instantiate a per-engagement workflow dir, fire the slots, honor the gates — including the **non-waivable** slot-30 human cold render-and-look (client-facing/regulated) and slot-31 release-readiness skip-audit.
 
-**Pipeline:**
-ux-architect → ux-wireframe → ux-design-review (pre-build) → haven-mapper →
-dev-tasker → [build] → ux-design-review (post-build) → debrief-capture
+**Still valid in `.project-docs/agent-workflow/skills/` (applying-mode tooling):** `haven-mapper`, `ui-react-porter`, `haven-pl-builder`, `haven-pl-qa` are haven-ui's realizations of canonical slots (ds-binding application, build-execute, PL ceremony). Invoke them **as the canonical workflow's slots direct**, not via the prototype's linear flow. The Tier 1/2/3 slice ceremony + 4-expert panel (above, "Per-slice QA") are haven-ui's `tier-model` + `qa-panel`.
 
-**To invoke a skill:** Read the skill file from
-`.project-docs/agent-workflow/skills/[skill-name].md`, follow its instructions,
-produce its specified outputs.
+**Design artifacts live in:** `apps/[persona]/design/`.
 
-**Design artifacts live in:** `apps/[persona]/design/`
-
-**Gates:** Pause and present a structured summary to Aaron after:
-1. ux-architect completes (Gate 1: scope + IA)
-2. ux-wireframe + ux-design-review pre-build complete (Gate 2: wireframes + copy)
-3. dev-tasker completes (Gate 3: build plan)
-
-**Constraints Lookup (mandatory before writing any build prompt):**
-Read `.project-docs/decisions-log.md`. Extract every entry with a
-"Rule to follow in future prompts" line. Apply relevant rules to each prompt
-under a "Known Constraints" heading.
+**Constraints Lookup (before any build prompt):** read `.project-docs/decisions-log.md`; apply every "Rule to follow in future prompts" entry under a "Known Constraints" heading.
