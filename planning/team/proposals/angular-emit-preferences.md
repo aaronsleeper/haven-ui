@@ -43,6 +43,7 @@ Legend — **source:** `observed` (in his code) · `inferred` (reasonable for hi
 | 13 | Data layer contract | Firebase Data Connect connectors (T0.2) | observed | M | components bind to named contract; host wires Data Connect | **structural** (his to own) |
 | 14 | Inline `style=` | tolerated lightly (he uses CSS vars inline) | observed | L | n/a (PL forbids; we stay strict) | config |
 | 15 | Behavior primitives | re-express contract as signals (NOT import the IIFE) | proven (proving slice) | M | contract→signal rule | porter-rule |
+| 16 | Angular version / zoneless API | newer than 19.2 — uses stable `provideZonelessChangeDetection` (19.2 has only `provideExperimental…`) | observed | M | pin porter to his exact version's API names | config |
 
 ## Highest-priority questions for Andrey (the `structural` + low-confidence rows)
 
