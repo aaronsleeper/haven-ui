@@ -101,14 +101,15 @@
 
               <nav class="pagination-row" aria-label="Question navigation">
                 <button type="button" class="btn btn-outline">Previous</button>
-                <button type="button" class="btn btn-secondary">Next</button>
+                <button type="button" class="btn btn-secondary" data-reveal-submit>Next</button>
               </nav>
 
               <div hidden>
                 <button
                   type="button"
                   class="btn btn-primary"
-                  disabled
+                  data-action="submit"
+                  data-nav="take-assessment.confirm.html"
                   aria-describedby="submit-helper"
                 >
                   Submit answers
@@ -133,5 +134,6 @@
       </div>
     </div>
   </div>
+  <script src="../assets/flow-actions.js"></script>
 </body>
 </html>

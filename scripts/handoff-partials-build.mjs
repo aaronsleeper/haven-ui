@@ -101,7 +101,7 @@ const walk = (d) => { for (const f of readdirSync(d)) { const p = join(d, f); st
 walk(BUNDLE);
 allFiles.add(resolve(BUNDLE, 'index.html'));
 
-const HREF = /href="([^"]+)"/g;
+const HREF = /(?:href|data-nav)="([^"]+)"/g; // data-nav is navigation too (flow-actions.js)
 const deadends = [];
 const stubs = [];
 const checkTargets = [...htmlFiles.map(f => f.path), join(BUNDLE, 'index.html')];

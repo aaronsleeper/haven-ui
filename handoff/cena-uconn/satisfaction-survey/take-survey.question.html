@@ -320,7 +320,7 @@
                     </ul>
                     <p class="assessment-preflight-card-disclosure">Your answers go to your care team.</p>
                     <div class="assessment-preflight-card-actions">
-                      <button type="button" class="btn btn-primary" data-action="ready">I'm ready</button>
+                      <button type="button" class="btn btn-primary" data-action="ready" data-reveal-submit>I'm ready</button>
                     </div>
                   </div>
                 </article>
@@ -366,7 +366,7 @@
                     </nav>
 
                     <div data-submit-region hidden>
-                      <button type="button" class="btn btn-primary" data-action="submit" disabled aria-describedby="sq-submit-helper">Submit answers</button>
+                      <button type="button" class="btn btn-primary" data-action="submit" data-nav="take-survey.confirm.html" aria-describedby="sq-submit-helper">Submit answers</button>
                       <p id="sq-submit-helper" class="text-sm text-sand-600 mt-2" hidden></p>
                     </div>
 
@@ -412,5 +412,6 @@
     </div>
   </div>
 
+  <script src="../assets/flow-actions.js"></script>
 </body>
 </html>
