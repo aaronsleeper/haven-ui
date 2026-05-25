@@ -39,8 +39,20 @@ cp "$DIST"/haven-ui*.woff2 "$BUNDLE"/   # ← the inseparable step (see WHY abov
 cp "$DIST"/haven-ui*.svg "$BUNDLE"/
 cp "$DIST"/haven-ui.png "$BUNDLE"/
 
-echo "handoff-rebuild-bundle: [3/3] rewriting url(/assets/) → url(./) into haven.css …"
+echo "handoff-rebuild-bundle: [3/4] rewriting url(/assets/) → url(./) into haven.css …"
 sed -E 's|url\(/assets/|url(./|g' "$DIST/haven-ui.css" > "$BUNDLE/haven.css"
 
-echo "handoff-rebuild-bundle: ✅ bundle rebuilt — CSS + fonts together."
+# [4/4] Bundle the design-system's framework-agnostic JS primitives so flows ship
+# interactive (not just navigable). CURATED ALLOWLIST — not a blanket copy: the
+# handoff has its own flow runners (assessment-runner.js etc.) that deliberately
+# supersede the DS prototype engines (assessment.js / meals.js have a conflicting
+# DOM contract — see assessment-runner.js header). Copying those would collide.
+# Add a primitive here when a page starts consuming it.
+echo "handoff-rebuild-bundle: [4/4] copying DS JS component primitives (curated) → $BUNDLE/ …"
+DS_SCRIPTS="packages/design-system/src/scripts/components"
+for js in flow-actions quantity-stepper cart-panel i18n; do
+  if [ -f "$DS_SCRIPTS/$js.js" ]; then cp "$DS_SCRIPTS/$js.js" "$BUNDLE/$js.js"; else echo "  ! missing $DS_SCRIPTS/$js.js"; fi
+done
+
+echo "handoff-rebuild-bundle: ✅ bundle rebuilt — CSS + fonts + JS primitives together."
 echo "handoff-rebuild-bundle:    required next step → bash scripts/handoff-render-gate.sh"

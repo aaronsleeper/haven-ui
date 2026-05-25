@@ -1,22 +1,26 @@
 /*
- * flow-actions.js — CONSUMED COPY (build artifact). Source of truth:
- * packages/design-system/src/scripts/components/flow-actions.js (haven-ui DS primitive).
- * Do not edit here — edit the DS source and re-copy. Kept in assets/ so the bundle is
- * self-contained / file://-openable, the same way assets/haven.css is the consumed CSS build.
+ * flow-actions.js — framework-agnostic flow-interaction primitive (haven-ui design system).
  *
- * No framework, file://-safe (no fetch). Makes multi-step flows advance and complete so the
- * bundle "feels like an app" without a router. Data-attribute driven (no class coupling) — the
- * receiving dev ports the same contract to Angular handlers, or uses this file unchanged.
+ * "Vanilla JS per primitive" (see haven-ui CLAUDE.md): non-trivial framework-agnostic behavior
+ * ships with the PL so any consumer (vanilla static bundle, Angular, React) uses it unchanged or
+ * ports the contract. This primitive lets multi-step flows ADVANCE and COMPLETE without a router,
+ * so a no-framework static build "feels like an app." file://-safe (no fetch).
  *
- * Contract:
- *   [data-nav="path.html"]        click → navigate to path (the page-advance / submit-to-confirm).
- *   [data-action="save"]          click → in-place "saved" state (disable + swap label to
- *                                 data-saved-label || "Saved ✓"). For independent-save forms.
- *   [data-reveal-submit]          click → reveal every [data-submit-region]/hidden submit wrapper
- *                                 and enable [data-action="submit"] (the runner's "you've gone
- *                                 through the questions → you can submit now" moment).
+ * Source of truth: this file. The self-contained handoff bundle consumes a copy in its assets/
+ * (copied by the handoff rebuild). Do not author a divergent copy in a handoff/output dir.
  *
- * Andrey's port note: these are presentation-only affordances for the static walkthrough; the
+ * Contract (data-attribute driven — no class coupling):
+ *   [data-nav="path.html"]   click → navigate to path. The page-advance / submit-to-confirm link.
+ *   [data-action="save"]     click → in-place saved state: disable + swap label to
+ *                            data-saved-label || "Saved ✓". For independent-save forms.
+ *   [data-reveal-submit]     click → reveal every [data-submit-region] (and any [hidden] wrapper
+ *                            directly containing a [data-action="submit"]) and enable the submit.
+ *                            The runner's "you've been through the questions → you can submit" moment.
+ *
+ * Events: none required for v1 (presentation-only affordances). A consumer that needs to intercept
+ * navigation can listen for click on [data-nav] and preventDefault before this handler (capture phase).
+ *
+ * Port note (Angular/React): these are presentation affordances for the static walkthrough; the
  * production runner owns real validation + submission. The data-* names are the stable contract.
  */
 (function () {
@@ -33,8 +37,7 @@
 
     var reveal = e.target.closest('[data-reveal-submit]');
     if (reveal) {
-      document.querySelectorAll('[data-submit-region], [data-submit-hidden]').forEach(function (r) { r.hidden = false; });
-      // also reveal a bare hidden wrapper that directly contains a submit button
+      document.querySelectorAll('[data-submit-region]').forEach(function (r) { r.hidden = false; });
       document.querySelectorAll('[data-action="submit"]').forEach(function (b) {
         b.disabled = false;
         var wrap = b.closest('[hidden]');
