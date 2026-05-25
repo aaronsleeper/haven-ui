@@ -1,7 +1,7 @@
 # Render Check — recall.entry.html
 
 - **Source:** `/Users/aaronsleeper/Vaults/Lab/haven-ui/handoff/cena-uconn/dietary-recall/recall.entry.html`
-- **Rendered:** 2026-05-25T17:00:25.242Z
+- **Rendered:** 2026-05-25T17:40:47.936Z
 - **Tool:** `render-check.mjs` — slot-22 render sub-step (Principle 13), assertion-free
 - **Viewports:** desktop 1280×900, mobile 390×844
 - **Verdict:** PASS
@@ -17,13 +17,13 @@ _From the desktop render (1280×900)._
 | href | loaded | introspectable | rules |
 | --- | --- | --- | --- |
 | `https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap` | yes | no (opaque) | — |
-| `file:///Users/aaronsleeper/Vaults/Lab/haven-ui/handoff/cena-uconn/assets/haven.css` | yes | yes | 7953 |
+| `file:///Users/aaronsleeper/Vaults/Lab/haven-ui/handoff/cena-uconn/assets/haven.css` | yes | yes | 7956 |
 
 Stylesheet load failures — pass: no failed stylesheet requests.
 
 ### Undefined classes
 
-Undefined classes — pass: all 32 markup classes resolve to a CSS rule.
+Undefined classes — pass: all 37 markup classes resolve to a CSS rule.
 
 ## Per-viewport checks
 
