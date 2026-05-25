@@ -43,22 +43,15 @@ Or just open `index.html` directly via `file://` in a modern browser.
 
 ## Rebuilding the assets
 
-When the haven-ui CSS changes (new tokens, semantic classes, or pattern-library updates), regenerate the bundle from haven-ui repo root:
+When the haven-ui CSS changes (new tokens, semantic classes, or pattern-library updates), regenerate the bundle with the single command from haven-ui repo root:
 
 ```
-pnpm --filter @haven/design-system build
-# → produces packages/design-system/dist/assets/haven-ui.css + fonts
-
-# Copy the rebuilt CSS + fonts into the handoff bundle, rewriting absolute url() refs to relative:
-mkdir -p handoff/cena-uconn/assets
-cp packages/design-system/dist/assets/haven-ui*.woff2 handoff/cena-uconn/assets/
-cp packages/design-system/dist/assets/haven-ui*.svg handoff/cena-uconn/assets/
-cp packages/design-system/dist/assets/haven-ui.png handoff/cena-uconn/assets/
-sed -E 's|url\(/assets/|url(./|g' packages/design-system/dist/assets/haven-ui.css \
-  > handoff/cena-uconn/assets/haven.css
+bash scripts/handoff-rebuild-bundle.sh
 ```
 
-The `sed` step rewrites `url(/assets/haven-ui.woff2)` → `url(./haven-ui.woff2)` so the CSS resolves font URLs relative to its own location — required for self-contained operation.
+That script is the **only** supported rebuild path. It runs three steps as one inseparable operation: builds `@haven/design-system`, copies the binary assets (FA Pro fonts, SVG fallbacks, logo) into `assets/`, and rewrites the built CSS's absolute `url(/assets/)` → relative `url(./)` so it resolves fonts relative to its own location (required for self-contained operation). It is idempotent and safe to re-run.
+
+**Never run the CSS step alone.** Re-running just the `sed` (regenerating `haven.css` without recopying the `woff2` font binaries) scrambles FontAwesome Pro glyphs bundle-wide — and the render gate cannot detect it, because every class is still defined; only the font binary is stale (commit `77cd7ae`). The CSS and fonts are versioned together; the script keeps them inseparable.
 
 ### Render gate — required after every rebuild
 
