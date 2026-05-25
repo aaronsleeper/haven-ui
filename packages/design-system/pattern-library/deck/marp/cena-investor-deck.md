@@ -61,6 +61,7 @@ cena health
 
 ---
 
+<div class="deck-canvas">
 <header class="deck-slide__chrome">
 <p class="deck-eyebrow">Why proven programs die</p>
 <h2 class="deck-headline">Strong clinical results, then the budget conversation <em class="deck-accent deck-accent--brand">ends</em> it</h2>
@@ -93,9 +94,11 @@ cena health
 <span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
 <span>03</span>
 </footer>
+</div>
 
 ---
 
+<div class="deck-canvas">
 <header class="deck-slide__chrome">
 <p class="deck-eyebrow">The proof gap</p>
 <h2 class="deck-headline">Good outcomes don't equal <em class="deck-accent deck-accent--brand">budget approval</em></h2>
@@ -122,6 +125,7 @@ cena health
 <span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
 <span>04</span>
 </footer>
+</div>
 
 ---
 
@@ -141,6 +145,7 @@ cena health
 
 ---
 
+<div class="deck-canvas">
 <header class="deck-slide__chrome">
 <p class="deck-eyebrow">How it works</p>
 <h2 class="deck-headline">From a referral into the void to a program that <em class="deck-accent deck-accent--brand">survives budget season</em></h2>
@@ -178,9 +183,11 @@ cena health
 <span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
 <span>06</span>
 </footer>
+</div>
 
 ---
 
+<div class="deck-canvas">
 <header class="deck-slide__chrome">
 <p class="deck-eyebrow">The business model</p>
 <h2 class="deck-headline">Four revenue mechanisms most programs <em class="deck-accent deck-accent--brand">leave on the table</em></h2>
@@ -212,9 +219,11 @@ cena health
 <span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
 <span>07</span>
 </footer>
+</div>
 
 ---
 
+<div class="deck-canvas">
 <header class="deck-slide__chrome">
 <p class="deck-eyebrow">Early traction</p>
 <h2 class="deck-headline">Live in health systems, and <em class="deck-accent deck-accent--brand">moving</em> the numbers</h2>
@@ -242,6 +251,7 @@ cena health
 <span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
 <span>08</span>
 </footer>
+</div>
 
 ---
 

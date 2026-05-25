@@ -66,23 +66,38 @@ body.deck-body {
    The slide canvas
    -------------------------------------------------------------------------- */
 
+/* The slide is the warm sand MAT; content slides float a rounded white
+   .deck-canvas on it (the real-deck signature: warm mat → white canvas →
+   content). --bleed slides (cover/divider/team/closing) omit the canvas and
+   rest content directly on the sand — the canvas-vs-bleed contrast is the
+   deck's work/rest pacing. */
 .deck-slide {
   container-type: inline-size;
   position: relative;
   width: min(100%, 1280px);
   aspect-ratio: 16 / 9;
-  background: var(--color-surface-page);   /* warm off-white — brand rule #1 */
-  border: var(--space-px) solid var(--color-border-default);
-  border-radius: var(--radius-md);
+  background: var(--color-sand-100);       /* warm sand mat (shows as a band around the canvas) */
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  /* Subtle quiet inset frame (A.2). */
-  outline: 1px solid color-mix(in srgb, var(--color-border-default) 60%, transparent);
-  outline-offset: -1.6cqw;
   display: flex;
   flex-direction: column;
-  padding: 4.4cqw 5.4cqw 3.4cqw;
+  padding: 2.4cqw;                          /* the mat band */
 }
+
+/* The rounded white content canvas floating on the mat. */
+.deck-canvas {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-page);    /* sand-50 warm near-white — brand rule #1, never #fff */
+  border: var(--space-px) solid color-mix(in srgb, var(--color-border-default) 55%, transparent);
+  border-radius: 2cqw;                      /* generous soft radius */
+  box-shadow: var(--shadow-lg);             /* color-shift + border first, shadow last (rule #4) */
+  padding: 3.6cqw 4.4cqw 2.8cqw;
+}
+
+/* Bleed slides: no canvas; content rests on the sand with generous padding. */
+.deck-slide--bleed { padding: 4.4cqw 5.4cqw; }
 
 /* --------------------------------------------------------------------------
    Chrome — eyebrow / headline / footer (B.2.1)
@@ -104,7 +119,7 @@ body.deck-body {
 .deck-headline {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 700;   /* bold Lora — the real deck's confident display voice (not medium) */
   font-size: 3cqw;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -115,7 +130,11 @@ body.deck-body {
 /* Italic accent clause (B.3.3) — the sole headline-emphasis device.
    One clause only; never the whole line. */
 .deck-accent { font-style: italic; }
-.deck-accent--brand { color: var(--color-text-brand); }
+/* Two-tone headline: a clause or the second line takes an accent color to
+   carry the rhetorical turn (real-deck pattern). Usable with or without italic. */
+.deck-accent--brand   { color: var(--color-text-brand); }   /* teal — brand claim */
+.deck-accent--stakes  { color: var(--color-error-base); }   /* brick-red — the problem / what's at stake */
+.deck-accent--reflect { color: var(--color-amber-700); }    /* bronze — reflective sub-line */
 
 .deck-slide__content {
   flex: 1 1 auto;
@@ -355,7 +374,7 @@ body.deck-body {
 .deck-cover__title {
   margin: 0 0 1.8cqw;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 700;   /* bold Lora */
   font-size: 5.4cqw;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -415,7 +434,7 @@ body.deck-body {
 .deck-divider__title {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 700;   /* bold Lora */
   font-size: 4.4cqw;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);

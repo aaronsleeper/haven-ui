@@ -24,8 +24,10 @@
 @import url('../tokens/tokens-spacing.css');
 @import url('../deck.css');
 
-/* The slide canvas — full-bleed warm ground (brand rule #1), 16:9.
-   container-type makes the cqw units in deck.css resolve against the slide. */
+/* The slide is the warm sand MAT (16:9). Content slides float a rounded white
+   .deck-canvas on it (.deck-canvas comes from deck.css, shared with the gallery);
+   cover/divider are bleed and rest content on the sand. container-type makes the
+   cqw units in deck.css resolve against the slide. */
 section {
   width: 1280px;
   height: 720px;
@@ -33,19 +35,18 @@ section {
   position: relative;
   container-type: inline-size;
   overflow: hidden;
-  background: var(--color-surface-page);
+  background: var(--color-sand-100);   /* warm sand mat */
   color: var(--color-text-primary);
   font-family: var(--font-body);
   display: flex;
   flex-direction: column;
-  padding: 4.4cqw 5.4cqw 3.4cqw;
-  /* quiet inset frame (A.2) */
-  outline: 1px solid color-mix(in srgb, var(--color-border-default) 60%, transparent);
-  outline-offset: -1.6cqw;
+  padding: 2.4cqw;                      /* the mat band; content sits inside .deck-canvas */
 }
 
 /* Structural-slide variants (set per slide via `<!-- _class: cover -->` etc.).
-   Remaps .deck-slide--cover / --divider inner rules from deck.css onto section. */
+   These are BLEED — content rests on the sand with generous padding, no canvas. */
+section.cover,
+section.divider { padding: 4.4cqw 5.4cqw; }
 section.cover  { justify-content: center; }
 section.cover .deck-slide__content {
   justify-content: center;
