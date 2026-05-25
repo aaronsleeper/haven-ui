@@ -32,13 +32,18 @@
 //   - Each packages/design-system/pattern-library/**/*.html that declares
 //     its own <head> (fragments without <head> are skipped — they're
 //     included by a page that owns the <head>).
+//   - EXCLUDED: pattern-library/deck/marp/ — MARP build output (gitignored,
+//     regenerated each render). MARP themes its own fonts via the theme CSS
+//     @import (cena-deck-theme.css loads Lora + Source Sans 3 + Source Code
+//     Pro), which this static <head> scanner cannot see. An in-file exempt
+//     marker would be overwritten on the next render, so the dir is skipped.
 //
 // Usage:
 //   pnpm conform:brand-fonts
 //   pnpm conform:brand-fonts path/to/file.html ...
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { resolve, relative, join } from 'node:path';
+import { resolve, relative, join, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PACKAGE_ROOT = resolve(fileURLToPath(import.meta.url), '../../..');
@@ -46,6 +51,9 @@ const MONOREPO_ROOT = resolve(PACKAGE_ROOT, '../..');
 const APPS_ROOT = resolve(MONOREPO_ROOT, 'apps');
 const PL_ROOT = resolve(MONOREPO_ROOT, 'packages/design-system/pattern-library');
 const PL_HEAD_PARTIAL = resolve(PL_ROOT, 'partials/pl-head.html');
+// MARP build output — gitignored, regenerated each render; MARP themes its own
+// fonts via the theme CSS @import, invisible to this static <head> scan.
+const DECK_MARP_DIR = resolve(PL_ROOT, 'deck/marp');
 
 const REQUIRED_FAMILIES = ['Lora', 'Source Sans 3', 'Source Code Pro'] as const;
 
@@ -91,8 +99,11 @@ function walkHtml(root: string): string[] {
 function findStandalonePatternLibraryFiles(): string[] {
   const out: string[] = [];
   for (const path of walkHtml(PL_ROOT)) {
+    const abs = resolve(path);
     // Don't scan the partial itself recursively — it's the canonical source.
-    if (resolve(path) === PL_HEAD_PARTIAL) continue;
+    if (abs === PL_HEAD_PARTIAL) continue;
+    // Skip MARP build output (see DECK_MARP_DIR note above).
+    if (abs === DECK_MARP_DIR || abs.startsWith(DECK_MARP_DIR + sep)) continue;
     const source = readFileSync(path, 'utf-8');
     if (/<head[\s>]/i.test(source)) out.push(path);
   }
