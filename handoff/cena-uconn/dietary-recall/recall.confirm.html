@@ -28,8 +28,8 @@
       <div class="app-shell-main">
 
         <!-- Focused-session header: back affordance + handoff trigger -->
-        <div class="app-shell-content" style="padding-bottom: 0;">
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--color-sand-200);">
+        <div class="app-shell-content pb-0">
+          <div class="recall-topbar">
             <a href="../home/home.caught-up.html" class="btn btn-ghost btn-sm" data-action="go-home">
               <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
               Back to home
@@ -70,7 +70,7 @@
                   </div>
                 </div>
                 <!-- Input area hidden on confirm — interview is done -->
-                <div class="chat-input-area" aria-hidden="true" style="visibility: hidden;">
+                <div class="chat-input-area invisible" aria-hidden="true">
                   <input type="text" placeholder="" aria-label="Recall complete" disabled />
                 </div>
               </section>

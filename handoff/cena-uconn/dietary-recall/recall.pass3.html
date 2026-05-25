@@ -29,8 +29,8 @@
       <div class="app-shell-main">
 
         <!-- Focused-session header: back affordance + handoff trigger -->
-        <div class="app-shell-content" style="padding-bottom: 0;">
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--color-sand-200);">
+        <div class="app-shell-content pb-0">
+          <div class="recall-topbar">
             <a href="../home/home.caught-up.html" class="btn btn-ghost btn-sm" data-action="go-home">
               <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
               Back to home
@@ -61,7 +61,7 @@
                     </div>
 
                     <!-- patient: first anchor -->
-                    <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
+                    <div class="patient-chat-message is-outgoing">
                       <p class="patient-chat-message-body">I had the oatmeal and juice around 7 in the morning, before I left.</p>
                     </div>
 
@@ -74,7 +74,7 @@
                     </div>
 
                     <!-- patient -->
-                    <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
+                    <div class="patient-chat-message is-outgoing">
                       <p class="patient-chat-message-body">Yeah, right after. Same time, at home.</p>
                     </div>
 
@@ -87,7 +87,7 @@
                     </div>
 
                     <!-- patient -->
-                    <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
+                    <div class="patient-chat-message is-outgoing">
                       <p class="patient-chat-message-body">Lunch. Around 12:30, I think. At work.</p>
                     </div>
 
@@ -148,7 +148,7 @@
                     <!-- Crackers: time pending (agent just asked) — shown with placeholder -->
                     <div class="patient-recall-list-row">
                       <p class="patient-recall-list-row-name">Crackers</p>
-                      <span class="patient-recall-list-row-when" style="color: var(--color-sand-400); font-style: italic;">Filling in…</span>
+                      <span class="patient-recall-list-row-when text-sand-400 italic">Filling in…</span>
                       <span></span>
                       <button type="button" class="patient-recall-list-row-trash" aria-label="Remove crackers"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </div>

@@ -30,8 +30,8 @@
       <div class="app-shell-main">
 
         <!-- Focused-session header: back affordance + handoff trigger -->
-        <div class="app-shell-content" style="padding-bottom: 0;">
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--color-sand-200);">
+        <div class="app-shell-content pb-0">
+          <div class="recall-topbar">
             <a href="../home/home.caught-up.html" class="btn btn-ghost btn-sm" data-action="go-home">
               <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
               Back to home
@@ -70,14 +70,14 @@
                     </div>
 
                     <!-- chat-numeric-input: oatmeal portion (cups) -->
-                    <div class="chat-numeric-input" style="margin-top: 0.5rem;">
+                    <div class="chat-numeric-input mt-2">
                       <label class="sr-only" for="recall-oatmeal-cups">Oatmeal amount in cups</label>
                       <input id="recall-oatmeal-cups" type="number" inputmode="decimal" class="chat-numeric-input-field" placeholder="1" min="0.25" step="0.25" />
                       <button type="button" class="chat-numeric-input-unit" aria-label="Unit: cups">cups</button>
                     </div>
 
                     <!-- helper-consequence row: what happens when this is submitted -->
-                    <div class="chat-button-row has-helper" style="margin-top: 0.5rem;">
+                    <div class="chat-button-row has-helper mt-2">
                       <button type="button" class="btn-primary" data-action="submit-portion" data-item="oatmeal">Got it</button>
                       <p class="chat-row-helper">Saves this amount and moves to the next item.</p>
                     </div>
@@ -87,7 +87,7 @@
                       <span class="patient-chat-message-indicator" aria-hidden="true">
                         <i class="fa-solid fa-sparkle"></i>
                       </span>
-                      <p class="patient-chat-message-body" style="color: var(--color-sand-500); font-size: var(--text-sm);">↑ Amounts for juice and coffee were recorded above. The list on the right shows what's been filled in so far.</p>
+                      <p class="patient-chat-message-body text-sand-500 text-sm">↑ Amounts for juice and coffee were recorded above. The list on the right shows what's been filled in so far.</p>
                     </div>
 
                   </div>
@@ -108,7 +108,7 @@
                     <div class="patient-recall-list-row">
                       <p class="patient-recall-list-row-name">Oatmeal</p>
                       <span class="patient-recall-list-row-when">Breakfast · 7:00 AM</span>
-                      <span class="patient-recall-list-row-amount" style="color: var(--color-sand-400); font-style: italic;">Filling in…</span>
+                      <span class="patient-recall-list-row-amount text-sand-400 italic">Filling in…</span>
                       <button type="button" class="patient-recall-list-row-trash" aria-label="Remove oatmeal"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </div>
                     <div class="patient-recall-list-row">

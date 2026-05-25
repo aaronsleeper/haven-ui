@@ -3307,6 +3307,19 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:text-sand-200;
 }
 
+/* Outgoing (patient-authored) message — mirrors the row so it reads as "from me".
+   Replaces per-page inline flex-direction:row-reverse across the recall passes. */
+.patient-chat-message.is-outgoing {
+    @apply flex-row-reverse text-right;
+}
+
+/* Recall flow topbar — the slim flow header (exit + progress). Replaces the
+   repeated inline flex/padding/border across every recall pass. */
+.recall-topbar {
+    @apply flex items-center justify-between px-6 py-3 border-b border-sand-200;
+    @apply dark:border-sand-700;
+}
+
 /* ===================================
    PATIENT APP — A2UI RIGHT-PANE PRIMITIVES
    (Tier 1b: budget-meter, quantity-stepper, appointment-*,
@@ -3712,8 +3725,8 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 }
 
 .patient-recall-list-header-pass {
-    @apply text-xs uppercase tracking-wider font-medium text-sand-600;
-    @apply dark:text-sand-400;
+    @apply text-xs uppercase tracking-wider font-semibold text-sand-700;
+    @apply dark:text-sand-300;
 }
 
 .patient-recall-list-rows {

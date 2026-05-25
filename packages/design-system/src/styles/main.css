@@ -36,7 +36,7 @@
    never a phantom (a class with no backing token). See
    handoff/cena-uconn/AGENTS.md for the authoring contract. */
 @source inline("tracking-tight opacity-60");
-@source inline("pb-6 pl-5 pl-1 ml-5 py-12 lg:p-10");
+@source inline("pb-6 pb-0 pl-5 pl-1 ml-5 py-12 lg:p-10");
 @source inline("space-y-10 space-y-12");
 /* Onboarding focused-canvas + sticky-footer layout (handoff/cena-uconn/onboarding/*). */
 @source inline("pt-16 pb-32 pb-36 left-0 right-0 max-h-48 border-none col-span-2 -ml-1 -mt-1 ml-0!");
