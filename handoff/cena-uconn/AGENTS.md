@@ -81,6 +81,16 @@ When you need a class that is not realizable:
 
 `scripts/handoff-render-gate.sh` (in the haven-ui repo) renders all 9 pages with `render-check.mjs` and fails if any page references a class the bundle cannot realize. Run it after every `haven.css` rebuild — the closed vocabulary holds only because the gate runs. See `README.md` → Rebuilding the assets.
 
+## Guardrails
+
+Hard-won rules from building the patient-app slices. Each one cost a debugging round-trip; honor them so the next agent doesn't pay it again.
+
+1. **Rebuild the bundle ONLY via `scripts/handoff-rebuild-bundle.sh`. Never CSS-only.** Re-running the `sed` without recopying the `woff2` font binaries scrambles FontAwesome Pro glyphs bundle-wide, and the render gate cannot catch it (classes are defined; only the font binary is stale — commit `77cd7ae`). The script makes the steps inseparable; bypassing it reopens the bug. (Rebuild detail: `README.md` → Rebuilding the assets.)
+2. **No Preline in the self-contained bundle.** The bundle ships without Preline's JS, so Preline-driven collapse (`hs-accordion`, `hs-collapse`) is inert here. Use native `<details>`/`<summary>` for any collapse/disclosure. (The pattern library uses Preline; this handoff bundle deliberately does not — it must render from `file://` with no JS framework.)
+3. **Only use PL classes that are COMPILED into the bundle.** The bundle uses a closed vocabulary (see Closed-vocabulary contract above). A stray Tailwind utility that no design-system source uses is NOT in the build and **fails the render gate** (observed with `select-none`). Add it to the `@source inline(...)` safelist in `main.css` and rebuild, or use a real DS class — never assume an arbitrary utility is present.
+4. **New patient surfaces use the IA-v1 3-tab nav (Home · Order · Activity).** The sibling slices' 5-tab nav (`assessments/`, `meals/`, `log-outcome/`) is demo-era drift, not canon — do not copy it into new surfaces. Reconciling those siblings to the 3-tab nav is tracked cleanup, not a license to propagate the 5-tab. (Canon: `~/.claude/plans/patient-app-ia-v1.md`.)
+5. **Browser-verify by RUNNING `render-check` and reading the screenshot PNG.** A gate pass alone misses visual and glyph bugs — the gate checks for undefined classes, not whether the rendered page looks right. Render the page and look at the PNG before calling a surface done. (This is the bundle-local form of the workflow's render-verification principle.)
+
 ## Where canonical sources live
 
 The bundle is self-contained for runtime, but the *spec* (wireframes, panel verdicts, content sources, design intent) lives in another repository the receiving environment may not have access to.
