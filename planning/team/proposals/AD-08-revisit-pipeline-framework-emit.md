@@ -186,8 +186,9 @@ If Path C is viable, the work is a mirror of `ui-react-porter`:
 
 ## Thin proving slice (smallest experiment before committing)
 
+- **First, extract Andrey's actual Angular idioms from `Lab/cena-health-spark`** — module/standalone pattern, state management (signals vs RxJS), component file structure, naming, change-detection strategy. The port must look like *his* code, not generic-correct Angular; matching his conventions is the respect signal that makes "break this" land (per [[Andrey Kartashov]] how-to-engage). His pushed code may be stale (solo dev, infrequent pushes) — if so, request a current sample before grounding the port. This is the gate before any hand-port: we mirror reality, not an assumed Angular dialect.
 - **Pick one already-verified PL component that has a React port and a vanilla-JS behavior primitive** — e.g., the quantity-stepper (`quantity-stepper.js` + its PL HTML + `QuantityStepper.tsx`). It has real behavior (bounds, disabled-state, a11y announce) so it tests the hard parts, not just static markup.
-- **Hand-port it to Angular mechanically** (no porter skill yet — do it by hand to discover the mapping rules), binding the existing `quantity-stepper.js` via import-unchanged (option (a) above).
+- **Hand-port it to Angular mechanically, in Andrey's extracted idioms** (no porter skill yet — do it by hand to discover the mapping rules), binding the existing `quantity-stepper.js` via import-unchanged (option (a) above).
 - **Measure the gap to "functional":**
   - Does the vanilla primitive self-init and emit its `CustomEvent`s inside an Angular component without modification?
   - How much Angular-specific wiring (lifecycle, `@ViewChild`, `@Output`) does the behavior contract require?
