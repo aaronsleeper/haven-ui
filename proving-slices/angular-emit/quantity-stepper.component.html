@@ -1,0 +1,34 @@
+<!--
+  PROVING SLICE — mechanical port of PL quantity-stepper markup into Andrey's
+  template idioms. Class vocabulary is VERBATIM from the PL (quantity-stepper,
+  quantity-stepper-btn, quantity-stepper-value, sr-only) — the same dialect his
+  hand-written patient app already uses. Only the bindings change:
+    data-action + JS listener → (click) handler
+    auto-set disabled attr      → [disabled]="atMin()/atMax()"
+    JS textContent mutation     → {{ value() }} interpolation
+    [data-quantity-stepper-announce] live region → {{ announce() }}
+-->
+<div class="quantity-stepper">
+  <button
+    type="button"
+    class="quantity-stepper-btn"
+    (click)="decrement()"
+    [disabled]="atMin()"
+    aria-label="Decrease quantity"
+  >
+    <i class="fa-solid fa-minus" aria-hidden="true"></i>
+  </button>
+
+  <span class="quantity-stepper-value" aria-hidden="true">{{ value() }}</span>
+  <span class="sr-only" aria-live="polite" aria-atomic="true">{{ announce() }}</span>
+
+  <button
+    type="button"
+    class="quantity-stepper-btn"
+    (click)="increment()"
+    [disabled]="atMax()"
+    aria-label="Increase quantity"
+  >
+    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+  </button>
+</div>

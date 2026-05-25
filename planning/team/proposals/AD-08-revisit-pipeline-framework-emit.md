@@ -196,6 +196,13 @@ If Path C is viable, the work is a mirror of `ui-react-porter`:
 - **Then put it in front of Andrey:** would *this* dropped into his codebase save him work vs receiving the HTML composite? His answer is the gate.
 - **Decision rule:** if the hand-port is mechanical (0 judgment calls), the vanilla primitive binds unchanged, and Andrey says it reduces his work → build `ui-angular-porter` and promote Path C. Any of those three failing → stay on Path A and revisit.
 
+### Result — slice run 2026-05-25 → [`../../proving-slices/angular-emit/RESULTS.md`](../../proving-slices/angular-emit/RESULTS.md)
+
+- **Split result.** Markup/class port is **mechanical (0 judgment calls)** — class vocabulary is verbatim, only bindings change, and the output looks like Andrey's code (signal I/O, standalone, `linkedSignal`/`computed`, `app-` selector). **But the behavior port is not mechanical**, which **corrects this ADR's optimism in §C-pros and §6**: the vanilla-JS primitives are **not** a free "import-unchanged" bridge for a framework target.
+- **Why:** `quantity-stepper.js` is a self-running IIFE that queries + mutates the DOM at *script load* — it never sees Angular's later-rendered component, and direct DOM mutation fights zoneless change detection. The **contract** (events/bounds/debounced a11y/programmatic set) ports; the **implementation** must re-express in signals. **§6's default flips from option-a (import unchanged) to option-b (re-express the contract) for Angular/React.**
+- **Prerequisite this surfaces:** before building `ui-angular-porter`, refactor the ~29 vanilla primitives from self-running IIFEs to **export a pure contract + `init(el, opts)`**. That makes them genuinely framework-bindable (helps the React port too) and drives each behavioral port's judgment calls toward zero. The markup-only majority of components ports mechanically today regardless.
+- **Still open:** runtime build/run in a zoneless Angular 19 harness (written to compile, not yet executed) + the Andrey demo. Both are the next step and fold together.
+
 ---
 
 ## Open questions for Andrey + Vanessa (T0.1 / T0.2 — only they can answer)

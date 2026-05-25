@@ -1,0 +1,7 @@
+// Intentionally empty. Visual styling comes from the shared design-system
+// semantic classes (.quantity-stepper, .quantity-stepper-btn,
+// .quantity-stepper-value) defined in components.css / haven.css — the same
+// classes Andrey's app already consumes. The port adds NO component-scoped CSS;
+// this mirrors the PL contract (semantic classes own the look) and is part of
+// why the markup port is verbatim. styleUrl is declared to match his
+// component file convention (every component has a .scss sibling), even when empty.
