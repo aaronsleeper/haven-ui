@@ -2,118 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cena × UConn — patient app preview</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="./assets/haven.css" />
+  <meta http-equiv="refresh" content="0; url=./home/home.caught-up.html" />
+  <title>Cena patient app</title>
+  <link rel="canonical" href="./home/home.caught-up.html" />
 </head>
 <body>
-  <main class="mx-auto max-w-3xl px-6 py-12 space-y-10">
-    <header class="space-y-3 border-b border-sand-200 pb-6">
-      <p class="text-xs uppercase tracking-wider text-sand-600">Patient app · clickable preview</p>
-      <h1 class="text-3xl font-semibold tracking-tight">Cena × UConn — patient app</h1>
-      <p class="text-base text-sand-600">Self-contained HTML/CSS/JS, served as a static site (no backend). Click into any surface and walk its flow. Resize the window to see the responsive shell: bottom-nav on mobile (&lt;1024px), sidebar on desktop. Built through the haven-ui pipeline against IA-v1 (Home · Order · Activity).</p>
-      <p class="text-sm text-sand-600">Tip: each flow's primary button advances to the next step; the bottom tabs switch surfaces.</p>
-    </header>
-
-    <!-- HOME -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Home <span class="text-sm font-normal text-sand-500">· the front door — greeting + agent-surfaced "things to do"</span></h2>
-      <article class="card"><div class="card-body space-y-3">
-        <p class="text-sm text-sand-600">The Surfacer's home. Three states. <strong>Interactive:</strong> on the one-item / several states, "Not now" dismisses the card (remembered) and the zone falls back to the calm caught-up state (<code class="font-mono">home.js</code>).</p>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./home/home.caught-up.html">Caught up</a> — the designed-for default (nothing due)</li>
-          <li><a class="text-link" href="./home/home.one-item.html">One item due</a> — a single focus card</li>
-          <li><a class="text-link" href="./home/home.several.html">Several due</a> — one focus card + "a couple of other things"</li>
-        </ul>
-      </div></article>
-    </section>
-
-    <!-- ONBOARDING -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Onboarding / consent <span class="text-sm font-normal text-sand-500">· first-run gate (cap-12) — nav suppressed</span></h2>
-      <article class="card"><div class="card-body space-y-3">
-        <p class="text-sm text-sand-600">The one-time consent gate before Home unlocks. Walk it in order.</p>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./onboarding/onboarding.welcome.html">1 · Welcome</a> → <a class="text-link" href="./onboarding/onboarding.consent.html">2 · Consent (HIPAA)</a> → <a class="text-link" href="./onboarding/onboarding.preferences.html">3 · Preferences</a> → <a class="text-link" href="./onboarding/onboarding.welcome-to-home.html">Settled → Home</a></li>
-        </ul>
-      </div></article>
-    </section>
-
-    <!-- ORDER -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Order <span class="text-sm font-normal text-sand-500">· the meal-ordering surface + fulfillment status</span></h2>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">Order status &amp; optimize</h3>
-          <p class="text-sm text-sand-600">Post-submit pickup confirmation, live fulfillment timeline, an in-budget swap, and issue escalation. IA-v1 3-tab shell.</p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./order-status/order-status.confirmed.html">Confirmed</a> — order placed, awaiting kitchen</li>
-          <li><a class="text-link" href="./order-status/order-status.active.html">Active</a> — being prepared (pickup timeline)</li>
-          <li><a class="text-link" href="./order-status/order-status.optimize.html">Optimize</a> — one swap to consider (comparison)</li>
-          <li><a class="text-link" href="./order-status/order-status.issue.html">Issue</a> — something's wrong → talk to a person</li>
-        </ul>
-      </div></article>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">Meals — menu, cart, at-a-glance</h3>
-          <p class="text-sm text-sand-600">Weekly ordering: entry → state-read → preferences → cart → submit → at-a-glance. <em class="text-sand-500">Note: still on the demo agentic shell + 5-tab nav — flagged for the same re-wrap recall just got.</em></p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./meals/order-meals.returning-patient.html">Returning patient (full flow)</a> · <a class="text-link" href="./meals/order-meals.first-time-patient.html">First-time patient</a></li>
-          <li><a class="text-link" href="./meals/order-meals.step-1-entry.html">Step 1 entry</a> · <a class="text-link" href="./meals/order-meals.step-3-preferences.html">3 prefs</a> · <a class="text-link" href="./meals/order-meals.step-4-cart.html">4 cart</a> · <a class="text-link" href="./meals/order-meals.step-6-submit-confirm.html">6 submit</a> · <a class="text-link" href="./meals/order-meals.step-7-at-a-glance.html">7 at-a-glance</a></li>
-        </ul>
-      </div></article>
-    </section>
-
-    <!-- CHECK-INS -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Check-ins <span class="text-sm font-normal text-sand-500">· agent-pushed clinical moments (no tab)</span></h2>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">Dietary recall (cap-8)</h3>
-          <p class="text-sm text-sand-600">24-hour multiple-pass interview. <strong>Rebuilt on the canonical patient shell</strong> (app-shell, nav suppressed): conversation + food-list working surface. Two-region on desktop, single-column on mobile.</p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./dietary-recall/recall.entry.html">Entry</a> → <a class="text-link" href="./dietary-recall/recall.pass1.html">Pass 1 quick list</a> → <a class="text-link" href="./dietary-recall/recall.pass3.html">Pass 3 time</a> → <a class="text-link" href="./dietary-recall/recall.pass4.html">Pass 4 portion</a> → <a class="text-link" href="./dietary-recall/recall.review.html">Review</a> → <a class="text-link" href="./dietary-recall/recall.confirm.html">Confirm</a></li>
-        </ul>
-      </div></article>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">Satisfaction survey (cap-9)</h3>
-          <p class="text-sm text-sand-600">M3/6/9 questionnaire (reuses the assessment runner). No score shown to the patient. Items are placeholders pending Vanessa.</p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./satisfaction-survey/take-survey.entry.html">Entry</a> → <a class="text-link" href="./satisfaction-survey/take-survey.preflight.html">Preflight</a> → <a class="text-link" href="./satisfaction-survey/take-survey.question.html">Questions</a> → <a class="text-link" href="./satisfaction-survey/take-survey.confirm.html">Confirm</a></li>
-        </ul>
-      </div></article>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">Assessments (cap-7)</h3>
-          <p class="text-sm text-sand-600">HFIAS · WHOQOL-HIV BREF · GNKQ-R · pre-enrollment screener. Runner template + resolved single-page instances.</p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./assessments/take-assessment.entry.html">Runner: entry</a> → <a class="text-link" href="./assessments/take-assessment.preflight.html">preflight</a> → <a class="text-link" href="./assessments/take-assessment.question.html">question</a> → <a class="text-link" href="./assessments/take-assessment.confirm.html">confirm</a></li>
-          <li>Resolved: <a class="text-link" href="./assessments/take-screener.html">screener</a> · <a class="text-link" href="./assessments/take-hfias.html">HFIAS</a> · <a class="text-link" href="./assessments/take-whoqol.html">WHOQOL</a> · <a class="text-link" href="./assessments/take-gnkq.html">GNKQ-R</a></li>
-        </ul>
-      </div></article>
-    </section>
-
-    <!-- MY HEALTH + APPOINTMENTS (Home rows, not tabs) -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">My Health &amp; Appointments <span class="text-sm font-normal text-sand-500">· promoted-from-Home rows, not tabs</span></h2>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">My Health — log a check-in (cap-20)</h3>
-          <p class="text-sm text-sand-600">Self-reported measures (weight, BP, A1C) + note. <strong>Interactive</strong> form: type, toggle units, Save.</p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./log-outcome/log-outcome.form.html">Fillable</a> → <a class="text-link" href="./log-outcome/log-outcome.confirm.html">Saved</a> · <a class="text-link" href="./log-outcome/log-check-in.html">narrative demo</a></li>
-        </ul>
-      </div></article>
-      <article class="card"><div class="card-body space-y-3">
-        <header class="space-y-1"><h3 class="text-lg font-semibold">Appointments — request (cap-21)</h3>
-          <p class="text-sm text-sand-600">Request-only v1 (no live calendar). Empty → request → pending → upcoming.</p></header>
-        <ul class="space-y-1 text-sm">
-          <li><a class="text-link" href="./appointments/appointments.empty.html">Empty</a> → <a class="text-link" href="./appointments/appointments.request.html">Request</a> → <a class="text-link" href="./appointments/appointments.pending.html">Pending</a> · <a class="text-link" href="./appointments/appointments.upcoming.html">Upcoming</a></li>
-        </ul>
-      </div></article>
-    </section>
-
-    <footer class="space-y-2 border-t border-sand-200 pt-6 text-xs text-sand-600">
-      <p>Local preview of the self-contained handoff bundle (<code class="font-mono">handoff/cena-uconn/</code>). Andrey ports this HTML/CSS/JS to Angular; the bundle has no build step. Per-surface READMEs name the structure, classes, JS contracts, and data shapes.</p>
-    </footer>
-  </main>
+  <!-- The bundle root IS the app. Boot straight into Home; navigate from there (tabs, cards, rows). -->
+  <p><a href="./home/home.caught-up.html">Open the patient app</a></p>
 </body>
 </html>
