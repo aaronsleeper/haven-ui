@@ -1,0 +1,113 @@
+<!--
+@component-meta
+name: Focus Card
+category: Patient App
+classes: patient-focus-card, patient-focus-card-icon, patient-focus-card-body, patient-focus-card-title, patient-focus-card-context, patient-focus-card-actions
+preline: false
+description: The single surfaced due-item on the patient Home "things-to-do" zone. A calm invitation — soft agent glyph, plain-language title, one context line, a primary action, and a quiet "Not now" dismiss. Deliberately distinct from task-card: NO overdue-red, NO count badge, NO completion check, NO due-date shaming. Prominence comes from size + position (the reserved zone under the greeting), not loud color. The agent surfaces ONE at a time (Home spec §3b/§3c); additional items collapse below via data-collapse. Recedes quietly when handled, falling back to the caught-up affirmation. Register per patient-app-home-surface.md §3-§5 (dignity, no surveillance, ~5th-6th grade copy).
+notes: |
+  - Surface a single focus card; never stack equal-weight cards (Home spec "one thing at a time").
+  - Title wraps (not truncated) — one idea per line, plain language, no clinical jargon.
+  - Actions compose default-size btn-primary (the action) + btn-ghost ("Not now") — NOT btn-sm: default padding keeps tap targets ≥44px for a low-tech-literacy/motor-variable, mobile-first population (WCAG 2.5.5/2.5.8).
+  - "Not now" is a snooze, never punished — no escalating urgency on re-surface (agent-behavior, see §4).
+  - Optional agent glyph is a calm, non-anthropomorphic mark (sparkle), not a watching face. It is decorative: both the <span class="avatar"> and its <i> carry aria-hidden="true".
+  - rounded-lg (vs the patient-family default rounded-md) is INTENTIONAL — the focus card is the anchor of the reserved zone; the larger radius signals its standing-card role, not a list row.
+  - DO NOT use this component for the caught-up affirmation state (Home spec §3a). That is a distinct, chrome-less block (plain text in the zone, no card border, no actions) — a separate primitive/inline composition, not a focus card with empty actions.
+  - JS / consumer contract (owned by the things-to-do ZONE container in the slice, not by this static card): the reserved-zone container carries aria-live="polite" aria-atomic="true" so an agent-surfaced card is announced on appear/replace; debounce re-surfacing ≥500ms (no chatty announcements). On dismiss ("Not now"), move focus to the zone container (which falls back to the caught-up affirmation) or to the next surfaced card's primary action — never let focus drop to <body>. On completion, focus follows navigation into the task flow.
+  - For landmark navigation in a real app instance, wrap the card in <section aria-labelledby="{title-id}"> with a matching id on the title (per-instance ids; omitted in this multi-variant PL demo).
+-->
+
+<p class="pl-variant-title">Order reminder (menu published)</p>
+<div class="max-w-[430px]">
+
+  <div class="patient-focus-card">
+    <div class="patient-focus-card-icon">
+      <span class="avatar avatar-sm avatar-primary" aria-hidden="true"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
+    </div>
+    <div class="patient-focus-card-body">
+      <p class="patient-focus-card-title">Your meals for next week are ready to choose.</p>
+      <p class="patient-focus-card-context">The menu's open through Thursday.</p>
+      <div class="patient-focus-card-actions">
+        <a href="#" class="btn-primary">Review your order</a>
+        <button type="button" class="btn-ghost">Not now</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="pl-variant-title mt-8">Cutoff near (gentle timing, no red alert)</p>
+<div class="max-w-[430px]">
+
+  <div class="patient-focus-card">
+    <div class="patient-focus-card-icon">
+      <span class="avatar avatar-sm avatar-primary" aria-hidden="true"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
+    </div>
+    <div class="patient-focus-card-body">
+      <p class="patient-focus-card-title">Your meals for next week are ready to choose.</p>
+      <p class="patient-focus-card-context">The menu closes tomorrow — pick when you're ready.</p>
+      <div class="patient-focus-card-actions">
+        <a href="#" class="btn-primary">Review your order</a>
+        <button type="button" class="btn-ghost">Not now</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="pl-variant-title mt-8">Assessment due (plain language, no jargon)</p>
+<div class="max-w-[430px]">
+
+  <div class="patient-focus-card">
+    <div class="patient-focus-card-icon">
+      <span class="avatar avatar-sm avatar-primary" aria-hidden="true"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
+    </div>
+    <div class="patient-focus-card-body">
+      <p class="patient-focus-card-title">A few quick questions, when you have a moment.</p>
+      <p class="patient-focus-card-context">It takes about 5 minutes. You can pause anytime.</p>
+      <div class="patient-focus-card-actions">
+        <a href="#" class="btn-primary">Start</a>
+        <button type="button" class="btn-ghost">Not now</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="pl-variant-title mt-8">Dietary recall due (past-tense, conversational action)</p>
+<div class="max-w-[430px]">
+
+  <div class="patient-focus-card">
+    <div class="patient-focus-card-icon">
+      <span class="avatar avatar-sm avatar-primary" aria-hidden="true"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
+    </div>
+    <div class="patient-focus-card-body">
+      <p class="patient-focus-card-title">Let's go over what you ate yesterday.</p>
+      <p class="patient-focus-card-context">I'll walk you through it — a few questions, that's all.</p>
+      <div class="patient-focus-card-actions">
+        <a href="#" class="btn-primary">Let's go</a>
+        <button type="button" class="btn-ghost">Not now</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="pl-variant-title mt-8">Appointment nudge (softest — question-form context)</p>
+<div class="max-w-[430px]">
+
+  <div class="patient-focus-card">
+    <div class="patient-focus-card-icon">
+      <span class="avatar avatar-sm avatar-primary" aria-hidden="true"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
+    </div>
+    <div class="patient-focus-card-body">
+      <p class="patient-focus-card-title">It's about time for your next check-in with the team.</p>
+      <p class="patient-focus-card-context">Want to set up a time?</p>
+      <div class="patient-focus-card-actions">
+        <a href="#" class="btn-primary">Request a time</a>
+        <button type="button" class="btn-ghost">Not now</button>
+      </div>
+    </div>
+  </div>
+
+</div>
