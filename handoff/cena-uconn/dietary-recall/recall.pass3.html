@@ -8,174 +8,172 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="../assets/haven.css" />
-  <!-- Shell: layout-agentic-shell (chat-primary three-pane) — DESKTOP-ONLY.
-       State: Pass 3 — Time and occasion. The agent has completed pass 2 (forgotten foods)
-       and now walks chronologically through the list asking when each item was eaten.
-       Right pane: the when-column is populating per item as the patient answers.
-       Agent uses occasion anchors ("at the bus stop", "before you left") not just clock times.
-       Catches: pass-2 added coffee (forgotten food). Oatmeal + juice + coffee now have times.
-       Demo patient: Maria Rivera. -->
-  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
+  <!--
+    Wireframe: apps/patient/design/wireframes/recall-01-interview.md
+    Shell: app-shell (layout-app-shell-responsive). Nav SUPPRESSED — focused agent-led moment.
+    Header: quiet "Back to Home" (left) + persistent "Talk to a person" chip (right).
+    Layout: layout-two-pane / layout-two-pane-grid — conversation (420px left) + food-list (fluid right).
+    Mobile (<lg): single-column conversation; food-list stacked below.
+    State: Pass 3 — Time and occasion. The agent has completed pass 2 (forgotten foods)
+    and now walks chronologically through the list asking when each item was eaten.
+    Right region: the when-column is populating per item as the patient answers.
+    Agent uses occasion anchors ("at the bus stop", "before you left") not just clock times.
+    Catches: pass-2 added coffee (forgotten food). Oatmeal + juice + coffee now have times.
+    Demo patient: Maria Rivera.
+  -->
 </head>
 <body>
 
-  <div class="app-shell app-shell--agentic">
-    <div class="agentic-shell">
+  <div class="app-shell" data-recall-root>
+    <div class="app-shell-frame">
+      <div class="app-shell-main">
 
-      <!-- ── Left rail nav ── -->
-      <nav class="panel-nav" aria-label="Primary">
-        <div class="nav-header">
-          <div class="nav-logo">
-            <img src="../assets/logo-cena.svg" alt="Cena Health" />
-          </div>
-        </div>
-        <div class="nav-section">
-          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
-          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Health check</span></a>
-          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Meals</span></a>
-          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i><span>Care</span></a>
-          <a href="#" class="nav-item"><i class="fa-regular fa-message" aria-hidden="true"></i><span>Messages</span></a>
-        </div>
-        <div class="nav-section nav-section--pinned-bottom">
-          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
-          <div class="nav-item">
-            <div class="nav-avatar">MR</div>
-            <span>Maria Rivera</span>
-          </div>
-        </div>
-      </nav>
-
-      <div class="panel-splitter" aria-hidden="true"></div>
-
-      <!-- ── Center: chat thread ── -->
-      <main class="panel-chat" aria-label="Dietary recall assistant">
-        <div class="chat-thread">
-          <div class="chat-thread-inner">
-
-            <!-- Persistent "talk to a person" -->
-            <button type="button" class="chat-handoff-trigger is-header" style="margin-bottom: 1rem;">
+        <!-- Focused-session header: back affordance + handoff trigger -->
+        <div class="app-shell-content" style="padding-bottom: 0;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--color-sand-200);">
+            <a href="../home/home.caught-up.html" class="btn btn-ghost btn-sm" data-action="go-home">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+              Back to home
+            </a>
+            <button type="button" class="chat-handoff-trigger is-header">
               <i class="fa-solid fa-headset" aria-hidden="true"></i>
               Talk to a person
             </button>
-
-            <!-- agent: pass 2 wrap-up summary is verbal only, no food cards in chat -->
-            <div class="patient-chat-message">
-              <span class="patient-chat-message-indicator" aria-hidden="true">
-                <i class="fa-solid fa-sparkle"></i>
-              </span>
-              <p class="patient-chat-message-body">Good list. Now let's go through when you ate each thing. What time did you have your first meal or drink yesterday?</p>
-            </div>
-
-            <!-- patient: first anchor -->
-            <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
-              <p class="patient-chat-message-body">I had the oatmeal and juice around 7 in the morning, before I left.</p>
-            </div>
-
-            <!-- agent: acknowledges, moves to next — right pane updates silently -->
-            <div class="patient-chat-message">
-              <span class="patient-chat-message-indicator" aria-hidden="true">
-                <i class="fa-solid fa-sparkle"></i>
-              </span>
-              <p class="patient-chat-message-body">Got it — breakfast around 7 AM. What about coffee — did you have that with breakfast too?</p>
-            </div>
-
-            <!-- patient -->
-            <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
-              <p class="patient-chat-message-body">Yeah, right after. Same time, at home.</p>
-            </div>
-
-            <!-- agent: next item -->
-            <div class="patient-chat-message">
-              <span class="patient-chat-message-indicator" aria-hidden="true">
-                <i class="fa-solid fa-sparkle"></i>
-              </span>
-              <p class="patient-chat-message-body">And the sandwich — around what time was that?</p>
-            </div>
-
-            <!-- patient -->
-            <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
-              <p class="patient-chat-message-body">Lunch. Around 12:30, I think. At work.</p>
-            </div>
-
-            <!-- agent: next, catching up remaining items -->
-            <div class="patient-chat-message">
-              <span class="patient-chat-message-indicator" aria-hidden="true">
-                <i class="fa-solid fa-sparkle"></i>
-              </span>
-              <p class="patient-chat-message-body">The crackers — was that before or after lunch?</p>
-            </div>
-
-            <!-- time-of-day chips — is-small context-probe -->
-            <div class="chat-chip-row is-small" aria-label="When did you have the crackers?">
-              <button type="button" class="chat-chip" data-action="set-time" data-item="crackers" data-value="morning">Morning</button>
-              <button type="button" class="chat-chip" data-action="set-time" data-item="crackers" data-value="afternoon">Afternoon</button>
-              <button type="button" class="chat-chip is-soft" data-action="set-time" data-item="crackers" data-value="unsure">Not sure</button>
-            </div>
-
           </div>
         </div>
-        <div class="chat-input-area">
-          <input type="text" placeholder="Type a time or place…" aria-label="Type a time or place" />
-        </div>
-      </main>
 
-      <div class="panel-splitter" aria-hidden="true"></div>
+        <main class="app-shell-content p-6 lg:p-10" aria-label="Dietary recall">
 
-      <!-- ── Right pane: recall list — pass 3, time/occasion populating ── -->
-      <aside class="panel-content" aria-label="Your food list">
-        <div class="patient-recall-list">
-          <div class="patient-recall-list-header">
-            <span class="patient-recall-list-header-day">Yesterday — Thu, May 23</span>
-            <span class="patient-recall-list-header-pass">Pass 3 of 5 — when did you eat?</span>
-          </div>
-          <div class="patient-recall-list-rows">
-            <div class="patient-recall-list-row">
-              <p class="patient-recall-list-row-name">Oatmeal</p>
-              <span class="patient-recall-list-row-when">Breakfast · 7:00 AM</span>
-              <span></span>
-              <button type="button" class="patient-recall-list-row-trash" aria-label="Remove oatmeal"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-            </div>
-            <div class="patient-recall-list-row">
-              <p class="patient-recall-list-row-name">Juice</p>
-              <span class="patient-recall-list-row-when">Breakfast · 7:00 AM</span>
-              <span></span>
-              <button type="button" class="patient-recall-list-row-trash" aria-label="Remove juice"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-            </div>
-            <div class="patient-recall-list-row">
-              <p class="patient-recall-list-row-name">Coffee</p>
-              <span class="patient-recall-list-row-when">Breakfast · ~7:15 AM</span>
-              <span></span>
-              <button type="button" class="patient-recall-list-row-trash" aria-label="Remove coffee"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-            </div>
-            <div class="patient-recall-list-row">
-              <p class="patient-recall-list-row-name">Sandwich</p>
-              <span class="patient-recall-list-row-when">Lunch · 12:30 PM · work</span>
-              <span></span>
-              <button type="button" class="patient-recall-list-row-trash" aria-label="Remove sandwich"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-            </div>
-            <!-- Crackers: time pending (agent just asked) — shown with placeholder -->
-            <div class="patient-recall-list-row">
-              <p class="patient-recall-list-row-name">Crackers</p>
-              <span class="patient-recall-list-row-when" style="color: var(--color-sand-400); font-style: italic;">Filling in…</span>
-              <span></span>
-              <button type="button" class="patient-recall-list-row-trash" aria-label="Remove crackers"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-            </div>
-            <div class="patient-recall-list-row">
-              <p class="patient-recall-list-row-name">Rice and chicken</p>
-              <span></span>
-              <span></span>
-              <button type="button" class="patient-recall-list-row-trash" aria-label="Remove rice and chicken"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-            </div>
-          </div>
-          <div class="patient-recall-list-footer">
-            <button type="button" class="patient-recall-list-add">
-              <i class="fa-solid fa-plus" aria-hidden="true"></i>
-              Add another item
-            </button>
-          </div>
-        </div>
-      </aside>
+          <div class="layout-two-pane">
+            <div class="layout-two-pane-grid">
 
+              <!-- Conversation region (left / 420px) -->
+              <section aria-label="Dietary recall conversation">
+                <div class="chat-thread">
+                  <div class="chat-thread-inner">
+
+                    <!-- agent: pass 2 wrap-up summary is verbal only, no food cards in chat -->
+                    <div class="patient-chat-message">
+                      <span class="patient-chat-message-indicator" aria-hidden="true">
+                        <i class="fa-solid fa-sparkle"></i>
+                      </span>
+                      <p class="patient-chat-message-body">Good list. Now let's go through when you ate each thing. What time did you have your first meal or drink yesterday?</p>
+                    </div>
+
+                    <!-- patient: first anchor -->
+                    <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
+                      <p class="patient-chat-message-body">I had the oatmeal and juice around 7 in the morning, before I left.</p>
+                    </div>
+
+                    <!-- agent: acknowledges, moves to next — right region updates silently -->
+                    <div class="patient-chat-message">
+                      <span class="patient-chat-message-indicator" aria-hidden="true">
+                        <i class="fa-solid fa-sparkle"></i>
+                      </span>
+                      <p class="patient-chat-message-body">Got it — breakfast around 7 AM. What about coffee — did you have that with breakfast too?</p>
+                    </div>
+
+                    <!-- patient -->
+                    <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
+                      <p class="patient-chat-message-body">Yeah, right after. Same time, at home.</p>
+                    </div>
+
+                    <!-- agent: next item -->
+                    <div class="patient-chat-message">
+                      <span class="patient-chat-message-indicator" aria-hidden="true">
+                        <i class="fa-solid fa-sparkle"></i>
+                      </span>
+                      <p class="patient-chat-message-body">And the sandwich — around what time was that?</p>
+                    </div>
+
+                    <!-- patient -->
+                    <div class="patient-chat-message" style="flex-direction: row-reverse; text-align: right;">
+                      <p class="patient-chat-message-body">Lunch. Around 12:30, I think. At work.</p>
+                    </div>
+
+                    <!-- agent: next, catching up remaining items -->
+                    <div class="patient-chat-message">
+                      <span class="patient-chat-message-indicator" aria-hidden="true">
+                        <i class="fa-solid fa-sparkle"></i>
+                      </span>
+                      <p class="patient-chat-message-body">The crackers — was that before or after lunch?</p>
+                    </div>
+
+                    <!-- time-of-day chips — is-small context-probe -->
+                    <div class="chat-chip-row is-small" aria-label="When did you have the crackers?">
+                      <button type="button" class="chat-chip" data-action="set-time" data-item="crackers" data-value="morning">Morning</button>
+                      <button type="button" class="chat-chip" data-action="set-time" data-item="crackers" data-value="afternoon">Afternoon</button>
+                      <button type="button" class="chat-chip is-soft" data-action="set-time" data-item="crackers" data-value="unsure">Not sure</button>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="chat-input-area">
+                  <input type="text" placeholder="Type a time or place…" aria-label="Type a time or place" />
+                </div>
+              </section>
+
+              <!-- Food-list region (right / fluid) — pass 3, time/occasion populating -->
+              <aside aria-label="Your food list">
+                <div class="patient-recall-list">
+                  <div class="patient-recall-list-header">
+                    <span class="patient-recall-list-header-day">Yesterday — Thu, May 23</span>
+                    <span class="patient-recall-list-header-pass">Pass 3 of 5 — when did you eat?</span>
+                  </div>
+                  <div class="patient-recall-list-rows">
+                    <div class="patient-recall-list-row">
+                      <p class="patient-recall-list-row-name">Oatmeal</p>
+                      <span class="patient-recall-list-row-when">Breakfast · 7:00 AM</span>
+                      <span></span>
+                      <button type="button" class="patient-recall-list-row-trash" aria-label="Remove oatmeal"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="patient-recall-list-row">
+                      <p class="patient-recall-list-row-name">Juice</p>
+                      <span class="patient-recall-list-row-when">Breakfast · 7:00 AM</span>
+                      <span></span>
+                      <button type="button" class="patient-recall-list-row-trash" aria-label="Remove juice"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="patient-recall-list-row">
+                      <p class="patient-recall-list-row-name">Coffee</p>
+                      <span class="patient-recall-list-row-when">Breakfast · ~7:15 AM</span>
+                      <span></span>
+                      <button type="button" class="patient-recall-list-row-trash" aria-label="Remove coffee"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="patient-recall-list-row">
+                      <p class="patient-recall-list-row-name">Sandwich</p>
+                      <span class="patient-recall-list-row-when">Lunch · 12:30 PM · work</span>
+                      <span></span>
+                      <button type="button" class="patient-recall-list-row-trash" aria-label="Remove sandwich"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    </div>
+                    <!-- Crackers: time pending (agent just asked) — shown with placeholder -->
+                    <div class="patient-recall-list-row">
+                      <p class="patient-recall-list-row-name">Crackers</p>
+                      <span class="patient-recall-list-row-when" style="color: var(--color-sand-400); font-style: italic;">Filling in…</span>
+                      <span></span>
+                      <button type="button" class="patient-recall-list-row-trash" aria-label="Remove crackers"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="patient-recall-list-row">
+                      <p class="patient-recall-list-row-name">Rice and chicken</p>
+                      <span></span>
+                      <span></span>
+                      <button type="button" class="patient-recall-list-row-trash" aria-label="Remove rice and chicken"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                  <div class="patient-recall-list-footer">
+                    <button type="button" class="patient-recall-list-add">
+                      <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                      Add another item
+                    </button>
+                  </div>
+                </div>
+              </aside>
+
+            </div>
+          </div>
+
+        </main>
+
+      </div>
     </div>
   </div>
 

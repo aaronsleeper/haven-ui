@@ -8,97 +8,90 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="../assets/haven.css" />
-  <!-- Shell: layout-agentic-shell (chat-primary three-pane) — DESKTOP-ONLY.
-       Mobile: single-column chat; recall list accessible via "Tap to view your list" inline link.
-       The recall flow is chat-primary: the agent conducts the interview; the right pane holds
-       the running food list as the canonical record.
-       State: Entry — agent greeting + day selection chips.
-       Demo patient: Maria Rivera. -->
-  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
+  <!--
+    Wireframe: apps/patient/design/wireframes/recall-01-interview.md
+    Shell: app-shell (layout-app-shell-responsive). Nav SUPPRESSED — focused agent-led moment.
+    Header: quiet "Back to Home" (left) + persistent "Talk to a person" chip (right).
+    Layout: layout-two-pane / layout-two-pane-grid — conversation (420px left) + food-list (fluid right).
+    Mobile (<lg): single-column conversation; food-list stacked below.
+    State: Entry — agent greeting + day-select chips (Yesterday / A different day).
+    Demo patient: Maria Rivera.
+  -->
 </head>
 <body>
 
-  <div class="app-shell app-shell--agentic">
-    <div class="agentic-shell">
+  <div class="app-shell" data-recall-root>
+    <div class="app-shell-frame">
+      <div class="app-shell-main">
 
-      <!-- ── Left rail nav ── -->
-      <nav class="panel-nav" aria-label="Primary">
-        <div class="nav-header">
-          <div class="nav-logo">
-            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+        <!-- Focused-session header: back affordance + handoff trigger -->
+        <div class="app-shell-content" style="padding-bottom: 0;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--color-sand-200);">
+            <a href="../home/home.caught-up.html" class="btn btn-ghost btn-sm" data-action="go-home">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+              Back to home
+            </a>
+            <button type="button" class="chat-handoff-trigger is-header">
+              <i class="fa-solid fa-headset" aria-hidden="true"></i>
+              Talk to a person
+            </button>
           </div>
         </div>
-        <div class="nav-section">
-          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
-          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span>Health check</span></a>
-          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Meals</span></a>
-          <a href="#" class="nav-item"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i><span>Care</span></a>
-          <a href="#" class="nav-item"><i class="fa-regular fa-message" aria-hidden="true"></i><span>Messages</span></a>
-        </div>
-        <div class="nav-section nav-section--pinned-bottom">
-          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
-          <div class="nav-item">
-            <div class="nav-avatar">MR</div>
-            <span>Maria Rivera</span>
-          </div>
-        </div>
-      </nav>
 
-      <div class="panel-splitter" aria-hidden="true"></div>
+        <main class="app-shell-content p-6 lg:p-10" aria-label="Dietary recall">
 
-      <!-- ── Center: chat thread ── -->
-      <main class="panel-chat" aria-label="Dietary recall assistant">
-        <div class="chat-thread">
-          <div class="chat-thread-inner">
+          <div class="layout-two-pane">
+            <div class="layout-two-pane-grid">
 
-            <!-- Persistent "talk to a person" — always-reachable during recall -->
-            <div class="chat-handoff-trigger is-header" style="margin-bottom: 1rem;">
-              <button type="button" class="chat-handoff-trigger is-header">
-                <i class="fa-solid fa-headset" aria-hidden="true"></i>
-                Talk to a person
-              </button>
+              <!-- Conversation region (left / 420px) -->
+              <section aria-label="Dietary recall conversation">
+                <div class="chat-thread">
+                  <div class="chat-thread-inner">
+
+                    <!-- agent.entry — greeting + day selection -->
+                    <div class="patient-chat-message">
+                      <span class="patient-chat-message-indicator" aria-hidden="true">
+                        <i class="fa-solid fa-sparkle"></i>
+                      </span>
+                      <div>
+                        <p class="patient-chat-message-body">Hi Maria! Time for your dietary check-in. I'll walk you through what you ate — we go through it a few times to catch everything. It takes about 10–15 minutes.</p>
+                        <p class="patient-chat-message-body mt-2">Which day do you want to talk about?</p>
+                      </div>
+                    </div>
+
+                    <!-- Day-selection chips — ephemeral, removed on tap -->
+                    <div class="chat-chip-row" aria-label="Pick a day">
+                      <button type="button" class="chat-chip" data-action="select-day" data-value="yesterday">Yesterday</button>
+                      <button type="button" class="chat-chip is-soft" data-action="select-day" data-value="different">A different day</button>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="chat-input-area">
+                  <input type="text" placeholder="Type a message…" aria-label="Type a message to your care assistant" />
+                </div>
+              </section>
+
+              <!-- Food-list region (right / fluid) — empty on entry -->
+              <aside aria-label="Your food list">
+                <div class="patient-recall-list">
+                  <div class="patient-recall-list-header">
+                    <span class="patient-recall-list-header-day">Pick a day to begin</span>
+                    <span class="patient-recall-list-header-pass">Waiting to start</span>
+                  </div>
+                  <div class="patient-recall-list-rows">
+                    <!-- Empty — populated after day selection in Pass 1 -->
+                  </div>
+                </div>
+                <!-- No footer add-button until the interview starts -->
+              </aside>
+
             </div>
-
-            <!-- agent.entry — greeting + day selection -->
-            <div class="patient-chat-message">
-              <span class="patient-chat-message-indicator" aria-hidden="true">
-                <i class="fa-solid fa-sparkle"></i>
-              </span>
-              <div>
-                <p class="patient-chat-message-body">Hi Maria! Time for your dietary check-in. I'll walk you through what you ate — we go through it a few times to catch everything. It takes about 10–15 minutes.</p>
-                <p class="patient-chat-message-body mt-2">Which day do you want to talk about?</p>
-              </div>
-            </div>
-
-            <!-- Day-selection chips — ephemeral, removed on tap -->
-            <div class="chat-chip-row" aria-label="Pick a day">
-              <button type="button" class="chat-chip" data-action="select-day" data-value="yesterday">Yesterday</button>
-              <button type="button" class="chat-chip is-soft" data-action="select-day" data-value="different">A different day</button>
-            </div>
-
           </div>
-        </div>
-        <div class="chat-input-area">
-          <input type="text" placeholder="Type a message…" aria-label="Type a message to your care assistant" />
-        </div>
-      </main>
 
-      <div class="panel-splitter" aria-hidden="true"></div>
+        </main>
 
-      <!-- ── Right pane: empty recall list — day not yet selected ── -->
-      <aside class="panel-content" aria-label="Your food list">
-        <div class="patient-recall-list">
-          <div class="patient-recall-list-header">
-            <span class="patient-recall-list-header-day">Pick a day to begin</span>
-            <span class="patient-recall-list-header-pass">Waiting to start</span>
-          </div>
-          <div class="patient-recall-list-rows">
-            <!-- Empty — populated after day selection in Pass 1 -->
-          </div>
-        </div>
-        <!-- No footer add-button until the interview starts -->
-      </aside>
-
+      </div>
     </div>
   </div>
 

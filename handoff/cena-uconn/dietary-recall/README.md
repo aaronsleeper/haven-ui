@@ -4,13 +4,19 @@
 
 ## Shell decision
 
-**Shell: `layout-agentic-shell` (3-pane, chat-primary) — DESKTOP-ONLY at this slice.**
+**Shell: `app-shell` (patient responsive shell, nav SUPPRESSED) — per `apps/patient/design/wireframes/recall-01-interview.md`.**
 
-Rationale: unlike the assessments slice (deterministic multi-step form — see `assessments/SHELL-DECISION.md`), the dietary recall is genuinely chat-primary. The agent conducts the interview in open-ended conversation across 5 passes. The right pane is an artifact that the agent opens and populates progressively — exactly the agentic-shell's intended use case (chat in center, agent-opened artifact in right pane). The assessments panel verdict ("chat is silent, use responsive shell") inverts here: chat is the primary surface for the entire flow.
+Rationale: the dietary recall is a patient surface, not a coordinator console. The canonical wireframe (`recall-01-interview.md`, authored 2026-05-24) pins `app-shell` with nav suppressed — a focused agent-led moment analogous to the assessment runner. The prior `agentic-shell` (3-pane care-coordinator shell) was a pre-pivot description in `flow-dietary-recall.md §"Shell context"` and is superseded by the shell model (`surface-primary-shell-model.md`).
 
-Mobile: single-column chat. The recall list is reachable via an inline "Tap to view your list" link or agent prompt; it opens as a full-screen view (not a bottom sheet — NO `overlay-bottom-sheet`/`hs-*` Preline primitives). Mobile sheet behavior is a deferred fast-follow per the meals slice pattern. The current static exemplars are desktop.
+**Nav:** suppressed entirely. No 3-tab mobile bar, no 5-item sidebar rail. The shell renders content-only with a slim persistent header: a quiet "Back to Home" affordance (left) + a `chat-handoff-trigger.is-header` "Talk to a person" (right). The recall is a sensitive, focused moment — the handoff trigger stays close.
 
-Cross-slice note: assessments uses `layout-app-shell-responsive` (deterministic, single content area); dietary recall uses `layout-agentic-shell` (chat-primary, right-pane artifact). Same sidebar nav-item family in both, so the sidebar chrome reads continuous.
+**Layout (two-region):**
+- Desktop (≥lg): `layout-two-pane` + `layout-two-pane-grid` — conversation (420px left column) as the chat region + food-list (`patient-recall-list`) as the fluid right region. First grid child = conversation; second = food-list.
+- Mobile (<lg): single-column `layout-two-pane-grid` — conversation is the viewport; food-list renders as a stacked section below. No Preline overlay / `hs-*` / `overlay-bottom-sheet`.
+
+**Removed from all 6 files:** `app-shell--agentic`, `agentic-shell`, `panel-nav`, `panel-chat`, `panel-content`, `panel-splitter`, the 5-item nav (Home/Health check/Meals/Care/Messages), `chat-thread`/`chat-thread-inner` are retained as chat scaffolding inside the conversation section (they are not agentic-shell-specific; they are the conversation region's own structure), `chat-input-area` retained likewise.
+
+**Canonical authority:** `apps/patient/design/wireframes/recall-01-interview.md` § Shell + nav and § Layout. The former `flow-dietary-recall.md §"Shell context"` section is stale (superseded by shell-model); the interaction sections of that flow doc remain canonical for pass logic and copy.
 
 ## States
 
@@ -32,8 +38,10 @@ Pass 2 (forgotten foods) is not a separate static page — it uses the same mark
 All classes confirmed present in `../assets/haven.css` before use.
 
 **Shell:**
-- `.app-shell`, `.app-shell--agentic`, `.agentic-shell`, `.panel-nav`, `.panel-splitter`, `.panel-chat`, `.panel-content`
-- `.nav-header`, `.nav-logo`, `.nav-section`, `.nav-section--pinned-bottom`, `.nav-item`, `.nav-avatar`
+- `.app-shell`, `.app-shell-frame`, `.app-shell-main`, `.app-shell-content`
+- `.layout-two-pane`, `.layout-two-pane-grid`
+- `.chat-handoff-trigger.is-header` (persistent header chip — right side)
+- `.btn.btn-ghost.btn-sm` (Back to home — left side)
 
 **Agent messages:**
 - `.patient-chat-message`, `.patient-chat-message-indicator`, `.patient-chat-message-body`
