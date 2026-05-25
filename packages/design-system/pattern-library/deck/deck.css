@@ -164,15 +164,15 @@ body.deck-body {
   color: var(--color-text-primary);
 }
 
-.deck-card--ochre   { background: var(--color-ochre-900); }
-.deck-card--rose    { background: var(--color-rose-900); }
-.deck-card--violet  { background: var(--color-violet-900); }
-.deck-card--indigo  { background: var(--color-indigo-900); }
-.deck-card--sage    { background: var(--color-sage-900); }
+.deck-card--ochre   { background: var(--color-amber-100); }  /* v2: ochre dropped → amber tan tint */
+.deck-card--rose    { background: var(--color-rose-100); }
+.deck-card--violet  { background: var(--color-violet-100); }
+.deck-card--indigo  { background: var(--color-indigo-100); }
+.deck-card--sage    { background: var(--color-sage-100); }
 .deck-card--teal    { background: var(--color-surface-teal); }
 .deck-card--neutral { background: var(--color-surface-secondary); }
 
-/* Climax card (B.3.6) — teal-400 fill + warm-950 text ≈ 6.1:1 AA. */
+/* Climax card (B.3.6) — v2 teal-700 fill + sand-50 text ≈ 8.96:1 (AA+AAA). */
 .deck-card--climax {
   background: var(--color-primary);
   color: var(--color-on-primary);
@@ -202,7 +202,7 @@ body.deck-body {
   font-family: var(--font-body);
   font-size: 1.3cqw;
   line-height: var(--leading-body-sm);
-  color: color-mix(in srgb, var(--color-text-primary) 90%, var(--color-warm-400));
+  color: color-mix(in srgb, var(--color-text-primary) 90%, var(--color-sand-600));
 }
 .deck-card__eyebrow {
   font-family: var(--font-body);
