@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Onboarding — Consent · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Onboarding — Step 2 of 3: Consent (onb-02)
+    Spec: apps/patient/design/wireframes/onb-02-consent.md
+    Shell: .mobile-shell. Bottom-nav SUPPRESSED. Back chevron present (to onb-01).
+    State shown: Stage A — HIPAA Authorization (first of three consent stages).
+    Other stages: B = Program Participation, C = Voice Call Preferences.
+    CAP-12 gate: tapping "I agree" records a timestamped acknowledgment event on the
+    patient record. This is NOT an e-signature; Athena holds the binding consent.
+    No pre-checked boxes. Each stage requires explicit patient action.
+    Primitives: .mobile-shell, .onb-progress, .page-title, .consent-doc-viewer,
+                .btn-primary, .btn-block, .pb-safe-4, .alert-error
+    Accordion: native <details>/<summary> — NO Preline hs-accordion.
+  -->
+
+  <div class="mobile-shell">
+
+    <!-- i18n bar -->
+    <div class="mobile-i18n-bar">
+      <button type="button" class="mobile-i18n-toggle" aria-checked="true" role="switch" aria-label="English">EN</button>
+      <button type="button" class="mobile-i18n-toggle" aria-checked="false" role="switch" aria-label="Español">ES</button>
+    </div>
+
+    <main aria-label="Onboarding — consent" class="p-4 pt-16 pb-36">
+
+      <!-- Back chevron (absent on Stage A; uncomment for Stage B/C) -->
+      <!--
+      <button type="button" class="btn-ghost btn-sm -ml-1 mb-2" aria-label="Go back">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        <span class="sr-only">Go back</span>
+      </button>
+      -->
+
+      <!-- Progress indicator -->
+      <p class="onb-progress" aria-label="Step 2 of 3">
+        <span data-i18n-en="Step" data-i18n-es="Paso">Step</span>
+        2
+        <span data-i18n-en="of" data-i18n-es="de">of</span>
+        3
+      </p>
+
+      <!-- Stage indicator -->
+      <p class="text-xs uppercase tracking-wider text-sand-500 text-center mt-1"
+         data-i18n-en="HIPAA Authorization"
+         data-i18n-es="Autorización HIPAA">
+        HIPAA Authorization
+      </p>
+
+      <!-- Stage headline + summary -->
+      <div class="page-header mt-3">
+        <h1 class="page-title" tabindex="-1"
+            data-i18n-en="Your health information"
+            data-i18n-es="Su información de salud">
+          Your health information
+        </h1>
+        <p class="text-sm text-sand-700 mt-2"
+           data-i18n-en="We will share your health information with your care team to help you eat well, feel better, and stay healthy. Your information is private."
+           data-i18n-es="Compartiremos su información de salud con su equipo de cuidado para ayudarle a comer bien, sentirse mejor y mantenerse saludable. Su información es privada.">
+          We will share your health information with your care team to help you eat well, feel better, and stay healthy. Your information is private.
+        </p>
+      </div>
+
+      <!-- Consent doc viewer -->
+      <div class="consent-doc-viewer mt-6">
+        <div class="consent-doc-viewer-header">
+          <i class="fa-solid fa-file-lines text-sand-500" aria-hidden="true"></i>
+          <p class="consent-doc-viewer-title"
+             data-i18n-en="HIPAA Authorization — summary"
+             data-i18n-es="Autorización HIPAA — resumen">
+            HIPAA Authorization — summary
+          </p>
+        </div>
+        <div class="consent-doc-viewer-scroll">
+          <p>By joining the UConn Health nutrition program, you allow your care team to use and share certain health information — including your meals, dietary preferences, and check-in notes — to support your care.</p>
+          <p class="mt-3">Your information is shared only with the people on your care team and the kitchen partner who prepares your meals. It is protected under HIPAA and Connecticut state privacy law.</p>
+          <p class="mt-3">You can change your mind at any time by talking to your care coordinator. Leaving the program does not affect your other medical care or benefits.</p>
+        </div>
+        <div class="consent-doc-viewer-actions">
+          <!-- View full text: native details/summary, no Preline -->
+          <details class="w-full">
+            <summary class="btn-secondary btn-sm cursor-pointer list-none flex items-center gap-2"
+                     data-i18n-en="Read the full text"
+                     data-i18n-es="Leer el texto completo">
+              <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+              Read the full text
+              <i class="fa-solid fa-chevron-down text-xs ml-auto" aria-hidden="true"></i>
+            </summary>
+            <div class="mt-3 text-xs text-sand-600 space-y-2 max-h-48 overflow-y-auto px-1">
+              <p><strong>Authorization to Use and Disclose Health Information</strong></p>
+              <p>I authorize UConn Health and its food-as-medicine program partners ("Program") to use and disclose my protected health information as described below.</p>
+              <p><strong>What information may be used:</strong> Dietary intake records, food preferences, self-reported health measurements (weight, blood pressure, A1C), program-related notes, and appointment history related to the nutrition program.</p>
+              <p><strong>Who may receive this information:</strong> My assigned registered dietitian nutritionist, my care coordinator, the kitchen partner preparing my meals, and UConn Health program staff.</p>
+              <p><strong>Purpose:</strong> To coordinate my nutrition care, prepare appropriate meals, and monitor my progress in the program.</p>
+              <p><strong>Expiration:</strong> This authorization remains in effect until I withdraw it or leave the program.</p>
+              <p><strong>Right to revoke:</strong> I may revoke this authorization in writing at any time. Revocation does not affect disclosures already made in good faith before my written revocation is received.</p>
+              <p><strong>Consequences of not signing:</strong> I understand that refusing to sign this authorization means I cannot participate in the meal-delivery program. My other medical care at UConn Health is not affected.</p>
+              <p class="text-sand-500 italic">A copy of this authorization is available on request from your care coordinator.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- Explicit agreement — no pre-checked box -->
+      <div class="card mt-4">
+        <div class="card-body">
+          <p class="text-sm text-sand-700 font-medium mb-3"
+             data-i18n-en="Do you agree to this authorization?"
+             data-i18n-es="¿Está de acuerdo con esta autorización?">
+            Do you agree to this authorization?
+          </p>
+          <fieldset class="border-none p-0 m-0">
+            <legend class="sr-only">Consent choice</legend>
+            <label class="radio-label mb-2">
+              <input type="radio" name="hipaa-consent" value="agree" />
+              <span data-i18n-en="Yes, I agree" data-i18n-es="Sí, acepto">Yes, I agree</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="hipaa-consent" value="decline" />
+              <span data-i18n-en="No, I do not agree at this time" data-i18n-es="No, no acepto en este momento">No, I do not agree at this time</span>
+            </label>
+          </fieldset>
+          <p class="text-xs text-sand-500 mt-3"
+             data-i18n-en="If you have questions, call us or talk to your care coordinator before continuing."
+             data-i18n-es="Si tiene preguntas, llámenos o hable con su coordinadora antes de continuar.">
+            If you have questions, call us or talk to your care coordinator before continuing.
+          </p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Sticky footer -->
+    <div class="sticky bottom-0 left-0 right-0 bg-sand-50 border-t border-sand-100 p-4 pb-safe-4 space-y-3">
+
+      <!-- Submit error (hidden by default) -->
+      <div class="alert-error" role="alert" hidden>
+        <span data-i18n-en="We couldn't record your consent. Please try again."
+              data-i18n-es="No pudimos registrar su consentimiento. Por favor intente de nuevo.">
+          We couldn't record your consent. Please try again.
+        </span>
+      </div>
+
+      <button
+        type="button"
+        class="btn-primary btn-block"
+        aria-label="I agree to HIPAA Authorization"
+        aria-disabled="true"
+        data-i18n-en="I agree"
+        data-i18n-es="Acepto"
+      >
+        I agree
+      </button>
+
+      <p class="text-xs text-sand-500 text-center"
+         data-i18n-en="By tapping 'I agree', you confirm you have read and understood the above."
+         data-i18n-es="Al tocar 'Acepto', confirma que ha leído y entendido lo anterior.">
+        By tapping 'I agree', you confirm you have read and understood the above.
+      </p>
+
+      <!-- Quiet persistent "Talk to a person" — always reachable during onboarding -->
+      <p class="text-xs text-center">
+        <a href="#" class="text-primary-600 underline"
+           data-i18n-en="Talk to a person"
+           data-i18n-es="Hablar con una persona">
+          Talk to a person
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+</body>
+</html>

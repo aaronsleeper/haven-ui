@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Onboarding — You're all set · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Onboarding — Transition / "You're all set" (onb-04)
+    Spec: flow-onboarding.md Step 6 + wireframe design intent for settled-state transition.
+    Shell: .mobile-shell. Bottom-nav SUPPRESSED (appears only after entering Home).
+    This page is the bridge: onboarding complete → first entry into Home.
+    Demo patient: Maria Rivera.
+    Primitives: .mobile-shell, .page-title, .onboarding-orientation-card,
+                .week-rhythm-card, .btn-primary, .btn-block, .pb-safe-4
+    No onb-progress indicator on this page — onboarding is complete.
+  -->
+
+  <div class="mobile-shell">
+
+    <!-- i18n bar -->
+    <div class="mobile-i18n-bar">
+      <button type="button" class="mobile-i18n-toggle" aria-checked="true" role="switch" aria-label="English">EN</button>
+      <button type="button" class="mobile-i18n-toggle" aria-checked="false" role="switch" aria-label="Español">ES</button>
+    </div>
+
+    <main aria-label="Onboarding complete" class="p-4 pt-16 pb-36 space-y-6">
+
+      <!-- Cena logo — small, quiet, not the hero -->
+      <div class="flex justify-center pt-4">
+        <img src="../assets/logo-cena.svg" alt="Cena Health" class="h-8" />
+      </div>
+
+      <!-- Settled confirmation — warm, personal, no celebration -->
+      <div class="text-center space-y-2 pt-2">
+        <h1 class="page-title"
+            data-i18n-en="You're all set, Maria."
+            data-i18n-es="Todo listo, Maria.">
+          You're all set, Maria.
+        </h1>
+        <p class="text-sm text-sand-600"
+           data-i18n-en="Here's what your program looks like."
+           data-i18n-es="Así es como se ve su programa.">
+          Here's what your program looks like.
+        </p>
+      </div>
+
+      <!-- What to expect — orientation card -->
+      <div class="onboarding-orientation-card">
+        <div class="onboarding-orientation-card-body">
+          <p class="onboarding-orientation-card-title"
+             data-i18n-en="Here's what to expect each week."
+             data-i18n-es="Esto es lo que puede esperar cada semana.">
+            Here's what to expect each week.
+          </p>
+          <div class="onboarding-orientation-card-grid">
+            <div class="onboarding-orientation-card-cell">
+              <span class="onboarding-orientation-card-icon" aria-hidden="true">
+                <i class="fa-solid fa-utensils"></i>
+              </span>
+              <p class="onboarding-orientation-card-label"
+                 data-i18n-en="Meals delivered or picked up"
+                 data-i18n-es="Comidas entregadas o para recoger">
+                Meals delivered or picked up
+              </p>
+            </div>
+            <div class="onboarding-orientation-card-cell">
+              <span class="onboarding-orientation-card-icon" aria-hidden="true">
+                <i class="fa-solid fa-calendar-check"></i>
+              </span>
+              <p class="onboarding-orientation-card-label"
+                 data-i18n-en="Appointments with your dietitian"
+                 data-i18n-es="Citas con su dietista">
+                Appointments with your dietitian
+              </p>
+            </div>
+            <div class="onboarding-orientation-card-cell">
+              <span class="onboarding-orientation-card-icon" aria-hidden="true">
+                <i class="fa-solid fa-comments"></i>
+              </span>
+              <p class="onboarding-orientation-card-label"
+                 data-i18n-en="Check-ins from your care team"
+                 data-i18n-es="Revisiones de su equipo de cuidado">
+                Check-ins from your care team
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Your week rhythm -->
+      <div class="week-rhythm-card">
+        <div class="week-rhythm-card-body">
+          <div class="week-rhythm-card-row">
+            <span class="week-rhythm-card-icon" aria-hidden="true">
+              <i class="fa-solid fa-utensils"></i>
+            </span>
+            <div class="week-rhythm-card-meta">
+              <p class="week-rhythm-card-label"
+                 data-i18n-en="Meal ordering window"
+                 data-i18n-es="Ventana para pedir comidas">
+                Meal ordering window
+              </p>
+              <p class="week-rhythm-card-detail"
+                 data-i18n-en="Each Sunday by 6 PM for the upcoming week."
+                 data-i18n-es="Cada domingo antes de las 6 PM para la semana siguiente.">
+                Each Sunday by 6 PM for the upcoming week.
+              </p>
+            </div>
+          </div>
+          <div class="week-rhythm-card-row">
+            <span class="week-rhythm-card-icon" aria-hidden="true">
+              <i class="fa-solid fa-comments"></i>
+            </span>
+            <div class="week-rhythm-card-meta">
+              <p class="week-rhythm-card-label"
+                 data-i18n-en="Care-coordinator check-in"
+                 data-i18n-es="Revisión con su coordinadora">
+                Care-coordinator check-in
+              </p>
+              <p class="week-rhythm-card-detail"
+                 data-i18n-en="Every 2 weeks — a quick check to see how you're doing."
+                 data-i18n-es="Cada 2 semanas — una revisión rápida de cómo está.">
+                Every 2 weeks — a quick check to see how you're doing.
+              </p>
+            </div>
+          </div>
+          <div class="week-rhythm-card-row">
+            <span class="week-rhythm-card-icon" aria-hidden="true">
+              <i class="fa-solid fa-clipboard-question"></i>
+            </span>
+            <div class="week-rhythm-card-meta">
+              <p class="week-rhythm-card-label"
+                 data-i18n-en="Occasional surveys"
+                 data-i18n-es="Encuestas ocasionales">
+                Occasional surveys
+              </p>
+              <p class="week-rhythm-card-detail"
+                 data-i18n-en="Brief check-ins from your care team — usually under 2 minutes."
+                 data-i18n-es="Revisiones breves de su equipo — generalmente menos de 2 minutos.">
+                Brief check-ins from your care team — usually under 2 minutes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent framing: when your first menu is ready -->
+      <div class="card">
+        <div class="card-body">
+          <p class="text-sm text-sand-700"
+             data-i18n-en="When your first menu is ready, you'll get a notification here. Your care team will be in touch soon."
+             data-i18n-es="Cuando su primer menú esté listo, recibirá una notificación aquí. Su equipo de cuidado se comunicará con usted pronto.">
+            When your first menu is ready, you'll get a notification here. Your care team will be in touch soon.
+          </p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Sticky footer: Go to Home — bottom-nav appears after this tap in the live app -->
+    <div class="sticky bottom-0 left-0 right-0 bg-sand-50 border-t border-sand-100 p-4 pb-safe-4 space-y-3">
+
+      <button
+        type="button"
+        class="btn-primary btn-block"
+        data-i18n-en="Go to my home screen"
+        data-i18n-es="Ir a mi pantalla de inicio"
+      >
+        Go to my home screen
+      </button>
+
+      <!-- Quiet persistent "Talk to a person" -->
+      <p class="text-xs text-center">
+        <a href="#" class="text-primary-600 underline"
+           data-i18n-en="Talk to a person"
+           data-i18n-es="Hablar con una persona">
+          Talk to a person
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+</body>
+</html>

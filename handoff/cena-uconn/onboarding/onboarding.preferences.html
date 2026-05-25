@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Onboarding — Preferences · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Onboarding — Step 3 of 3: Preferences (onb-03)
+    Spec: apps/patient/design/wireframes/onb-03-preferences.md
+    Shell: .mobile-shell. Bottom-nav SUPPRESSED. Back chevron present (to onb-02).
+    State: Empty / initial (all unselected). Skipping is allowed — defaults apply.
+    Food category images: SKIPPED at v1 (2026-05-13 decision). Icons only.
+    Checkbox cards: composed inline with .radio-label + checkbox input per haven-ui
+    carve-out (.checkbox-card deferred until second consumer). See wireframe §section 2.
+    Primitives: .mobile-shell, .onb-progress, .page-title, .divider, .grid-2,
+                .radio-label, .btn-primary, .btn-block, .pb-safe-4, .alert-error
+  -->
+
+  <div class="mobile-shell">
+
+    <!-- i18n bar -->
+    <div class="mobile-i18n-bar">
+      <button type="button" class="mobile-i18n-toggle" aria-checked="true" role="switch" aria-label="English">EN</button>
+      <button type="button" class="mobile-i18n-toggle" aria-checked="false" role="switch" aria-label="Español">ES</button>
+    </div>
+
+    <main aria-label="Onboarding — preferences" class="p-4 pt-16 pb-36 space-y-6">
+
+      <!-- Back chevron -->
+      <button type="button" class="btn-ghost btn-sm -ml-1" aria-label="Go back">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        <span class="sr-only">Go back</span>
+      </button>
+
+      <!-- Progress indicator -->
+      <p class="onb-progress" aria-label="Step 3 of 3">
+        <span data-i18n-en="Step" data-i18n-es="Paso">Step</span>
+        3
+        <span data-i18n-en="of" data-i18n-es="de">of</span>
+        3
+      </p>
+
+      <!-- Header -->
+      <div class="page-header">
+        <h1 class="page-title" tabindex="-1"
+            data-i18n-en="Let's personalize your experience"
+            data-i18n-es="Personalicemos su experiencia">
+          Let's personalize your experience
+        </h1>
+        <p class="text-sm text-sand-600 mt-2"
+           data-i18n-en="You can always update these later."
+           data-i18n-es="Siempre puede actualizarlos después.">
+          You can always update these later.
+        </p>
+      </div>
+
+      <!-- Section 1: Language -->
+      <fieldset>
+        <legend data-i18n-en="Your preferred language" data-i18n-es="Su idioma preferido">
+          Your preferred language
+        </legend>
+        <div class="grid-2">
+          <label class="radio-label">
+            <input type="radio" name="language" value="en" />
+            <span>English</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="language" value="es" />
+            <span>Español</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="divider"></div>
+
+      <!-- Section 2: Cultural food preferences (icons only, no photos at v1) -->
+      <fieldset>
+        <legend data-i18n-en="What kind of food feels like home?" data-i18n-es="¿Qué tipo de comida le hace sentir en casa?">
+          What kind of food feels like home?
+        </legend>
+        <p class="text-xs text-sand-500 -mt-1 mb-3"
+           data-i18n-en="We'll use this to personalize your meals. You can pick more than one."
+           data-i18n-es="Usaremos esto para personalizar sus comidas. Puede elegir más de una.">
+          We'll use this to personalize your meals. You can pick more than one.
+        </p>
+        <!-- Checkbox cards composed inline with .radio-label + checkbox input
+             (.checkbox-card deferred — carve-out per haven-ui CLAUDE.md) -->
+        <div class="grid-2">
+
+          <label class="radio-label flex-col text-center py-4">
+            <input type="checkbox" name="food-pref" value="latin-american" class="sr-only" />
+            <i class="fa-solid fa-pepper-hot text-2xl text-sand-500 mb-2" aria-hidden="true"></i>
+            <span class="ml-0! text-center block"
+                  data-i18n-en="Latin American" data-i18n-es="Latinoamericana">
+              Latin American
+            </span>
+          </label>
+
+          <label class="radio-label flex-col text-center py-4">
+            <input type="checkbox" name="food-pref" value="soul-food" class="sr-only" />
+            <i class="fa-solid fa-drumstick-bite text-2xl text-sand-500 mb-2" aria-hidden="true"></i>
+            <span class="ml-0! text-center block"
+                  data-i18n-en="Soul Food" data-i18n-es="Comida del sur">
+              Soul Food
+            </span>
+          </label>
+
+          <label class="radio-label flex-col text-center py-4">
+            <input type="checkbox" name="food-pref" value="mediterranean" class="sr-only" />
+            <i class="fa-solid fa-leaf text-2xl text-sand-500 mb-2" aria-hidden="true"></i>
+            <span class="ml-0! text-center block"
+                  data-i18n-en="Mediterranean" data-i18n-es="Mediterránea">
+              Mediterranean
+            </span>
+          </label>
+
+          <label class="radio-label flex-col text-center py-4">
+            <input type="checkbox" name="food-pref" value="asian" class="sr-only" />
+            <i class="fa-solid fa-bowl-food text-2xl text-sand-500 mb-2" aria-hidden="true"></i>
+            <span class="ml-0! text-center block"
+                  data-i18n-en="Asian" data-i18n-es="Asiática">
+              Asian
+            </span>
+          </label>
+
+          <!-- "No preference" deselects all others when tapped -->
+          <label class="radio-label flex-col text-center py-4 col-span-2">
+            <input type="checkbox" name="food-pref" value="no-preference" class="sr-only" data-exclusive="true" />
+            <i class="fa-solid fa-check-double text-2xl text-sand-500 mb-2" aria-hidden="true"></i>
+            <span class="ml-0! text-center block"
+                  data-i18n-en="No preference" data-i18n-es="Sin preferencia">
+              No preference
+            </span>
+          </label>
+
+        </div>
+      </fieldset>
+
+      <div class="divider"></div>
+
+      <!-- Section 3: Communication preferences -->
+      <fieldset>
+        <legend data-i18n-en="How we reach you" data-i18n-es="Cómo le contactamos">
+          How we reach you
+        </legend>
+
+        <!-- 3a: Contact method (single-select) -->
+        <p class="text-xs text-sand-500 mb-2"
+           data-i18n-en="Preferred contact method"
+           data-i18n-es="Método de contacto preferido">
+          Preferred contact method
+        </p>
+        <div class="space-y-2">
+          <label class="radio-label">
+            <input type="radio" name="contact-method" value="phone" />
+            <i class="fa-solid fa-phone text-sand-400 ml-1 mr-2" aria-hidden="true"></i>
+            <span data-i18n-en="Phone call" data-i18n-es="Llamada">Phone call</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="contact-method" value="sms" />
+            <i class="fa-solid fa-comment-sms text-sand-400 ml-1 mr-2" aria-hidden="true"></i>
+            <span data-i18n-en="Text message" data-i18n-es="Mensaje de texto">Text message</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="contact-method" value="app-only" />
+            <i class="fa-regular fa-bell text-sand-400 ml-1 mr-2" aria-hidden="true"></i>
+            <span data-i18n-en="App only" data-i18n-es="Solo la app">App only</span>
+          </label>
+        </div>
+
+        <!-- 3b: Best times (multi-select) -->
+        <p class="text-xs text-sand-500 mt-4 mb-2"
+           data-i18n-en="Best times to reach you"
+           data-i18n-es="Mejores horarios para contactarle">
+          Best times to reach you
+        </p>
+        <div class="space-y-2">
+          <label class="radio-label">
+            <input type="checkbox" name="contact-time" value="morning" />
+            <span data-i18n-en="Morning (8am–12pm)" data-i18n-es="Mañana (8am–12pm)">Morning (8am–12pm)</span>
+          </label>
+          <label class="radio-label">
+            <input type="checkbox" name="contact-time" value="afternoon" />
+            <span data-i18n-en="Afternoon (12pm–5pm)" data-i18n-es="Tarde (12pm–5pm)">Afternoon (12pm–5pm)</span>
+          </label>
+          <label class="radio-label">
+            <input type="checkbox" name="contact-time" value="evening" />
+            <span data-i18n-en="Evening (5pm–8pm)" data-i18n-es="Noche (5pm–8pm)">Evening (5pm–8pm)</span>
+          </label>
+        </div>
+
+      </fieldset>
+
+    </main>
+
+    <!-- Sticky footer -->
+    <div class="sticky bottom-0 left-0 right-0 bg-sand-50 border-t border-sand-100 p-4 pb-safe-4 space-y-3">
+
+      <!-- Submit error (hidden by default) -->
+      <div class="alert-error" role="alert" hidden>
+        <span data-i18n-en="We couldn't save your preferences. Try again?"
+              data-i18n-es="No pudimos guardar sus preferencias. ¿Intentar de nuevo?">
+          We couldn't save your preferences. Try again?
+        </span>
+        <button type="button" class="btn-ghost btn-sm ml-auto underline"
+                data-i18n-en="Skip for now"
+                data-i18n-es="Saltar por ahora">
+          Skip for now
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="btn-primary btn-block"
+        data-i18n-en="All done"
+        data-i18n-es="Listo"
+      >
+        All done
+      </button>
+
+      <p class="text-xs text-sand-500 text-center"
+         data-i18n-en="Skipping is okay — we'll use defaults and you can update anytime."
+         data-i18n-es="Está bien saltar — usaremos predeterminados y puede actualizar cuando quiera.">
+        Skipping is okay — we'll use defaults and you can update anytime.
+      </p>
+
+    </div>
+
+  </div>
+</body>
+</html>
