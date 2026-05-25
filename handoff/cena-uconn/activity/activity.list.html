@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activity · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Activity (IA v1 — surface-primary). State: list with items pending.
+    Spec: workflows/cena-uconn-patient-app/slots/_app/surface-shell-model.md §Activity row.
+    Shell: layout-app-shell-responsive (sidebar desktop · bottom-nav mobile). Nav = IA-v1 3 tabs: Home · Order · Activity.
+    Activity is the patient's inbox / notifications list that routes into source surfaces (caps 22 + 11).
+    Rows: icon + title + description + optional relative-time + trailing chevron. No counts, no unread badges.
+    Demo patient: Maria Rivera. Population: HIV+/food-insecure, low-tech-literacy, sensitive.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="../home/home.caught-up.html" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="../order/order.browse.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="../activity/activity.list.html" class="nav-item active" aria-current="page"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item" title="Talk to a person — not built in this preview"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Activity">
+
+          <!-- Page heading -->
+          <div class="page-header">
+            <h1 class="page-title">Activity</h1>
+          </div>
+
+          <!-- Notifications list — each row routes to its source surface -->
+          <div class="list-group" role="list">
+
+            <!-- Row 1: Order confirmed -->
+            <a href="../order-status/order-status.confirmed.html" class="list-group-item list-group-item-action" role="listitem">
+              <span class="list-group-item-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Your order was confirmed</p>
+                <p class="list-group-item-description">The kitchen has your meals for this week.</p>
+                <p class="text-xs text-sand-500 mt-0.5">Yesterday</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+
+            <!-- Row 2: Message from care team -->
+            <a href="#" class="list-group-item list-group-item-action" role="listitem" title="Care team message — not built in this preview">
+              <span class="list-group-item-icon"><i class="fa-regular fa-comment" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">A message from your care team</p>
+                <p class="list-group-item-description">Your dietitian left you a note.</p>
+                <p class="text-xs text-sand-500 mt-0.5">Tuesday</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+
+            <!-- Row 3: Survey / quick questions -->
+            <a href="../satisfaction-survey/take-survey.entry.html" class="list-group-item list-group-item-action" role="listitem">
+              <span class="list-group-item-icon"><i class="fa-regular fa-clipboard-list" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Time for a few quick questions</p>
+                <p class="list-group-item-description">Takes about two minutes.</p>
+                <p class="text-xs text-sand-500 mt-0.5">Tuesday</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+
+            <!-- Row 4: Meals ready for pickup -->
+            <a href="../order-status/order-status.confirmed.html" class="list-group-item list-group-item-action" role="listitem">
+              <span class="list-group-item-icon"><i class="fa-regular fa-bag-shopping" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Your meals are ready to pick up</p>
+                <p class="list-group-item-description">Available at the UConn Health front desk.</p>
+                <p class="text-xs text-sand-500 mt-0.5">Monday</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+
+            <!-- Row 5: Upcoming check-in / appointment -->
+            <a href="../appointments/appointments.upcoming.html" class="list-group-item list-group-item-action" role="listitem">
+              <span class="list-group-item-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Your next check-in is coming up</p>
+                <p class="list-group-item-description">See the details and confirm your time.</p>
+                <p class="text-xs text-sand-500 mt-0.5">Last week</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+
+          </div>
+
+        </main>
+
+        <!-- Mobile bottom tab bar — Activity is the active tab -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="../home/home.caught-up.html" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="../order/order.browse.html" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="../activity/activity.list.html" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

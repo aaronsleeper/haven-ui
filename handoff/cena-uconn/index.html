@@ -2,12 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=./home/home.caught-up.html" />
-  <title>Cena patient app</title>
-  <link rel="canonical" href="./home/home.caught-up.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cena × UConn Patient App — walkthrough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="./assets/haven.css" />
 </head>
 <body>
-  <!-- The bundle root IS the app. Boot straight into Home; navigate from there (tabs, cards, rows). -->
-  <p><a href="./home/home.caught-up.html">Open the patient app</a></p>
+  <!--
+    Walkthrough launcher (review aid, not a patient surface). The REAL app boots into Home and is
+    navigated via tabs/cards/rows; "Home — caught up" below is that front door, one tap away.
+    Canonical IA: 3 tabs (Home · Order · Activity); My Health + Appointments are from-Home doors;
+    assessments/recall/survey are agent-pushed (reached from Home's "things to do").
+  -->
+  <div class="container">
+    <main class="p-6 lg:p-10 space-y-8" aria-label="Patient app walkthrough">
+
+      <div class="page-header">
+        <h1 class="page-title">Cena × UConn Patient App — walkthrough</h1>
+      </div>
+      <p class="text-sm text-sand-600">Jump to any entry point. The real app boots into <strong>Home</strong> and is navigated by its tabs, cards, and rows — start there to walk it as a patient would. Demo patient: Maria Rivera.</p>
+
+      <section class="space-y-3">
+        <h2 class="section-title">Start here — the patient's front door</h2>
+        <div class="list-group">
+          <a href="./home/home.caught-up.html" class="list-group-item list-group-item-action">
+            <span class="list-group-item-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></span>
+            <div class="list-group-item-content"><p class="list-group-item-title">Home — caught up (the default)</p><p class="list-group-item-description">Nothing due. The calm, designed-for default state.</p></div>
+            <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+          </a>
+          <a href="./onboarding/onboarding.welcome.html" class="list-group-item list-group-item-action">
+            <span class="list-group-item-icon"><i class="fa-solid fa-door-open" aria-hidden="true"></i></span>
+            <div class="list-group-item-content"><p class="list-group-item-title">First run — consent &amp; onboarding</p><p class="list-group-item-description">The IRB consent gate, before Home unlocks.</p></div>
+            <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+          </a>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="section-title">Home — the three states</h2>
+        <div class="list-group">
+          <a href="./home/home.caught-up.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-regular fa-circle-check" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Caught up</p><p class="list-group-item-description">Nothing needs you — calm affirmation.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./home/home.one-item.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-1" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">One thing due</p><p class="list-group-item-description">A single focus card.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./home/home.several.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Several due</p><p class="list-group-item-description">One focus card + a quiet "couple of other things" (open it).</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="section-title">The three tabs</h2>
+        <div class="list-group">
+          <a href="./order/order.browse.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Order — browse this week's meals</p><p class="list-group-item-description">Pick within budget; "Review your order" → order status.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./activity/activity.list.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-regular fa-bell" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Activity — messages &amp; reminders</p><p class="list-group-item-description">The inbox that routes into source surfaces.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="section-title">Promoted-from-Home doors</h2>
+        <div class="list-group">
+          <a href="./log-outcome/log-outcome.form.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">My Health — log outcomes</p><p class="list-group-item-description">Weight / BP / notes — self-authored, no coaching the numbers.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./appointments/appointments.upcoming.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Appointments</p><p class="list-group-item-description">Request or see a time with the team.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="section-title">Agent-pushed clinical moments (reached from Home's "things to do")</h2>
+        <div class="list-group">
+          <a href="./assessments/take-assessment.entry.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Assessments</p><p class="list-group-item-description">HFIAS / WHOQOL-HIV / NKQ runner. Score never shown to the patient.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./dietary-recall/recall.entry.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Dietary recall</p><p class="list-group-item-description">Agent-led structured interview over a food list.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./satisfaction-survey/take-survey.entry.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-regular fa-face-smile" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Satisfaction survey</p><p class="list-group-item-description">M3/6/9 check-in.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./order-status/order-status.active.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Order status</p><p class="list-group-item-description">Where's my order — confirmed / pickup / issue.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+        </div>
+      </section>
+
+      <p class="text-sm text-sand-500">Not yet in the click-path: "Talk to a person" (human handoff) and the agent-detected distress-escalation path — both flagged for Vanessa. The old <code>meals/</code> flow is superseded by the Order surface above and pending archive.</p>
+
+    </main>
+  </div>
 </body>
 </html>

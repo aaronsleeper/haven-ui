@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order — Browse this week's meals · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Order — Browse (IA-v1 — surface-primary). The Order nav tab landing.
+    State: menu open, two items pre-selected. Patient browses this week's meals within budget.
+    Shell: layout-app-shell-responsive (sidebar desktop · bottom-nav mobile). Nav = IA-v1 3 tabs:
+      Home · Order (active) · Activity.
+    Design decisions honored:
+      - Show all meals; agent highlights care-plan-aligned ones (badge-primary "Suggested for you")
+        without hiding or dimming others — warning over hiding principle (cap-17 / flow-meal-ordering).
+      - Budget is a $/week ceiling shown as a budget-meter (mirrors home.caught-up.html markup exactly).
+      - Over-budget = hard block; no auto-eviction (not modeled in static — behavioral contract for port).
+      - Plain warm copy; no scores, no gamification, large tap targets.
+      - Surface-primary: meal cards are the working surface, not a chat pane.
+      - Off-plan meal (fried plantains): warning row visible, card fully interactive, never dimmed.
+    Demo patient: Maria Rivera. Population: HIV+/food-insecure, low-tech-literacy, sensitive.
+    Static state: 2 items in cart ($20 spent of $60 budget), $40 remaining.
+    Ordering window open through Thursday.
+    Nav hrefs: Home → ../home/home.caught-up.html, Order → ./order.browse.html,
+      Activity → ../activity/activity.list.html.
+    Review order CTA → ../order-status/order-status.active.html.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="../home/home.caught-up.html" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="../order/order.browse.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="../activity/activity.list.html" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item" title="Talk to a person — not built in this preview"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Order — browse meals">
+
+          <!-- Page header -->
+          <div class="page-header">
+            <h1 class="page-title">This week's meals</h1>
+          </div>
+
+          <!-- Intro line — plain, warm, no jargon -->
+          <p class="text-base text-sand-800">The menu's open through Thursday. Pick what you'd like.</p>
+
+          <!-- Budget meter — markup mirrors home.caught-up.html lines 68-77 exactly.
+               Static state: $20 of $60 spent (2 pre-selected items × $10 each). -->
+          <div class="budget-meter">
+            <div class="budget-meter-label">
+              <span>Food budget</span>
+              <span class="budget-meter-amount">$40 of $60 left</span>
+            </div>
+            <div class="progress progress-sm">
+              <div class="progress-bar progress-success" style="width: 33%"></div>
+            </div>
+            <p class="budget-meter-message">Your order can't go over $60 total.</p>
+          </div>
+
+          <!-- Menu list — 8 meal cards (4 hot, 4 cold).
+               Cards use card + card-body as the container.
+               Each card has: name, description, price, type label (meal-label-hot/cold),
+               optional badge-primary "Suggested for you" tag, optional warning row.
+               Add = btn-outline (not selected); Added = btn-primary (pre-selected).
+               Layout utilities (flex, gap, etc.) are inline layout — not component styling. -->
+
+          <div class="space-y-4" aria-label="Menu">
+
+            <!-- HOT 1 — Suggested + pre-selected -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                      <p class="card-title">Pollo guisado</p>
+                      <span class="badge badge-primary badge-sm">
+                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Suggested for you
+                      </span>
+                    </div>
+                    <p class="text-sm text-sand-600 mb-2">Stewed chicken, rice, black beans.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-hot">Hot</span>
+                      <span class="badge badge-info badge-sm">Low sodium</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Added — Pollo guisado" class="btn-primary btn-sm" aria-pressed="true">Added</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLD 1 — Suggested + pre-selected -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                      <p class="card-title">Black bean soup</p>
+                      <span class="badge badge-primary badge-sm">
+                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Suggested for you
+                      </span>
+                    </div>
+                    <p class="text-sm text-sand-600 mb-2">Slow-cooked beans, avocado, lime.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-cold">Cold</span>
+                      <span class="badge badge-info badge-sm">Low sodium</span>
+                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Added — Black bean soup" class="btn-primary btn-sm" aria-pressed="true">Added</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- HOT 2 — Suggested, not yet added -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                      <p class="card-title">Tofu noodle bowl</p>
+                      <span class="badge badge-primary badge-sm">
+                        <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Suggested for you
+                      </span>
+                    </div>
+                    <p class="text-sm text-sand-600 mb-2">Soft tofu, soba, broccoli, sesame.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-hot">Hot</span>
+                      <span class="badge badge-info badge-sm">Low sodium</span>
+                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Add Tofu noodle bowl" class="btn-outline btn-sm">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLD 2 — Not suggested, not added -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <p class="card-title mb-1">Mole verde</p>
+                    <p class="text-sm text-sand-600 mb-2">Pumpkin-seed mole, chicken, rice.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-cold">Cold</span>
+                      <span class="badge badge-info badge-sm">Low sodium</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Add Mole verde" class="btn-outline btn-sm">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- HOT 3 — Not suggested, not added -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <p class="card-title mb-1">Lemon herb salmon</p>
+                    <p class="text-sm text-sand-600 mb-2">Baked salmon, roasted vegetables, lemon.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-hot">Hot</span>
+                      <span class="badge badge-info badge-sm">Low sodium</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Add Lemon herb salmon" class="btn-outline btn-sm">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLD 3 — Not suggested, not added -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <p class="card-title mb-1">Chicken verde bowl</p>
+                    <p class="text-sm text-sand-600 mb-2">Grilled chicken, green salsa, rice, beans.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-cold">Cold</span>
+                      <span class="badge badge-info badge-sm">Low sodium</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Add Chicken verde bowl" class="btn-outline btn-sm">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- HOT 4 — Not suggested, not added; off-plan choice: warning row visible (warning over hiding).
+                 Card fully interactive, never dimmed. -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <p class="card-title mb-1">Fried plantains platter</p>
+                    <p class="text-sm text-sand-600 mb-2">Sweet plantains, garlic mojo, side of rice.</p>
+                    <div class="flex items-center gap-2 flex-wrap mb-2">
+                      <span class="meal-label-hot">Hot</span>
+                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
+                    </div>
+                    <!-- Supportive warning — never blocks, card stays fully interactive -->
+                    <p class="meal-option-card-warning-row">
+                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                      <span>This one isn't a usual pick for your care plan — still fine to order if you'd like it.</span>
+                    </p>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Add Fried plantains platter" class="btn-outline btn-sm">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLD 4 — Not suggested, not added -->
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <p class="card-title mb-1">Mediterranean grain bowl</p>
+                    <p class="text-sm text-sand-600 mb-2">Farro, roasted peppers, feta, olives.</p>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="meal-label-cold">Cold</span>
+                      <span class="badge badge-neutral badge-sm">Vegetarian</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col items-end gap-2 shrink-0">
+                    <p class="text-base font-medium text-sand-900">$10.00</p>
+                    <button type="button" aria-label="Add Mediterranean grain bowl" class="btn-outline btn-sm">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Talk to a person — always present -->
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action" title="Talk to a person — not built in this preview">
+              <span class="list-group-item-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Talk to a person</p>
+                <p class="list-group-item-description">Reach your care team</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+          <!-- Bottom clearance so sticky footer doesn't cover the last card on mobile.
+               Using pb-safe-8 from Mobile Shell (layout-mobile-shell.html) is the sanctioned
+               pattern; since this shell is app-shell-responsive (not mobile-shell), a spacer
+               div with a Tailwind utility is the inline-layout carve-out equivalent. -->
+          <div class="pb-safe-8" aria-hidden="true"></div>
+
+        </main>
+
+        <!-- Sticky footer — "Review your order" CTA; shows when items are in cart.
+             sticky-footer / sticky-footer-inner / sticky-footer-info / sticky-footer-actions
+             are the canonical classes per layout-sticky-footer.html. -->
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-info">
+              <p class="text-sm text-sand-700">2 items · $20.00</p>
+            </div>
+            <div class="sticky-footer-actions">
+              <a href="../order-status/order-status.active.html" class="btn-primary">Review your order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom tab bar [chrome] — IA-v1: Home · Order (active) · Activity -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="../home/home.caught-up.html" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="../order/order.browse.html" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="../activity/activity.list.html" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
