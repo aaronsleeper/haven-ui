@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order status — Optimize/swap · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Order — Optimize / swap a meal within budget.
+    State: patient is in the change-order window (order submitted but kitchen not yet locked).
+    The agent suggests a swap based on preferences + remaining budget.
+    Spec: IA-v1 §Order surface — job 3 (optimize). flow-meal-ordering.md Step 5 (edit-in-place,
+    Path A = chat-side, Path B = direct manipulation). This page models Path B (direct manipulation)
+    via a comparison-panel offering current meal vs. suggested swap.
+    No chat box — direct manipulation only per IA-v1 "No chat box" for the Order surface.
+    Budget meter reflects the SWAP IMPACT: current selection vs. what it would look like after swap.
+    Shell: layout-app-shell-responsive. Nav: IA-v1 3-tab, Order active.
+    Composition: comparison-panel (column-based: current vs. suggested) + budget-meter (live-update
+    reflecting the swap delta) + Keep/Swap action buttons.
+    Demo scenario: Maria has "Roasted Pork Tenderloin" in her cart ($10); the system suggests
+    swapping it for "Spiced Lentil Stew" ($10, better nutrition profile per care plan) with $0
+    budget impact. The swap stays within budget; comparison-row-diff highlights the nutritional
+    difference.
+    Demo patient: Maria Rivera.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Optimize your order">
+
+          <div class="page-header">
+            <h1 class="page-title">One swap to consider</h1>
+          </div>
+
+          <!-- Agent framing — short, warm, no chat box per IA-v1 -->
+          <div class="patient-chat-message" role="status">
+            <span class="patient-chat-message-indicator" aria-hidden="true"></span>
+            <p class="patient-chat-message-body">Based on your care plan, one swap fits your week better and costs the same. Take it or keep what you have — totally up to you.</p>
+          </div>
+
+          <!-- Comparison panel — current vs. suggested swap (column-based variant) -->
+          <div class="comparison-panel">
+            <p class="comparison-intro">Same price. Your dietitian thinks the swap fits your week a little better.</p>
+
+            <!-- Column A: current meal in cart -->
+            <div class="comparison-column">
+              <div class="comparison-column-header">In your cart now</div>
+              <div class="comparison-meal-title">Roasted Pork Tenderloin</div>
+              <div class="comparison-meal-details">4 oz pork tenderloin, roasted sweet potato, green beans. Higher in sodium.</div>
+              <div class="comparison-meta">$10.00</div>
+            </div>
+
+            <!-- Column B: suggested swap -->
+            <div class="comparison-column">
+              <div class="comparison-column-header">Suggested swap</div>
+              <div class="comparison-meal-title">Spiced Lentil Stew</div>
+              <div class="comparison-meal-details">Red lentils, tomatoes, spinach, warm spices. Lower sodium, higher fiber.</div>
+              <div class="comparison-meta">$10.00 · fits your care plan</div>
+            </div>
+
+            <!-- Row-based nutritional diff below the column headers — highlights changed values -->
+            <div class="comparison-row comparison-row-header">
+              <div class="comparison-row-label"></div>
+              <div class="comparison-column-header">Current</div>
+              <div class="comparison-column-header">Swap</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-row-label">Calories</div>
+              <div class="comparison-row-value">340</div>
+              <div class="comparison-row-value">320</div>
+            </div>
+            <div class="comparison-row comparison-row-diff">
+              <div class="comparison-row-label">Sodium</div>
+              <div class="comparison-row-value">620 mg</div>
+              <div class="comparison-row-value">310 mg</div>
+            </div>
+            <div class="comparison-row comparison-row-diff">
+              <div class="comparison-row-label">Fiber</div>
+              <div class="comparison-row-value">3 g</div>
+              <div class="comparison-row-value">9 g</div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-row-label">Protein</div>
+              <div class="comparison-row-value">28 g</div>
+              <div class="comparison-row-value">18 g</div>
+            </div>
+
+            <!-- Direct-manipulation actions — NO chat box -->
+            <div class="comparison-actions">
+              <button type="button" class="btn-outline">Keep what I have</button>
+              <button type="button" class="btn-primary">Make the swap</button>
+            </div>
+          </div>
+
+          <!-- Budget meter — live-update state showing swap impact ($0 change in this demo) -->
+          <div class="budget-meter">
+            <div class="budget-meter-label">
+              <span>This week's meal budget</span>
+              <span class="budget-meter-amount">$70 of $200</span>
+            </div>
+            <div class="progress progress-success">
+              <div class="progress-bar" style="width: 35%"></div>
+            </div>
+            <p class="budget-meter-message">This swap costs the same — $130 still available.</p>
+          </div>
+
+        </main>
+
+        <!-- Bottom tab bar — IA-v1 3-tab -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

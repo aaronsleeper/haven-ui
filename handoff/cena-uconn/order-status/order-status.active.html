@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order status — Active fulfillment · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Order — Status / Active fulfillment.
+    State: kitchen has confirmed, meals are being prepared. Timeline step 3 (.is-current = Being
+    prepared). Steps 1–2 complete. Steps 4–5 future.
+    Spec: flow-order-status.md Step 2 (active fulfillment) + Step 3 (push update).
+    Shell: layout-app-shell-responsive. Nav: IA-v1 3-tab, Order active.
+    Pickup variant: UConn pilot = pickup. Steps:
+      1. Order placed (.is-complete)
+      2. Approved by your dietitian (.is-complete)
+      3. Being prepared (.is-current)
+      4. Packed for pickup (future)
+      5. Ready for pickup (future)
+    Fulfillment detail: "Pickup at The Grocery on Broad, 585 Broad St, Hartford" + ready-by window
+    (demo: Wednesday by noon) per flow-order-status.md Step 2.
+    Agent sentence: short plain-English status per flow-order-status.md Step 1 ("Your order is
+    being prepared. The kitchen confirmed this morning.").
+    Demo patient: Maria Rivera.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Order status — active">
+
+          <div class="page-header">
+            <h1 class="page-title">Your order</h1>
+          </div>
+
+          <!-- Agent status sentence — plain English, not system labels per flow-order-status Decisions log -->
+          <div class="patient-chat-message" role="status">
+            <span class="patient-chat-message-indicator" aria-hidden="true"></span>
+            <p class="patient-chat-message-body">Your order is being prepared. The kitchen confirmed this morning — you're all set for pickup Wednesday by noon.</p>
+          </div>
+
+          <!-- Order detail card — in-progress fulfillment view -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Week of May 26</h2>
+              <p class="card-subtitle">Pickup · Being prepared</p>
+            </div>
+            <div class="card-body">
+
+              <!-- Pickup timeline — steps 1–2 complete, step 3 current, 4–5 future -->
+              <div class="delivery-status-timeline">
+                <div class="delivery-status-timeline-body">
+                  <ol class="delivery-status-timeline-list">
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Order placed</p>
+                        <p class="delivery-status-timeline-when">Sat · 3:12 PM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Approved by your dietitian</p>
+                        <p class="delivery-status-timeline-when">Sun · 10:05 AM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-current">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-kitchen-set" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Being prepared</p>
+                        <p class="delivery-status-timeline-when">Today · since 7:30 AM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-box-open" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Packed for pickup</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Ready for pickup</p>
+                      </div>
+                    </li>
+                  </ol>
+                  <p class="delivery-status-timeline-window">Pickup window: Wednesday by noon at The Grocery on Broad, 585 Broad St, Hartford.</p>
+                </div>
+              </div>
+
+              <!-- Meal list — read-only -->
+              <div class="space-y-2 mt-4">
+                <p class="text-xs uppercase tracking-wider text-sand-500">What's in your order</p>
+                <div class="list-group">
+                  <div class="list-group-item">
+                    <div class="list-group-item-content">
+                      <p class="list-group-item-title">Lemon Herb Salmon</p>
+                      <p class="list-group-item-description">Qty 2 · $20.00</p>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="list-group-item-content">
+                      <p class="list-group-item-title">Black Bean Tacos</p>
+                      <p class="list-group-item-description">Qty 2 · $20.00</p>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="list-group-item-content">
+                      <p class="list-group-item-title">Chicken Verde Bowl</p>
+                      <p class="list-group-item-description">Qty 3 · $30.00</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Budget meter — post-order settled state -->
+              <div class="budget-meter mt-4">
+                <div class="budget-meter-label">
+                  <span>This week's meal budget</span>
+                  <span class="budget-meter-amount">$70 of $200</span>
+                </div>
+                <div class="progress progress-success">
+                  <div class="progress-bar" style="width: 35%"></div>
+                </div>
+                <p class="budget-meter-message">Final amount may vary based on what the kitchen prepares.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Talk to a person — always present per flow spec -->
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Talk to a person</p>
+                <p class="list-group-item-description">Something wrong with your order? Reach your care team.</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+        </main>
+
+        <!-- Bottom tab bar — IA-v1 3-tab -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

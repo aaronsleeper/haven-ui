@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order status — Issue escalation · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Order — Issue / escalation path.
+    State: something is wrong with the order (missing items, didn't arrive, wrong items, missed window).
+    Spec: flow-order-status.md Step 4 — "for fulfillment issues the productive next move is
+    escalation, not in-chat troubleshooting." Agent says sorry + surfaces 3-option handoff.
+    The agent does NOT attempt to troubleshoot, redeliver, refund, or solve — fast escalation.
+    Composition: agent empathy message + handoff-menu (order-status-escalation variant, 3 options:
+    phone / in-chat / email) + order detail card stays visible (patient + CC see same view per spec).
+    Shell: layout-app-shell-responsive. Nav: IA-v1 3-tab, Order active.
+    Note on the handoff-menu variant: the PL defines "order-status-escalation" as a named variant
+    with "kitchen / fulfillment-routing copy" but does not render it in the current PL demo HTML.
+    This page implements it inline using existing handoff-menu classes. See README for the gap note.
+    Demo patient: Maria Rivera. Demo issue: "my food didn't arrive."
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Order issue — getting help">
+
+          <div class="page-header">
+            <h1 class="page-title">Let's get this fixed.</h1>
+          </div>
+
+          <!-- Agent empathy + escalation — verbatim tone from flow-order-status.md Step 4.
+               Does NOT attempt to troubleshoot, redeliver, or refund. Fast escalation only. -->
+          <div class="patient-chat-message" role="status">
+            <span class="patient-chat-message-indicator" aria-hidden="true"></span>
+            <p class="patient-chat-message-body">I'm sorry — that's not okay, especially when you're counting on this food. Let me get a person on it right away.</p>
+          </div>
+
+          <!-- Handoff menu — order-status-escalation variant.
+               Header: kitchen/fulfillment routing identity (UConn Health Care Coordination).
+               3 options: phone first (best for time-sensitive), in-chat handoff, email.
+               Order context is pre-attached to the handoff so the CC starts with full context. -->
+          <div class="handoff-menu">
+            <div class="handoff-menu-header">
+              <span class="avatar avatar-primary handoff-menu-avatar"><span>SO</span></span>
+              <div class="handoff-menu-meta">
+                <p class="handoff-menu-eyebrow">Getting a person on your order</p>
+                <p class="handoff-menu-title">Sarah Okafor</p>
+                <p class="handoff-menu-subtitle">Care coordinator · your order details will be shared with her</p>
+              </div>
+            </div>
+            <div class="handoff-menu-body">
+              <button type="button" class="handoff-menu-option">
+                <span class="handoff-menu-option-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+                <span class="handoff-menu-option-meta">
+                  <span class="handoff-menu-option-label">Call Sarah now</span>
+                  <span class="handoff-menu-option-helper">Best when you need this sorted today</span>
+                </span>
+              </button>
+              <button type="button" class="handoff-menu-option">
+                <span class="handoff-menu-option-icon"><i class="fa-solid fa-message" aria-hidden="true"></i></span>
+                <span class="handoff-menu-option-meta">
+                  <span class="handoff-menu-option-label">Continue here in chat</span>
+                  <span class="handoff-menu-option-helper">Sarah will take over and follow up</span>
+                </span>
+              </button>
+              <button type="button" class="handoff-menu-option">
+                <span class="handoff-menu-option-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+                <span class="handoff-menu-option-meta">
+                  <span class="handoff-menu-option-label">Send a message</span>
+                  <span class="handoff-menu-option-helper">For anything that needs more space to explain</span>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Order detail card stays visible — patient and CC share the same view per flow spec.
+               Shows what was ordered, status at time of issue. Read-only. -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Week of May 26 — your order</h2>
+              <p class="card-subtitle">Pickup · Status at time of issue: Ready for pickup</p>
+            </div>
+            <div class="card-body">
+
+              <!-- Pickup timeline — all steps complete at issue time (order showed as ready) -->
+              <div class="delivery-status-timeline">
+                <div class="delivery-status-timeline-body">
+                  <ol class="delivery-status-timeline-list">
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Order placed</p>
+                        <p class="delivery-status-timeline-when">Sat · 3:12 PM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Approved by your dietitian</p>
+                        <p class="delivery-status-timeline-when">Sun · 10:05 AM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Being prepared</p>
+                        <p class="delivery-status-timeline-when">Mon · 7:30 AM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-complete">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Packed for pickup</p>
+                        <p class="delivery-status-timeline-when">Wed · 10:15 AM</p>
+                      </div>
+                    </li>
+                    <li class="delivery-status-timeline-step is-current">
+                      <span class="delivery-status-timeline-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
+                      <div class="delivery-status-timeline-meta">
+                        <p class="delivery-status-timeline-label">Ready for pickup</p>
+                        <p class="delivery-status-timeline-when">Since 11:00 AM</p>
+                      </div>
+                    </li>
+                  </ol>
+                  <p class="delivery-status-timeline-window">Pickup was available: The Grocery on Broad, 585 Broad St, Hartford. Window: Wed by 7:00 PM.</p>
+                </div>
+              </div>
+
+              <!-- Meal list — read-only, for reference during handoff -->
+              <div class="space-y-2 mt-4">
+                <p class="text-xs uppercase tracking-wider text-sand-500">What was in your order</p>
+                <div class="list-group">
+                  <div class="list-group-item">
+                    <div class="list-group-item-content">
+                      <p class="list-group-item-title">Lemon Herb Salmon</p>
+                      <p class="list-group-item-description">Qty 2 · $20.00</p>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="list-group-item-content">
+                      <p class="list-group-item-title">Black Bean Tacos</p>
+                      <p class="list-group-item-description">Qty 2 · $20.00</p>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="list-group-item-content">
+                      <p class="list-group-item-title">Chicken Verde Bowl</p>
+                      <p class="list-group-item-description">Qty 3 · $30.00</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </main>
+
+        <!-- Bottom tab bar — IA-v1 3-tab -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
