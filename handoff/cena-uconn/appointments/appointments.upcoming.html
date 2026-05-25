@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appointments — Upcoming · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Appointments — upcoming (patient has confirmed visit(s) on the books).
+    Capability: cap-21 (self-service scheduling, request-only v1).
+    Spec: flow-request-appointment.md § Step 5 Path A (confirmed appointment on the books).
+    Shell: layout-app-shell-responsive — IA-v1 3-tab nav. Appointments is a Home-row destination.
+    Active tab: Home.
+    State: patient has at least one confirmed upcoming appointment.
+    Primitives composed:
+      - appointment-card — next-up visit (avatar + name + role + date/time + location + add-to-calendar btn-secondary)
+      - appointments-list — 2 additional scheduled visits below the next-up card
+      - btn-primary — "Request another time" CTA at the bottom (re-entry to request flow)
+    Demo patient: Maria Rivera. Demo provider: Dr. Mateo Morales, RDN.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <!-- Sidebar nav (desktop) -->
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="../home/home.caught-up.html" class="nav-item active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Appointments">
+
+          <!-- Page header -->
+          <div class="page-header">
+            <h1 class="page-title">Appointments</h1>
+          </div>
+
+          <!-- Section label — next up -->
+          <div class="section-header">
+            <p class="text-xs font-semibold uppercase tracking-wider text-sand-500">Next visit</p>
+          </div>
+
+          <!-- Next-up appointment card -->
+          <!-- @component: appointment-card (scheduled) -->
+          <div class="appointment-card">
+            <div class="appointment-card-header">
+              <div class="appointment-card-avatar">
+                <span class="avatar avatar-primary"><span>MO</span></span>
+              </div>
+              <div class="appointment-card-meta">
+                <p class="appointment-card-title">Dr. Mateo Morales, RDN</p>
+                <p class="appointment-card-subtitle">Registered Dietitian · UConn Health</p>
+              </div>
+            </div>
+            <div class="appointment-card-details">
+              <div class="appointment-card-detail-row">
+                <i class="fa-solid fa-calendar-day appointment-card-detail-icon" aria-hidden="true"></i>
+                <span>Monday, June 2 · 2:00 PM</span>
+              </div>
+              <div class="appointment-card-detail-row">
+                <i class="fa-solid fa-location-dot appointment-card-detail-icon" aria-hidden="true"></i>
+                <span>UConn Health, 263 Farmington Ave, Suite 312</span>
+              </div>
+            </div>
+            <div class="appointment-card-actions">
+              <button type="button" class="btn-secondary btn-sm">
+                <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+                Add to calendar
+              </button>
+            </div>
+          </div>
+          <!-- /component -->
+
+          <!-- Section label — more visits -->
+          <div class="section-header">
+            <p class="text-xs font-semibold uppercase tracking-wider text-sand-500">Coming up</p>
+          </div>
+
+          <!-- Remaining appointments list (2+ beyond next-up) -->
+          <!-- @component: appointments-list (populated) -->
+          <div class="appointments-list">
+            <div class="appointments-list-row">
+              <i class="fa-solid fa-calendar-day appointments-list-row-icon" aria-hidden="true"></i>
+              <div class="appointments-list-row-meta">
+                <p class="appointments-list-row-when">Thu, July 10 · 10:30 AM</p>
+                <p class="appointments-list-row-who">Dr. Sarah Soto, RDN · Telehealth</p>
+              </div>
+            </div>
+            <div class="appointments-list-row">
+              <i class="fa-solid fa-calendar-day appointments-list-row-icon" aria-hidden="true"></i>
+              <div class="appointments-list-row-meta">
+                <p class="appointments-list-row-when">Mon, Aug 18 · 9:00 AM</p>
+                <p class="appointments-list-row-who">Dr. Mateo Morales, RDN · UConn Health</p>
+              </div>
+            </div>
+          </div>
+          <!-- /component -->
+
+          <!-- CTA — request another time -->
+          <div>
+            <a href="appointments.request.html" class="btn-primary">
+              <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+              Request another time
+            </a>
+          </div>
+
+          <!-- Talk to a person — persistent affordance -->
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Talk to a person</p>
+                <p class="list-group-item-description">Reach your care team</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+        </main>
+
+        <!-- Bottom tab bar (mobile) — IA-v1: Home · Order · Activity -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="../home/home.caught-up.html" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

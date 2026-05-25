@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appointments — Request a time · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Surface: Appointments — request form.
+    Capability: cap-21 (self-service scheduling, request-only v1).
+    Spec: flow-request-appointment.md § Step 3 (time preference) + Step 4 Path A (request-only, no live Athena slot fetch).
+    Shell: layout-app-shell-responsive — IA-v1 3-tab nav. Appointments is a Home-row destination.
+    Active tab: Home (not a tab itself).
+    State: the patient is filling out the preference form before submitting.
+    Primitives composed:
+      - patient-chat-message — agent framing sentence above the form
+      - chat-time-preference-picker — free-text + day-of-week chips + time-of-day chips, used in FORM context
+        (not a chat affordance here; markup works outside chat per build contract)
+      - card / card-header / card-body — form container
+      - btn-primary — "Send request" (a commitment)
+    Note: this is NOT booking against a live calendar. The form collects preferences;
+    the CC confirms a real slot (Path A from flow-request-appointment.md).
+    Demo patient: Maria Rivera.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <!-- Sidebar nav (desktop) -->
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="../home/home.caught-up.html" class="nav-item active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-8" aria-label="Request an appointment">
+
+          <!-- Page header -->
+          <div class="page-header">
+            <h1 class="page-title">Request a time</h1>
+          </div>
+
+          <!-- Agent framing — inline, above the form. patient-chat-message per log-outcome precedent. -->
+          <!-- @component: patient-chat-message -->
+          <div class="patient-chat-message" role="note" aria-label="From your care team">
+            <p>Hi Maria. Let's get you on the schedule with your dietitian. Just tell us when works for you — your care coordinator will reach out to confirm a time.</p>
+          </div>
+          <!-- /component -->
+
+          <!-- Request form — composed as a card with the chat-time-preference-picker markup inside -->
+          <form action="appointments.pending.html" method="get" aria-label="Appointment time preference">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">When works for you?</h2>
+              </div>
+              <div class="card-body space-y-6">
+
+                <!--
+                  chat-time-preference-picker markup reused in a FORM context.
+                  The component's markup is agnostic — it works outside chat.
+                  Free text is the primary path; chips are courtesy shortcuts.
+                  Consumer treats free-text as canonical when populated; chips as fallback.
+                -->
+                <!-- @component: chat-time-preference-picker (form context) -->
+                <div class="chat-time-preference-picker">
+                  <label class="sr-only" for="appt-tpp-text">When works best for you?</label>
+                  <input
+                    id="appt-tpp-text"
+                    type="text"
+                    name="preference_text"
+                    class="chat-time-preference-picker-input"
+                    placeholder="e.g., weekday mornings, or afternoons after 2"
+                    autocomplete="off"
+                  />
+
+                  <div>
+                    <p id="appt-tpp-day" class="chat-time-preference-picker-section-label mb-1.5">Day of week</p>
+                    <div class="chat-chip-row is-small" role="group" aria-labelledby="appt-tpp-day">
+                      <button type="button" class="chat-chip">Weekdays</button>
+                      <button type="button" class="chat-chip">Weekend</button>
+                      <button type="button" class="chat-chip is-soft">No preference</button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p id="appt-tpp-time" class="chat-time-preference-picker-section-label mb-1.5">Time of day</p>
+                    <div class="chat-chip-row is-small" role="group" aria-labelledby="appt-tpp-time">
+                      <button type="button" class="chat-chip">Morning</button>
+                      <button type="button" class="chat-chip">Afternoon</button>
+                      <button type="button" class="chat-chip">Evening</button>
+                      <button type="button" class="chat-chip">Late night</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /component -->
+
+                <!-- Reassurance line -->
+                <p class="text-sm text-sand-500">We don't book directly — your care coordinator will reach out to confirm a specific time, usually within one business day.</p>
+
+                <!-- Submit -->
+                <div>
+                  <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                    Send request
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </form>
+
+          <!-- Talk to a person — persistent affordance -->
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+              <span class="list-group-item-icon"><i class="fa-regular fa-user" aria-hidden="true"></i></span>
+              <div class="list-group-item-content">
+                <p class="list-group-item-title">Talk to a person</p>
+                <p class="list-group-item-description">Reach your care team</p>
+              </div>
+              <span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+        </main>
+
+        <!-- Bottom tab bar (mobile) — IA-v1: Home · Order · Activity -->
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="../home/home.caught-up.html" class="mobile-bottom-nav-tab active"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
