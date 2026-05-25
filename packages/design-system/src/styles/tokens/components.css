@@ -3315,6 +3315,17 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 /* Recall flow topbar — the slim flow header (exit + progress). Replaces the
    repeated inline flex/padding/border across every recall pass. */
+/* recall-header-bar — wrapper for the focused-session header (.recall-topbar)
+   on agent-led flow pages where the app nav is suppressed. It is a fixed-height
+   header bar: it must NOT use .app-shell-content (which is flex-1) — a second
+   flex-1 sibling splits the column 50/50 with <main>, ballooning the header to
+   ~half the viewport and shoving the flow content down into dead space.
+   shrink-0 + natural (content) height keeps the bar quiet at the top and lets
+   <main> (flex-1) fill the rest, so the flow content sits at the top. */
+.recall-header-bar {
+    @apply shrink-0;
+}
+
 .recall-topbar {
     @apply flex items-center justify-between px-6 py-3 border-b border-sand-200;
     @apply dark:border-sand-700;
