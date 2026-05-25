@@ -129,6 +129,7 @@ AD-08 rejected Angular on (a) AI codegen quality and (b) a11y primitive depth. T
 
 If Path C is viable, the work is a mirror of `ui-react-porter`:
 
+- **Preference-driven by design (load-bearing).** The porter takes its idiom choices as **parameters read from [`angular-emit-preferences.md`](./angular-emit-preferences.md)** (the effort SoT), NOT hardcoded. This is deliberate: we are making many assumptions about how Andrey wants generated code, we *will* get some wrong, and correcting them must be a one-line edit to the preferences ledger — not a mechanism rebuild. Each preference row pre-computes its correction cost (`config` / `porter-rule` / `structural`); keep assumptions out of the mechanism so "he prefers B" stays a `config` edit. The SoT also doubles as the decision queue for the Andrey conversation.
 - **A `ui-angular-porter` skill** — deterministic, spec-driven, fails loudly on judgment. Same preconditions (PL HTML exists, classes in `components.css`, COMPONENT-INDEX row, pre-port a11y audit).
 - **The spec→component mapping** (Angular-specific):
   - `class="..."` → `[class]` / `class="..."` (Angular keeps `class`); `for=` → `for=` (Angular label binding).

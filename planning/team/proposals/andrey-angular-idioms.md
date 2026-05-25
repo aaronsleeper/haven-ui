@@ -3,6 +3,7 @@
 > **Purpose:** the conventions a `ui-angular-porter` (and the Path-C proving slice) must emit so generated Angular *looks like Andrey wrote it* — the respect signal that decides his acceptance (see [[Andrey Kartashov]] how-to-engage; [AD-08-revisit](./AD-08-revisit-pipeline-framework-emit.md)).
 > **Source:** `cena-health-spark` `origin/devel` @ `b205df2` (2026-05-19, "Patient noai 0514"), `patients/` app. Re-verify against his latest before any Andrey-facing demo — he pushes infrequently (solo).
 > **Extracted:** 2026-05-25.
+> **This doc is evidence, not decisions.** It records what his codebase *shows*. Whether each idiom is a deep Andrey preference, a swap-without-caring default, or an LLM default he never chose **cannot be told from code alone** (he codes LLM-assisted). The *decisions* — what we assume, our confidence, and the correction cost if he prefers otherwise — live in the effort SoT: [`angular-emit-preferences.md`](./angular-emit-preferences.md). Treat everything below as `observed evidence` feeding that ledger, not as confirmed requirements.
 
 ## Stack signals (from `patients/src/app/app.config.ts`)
 
