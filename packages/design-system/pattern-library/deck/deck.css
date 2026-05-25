@@ -352,6 +352,44 @@ body.deck-body {
 .deck-citation::before { content: "▸ "; color: var(--color-text-brand); }
 
 /* --------------------------------------------------------------------------
+   Team grid (headshot-less name/role/bio cards) + status tag
+   -------------------------------------------------------------------------- */
+
+.deck-team {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4cqw;
+}
+.deck-team__member {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqw;
+  padding: 1.4cqw 1.6cqw;
+  border-radius: var(--radius-md);
+  border: var(--space-px) solid color-mix(in srgb, var(--color-text-primary) 9%, transparent);
+  background: var(--color-surface-secondary);
+}
+.deck-team__name { font-family: var(--font-display); font-weight: 600; font-size: 1.4cqw; line-height: var(--leading-snug); color: var(--color-text-primary); margin: 0; }
+.deck-team__role { font-family: var(--font-body); font-weight: 650; font-size: 0.95cqw; letter-spacing: var(--tracking-wide); color: var(--color-text-brand); }
+.deck-team__bio  { font-family: var(--font-body); font-size: 1.05cqw; line-height: var(--leading-body-sm); color: var(--color-text-secondary); margin: 0; }
+
+/* Status tag — pill for live/planned states (B.3.7 "Live" state tag) */
+.deck-tag {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: 0.4cqw;
+  padding: 0.3cqw 0.9cqw;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85cqw;
+  letter-spacing: var(--tracking-wide);
+}
+.deck-tag--live    { background: var(--color-success-bg); color: var(--color-success-text); }
+.deck-tag--planned { background: var(--color-surface-secondary); color: var(--color-text-secondary); }
+
+/* --------------------------------------------------------------------------
    C1 · Cover
    -------------------------------------------------------------------------- */
 
@@ -417,6 +455,14 @@ body.deck-body {
 }
 .deck-cover__presenter strong { font-weight: 650; }
 .deck-cover__presenter span { color: var(--color-text-tertiary); }
+.deck-cover__stat-strip {
+  margin: 2.4cqw 0 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05cqw;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-brand);
+}
 
 /* Concentric-circle hero (B.3.7) — large, off-center, may overlap title. */
 .deck-motif {
