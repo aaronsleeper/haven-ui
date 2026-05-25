@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Satisfaction survey — Preflight · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Cap-09 — Satisfaction survey. State: Preflight.
+    Runner state machine begins here. Agent framing sentence renders inline above the preflight card.
+    Register: satisfaction — copy invites honest feedback; no sensitive-topic framing needed here.
+    Shell: layout-app-shell-responsive.html (deterministic form; no live chat pane during admin).
+    PROVISIONAL: item count / time estimate pending Vanessa-approved instrument.
+    Demo patient: Maria Rivera.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-6" aria-label="Survey">
+
+          <!-- Preflight framing — satisfaction register -->
+          <div class="patient-chat-message">
+            <p>Be honest — there are no wrong answers. Your feedback is how we know what to keep and what to fix. You can pause anytime; I'll save your spot.</p>
+          </div>
+
+          <!-- Preflight card — runner state 1 -->
+          <article class="assessment-preflight-card" data-state="preflight">
+            <div class="assessment-preflight-card-body">
+              <h2 class="assessment-preflight-card-title">How is the program going?</h2>
+              <ul class="assessment-preflight-card-meta">
+                <li class="assessment-preflight-card-meta-item">8 questions</li>
+                <li class="assessment-preflight-card-meta-item">About 5 minutes</li>
+              </ul>
+              <p class="assessment-preflight-card-disclosure">
+                Your answers go to your care team.
+              </p>
+              <div class="assessment-preflight-card-actions">
+                <a href="take-survey.question.html" class="btn btn-primary" data-action="ready">I'm ready</a>
+              </div>
+            </div>
+          </article>
+
+        </main>
+
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Satisfaction survey — Submitted · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Cap-09 — Satisfaction survey. State: Submit confirmation.
+    HARD INVARIANT: NO score or aggregate result is shown to the patient.
+    The satisfaction instrument generates a score for the care team; it routes
+    to the clinician surface only. This page shows only a warm "submitted, your
+    care team has it" acknowledgement.
+    Register: satisfaction — brief; no sensitive-topic bridge needed (contrast with
+    the sensitive register's distress-signal talk-to-a-person bridge).
+    Shell: layout-app-shell-responsive.html.
+    Demo patient: Maria Rivera.
+  -->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header">
+          <div class="nav-logo">
+            <img src="../assets/logo-cena.svg" alt="Cena Health" />
+          </div>
+        </div>
+        <div class="nav-section">
+          <a href="#" class="nav-item"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+          <a href="#" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+          <a href="#" class="nav-item"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Talk to a person</span></a>
+          <div class="nav-item">
+            <div class="nav-avatar">MR</div>
+            <span>Maria Rivera</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+
+        <main class="app-shell-content p-6 lg:p-10 space-y-6" aria-label="Survey — Submitted">
+
+          <!-- Post-submit acknowledgement — satisfaction register.
+               No score, no result label, no "you scored X" — not here, not ever on the patient surface.
+               Score routes to clinician surface (cap-51) asynchronously. -->
+          <div class="patient-chat-message">
+            <p>Thanks — your answers are in. Your care team has them and they'll use your feedback to keep improving the program. If anything in there raised something you want to talk about, tap "Talk to a person."</p>
+          </div>
+
+          <!-- assessment-confirmation — the PL primitive that encodes the no-score invariant structurally -->
+          <article class="assessment-confirmation">
+            <div class="receipt">
+              <header>
+                <h2 class="receipt-title">How is the program going?</h2>
+              </header>
+              <div class="space-y-2">
+                <p class="text-base">Submitted just now.</p>
+                <p class="text-sm text-sand-600">Your care team has it.</p>
+              </div>
+            </div>
+          </article>
+
+        </main>
+
+        <div class="app-shell-bottom-nav">
+          <nav class="mobile-bottom-nav" aria-label="Primary">
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Order</span></a>
+            <a href="#" class="mobile-bottom-nav-tab"><i class="fa-regular fa-bell" aria-hidden="true"></i><span>Activity</span></a>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
