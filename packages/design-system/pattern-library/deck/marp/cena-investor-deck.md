@@ -16,28 +16,13 @@ paginate: false
 
 <!-- _class: cover -->
 
-<div class="deck-motif deck-motif--cover" aria-hidden="true">
-<svg viewBox="0 0 100 100" fill="none">
-<circle cx="50" cy="50" r="47" stroke="var(--color-teal-200)" stroke-width="0.8"/>
-<circle cx="50" cy="50" r="38" stroke="var(--color-teal-300)" stroke-width="1"/>
-<circle cx="50" cy="50" r="29" stroke="var(--color-teal-400)" stroke-width="1.2"/>
-<circle cx="50" cy="50" r="20" stroke="var(--color-teal-300)" stroke-width="1"/>
-<g fill="var(--color-brand-primary)" opacity="0.9">
-<ellipse cx="50" cy="38" rx="5" ry="11"/>
-<ellipse cx="50" cy="38" rx="5" ry="11" transform="rotate(72 50 50)"/>
-<ellipse cx="50" cy="38" rx="5" ry="11" transform="rotate(144 50 50)"/>
-<ellipse cx="50" cy="38" rx="5" ry="11" transform="rotate(216 50 50)"/>
-<ellipse cx="50" cy="38" rx="5" ry="11" transform="rotate(288 50 50)"/>
-<circle cx="50" cy="50" r="4.5" fill="var(--color-surface-page)"/>
-</g>
-</svg>
+<div class="deck-cover__media" aria-hidden="true">
+<span class="deck-cover__media-label">photography</span>
 </div>
 
 <div class="deck-slide__content">
-<div class="deck-logo deck-cover__logo">
-<svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>
-cena health
-</div>
+<img class="deck-cover__logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
+
 <h1 class="deck-cover__title">Food <em class="deck-accent deck-accent--brand">as</em> healthcare</h1>
 <p class="deck-cover__subtitle">The infrastructure that keeps food-as-medicine programs alive — built into the systems that already care for patients.</p>
 <p class="deck-cover__presenter"><strong>Vanessa Sena</strong>, Co-founder &amp; CEO<br><span>Investor Briefing · 2026</span></p>
@@ -56,7 +41,7 @@ cena health
 
 <div class="deck-slide__content">
 <p class="deck-divider__kicker">The pattern</p>
-<h2 class="deck-divider__title">Food as medicine works. Then, at month 18, it <em class="deck-accent">dies</em>.</h2>
+<h2 class="deck-divider__title">Food as medicine works. Then, at month 18, it <em class="deck-accent deck-accent--stakes">dies</em>.</h2>
 </div>
 
 ---
@@ -91,7 +76,7 @@ cena health
 </div>
 
 <footer class="deck-slide__footer">
-<span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
+<img class="deck-logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
 <span>03</span>
 </footer>
 </div>
@@ -122,7 +107,7 @@ cena health
 </div>
 
 <footer class="deck-slide__footer">
-<span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
+<img class="deck-logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
 <span>04</span>
 </footer>
 </div>
@@ -180,7 +165,7 @@ cena health
 </div>
 
 <footer class="deck-slide__footer">
-<span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
+<img class="deck-logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
 <span>06</span>
 </footer>
 </div>
@@ -216,7 +201,7 @@ cena health
 </div>
 
 <footer class="deck-slide__footer">
-<span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
+<img class="deck-logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
 <span>07</span>
 </footer>
 </div>
@@ -248,7 +233,7 @@ cena health
 </div>
 
 <footer class="deck-slide__footer">
-<span class="deck-logo"><svg class="deck-logo__mark" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="36" rx="9" ry="18"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(72 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(144 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(216 50 50)"/><ellipse cx="50" cy="36" rx="9" ry="18" transform="rotate(288 50 50)"/></svg>cena health</span>
+<img class="deck-logo" src="/pattern-library/deck/assets/logo-cenahealth.svg" alt="Cena Health">
 <span>08</span>
 </footer>
 </div>

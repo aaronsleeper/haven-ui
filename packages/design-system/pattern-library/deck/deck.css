@@ -111,9 +111,8 @@ body.deck-body {
   font-weight: 600;
   font-size: 1.05cqw;
   line-height: 1;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);   /* quiet title-case grey label (real-deck) — not uppercase-tracked */
+  color: var(--color-text-tertiary);
 }
 
 .deck-headline {
@@ -154,16 +153,9 @@ body.deck-body {
   color: var(--color-text-tertiary);
 }
 
-.deck-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7cqw;
-  font-family: var(--font-display);
-  font-size: 1.25cqw;
-  color: var(--color-text-primary);
-  letter-spacing: var(--tracking-snug);
-}
-.deck-logo__mark { width: 1.6cqw; height: 1.6cqw; flex: none; }
+/* Real Cena logo lockup (vendored SVG, canon logo-token fills). Footer use. */
+.deck-logo { display: block; height: 1.9cqw; width: auto; }
+.deck-logo__mark { width: 1.6cqw; height: 1.6cqw; flex: none; }   /* legacy mark — retained for non-logo uses */
 .deck-logo__mark path { fill: var(--color-brand-primary); }
 
 /* --------------------------------------------------------------------------
@@ -370,7 +362,36 @@ body.deck-body {
   max-width: 64%;
   z-index: 1;
 }
-.deck-cover__logo { margin-bottom: 3cqw; }
+.deck-cover__logo { display: block; height: 3.4cqw; width: auto; margin-bottom: 3cqw; }
+
+/* Cover hero media slot — organic-blob frame for photography (the real deck's
+   cover gesture). Placeholder until the imagery engine lands (production
+   deferred/pluggable per Aaron); demotes the concentric rings from hero. */
+.deck-cover__media {
+  position: absolute;
+  right: -6cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48cqw;
+  height: 70cqw;
+  max-height: 86%;
+  border-radius: 46% 54% 52% 48% / 56% 44% 56% 44%;   /* organic blob */
+  background: var(--color-surface-teal);
+  border: 0.3cqw solid var(--color-brand-sage);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.deck-cover__media img { width: 100%; height: 100%; object-fit: cover; }
+.deck-cover__media-label {
+  font-family: var(--font-body);
+  font-size: 1.1cqw;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-brand);
+  opacity: 0.65;
+}
 .deck-cover__title {
   margin: 0 0 1.8cqw;
   font-family: var(--font-display);
