@@ -6454,14 +6454,17 @@ canvas {
    =================================== */
 
 .emoji-scale {
-  @apply flex justify-between gap-2 border-0 p-0;
+  @apply flex justify-between gap-1 border-0 p-0;
 }
 
 .emoji-scale-option {
-  @apply flex flex-col items-center justify-center gap-1 cursor-pointer rounded-2xl p-2;
+  @apply flex flex-col items-center justify-center gap-1 cursor-pointer rounded-2xl p-1;
   @apply hover:bg-sand-100;
   @apply dark:hover:bg-sand-800;
-  min-width: 56px;
+  /* 5-point scale must fit a 390px patient screen without clipping the last option:
+     flex-basis 0 + shrink lets options share width; min-width floors the tap target. */
+  flex: 1 1 0;
+  min-width: 0;
   transition: background-color 0.15s ease;
 }
 
