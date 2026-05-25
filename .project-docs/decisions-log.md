@@ -4,6 +4,18 @@
 
 ---
 
+## Known Constraints
+
+*Rules to follow in every future build prompt (per CLAUDE.md → Constraints Lookup).*
+
+### Icons: FontAwesome Pro v7 only — React port included
+
+**Rule to follow in future prompts:** Use FontAwesome Pro v7 (`fa-solid` / `fa-regular` / etc., from the local vendor blob at `packages/design-system/src/vendor/fontawesome/`) for **all** icons, in pattern-library HTML, composed screens, **and the React port**. Never use Material Symbols (`material-symbols-outlined`), MDI, Heroicons, or emoji-as-icon. Never reference the FA CDN — vendor copy only.
+
+**Live debt (recorded 2026-05-25):** ~9 `packages/ui-react/src/components/*.tsx` still carry `material-symbols-outlined` spans (QueueItem, QueueSectionHeader, ResponseOption, TaskCard, MealDeliveryCard, Avatar, IconButton, AppShell stories, …) — residue from the 2026-05-13 FA-misdiagnosis that was never reverted after canon was re-confirmed 2026-05-24. Storybook `.storybook/preview-head.html` loads only FA, so these ligatures render as literal text (`check`, `schedule`, `error`, …) in Storybook/CI; surfaced by the `conform:visual` gate (now non-blocking, see `conform.yml`). **When the React port is next picked up, migrate these to `fa-*`, then regenerate the visual baselines (`workflow_dispatch mode=generate-baselines`) and re-enable `conform:visual` as blocking. Do not fix by adding a Material font or re-baselining the broken render.** Migration timing is open (Aaron, 2026-05-25: "not sure if/when we pick that project back up").
+
+---
+
 ## Decision: Semantic Classes Over Utility Class Soup
 **Date:** February 10, 2026
 **Context:** Andrey (Angular developer) found utility-heavy HTML difficult to read and integrate.
