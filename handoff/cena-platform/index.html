@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cena Care-Coordinator Platform — walkthrough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="./assets/haven.css" />
+</head>
+<body>
+  <!--
+    Walkthrough launcher (review aid, not a coordinator surface). The REAL app boots into Today
+    (the triage launchpad) and is navigated via the 7-anchor sidebar. This page jumps to each
+    surface's primary state-page. Internal care-coordinator register: dense, professional,
+    operational color allowed. No real patient/business data anywhere in the bundle.
+  -->
+  <div class="container">
+    <main class="p-6 lg:p-10 space-y-8" aria-label="Care-coordinator platform walkthrough">
+
+      <div class="page-header">
+        <h1 class="page-title">Cena Care-Coordinator Platform — walkthrough</h1>
+      </div>
+      <p class="text-sm text-sand-600">Jump to any surface. The real app boots into <strong>Today</strong> (triage launchpad) and is navigated by the 7-anchor sidebar. Each link opens that surface's primary state; sibling states are linked from within. Demo data is synthetic.</p>
+
+      <section class="space-y-3">
+        <h2 class="section-title">The 7 anchors</h2>
+        <div class="list-group">
+          <a href="./today/today.queue.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-inbox" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Today — work queue</p><p class="list-group-item-description">Triage launchpad: pushed alerts, pending referrals, order exceptions, cutoffs due. Deep-links into entities.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./patients/patients.roster.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-user" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Patients</p><p class="list-group-item-description">Roster, patient record (+ companion-app access), single &amp; bulk intake.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./referrals/referrals.pipeline.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Referrals</p><p class="list-group-item-description">Partner-scoped pipeline → convert to patient.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./diet-operations/diet-operations.weekly-plans-open.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Diet Operations</p><p class="list-group-item-description">Providers · catalog · AI import · weekly plans · distribution · kitchen orders — one connected surface.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./network/network.orgs-list.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-sitemap" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Network</p><p class="list-group-item-description">Organization → program-partner graph; org &amp; partner records.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./clinical-library/clinical-library.guidelines.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-regular fa-book-medical" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Clinical Library</p><p class="list-group-item-description">Dietary guidelines + diagnosis codes (reference).</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+          <a href="./admin/admin.staff.html" class="list-group-item list-group-item-action"><span class="list-group-item-icon"><i class="fa-solid fa-gear" aria-hidden="true"></i></span><div class="list-group-item-content"><p class="list-group-item-title">Admin</p><p class="list-group-item-description">Staff &amp; roles · settings · EHR integrations.</p></div><span class="list-group-item-trailing"><i class="fa-solid fa-chevron-right text-sand-300" aria-hidden="true"></i></span></a>
+        </div>
+      </section>
+
+      <p class="text-sm text-sand-500">This is the UX-designed replacement for the current engineer-designed care-coordinator platform. Spec lives in <code>workflows/cena-platform/slots/</code>; build backlog in <code>cena-platform-pipeline-build.md</code>. Pages land incrementally — a link to an unbuilt state may 404 until that surface ships.</p>
+
+    </main>
+  </div>
+</body>
+</html>
