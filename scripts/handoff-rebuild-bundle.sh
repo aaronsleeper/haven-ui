@@ -1,58 +1,33 @@
 #!/usr/bin/env bash
 # handoff-rebuild-bundle.sh — atomic rebuild of the cena-uconn handoff asset bundle.
 #
-# Runs the rebuild as ONE inseparable command:
-#   1. build the design system   → packages/design-system/dist/assets/
-#   2. copy the binary assets     (FA Pro fonts, SVG fallbacks, logo) into the bundle
-#   3. rewrite the built CSS's absolute url(/assets/) → relative url(./) and
-#      write it to handoff/cena-uconn/assets/haven.css
+# As of 2026-05-26 this is a THIN WRAPPER over the converged bundler at
+# tools/surface-emit/build-bundle.sh — one place owns the "build DS → copy FA
+# woff2 + svg → relativize url(/assets/)→url(./)" mechanism for every haven
+# static surface. Verified 2026-05-26 to produce byte-identical assets to the
+# prior standalone script. Per ~/.claude/plans/surface-emission-convergence.md.
 #
-# WHY this must be one command:
-#   Doing the CSS step alone — re-running the sed without recopying the woff2
-#   font binaries — scrambles FontAwesome Pro glyphs bundle-wide. Every slice's
-#   icons mis-map to the wrong glyph, and the render gate CANNOT detect it: the
-#   classes are all defined, only the font binary is stale, so it passes a gate
-#   that only checks for undefined classes. Commit 77cd7ae. The CSS + fonts are
-#   versioned together; this script makes them one operation so they can never
-#   drift apart again.
+# This wrapper passes the HANDOFF-specific extras the converged bundler is told
+# to add: the logo (--png) and the CURATED JS-primitive allowlist (--js). The
+# allowlist is deliberate, not a blanket copy: the handoff has its own flow
+# runners (assessment-runner.js etc.) that supersede the DS prototype engines
+# (assessment.js / meals.js have a conflicting DOM contract). Add a primitive
+# here when a page starts consuming it.
 #
-# Idempotent + safe to re-run: the build is deterministic, cp overwrites in
-# place, and the sed regenerates haven.css from dist each time. No partial
-# state — either the whole bundle rebuilds or set -e halts.
-#
-# Run from anywhere; resolves the haven-ui repo root from its own location.
+# WHY the copy + relativize stay ONE step: re-running the sed without recopying
+# the woff2 binaries scrambles FontAwesome Pro glyphs bundle-wide, and the render
+# gate cannot detect it (classes defined, only the font binary stale). Commit
+# 77cd7ae. The converged bundler preserves this invariant (copy then relativize,
+# one run).
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/.." && pwd)"
-cd "$REPO"
 
-DIST="packages/design-system/dist/assets"
-BUNDLE="handoff/cena-uconn/assets"
+bash "$REPO/tools/surface-emit/build-bundle.sh" \
+  --assets-only --png \
+  --js "flow-actions quantity-stepper cart-panel i18n" \
+  --out "$REPO/handoff/cena-uconn"
 
-echo "handoff-rebuild-bundle: [1/3] building @haven/design-system …"
-pnpm --filter @haven/design-system build
-
-echo "handoff-rebuild-bundle: [2/3] copying binary assets (fonts + svg + logo) → $BUNDLE/ …"
-mkdir -p "$BUNDLE"
-cp "$DIST"/haven-ui*.woff2 "$BUNDLE"/   # ← the inseparable step (see WHY above)
-cp "$DIST"/haven-ui*.svg "$BUNDLE"/
-cp "$DIST"/haven-ui.png "$BUNDLE"/
-
-echo "handoff-rebuild-bundle: [3/4] rewriting url(/assets/) → url(./) into haven.css …"
-sed -E 's|url\(/assets/|url(./|g' "$DIST/haven-ui.css" > "$BUNDLE/haven.css"
-
-# [4/4] Bundle the design-system's framework-agnostic JS primitives so flows ship
-# interactive (not just navigable). CURATED ALLOWLIST — not a blanket copy: the
-# handoff has its own flow runners (assessment-runner.js etc.) that deliberately
-# supersede the DS prototype engines (assessment.js / meals.js have a conflicting
-# DOM contract — see assessment-runner.js header). Copying those would collide.
-# Add a primitive here when a page starts consuming it.
-echo "handoff-rebuild-bundle: [4/4] copying DS JS component primitives (curated) → $BUNDLE/ …"
-DS_SCRIPTS="packages/design-system/src/scripts/components"
-for js in flow-actions quantity-stepper cart-panel i18n; do
-  if [ -f "$DS_SCRIPTS/$js.js" ]; then cp "$DS_SCRIPTS/$js.js" "$BUNDLE/$js.js"; else echo "  ! missing $DS_SCRIPTS/$js.js"; fi
-done
-
-echo "handoff-rebuild-bundle: ✅ bundle rebuilt — CSS + fonts + JS primitives together."
+echo "handoff-rebuild-bundle: ✅ bundle rebuilt via converged bundler — CSS + fonts + JS primitives together."
 echo "handoff-rebuild-bundle:    required next step → bash scripts/handoff-render-gate.sh"
