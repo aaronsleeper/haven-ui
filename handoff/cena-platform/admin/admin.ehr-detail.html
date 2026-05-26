@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Cerner integration · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Admin › EHR Integrations › ehr-detail (one integration, error state). Spec: states.md → EHR Integrations (detail view of an integration).
+  Shell: _shell/app-shell.template.html (7-anchor, Admin active). Register: dense professional; error color EARNED (real connection failure, invariant §136).
+  Composes: breadcrumb · record-header (system name + connection state badge + last-sync meta) · alert-error (connection failure detail) ·
+  kv-table (read-only field mapping + connection facts, th scope=row) · action row Reconnect (btn-primary) / Configure (btn-outline) /
+  Deactivate (btn-danger-outline, confirm-gated in production). No patient-level data — config/state only. Synthetic; Cerner is a sample system.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="./admin.staff.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="EHR integration detail">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./admin.staff.html">Admin</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./admin.ehr-list.html">EHR Integrations</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Cerner (Hartford Cardiology)</span>
+          </nav>
+
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title">Cerner (Hartford Cardiology)</h1>
+              <p class="record-header-subtitle">Patient demographics, diagnosis codes · last successful sync 12d ago</p>
+            </div>
+            <div class="record-header-trailing"><span class="badge badge-error"><span class="indicator indicator-busy"></span> Connection error</span></div>
+          </header>
+
+          <!-- Connection failure detail -->
+          <div class="alert alert-error mt-4" role="alert">
+            <i class="fa-solid fa-circle-exclamation alert-icon" aria-hidden="true"></i>
+            <div><span class="font-medium">Connection failed — patient data may not be current.</span> The OAuth2 token expired on Mar 1, 2026. Reconnect to restore the patient data import for this partner.</div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
+            <!-- Connection facts -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Connection</h2></div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tr><th scope="row">System</th><td>Cerner (Oracle Health)</td></tr>
+                  <tr><th scope="row">Partner</th><td>Hartford Cardiology</td></tr>
+                  <tr><th scope="row">Endpoint URL</th><td><span class="font-mono text-sm">https://fhir.cerner.example/r4</span></td></tr>
+                  <tr><th scope="row">Auth type</th><td>OAuth2</td></tr>
+                  <tr><th scope="row">Sync cadence</th><td>Hourly</td></tr>
+                  <tr><th scope="row">Last successful sync</th><td>Mar 1, 2026 · 12d ago</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Field mapping -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Field mapping</h2></div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tr><th scope="row">Patient.given</th><td>first_name</td></tr>
+                  <tr><th scope="row">Patient.family</th><td>last_name</td></tr>
+                  <tr><th scope="row">Patient.birthDate</th><td>date_of_birth</td></tr>
+                  <tr><th scope="row">Patient.identifier (MRN)</th><td>mrn</td></tr>
+                  <tr><th scope="row">Condition.code</th><td>diagnosis_codes</td></tr>
+                  <tr><th scope="row">ServiceRequest</th><td>referral</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 mt-6">
+            <button type="button" class="btn-danger-outline"><i class="fa-solid fa-link-slash" aria-hidden="true"></i> Deactivate integration</button>
+            <div class="flex items-center gap-2">
+              <a href="./admin.ehr-connect.html" class="btn-outline"><i class="fa-solid fa-sliders" aria-hidden="true"></i> Configure</a>
+              <a href="./admin.ehr-connect.html" class="btn-primary"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Reconnect</a>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

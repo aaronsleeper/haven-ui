@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Connect EHR integration · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Admin › EHR Integrations › ehr-connect (configure + reconnect a single integration). Spec: states.md → EHR Integrations › ehr-configure.
+  Shell: _shell/app-shell.template.html (7-anchor, Admin active). Register: dense professional config.
+  Composes: breadcrumb · stepper-nav (one snapshot — step 2 "Credentials" active; no Preline, static) · configure form in cards
+  (System/endpoint, Auth & credentials, Field mapping) · field-row/field-label · select · masked credential via field-input-group
+  + input[type=password] + btn-icon btn-xs show/hide (PL gap §159.2 — Tier-2 composition, NO new PL class) · Test connection (btn-outline)
+  → transient alert-success/alert-error feedback · action row Save/Cancel/Deactivate (confirm-gated in production). Synthetic; Cerner is a sample system.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="./admin.staff.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Connect EHR integration">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./admin.staff.html">Admin</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./admin.ehr-list.html">EHR Integrations</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Cerner (Hartford Cardiology)</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Configure integration</h1></div>
+
+          <!-- Stepper (static snapshot — step 2 active) -->
+          <ul class="stepper-nav mt-4">
+            <li class="stepper-nav-item">
+              <span class="stepper-nav-icon"><i class="fa-solid fa-hospital text-sm" aria-hidden="true"></i></span>
+              <span class="stepper-nav-label">System</span>
+            </li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item active">
+              <span class="stepper-nav-icon"><i class="fa-solid fa-key text-sm" aria-hidden="true"></i></span>
+              <span class="stepper-nav-label">Credentials</span>
+            </li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item">
+              <span class="stepper-nav-icon"><i class="fa-solid fa-diagram-project text-sm" aria-hidden="true"></i></span>
+              <span class="stepper-nav-label">Field mapping</span>
+            </li>
+          </ul>
+
+          <form class="space-y-6 mt-6">
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">System</h2></div>
+              <div class="card-body space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="field-row">
+                    <label class="field-label required" for="ehr-system">EHR system</label>
+                    <select id="ehr-system" required>
+                      <option>Epic</option>
+                      <option selected>Cerner (Oracle Health)</option>
+                      <option>athenahealth</option>
+                      <option>Veradigm (Allscripts)</option>
+                    </select>
+                  </div>
+                  <div class="field-row">
+                    <label class="field-label required" for="ehr-partner">Partner organization</label>
+                    <select id="ehr-partner" required>
+                      <option selected>Hartford Cardiology</option>
+                      <option>UConn Health</option>
+                      <option>Community Health Partners</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <label class="field-label required" for="ehr-endpoint">Endpoint URL</label>
+                  <input type="url" id="ehr-endpoint" value="https://fhir.cerner.example/r4" required />
+                  <p class="field-help">The FHIR R4 base URL for this partner's instance.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Authentication</h2></div>
+              <div class="card-body space-y-4">
+                <div class="field-row">
+                  <label class="field-label required" for="ehr-auth">Auth type</label>
+                  <select id="ehr-auth" required>
+                    <option selected>OAuth2</option>
+                    <option>API key</option>
+                  </select>
+                </div>
+                <div class="field-row">
+                  <label class="field-label required" for="ehr-client">Client ID</label>
+                  <input type="text" id="ehr-client" value="cena-cerner-hc" required />
+                </div>
+                <div class="field-row">
+                  <label class="field-label required" for="ehr-secret">Client secret</label>
+                  <!-- Masked credential with show/hide toggle: field-input-group + input[type=password] + btn-icon btn-xs (PL gap §159.2 composition) -->
+                  <div class="field-input-group">
+                    <input type="password" id="ehr-secret" value="••••••••••••••••" required />
+                    <button type="button" class="btn-icon btn-xs" aria-label="Show client secret" aria-pressed="false"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                  </div>
+                  <p class="field-help">Stored encrypted. Re-enter to rotate.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-plug-circle-check" aria-hidden="true"></i> Test connection</button>
+                  <span class="text-sm text-sand-500">Non-destructive — verifies credentials without saving.</span>
+                </div>
+                <!-- Transient test-connection feedback (failure shown for the error/reconnect snapshot) -->
+                <div class="alert alert-error" role="alert">
+                  <i class="fa-solid fa-circle-exclamation alert-icon" aria-hidden="true"></i>
+                  <div><span class="font-medium">Connection failed:</span> token expired (HTTP 401). Rotate the client secret and test again.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Field mapping</h2></div>
+              <div class="card-body space-y-4">
+                <p class="text-sm text-sand-600">Map FHIR resource fields to Cena patient-record fields.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="field-row"><label class="field-label" for="map-given">Patient.given →</label><input type="text" id="map-given" value="first_name" /></div>
+                  <div class="field-row"><label class="field-label" for="map-family">Patient.family →</label><input type="text" id="map-family" value="last_name" /></div>
+                  <div class="field-row"><label class="field-label" for="map-dob">Patient.birthDate →</label><input type="text" id="map-dob" value="date_of_birth" /></div>
+                  <div class="field-row"><label class="field-label" for="map-mrn">Patient.identifier →</label><input type="text" id="map-mrn" value="mrn" /></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2">
+              <button type="button" class="btn-danger-outline"><i class="fa-solid fa-link-slash" aria-hidden="true"></i> Deactivate integration</button>
+              <div class="flex items-center gap-2">
+                <a href="./admin.ehr-list.html" class="btn-outline">Cancel</a>
+                <button type="submit" class="btn-primary"><i class="fa-solid fa-check" aria-hidden="true"></i> Save integration</button>
+              </div>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

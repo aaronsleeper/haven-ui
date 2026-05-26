@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Role permissions · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Admin › Staff & Roles › role-permissions (role detail: permission assignment matrix). Spec: states.md → Staff & Roles › role-permissions.
+  Shell: _shell/app-shell.template.html (7-anchor, Admin active). Register: dense professional admin.
+  Composes: breadcrumb · record-header (role name + employee count + status badge) ·
+  permission matrix = data-table (rows = permissions × columns = Read/Write/None access levels), radio per cell,
+  sectioned by permission domain via fieldset/legend headings · natural action row Save/Cancel.
+  PL gap (states.md §156.1): Tier-2 composition of data-table + input[type=radio] + radio-label + fieldset/legend — NO new PL class. Synthetic.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="./admin.staff.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Role permissions">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./admin.staff.html">Admin</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./admin.staff.html">Staff &amp; Roles</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Care Coordinator</span>
+          </nav>
+
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title">Care Coordinator</h1>
+              <p class="record-header-subtitle">5 employees assigned · controls access across all operational surfaces</p>
+            </div>
+            <div class="record-header-trailing"><span class="badge badge-success">Active role</span></div>
+          </header>
+
+          <p class="text-sm text-sand-600 mt-4">Set the access level for each permission area. <strong>Read</strong> allows viewing; <strong>Write</strong> allows editing; <strong>None</strong> hides the surface.</p>
+
+          <form class="space-y-6 mt-4">
+            <!-- Patients domain -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Patients</h2></div>
+              <div class="card-body">
+                <fieldset>
+                  <legend class="sr-only">Patients permissions</legend>
+                  <div class="data-table data-table-compact">
+                    <table>
+                      <thead>
+                        <tr><th scope="col">Permission</th><th scope="col">Read</th><th scope="col">Write</th><th scope="col">None</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row" class="cell-primary">Patient records</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-patients-records" /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-patients-records" checked /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-patients-records" /><span class="sr-only">None</span></label></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="cell-primary">Patient intake</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-patients-intake" /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-patients-intake" checked /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-patients-intake" /><span class="sr-only">None</span></label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Diet Operations domain -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Diet Operations</h2></div>
+              <div class="card-body">
+                <fieldset>
+                  <legend class="sr-only">Diet Operations permissions</legend>
+                  <div class="data-table data-table-compact">
+                    <table>
+                      <thead>
+                        <tr><th scope="col">Permission</th><th scope="col">Read</th><th scope="col">Write</th><th scope="col">None</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row" class="cell-primary">Weekly plans</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-diet-plans" checked /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-diet-plans" /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-diet-plans" /><span class="sr-only">None</span></label></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="cell-primary">Orders &amp; distribution</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-diet-orders" checked /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-diet-orders" /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-diet-orders" /><span class="sr-only">None</span></label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Network domain -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Network</h2></div>
+              <div class="card-body">
+                <fieldset>
+                  <legend class="sr-only">Network permissions</legend>
+                  <div class="data-table data-table-compact">
+                    <table>
+                      <thead>
+                        <tr><th scope="col">Permission</th><th scope="col">Read</th><th scope="col">Write</th><th scope="col">None</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row" class="cell-primary">Organizations &amp; partners</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-network-orgs" checked /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-network-orgs" /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-network-orgs" /><span class="sr-only">None</span></label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Admin domain -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Admin</h2></div>
+              <div class="card-body">
+                <fieldset>
+                  <legend class="sr-only">Admin permissions</legend>
+                  <div class="data-table data-table-compact">
+                    <table>
+                      <thead>
+                        <tr><th scope="col">Permission</th><th scope="col">Read</th><th scope="col">Write</th><th scope="col">None</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row" class="cell-primary">Staff &amp; roles</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-admin-staff" /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-admin-staff" /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-admin-staff" checked /><span class="sr-only">None</span></label></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="cell-primary">EHR integrations</th>
+                          <td><label class="radio-label"><input type="radio" name="perm-admin-ehr" /><span class="sr-only">Read</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-admin-ehr" /><span class="sr-only">Write</span></label></td>
+                          <td><label class="radio-label"><input type="radio" name="perm-admin-ehr" checked /><span class="sr-only">None</span></label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2">
+              <a href="./admin.staff.html" class="btn-outline">Cancel</a>
+              <button type="submit" class="btn-primary"><i class="fa-solid fa-check" aria-hidden="true"></i> Save permissions</button>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
