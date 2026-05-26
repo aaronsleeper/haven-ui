@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patients — roster · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Patients › Roster (default, populated). Spec: workflows/cena-platform/slots/patients/states.md → Roster.
+  Shell: _shell/app-shell.template.html (7-anchor, Patients active). Register: dense coordinator.
+  Composes: toolbar (search + filter-pills) · data-table data-table-compact (clinical-signal columns,
+  row-clickable, leading checkbox) · bulk-action-bar (S2 primitive, wired via bulk-action-bar.js) · pagination.
+  No real patient data — synthetic names/identifiers; dietary/diagnosis representative.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="./patients.roster.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Patients roster">
+          <div class="page-header">
+            <h1 class="page-title">Patients</h1>
+            <div class="flex items-center gap-2">
+              <a href="./patients.intake-single.html" class="btn-primary btn-sm"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add patient</a>
+              <a href="./patients.intake-bulk.html" class="btn-outline btn-sm"><i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i> Bulk upload</a>
+            </div>
+          </div>
+
+          <!-- Toolbar: search + filter-pills -->
+          <div class="toolbar mt-4">
+            <div class="toolbar-search">
+              <div class="search-input" style="max-width: 22rem;">
+                <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+                <input type="search" placeholder="Filter this list…" aria-label="Filter patients" />
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" class="filter-pill active">Active</button>
+              <button type="button" class="filter-pill">Archived</button>
+              <button type="button" class="filter-pill">All</button>
+            </div>
+          </div>
+
+          <!-- Dense roster table -->
+          <div class="data-table data-table-compact mt-4" data-bulk-scope="patients-roster">
+            <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" data-bulk-select-all aria-label="Select all patients" /></th>
+                  <th data-sortable>Patient</th>
+                  <th>Status</th>
+                  <th>Diagnosis</th>
+                  <th>Flags</th>
+                  <th>Referral source</th>
+                  <th>App access</th>
+                  <th data-sortable>Last activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Maria Santos" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Maria Santos</a></td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><span class="badge badge-pill badge-sm">Type 2 Diabetes</span></td>
+                  <td><span class="severity-badge">2 alerts</span></td>
+                  <td>UConn Health</td>
+                  <td><span class="indicator indicator-online"></span> Connected</td>
+                  <td>2h ago</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select James Thompson" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">James Thompson</a></td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><span class="badge badge-pill badge-sm">HTN</span> <span class="badge badge-pill badge-sm">CKD</span></td>
+                  <td><span class="text-sand-400 text-sm">—</span></td>
+                  <td>Hartford Cardiology</td>
+                  <td><span class="indicator indicator-offline"></span> Not connected</td>
+                  <td>1d ago</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Aisha Okafor" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Aisha Okafor</a></td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><span class="badge badge-pill badge-sm">CHF</span></td>
+                  <td><span class="severity-badge">1 alert</span></td>
+                  <td>UConn Health</td>
+                  <td><span class="indicator indicator-away"></span> Needs fix</td>
+                  <td>3d ago</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Robert Chen" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Robert Chen</a></td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><span class="badge badge-pill badge-sm">Type 2 Diabetes</span> <span class="badge badge-pill badge-sm">Obesity</span></td>
+                  <td><span class="text-sand-400 text-sm">—</span></td>
+                  <td>Community Health Partners</td>
+                  <td><span class="indicator indicator-online"></span> Connected</td>
+                  <td>5d ago</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Deborah Williams" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Deborah Williams</a></td>
+                  <td><span class="badge badge-warning badge-pill">Pending</span></td>
+                  <td><span class="text-sand-400 text-sm">—</span></td>
+                  <td><span class="text-sand-400 text-sm">—</span></td>
+                  <td>UConn Health</td>
+                  <td><span class="indicator indicator-offline"></span> Not connected</td>
+                  <td>just now</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Luis Hernández" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Luis Hernández</a></td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><span class="badge badge-pill badge-sm">ESRD</span></td>
+                  <td><span class="severity-badge">3 alerts</span></td>
+                  <td>Hartford Cardiology</td>
+                  <td><span class="indicator indicator-online"></span> Connected</td>
+                  <td>6h ago</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Grace Park" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Grace Park</a></td>
+                  <td><span class="badge badge-neutral badge-pill">Archived</span></td>
+                  <td><span class="badge badge-pill badge-sm">Type 2 Diabetes</span></td>
+                  <td><span class="text-sand-400 text-sm">—</span></td>
+                  <td>Community Health Partners</td>
+                  <td><span class="indicator indicator-offline"></span> Not connected</td>
+                  <td>2w ago</td>
+                </tr>
+                <tr class="row-clickable">
+                  <td><input type="checkbox" data-bulk-row aria-label="Select Samuel Adeyemi" /></td>
+                  <td class="cell-primary"><a href="./patients.record.html" class="text-link">Samuel Adeyemi</a></td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><span class="badge badge-pill badge-sm">HTN</span></td>
+                  <td><span class="text-sand-400 text-sm">—</span></td>
+                  <td>UConn Health</td>
+                  <td><span class="indicator indicator-online"></span> Connected</td>
+                  <td>4d ago</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bulk-action-bar — hidden until ≥1 row checked (bulk-action-bar.js) -->
+          <div class="bulk-action-bar mt-4" role="region" aria-label="Bulk actions" data-bulk-action-bar data-bulk-scope="patients-roster" hidden>
+            <div class="bulk-action-bar-info">
+              <span><span class="bulk-action-bar-count" data-bulk-action-bar-count>0</span> selected</span>
+              <span class="sr-only" data-bulk-action-bar-announce aria-live="polite" aria-atomic="true"></span>
+              <button type="button" class="btn-ghost btn-sm" data-bulk-action-bar-clear>Clear</button>
+            </div>
+            <div class="bulk-action-bar-actions">
+              <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-file-export" aria-hidden="true"></i> Export</button>
+              <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Activate</button>
+              <button type="button" class="btn-danger-outline btn-sm"><i class="fa-solid fa-box-archive" aria-hidden="true"></i> Archive</button>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <nav class="pagination mt-4" aria-label="Pagination">
+            <span class="pagination-info">1–8 of 124 patients</span>
+            <div class="pagination-controls">
+              <button type="button" class="pagination-btn" disabled aria-label="Previous page"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="pagination-btn active" aria-current="page">1</button>
+              <button type="button" class="pagination-btn">2</button>
+              <button type="button" class="pagination-btn">3</button>
+              <button type="button" class="pagination-btn" aria-label="Next page"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </nav>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/bulk-action-bar.js"></script>
+</body>
+</html>
