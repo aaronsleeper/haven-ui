@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Referrals — pipeline · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Referrals › Pipeline (default/hero, populated). Spec: workflows/cena-platform/slots/referrals/states.md → Pipeline list.
+  Shell: _shell/app-shell.template.html (7-anchor, Referrals active). Register: dense coordinator, operational urgency color allowed.
+  Invariant: PARTNER-SCOPED — referrals grouped by referring partner (fixes the mystery-blank-screen).
+  Composes: toolbar (search + status filter-pills) · per-partner group: queue-section-header (.is-urgent/.is-attention/.is-info)
+  + pipeline-bar (proportional pending/in-review/converted/declined) + data-table data-table-compact (row-clickable,
+  status badge-pill, days-since-received cell-mono .is-urgent for SLA, partner link → Network) · pagination.
+  No real patient/business data — synthetic candidate + partner names.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="./referrals.pipeline.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Referrals pipeline">
+          <div class="page-header">
+            <h1 class="page-title">Referrals</h1>
+            <div class="flex items-center gap-2">
+              <a href="../network/network.partners-list.html" class="btn-outline btn-sm"><i class="fa-solid fa-sitemap" aria-hidden="true"></i> Filter by partner</a>
+            </div>
+          </div>
+
+          <!-- Toolbar: search + status filter-pills (shared Patients pattern) -->
+          <div class="toolbar mt-4">
+            <div class="toolbar-search">
+              <div class="search-input" style="max-width: 22rem;">
+                <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+                <input type="search" placeholder="Filter this pipeline…" aria-label="Filter referrals" />
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" class="filter-pill active">All</button>
+              <button type="button" class="filter-pill">Pending</button>
+              <button type="button" class="filter-pill">In review</button>
+              <button type="button" class="filter-pill">Converted</button>
+              <button type="button" class="filter-pill">Declined</button>
+            </div>
+          </div>
+
+          <!-- Partner group 1 — urgent (pending SLA-approaching) -->
+          <section class="mt-6" aria-labelledby="grp-uconn">
+            <h2 class="queue-section-header is-urgent" id="grp-uconn">
+              <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+              <span>UConn Health · 4 referrals · 2 pending review</span>
+            </h2>
+            <div class="pipeline-bar mt-2" role="img" aria-label="UConn Health pipeline: 2 pending, 1 in review, 1 converted">
+              <div class="pipeline-segment" style="flex: 2; background-color: var(--color-warning-500);" aria-label="Pending: 2 referrals">Pending · 2</div>
+              <div class="pipeline-segment" style="flex: 1; background-color: var(--color-info-500);" aria-label="In review: 1 referral">In review · 1</div>
+              <div class="pipeline-segment" style="flex: 1; background-color: var(--color-success-500);" aria-label="Converted: 1 referral">Converted · 1</div>
+            </div>
+            <div class="data-table data-table-compact mt-3">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-sortable>Candidate</th>
+                    <th>Status</th>
+                    <th data-sortable>Received</th>
+                    <th>Age</th>
+                    <th>Referring partner</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail-pending.html" class="text-link">Theresa Boyd</a></td>
+                    <td><span class="badge badge-warning badge-pill">Pending</span></td>
+                    <td>May 18, 2026</td>
+                    <td><span class="cell-mono is-urgent">8d</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">UConn Health</a></td>
+                    <td><span class="text-sand-500 text-sm">Type 2 diabetes, renal referral</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail-pending.html" class="text-link">Marcus Webb</a></td>
+                    <td><span class="badge badge-warning badge-pill">Pending</span></td>
+                    <td>May 22, 2026</td>
+                    <td><span class="cell-mono">4d</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">UConn Health</a></td>
+                    <td><span class="text-sand-500 text-sm">CHF, diet management</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail.html" class="text-link">Diane Castillo</a></td>
+                    <td><span class="badge badge-info badge-pill">In review</span></td>
+                    <td>May 20, 2026</td>
+                    <td><span class="cell-mono">6d</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">UConn Health</a></td>
+                    <td><span class="text-sand-500 text-sm">ESRD, awaiting intake</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="../patients/patients.record.html" class="text-link">Howard Pierce</a></td>
+                    <td><span class="badge badge-success badge-pill">Converted</span></td>
+                    <td>May 12, 2026</td>
+                    <td><span class="cell-mono text-sand-400">—</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">UConn Health</a></td>
+                    <td><span class="text-sand-500 text-sm">Enrolled May 14</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Partner group 2 — attention (in review) -->
+          <section class="mt-8" aria-labelledby="grp-hartford">
+            <h2 class="queue-section-header is-attention" id="grp-hartford">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+              <span>Hartford Cardiology · 3 referrals · 2 in review</span>
+            </h2>
+            <div class="pipeline-bar mt-2" role="img" aria-label="Hartford Cardiology pipeline: 2 in review, 1 converted">
+              <div class="pipeline-segment" style="flex: 2; background-color: var(--color-info-500);" aria-label="In review: 2 referrals">In review · 2</div>
+              <div class="pipeline-segment" style="flex: 1; background-color: var(--color-success-500);" aria-label="Converted: 1 referral">Converted · 1</div>
+            </div>
+            <div class="data-table data-table-compact mt-3">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-sortable>Candidate</th>
+                    <th>Status</th>
+                    <th data-sortable>Received</th>
+                    <th>Age</th>
+                    <th>Referring partner</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail.html" class="text-link">Sandra Yim</a></td>
+                    <td><span class="badge badge-info badge-pill">In review</span></td>
+                    <td>May 21, 2026</td>
+                    <td><span class="cell-mono">5d</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">Hartford Cardiology</a></td>
+                    <td><span class="text-sand-500 text-sm">HTN, low-sodium plan</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail.html" class="text-link">Gregory Osei</a></td>
+                    <td><span class="badge badge-info badge-pill">In review</span></td>
+                    <td>May 19, 2026</td>
+                    <td><span class="cell-mono">7d</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">Hartford Cardiology</a></td>
+                    <td><span class="text-sand-500 text-sm">CKD stage 3</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="../patients/patients.record.html" class="text-link">Patricia Nguyen</a></td>
+                    <td><span class="badge badge-success badge-pill">Converted</span></td>
+                    <td>May 9, 2026</td>
+                    <td><span class="cell-mono text-sand-400">—</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">Hartford Cardiology</a></td>
+                    <td><span class="text-sand-500 text-sm">Enrolled May 11</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Partner group 3 — info (steady) -->
+          <section class="mt-8" aria-labelledby="grp-chp">
+            <h2 class="queue-section-header is-info" id="grp-chp">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <span>Community Health Partners · 3 referrals</span>
+            </h2>
+            <div class="pipeline-bar mt-2" role="img" aria-label="Community Health Partners pipeline: 1 in review, 1 converted, 1 declined">
+              <div class="pipeline-segment" style="flex: 1; background-color: var(--color-info-500);" aria-label="In review: 1 referral">In review · 1</div>
+              <div class="pipeline-segment" style="flex: 1; background-color: var(--color-success-500);" aria-label="Converted: 1 referral">Converted · 1</div>
+              <div class="pipeline-segment" style="flex: 1; background-color: var(--color-sand-400);" aria-label="Declined: 1 referral">Declined · 1</div>
+            </div>
+            <div class="data-table data-table-compact mt-3">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-sortable>Candidate</th>
+                    <th>Status</th>
+                    <th data-sortable>Received</th>
+                    <th>Age</th>
+                    <th>Referring partner</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail.html" class="text-link">Anthony Reyes</a></td>
+                    <td><span class="badge badge-info badge-pill">In review</span></td>
+                    <td>May 23, 2026</td>
+                    <td><span class="cell-mono">3d</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">Community Health Partners</a></td>
+                    <td><span class="text-sand-500 text-sm">Obesity, diet support</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="../patients/patients.record.html" class="text-link">Lillian Brooks</a></td>
+                    <td><span class="badge badge-success badge-pill">Converted</span></td>
+                    <td>May 7, 2026</td>
+                    <td><span class="cell-mono text-sand-400">—</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">Community Health Partners</a></td>
+                    <td><span class="text-sand-500 text-sm">Enrolled May 10</span></td>
+                  </tr>
+                  <tr class="row-clickable">
+                    <td class="cell-primary"><a href="./referrals.detail.html" class="text-link">Vincent Lozano</a></td>
+                    <td><span class="badge badge-neutral badge-pill">Declined</span></td>
+                    <td>May 5, 2026</td>
+                    <td><span class="cell-mono text-sand-400">—</span></td>
+                    <td><a href="../network/network.partners-list.html" class="text-link">Community Health Partners</a></td>
+                    <td><span class="text-sand-500 text-sm">Out of service area</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Pagination -->
+          <nav class="pagination mt-6" aria-label="Pagination">
+            <span class="pagination-info">1–10 of 10 referrals across 3 partners</span>
+            <div class="pagination-controls">
+              <button type="button" class="pagination-btn" disabled aria-label="Previous page"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="pagination-btn active" aria-current="page">1</button>
+              <button type="button" class="pagination-btn" aria-label="Next page"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </nav>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

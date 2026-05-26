@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theresa Boyd — referral (pending) · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Referrals › Detail-pending (PENDING state — not yet opened/reviewed). Spec: states.md → detail-pending.
+  Shell: _shell/app-shell.template.html (7-anchor, Referrals active). Register: dense coordinator.
+  Variant of referrals.detail.html with state-driven sticky-footer + gated convert. Built as a separate
+  snapshot page (ia.md lists it; states.md notes fold-or-separate decision finalized at build → separate
+  for a clean static snapshot). Composes: breadcrumb + record-header (Pending badge) + tab-nav (Overview) +
+  progress-tracker (Pending .is-active, In review/Converted future) + alert (info — review-before-convert) +
+  kv-table + sticky-footer (Mark as in review [primary/btn-secondary] · Decline; Convert is DISABLED+aria-disabled).
+  Invariant: convert gated on in-review status — here DISABLED with copy "Review the referral before converting."
+  No real patient data — synthetic.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="./referrals.pipeline.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6 pb-32" aria-label="Referral detail">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./referrals.pipeline.html">Referrals</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Theresa Boyd</span>
+          </nav>
+
+          <!-- Record identity header -->
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title">Theresa Boyd</h1>
+              <p class="record-header-subtitle">Referred by UConn Health · Received May 18, 2026</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-warning">Pending</span>
+              <span class="record-header-meta">Received 8 days ago</span>
+            </div>
+          </header>
+
+          <!-- Record tabs (Overview active). Preline-driven in production. -->
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Referral sections" role="tablist">
+            <button type="button" class="tab-nav-item active" aria-selected="true">Overview</button>
+            <button type="button" class="tab-nav-item">Notes</button>
+            <button type="button" class="tab-nav-item">History</button>
+          </nav>
+
+          <!-- Overview panel -->
+          <div class="mt-6 space-y-6" role="tabpanel" aria-label="Overview">
+
+            <!-- Review-before-convert prompt -->
+            <div class="alert alert-info" role="status">
+              <i class="fa-solid fa-circle-info alert-icon" aria-hidden="true"></i>
+              <div>Review the referral before converting. Mark it as in review once you have checked the candidate details.</div>
+            </div>
+
+            <!-- Status pipeline orientation -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Referral status</h2></div>
+              <div class="card-body">
+                <div class="progress-tracker">
+                  <div class="progress-tracker-step is-active" aria-current="step">
+                    <div class="progress-tracker-dot">1</div>
+                    <div class="progress-tracker-label">Pending</div>
+                  </div>
+                  <div class="progress-tracker-step">
+                    <div class="progress-tracker-dot">2</div>
+                    <div class="progress-tracker-label">In review</div>
+                  </div>
+                  <div class="progress-tracker-step">
+                    <div class="progress-tracker-dot">3</div>
+                    <div class="progress-tracker-label">Converted</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Candidate identifiers + referral source -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Candidate information</h2></div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tbody>
+                    <tr><th scope="row">Name</th><td>Theresa Boyd</td></tr>
+                    <tr><th scope="row">Date of birth</th><td>Jul 2, 1968 · 57, F</td></tr>
+                    <tr><th scope="row">Contact</th><td>(860) 555-0147 · t.boyd@example.com</td></tr>
+                    <tr><th scope="row">Referring partner</th><td><a href="../network/network.partners-list.html" class="text-link">UConn Health</a></td></tr>
+                    <tr><th scope="row">Referral date</th><td>May 18, 2026</td></tr>
+                    <tr><th scope="row">Program / cohort</th><td>Renal nutrition · Spring 2026</td></tr>
+                    <tr><th scope="row">Clinical notes</th><td>Type 2 diabetes with early renal involvement. Referred for renal-friendly, carbohydrate-controlled meal support.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </main>
+
+        <!-- Convert-action zone (sticky footer). Pending state: Mark as in review primary; Convert DISABLED. -->
+        <div class="sticky-footer">
+          <div class="sticky-footer-inner">
+            <div class="sticky-footer-info">
+              <i class="fa-solid fa-circle-info text-sand-500" aria-hidden="true"></i>
+              Review the referral before converting.
+            </div>
+            <div class="sticky-footer-actions">
+              <button type="button" class="btn-danger-outline btn-sm"><i class="fa-solid fa-ban" aria-hidden="true"></i> Decline</button>
+              <button type="button" class="btn-primary btn-sm" disabled aria-disabled="true"><i class="fa-solid fa-user-plus" aria-hidden="true"></i> Convert to patient</button>
+              <a href="./referrals.detail.html" class="btn-secondary btn-sm"><i class="fa-solid fa-eye" aria-hidden="true"></i> Mark as in review</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
