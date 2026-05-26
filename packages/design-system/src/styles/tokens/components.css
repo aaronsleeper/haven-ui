@@ -2380,7 +2380,7 @@ a.btn-danger {
    focus management ship in scripts/components/bulk-action-bar.js. */
 .bulk-action-bar {
     @apply sticky bottom-0 z-20 flex flex-wrap items-center justify-between gap-3 px-4 py-3;
-    @apply bg-white border border-sand-200 rounded-xl shadow-lg;
+    @apply bg-white border border-sand-200 rounded-md shadow-lg;
     @apply dark:bg-sand-900 dark:border-sand-700;
 }
 
