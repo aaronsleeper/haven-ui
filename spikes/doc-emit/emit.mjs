@@ -23,7 +23,15 @@ import { havenDirectives, havenPrimitives } from './handlers.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = resolve(__dirname, 'content');
-const OUT_DIR = resolve(__dirname, '../../packages/design-system/pattern-library/_docs-spike');
+
+// MODE=standalone -> self-contained bundle (real head + ./assets/haven.css), output
+// to dist/ (run build-bundle.sh first to populate dist/assets/). Renders with NO
+// dev server. MODE=devserver (default) -> <load> partials, served by Vite.
+const MODE = process.env.MODE === 'standalone' ? 'standalone' : 'devserver';
+const OUT_DIR =
+  MODE === 'standalone'
+    ? resolve(__dirname, 'dist')
+    : resolve(__dirname, '../../packages/design-system/pattern-library/_docs-spike');
 
 const manifest = JSON.parse(readFileSync(resolve(__dirname, 'nav.json'), 'utf8'));
 
@@ -58,9 +66,10 @@ async function main() {
       title: frontmatter.title || page.title,
       description: frontmatter.description,
       bodyHtml: html,
+      mode: MODE,
     });
     writeFileSync(resolve(OUT_DIR, `${page.slug}.html`), out, 'utf8');
-    console.log(`  emitted  _docs-spike/${page.slug}.html  (${html.length} bytes of body)`);
+    console.log(`  emitted  ${page.slug}.html  (${MODE}; ${html.length} bytes of body)`);
   }
 
   // Report any content files NOT in the manifest (would be silently dropped — same

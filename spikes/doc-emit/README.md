@@ -24,20 +24,36 @@ Full research context: `Vaults/workflows/ui-development/doc-site-generation-rese
 
 Only the seam is swappable and brand-bearing. Everything else is correctness-only plumbing.
 
-## Run
+## Two emit modes
 
 ```bash
 cd spikes/doc-emit
-npm install                       # isolated; spikes/* is outside the pnpm workspace
-node emit.mjs                     # -> packages/design-system/pattern-library/_docs-spike/*.html
-# serve via the design-system dev server (Vite + Tailwind compile the haven-ui CSS):
+npm install                          # isolated; spikes/* is outside the pnpm workspace
+
+# devserver mode — Vite + Tailwind compile components.css live (fast iteration)
+node emit.mjs                        # -> packages/design-system/pattern-library/_docs-spike/*.html
 pnpm --filter @haven/design-system dev
 # open http://localhost:5173/pattern-library/_docs-spike/getting-started.html
+
+# standalone mode — self-contained bundle, NO toolchain on the consumer side
+bash build-bundle.sh                 # build DS, bundle CSS+fonts, emit -> dist/
+#   (use --no-build to reuse an existing packages/design-system/dist)
+cd dist && python3 -m http.server 8799    # any plain static server works
+# open http://localhost:8799/getting-started.html  (no Vite, no Tailwind)
 ```
+
+`build-bundle.sh` mirrors the production precedent `scripts/handoff-rebuild-bundle.sh`: compiled `haven.css` + FA Pro woff2 binaries copied together, `url(/assets/)` → `url(./)` relativized. Output renders from any static server or `file://`.
+
+## What this resolved — haven-ui's distribution model ("yarn/npm package?")
+
+The standalone mode answers how a consumer gets haven-ui without running its toolchain:
+
+- **In-monorepo consumers (React apps, future ports):** haven-ui already IS a workspace package — `@haven/design-system` / `@haven/ui-react` consumed via the pnpm workspace protocol. No registry publish needed.
+- **External / static consumers (a doc site, Andrey's Angular port, any non-toolchain target):** the distribution unit is the **compiled self-contained bundle** (`haven.css` + FA woff2, relativized paths), copied in — *not* an npm install. Both the `handoff/cena-uconn` bundle and this spike consume it that way. A private-registry publish would add a dependency and still require extracting the compiled assets; the copied bundle is simpler and ownership-aligned.
+- **The real boundary (the bundle's contract with consumers):** semantic component classes (`.alert`, `.card`, …) are unconditionally in `components.css`, so they always ship. *Utility* classes only ship if Tailwind scanned them at build time. A consumer using a novel utility not in the build's content scan gets a missing class. haven-ui already mitigates this with the `@source inline(...)` **sanctioned utility surface** in `src/styles/main.css` — the declared closed-vocabulary set guaranteed into the bundle for out-of-scan consumers. Doc-site emission should rely on semantic classes + that surface, and grow the surface (or add the emit output to the content scan) when it needs a new utility.
 
 ## Status & limits
 
-- **Spike, not product.** Hardcoded 2-page sample; no search, no versions/i18n, no OpenAPI, no incremental build.
-- **Render depends on the design-system dev server** to compile `components.css` (`@apply` + Tailwind v4). True standalone static emission (linking a pre-compiled CSS bundle + bundled fonts, self-contained per the handoff rule) is the next step — not proven here.
-- Emitted output is gitignored (regenerate with `node emit.mjs`).
+- **Spike, not product.** Hardcoded 2-page sample; no search, no versions/i18n, no OpenAPI, no incremental build, no link-checking (the handoff build has link-checking; a product emitter should adopt it).
+- Both emitted outputs (`dist/`, `_docs-spike/`) are gitignored — regenerate with `node emit.mjs` / `bash build-bundle.sh`.
 - Isolated from the pnpm workspace on purpose (`spikes/` is not a workspace glob), so its deps never touch the haven-ui lockfile.

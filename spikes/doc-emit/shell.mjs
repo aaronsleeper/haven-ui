@@ -44,12 +44,30 @@ function renderSidebar(manifest, currentSlug) {
   </aside>`;
 }
 
-export function renderPage({ manifest, slug, title, description, bodyHtml }) {
+// Two heads, one per emit mode (the only mode-dependent part of the page):
+//   devserver  — <load> partial; Vite + Tailwind compile components.css live.
+//   standalone — real head linking the relativized ./assets/haven.css bundle
+//                (compiled CSS + bundled FA fonts) + brand fonts via CDN. No
+//                toolchain on the consumer side. Mirrors handoff/cena-uconn.
+function head({ mode, title, manifest }) {
+  if (mode === 'standalone') {
+    return `  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${title} — ${manifest.title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="./assets/haven.css" />`;
+  }
+  return `  <load src="../partials/pl-head.html" />
+  <title>${title} — ${manifest.title}</title>`;
+}
+
+export function renderPage({ manifest, slug, title, description, bodyHtml, mode = 'devserver' }) {
   return `<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <load src="../partials/pl-head.html" />
-  <title>${title} — ${manifest.title}</title>
+${head({ mode, title, manifest })}
 </head>
 <body class="bg-sand-50 dark:bg-sand-950">
   ${renderSidebar(manifest, slug)}
@@ -64,7 +82,7 @@ ${bodyHtml}
       </article>
     </div>
   </main>
-  <load src="../partials/pl-scripts.html" />
+${mode === 'standalone' ? '' : '  <load src="../partials/pl-scripts.html" />'}
 </body>
 </html>
 `;
