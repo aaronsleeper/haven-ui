@@ -17,6 +17,7 @@
 #   command-palette  — global patient search (topbar)
 #   file-upload      — bulk patient intake (CSV) + Diet-Ops AI import
 #   quantity-stepper — weekly-plan / order quantity controls (Diet Operations)
+#   bulk-action-bar  — selection-count + visibility + focus mgmt for the bulk bar (S2)
 #
 # WHY the copy + relativize stay ONE step: re-running the sed without recopying the
 # woff2 binaries scrambles FontAwesome Pro glyphs bundle-wide and the render gate
@@ -28,7 +29,7 @@ REPO="$(cd "$HERE/.." && pwd)"
 
 bash "$REPO/tools/surface-emit/build-bundle.sh" \
   --assets-only --png \
-  --js "flow-actions context-menu command-palette file-upload quantity-stepper" \
+  --js "flow-actions context-menu command-palette file-upload quantity-stepper bulk-action-bar" \
   --out "$REPO/handoff/cena-platform"
 
 echo "handoff-rebuild-bundle-platform: ✅ bundle rebuilt via converged bundler — CSS + fonts + JS primitives together."

@@ -1,0 +1,82 @@
+<!--
+  @component-meta
+  name: Bulk Action Bar
+  category: Data
+  file: data-bulk-action-bar.html
+  classes: bulk-action-bar, bulk-action-bar-info, bulk-action-bar-count, bulk-action-bar-actions
+  interactive-usage: required
+  script: scripts/components/bulk-action-bar.js
+  when-to-use: Dense list/table surfaces (care-coordinator platform) where selecting ≥1 row reveals bulk operations — Patients roster (Activate / Archive / Export), Diet Operations catalog, Network candidates. Sticky to the bottom of the scrolling content region; appears conditionally on selection.
+  do-not-use-when: Patient-app save/submit footer (use .sticky-footer — position:fixed, 430px, single-form semantics). A single-action confirm (use overlay-confirm-dialog directly).
+  preline-required: no
+  notes: |
+    BEHAVIOR ships with the primitive (scripts/components/bulk-action-bar.js) — a
+    framework-agnostic vanilla module any consumer drops in or ports. It owns the
+    non-trivial design decisions the markup alone cannot encode:
+      - Visibility: the native `hidden` attribute toggles the bar (components.css
+        defines .bulk-action-bar[hidden]{display:none}); hidden at zero selection.
+      - Count: maintained from the [data-bulk-row] checkboxes into
+        [data-bulk-action-bar-count]; select-all reflects indeterminate state.
+      - Announcement: [data-bulk-action-bar-announce] is an sr-only polite atomic
+        live region; the count announcement is DEBOUNCED 400ms so a select-all
+        toggling hundreds of rows announces once, not per row (chatty-announcement
+        a11y rule). The visible "N selected" is sighted-only.
+      - Focus: on Clear (which removes the bar from the tab flow), focus moves to
+        the select-all checkbox → first row checkbox → table, never dropped to
+        <body> (WCAG 2.4.3, panel finding 2026-05-26).
+      - Events: dispatches 'bulk-selection-change' {count,total,checkboxes};
+        programmatic _bulkActionBar.clear()/getCount().
+    WIRING: pair the bar to its table via matching data-bulk-scope; row checkboxes
+    carry [data-bulk-row], the optional header all-toggle carries [data-bulk-select-all].
+    SLOTS, not fixed content:
+      - .bulk-action-bar-actions is a SLOT — the verb set varies per surface
+        (Patients: Export/Activate/Archive; Diet Ops + Network differ). Do not
+        transcribe the three demo buttons as canon.
+      - For dense paginated tables, the info region may carry total context
+        ("N of M") and a "Select all M matching" affordance (shown in the second
+        exemplar). Destructive bulk actions (Archive/Delete) route through
+        overlay-confirm-dialog — never fire directly from the bar.
+    Distinct from .sticky-footer: different positioning (sticky-in-container vs
+    fixed-viewport), width (full content vs 430px), semantics (selection vs save).
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Bulk Action Bar</h3>
+  <p class="pl-description">
+    Contextual selection-mode bar for dense tables. Appears when rows are checked; sticky to the bottom of the content region. Count announced via a debounced <code>aria-live</code> region; destructive bulk actions route through a confirm dialog. Behavior + focus management ship in <code>bulk-action-bar.js</code>.
+  </p>
+
+    <!-- @component: data-bulk-action-bar -->
+    <div class="bulk-action-bar" role="region" aria-label="Bulk actions"
+         data-bulk-action-bar data-bulk-scope="demo-roster">
+      <div class="bulk-action-bar-info">
+        <span><span class="bulk-action-bar-count" data-bulk-action-bar-count>3</span> selected</span>
+        <span class="sr-only" data-bulk-action-bar-announce aria-live="polite" aria-atomic="true"></span>
+        <button type="button" class="btn-ghost btn-sm" data-bulk-action-bar-clear>Clear</button>
+      </div>
+      <div class="bulk-action-bar-actions">
+        <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-file-export" aria-hidden="true"></i> Export</button>
+        <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Activate</button>
+        <button type="button" class="btn-danger-outline btn-sm"><i class="fa-solid fa-box-archive" aria-hidden="true"></i> Archive</button>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <p class="pl-description mt-6">Paginated variant — total context + select-all-matching affordance for tables that scroll beyond one page:</p>
+
+    <!-- @component: data-bulk-action-bar-paginated -->
+    <div class="bulk-action-bar" role="region" aria-label="Bulk actions">
+      <div class="bulk-action-bar-info">
+        <span><span class="bulk-action-bar-count">12</span> of 340 selected</span>
+        <button type="button" class="btn-ghost btn-sm">Select all 340</button>
+        <button type="button" class="btn-ghost btn-sm">Clear</button>
+      </div>
+      <div class="bulk-action-bar-actions">
+        <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-file-export" aria-hidden="true"></i> Export</button>
+        <button type="button" class="btn-danger-outline btn-sm"><i class="fa-solid fa-box-archive" aria-hidden="true"></i> Archive</button>
+      </div>
+    </div>
+    <!-- /component -->
+</section>

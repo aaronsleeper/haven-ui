@@ -33,7 +33,8 @@ handoff/cena-platform/
 │   ├── haven-ui*.svg     ← FontAwesome SVG fallbacks
 │   ├── haven-ui.png      ← haven-ui logo
 │   └── *.js              ← curated JS primitives (flow-actions, context-menu,
-│                            command-palette, file-upload, quantity-stepper)
+│                            command-palette, file-upload, quantity-stepper,
+│                            bulk-action-bar)
 ├── _shell/               ← the 7-anchor app-shell reference template (S1) every surface copies
 └── {surface}/            ← today · patients · referrals · diet-operations ·
                              network · clinical-library · admin

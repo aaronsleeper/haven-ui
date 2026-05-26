@@ -2367,6 +2367,45 @@ a.btn-danger {
 }
 
 /* ===================================
+   BULK ACTION BAR
+   ===================================
+   Contextual selection-mode action bar for dense list/table surfaces
+   (care-coordinator platform). Distinct from .sticky-footer (patient-app:
+   position:fixed at 430px phone width, save/submit semantics) — this bar is
+   sticky to the bottom of its SCROLL CONTAINER, spans full content width, and
+   carries SELECTION semantics: appears when ≥1 row is checked, announces the
+   selection count via aria-live, offers bulk actions + clear-selection.
+   Promoted on anticipated 3-use (Patients roster + Diet Ops catalog + Network
+   candidate — Patients ships first and consumes it immediately). Behavior +
+   focus management ship in scripts/components/bulk-action-bar.js. */
+.bulk-action-bar {
+    @apply sticky bottom-0 z-20 flex flex-wrap items-center justify-between gap-3 px-4 py-3;
+    @apply bg-white border border-sand-200 rounded-xl shadow-lg;
+    @apply dark:bg-sand-900 dark:border-sand-700;
+}
+
+/* Native hidden attribute drives visibility (JS toggles bar.hidden); this rule
+   beats the @apply flex above so the bar is display:none at zero selection. */
+.bulk-action-bar[hidden] {
+    display: none;
+}
+
+.bulk-action-bar-info {
+    @apply flex items-center gap-3 text-sm font-medium text-sand-800;
+    @apply dark:text-sand-100;
+}
+
+/* Count chip — reuses the registered bg-primary-600/text-white pair (btn-primary). */
+.bulk-action-bar-count {
+    @apply inline-flex items-center justify-center min-w-[1.5rem] h-6 px-2 rounded-full text-xs font-semibold;
+    @apply bg-primary-600 text-white;
+}
+
+.bulk-action-bar-actions {
+    @apply flex flex-wrap items-center gap-2;
+}
+
+/* ===================================
    AI FIELD INDICATORS
    =================================== */
 
