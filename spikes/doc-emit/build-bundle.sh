@@ -1,41 +1,53 @@
 #!/usr/bin/env bash
-# build-bundle.sh — assemble the self-contained doc-emit bundle (spike).
+# build-bundle.sh — assemble a self-contained surface bundle (any surface).
 #
-# Mirrors scripts/handoff-rebuild-bundle.sh (the production precedent for shipping
-# haven-ui as static HTML without the toolchain): compiled CSS + FA font binaries,
-# url(/assets/) -> url(./) relativized, so the output renders from any plain static
-# server with no Vite, no Tailwind, no dev server. The CSS + fonts are versioned
-# together; copying fonts and rewriting CSS is ONE step on purpose (see the handoff
-# script's WHY note — recopying CSS without fonts scrambles FA glyphs).
+# Converged bundler: one parameterized script replacing the two prior copies
+# (scripts/handoff-rebuild-bundle.sh + the old per-spike build-bundle.sh). Same
+# mechanism: compiled CSS + FA woff2 binaries copied together, url(/assets/) ->
+# url(./) relativized, prose layer copied, then MODE=standalone emit.
+# Per ~/.claude/plans/surface-emission-convergence.md.
 #
-# Usage:  bash build-bundle.sh        # build DS, bundle assets, emit standalone HTML
-#         bash build-bundle.sh --no-build   # reuse existing design-system dist
+# Usage:  bash build-bundle.sh [SURFACE] [--no-build]
+#         SURFACE = docs (default) | sot
+#         --no-build reuses the existing design-system dist
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
 
+SURFACE="docs"; NOBUILD=""
+for a in "$@"; do
+  case "$a" in
+    --no-build) NOBUILD=1 ;;
+    docs|sot) SURFACE="$a" ;;
+  esac
+done
+
 DIST="$REPO/packages/design-system/dist/assets"
-OUT="$HERE/dist"
+case "$SURFACE" in
+  docs) OUT="$HERE/dist" ;;
+  sot)  OUT="$HERE/dist-sot" ;;
+esac
 ASSETS="$OUT/assets"
 
-if [ "${1:-}" != "--no-build" ]; then
-  echo "build-bundle: [1/4] building @haven/design-system …"
+if [ -z "$NOBUILD" ]; then
+  echo "build-bundle[$SURFACE]: [1/4] building @haven/design-system …"
   ( cd "$REPO" && pnpm --filter @haven/design-system build )
 else
-  echo "build-bundle: [1/4] skipping DS build (--no-build); reusing $DIST"
+  echo "build-bundle[$SURFACE]: [1/4] reusing existing $DIST (--no-build)"
 fi
 
-echo "build-bundle: [2/4] copying FA Pro font binaries + svg fallbacks → assets/ …"
+echo "build-bundle[$SURFACE]: [2/4] copying FA woff2 + svg + prose layer → assets/ …"
 mkdir -p "$ASSETS"
 cp "$DIST"/haven-ui*.woff2 "$ASSETS"/
 cp "$DIST"/haven-ui*.svg "$ASSETS"/ 2>/dev/null || true
+cp "$HERE/surface-prose.css" "$ASSETS"/
 
-echo "build-bundle: [3/4] relativizing url(/assets/) → url(./) into assets/haven.css …"
+echo "build-bundle[$SURFACE]: [3/4] relativizing url(/assets/) → url(./) into assets/haven.css …"
 sed -E 's|url\(/assets/|url(./|g' "$DIST/haven-ui.css" > "$ASSETS/haven.css"
 
-echo "build-bundle: [4/4] emitting standalone HTML → dist/ …"
-MODE=standalone node "$HERE/emit.mjs"
+echo "build-bundle[$SURFACE]: [4/4] emitting standalone HTML → $(basename "$OUT")/ …"
+MODE=standalone SURFACE="$SURFACE" node "$HERE/emit.mjs"
 
-echo "build-bundle: ✅ self-contained bundle at spikes/doc-emit/dist/"
-echo "build-bundle:    serve with: cd spikes/doc-emit/dist && python3 -m http.server 8799"
+echo "build-bundle[$SURFACE]: ✅ bundle at spikes/doc-emit/$(basename "$OUT")/"
+echo "build-bundle[$SURFACE]:    serve: cd spikes/doc-emit/$(basename "$OUT") && python3 -m http.server 8799"

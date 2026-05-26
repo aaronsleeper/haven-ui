@@ -28,3 +28,4 @@ _site/
 
 # Doc-emit spike generated output (regenerate: node spikes/doc-emit/emit.mjs)
 packages/design-system/pattern-library/_docs-spike/
+packages/design-system/pattern-library/_sot-spike/

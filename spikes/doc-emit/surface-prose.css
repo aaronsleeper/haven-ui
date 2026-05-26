@@ -1,0 +1,74 @@
+/* surface-prose.css — the converged prose + disclosure layer.
+   Consolidates two prior surface-local stylesheets into ONE (the convergence):
+     - SoT surface-prose.css      (prose flow Tailwind preflight strips)
+     - cena-reasoning reasoning.css (the :::reason <details> disclosures)
+   haven is a component system, not a document stylesheet: preflight strips bare
+   prose (list markers, heading flow, table internals) and there is no `prose`
+   utility. Every value here comes from a haven TOKEN — never a hardcoded literal.
+   Loaded AFTER the compiled bundle so these win over preflight.
+   Open (per convergence plan): promote the disclosure styles into haven
+   components.css if a second consumer wants them (PL-first rule). */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap');
+
+/* --- Page layout chrome (haven has no .container; local layout, token spacing) --- */
+.surface { max-width: 60rem; margin-inline: auto; padding: calc(var(--spacing) * 10) calc(var(--spacing) * 6) calc(var(--spacing) * 24); }
+
+/* --- Headings: h1->.page-title, h2->.section-title get haven classes via the seam;
+   here we add prose-flow spacing + map bare h3/h4 to tokens. --- */
+.surface .page-title { margin-bottom: calc(var(--spacing) * 1); padding-bottom: calc(var(--spacing) * 2); border-bottom: 3px solid var(--color-warning-300); }
+.surface .section-title { margin-top: calc(var(--spacing) * 10); margin-bottom: calc(var(--spacing) * 3); padding-bottom: calc(var(--spacing) * 2); border-bottom: 1px solid var(--color-border-default); }
+.surface h3 { font-family: var(--font-serif); font-size: var(--text-lg); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-top: calc(var(--spacing) * 6); margin-bottom: calc(var(--spacing) * 2); }
+.surface h4 { font-family: var(--font-sans); font-size: var(--text-base); font-weight: var(--font-weight-semibold); color: var(--color-sand-800); margin-top: calc(var(--spacing) * 4); margin-bottom: calc(var(--spacing) * 1); }
+
+/* --- Body prose --- */
+.surface p { margin-block: calc(var(--spacing) * 3); }
+.surface strong { font-weight: var(--font-weight-bold); }
+.surface em { font-style: italic; }
+
+/* --- Lists: preflight sets list-style:none; restore markers --- */
+.surface ul, .surface ol { margin-block: calc(var(--spacing) * 3); margin-inline-start: 0; padding-inline-start: calc(var(--spacing) * 6); }
+.surface ul { list-style-type: disc; }
+.surface ol { list-style-type: decimal; }
+.surface li { margin-block: calc(var(--spacing) * 1); }
+.surface li > ul, .surface li > ol { margin-block: calc(var(--spacing) * 1); }
+
+/* --- Links / blockquote / hr --- */
+.surface a { color: var(--color-primary); text-decoration: none; }
+.surface a:hover { text-decoration: underline; }
+.surface blockquote { border-inline-start: 3px solid var(--color-primary-400); background: var(--color-primary-50); margin-block: calc(var(--spacing) * 4); padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4); color: var(--color-text-muted); }
+.surface blockquote p { margin-block: calc(var(--spacing) * 1); }
+.surface hr { border: none; border-top: 1px solid var(--color-border-default); margin-block: calc(var(--spacing) * 8); }
+
+/* --- Tables: haven .data-table owns internals; restore collapse + flow --- */
+.surface .data-table { margin-block: calc(var(--spacing) * 5); }
+.surface .data-table table { border-collapse: collapse; }
+
+/* --- Surface chrome: banner + nav (token-built) --- */
+.surface-banner { background: var(--color-primary-800); color: var(--color-text-on-dark); border-radius: var(--radius-md); padding: calc(var(--spacing) * 4) calc(var(--spacing) * 5); margin-bottom: calc(var(--spacing) * 6); font-size: var(--text-sm); line-height: 1.6; }
+.surface-banner strong { color: var(--color-amber-300); }
+.surface-banner .badge { vertical-align: middle; }
+.surface-nav { display: flex; gap: calc(var(--spacing) * 5); margin-bottom: calc(var(--spacing) * 8); font-size: var(--text-sm); }
+.surface-nav a { font-weight: var(--font-weight-semibold); color: var(--color-primary); text-decoration: none; }
+.surface-nav a:hover { text-decoration: underline; }
+
+/* ============================================================================
+   :::reason disclosures (ported from cena-reasoning reasoning.css)
+   ============================================================================ */
+.poke { margin-top: 0.875rem; }
+.poke > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--color-teal-600, #2c6a60); padding: 0.375rem 0.75rem; border-radius: 9999px; background: var(--color-teal-50, #eef4f2); border: 1px solid var(--color-teal-100, #d7e6e2); transition: background 120ms ease; user-select: none; }
+.poke > summary::-webkit-details-marker { display: none; }
+.poke > summary:hover { background: var(--color-teal-100, #d7e6e2); }
+.poke > summary .poke-chevron { transition: transform 160ms ease; font-size: 0.75rem; }
+.poke[open] > summary .poke-chevron { transform: rotate(90deg); }
+.poke[open] > summary { background: var(--color-teal-100, #d7e6e2); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.poke-body { border: 1px solid var(--color-teal-100, #d7e6e2); border-top: none; border-radius: 0 0.625rem 0.625rem 0.625rem; padding: 1rem 1.125rem 1.125rem; background: var(--color-sand-50, #fbfaf8); font-size: 0.9375rem; line-height: 1.6; color: var(--color-sand-700, #5c574f); }
+.poke-body p { margin: 0 0 0.625rem; }
+.poke-body p:last-child { margin-bottom: 0; }
+.poke-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-sand-500, #8a847a); margin-bottom: 0.25rem; }
+.poke-source { font-family: "Source Code Pro", ui-monospace, monospace; font-size: 0.75rem; color: var(--color-sand-500, #8a847a); word-break: break-word; }
+.challenge { margin-top: 0.875rem; }
+.challenge > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; color: var(--color-sand-600, #6f6a61); padding: 0.3125rem 0.6875rem; border-radius: 9999px; border: 1px dashed var(--color-sand-300, #bcb8b1); background: transparent; transition: all 120ms ease; }
+.challenge > summary::-webkit-details-marker { display: none; }
+.challenge > summary:hover { border-color: var(--color-teal-400, #6fa399); color: var(--color-teal-600, #2c6a60); }
+.challenge-body { margin-top: 0.625rem; padding: 0.875rem 1rem; border: 1px dashed var(--color-sand-300, #bcb8b1); border-radius: 0.625rem; background: var(--color-sand-50, #fbfaf8); font-size: 0.9375rem; line-height: 1.55; color: var(--color-sand-700, #5c574f); }

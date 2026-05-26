@@ -38,3 +38,15 @@ Markdown tables are a primitive — the seam adds the `.data-table` class so the
 // Fenced code stays a code block; only INLINE code is restyled.
 const seam = (contentNode) => havenComponent(contentNode);
 ```
+
+## Reasoning disclosures
+
+The `:::reason` directive folds the cena-reasoning surface's pokeable `<details>` into the same engine — same content tier, no hand-built HTML.
+
+:::reason{q="Why does this directive exist?" source="surface-emission-convergence.md" kind="poke"}
+The reasoning surface was a third hand-built emitter of the same seam. Folding its `<details>` disclosure into a directive means one engine renders docs, SoT, and reasoning surfaces alike.
+:::
+
+:::reason{q="Challenge this" kind="challenge"}
+Does a single directive really capture the reasoning surface's richer blocks (model-to-break, push-here)? Those may stay surface-local CSS, or promote to the pattern library on a second consumer.
+:::

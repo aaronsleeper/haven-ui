@@ -1,13 +1,14 @@
 // ============================================================================
-// EMIT PIPELINE — portable content + nav manifest -> static haven-ui HTML
+// EMIT CORE — DS-agnostic. Consumes a binding (the seam) + a surface config
+// (content + chrome) and emits self-contained static HTML. One engine; the
+// three prior emitters (doc-emit / SoT pandoc / reasoning hand-built) become
+// configs of this. Per ~/.claude/plans/surface-emission-convergence.md.
+//
+//   SURFACE=docs | sot   (default docs)
+//   MODE=devserver | standalone  (default devserver)
 // ============================================================================
-// Fixed plumbing: read manifest -> for each page, parse markdown -> run the seam
-// (directives + primitives) -> stringify HTML -> wrap in shell -> write static file.
-// The only brand-bearing step is handlers.mjs (the seam). Everything here is
-// correctness-only: no taste, no brand judgment. Mirrors Mintlify's build-time
-// serialize() step, but emitting static HTML instead of serialized React.
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -19,69 +20,86 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import matter from 'gray-matter';
 
-import { havenDirectives, havenPrimitives } from './handlers.mjs';
+import { havenBinding } from './handlers.mjs';
+import { renderPage } from './shell.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const CONTENT_DIR = resolve(__dirname, 'content');
-
-// MODE=standalone -> self-contained bundle (real head + ./assets/haven.css), output
-// to dist/ (run build-bundle.sh first to populate dist/assets/). Renders with NO
-// dev server. MODE=devserver (default) -> <load> partials, served by Vite.
 const MODE = process.env.MODE === 'standalone' ? 'standalone' : 'devserver';
-const OUT_DIR =
-  MODE === 'standalone'
-    ? resolve(__dirname, 'dist')
-    : resolve(__dirname, '../../packages/design-system/pattern-library/_docs-spike');
+const SURFACE = process.env.SURFACE || 'docs';
 
-const manifest = JSON.parse(readFileSync(resolve(__dirname, 'nav.json'), 'utf8'));
-
+// Build the processor from the BINDING (DS-agnostic core; haven-specific plugins
+// come from the binding). Swap the binding -> a different design system.
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
-  .use(remarkDirective)
-  .use(havenDirectives) // SEAM: authored components
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(havenPrimitives) // SEAM: markdown primitives
-  .use(rehypeStringify, { allowDangerousHtml: true });
+  .use(remarkDirective);
+for (const p of havenBinding.remarkPlugins) processor.use(p);
+processor.use(remarkRehype, { allowDangerousHtml: true });
+for (const p of havenBinding.rehypePlugins) processor.use(p);
+processor.use(rehypeStringify, { allowDangerousHtml: true });
 
 function renderMarkdown(md) {
   const { content, data } = matter(md);
-  const html = processor.processSync(content).toString();
-  return { html, frontmatter: data };
+  return { html: processor.processSync(content).toString(), frontmatter: data };
 }
 
-async function main() {
-  const { renderPage } = await import('./shell.mjs');
-  mkdirSync(OUT_DIR, { recursive: true });
+// ---- surface configs (each = a consumer; zero bespoke emitter code) --------
+const SOT_REPO = '/Users/aaronsleeper/Vaults/Knowledge/Projects/Cena Health/Partners/UCONN Health';
+const SURFACES = {
+  docs: {
+    chrome: 'sidebar',
+    manifest: JSON.parse(readFileSync(resolve(__dirname, 'nav.json'), 'utf8')),
+    pages: null, // derived from manifest below
+    contentDir: resolve(__dirname, 'content'),
+    devOut: resolve(__dirname, '../../packages/design-system/pattern-library/_docs-spike'),
+    standaloneOut: resolve(__dirname, 'dist'),
+  },
+  // READ-ONLY coverage proof against the real shipped SoT markdown. Writes only
+  // to the spike's own dist-sot/ — the live uconn-pilot-docs surface/ + PR are
+  // NOT touched (that swap is convergence-plan step 4, gated on Aaron's review).
+  sot: {
+    chrome: 'surface',
+    manifest: { title: 'UConn Pilot — Source of Truth' },
+    chromeConfig: {
+      banner: '<strong>UConn Pilot — Source of Truth.</strong> Read-only surface (converged-engine coverage proof). Generated from the canonical SoT markdown — a <em>view</em>, not a copy. Legend: <span class="badge badge-success">decided</span> <span class="badge badge-warning">deferred</span> <span class="badge badge-info">open</span>.',
+      nav: [
+        { href: './index.html', label: 'Source of Truth' },
+        { href: './timeline.html', label: 'Launch Timeline & Gates' },
+      ],
+    },
+    pages: [
+      { slug: 'index', srcAbs: `${SOT_REPO}/UConn Pilot — Source of Truth.md`, title: 'UConn Pilot — Source of Truth' },
+      { slug: 'timeline', srcAbs: `${SOT_REPO}/Launch Timeline — Inference & Gates.md`, title: 'Launch Timeline & Gates' },
+    ],
+    contentDir: null,
+    devOut: resolve(__dirname, '../../packages/design-system/pattern-library/_sot-spike'),
+    standaloneOut: resolve(__dirname, 'dist-sot'),
+  },
+};
 
-  // Drive emission from the manifest (manifest is authoritative for routing,
-  // exactly like Mintlify's docs.json — a page absent here is not emitted).
-  const pages = manifest.nav.flatMap((g) => g.pages);
-  for (const page of pages) {
-    const md = readFileSync(resolve(CONTENT_DIR, `${page.slug}.md`), 'utf8');
-    const { html, frontmatter } = renderMarkdown(md);
-    const out = renderPage({
-      manifest,
-      slug: page.slug,
-      title: frontmatter.title || page.title,
-      description: frontmatter.description,
-      bodyHtml: html,
-      mode: MODE,
-    });
-    writeFileSync(resolve(OUT_DIR, `${page.slug}.html`), out, 'utf8');
-    console.log(`  emitted  ${page.slug}.html  (${MODE}; ${html.length} bytes of body)`);
-  }
+const cfg = SURFACES[SURFACE];
+if (!cfg) { console.error(`unknown SURFACE=${SURFACE}`); process.exit(1); }
 
-  // Report any content files NOT in the manifest (would be silently dropped — same
-  // contract Mintlify enforces; surfaced here so it is visible, not hidden).
-  const contentFiles = readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md')).map((f) => f.replace(/\.md$/, ''));
-  const orphans = contentFiles.filter((s) => !pages.some((p) => p.slug === s));
-  if (orphans.length) console.log(`  note: ${orphans.length} content file(s) not in manifest, not emitted: ${orphans.join(', ')}`);
+const pages = cfg.pages || cfg.manifest.nav.flatMap((g) => g.pages);
+const OUT_DIR = MODE === 'standalone' ? cfg.standaloneOut : cfg.devOut;
+mkdirSync(OUT_DIR, { recursive: true });
 
-  console.log(`\nEmitted ${pages.length} page(s) -> ${OUT_DIR}`);
+for (const page of pages) {
+  const src = page.srcAbs || resolve(cfg.contentDir, `${page.slug}.md`);
+  const md = readFileSync(src, 'utf8');
+  const { html, frontmatter } = renderMarkdown(md);
+  const out = renderPage({
+    chrome: cfg.chrome,
+    chromeConfig: cfg.chromeConfig,
+    manifest: cfg.manifest,
+    slug: page.slug,
+    title: frontmatter.title || page.title,
+    description: frontmatter.description,
+    bodyHtml: html,
+    mode: MODE,
+    proseCss: havenBinding.proseCss,
+  });
+  writeFileSync(resolve(OUT_DIR, `${page.slug}.html`), out, 'utf8');
+  console.log(`  emitted  ${SURFACE}/${page.slug}.html  (${MODE}; ${html.length} bytes body)`);
 }
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+console.log(`\nEmitted ${pages.length} page(s) [surface=${SURFACE}] -> ${OUT_DIR}`);
