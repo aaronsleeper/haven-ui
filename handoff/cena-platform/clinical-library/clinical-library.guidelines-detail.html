@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Renal-friendly meal composition — dietary guideline · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Clinical Library › Dietary Guidelines › guideline detail. Spec: states.md → Zone A: guidelines-detail.
+  Shell: Clinical Library active. Composes: breadcrumb + record-header (name + status badge trailing) +
+  prose-section (full guideline text, representative/synthetic) + kv-table (linkage, status, dates, source) +
+  natural action row (Edit / Archive — Archive triggers a confirm in production; deprecate-not-delete principle).
+  Cross-link: "Used by N meals" → Diet Operations catalog (target built by sibling agent; path is the contract).
+  No real clinical content — guideline text is synthetic; diagnosis categories are well-known examples used as samples.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="./clinical-library.guidelines.html" class="nav-item active" aria-current="page"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Dietary guideline detail">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./clinical-library.guidelines.html">Clinical Library</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./clinical-library.guidelines.html">Dietary Guidelines</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Renal-friendly meal composition</span>
+          </nav>
+
+          <!-- Record identity header -->
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title">Renal-friendly meal composition</h1>
+              <p class="record-header-subtitle">Dietary guideline · linked to chronic kidney disease diagnoses</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-success">Current</span>
+              <span class="record-header-meta">Last updated Apr 14, 2026</span>
+            </div>
+          </header>
+
+          <!-- Actions -->
+          <div class="flex items-center justify-end gap-2 mt-4">
+            <a href="./clinical-library.guidelines-add.html" class="btn-primary btn-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit</a>
+            <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-box-archive fa-xs" aria-hidden="true"></i> Archive</button>
+          </div>
+
+          <div class="mt-6 space-y-6">
+
+            <!-- Guideline text (representative/synthetic) -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Guideline text</h2></div>
+              <div class="card-body">
+                <div class="prose-section">
+                  <p><em>Representative sample text — not sourced from Cena clinical records.</em></p>
+                  <p>Prioritize meals that moderate dietary potassium, phosphorus, and sodium while maintaining adequate protein for the patient's stage of kidney function. Target sodium under 2,000&nbsp;mg per day and limit high-phosphorus additives.</p>
+                  <p>Favor lower-potassium produce and controlled portions of dairy. Coordinate with the patient's nephrology team before adjusting protein targets for patients approaching dialysis. Meal conformance scoring should flag any plan exceeding the sodium ceiling for review.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key fields -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Details</h2></div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tbody>
+                    <tr><th scope="row">Status</th><td><span class="badge badge-success badge-pill">Current</span></td></tr>
+                    <tr><th scope="row">Diagnosis linkage</th><td><span class="badge badge-pill badge-sm">N18 — CKD</span> <span class="badge badge-pill badge-sm">N18.6 — ESRD</span></td></tr>
+                    <tr><th scope="row">Informs which meals</th><td><a href="../diet-operations/diet-operations.catalog.html" class="text-link">Used by 12 meals</a> in the diet catalog</td></tr>
+                    <tr><th scope="row">Source / reference</th><td>KDOQI clinical practice guideline (representative citation)</td></tr>
+                    <tr><th scope="row">Created</th><td class="cell-mono">Feb 18, 2026</td></tr>
+                    <tr><th scope="row">Last updated</th><td class="cell-mono">Apr 14, 2026</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

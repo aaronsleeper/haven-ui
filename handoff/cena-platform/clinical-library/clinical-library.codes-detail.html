@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E11.9 — diagnosis code · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Clinical Library › Diagnosis Codes › code detail. Spec: states.md → Zone B: codes-detail.
+  Shell: Clinical Library active. Composes: breadcrumb + record-header (code monospace via font-mono on
+  record-header-title + description subtitle + status badge trailing) + kv-table (code/description/status/dates,
+  with the load-bearing "Used by N patients" cross-link) + natural action row (Edit / Deprecate).
+  Deprecate-not-delete: codes are historically associated with patients; the action is Deprecate (confirm in
+  production explains historical retention), never delete. Cross-link "Used by N patients" → Patients roster.
+  No real clinical data — E11.9 is a well-known example ICD-10 code used as a sample, not Cena's live records.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="./clinical-library.guidelines.html" class="nav-item active" aria-current="page"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Diagnosis code detail">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./clinical-library.guidelines.html">Clinical Library</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./clinical-library.codes.html">Diagnosis Codes</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">E11.9</span>
+          </nav>
+
+          <!-- Record identity header (code is monospace) -->
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title font-mono">E11.9</h1>
+              <p class="record-header-subtitle">Type 2 diabetes mellitus without complications</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-success">Active</span>
+              <span class="record-header-meta">Last updated Apr 9, 2026</span>
+            </div>
+          </header>
+
+          <!-- Actions (Deprecate, not delete) -->
+          <div class="flex items-center justify-end gap-2 mt-4">
+            <a href="./clinical-library.codes-add.html" class="btn-primary btn-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit</a>
+            <button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-ban fa-xs" aria-hidden="true"></i> Deprecate</button>
+          </div>
+
+          <div class="mt-6 space-y-6">
+
+            <!-- Key fields -->
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Details</h2></div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tbody>
+                    <tr><th scope="row">ICD-10 code</th><td class="cell-mono">E11.9</td></tr>
+                    <tr><th scope="row">Description</th><td>Type 2 diabetes mellitus without complications</td></tr>
+                    <tr><th scope="row">Status</th><td><span class="badge badge-success badge-pill">Active</span></td></tr>
+                    <tr><th scope="row">Used by</th><td><a href="../patients/patients.roster.html" class="text-link">Used by 23 patients</a> · referenced by <a href="./clinical-library.guidelines-detail.html" class="text-link">1 dietary guideline</a></td></tr>
+                    <tr><th scope="row">Created</th><td class="cell-mono">Jan 12, 2026</td></tr>
+                    <tr><th scope="row">Last updated</th><td class="cell-mono">Apr 9, 2026</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Deprecate-not-delete note -->
+            <div class="card">
+              <div class="card-body">
+                <p class="text-sm text-sand-600"><i class="fa-solid fa-circle-info fa-xs" aria-hidden="true"></i> Deprecating a code removes it from active use. Existing patient records that use this code retain it historically — codes are never deleted.</p>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

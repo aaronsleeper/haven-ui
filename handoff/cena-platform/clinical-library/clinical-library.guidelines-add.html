@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add dietary guideline · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Clinical Library › Dietary Guidelines › Add (also serves Edit). Spec: states.md → Zone A: guidelines-add.
+  Shell: Clinical Library active. Composes: breadcrumb + page-header + sectioned form (field-row / field-label
+  required / field-help + inputs; name, full guideline text, diagnosis linkage, status radio) + natural
+  desktop action row (flex justify-end gap-2; btn-primary Save + btn-outline Cancel). On save → guideline detail.
+  Desktop form uses a natural action row (NOT the patient-app .sticky-footer, fixed at 430px) — matches patients intake precedent. Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="./clinical-library.guidelines.html" class="nav-item active" aria-current="page"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Add dietary guideline">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./clinical-library.guidelines.html">Clinical Library</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./clinical-library.guidelines.html">Dietary Guidelines</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Add</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Add dietary guideline</h1></div>
+
+          <form class="space-y-6 mt-4">
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Guideline</h2></div>
+              <div class="card-body space-y-4">
+                <div class="field-row">
+                  <label class="field-label required" for="g-name">Guideline name</label>
+                  <input type="text" id="g-name" placeholder="e.g. Renal-friendly meal composition" required />
+                </div>
+                <div class="field-row">
+                  <label class="field-label required" for="g-text">Guideline text</label>
+                  <textarea id="g-text" rows="6" placeholder="Full clinical guidance — composition targets, thresholds, coordination notes…" required></textarea>
+                  <p class="field-help">Plain clinical prose; drives meal conformance scoring downstream.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Linkage &amp; status</h2></div>
+              <div class="card-body space-y-4">
+                <div class="field-row">
+                  <label class="field-label" for="g-dx">Diagnosis linkage</label>
+                  <input type="text" id="g-dx" placeholder="Search ICD-10 categories — e.g. N18, E11" />
+                  <p class="field-help">Link to one or more diagnosis categories; multiple allowed.</p>
+                </div>
+                <div class="field-row">
+                  <label class="field-label" for="g-source">Source / reference</label>
+                  <input type="text" id="g-source" placeholder="e.g. KDOQI clinical practice guideline" />
+                </div>
+                <fieldset class="field-row">
+                  <legend class="field-label">Status</legend>
+                  <div class="flex items-center gap-4 mt-1">
+                    <label class="flex items-center gap-2"><input type="radio" name="g-status" value="current" checked /> Current</label>
+                    <label class="flex items-center gap-2"><input type="radio" name="g-status" value="archived" /> Archived</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2">
+              <a href="./clinical-library.guidelines.html" class="btn-outline">Cancel</a>
+              <button type="submit" class="btn-primary"><i class="fa-solid fa-check" aria-hidden="true"></i> Save guideline</button>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
