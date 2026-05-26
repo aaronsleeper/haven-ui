@@ -96,7 +96,11 @@ const cfg = SURFACES[SURFACE];
 if (!cfg) { console.error(`unknown SURFACE=${SURFACE}`); process.exit(1); }
 
 const pages = cfg.pages || cfg.manifest.nav.flatMap((g) => g.pages);
-const OUT_DIR = MODE === 'standalone' ? cfg.standaloneOut : cfg.devOut;
+// OUT_DIR env overrides the per-surface default — used by the live SoT build.sh
+// to emit straight into the uconn-pilot-docs surface/ dir.
+const OUT_DIR = process.env.OUT_DIR
+  ? resolve(process.env.OUT_DIR)
+  : MODE === 'standalone' ? cfg.standaloneOut : cfg.devOut;
 mkdirSync(OUT_DIR, { recursive: true });
 
 for (const page of pages) {
