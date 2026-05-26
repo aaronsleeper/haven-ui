@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Distribute — select week &amp; kitchen · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › Distribution › wizard step 1 (select week + target partner kitchen). Spec: states.md → §5
+  Distribution (distribute-step1). Transact wizard, distinct from AI Import. Composes: breadcrumb + page-header
+  + stepper-nav (step 1 active) + field-row form (week select pre-filled+locked when entered from a week;
+  partner kitchen select against Network; distribution date) + cards. Native selects (no Preline). Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Distribute — select week and kitchen">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.weeks-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.weekly-plans-open.html">Week of Jun 2–8</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Distribute</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Distribute meals</h1></div>
+
+          <ul class="stepper-nav mt-4">
+            <li class="stepper-nav-item active"><span class="stepper-nav-icon">1</span><span class="stepper-nav-label">Select</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">2</span><span class="stepper-nav-label">Quantities</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">3</span><span class="stepper-nav-label">Review &amp; send</span></li>
+          </ul>
+
+          <div class="card mt-6">
+            <div class="card-header"><h2 class="card-title">Step 1 — choose the week and partner kitchen</h2></div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label required" for="d-week">Weekly plan</label>
+                <select id="d-week" required disabled>
+                  <option selected>Week of Jun 2–8, 2026 · 12 meals</option>
+                </select>
+                <p class="text-sm text-sand-500 mt-1"><i class="fa-solid fa-lock fa-xs" aria-hidden="true"></i> Pre-selected — you entered from this week.</p>
+              </div>
+              <div class="field-row">
+                <label class="field-label required" for="d-kitchen">Target partner kitchen</label>
+                <select id="d-kitchen" required>
+                  <option value="">Select a partner kitchen…</option>
+                  <option selected>Harvest Table Kitchen — Greater Hartford</option>
+                  <option>Sunrise Community Kitchen — New Haven</option>
+                  <option>Garden Fresh Foods — Stamford</option>
+                  <option>Maple Street Bistro — Hartford</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label class="field-label required" for="d-date">Distribution date</label>
+                <input type="date" id="d-date" value="2026-05-30" required />
+              </div>
+              <div class="alert alert-info" role="note">
+                <i class="fa-solid fa-circle-info alert-icon" aria-hidden="true"></i>
+                <div>Next you'll confirm meal quantities for <a href="../network/network.partner-record.html" class="text-link">this kitchen</a>. Sending creates kitchen orders — you'll review before anything goes out.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 mt-4">
+            <a href="./diet-operations.weekly-plans-open.html" class="btn-outline">Cancel</a>
+            <a href="./diet-operations.distribute-step2.html" class="btn-primary">Continue to quantities <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

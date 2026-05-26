@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week of May 26–Jun 1 — cutoff passed · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › Weekly Plans › week record — CUTOFF-PASSED state (Today deep-link target).
+  Spec: states.md → §4 (week-cutoff-due). Lands INSIDE the record with cutoff foregrounded (per IA: Today
+  due-cutoff card → here, cutoff state visible — not the overview). Composes: breadcrumb + sub-nav tab-nav
+  (Weekly Plans active) + record-header (error register) + alert (error, cutoff passed) + Distribute CTA emphasized
+  + data-table-compact (meal set) + kv-table. Operational urgency color is real signal here. Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Weekly plan record — cutoff passed">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.weeks-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.weeks-list.html">Weekly Plans</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Week of May 26–Jun 1</span>
+          </nav>
+
+          <div class="page-header mt-2"><h1 class="page-title">Diet Operations</h1></div>
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Diet pipeline" role="tablist">
+            <a href="./diet-operations.providers-list.html" class="tab-nav-item">Providers</a>
+            <a href="./diet-operations.catalog-list.html" class="tab-nav-item">Catalog</a>
+            <a href="./diet-operations.weeks-list.html" class="tab-nav-item active" aria-current="page">Weekly Plans</a>
+            <a href="./diet-operations.distribution-record.html" class="tab-nav-item">Distribution</a>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <header class="record-header mt-6">
+            <div class="record-header-main">
+              <h2 class="record-header-title">Week of May 26 – Jun 1, 2026</h2>
+              <p class="record-header-subtitle">11 meals · cutoff passed May 23, 5:00 PM · 0 distributions</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-error">Cutoff passed</span>
+              <a href="./diet-operations.distribute-step1.html" class="btn-primary btn-sm"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Distribute now</a>
+            </div>
+          </header>
+
+          <!-- Cutoff-passed alert (operational urgency — error register; foregrounded) -->
+          <div class="alert alert-error mt-4" role="alert">
+            <i class="fa-solid fa-triangle-exclamation alert-icon" aria-hidden="true"></i>
+            <div><span class="font-medium">Cutoff passed 3 days ago and no distributions have gone out.</span> 11 meals for 34 patients are unsent. Distribute now to partner kitchens, or this week's meals will not be fulfilled.</div>
+          </div>
+
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Week sections" role="tablist">
+            <button type="button" class="tab-nav-item active" aria-selected="true">Meals</button>
+            <a href="./diet-operations.distribution-record.html" class="tab-nav-item">Distributions</a>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <div class="mt-6 space-y-6" role="tabpanel" aria-label="Meals">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="card-stat">
+                <p class="stat-label">Meals locked</p>
+                <p class="stat-value">11</p>
+                <span class="text-sm text-sand-500">plan locked at cutoff</span>
+              </div>
+              <div class="card-stat">
+                <p class="stat-label">Patients waiting</p>
+                <p class="stat-value">34</p>
+                <span class="text-sm text-error-600"><i class="fa-solid fa-triangle-exclamation fa-xs" aria-hidden="true"></i> Unsent</span>
+              </div>
+              <div class="card-stat">
+                <p class="stat-label">Cutoff</p>
+                <p class="stat-value">−3d</p>
+                <span class="text-sm text-error-600">Passed May 23, 5:00 PM</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Locked meal set</h3>
+                <a href="./diet-operations.distribute-step1.html" class="btn-primary btn-sm"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Distribute</a>
+              </div>
+              <div class="card-body">
+                <div class="data-table data-table-compact">
+                  <table>
+                    <thead><tr><th>Meal</th><th>Diet conformance</th><th>Provider</th><th class="cell-numeric">Assigned</th></tr></thead>
+                    <tbody>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Lemon-herb baked cod</a></td>
+                        <td><span class="badge badge-pill badge-sm">Renal-friendly</span></td>
+                        <td>Harvest Table Kitchen</td>
+                        <td class="cell-numeric">13</td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Mediterranean lentil stew</a></td>
+                        <td><span class="badge badge-pill badge-sm">Diabetic-friendly</span></td>
+                        <td>Sunrise Community Kitchen</td>
+                        <td class="cell-numeric">12</td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Garden veggie wrap</a></td>
+                        <td><span class="badge badge-pill badge-sm">Low-sodium</span></td>
+                        <td>Garden Fresh Foods</td>
+                        <td class="cell-numeric">9</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

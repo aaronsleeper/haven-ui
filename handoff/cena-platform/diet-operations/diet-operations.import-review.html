@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Import — review candidates · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › AI Import › step 2 (review parsed candidates). Spec: states.md → §3 AI Import (import-review).
+  Composes: breadcrumb + page-header + stepper-nav (step 2 active) + review data-table with per-row validation
+  state (field-row-success valid / field-row-warning needs-edit / field-row-error error) + alert + bulk-action-bar
+  (commit footer; "Commit N meals" disabled while error rows remain). Stepper one snapshot per state. Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="AI import — review candidates">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.catalog-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.catalog-list.html">Catalog</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Bulk import</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Bulk import meals</h1></div>
+
+          <ul class="stepper-nav mt-4">
+            <li class="stepper-nav-item"><span class="stepper-nav-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="stepper-nav-label">Paste source</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item active"><span class="stepper-nav-icon">2</span><span class="stepper-nav-label">Review candidates</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">3</span><span class="stepper-nav-label">Done</span></li>
+          </ul>
+
+          <!-- Parse summary -->
+          <div class="alert alert-warning mt-6" role="note">
+            <i class="fa-solid fa-triangle-exclamation alert-icon" aria-hidden="true"></i>
+            <div><span class="font-medium">8 candidates parsed · 1 needs an edit · 1 has an error.</span> Fix the error row or remove it before committing. Valid rows are ready.</div>
+          </div>
+
+          <div class="card mt-4">
+            <div class="card-header"><h2 class="card-title">Step 2 — review parsed meals</h2></div>
+            <div class="card-body">
+              <div class="data-table data-table-compact">
+                <table>
+                  <thead>
+                    <tr><th>Row</th><th>Meal</th><th>Diet conformance</th><th>Type</th><th>State</th><th></th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="field-row-success">
+                      <td><i class="fa-solid fa-circle-check text-success-600" aria-hidden="true"></i></td>
+                      <td class="cell-primary">Lemon-herb baked cod</td>
+                      <td><span class="badge badge-pill badge-sm">Renal-friendly</span> <span class="badge badge-pill badge-sm">Low-sodium</span></td>
+                      <td>Hot</td>
+                      <td><span class="badge badge-success badge-pill">Valid</span></td>
+                      <td><button type="button" class="btn-ghost btn-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit</button></td>
+                    </tr>
+                    <tr class="field-row-success">
+                      <td><i class="fa-solid fa-circle-check text-success-600" aria-hidden="true"></i></td>
+                      <td class="cell-primary">Quinoa &amp; roasted vegetable bowl</td>
+                      <td><span class="badge badge-pill badge-sm">Diabetic-friendly</span></td>
+                      <td>Cold</td>
+                      <td><span class="badge badge-success badge-pill">Valid</span></td>
+                      <td><button type="button" class="btn-ghost btn-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit</button></td>
+                    </tr>
+                    <tr class="field-row-warning">
+                      <td><i class="fa-solid fa-triangle-exclamation text-warning-600" aria-hidden="true"></i></td>
+                      <td class="cell-primary">Low-sodium chicken &amp; rice</td>
+                      <td><span class="badge badge-warning badge-pill badge-sm">Conformance unconfirmed</span></td>
+                      <td>Hot</td>
+                      <td><span class="badge badge-warning badge-pill">Needs edit</span></td>
+                      <td><button type="button" class="btn-outline btn-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Review tags</button></td>
+                    </tr>
+                    <tr class="field-row-error">
+                      <td><i class="fa-solid fa-circle-exclamation text-error-600" aria-hidden="true"></i></td>
+                      <td class="cell-primary">(unnamed meal)</td>
+                      <td><span class="text-sand-400 text-sm">—</span></td>
+                      <td><span class="text-sand-400 text-sm">—</span></td>
+                      <td><span class="badge badge-error badge-pill">Error — no name</span></td>
+                      <td><button type="button" class="btn-danger-outline btn-sm"><i class="fa-solid fa-xmark fa-xs" aria-hidden="true"></i> Remove</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Commit footer (sticky-footer composition; commit disabled while error rows remain) -->
+          <div class="bulk-action-bar mt-4" role="region" aria-label="Commit import">
+            <div class="bulk-action-bar-info">
+              <span><span class="bulk-action-bar-count">6</span> meals ready · <span class="text-error-600">1 error blocks commit</span></span>
+            </div>
+            <div class="bulk-action-bar-actions">
+              <a href="./diet-operations.import-paste.html" class="btn-ghost btn-sm">Back</a>
+              <button type="button" class="btn-primary btn-sm" disabled>Commit 6 meals</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

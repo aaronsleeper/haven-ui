@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edit meal — Lemon-herb baked cod · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › Catalog › meal edit. Spec: states.md → §2 (meal-record, edit affordance — "edit is deliberate").
+  Composes: breadcrumb + sub-nav tab-nav (Catalog active) + record-header + field-row/field-label form
+  + tags-input (diet conformance) + card. Save/Cancel actions. Native <input>/<select>/<textarea> (no Preline).
+  No real data — synthetic.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Edit meal">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.catalog-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.catalog-list.html">Catalog</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.meal-record.html">Lemon-herb baked cod</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Edit</span>
+          </nav>
+
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title">Edit meal</h1>
+              <p class="record-header-subtitle">Lemon-herb baked cod · Harvest Table Kitchen</p>
+            </div>
+          </header>
+
+          <div class="card mt-6">
+            <div class="card-header"><h2 class="card-title">Meal details</h2></div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label required" for="m-name">Meal name</label>
+                <input type="text" id="m-name" value="Lemon-herb baked cod" required />
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="field-row">
+                  <label class="field-label required" for="m-provider">Provider</label>
+                  <select id="m-provider" required>
+                    <option selected>Harvest Table Kitchen</option>
+                    <option>Garden Fresh Foods</option>
+                    <option>Sunrise Community Kitchen</option>
+                    <option>Maple Street Bistro</option>
+                  </select>
+                </div>
+                <div class="field-row">
+                  <label class="field-label" for="m-type">Meal type</label>
+                  <select id="m-type">
+                    <option selected>Hot</option>
+                    <option>Cold</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <label class="field-label" for="m-conformance">Diet conformance tags</label>
+                <div class="tags-input" id="m-conformance">
+                  <span class="badge badge-pill">Renal-friendly <button type="button" aria-label="Remove Renal-friendly"><i class="fa-solid fa-xmark fa-xs" aria-hidden="true"></i></button></span>
+                  <span class="badge badge-pill">Low-sodium <button type="button" aria-label="Remove Low-sodium"><i class="fa-solid fa-xmark fa-xs" aria-hidden="true"></i></button></span>
+                  <span class="badge badge-pill">Heart-healthy <button type="button" aria-label="Remove Heart-healthy"><i class="fa-solid fa-xmark fa-xs" aria-hidden="true"></i></button></span>
+                  <input type="text" placeholder="Add tag…" aria-label="Add diet conformance tag" />
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="field-row"><label class="field-label" for="m-cal">Calories</label><input type="text" id="m-cal" value="520 kcal" /></div>
+                <div class="field-row"><label class="field-label" for="m-sodium">Sodium</label><input type="text" id="m-sodium" value="410 mg" /></div>
+                <div class="field-row"><label class="field-label" for="m-allergens">Allergens</label><input type="text" id="m-allergens" value="Fish" /></div>
+              </div>
+              <div class="field-row">
+                <label class="field-label" for="m-notes">Notes</label>
+                <textarea id="m-notes" rows="3" placeholder="Preparation, sourcing, or clinical notes…">Pairs well with renal and cardiac diets. Confirm catch availability with provider before adding to a high-volume week.</textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 mt-4">
+            <a href="./diet-operations.meal-record.html" class="btn-outline">Cancel</a>
+            <button type="button" class="btn-primary">Save changes</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

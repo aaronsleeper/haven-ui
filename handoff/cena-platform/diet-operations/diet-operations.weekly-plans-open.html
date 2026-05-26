@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diet Operations — open weekly plan · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › Weekly Plans › open week (LANDING — primary nav target).
+  Spec: workflows/cena-platform/slots/diet-operations/states.md → §4 Weekly Plans (week-record, open/editing).
+  This is the operational center of gravity: an open weekly plan being edited (meal set + cutoff).
+  Shell: 7-anchor app-shell (Diet Operations active). In-surface sub-nav = tab-nav along the diet chain
+  (Providers · Catalog · Weekly Plans active · Distribution · Orders); AI Import reached from Catalog CTA, not a tab.
+  Composes: breadcrumb + record-header + tab-nav (sub-nav) + record tab-nav (meals active) + card-stat row
+  + alert (cutoff) + data-table-compact (week meal set, with combobox add) + kv-table. Read-first; operational urgency color.
+  No real data — synthetic provider/meal/week names.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Weekly plan record">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.weeks-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.weeks-list.html">Weekly Plans</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Week of Jun 2–8</span>
+          </nav>
+
+          <!-- Surface page header + sub-nav (diet chain) -->
+          <div class="page-header mt-2">
+            <h1 class="page-title">Diet Operations</h1>
+          </div>
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Diet pipeline" role="tablist">
+            <a href="./diet-operations.providers-list.html" class="tab-nav-item">Providers</a>
+            <a href="./diet-operations.catalog-list.html" class="tab-nav-item">Catalog</a>
+            <a href="./diet-operations.weeks-list.html" class="tab-nav-item active" aria-current="page">Weekly Plans</a>
+            <a href="./diet-operations.distribution-record.html" class="tab-nav-item">Distribution</a>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <!-- Week record identity header -->
+          <header class="record-header mt-6">
+            <div class="record-header-main">
+              <h2 class="record-header-title">Week of Jun 2–8, 2026</h2>
+              <p class="record-header-subtitle">12 meals · cutoff Fri May 30, 5:00 PM · 2 distributions</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-success">Open</span>
+              <span class="record-header-meta">Editing · last saved 4m ago</span>
+            </div>
+          </header>
+
+          <!-- Record-level tabs -->
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Week sections" role="tablist">
+            <button type="button" class="tab-nav-item active" aria-selected="true">Meals</button>
+            <a href="./diet-operations.distribution-record.html" class="tab-nav-item">Distributions</a>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <div class="mt-6 space-y-6" role="tabpanel" aria-label="Meals">
+
+            <!-- Cutoff alert (operational urgency; week still open) -->
+            <div class="alert alert-info" role="note">
+              <i class="fa-solid fa-clock alert-icon" aria-hidden="true"></i>
+              <div><span class="font-medium">Cutoff in 4 days.</span> Add or swap meals before Fri May 30, 5:00 PM. After cutoff this plan locks and distributions go out.</div>
+            </div>
+
+            <!-- At-a-glance -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="card-stat">
+                <p class="stat-label">Meals in plan</p>
+                <p class="stat-value">12</p>
+                <span class="text-sm text-sand-500">across 4 providers</span>
+              </div>
+              <div class="card-stat">
+                <p class="stat-label">Patients assigned</p>
+                <p class="stat-value">38</p>
+                <span class="trend-up"><i class="fa-solid fa-arrow-trend-up fa-xs" aria-hidden="true"></i> +5 vs last week</span>
+              </div>
+              <div class="card-stat">
+                <p class="stat-label">Cutoff</p>
+                <p class="stat-value">4d</p>
+                <span class="text-sm text-sand-500">Fri May 30, 5:00 PM</span>
+              </div>
+            </div>
+
+            <!-- Week meal set -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Meals this week</h3>
+                <div class="flex items-center gap-2">
+                  <div class="search-input" style="max-width: 18rem;">
+                    <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+                    <input type="search" placeholder="Add meal from catalog…" aria-label="Add meal to week from catalog" />
+                  </div>
+                  <a href="./diet-operations.distribute-step1.html" class="btn-primary btn-sm"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Distribute</a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="data-table data-table-compact">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Meal</th>
+                        <th>Diet conformance</th>
+                        <th>Type</th>
+                        <th>Provider</th>
+                        <th class="cell-numeric">Assigned</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Lemon-herb baked cod</a></td>
+                        <td><span class="badge badge-pill badge-sm">Renal-friendly</span> <span class="badge badge-pill badge-sm">Low-sodium</span></td>
+                        <td>Hot</td>
+                        <td>Harvest Table Kitchen</td>
+                        <td class="cell-numeric">14</td>
+                        <td><button type="button" class="btn-ghost btn-sm" aria-label="Remove meal from week"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Quinoa &amp; roasted vegetable bowl</a></td>
+                        <td><span class="badge badge-pill badge-sm">Diabetic-friendly</span></td>
+                        <td>Cold</td>
+                        <td>Garden Fresh Foods</td>
+                        <td class="cell-numeric">11</td>
+                        <td><button type="button" class="btn-ghost btn-sm" aria-label="Remove meal from week"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Low-sodium chicken &amp; rice</a></td>
+                        <td><span class="badge badge-pill badge-sm">Low-sodium</span> <span class="badge badge-pill badge-sm">Heart-healthy</span></td>
+                        <td>Hot</td>
+                        <td>Harvest Table Kitchen</td>
+                        <td class="cell-numeric">9</td>
+                        <td><button type="button" class="btn-ghost btn-sm" aria-label="Remove meal from week"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.meal-record.html" class="text-link">Mediterranean lentil stew</a></td>
+                        <td><span class="badge badge-pill badge-sm">Diabetic-friendly</span> <span class="badge badge-pill badge-sm">Heart-healthy</span></td>
+                        <td>Hot</td>
+                        <td>Sunrise Community Kitchen</td>
+                        <td class="cell-numeric">12</td>
+                        <td><button type="button" class="btn-ghost btn-sm" aria-label="Remove meal from week"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Week key fields -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Plan details</h3>
+                <a href="#" class="text-link text-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit</a>
+              </div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tbody>
+                    <tr><th scope="row">Week range</th><td>Jun 2 – Jun 8, 2026</td></tr>
+                    <tr><th scope="row">Status</th><td>Open · editing</td></tr>
+                    <tr><th scope="row">Cutoff</th><td>Fri May 30, 2026 · 5:00 PM</td></tr>
+                    <tr><th scope="row">Meals</th><td>12 across 4 providers</td></tr>
+                    <tr><th scope="row">Distributions</th><td><a href="./diet-operations.distribution-record.html" class="text-link">2 partner kitchens</a></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

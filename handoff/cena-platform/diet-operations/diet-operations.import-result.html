@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Import — committed · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › AI Import › step 3 (committed receipt). Spec: states.md → §3 AI Import (import-result).
+  Composes: breadcrumb + page-header + stepper-nav (step 3 active/complete) + receipt (receipt-summary
+  N created / M skipped) + "View in catalog" link back (new meals flagged). Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="AI import — committed">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.catalog-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.catalog-list.html">Catalog</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Bulk import</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Bulk import meals</h1></div>
+
+          <ul class="stepper-nav mt-4">
+            <li class="stepper-nav-item"><span class="stepper-nav-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="stepper-nav-label">Paste source</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="stepper-nav-label">Review candidates</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item active"><span class="stepper-nav-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span class="stepper-nav-label">Done</span></li>
+          </ul>
+
+          <article class="receipt mt-6">
+            <div class="receipt-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+            <header>
+              <h2 class="receipt-title">Import committed</h2>
+              <p class="receipt-timestamp">Just now · by Dr. Anand</p>
+            </header>
+            <div class="receipt-summary">
+              <div class="receipt-summary-row">
+                <span class="receipt-summary-label">Meals created</span>
+                <span class="receipt-summary-value">6</span>
+              </div>
+              <div class="receipt-summary-row">
+                <span class="receipt-summary-label">Rows skipped</span>
+                <span class="receipt-summary-value">2</span>
+              </div>
+              <div class="receipt-summary-row">
+                <span class="receipt-summary-label">Source</span>
+                <span class="receipt-summary-value">Pasted menu · Harvest Table Kitchen</span>
+              </div>
+            </div>
+            <p class="receipt-reference">Reference: IMP-2026-0142</p>
+            <div class="receipt-actions">
+              <a href="./diet-operations.catalog-list.html" class="btn-primary btn-sm"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> View in catalog</a>
+              <a href="./diet-operations.import-paste.html" class="btn-outline btn-sm">Import more</a>
+            </div>
+          </article>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

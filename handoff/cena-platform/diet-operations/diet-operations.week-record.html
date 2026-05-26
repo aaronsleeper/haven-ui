@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week of May 19–25 — weekly plan · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › Weekly Plans › week record (closed week, Distributions cross-link tab active).
+  Spec: states.md → §4 (week-record). Shows the Distributions tab = the cross-link to this week's distributions.
+  Composes: breadcrumb + sub-nav tab-nav (Weekly Plans active) + record-header + record tab-nav (Meals /
+  Distributions active / Orders) + data-table-compact (this week's distributions, cross-link to distribution-record).
+  No real data — synthetic.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Weekly plan record">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.weeks-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.weeks-list.html">Weekly Plans</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Week of May 19–25</span>
+          </nav>
+
+          <div class="page-header mt-2"><h1 class="page-title">Diet Operations</h1></div>
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Diet pipeline" role="tablist">
+            <a href="./diet-operations.providers-list.html" class="tab-nav-item">Providers</a>
+            <a href="./diet-operations.catalog-list.html" class="tab-nav-item">Catalog</a>
+            <a href="./diet-operations.weeks-list.html" class="tab-nav-item active" aria-current="page">Weekly Plans</a>
+            <a href="./diet-operations.distribution-record.html" class="tab-nav-item">Distribution</a>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <header class="record-header mt-6">
+            <div class="record-header-main">
+              <h2 class="record-header-title">Week of May 19–25, 2026</h2>
+              <p class="record-header-subtitle">12 meals · cutoff passed May 16 · 3 distributions</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-neutral">Closed</span>
+              <span class="record-header-meta">All distributions sent</span>
+            </div>
+          </header>
+
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Week sections" role="tablist">
+            <a href="./diet-operations.weekly-plans-open.html" class="tab-nav-item">Meals</a>
+            <button type="button" class="tab-nav-item active" aria-selected="true">Distributions</button>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <div class="mt-6 space-y-6" role="tabpanel" aria-label="Distributions">
+            <div class="alert alert-info" role="note">
+              <i class="fa-solid fa-circle-info alert-icon" aria-hidden="true"></i>
+              <div>This week is closed. Its 3 distributions went out to partner kitchens and generated 12 kitchen orders. Use the Orders tab to track fulfillment.</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Distributions from this week</h3></div>
+              <div class="card-body">
+                <div class="data-table data-table-compact">
+                  <table>
+                    <thead>
+                      <tr><th>Distribution</th><th>Partner kitchen</th><th class="cell-numeric">Meals</th><th>Sent</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.distribution-record.html" class="text-link">DST-2026-0188</a></td>
+                        <td>Harvest Table Kitchen</td>
+                        <td class="cell-numeric">28</td>
+                        <td>May 16</td>
+                        <td><span class="badge badge-success badge-pill">Confirmed</span></td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.distribution-record.html" class="text-link">DST-2026-0189</a></td>
+                        <td>Sunrise Community Kitchen</td>
+                        <td class="cell-numeric">22</td>
+                        <td>May 16</td>
+                        <td><span class="badge badge-success badge-pill">Confirmed</span></td>
+                      </tr>
+                      <tr class="row-clickable">
+                        <td class="cell-primary"><a href="./diet-operations.distribution-record.html" class="text-link">DST-2026-0190</a></td>
+                        <td>Garden Fresh Foods</td>
+                        <td class="cell-numeric">14</td>
+                        <td>May 16</td>
+                        <td><span class="badge badge-success badge-pill">Confirmed</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Plan details</h3></div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tbody>
+                    <tr><th scope="row">Week range</th><td>May 19 – May 25, 2026</td></tr>
+                    <tr><th scope="row">Status</th><td>Closed</td></tr>
+                    <tr><th scope="row">Cutoff</th><td>Fri May 16, 2026 · 5:00 PM (passed)</td></tr>
+                    <tr><th scope="row">Meals</th><td>12 across 3 providers</td></tr>
+                    <tr><th scope="row">Kitchen orders</th><td><a href="./diet-operations.orders-list.html" class="text-link">12 orders · all fulfilled</a></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

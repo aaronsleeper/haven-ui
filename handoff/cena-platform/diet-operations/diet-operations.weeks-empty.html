@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diet Operations — no weekly plans · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › Weekly Plans › empty. Spec: states.md → §4 (weeks-empty). Furniture persists; table body
+  → empty-state + "Plan a week" CTA (invariant: furniture stable). Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Weekly plans">
+          <div class="page-header">
+            <h1 class="page-title">Diet Operations</h1>
+            <div class="flex items-center gap-2">
+              <a href="./diet-operations.weekly-plans-open.html" class="btn-primary btn-sm"><i class="fa-solid fa-plus" aria-hidden="true"></i> Plan a week</a>
+            </div>
+          </div>
+
+          <nav class="tab-nav border-b border-sand-200 mt-4" aria-label="Diet pipeline" role="tablist">
+            <a href="./diet-operations.providers-list.html" class="tab-nav-item">Providers</a>
+            <a href="./diet-operations.catalog-list.html" class="tab-nav-item">Catalog</a>
+            <a href="./diet-operations.weeks-list.html" class="tab-nav-item active" aria-current="page">Weekly Plans</a>
+            <a href="./diet-operations.distribution-record.html" class="tab-nav-item">Distribution</a>
+            <a href="./diet-operations.orders-list.html" class="tab-nav-item">Orders</a>
+          </nav>
+
+          <div class="toolbar mt-4">
+            <div class="toolbar-search">
+              <div class="search-input" style="max-width: 22rem;">
+                <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+                <input type="search" placeholder="Filter weeks…" aria-label="Filter weeks" />
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" class="filter-pill active">All</button>
+              <button type="button" class="filter-pill">Open</button>
+              <button type="button" class="filter-pill">Closed</button>
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <div class="empty-state">
+              <div class="empty-state-icon"><i class="fa-solid fa-calendar-week" aria-hidden="true"></i></div>
+              <h2 class="section-title">No weekly plans yet</h2>
+              <p class="text-sm text-sand-600 mt-1">Plan a week to assemble its meal set and set a cutoff. Each week produces distributions to partner kitchens, and its cutoff drives reminders to your Today queue.</p>
+              <div class="flex items-center justify-center gap-2 mt-4">
+                <a href="./diet-operations.weekly-plans-open.html" class="btn-primary btn-sm"><i class="fa-solid fa-plus" aria-hidden="true"></i> Plan a week</a>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Import — paste source · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Diet Operations › AI Import › step 1 (paste/upload source). Spec: states.md → §3 AI Import (import-paste).
+  Reached from Catalog "Bulk import" CTA — a catalog feeder, not a sub-nav tab. Stepped flow Paste → Review → Done.
+  Composes: breadcrumb + page-header + stepper-nav (step 1 active) + textarea + file-upload-dropzone (file-upload.js)
+  + alert (info). Stepper is one snapshot per state (no Preline). Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="./diet-operations.weekly-plans-open.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="AI import — paste source">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./diet-operations.catalog-list.html">Diet Operations</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./diet-operations.catalog-list.html">Catalog</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Bulk import</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Bulk import meals</h1></div>
+
+          <!-- Stepper (step 1 active) -->
+          <ul class="stepper-nav mt-4">
+            <li class="stepper-nav-item active"><span class="stepper-nav-icon">1</span><span class="stepper-nav-label">Paste source</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">2</span><span class="stepper-nav-label">Review candidates</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">3</span><span class="stepper-nav-label">Done</span></li>
+          </ul>
+
+          <div class="card mt-6">
+            <div class="card-header"><h2 class="card-title">Step 1 — paste a provider menu or upload a file</h2></div>
+            <div class="card-body space-y-4">
+              <div class="field-row">
+                <label class="field-label" for="ai-source">Paste menu text</label>
+                <textarea id="ai-source" rows="8" placeholder="Paste a provider's menu here — one meal per line or block. The importer parses each into a meal candidate with diet conformance flagged for review.">Lemon-herb baked cod — 520 kcal, 410mg sodium, renal-friendly, low-sodium
+Quinoa & roasted vegetable bowl — 480 kcal, diabetic-friendly, cold
+Low-sodium chicken & rice — 560 kcal, 380mg sodium, heart-healthy</textarea>
+              </div>
+              <p class="text-sm text-sand-500">— or —</p>
+              <div class="file-upload-dropzone" data-file-upload-dropzone>
+                <i class="fa-solid fa-file-arrow-up file-upload-dropzone-icon" aria-hidden="true"></i>
+                <p class="file-upload-dropzone-text">Drag and drop a file here, or <span class="file-upload-browse">browse</span></p>
+                <p class="file-upload-dropzone-hint">.txt or .csv up to 5 MB</p>
+                <input type="file" class="sr-only" accept=".txt,.csv" aria-label="Upload menu file" />
+              </div>
+              <div class="alert alert-info" role="note">
+                <i class="fa-solid fa-circle-info alert-icon" aria-hidden="true"></i>
+                <div><span class="font-medium">Next:</span> the importer parses each meal and flags conformance. Valid candidates preview in green; rows needing edits or with errors flag inline. Nothing is added until you commit at the final step.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 mt-4">
+            <a href="./diet-operations.catalog-list.html" class="btn-outline">Cancel</a>
+            <a href="./diet-operations.import-review.html" class="btn-primary">Parse <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/file-upload.js"></script>
+</body>
+</html>
