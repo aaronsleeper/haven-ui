@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Farmington Cardiometabolic Clinic — partner record · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Network › Partner record (populated, with referral-pipeline counts + cross-links). Spec: workflows/cena-platform/slots/network/states.md → Partner record (partner-record).
+  Shell: _shell/app-shell.template.html (7-anchor, Network active). Register: dense coordinator.
+  Composes: breadcrumb (Network › {Org} › {Partner} — 3 crumbs, primary discoverability mitigation) · record-header (partner name + org subtitle text-link + status/contact)
+  · kv-table (partner details) · section-title "Referral Pipeline" + stat-group (Pending·In Review·Converted·Declined) + "View all referrals" cross-link → ../referrals/referrals.pipeline.html
+  · section-title "Referred Patients" + active-patient stat + "View patients" cross-link → ../patients/patients.roster.html + list-group of recently referred patients.
+  IA invariant: pipeline counts + cross-links render prominently above the fold — they are the relationship graph made navigable, not a contact card.
+  No real org/patient data — synthetic.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="./network.orgs-list.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Program partner record">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./network.orgs-list.html">Network</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="./network.org-record.html">UConn Health</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Farmington Cardiometabolic Clinic</span>
+          </nav>
+
+          <!-- Record identity header -->
+          <header class="record-header mt-2">
+            <div class="record-header-main">
+              <h1 class="record-header-title">Farmington Cardiometabolic Clinic</h1>
+              <p class="record-header-subtitle"><a href="./network.org-record.html" class="text-link">UConn Health</a> · Program partner</p>
+            </div>
+            <div class="record-header-trailing">
+              <span class="badge badge-success">Active</span>
+              <span class="record-header-meta">Karen Whitfield · (860) 555-0142</span>
+              <a href="#" class="btn-outline btn-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit partner</a>
+            </div>
+          </header>
+
+          <div class="mt-6 space-y-6">
+
+            <!-- Referral pipeline — the core operational value, above the fold -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Referral Pipeline</h2>
+                <a href="../referrals/referrals.pipeline.html" class="btn-outline btn-sm"><i class="fa-solid fa-arrow-right-arrow-left fa-xs" aria-hidden="true"></i> View all referrals</a>
+              </div>
+              <div class="card-body">
+                <div class="stat-group">
+                  <div class="stat-group-item">
+                    <span class="stat-group-label">Pending</span>
+                    <span class="stat-group-value">4</span>
+                    <span class="stat-group-delta text-warning-600">Needs review</span>
+                  </div>
+                  <div class="stat-group-item">
+                    <span class="stat-group-label">In review</span>
+                    <span class="stat-group-value">2</span>
+                  </div>
+                  <div class="stat-group-item">
+                    <span class="stat-group-label">Converted</span>
+                    <span class="stat-group-value">38</span>
+                    <span class="stat-group-delta trend-up"><i class="fa-solid fa-arrow-trend-up fa-xs" aria-hidden="true"></i> +5 this month</span>
+                  </div>
+                  <div class="stat-group-item">
+                    <span class="stat-group-label">Declined</span>
+                    <span class="stat-group-value">3</span>
+                  </div>
+                </div>
+                <p class="text-sm text-sand-500 mt-4">Lifetime counts · as of May 26, 2026, 4:30 PM</p>
+              </div>
+            </div>
+
+            <!-- Referred patients — cross-link into Patients -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Referred Patients</h2>
+                <a href="../patients/patients.roster.html" class="btn-outline btn-sm"><i class="fa-solid fa-user fa-xs" aria-hidden="true"></i> View patients</a>
+              </div>
+              <div class="card-body">
+                <div class="stat-group mb-4">
+                  <div class="stat-group-item">
+                    <span class="stat-group-label">Active patients</span>
+                    <span class="stat-group-value">38</span>
+                  </div>
+                </div>
+                <div class="list-group list-group-flush">
+                  <a href="../patients/patients.record.html" class="list-group-item-action row-clickable">
+                    <i class="fa-solid fa-user list-group-item-icon" aria-hidden="true"></i>
+                    <div class="list-group-item-content">
+                      <span class="list-group-item-title">Maria Santos</span>
+                      <span class="list-group-item-description">Referred May 21, 2026 · Type 2 Diabetes</span>
+                    </div>
+                    <div class="list-group-item-trailing">
+                      <span class="badge badge-success badge-pill badge-sm">Active</span>
+                    </div>
+                  </a>
+                  <a href="../patients/patients.record.html" class="list-group-item-action row-clickable">
+                    <i class="fa-solid fa-user list-group-item-icon" aria-hidden="true"></i>
+                    <div class="list-group-item-content">
+                      <span class="list-group-item-title">Aisha Okafor</span>
+                      <span class="list-group-item-description">Referred May 14, 2026 · CHF</span>
+                    </div>
+                    <div class="list-group-item-trailing">
+                      <span class="badge badge-success badge-pill badge-sm">Active</span>
+                    </div>
+                  </a>
+                  <a href="../patients/patients.record.html" class="list-group-item-action row-clickable">
+                    <i class="fa-solid fa-user list-group-item-icon" aria-hidden="true"></i>
+                    <div class="list-group-item-content">
+                      <span class="list-group-item-title">Deborah Williams</span>
+                      <span class="list-group-item-description">Referred May 9, 2026 · Pending intake</span>
+                    </div>
+                    <div class="list-group-item-trailing">
+                      <span class="badge badge-warning badge-pill badge-sm">Pending</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Partner details -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Partner details</h2>
+                <a href="#" class="text-link text-sm"><i class="fa-solid fa-pen fa-xs" aria-hidden="true"></i> Edit</a>
+              </div>
+              <div class="card-body">
+                <table class="kv-table">
+                  <tbody>
+                    <tr><th scope="row">Organization</th><td><a href="./network.org-record.html" class="text-link">UConn Health</a></td></tr>
+                    <tr><th scope="row">Primary contact</th><td>Karen Whitfield, Referral Liaison <span class="editable-indicator" aria-hidden="true"></span></td></tr>
+                    <tr><th scope="row">Phone</th><td>(860) 555-0142</td></tr>
+                    <tr><th scope="row">Email</th><td>referrals@farmington-cm.example.org</td></tr>
+                    <tr><th scope="row">Program type</th><td>Cardiometabolic — Medically Tailored Meals</td></tr>
+                    <tr><th scope="row">Referral method</th><td>Secure fax + EHR direct message</td></tr>
+                    <tr><th scope="row">Address</th><td>11 South Rd, Farmington, CT 06032</td></tr>
+                    <tr><th scope="row">Added</th><td>Jan 19, 2026</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

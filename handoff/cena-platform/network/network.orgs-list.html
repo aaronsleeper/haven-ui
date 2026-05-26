@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Network — organizations · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Network › Organizations list (default landing, populated). Spec: workflows/cena-platform/slots/network/states.md → Organizations list (orgs-list).
+  Shell: _shell/app-shell.template.html (7-anchor, Network active). Register: dense coordinator — operational, NOT admin.
+  Composes: page-header (segmented view-toggle Organizations|Partners + Add organization) · toolbar (search + filter-pills)
+  · data-table data-table-compact (org name cell-primary row-clickable, type badge-pill, partner/referral/patient counts cell-numeric, status badge) · pagination.
+  Discoverability mitigation (ia.md S4 2/5): explicit graph nav (fa-sitemap), clickable org rows, operational pipeline counts signalling live volume not config.
+  No real org/business data — synthetic names.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="./network.orgs-list.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;">
+            <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search patients…" aria-label="Search patients" />
+          </div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Network organizations">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb-current">Network</span>
+          </nav>
+
+          <div class="page-header mt-2">
+            <h1 class="page-title">Network</h1>
+            <div class="flex items-center gap-3">
+              <div class="segmented-control">
+                <button type="button" class="segmented-control-btn active">Organizations</button>
+                <a href="./network.partners-list.html" class="segmented-control-btn">Partners</a>
+              </div>
+              <a href="#" class="btn-primary btn-sm"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add organization</a>
+            </div>
+          </div>
+
+          <!-- Toolbar: search + status filter-pills -->
+          <div class="toolbar mt-4">
+            <div class="toolbar-search">
+              <div class="search-input" style="max-width: 22rem;">
+                <i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i>
+                <input type="search" placeholder="Filter organizations…" aria-label="Filter organizations" />
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" class="filter-pill active">Active</button>
+              <button type="button" class="filter-pill">Inactive</button>
+              <button type="button" class="filter-pill">All</button>
+            </div>
+          </div>
+
+          <!-- Dense organizations table -->
+          <div class="data-table data-table-compact mt-4">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col" data-sortable>Organization</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Partners</th>
+                  <th scope="col">Referrals pending</th>
+                  <th scope="col">Active patients</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">UConn Health</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Health System</span></td>
+                  <td class="cell-numeric">6</td>
+                  <td class="cell-numeric"><span class="badge badge-warning badge-pill badge-sm">9</span></td>
+                  <td class="cell-numeric">142</td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">Hartford Cardiology Associates</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Specialty Group</span></td>
+                  <td class="cell-numeric">3</td>
+                  <td class="cell-numeric"><span class="badge badge-warning badge-pill badge-sm">4</span></td>
+                  <td class="cell-numeric">58</td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">Community Health Partners</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Community Org</span></td>
+                  <td class="cell-numeric">4</td>
+                  <td class="cell-numeric">0</td>
+                  <td class="cell-numeric">37</td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">Riverside Family Medicine</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Primary Care</span></td>
+                  <td class="cell-numeric">2</td>
+                  <td class="cell-numeric"><span class="badge badge-warning badge-pill badge-sm">2</span></td>
+                  <td class="cell-numeric">21</td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">Valley Renal Care Network</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Specialty Group</span></td>
+                  <td class="cell-numeric">2</td>
+                  <td class="cell-numeric">0</td>
+                  <td class="cell-numeric">29</td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">Greenfield Senior Services</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Community Org</span></td>
+                  <td class="cell-numeric">1</td>
+                  <td class="cell-numeric">0</td>
+                  <td class="cell-numeric">8</td>
+                  <td><span class="badge badge-neutral badge-pill">Inactive</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+                <tr class="row-clickable">
+                  <td class="cell-primary"><a href="./network.org-record.html" class="text-link">Bayshore Endocrinology Group</a></td>
+                  <td><span class="badge badge-neutral badge-pill badge-sm">Specialty Group</span></td>
+                  <td class="cell-numeric">2</td>
+                  <td class="cell-numeric"><span class="badge badge-warning badge-pill badge-sm">3</span></td>
+                  <td class="cell-numeric">44</td>
+                  <td><span class="badge badge-success badge-pill">Active</span></td>
+                  <td><a href="#" class="btn-ghost btn-xs">Edit</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <nav class="pagination mt-4" aria-label="Pagination">
+            <span class="pagination-info">1–7 of 19 organizations</span>
+            <div class="pagination-controls">
+              <button type="button" class="pagination-btn" disabled aria-label="Previous page"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="pagination-btn active" aria-current="page">1</button>
+              <button type="button" class="pagination-btn">2</button>
+              <button type="button" class="pagination-btn">3</button>
+              <button type="button" class="pagination-btn" aria-label="Next page"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </nav>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
