@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Today — caught up · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Today › Caught-up (all four queues clear). Spec: states.md → caught-up. Quiet PROFESSIONAL all-clear —
+  NOT the patient-app affirmation tone, no ceremony. The standing-glance stat-group remains (the
+  coordinator still wants the at-a-glance counts). Furniture stable; only the queue region → empty-state.
+  Work-queue badge would read 0 here. Synthetic data.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="./today.queue.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="./today.queue.html" class="navbar-action-btn" aria-label="Work queue — 0 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Today — caught up">
+          <div class="page-header"><h1 class="page-title">Today</h1></div>
+          <p class="text-sm text-sand-500 mt-1">Tuesday, May 26</p>
+
+          <!-- Standing glance remains -->
+          <div class="stat-group mt-4">
+            <div class="stat-group-item"><span class="stat-group-label">Active patients</span><span class="stat-group-value">142</span></div>
+            <div class="stat-group-item"><span class="stat-group-label">Open referrals</span><span class="stat-group-value">9</span></div>
+            <div class="stat-group-item"><span class="stat-group-label">Orders today</span><span class="stat-group-value">38</span></div>
+            <div class="stat-group-item"><span class="stat-group-label">Weeks at cutoff</span><span class="stat-group-value">0</span></div>
+          </div>
+
+          <!-- Quiet professional all-clear -->
+          <div class="card mt-6">
+            <div class="empty-state">
+              <div class="empty-state-icon"><i class="fa-regular fa-circle-check" aria-hidden="true"></i></div>
+              <h2 class="section-title">You're caught up</h2>
+              <p class="text-sm text-sand-600 mt-1">No pending alerts, referrals, exceptions, or due items. New work appears here as it arrives.</p>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

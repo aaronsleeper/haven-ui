@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Today — work queue · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Today › Work queue (hero/default). Spec: states.md → queue. The triage launchpad: four urgency-sorted
+  queue groups; each queue-item DEEP-LINKS into its entity (built LAST so targets resolve). Standing-glance
+  stat-group is subordinate to the cards (counts glance, cards lead — anti-vanity-dashboard invariant).
+  Today never becomes a workspace: deep-link only, work completes in the entity. Register: professional
+  coordinator, operational urgency color wanted. Synthetic data.
+  Deep-link targets: clinical alert → patient record; referral → referral detail; order exception →
+  distribution record; cutoff → week-cutoff-due.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="./today.queue.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items need attention">6</span></a>
+          <a href="../patients/patients.roster.html" class="nav-item"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="./today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content app-shell-content--full-bleed p-6" aria-label="Today work queue">
+          <div class="page-header">
+            <h1 class="page-title">Today</h1>
+          </div>
+          <p class="text-sm text-sand-500 mt-1">Tuesday, May 26 · 6 items need attention across 4 areas.</p>
+
+          <!-- Standing glance (subordinate to the queue) -->
+          <div class="stat-group mt-4">
+            <div class="stat-group-item"><span class="stat-group-label">Active patients</span><span class="stat-group-value">142</span></div>
+            <div class="stat-group-item"><span class="stat-group-label">Open referrals</span><span class="stat-group-value">9</span></div>
+            <div class="stat-group-item"><span class="stat-group-label">Orders today</span><span class="stat-group-value">38</span></div>
+            <div class="stat-group-item"><span class="stat-group-label">Weeks at cutoff</span><span class="stat-group-value">1</span></div>
+          </div>
+
+          <!-- Queue groups (the hero) -->
+          <div class="mt-6 space-y-6">
+
+            <!-- Group 1: Clinical alerts (urgent) -->
+            <section>
+              <h2 class="queue-section-header is-urgent"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i><span>Clinical alerts · 2</span></h2>
+              <ul class="queue-list mt-2">
+                <li>
+                  <a href="../patients/patients.record.html" class="queue-item is-urgent">
+                    <span class="queue-item-header"><span class="queue-item-name">Maria Santos</span><span class="badge badge-sm badge-pill">Clinical alert</span></span>
+                    <span class="queue-item-summary">Fasting glucose above target for 3 consecutive readings</span>
+                    <span class="queue-item-meta"><span>2h ago</span></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="../patients/patients.record.html" class="queue-item is-urgent">
+                    <span class="queue-item-header"><span class="queue-item-name">Luis Hernández</span><span class="badge badge-sm badge-pill">Clinical alert</span></span>
+                    <span class="queue-item-summary">Missed dialysis-day meal selection — 3 alerts open</span>
+                    <span class="queue-item-meta"><span>6h ago</span></span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <!-- Group 2: Referrals pending review (attention) -->
+            <section>
+              <h2 class="queue-section-header is-attention"><i class="fa-solid fa-bell" aria-hidden="true"></i><span>Referrals pending review · 2</span></h2>
+              <ul class="queue-list mt-2">
+                <li>
+                  <a href="../referrals/referrals.detail-pending.html" class="queue-item is-attention">
+                    <span class="queue-item-header"><span class="queue-item-name">Hartford Cardiology</span><span class="badge badge-sm badge-pill">Referral</span></span>
+                    <span class="queue-item-summary">New referral candidate awaiting review</span>
+                    <span class="queue-item-meta"><span>1d ago</span><span class="queue-item-sla is-warning" aria-label="SLA warning: review due in 1 day"><i class="fa-solid fa-clock" aria-hidden="true"></i> Due in 1d</span></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="../referrals/referrals.detail.html" class="queue-item is-attention">
+                    <span class="queue-item-header"><span class="queue-item-name">UConn Health</span><span class="badge badge-sm badge-pill">Referral</span></span>
+                    <span class="queue-item-summary">In review — clinical eligibility confirmed, ready to convert</span>
+                    <span class="queue-item-meta"><span>2d ago</span></span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <!-- Group 3: Kitchen order exceptions (attention) -->
+            <section>
+              <h2 class="queue-section-header is-attention"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><span>Order exceptions · 1</span></h2>
+              <ul class="queue-list mt-2">
+                <li>
+                  <a href="../diet-operations/diet-operations.distribution-record.html" class="queue-item is-attention">
+                    <span class="queue-item-header"><span class="queue-item-name">Community Health Partners kitchen</span><span class="badge badge-sm badge-pill">Order exception</span></span>
+                    <span class="queue-item-summary">3 orders unfulfilled — provider flagged a supply shortage</span>
+                    <span class="queue-item-meta"><span>4h ago</span></span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <!-- Group 4: Cutoffs & distributions due (info, SLA-bound) -->
+            <section>
+              <h2 class="queue-section-header is-info"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>Due soon · 1</span></h2>
+              <ul class="queue-list mt-2">
+                <li>
+                  <a href="../diet-operations/diet-operations.week-cutoff-due.html" class="queue-item is-info">
+                    <span class="queue-item-header"><span class="queue-item-name">Week of June 2</span><span class="badge badge-sm badge-pill">Cutoff</span></span>
+                    <span class="queue-item-summary">Weekly plan locks soon — confirm meals before distributions go out</span>
+                    <span class="queue-item-meta"><span>Fri May 30, 5:00 PM</span><span class="queue-item-sla is-warning" aria-label="SLA warning: cutoff in 6 hours"><i class="fa-solid fa-clock" aria-hidden="true"></i> Cutoff in 6h</span></span>
+                  </a>
+                </li>
+              </ul>
+              <a href="../diet-operations/diet-operations.weeks-list.html" class="text-link text-sm mt-2 inline-block">View all weekly plans</a>
+            </section>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
