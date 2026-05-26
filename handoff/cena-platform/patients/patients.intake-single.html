@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add patient · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Patients › Intake (single). Spec: states.md → Intake. Sectioned form: identity, contact, referral
+  source, diagnosis codes, dietary profile + field validation + Save/Cancel action row. When reached
+  from a converting referral the fields pre-fill and the referral source locks. Desktop form uses a
+  natural action row (NOT the patient-app .sticky-footer, which is fixed at 430px). Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="./patients.roster.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Add patient">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./patients.roster.html">Patients</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Add patient</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Add patient</h1></div>
+
+          <form class="space-y-6 mt-4">
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Identity</h2></div>
+              <div class="card-body space-y-4">
+                <div class="field-row">
+                  <label class="field-label required" for="p-name">Full name</label>
+                  <input type="text" id="p-name" placeholder="Last, First" required />
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="field-row"><label class="field-label" for="p-dob">Date of birth</label><input type="date" id="p-dob" /></div>
+                  <div class="field-row"><label class="field-label" for="p-mrn">MRN</label><input type="text" id="p-mrn" placeholder="Assigned on save" /></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Contact</h2></div>
+              <div class="card-body space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="field-row"><label class="field-label" for="p-phone">Phone</label><input type="tel" id="p-phone" placeholder="(860) 555-0100" /></div>
+                  <div class="field-row"><label class="field-label" for="p-email">Email</label><input type="email" id="p-email" placeholder="name@example.com" /></div>
+                </div>
+                <div class="field-row"><label class="field-label" for="p-addr">Address</label><input type="text" id="p-addr" placeholder="Street, city, ZIP" /></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h2 class="card-title">Clinical &amp; referral</h2></div>
+              <div class="card-body space-y-4">
+                <div class="field-row">
+                  <label class="field-label required" for="p-ref">Referral source</label>
+                  <select id="p-ref" required>
+                    <option>UConn Health</option>
+                    <option>Hartford Cardiology</option>
+                    <option>Community Health Partners</option>
+                  </select>
+                  <p class="field-help">Locked when adding from a converting referral.</p>
+                </div>
+                <div class="field-row">
+                  <label class="field-label" for="p-dx">Diagnosis codes</label>
+                  <input type="text" id="p-dx" placeholder="Search ICD-10 — e.g. E11.9" />
+                  <p class="field-help">Type to search; multiple codes allowed.</p>
+                </div>
+                <div class="field-row">
+                  <label class="field-label" for="p-diet">Dietary profile</label>
+                  <input type="text" id="p-diet" placeholder="e.g. renal-friendly, low-sodium" />
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2">
+              <a href="./patients.roster.html" class="btn-outline">Cancel</a>
+              <button type="submit" class="btn-primary"><i class="fa-solid fa-check" aria-hidden="true"></i> Save patient</button>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

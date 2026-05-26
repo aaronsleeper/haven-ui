@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bulk upload patients · Cena Care-Coordinator Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+<!--
+  Patients › Intake (bulk). Spec: states.md → Intake (bulk). Stepped: upload (CSV) → preview/validate
+  (valid vs error rows) → commit (receipt). Stepper is Preline-driven in production; this static
+  snapshot shows step 1 (upload) active, with the preview + commit steps visible in the nav. Step 2's
+  validation table and step 3's receipt are described inline. Synthetic only.
+-->
+  <div class="app-shell">
+    <div class="app-shell-frame">
+      <nav class="app-shell-sidebar" aria-label="Primary">
+        <div class="nav-header"><div class="nav-logo"><span class="font-serif text-lg text-sand-900">Cena Health</span></div></div>
+        <div class="nav-section">
+          <a href="../today/today.queue.html" class="nav-item"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span>Today</span><span class="nav-badge" aria-label="6 items in work queue">6</span></a>
+          <a href="./patients.roster.html" class="nav-item active" aria-current="page"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Patients</span></a>
+          <a href="../referrals/referrals.pipeline.html" class="nav-item"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i><span>Referrals</span></a>
+          <a href="../diet-operations/diet-operations.weekly-plans-open.html" class="nav-item"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Diet Operations</span></a>
+          <a href="../network/network.orgs-list.html" class="nav-item"><i class="fa-solid fa-sitemap" aria-hidden="true"></i><span>Network</span></a>
+          <a href="../clinical-library/clinical-library.guidelines.html" class="nav-item"><i class="fa-regular fa-book-medical" aria-hidden="true"></i><span>Clinical Library</span></a>
+          <a href="../admin/admin.staff.html" class="nav-item"><i class="fa-solid fa-gear" aria-hidden="true"></i><span>Admin</span></a>
+        </div>
+        <div class="nav-section nav-section--pinned-bottom">
+          <a href="#" class="nav-item"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign out</span></a>
+        </div>
+      </nav>
+      <div class="app-shell-main">
+        <div class="app-shell-topbar">
+          <div class="search-input" style="max-width: 24rem;"><i class="fa-solid fa-magnifying-glass search-input-icon" aria-hidden="true"></i><input type="search" placeholder="Search patients…" aria-label="Search patients" /></div>
+          <div class="navbar-actions">
+            <a href="../today/today.queue.html" class="navbar-action-btn" aria-label="Work queue — 6 items"><i class="fa-solid fa-inbox" aria-hidden="true"></i><span class="indicator indicator-sm indicator-online"></span></a>
+            <button type="button" class="navbar-action-btn" aria-label="Notifications"><i class="fa-solid fa-bell" aria-hidden="true"></i></button>
+            <div class="navbar-divider"></div>
+            <span class="navbar-user"><span class="avatar avatar-sm avatar-primary">AN</span><span class="text-start"><span class="navbar-user-name">Dr. Anand</span><span class="navbar-user-role">Care Coordinator</span></span></span>
+          </div>
+        </div>
+
+        <main class="app-shell-content p-6" aria-label="Bulk upload patients">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="./patients.roster.html">Patients</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Bulk upload</span>
+          </nav>
+          <div class="page-header"><h1 class="page-title">Bulk upload patients</h1></div>
+
+          <!-- Stepper progress (Preline-driven in production; step 1 active here) -->
+          <ul class="stepper-nav mt-4">
+            <li class="stepper-nav-item active"><span class="stepper-nav-icon">1</span><span class="stepper-nav-label">Upload CSV</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">2</span><span class="stepper-nav-label">Preview &amp; validate</span></li>
+            <span class="stepper-nav-line"></span>
+            <li class="stepper-nav-item"><span class="stepper-nav-icon">3</span><span class="stepper-nav-label">Commit</span></li>
+          </ul>
+
+          <!-- Step 1: upload -->
+          <div class="card mt-6">
+            <div class="card-header"><h2 class="card-title">Step 1 — upload a patient roster</h2></div>
+            <div class="card-body space-y-4">
+              <div class="file-upload-dropzone" data-file-upload-dropzone>
+                <i class="fa-solid fa-file-csv file-upload-dropzone-icon" aria-hidden="true"></i>
+                <p class="file-upload-dropzone-text">Drag and drop a CSV here, or <span class="file-upload-browse">browse</span></p>
+                <p class="file-upload-dropzone-hint">CSV up to 10 MB · columns: name, DOB, MRN, referral source, diagnosis codes</p>
+                <input type="file" class="sr-only" accept=".csv" aria-label="Upload patient CSV" />
+              </div>
+              <div class="alert alert-info" role="note">
+                <i class="fa-solid fa-circle-info alert-icon" aria-hidden="true"></i>
+                <div><span class="font-medium">Next:</span> after upload, every row is validated — valid rows preview in green, rows with errors flag inline so you can fix or skip them before committing. Nothing is added until you confirm at Step 3.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 mt-4">
+            <a href="#" class="text-link text-sm"><i class="fa-solid fa-download fa-xs" aria-hidden="true"></i> Download CSV template</a>
+            <div class="flex items-center gap-2">
+              <a href="./patients.roster.html" class="btn-outline">Cancel</a>
+              <button type="button" class="btn-primary" disabled>Continue to preview <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
