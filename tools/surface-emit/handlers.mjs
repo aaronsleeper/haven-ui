@@ -81,6 +81,17 @@ export function havenDirectives() {
         return;
       }
 
+      // :::push  ->  the amber "where to push" open-question block (reasoning surface)
+      if (node.name === 'push') {
+        const label = node.attributes?.label || 'Where to push';
+        node.children = [
+          el('p', { className: ['poke-label'] }, [icon(['fa-solid', 'fa-hand-point-right']), text(' ' + label)]),
+          ...node.children,
+        ];
+        node.data = { hName: 'div', hProperties: { className: ['push-here'] } };
+        return;
+      }
+
       // :::reason{q="Why X?" source="path" kind="poke|challenge"}  ->  native <details> disclosure
       // (folds the cena-reasoning hand-built poke/challenge block into one directive)
       if (node.name === 'reason') {

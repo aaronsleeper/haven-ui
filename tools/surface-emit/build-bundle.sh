@@ -19,14 +19,15 @@ SURFACE="docs"; NOBUILD=""
 for a in "$@"; do
   case "$a" in
     --no-build) NOBUILD=1 ;;
-    docs|sot) SURFACE="$a" ;;
+    docs|sot|reason) SURFACE="$a" ;;
   esac
 done
 
 DIST="$REPO/packages/design-system/dist/assets"
 case "$SURFACE" in
-  docs) OUT="$HERE/dist" ;;
-  sot)  OUT="$HERE/dist-sot" ;;
+  docs)   OUT="$HERE/dist" ;;
+  sot)    OUT="$HERE/dist-sot" ;;
+  reason) OUT="$HERE/dist-reason" ;;
 esac
 ASSETS="$OUT/assets"
 
@@ -49,5 +50,5 @@ sed -E 's|url\(/assets/|url(./|g' "$DIST/haven-ui.css" > "$ASSETS/haven.css"
 echo "build-bundle[$SURFACE]: [4/4] emitting standalone HTML → $(basename "$OUT")/ …"
 MODE=standalone SURFACE="$SURFACE" node "$HERE/emit.mjs"
 
-echo "build-bundle[$SURFACE]: ✅ bundle at spikes/doc-emit/$(basename "$OUT")/"
-echo "build-bundle[$SURFACE]:    serve: cd spikes/doc-emit/$(basename "$OUT") && python3 -m http.server 8799"
+echo "build-bundle[$SURFACE]: ✅ bundle at tools/surface-emit/$(basename "$OUT")/"
+echo "build-bundle[$SURFACE]:    serve: cd tools/surface-emit/$(basename "$OUT") && python3 -m http.server 8799"

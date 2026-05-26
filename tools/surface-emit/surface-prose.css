@@ -72,3 +72,6 @@
 .challenge > summary::-webkit-details-marker { display: none; }
 .challenge > summary:hover { border-color: var(--color-teal-400, #6fa399); color: var(--color-teal-600, #2c6a60); }
 .challenge-body { margin-top: 0.625rem; padding: 0.875rem 1rem; border: 1px dashed var(--color-sand-300, #bcb8b1); border-radius: 0.625rem; background: var(--color-sand-50, #fbfaf8); font-size: 0.9375rem; line-height: 1.55; color: var(--color-sand-700, #5c574f); }
+.push-here { margin-top: 0.875rem; padding: 0.875rem 1rem; border-left: 3px solid var(--color-amber-400, #e0a93b); background: var(--color-amber-50, #fbf5e9); border-radius: 0 0.5rem 0.5rem 0; }
+.push-here .poke-label { color: var(--color-amber-700, #9a6f1f); }
+.push-here p { margin: 0.25rem 0 0; color: var(--color-sand-800, #423d36); font-size: 0.9375rem; }

@@ -1,42 +1,50 @@
-# doc-emit spike
+# surface-emit — haven static-surface engine
 
-Proves the **content↔component seam** for a haven-ui documentation-site emitter: portable markdown + a nav manifest → build-time AST rewrite → static HTML styled entirely by haven-ui semantic classes + tokens. The haven-ui analogue of Mintlify's `components` prop, but emitting static HTML instead of serialized React.
+One engine that emits **any** branded, self-contained static surface from portable markdown: markdown (+ manifest) → build-time AST rewrite → static HTML styled entirely by haven-ui semantic classes + tokens. The haven-ui analogue of Mintlify's `components` prop, emitting static HTML instead of serialized React.
 
-Full research context: `Vaults/workflows/ui-development/doc-site-generation-research.md`.
+**Converged (2026-05-26)** from three independent emitters of the same seam — a doc-site (remark/rehype), the UConn SoT surface (pandoc/Lua), and the cena-reasoning surface (hand-built). One engine now; each surface is a *config*. See `~/.claude/plans/surface-emission-convergence.md` + research context `Vaults/workflows/ui-development/doc-site-generation-research.md`.
 
 ## What it proves
 
-- **Content carries zero styling.** `content/*.md` is plain markdown + a few directives (`:::callout`, `:::card`, `:badge[]`). No classes, no haven-ui markup, no imports.
-- **The seam is one file.** `handlers.mjs` maps content nodes → haven-ui markup. Two kinds, mirroring Mintlify:
-  - authored components — `:::callout` → `.alert`, `:::card` → `.card`, `:badge[]` → `.badge`
-  - markdown primitives — table → `.data-table`, `h2` → `.section-title`, inline `code`, links
-- **Swap = reskin, zero content edits.** Rebind a directive in `handlers.mjs` (e.g. `callout` → `.card` with a colored left border instead of `.alert`), re-emit, and every callout site-wide reskins. The `.md` files never change. This is the property the whole exercise exists to demonstrate.
-- **The manifest is authoritative for routing** (`nav.json`), exactly like Mintlify's `docs.json` — a content file absent from the manifest is not emitted (the emitter reports orphans).
+- **Content carries zero styling.** Content is plain markdown + directives (`:::callout`, `:::card`, `:badge`, `:::reason`, `:::push`). No classes, no haven markup, no imports.
+- **The seam is one binding.** `handlers.mjs` exports `havenBinding` (remark + rehype plugins + prose layer) — content node → haven markup. Two kinds:
+  - authored components — `:::callout`→`.alert`, `:::card`→`.card`, `:badge`→`.badge`, `:::reason`→`<details>` disclosure, `:::push`→the "where to push" block
+  - markdown primitives — `h1`→`.page-title`, `h2`→`.section-title`, table→`.data-table`, status-cell strong→haven badge (build-time), wikilink-strip, inline `code`, links
+- **DS-agnostic core + per-DS binding.** `emit.mjs` is config-driven (`SURFACE`); swap `havenBinding` → a different design system. v1 binding = haven only.
+- **Swap = reskin, zero content edits.** Rebind a directive in the binding, re-emit, every site reskins; content `.md` never changes.
 
 ## Architecture (tiers)
 
 | Tier | File | Brand judgment? |
 | --- | --- | --- |
-| Content | `content/*.md` + `nav.json` | none |
-| Compile | `emit.mjs` (remark/rehype) | none |
-| **Seam** | **`handlers.mjs`** | **all of it** |
-| Shell | `shell.mjs` (nav walk + chrome) | almost none |
+| Content | `content*/` markdown + `nav.json` | none |
+| Compile | `emit.mjs` (DS-agnostic core) | none |
+| **Seam (binding)** | **`handlers.mjs` `havenBinding` + `surface-prose.css`** | **all of it** |
+| Shell | `shell.mjs` (chrome strategies: sidebar / surface) | almost none |
 
-Only the seam is swappable and brand-bearing. Everything else is correctness-only plumbing.
+Only the binding is swappable and brand-bearing. Everything else is correctness-only plumbing.
+
+## Surfaces (each = a config, no bespoke emitter)
+
+| `SURFACE=` | What | Chrome |
+| --- | --- | --- |
+| `docs` | doc site (sidebar nav from `nav.json`) | sidebar |
+| `sot` | UConn Pilot Source-of-Truth (read-only proof on the real markdown) | surface (banner+nav) |
+| `reason` | patient-app reasoning surface (`:::reason`/`:::push` disclosures) | surface |
 
 ## Two emit modes
 
 ```bash
-cd spikes/doc-emit
-npm install                          # isolated; spikes/* is outside the pnpm workspace
+cd tools/surface-emit
+npm install                          # isolated; tools/ is outside the pnpm workspace
 
 # devserver mode — Vite + Tailwind compile components.css live (fast iteration)
-node emit.mjs                        # -> packages/design-system/pattern-library/_docs-spike/*.html
+SURFACE=docs node emit.mjs           # -> packages/design-system/pattern-library/_docs-spike/*.html
 pnpm --filter @haven/design-system dev
 # open http://localhost:5173/pattern-library/_docs-spike/getting-started.html
 
 # standalone mode — self-contained bundle, NO toolchain on the consumer side
-bash build-bundle.sh                 # build DS, bundle CSS+fonts, emit -> dist/
+bash build-bundle.sh docs            # SURFACE = docs | sot | reason; build DS, bundle, emit -> dist*/
 #   (use --no-build to reuse an existing packages/design-system/dist)
 cd dist && python3 -m http.server 8799    # any plain static server works
 # open http://localhost:8799/getting-started.html  (no Vite, no Tailwind)

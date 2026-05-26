@@ -75,6 +75,21 @@ const SURFACES = {
     devOut: resolve(__dirname, '../../packages/design-system/pattern-library/_sot-spike'),
     standaloneOut: resolve(__dirname, 'dist-sot'),
   },
+  // The cena-reasoning surface re-expressed as a CONSUMER of the engine (was
+  // hand-built HTML). Proof that the third emitter folds in too. Content slice
+  // is representative (full transcription is mechanical remaining work).
+  reason: {
+    chrome: 'surface',
+    manifest: { title: 'Cena — Reasoning Surface' },
+    chromeConfig: {
+      banner: '<strong>Patient-app reasoning.</strong> A surface that shows the thinking and makes each decision pokeable — open the disclosures, push where it’s soft. A <em>view</em> of the real plans, generated, not hand-built.',
+      nav: [],
+    },
+    pages: [{ slug: 'index', title: 'Reasoning Surface' }],
+    contentDir: resolve(__dirname, 'content-reason'),
+    devOut: resolve(__dirname, '../../packages/design-system/pattern-library/_reason-spike'),
+    standaloneOut: resolve(__dirname, 'dist-reason'),
+  },
 };
 
 const cfg = SURFACES[SURFACE];
