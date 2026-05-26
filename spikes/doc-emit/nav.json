@@ -1,0 +1,18 @@
+{
+  "title": "Haven Docs",
+  "subtitle": "Spike — emitted, not hand-built",
+  "nav": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        { "title": "Introduction", "slug": "getting-started", "icon": "rocket" }
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        { "title": "Components", "slug": "components", "icon": "shapes" }
+      ]
+    }
+  ]
+}

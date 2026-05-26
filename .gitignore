@@ -25,3 +25,6 @@ storybook-static/
 
 # GitHub Pages build output (assembled by scripts/build-pages.sh)
 _site/
+
+# Doc-emit spike generated output (regenerate: node spikes/doc-emit/emit.mjs)
+packages/design-system/pattern-library/_docs-spike/
