@@ -99,7 +99,21 @@
 
     /* Page geometry — readable margins for a printed document */
     @page {
-        margin: 0.85in 0.9in;
+        margin: 0.65in 0.7in;
+    }
+
+    /* Clean white document — no page tint. The on-screen body sits on sand-50
+       (the pattern-library's warm ground); a printed/exported SOP reads better
+       on pure white, and the sand-in-content-area + white-page-margins combo
+       looked like a stray gradient framed by margins. Force the whole document
+       surface white; the alert-stripe flags keep their tint (they use
+       background-color, preserved — only stray background-IMAGES are cleared). */
+    html,
+    body,
+    main:has(.document-shell),
+    .document-shell {
+        background: #fff !important;
+        background-image: none !important;
     }
 
     /* Hide the pattern-library nav rail when printing a document page */
