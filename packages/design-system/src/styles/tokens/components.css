@@ -12742,6 +12742,25 @@ span.diagram-icon::before {
     @apply shrink-0 mt-1 text-sand-400 dark:text-sand-500;
 }
 
+/* --- Screen reference: a wayfinding chip pointing to an interface + location,
+   linked to the owning capability. Inline within a procedure step's "where"
+   line or standalone. A link register distinct from text-link — this is
+   wayfinding ("go here in the system"), not an action. --- */
+.screen-ref {
+    @apply inline-flex items-center gap-1.5 rounded-md border border-sand-200 bg-sand-50;
+    @apply px-2 py-0.5 text-sm text-sand-700 no-underline align-baseline whitespace-nowrap;
+    @apply hover:bg-sand-100 hover:border-sand-300 transition-colors;
+    @apply dark:border-sand-700 dark:bg-sand-800/50 dark:text-sand-300 dark:hover:bg-sand-800;
+}
+
+.screen-ref-icon {
+    @apply text-sand-500 dark:text-sand-400;
+}
+
+.screen-ref-sep {
+    @apply text-sand-400 text-xs dark:text-sand-500;
+}
+
 /* --- Quick-reference checklist: lightweight view derived from the steps --- */
 .checklist {
     @apply flex flex-col gap-2.5;

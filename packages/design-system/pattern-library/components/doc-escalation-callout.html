@@ -1,0 +1,31 @@
+<!--
+  @component-meta
+  name: Escalation Callout
+  category: Document District
+  file: doc-escalation-callout.html
+  classes: (composition) alert, alert-error, alert-stripe, alert-stripe-icon, alert-stripe-body, screen-ref
+  when-to-use: A role SOP's "if this happens, here is exactly who to contact and how" block — the trigger → who → how contact protocol for a specific escalation (e.g. cap-27 safety/medical concern). Distinct from the decision-branch severity flags, which only say WHEN a situation crosses a threshold.
+  do-not-use-when: You only need to convey a status level (red/yellow/green) — use the decision-branch flags. Use this when the reader needs the actionable contact protocol.
+  preline-required: no
+  notes: Pure composition — zero new classes. An alert-stripe in the error (safety) register whose body carries a bold trigger line + labeled Who / How lines (same inline-label pattern alert bodies already use). The contact target can be a screen-ref when it lives in a system. Resolves the Clinical Staff SOP type's "escalation callout" output-primitive; pairs with the severity flags (flags = when, callout = who/how).
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Escalation Callout</h3>
+  <p class="pl-description">
+    Trigger → who → how. The actionable contact protocol for a specific escalation. Composes alert-stripe (error register).
+  </p>
+
+  <!-- @component: doc-escalation-callout -->
+  <div class="alert alert-error alert-stripe rounded-md" role="region" aria-label="Escalation: safety or medical concern">
+    <div class="alert-stripe-icon"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i></div>
+    <div class="alert-stripe-body">
+      <p class="font-semibold mb-1">A participant reports a safety or medical concern</p>
+      <p class="text-sm mb-0.5"><span class="font-medium">Who:</span> the UConn clinical team.</p>
+      <p class="text-sm mb-0"><span class="font-medium">How:</span> escalate per the UConn escalation protocol — do not wait for the next scheduled check-in.</p>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

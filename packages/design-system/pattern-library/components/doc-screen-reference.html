@@ -1,0 +1,36 @@
+<!--
+  @component-meta
+  name: Screen Reference
+  category: Document District
+  file: doc-screen-reference.html
+  classes: screen-ref, screen-ref-icon, screen-ref-sep
+  when-to-use: A wayfinding reference inside a role SOP — names which interface and where, linked to the owning capability. Sits inline in a procedure step's "where" line, or standalone.
+  do-not-use-when: The link is an action the reader takes (use text-link) or navigation chrome (use nav components). This is a pointer to a place in the system, not an action.
+  preline-required: no
+  notes: An <a> styled as a sand chip — display icon + interface path (chevron-separated via screen-ref-sep) — linking to the owning cap. Deliberately a quieter, bordered register distinct from text-link's primary-color action affordance: wayfinding, not a commit. Resolves the Clinical Staff SOP type's "screen reference" output-primitive.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Screen Reference</h3>
+  <p class="pl-description">
+    Wayfinding chip — which interface + where, linked to the owning capability. Inline or standalone.
+  </p>
+
+  <!-- @component: doc-screen-reference -->
+  <div class="card card-body">
+    <p class="document-prose">
+      Inline in a step: open the
+      <a href="#" class="screen-ref"><i class="fa-solid fa-table-columns screen-ref-icon" aria-hidden="true"></i> Care-coordinator app <i class="fa-solid fa-chevron-right screen-ref-sep" aria-hidden="true"></i> Roster</a>
+      and work it top-down.
+    </p>
+
+    <!-- Standalone references -->
+    <div class="flex flex-wrap gap-2 mt-4">
+      <a href="#" class="screen-ref"><i class="fa-solid fa-table-columns screen-ref-icon" aria-hidden="true"></i> Care-coordinator app <i class="fa-solid fa-chevron-right screen-ref-sep" aria-hidden="true"></i> Patient profile</a>
+      <a href="#" class="screen-ref"><i class="fa-solid fa-file-medical screen-ref-icon" aria-hidden="true"></i> Athena <i class="fa-solid fa-chevron-right screen-ref-sep" aria-hidden="true"></i> Encounter notes</a>
+    </div>
+  </div>
+  <!-- /component -->
+</section>
