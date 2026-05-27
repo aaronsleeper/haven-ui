@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+
+    <main class="flex-1 min-w-0 ml-64">
+
+      <!--
+        Registered Dietitian SOP — n=2 validation of the Document district.
+        Built to stress-test the compositions against a SECOND role before
+        certifying them stable (skeptic P4). Content drawn from cap-14 (RDN
+        encounter notes / Athena boundary) + cap-15 (session modality); no
+        invented clinical specifics. Build-slice draft — multi-gate attestation
+        is deliberately PENDING (RD carries the clinical-accuracy gate).
+      -->
+      <article class="document-shell">
+
+        <header class="document-masthead">
+          <p class="document-eyebrow">Registered Dietitian · Standard Operating Procedure</p>
+          <h1 class="document-title">Delivering UConn Nutrition Counseling Sessions</h1>
+          <div class="document-meta">
+            <span class="document-meta-item"><i class="fa-solid fa-id-badge text-sand-400" aria-hidden="true"></i> Role: Registered Dietitian</span>
+            <span class="document-meta-item"><i class="fa-solid fa-code-branch text-sand-400" aria-hidden="true"></i> Version 0.1 (draft)</span>
+            <span class="document-meta-item"><i class="fa-solid fa-calendar text-sand-400" aria-hidden="true"></i> Reviewed May 2026</span>
+          </div>
+        </header>
+
+        <div class="document-draft-banner" role="status">
+          <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
+          Draft — example content pending clinical review and sign-off. Do not use for training or to guide care until approved.
+        </div>
+
+        <p class="document-lead">
+          This procedure covers how you, as a registered dietitian, deliver the UConn pilot's
+          nutrition counseling sessions — running each session, capturing encounter notes in Athena,
+          and reviewing the participant's care plan and outcomes in the Cena platform.
+        </p>
+
+        <!-- SCOPE -->
+        <section class="document-section">
+          <h2 class="document-section-title">Scope</h2>
+          <p class="document-section-intro">What this role covers, and where its boundaries are.</p>
+          <div class="card">
+            <div class="card-body">
+              <table class="kv-table">
+                <tr>
+                  <th scope="row">For</th>
+                  <td>Registered dietitians delivering counseling sessions for the UConn Health food-as-medicine pilot.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Covers</th>
+                  <td>Delivering the five counseling sessions (Months 0, 2, 4, 6, 9), capturing encounter notes in Athena, and reviewing each participant's care plan and outcomes in the Cena platform.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Does not cover</th>
+                  <td>Weekly care-coordination check-ins, contact logging, or appointment booking (the care coordinator's role). Scheduling is handled in Athena by the care coordinator.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROCEDURE STEPS — note the third "why" register (circle-info) -->
+        <section class="document-section">
+          <h2 class="document-section-title">Each counseling session</h2>
+          <p class="document-section-intro">
+            The same flow for every session in the schedule. Notes live in Athena; the care plan lives in Cena.
+          </p>
+          <ol class="procedure-steps">
+            <li class="procedure-step">
+              <span class="procedure-step-number">1</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Deliver the counseling session</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In person for the first session; later sessions follow the Month 0 / 2 / 4 / 6 / 9 schedule.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  A completed counseling encounter for the participant.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  The contract allows sessions 2–5 to be remote, but Cena committed to all-in-person; deliver in person unless this has been reconciled with UConn.
+                </p>
+              </div>
+            </li>
+            <li class="procedure-step">
+              <span class="procedure-step-number">2</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Capture your encounter notes in Athena</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In Athena, on the participant's encounter — use the quick-snippet pick-lists for fluid note-taking.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  Notes saved to the billable encounter in Athena.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  Athena is the system of record for billable encounters — do not re-enter notes into Cena. Cena pulls them from Athena and files them on the patient record for you.
+                </p>
+              </div>
+            </li>
+            <li class="procedure-step">
+              <span class="procedure-step-number">3</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Review the care plan and outcomes in Cena</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In the Cena platform, on the participant's detail view.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  The care plan reflects the latest session and the participant's current outcomes.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  Patient-experience data — food preferences and care-plan changes — lives in Cena, not Athena.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <!-- DECISION BRANCH — two-way branches (modality + data routing) -->
+        <section class="document-section">
+          <h2 class="document-section-title">Where things go</h2>
+          <p class="document-section-intro">
+            Two routing decisions that come up every session — session modality, and which system holds which data.
+          </p>
+
+          <h3 class="document-subsection-title">Session modality</h3>
+          <div class="decision-branch">
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-handshake text-sand-500" aria-hidden="true"></i>
+                The first session (Month 0)
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Always in person — the contract requires it.
+              </div>
+            </div>
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-calendar-days text-sand-500" aria-hidden="true"></i>
+                Sessions 2–5
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                In person by default (Cena's commitment). If remote is needed, reconcile with UConn before scheduling.
+              </div>
+            </div>
+          </div>
+
+          <h3 class="document-subsection-title">Which system holds the data</h3>
+          <div class="decision-branch">
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-file-medical text-sand-500" aria-hidden="true"></i>
+                Billable encounter content
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Athena — the system of record for anything coded for reimbursement.
+              </div>
+            </div>
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-heart text-sand-500" aria-hidden="true"></i>
+                Patient-experience data
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Cena — food preferences, care-plan iteration, and custom outcomes.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- QUICK-REF CHECKLIST -->
+        <section class="document-section">
+          <h2 class="document-section-title">Quick reference</h2>
+          <p class="document-section-intro">The session flow, condensed to a tickable list.</p>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Every counseling session</h3>
+            </div>
+            <div class="card-body">
+              <div class="checklist">
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Confirm the session modality (session 1 in person; later sessions in person by default)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Deliver the counseling session</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Capture encounter notes in Athena (not Cena)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Review the care plan and outcomes in Cena</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BLOCK GLOSSARY -->
+        <section class="document-section">
+          <h2 class="document-section-title">Terms used in this SOP</h2>
+          <p class="document-section-intro">Plain-language definitions, no system jargon.</p>
+          <div class="card">
+            <div class="card-body">
+              <table class="kv-table">
+                <tr>
+                  <th scope="row">Encounter</th>
+                  <td>A single counseling session with a participant, recorded for billing.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Athena</th>
+                  <td>The system where encounters are recorded and coded for reimbursement. It is the official record for billable visit content.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Care plan</th>
+                  <td>The participant's nutrition plan in Cena — it updates as you learn more across sessions.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Quick snippets</th>
+                  <td>Athena's pick-list shortcuts for common note text, so you can capture notes during the session.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Patient-experience data</th>
+                  <td>What lives in Cena rather than Athena — food preferences, care-plan changes, and custom outcomes.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ATTESTATION — multi-gate (RD carries the clinical-accuracy gate) -->
+        <section class="document-section">
+          <h2 class="document-section-title">Sign-off</h2>
+          <p class="document-section-intro">
+            An RD SOP clears more than one gate. It is approved for training only when all of them are signed.
+          </p>
+          <div class="attestation-block">
+            <div class="attestation-block-header">
+              <i class="fa-solid fa-file-signature text-sand-500" aria-hidden="true"></i>
+              Sign-off
+            </div>
+            <div class="attestation-block-body">
+              <ul class="attestation-gates">
+                <li class="attestation-gate is-pending">
+                  <i class="fa-solid fa-clock attestation-gate-icon" aria-hidden="true"></i>
+                  <span><span class="attestation-gate-label">Clinically accurate</span> — clinical lead</span>
+                </li>
+                <li class="attestation-gate is-pending">
+                  <i class="fa-solid fa-clock attestation-gate-icon" aria-hidden="true"></i>
+                  <span><span class="attestation-gate-label">Operationally true</span> — Vanessa Sena</span>
+                </li>
+                <li class="attestation-gate is-pending">
+                  <i class="fa-solid fa-clock attestation-gate-icon" aria-hidden="true"></i>
+                  <span><span class="attestation-gate-label">Signed off</span> — Director of Clinical Ops</span>
+                </li>
+              </ul>
+              <div class="attestation-signature">
+                <p class="attestation-signature-placeholder">Awaiting all gates — draft, not yet approved for training</p>
+                <p class="attestation-signature-role">Version 0.1</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>

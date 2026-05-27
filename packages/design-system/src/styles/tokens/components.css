@@ -12795,6 +12795,37 @@ span.diagram-icon::before {
     @apply text-primary-700 dark:text-primary-400;
 }
 
+/* Multi-gate variant — when a deliverable carries more than one accountability
+   gate (e.g. an RD SOP: clinically-accurate + operationally-true + signed-off).
+   Each gate row reuses the pending=warning / signed=primary-teal language of
+   .attestation-status. Surfaced by the RD SOP (n=2); CC's single sign-off
+   collapses to one .attestation-status line. */
+.attestation-gates {
+    @apply flex flex-col gap-2.5;
+    @apply m-0 p-0 list-none;
+}
+
+.attestation-gate {
+    @apply flex items-start gap-2.5 text-sm text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+.attestation-gate-icon {
+    @apply shrink-0 mt-0.5 w-4 text-center;
+}
+
+.attestation-gate.is-pending .attestation-gate-icon {
+    @apply text-warning-600 dark:text-warning-400;
+}
+
+.attestation-gate.is-signed .attestation-gate-icon {
+    @apply text-primary-600 dark:text-primary-400;
+}
+
+.attestation-gate-label {
+    @apply font-medium text-sand-800 dark:text-sand-200;
+}
+
 /* Signature line — name + role + date in document register, dashed rule above */
 .attestation-signature {
     @apply mt-4 pt-4 border-t border-dashed border-sand-300;
