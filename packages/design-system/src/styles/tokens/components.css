@@ -12752,8 +12752,15 @@ span.diagram-icon::before {
     @apply dark:text-sand-200;
 }
 
+/* Alignment lives on the row primitive (per the global input[type=checkbox]
+   note): size-4 gives a consistent box, mt-0.5 drops it onto the first line's
+   cap-height. items-start keeps the box top-aligned when a label wraps. */
+.checklist-item input[type="checkbox"] {
+    @apply size-4 mt-0.5;
+}
+
 .checklist-item-label {
-    @apply text-sm leading-snug pt-0.5;
+    @apply text-sm leading-snug;
 }
 
 /* --- Attestation block: in-document accountable-human sign-off panel ---
