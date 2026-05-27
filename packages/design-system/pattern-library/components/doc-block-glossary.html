@@ -1,0 +1,52 @@
+<!--
+  @component-meta
+  name: Block Glossary
+  category: Document District
+  file: doc-block-glossary.html
+  classes: (composition) card, card-header, card-title, card-body, kv-table
+  when-to-use: Plain-language definitions of the terms a role SOP uses — gathered as one block, not scattered inline. Resolves the inline-definition output-primitive of the Clinical Staff SOP type.
+  do-not-use-when: A single term needs defining in flow — though the current decision (Aaron, 2026-05-26) is block-glossary first; promote to an inline term-gloss only if drafts prove the need.
+  preline-required: no
+  notes: Pure composition — zero new classes. A .card wrapping a .kv-table of term → plain-language definition. The first occupant of the "inline definitions rendered as a block glossary" decision; keep definitions free of engineering vocabulary (Vanessa delivers training).
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Block Glossary</h3>
+  <p class="pl-description">
+    Plain-language term definitions gathered as one block. Composes a card around a kv-table.
+  </p>
+
+  <!-- @component: doc-block-glossary -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Terms used in this SOP</h3>
+    </div>
+    <div class="card-body">
+      <table class="kv-table">
+        <tr>
+          <th scope="row">Roster</th>
+          <td>Your list of participants — who they are and when each is due for a check-in.</td>
+        </tr>
+        <tr>
+          <th scope="row">Check-in</th>
+          <td>The weekly call where you support ordering, ask about adherence, and surface any barriers.</td>
+        </tr>
+        <tr>
+          <th scope="row">Athena</th>
+          <td>The system where appointments are booked. It stays the official record for scheduling.</td>
+        </tr>
+        <tr>
+          <th scope="row">Wraparound services</th>
+          <td>Extra support a participant may need — SNAP, a food pantry, transportation, or housing help.</td>
+        </tr>
+        <tr>
+          <th scope="row">Flag</th>
+          <td>A signal that a participant needs attention: red (unreachable), yellow (a concern came up), or green (on track).</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

@@ -1,0 +1,44 @@
+<!--
+  @component-meta
+  name: SOP Scope Card
+  category: Document District
+  file: doc-scope-card.html
+  classes: (composition) card, card-header, card-title, card-body, kv-table, text-link
+  when-to-use: The opening "who this is for / what it covers / what it explicitly doesn't" block of a role SOP. First output-primitive of the Clinical Staff SOP type.
+  do-not-use-when: You need a generic detail table — use kv-table directly.
+  preline-required: no
+  notes: Pure composition — zero new classes. A .card wrapping a .kv-table whose rows are For / Covers / Does not cover. The "Does not cover" row is the boundary statement that keeps role SOPs from overlapping (e.g. CC vs RD). Reuses card + kv-table; the cross-references use text-link.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">SOP Scope Card</h3>
+  <p class="pl-description">
+    Role scope at a glance — for / covers / does not cover. Composes a card around a kv-table.
+  </p>
+
+  <!-- @component: doc-scope-card -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Scope</h3>
+    </div>
+    <div class="card-body">
+      <table class="kv-table">
+        <tr>
+          <th scope="row">For</th>
+          <td>Cena care coordinators supporting participants in the UConn Health food-as-medicine pilot.</td>
+        </tr>
+        <tr>
+          <th scope="row">Covers</th>
+          <td>Working the patient roster, weekly check-in calls, logging contact attempts and outcomes, handling appointment requests, and escalating safety or medical concerns.</td>
+        </tr>
+        <tr>
+          <th scope="row">Does not cover</th>
+          <td>Clinical or dietary counseling (the registered dietitian's role), diagnoses, or booking appointments outside Athena. Route those to the <a href="#" class="text-link">RD SOP</a> or escalate.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

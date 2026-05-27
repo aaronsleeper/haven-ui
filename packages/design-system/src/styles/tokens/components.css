@@ -12575,3 +12575,235 @@ span.diagram-icon::before {
         grid-template-columns: minmax(0, 26.25rem) 1fr; /* 420px rail + fluid main */
     }
 }
+
+/* ===================================
+   DOCUMENT DISTRICT
+   Haven's document-class register — opened by the Clinical Staff SOP
+   deliverable-type (Knowledge/Areas/Meta/Entities/workflows/clinical-staff-sop.md).
+   Where the app districts are dense + interactive, the document register is
+   quiet + readable: one bounded measure, generous vertical rhythm, Lora
+   headings carrying the brand, and primary-teal reserved for the single commit
+   moment (a signed attestation). These classes add only the document-scale
+   layout + the genuinely-new procedure / decision / checklist / attestation
+   shapes; scope card and glossary reuse .card / .kv-table outright (the
+   district's newness is structural, per the 2026-05-26 scoping memo — zero
+   novel primitives).
+   =================================== */
+
+/* --- Shell: single-column readable layout --- */
+.document-shell {
+    @apply mx-auto w-full px-5 py-10 md:px-8 md:py-14;
+    max-width: 52rem; /* ~832px — a comfortable document measure, wide enough to
+                         seat cards + tables without crowding, narrow enough to
+                         read as a document rather than an app screen */
+}
+
+/* Masthead — eyebrow + title + meta line, divider below */
+.document-masthead {
+    @apply pb-6 mb-10 border-b border-sand-200;
+    @apply dark:border-sand-700;
+}
+
+.document-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-wide text-sand-600 mb-2;
+    @apply dark:text-sand-400;
+}
+
+.document-title {
+    @apply text-[27.65px] font-serif font-medium text-sand-900 leading-tight mb-0;
+    @apply dark:text-sand-100;
+}
+
+/* Draft banner — visible, masthead-level signal that the document is not yet
+   signed off. Travels WITH the content (not just the footer attestation) so a
+   reader who screenshots or pulls a section still sees the draft state. Pairs
+   with the .is-pending attestation block; remove once signed. */
+.document-draft-banner {
+    @apply flex items-center gap-2 rounded-md px-4 py-2 mb-6 text-sm font-medium;
+    @apply bg-warning-50 border border-warning-200 text-warning-800;
+    @apply dark:bg-warning-900/20 dark:border-warning-800 dark:text-warning-300;
+}
+
+.document-draft-banner i {
+    @apply shrink-0;
+}
+
+.document-meta {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-sm text-sand-600;
+    @apply dark:text-sand-400;
+}
+
+.document-meta-item {
+    @apply inline-flex items-center gap-1.5;
+}
+
+/* Lead paragraph — the document's opening orientation, slightly larger */
+.document-lead {
+    @apply text-base md:text-lg text-sand-700 leading-relaxed;
+    @apply dark:text-sand-300;
+    max-inline-size: 68ch;
+}
+
+/* --- Section rhythm --- */
+.document-section {
+    @apply mt-12 first:mt-0;
+}
+
+.document-section-title {
+    @apply text-heading-02 font-serif font-medium text-sand-800 mb-4;
+    @apply dark:text-sand-200;
+}
+
+.document-section-intro {
+    @apply text-sand-700 leading-relaxed mb-5;
+    @apply dark:text-sand-300;
+    max-inline-size: 68ch;
+}
+
+/* Sub-grouping label inside a document section — quieter than a section title,
+   names a distinct register within one section (e.g. "Everyday routing" vs.
+   "Escalation flags"). Sand uppercase eyebrow weight, not a serif title. */
+.document-subsection-title {
+    @apply text-xs font-semibold uppercase tracking-wide text-sand-600 mt-6 mb-3;
+    @apply dark:text-sand-400;
+}
+
+/* Body prose inside a document section — comfortable measure + rhythm */
+.document-prose {
+    @apply text-sand-700 leading-relaxed dark:text-sand-300;
+    max-inline-size: 68ch;
+}
+.document-prose p + p {
+    @apply mt-4;
+}
+
+/* --- Procedure steps: numbered action → where in system → expected result --- */
+.procedure-steps {
+    @apply flex flex-col gap-5;
+}
+
+.procedure-step {
+    @apply flex gap-4;
+}
+
+/* @contrast-exempt: decorative-background */
+.procedure-step-number {
+    @apply flex items-center justify-center shrink-0 w-8 h-8 rounded-full;
+    @apply bg-sand-100 text-sand-700 font-serif font-medium text-sm;
+    @apply dark:bg-sand-800 dark:text-sand-200;
+}
+
+.procedure-step-body {
+    @apply flex-1 min-w-0 pt-1;
+}
+
+.procedure-step-action {
+    @apply text-base font-semibold text-sand-900 mb-1;
+    @apply dark:text-sand-100;
+}
+
+/* Detail rows under an action — "in the system" location, expected result.
+   Icon + label; the icon carries the row's meaning (location vs. result). */
+.procedure-step-detail {
+    @apply flex items-start gap-2 text-sm text-sand-600 mt-1;
+    @apply dark:text-sand-400;
+}
+
+.procedure-step-detail-icon {
+    @apply shrink-0 mt-0.5 text-sand-400 w-4 text-center;
+    @apply dark:text-sand-500;
+}
+
+/* --- Decision branch: condition → outcome pairs ---
+   Generic if/then construct. Severity-coded branches (e.g. the red/yellow/green
+   escalation flags) compose .alert-stripe variants instead — see
+   doc-decision-branch.html. */
+.decision-branch {
+    @apply flex flex-col gap-3;
+}
+
+.decision-branch-row {
+    @apply flex flex-col sm:flex-row sm:items-stretch rounded-md border border-sand-200 overflow-hidden;
+    @apply dark:border-sand-700;
+}
+
+.decision-branch-condition {
+    @apply flex items-center gap-2 px-4 py-3 bg-sand-50 font-medium text-sand-800 sm:w-2/5 shrink-0;
+    @apply border-b border-sand-200 sm:border-b-0 sm:border-e;
+    @apply dark:bg-sand-800/50 dark:text-sand-200 dark:border-sand-700;
+}
+
+.decision-branch-outcome {
+    @apply flex items-start gap-2 px-4 py-3 text-sand-700;
+    @apply dark:text-sand-300;
+}
+
+.decision-branch-arrow {
+    @apply shrink-0 mt-1 text-sand-400 dark:text-sand-500;
+}
+
+/* --- Quick-reference checklist: lightweight view derived from the steps --- */
+.checklist {
+    @apply flex flex-col gap-2.5;
+}
+
+.checklist-item {
+    @apply flex items-start gap-3 text-sand-800;
+    @apply dark:text-sand-200;
+}
+
+.checklist-item-label {
+    @apply text-sm leading-snug pt-0.5;
+}
+
+/* --- Attestation block: in-document accountable-human sign-off panel ---
+   The trust artifact of the Document district. Visible on the page, not
+   metadata. Two states: .is-pending (unsigned — warning register) and
+   .is-signed (committed — primary-teal, the one commit moment per the
+   brand-taste reserved-teal rule). Recurring across all Document-district
+   deliverables. */
+.attestation-block {
+    @apply rounded-md border border-sand-300 bg-sand-50 overflow-hidden;
+    @apply dark:border-sand-700 dark:bg-sand-800/40;
+}
+
+.attestation-block-header {
+    @apply flex items-center gap-2 px-5 py-3 border-b border-sand-200 text-sm font-semibold text-sand-700;
+    @apply dark:border-sand-700 dark:text-sand-200;
+}
+
+.attestation-block-body {
+    @apply px-5 py-4;
+}
+
+.attestation-status {
+    @apply inline-flex items-center gap-2 text-sm font-medium;
+}
+
+.attestation-status.is-pending {
+    @apply text-warning-700 dark:text-warning-400;
+}
+
+.attestation-status.is-signed {
+    @apply text-primary-700 dark:text-primary-400;
+}
+
+/* Signature line — name + role + date in document register, dashed rule above */
+.attestation-signature {
+    @apply mt-4 pt-4 border-t border-dashed border-sand-300;
+    @apply dark:border-sand-600;
+}
+
+.attestation-signature-name {
+    @apply font-serif text-lg text-sand-900 dark:text-sand-100;
+}
+
+.attestation-signature-role {
+    @apply text-sm text-sand-600 dark:text-sand-400;
+}
+
+/* sand-600 (not sand-400) so the pending signature line clears WCAG AA 4.5:1
+   on the sand-50 panel — it still reads as muted/unsigned without failing contrast. */
+.attestation-signature-placeholder {
+    @apply font-serif text-lg text-sand-600 italic dark:text-sand-400;
+}

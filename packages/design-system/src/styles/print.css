@@ -84,3 +84,91 @@
         page-break-before: always;
     }
 }
+
+/* ============================================================
+   SOP / DOCUMENT-DISTRICT PRINT + EXPORT ADAPTER
+   Scoped to .document-shell so it extends — never conflicts with —
+   the app-screen print rules above. The HTML master medium is the
+   source; printing to PDF from the browser is the export path that
+   works today regardless of the final export-target decision
+   (HTML / PDF / Google Doc — Vanessa-gated). A Google-Doc export
+   path, if chosen, is a separate adapter; this one serves screen +
+   print-to-PDF from one set of markup.
+   ============================================================ */
+@media print {
+
+    /* Page geometry — readable margins for a printed document */
+    @page {
+        margin: 0.85in 0.9in;
+    }
+
+    /* Hide the pattern-library nav rail when printing a document page */
+    .pl-nav,
+    #pl-nav,
+    nav[aria-label="Pattern library"] {
+        display: none !important;
+    }
+
+    /* Shell prints full measure — drop the on-screen max-width + padding;
+       @page owns the margins now */
+    .document-shell {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Neutralize the pattern-library page harness offset (main.ml-64) so a
+       document page prints edge-to-edge, not shifted right by the (hidden)
+       nav rail's width. Scoped to document pages via :has(). */
+    main:has(.document-shell) {
+        margin-left: 0 !important;
+    }
+
+    /* Masthead + section titles must not orphan from their content */
+    .document-masthead {
+        break-after: avoid;
+    }
+    .document-section-title,
+    .procedure-step-action,
+    .card-title,
+    .attestation-block-header {
+        break-after: avoid;
+    }
+
+    /* Keep instructional units whole across page breaks */
+    .procedure-step,
+    .decision-branch-row,
+    .checklist-item,
+    .alert,
+    .kv-table tr {
+        break-inside: avoid;
+    }
+
+    /* The sign-off is the document's accountability artifact — never split it,
+       and keep it with the section it closes */
+    .attestation-block {
+        break-inside: avoid;
+        break-before: avoid;
+    }
+
+    /* Document section gets breathing room but holds together where it can */
+    .document-section {
+        break-inside: auto;
+    }
+
+    /* Keep the escalation flags' color identity on color printers. On grayscale
+       the flag's meaning still survives — each carries an icon + the word
+       Red / Yellow / Green in its title — so color is never the sole signal. */
+    .document-shell .alert-stripe,
+    .document-shell .alert-stripe-icon {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* The draft banner must print — a printed draft must still announce itself */
+    .document-draft-banner {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        break-inside: avoid;
+    }
+}

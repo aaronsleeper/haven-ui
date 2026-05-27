@@ -1,0 +1,52 @@
+<!--
+  @component-meta
+  name: Quick-Reference Checklist
+  category: Document District
+  file: doc-quick-ref-checklist.html
+  classes: checklist, checklist-item, checklist-item-label; (element) input[type=checkbox]
+  when-to-use: A lightweight, tickable recap of a role's recurring tasks — the "harden-after-cohort" view of a procedure. Derived from doc-procedure-steps.
+  do-not-use-when: The reader needs the full action / location / result detail — use doc-procedure-steps. This is the condensed sibling, not a replacement.
+  preline-required: no
+  notes: Define-once — the checklist is DERIVED from the procedure steps, never an independent restatement. Each item is a one-line distillation of a step. Reuses the form checkbox element directly; the only new classes are the document-register layout wrapper.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Quick-Reference Checklist</h3>
+  <p class="pl-description">
+    Lightweight tickable recap, derived from the procedure steps. The "what to do each week" card.
+  </p>
+
+  <!-- @component: doc-quick-ref-checklist -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Each week, for every participant</h3>
+    </div>
+    <div class="card-body">
+      <div class="checklist">
+        <label class="checklist-item">
+          <input type="checkbox" />
+          <span class="checklist-item-label">Work the roster top-down by days since last contact</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" />
+          <span class="checklist-item-label">Complete the weekly check-in by the participant's preferred channel</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" />
+          <span class="checklist-item-label">Capture adherence, barriers, and wraparound needs</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" />
+          <span class="checklist-item-label">Log the contact outcome and set the next-touch plan</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" />
+          <span class="checklist-item-label">Raise a flag if the participant is unreachable or a concern surfaced</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <!-- /component -->
+</section>

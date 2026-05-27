@@ -84,6 +84,22 @@ before creating any new component or semantic class.
 
 ---
 
+## Document District
+
+Haven's document-class register — the quiet, readable surface for SOPs, policies, and training docs. Opened by the Clinical Staff SOP deliverable-type (`Knowledge/Areas/Meta/Entities/workflows/clinical-staff-sop.md`). The district's newness is structural (shell + print adapter + compositions); per the 2026-05-26 scoping memo it adds **zero novel content primitives** — scope card and block glossary reuse `card` + `kv-table` outright; decision branch reuses `alert-stripe` for severity-coded flags. Print/export behavior is the `@media print` block in `print.css` scoped to `.document-shell`.
+
+| Component | File | Classes | Preline | Notes |
+|---|---|---|---|---|
+| Document Shell | `layout-document-shell.html` | `document-shell`, `document-masthead`, `document-eyebrow`, `document-title`, `document-meta`, `document-meta-item`, `document-draft-banner`, `document-lead`, `document-section`, `document-section-title`, `document-section-intro`, `document-subsection-title`, `document-prose` | no | Single-column readable layout (52rem measure), Lora masthead + section titles. The outer wrapper for any document-class artifact; use once per page. Quiet register: no chrome, primary-teal reserved for the attestation commit. `document-draft-banner` is the visible masthead-level draft signal (pairs with `.attestation-status.is-pending`); `document-subsection-title` is a quiet sand sub-label for grouping within a section. |
+| SOP Scope Card | `doc-scope-card.html` | *(composition)* `card`, `kv-table`, `text-link` | no | For / Covers / Does not cover. Pure composition — zero new classes. The "Does not cover" row is the boundary that keeps role SOPs from overlapping. |
+| Procedure Steps | `doc-procedure-steps.html` | `procedure-steps`, `procedure-step`, `procedure-step-number`, `procedure-step-body`, `procedure-step-action`, `procedure-step-detail`, `procedure-step-detail-icon` | no | Numbered action → where in the system → expected result. Step numbers authored in HTML so they survive export. Quick-ref checklist is the define-once derivative. |
+| Decision Branch | `doc-decision-branch.html` | `decision-branch`, `decision-branch-row`, `decision-branch-condition`, `decision-branch-outcome`, `decision-branch-arrow`; *(severity)* `alert-stripe` variants | no | If X → then Y. Neutral routing rows + severity-coded escalation flags. Red/yellow/green flags reuse `alert-stripe` error/warning/success — no new severity primitive. |
+| Quick-Reference Checklist | `doc-quick-ref-checklist.html` | `checklist`, `checklist-item`, `checklist-item-label`; `input[type=checkbox]` | no | Lightweight tickable recap DERIVED from procedure steps (define-once — never an independent restatement). Reuses the form checkbox element. |
+| Block Glossary | `doc-block-glossary.html` | *(composition)* `card`, `kv-table` | no | Plain-language term → definition, gathered as one block. Pure composition — zero new classes. Keep definitions free of engineering vocabulary. |
+| Attestation Block | `doc-attestation-block.html` | `attestation-block`, `attestation-block-header`, `attestation-block-body`, `attestation-status`, `attestation-status.is-pending`, `attestation-status.is-signed`, `attestation-signature`, `attestation-signature-name`, `attestation-signature-role`, `attestation-signature-placeholder` | no | In-document accountable-human sign-off. `.is-pending` (warning) is the honest unsigned-draft default; `.is-signed` (primary-teal commit moment) carries name/role/version/date. Recurring across all Document-district deliverables. |
+
+---
+
 ## Buttons
 
 | Component | File | Classes | Preline | Notes |

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+
+    <main class="flex-1 min-w-0 ml-64">
+
+      <!--
+        Care Coordinator SOP — first exemplar of Haven's Document district.
+        Content drafted from cap-24/25/27/21 (UConn pilot) to PROVE the six
+        compositions render against real content. This is a build-slice
+        rendering exemplar, NOT a signed-off SOP: clinical thresholds and
+        script content carry unresolved gates (Dr. Woo's script, Dieckhaus
+        alignment), so the attestation block is deliberately PENDING.
+      -->
+      <article class="document-shell">
+
+        <!-- MASTHEAD -->
+        <header class="document-masthead">
+          <p class="document-eyebrow">Care Coordinator · Standard Operating Procedure</p>
+          <h1 class="document-title">Working the UConn Care Coordination Program</h1>
+          <div class="document-meta">
+            <span class="document-meta-item"><i class="fa-solid fa-id-badge text-sand-400" aria-hidden="true"></i> Role: Care Coordinator</span>
+            <span class="document-meta-item"><i class="fa-solid fa-code-branch text-sand-400" aria-hidden="true"></i> Version 0.1 (draft)</span>
+            <span class="document-meta-item"><i class="fa-solid fa-calendar text-sand-400" aria-hidden="true"></i> Reviewed May 2026</span>
+          </div>
+        </header>
+
+        <!-- Draft banner — travels with the content, not just the footer sign-off -->
+        <div class="document-draft-banner" role="status">
+          <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
+          Draft — example content pending clinical review and sign-off. Do not use for training or to guide care until approved.
+        </div>
+
+        <p class="document-lead">
+          This procedure covers how you, as a care coordinator, run the UConn pilot week to week —
+          working your roster, completing weekly check-ins, logging contact, handling appointment
+          requests, and escalating concerns to the clinical team.
+        </p>
+
+        <!-- 1. SCOPE CARD -->
+        <section class="document-section">
+          <h2 class="document-section-title">Scope</h2>
+          <p class="document-section-intro">What this role covers, and where its boundaries are.</p>
+
+          <div class="card">
+            <div class="card-body">
+              <table class="kv-table">
+                <tr>
+                  <th scope="row">For</th>
+                  <td>Cena care coordinators supporting participants in the UConn Health food-as-medicine pilot.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Covers</th>
+                  <td>Working the patient roster, weekly check-in calls, logging contact attempts and outcomes, handling appointment requests, and escalating safety or medical concerns.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Does not cover</th>
+                  <td>Clinical or dietary counseling (the registered dietitian's role), diagnoses, or booking appointments outside Athena. Route those to the registered dietitian or escalate.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. PROCEDURE STEPS -->
+        <section class="document-section">
+          <h2 class="document-section-title">The weekly routine</h2>
+          <p class="document-section-intro">
+            For the 26-week intervention, each participant gets one check-in per week. Work the routine in order.
+          </p>
+
+          <ol class="procedure-steps">
+            <li class="procedure-step">
+              <span class="procedure-step-number">1</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Open your roster and find who is due this week</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where in the system: </span>
+                  In the care-coordinator app, the roster lists your participants sorted by days since last contact.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  Participants with the longest gap appear at the top — work from there.
+                </p>
+              </div>
+            </li>
+            <li class="procedure-step">
+              <span class="procedure-step-number">2</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Start the weekly check-in from the patient profile</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where in the system: </span>
+                  Open the participant, start a check-in, and choose phone or text per their saved preference.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  A 10–15 minute call covering order support, adherence, and any barriers to participation.
+                </p>
+              </div>
+            </li>
+            <li class="procedure-step">
+              <span class="procedure-step-number">3</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Capture the check-in and log the outcome</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where in the system: </span>
+                  Fill the check-in fields: adherence, barriers, wraparound needs, and a next-touch plan.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  Record the contact outcome — successful, voicemail, no answer, refused, or deferred.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <!-- 3. DECISION BRANCH -->
+        <section class="document-section">
+          <h2 class="document-section-title">Handling requests and concerns</h2>
+          <p class="document-section-intro">
+            Two everyday branches, then the escalation flags that decide when the clinical team gets involved.
+          </p>
+
+          <h3 class="document-subsection-title">Everyday routing</h3>
+          <div class="decision-branch">
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-envelope text-sand-500" aria-hidden="true"></i>
+                A participant requests an appointment
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                You receive an email in your queue. Book the visit in Athena, then confirm the time with the participant.
+              </div>
+            </div>
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-phone-slash text-sand-500" aria-hidden="true"></i>
+                A check-in call goes unanswered
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Log the outcome (voicemail / no answer). Missed-visit outreach is auto-flagged at 48 hours.
+              </div>
+            </div>
+          </div>
+
+          <h3 class="document-subsection-title">Escalation flags</h3>
+          <div class="space-y-3">
+            <div class="alert alert-error alert-stripe rounded-md" role="region" aria-label="Red flag">
+              <div class="alert-stripe-icon"><i class="fa-solid fa-flag" aria-hidden="true"></i></div>
+              <div class="alert-stripe-body">
+                <p class="font-semibold mb-0.5">Red flag — no response within 3 days</p>
+                <p class="text-sm mb-0">Place a follow-up call within the next 2 days.</p>
+              </div>
+            </div>
+            <div class="alert alert-warning alert-stripe rounded-md" role="region" aria-label="Yellow flag">
+              <div class="alert-stripe-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></div>
+              <div class="alert-stripe-body">
+                <p class="font-semibold mb-0.5">Yellow flag — a concern surfaced during a check-in</p>
+                <p class="text-sm mb-0">Escalate to the UConn clinical team per protocol.</p>
+              </div>
+            </div>
+            <div class="alert alert-success alert-stripe rounded-md" role="region" aria-label="Green — on track">
+              <div class="alert-stripe-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+              <div class="alert-stripe-body">
+                <p class="font-semibold mb-0.5">Green — engaged and on track</p>
+                <p class="text-sm mb-0">Continue the routine weekly cadence; no action needed.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. QUICK-REFERENCE CHECKLIST -->
+        <section class="document-section">
+          <h2 class="document-section-title">Quick reference</h2>
+          <p class="document-section-intro">The weekly routine, condensed to a tickable list.</p>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Each week, for every participant</h3>
+            </div>
+            <div class="card-body">
+              <div class="checklist">
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Work the roster top-down by days since last contact</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Complete the weekly check-in by the participant's preferred channel</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Capture adherence, barriers, and wraparound needs</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Log the contact outcome and set the next-touch plan</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Raise a flag if the participant is unreachable or a concern surfaced</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. BLOCK GLOSSARY -->
+        <section class="document-section">
+          <h2 class="document-section-title">Terms used in this SOP</h2>
+          <p class="document-section-intro">Plain-language definitions, no system jargon.</p>
+
+          <div class="card">
+            <div class="card-body">
+              <table class="kv-table">
+                <tr>
+                  <th scope="row">Roster</th>
+                  <td>Your list of participants — who they are and when each is due for a check-in.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Check-in</th>
+                  <td>The weekly call where you support ordering, ask about adherence, and surface any barriers.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Athena</th>
+                  <td>The system where appointments are booked. It stays the official record for scheduling.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Wraparound services</th>
+                  <td>Extra support a participant may need — SNAP, a food pantry, transportation, or housing help.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Flag</th>
+                  <td>A signal that a participant needs attention: red (unreachable), yellow (a concern came up), or green (on track).</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. ATTESTATION BLOCK (pending — honest unsigned-draft state) -->
+        <section class="document-section">
+          <h2 class="document-section-title">Sign-off</h2>
+          <p class="document-section-intro">
+            This SOP is approved for training only when the accountable human signs it. Until then it is a draft.
+          </p>
+
+          <div class="attestation-block">
+            <div class="attestation-block-header">
+              <i class="fa-solid fa-file-signature text-sand-500" aria-hidden="true"></i>
+              Sign-off
+            </div>
+            <div class="attestation-block-body">
+              <span class="attestation-status is-pending">
+                <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                Awaiting sign-off — draft, not yet approved for training
+              </span>
+              <div class="attestation-signature">
+                <p class="attestation-signature-placeholder">Director of Clinical Ops — signature pending</p>
+                <p class="attestation-signature-role">Accountable for clinical accuracy and operational truth · Version 0.1</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>

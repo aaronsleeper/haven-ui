@@ -1,0 +1,62 @@
+<!--
+  @component-meta
+  name: Attestation Block
+  category: Document District
+  file: doc-attestation-block.html
+  classes: attestation-block, attestation-block-header, attestation-block-body, attestation-status, attestation-status.is-pending, attestation-status.is-signed, attestation-signature, attestation-signature-name, attestation-signature-role, attestation-signature-placeholder
+  when-to-use: The in-document, accountable-human sign-off panel that closes a role SOP (and any Document-district deliverable that carries an accountability gate). Makes the sign-off visible on the artifact, not buried in metadata.
+  do-not-use-when: The document carries no accountability gate.
+  preline-required: no
+  notes: Two states. .is-pending (warning register) is the unsigned draft state — the document exists but has not been signed off. .is-signed (primary-teal — the single commit moment per the brand-taste reserved-teal rule) carries name, role, version, and date. The pending state is the honest default until the accountable human (here, the Director of Clinical Ops) signs. Recurring across all Document-district deliverables.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Attestation Block</h3>
+  <p class="pl-description">
+    In-document accountable-human sign-off. Pending (unsigned draft) and signed states.
+  </p>
+
+  <div class="space-y-6">
+
+    <!-- @component: doc-attestation-block-pending -->
+    <div class="attestation-block">
+      <div class="attestation-block-header">
+        <i class="fa-solid fa-file-signature text-sand-500" aria-hidden="true"></i>
+        Sign-off
+      </div>
+      <div class="attestation-block-body">
+        <span class="attestation-status is-pending">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          Awaiting sign-off — draft, not yet approved for training
+        </span>
+        <div class="attestation-signature">
+          <p class="attestation-signature-placeholder">Director of Clinical Ops — signature pending</p>
+          <p class="attestation-signature-role">Accountable for clinical accuracy and operational truth · Version 0.1</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+
+    <!-- @component: doc-attestation-block-signed -->
+    <div class="attestation-block">
+      <div class="attestation-block-header">
+        <i class="fa-solid fa-file-signature text-sand-500" aria-hidden="true"></i>
+        Sign-off
+      </div>
+      <div class="attestation-block-body">
+        <span class="attestation-status is-signed">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Approved for training
+        </span>
+        <div class="attestation-signature">
+          <p class="attestation-signature-name">Director of Clinical Ops</p>
+          <p class="attestation-signature-role">Approved Version 1.0 · May 2026</p>
+        </div>
+      </div>
+    </div>
+    <!-- /component -->
+
+  </div>
+</section>

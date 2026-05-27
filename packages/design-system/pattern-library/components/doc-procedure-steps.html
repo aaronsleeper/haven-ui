@@ -1,0 +1,71 @@
+<!--
+  @component-meta
+  name: Procedure Steps
+  category: Document District
+  file: doc-procedure-steps.html
+  classes: procedure-steps, procedure-step, procedure-step-number, procedure-step-body, procedure-step-action, procedure-step-detail, procedure-step-detail-icon
+  when-to-use: An ordered sequence of actions in a role SOP. Each step pairs an action with where it happens in the system and the expected result — the SOP's core teaching shape.
+  do-not-use-when: Items are unordered or have no system-location / result structure — use list-group or a plain list. For a lightweight tickable recap, use doc-quick-ref-checklist (which derives from these steps).
+  preline-required: no
+  notes: Step numbers are authored in the HTML (not a CSS counter) so they survive copy/paste into exports. Each step's detail rows use an icon to carry meaning: location-arrow = where in the system, circle-check = expected result. The quick-ref checklist is the define-once derivative of this sequence — never restate the steps independently.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Procedure Steps</h3>
+  <p class="pl-description">
+    Numbered action → where in the system → expected result. The core instructional primitive of a role SOP.
+  </p>
+
+  <!-- @component: doc-procedure-steps -->
+  <ol class="procedure-steps">
+
+    <li class="procedure-step">
+      <span class="procedure-step-number">1</span>
+      <div class="procedure-step-body">
+        <p class="procedure-step-action">Open your roster and find who is due this week</p>
+        <p class="procedure-step-detail">
+          <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where in the system: </span>
+          In the care-coordinator app, the roster lists your participants sorted by days since last contact.
+        </p>
+        <p class="procedure-step-detail">
+          <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+          Participants with the longest gap appear at the top — work from there.
+        </p>
+      </div>
+    </li>
+
+    <li class="procedure-step">
+      <span class="procedure-step-number">2</span>
+      <div class="procedure-step-body">
+        <p class="procedure-step-action">Start the weekly check-in from the patient profile</p>
+        <p class="procedure-step-detail">
+          <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where in the system: </span>
+          Open the participant, then start a check-in and choose phone or text per their saved preference.
+        </p>
+        <p class="procedure-step-detail">
+          <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+          A 10–15 minute call covering order support, adherence, and any barriers to participation.
+        </p>
+      </div>
+    </li>
+
+    <li class="procedure-step">
+      <span class="procedure-step-number">3</span>
+      <div class="procedure-step-body">
+        <p class="procedure-step-action">Capture the check-in and log the outcome</p>
+        <p class="procedure-step-detail">
+          <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where in the system: </span>
+          Fill the check-in fields: adherence, barriers, wraparound needs, and a next-touch plan.
+        </p>
+        <p class="procedure-step-detail">
+          <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+          Record the contact outcome — successful, voicemail, no answer, refused, or deferred.
+        </p>
+      </div>
+    </li>
+
+  </ol>
+  <!-- /component -->
+</section>

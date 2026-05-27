@@ -1,0 +1,54 @@
+<!--
+  @component-meta
+  name: Document Shell
+  category: Layout
+  file: layout-document-shell.html
+  classes: document-shell, document-masthead, document-eyebrow, document-title, document-meta, document-meta-item, document-lead, document-section, document-section-title, document-section-intro, document-prose
+  when-to-use: The outer structural wrapper for a document-class artifact (SOP, policy, training doc) — the first layout of Haven's Document district. Single-column, bounded reading measure (52rem), Lora masthead + section titles, generous vertical rhythm. Use exactly once per document page; nest document-section blocks inside it.
+  do-not-use-when: Building an app screen (dense, interactive) — use app-shell / agentic-shell instead. The document register is deliberately quiet: no sidebar, no chrome, primary-teal reserved for the one commit moment (a signed attestation).
+  preline-required: no
+  notes: Pairs with the SOP print/export adapter in print.css (@media print scoped to .document-shell) so the same markup reads as a clean document on screen and on paper. Compositions that live inside the shell: doc-scope-card, doc-procedure-steps, doc-decision-branch, doc-quick-ref-checklist, doc-block-glossary, doc-attestation-block.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Document Shell</h3>
+  <p class="pl-description">
+    Single-column readable layout for document-class artifacts. Shown here inside a bordered frame; in use it fills the page.
+  </p>
+
+  <div class="border border-sand-200 rounded-xl overflow-hidden dark:border-sand-700">
+    <!-- @component: layout-document-shell -->
+    <article class="document-shell">
+
+      <header class="document-masthead">
+        <p class="document-eyebrow">Care Coordinator · Standard Operating Procedure</p>
+        <h1 class="document-title">Working the UConn Care Coordination Program</h1>
+        <div class="document-meta">
+          <span class="document-meta-item"><i class="fa-solid fa-id-badge text-sand-400" aria-hidden="true"></i> Role: Care Coordinator</span>
+          <span class="document-meta-item"><i class="fa-solid fa-code-branch text-sand-400" aria-hidden="true"></i> Version 0.1 (draft)</span>
+          <span class="document-meta-item"><i class="fa-solid fa-calendar text-sand-400" aria-hidden="true"></i> Reviewed May 2026</span>
+        </div>
+      </header>
+
+      <p class="document-lead">
+        This procedure covers how a care coordinator runs the UConn pilot day to day — working the roster,
+        completing weekly check-ins, logging contact, handling appointment requests, and escalating concerns.
+      </p>
+
+      <section class="document-section">
+        <h2 class="document-section-title">Section heading</h2>
+        <p class="document-section-intro">
+          A short orientation sentence sits below each section title, then the section's content blocks follow.
+        </p>
+        <div class="document-prose">
+          <p>Body prose holds a comfortable 68-character measure for sustained reading.</p>
+          <p>Successive paragraphs carry a consistent vertical rhythm. Compositions (procedure steps, decision branches, checklists) drop in as their own blocks between paragraphs.</p>
+        </div>
+      </section>
+
+    </article>
+    <!-- /component -->
+  </div>
+</section>

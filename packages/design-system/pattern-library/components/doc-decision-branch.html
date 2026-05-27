@@ -1,0 +1,79 @@
+<!--
+  @component-meta
+  name: Decision Branch
+  category: Document District
+  file: doc-decision-branch.html
+  classes: decision-branch, decision-branch-row, decision-branch-condition, decision-branch-outcome, decision-branch-arrow; (severity-coded) alert, alert-stripe, alert-stripe-icon, alert-stripe-body, alert-warning, alert-error, alert-success
+  when-to-use: "If X, then Y" branching in a role SOP — escalation paths, conditional handling, routing rules.
+  do-not-use-when: The branch is a single linear instruction (use a procedure step) or a yes/no field capture (use a form).
+  preline-required: no
+  notes: Two registers. (1) Neutral condition→outcome rows via .decision-branch for routing logic. (2) Severity-coded branches reuse the existing .alert-stripe variants — error = red flag, warning = yellow flag, success = green light — so the escalation flags carry the same color language as alerts elsewhere. No new severity primitive; the flag levels ARE alert-stripe.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Decision Branch</h3>
+  <p class="pl-description">
+    Conditional handling in a role SOP. Neutral routing rows, plus severity-coded escalation flags that reuse alert-stripe.
+  </p>
+
+  <!-- @component: doc-decision-branch -->
+  <div class="space-y-6">
+
+    <!-- Neutral routing: condition → outcome -->
+    <h4 class="document-subsection-title">Everyday routing</h4>
+    <div class="decision-branch">
+      <div class="decision-branch-row">
+        <div class="decision-branch-condition">
+          <i class="fa-solid fa-envelope text-sand-500" aria-hidden="true"></i>
+          A participant requests an appointment
+        </div>
+        <div class="decision-branch-outcome">
+          <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+          You receive an email in your queue. Book the visit in Athena, then confirm the time with the participant.
+        </div>
+      </div>
+      <div class="decision-branch-row">
+        <div class="decision-branch-condition">
+          <i class="fa-solid fa-phone-slash text-sand-500" aria-hidden="true"></i>
+          A check-in call goes unanswered
+        </div>
+        <div class="decision-branch-outcome">
+          <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+          Log the outcome (voicemail / no answer). Missed-visit outreach is auto-flagged at 48 hours.
+        </div>
+      </div>
+    </div>
+
+    <!-- Severity-coded escalation flags (reuses alert-stripe).
+         role="region" + aria-label gives screen-reader users a navigable,
+         named landmark; the icon is decorative (text carries the severity). -->
+    <h4 class="document-subsection-title">Escalation flags</h4>
+    <div class="space-y-3">
+      <div class="alert alert-error alert-stripe rounded-md" role="region" aria-label="Red flag">
+        <div class="alert-stripe-icon"><i class="fa-solid fa-flag" aria-hidden="true"></i></div>
+        <div class="alert-stripe-body">
+          <p class="font-semibold mb-0.5">Red flag — no response within 3 days</p>
+          <p class="text-sm mb-0">Place a follow-up call within the next 2 days.</p>
+        </div>
+      </div>
+      <div class="alert alert-warning alert-stripe rounded-md" role="region" aria-label="Yellow flag">
+        <div class="alert-stripe-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></div>
+        <div class="alert-stripe-body">
+          <p class="font-semibold mb-0.5">Yellow flag — concern raised during a check-in</p>
+          <p class="text-sm mb-0">Escalate to the UConn clinical team per protocol.</p>
+        </div>
+      </div>
+      <div class="alert alert-success alert-stripe rounded-md" role="region" aria-label="Green — on track">
+        <div class="alert-stripe-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+        <div class="alert-stripe-body">
+          <p class="font-semibold mb-0.5">Green — engaged and on track</p>
+          <p class="text-sm mb-0">Continue the routine weekly cadence; no action needed.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /component -->
+</section>
