@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+
+    <main class="flex-1 min-w-0 ml-64">
+
+      <!--
+        Participant Enrollment & Onboarding SOP — a multi-role PROCESS SOP
+        (spans CC + RD), distinct from the single-role SOPs. n=3/n=4 validation
+        of the Document district: tests per-step ownership (handled in prose,
+        no new class) and a genuine 3-way decision branch (consent path =
+        3 rows). Content from cap-02/03/05/07/08/10/12 (Ex B.A.b 7-day intake).
+        Build-slice draft — multi-gate attestation pending.
+      -->
+      <article class="document-shell">
+
+        <header class="document-masthead">
+          <p class="document-eyebrow">Program Operations · Standard Operating Procedure</p>
+          <h1 class="document-title">Enrolling a UConn Participant</h1>
+          <div class="document-meta">
+            <span class="document-meta-item"><i class="fa-solid fa-people-arrows text-sand-400" aria-hidden="true"></i> Roles: Care Coordinator + Registered Dietitian</span>
+            <span class="document-meta-item"><i class="fa-solid fa-code-branch text-sand-400" aria-hidden="true"></i> Version 0.1 (draft)</span>
+            <span class="document-meta-item"><i class="fa-solid fa-calendar text-sand-400" aria-hidden="true"></i> Reviewed May 2026</span>
+          </div>
+        </header>
+
+        <div class="document-draft-banner" role="status">
+          <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i>
+          Draft — example content pending clinical and operational review. Do not use for training or to enroll participants until approved.
+        </div>
+
+        <p class="document-lead">
+          This procedure takes a participant from UConn referral to enrolled and onboarded — the
+          handoff from care coordinator to registered dietitian. The contract sets the pace:
+          <strong>intake happens within 7 days of the referral.</strong>
+        </p>
+
+        <!-- SCOPE -->
+        <section class="document-section">
+          <h2 class="document-section-title">Scope</h2>
+          <p class="document-section-intro">A shared procedure across two roles. Each step names who owns it.</p>
+          <div class="card">
+            <div class="card-body">
+              <table class="kv-table">
+                <tr>
+                  <th scope="row">For</th>
+                  <td>Cena care coordinators and registered dietitians enrolling participants into the UConn Health pilot.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Covers</th>
+                  <td>Receiving a referral, obtaining consent, creating the participant record, completing the intake assessment within 7 days, administering the baseline assessments, and kicking off the care plan.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Does not cover</th>
+                  <td>Ongoing weekly check-ins (Care Coordinator SOP) or the recurring counseling sessions (Registered Dietitian SOP). UConn owns screening and referral generation upstream.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROCEDURE STEPS — owner named in prose -->
+        <section class="document-section">
+          <h2 class="document-section-title">From referral to enrolled</h2>
+          <p class="document-section-intro">Work the steps in order. The first four are the care coordinator's; the last two are the dietitian's.</p>
+          <ol class="procedure-steps">
+
+            <li class="procedure-step">
+              <span class="procedure-step-number">1</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Care Coordinator — Receive and acknowledge the referral</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In <a href="#" class="screen-ref"><i class="fa-solid fa-table-columns screen-ref-icon" aria-hidden="true"></i> Care-coordinator app <i class="fa-solid fa-chevron-right screen-ref-sep" aria-hidden="true"></i> Referrals</a> — referrals arrive from UConn's Epic via Athena.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  The referral is acknowledged and intake is started — the 7-day clock begins at referral.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  If the electronic referral hasn't arrived, use the manual/paper referral fallback and enter it yourself.
+                </p>
+              </div>
+            </li>
+
+            <li class="procedure-step">
+              <span class="procedure-step-number">2</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Care Coordinator — Obtain IRB consent</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In Athena, using the UConn-provided consent form (see the consent paths below).
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  Consent is recorded on the participant record with a timestamp, before anything else proceeds.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  No participant takes part in the program until consent is captured. Athena is the system of record for consent.
+                </p>
+              </div>
+            </li>
+
+            <li class="procedure-step">
+              <span class="procedure-step-number">3</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Care Coordinator — Create or confirm the participant account</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In Athena; the account syncs to the Cena platform.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  A participant record exists in both systems, ready for intake data.
+                </p>
+              </div>
+            </li>
+
+            <li class="procedure-step">
+              <span class="procedure-step-number">4</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Care Coordinator — Complete the intake assessment (within 7 days)</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In the intake form on the participant record.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  Demographics, medical history, dietary assessment, and cultural food preferences are captured.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  Some fields import from Athena or the referral; the rest come from talking with the participant.
+                </p>
+              </div>
+            </li>
+
+            <li class="procedure-step">
+              <span class="procedure-step-number">5</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Registered Dietitian — Administer the baseline assessments (Month 0)</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In the Cena assessment forms on the participant record.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  HFIAS, HEI (via 24-hour dietary recall), WHOQOL-HIV BREF, and NKQ are completed and scored.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-info procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Note: </span>
+                  These are the study's baseline — they repeat at later months, so accuracy now matters for the whole program.
+                </p>
+              </div>
+            </li>
+
+            <li class="procedure-step">
+              <span class="procedure-step-number">6</span>
+              <div class="procedure-step-body">
+                <p class="procedure-step-action">Registered Dietitian — Build the initial care plan</p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-location-arrow procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Where: </span>
+                  In <a href="#" class="screen-ref"><i class="fa-solid fa-table-columns screen-ref-icon" aria-hidden="true"></i> Cena platform <i class="fa-solid fa-chevron-right screen-ref-sep" aria-hidden="true"></i> Care plan</a>.
+                </p>
+                <p class="procedure-step-detail">
+                  <i class="fa-solid fa-circle-check procedure-step-detail-icon" aria-hidden="true"></i><span class="sr-only">Expected result: </span>
+                  An individualized nutrition care plan and goals, seeded from intake and the baseline assessments. The participant is now enrolled.
+                </p>
+              </div>
+            </li>
+
+          </ol>
+        </section>
+
+        <!-- DECISION BRANCH — 3-way consent path -->
+        <section class="document-section">
+          <h2 class="document-section-title">How consent arrives</h2>
+          <p class="document-section-intro">Consent reaches you one of three ways. Confirm which, then proceed.</p>
+          <div class="decision-branch">
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-arrow-right-arrow-left text-sand-500" aria-hidden="true"></i>
+                Referral path
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Athena may already carry the consent from UConn — confirm it's on the record before proceeding.
+              </div>
+            </div>
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-user-plus text-sand-500" aria-hidden="true"></i>
+                Non-referral path
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Create the record in Athena and obtain consent directly from the participant.
+              </div>
+            </div>
+            <div class="decision-branch-row">
+              <div class="decision-branch-condition">
+                <i class="fa-solid fa-file-pen text-sand-500" aria-hidden="true"></i>
+                Paper backup
+              </div>
+              <div class="decision-branch-outcome">
+                <i class="fa-solid fa-arrow-right decision-branch-arrow" aria-hidden="true"></i>
+                Consent signed on paper in clinic — enter it into Athena so the record is complete.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- QUICK-REF CHECKLIST -->
+        <section class="document-section">
+          <h2 class="document-section-title">Quick reference</h2>
+          <p class="document-section-intro">The 7-day enrollment, condensed to a tickable list.</p>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">For every new referral</h3>
+            </div>
+            <div class="card-body">
+              <div class="checklist">
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Acknowledge the referral and start the 7-day clock</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Capture IRB consent before anything else</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Create or confirm the participant account in Athena</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Complete the intake assessment within 7 days</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Administer the Month 0 baseline assessments (RD)</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" />
+                  <span class="checklist-item-label">Build the initial care plan (RD)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BLOCK GLOSSARY -->
+        <section class="document-section">
+          <h2 class="document-section-title">Terms used in this SOP</h2>
+          <p class="document-section-intro">Plain-language definitions, no system jargon.</p>
+          <div class="card">
+            <div class="card-body">
+              <table class="kv-table">
+                <tr>
+                  <th scope="row">Referral</th>
+                  <td>UConn telling us a patient is eligible and should be enrolled. It arrives electronically, or on paper as a backup.</td>
+                </tr>
+                <tr>
+                  <th scope="row">IRB consent</th>
+                  <td>The participant's agreement to take part in the study, on UConn's form. Required before anything else.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Intake assessment</th>
+                  <td>The first deep data capture — who they are, their health history, what they eat, and their food preferences.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Baseline assessments</th>
+                  <td>Four standard questionnaires given at Month 0 (and again later) to measure the program's effect over time.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Care plan</th>
+                  <td>The participant's individual nutrition plan and goals, built from intake and the baseline assessments.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ATTESTATION — multi-gate -->
+        <section class="document-section">
+          <h2 class="document-section-title">Sign-off</h2>
+          <p class="document-section-intro">This procedure clears more than one gate. It is approved for use only when all are signed.</p>
+          <div class="attestation-block">
+            <div class="attestation-block-header">
+              <i class="fa-solid fa-file-signature text-sand-500" aria-hidden="true"></i>
+              Sign-off
+            </div>
+            <div class="attestation-block-body">
+              <ul class="attestation-gates">
+                <li class="attestation-gate is-pending">
+                  <i class="fa-solid fa-clock attestation-gate-icon" aria-hidden="true"></i>
+                  <span><span class="attestation-gate-label">Clinically accurate</span> — clinical lead (assessments + care plan)</span>
+                </li>
+                <li class="attestation-gate is-pending">
+                  <i class="fa-solid fa-clock attestation-gate-icon" aria-hidden="true"></i>
+                  <span><span class="attestation-gate-label">Operationally true</span> — Vanessa Sena</span>
+                </li>
+                <li class="attestation-gate is-pending">
+                  <i class="fa-solid fa-clock attestation-gate-icon" aria-hidden="true"></i>
+                  <span><span class="attestation-gate-label">Signed off</span> — Director of Clinical Ops</span>
+                </li>
+              </ul>
+              <div class="attestation-signature">
+                <p class="attestation-signature-placeholder">Awaiting all gates — draft, not yet approved for use</p>
+                <p class="attestation-signature-role">Version 0.1</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>
