@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "description": "A compact label for status, count, or category indication. Supports type variants and shape variants. Pure presentation; intended for use inside cards, list items, dashboard tiles, etc.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/shared/components/badge/badge.component.ts",
+      "type": "registry:ui",
+      "target": "shared/components/badge/badge.component.ts"
+    },
+    {
+      "path": "src/shared/components/badge/badge.variants.ts",
+      "type": "registry:ui",
+      "target": "shared/components/badge/badge.variants.ts"
+    },
+    {
+      "path": "src/shared/components/badge/index.ts",
+      "type": "registry:ui",
+      "target": "shared/components/badge/index.ts"
+    }
+  ],
+  "meta": {
+    "cena": {
+      "classification": "Helm",
+      "classificationRationale": "Pure presentation primitive with CVA variant axes (zType, zShape). No state, no behavior, no nested registry-deps. The smallest possible Helm — useful as a teaching example of the catalog pattern.",
+      "preferenceLedgerRows": [
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "uses input() for variants + class"},
+        {"row": 8, "name": "PL semantic class vocabulary", "applies": "variants follow Tailwind utility shape"},
+        {"row": 16, "name": "Angular 21.2.13 signal APIs", "applies": "input(), computed() — all 21.x signals"}
+      ],
+      "upstream": {
+        "source": "zard-ui/zardui",
+        "anchorCommit": "1e069d70120c09583999f2e4e7500b00ec258a9d",
+        "componentPath": "libs/zard/src/lib/shared/components/badge",
+        "license": "MIT"
+      },
+      "ownership": "@cena/catalog-ui owns these lines from 2026-05-28",
+      "pairsWith": ["card"]
+    }
+  }
+}

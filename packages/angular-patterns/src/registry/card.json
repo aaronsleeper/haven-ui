@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "description": "A surface that groups related content. Supports optional title, description, action button (rendered via button registry-dep), and footer slot. Uses ZardIdDirective for aria-labelledby/aria-describedby wiring.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": ["button"],
+  "files": [
+    {
+      "path": "src/shared/components/card/card.component.ts",
+      "type": "registry:ui",
+      "target": "shared/components/card/card.component.ts"
+    },
+    {
+      "path": "src/shared/components/card/card.variants.ts",
+      "type": "registry:ui",
+      "target": "shared/components/card/card.variants.ts"
+    },
+    {
+      "path": "src/shared/components/card/index.ts",
+      "type": "registry:ui",
+      "target": "shared/components/card/index.ts"
+    }
+  ],
+  "meta": {
+    "cena": {
+      "classification": "Helm",
+      "classificationRationale": "Styled composition with content slots (title, description, action, body, footer). Brain behavior is the action button (registry-dep), which is itself Helm. No state machinery beyond signal inputs + computed classes.",
+      "preferenceLedgerRows": [
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "uses input() for title/description/action, output() for action click"},
+        {"row": 5, "name": "control-flow @if blocks", "applies": "template uses @if for conditional title/description/action sections"},
+        {"row": 8, "name": "PL semantic class vocabulary", "applies": "data-slot attributes + Tailwind utilities"},
+        {"row": 11, "name": "viewChild() signal queries", "applies": "uses viewChild<ZardIdDirective>('z') for id generation reference"},
+        {"row": 16, "name": "Angular 21.2.13 signal APIs", "applies": "input(), output(), computed(), viewChild() — all 21.x signals"}
+      ],
+      "upstream": {
+        "source": "zard-ui/zardui",
+        "anchorCommit": "1e069d70120c09583999f2e4e7500b00ec258a9d",
+        "componentPath": "libs/zard/src/lib/shared/components/card",
+        "license": "MIT"
+      },
+      "ownership": "@cena/catalog-ui owns these lines from 2026-05-28",
+      "pairsWith": ["button", "badge"]
+    }
+  }
+}
