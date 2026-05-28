@@ -65,7 +65,7 @@ describe('ProfileComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    fixture.componentInstance.preferenceNotesDraft.set('new notes');
+    fixture.componentInstance.preferenceNotesDraft = 'new notes';
     await fixture.componentInstance.onSavePreferences();
 
     expect(mockService.updatePreferences).toHaveBeenCalledWith({ notes: 'new notes' });
@@ -77,9 +77,32 @@ describe('ProfileComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    fixture.componentInstance.deliveryNotesDraft.set('gate code 4421');
+    fixture.componentInstance.deliveryNotesDraft = 'gate code 4421';
     await fixture.componentInstance.onSaveDeliveryNote();
 
     expect(mockService.updateDeliveryNote).toHaveBeenCalledWith('gate code 4421');
+  });
+
+  // Regression test for skeptic Finding 1: textarea input must actually update
+  // the bound field (would have failed when drafts were WritableSignals + [(ngModel)]).
+  it('preferenceNotesDraft updates when textarea input event fires (template binding live, not bypassed)', async () => {
+    const fixture = TestBed.createComponent(ProfileComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    // Drain pattern per structural-skeptic Finding 4 — under zoneless, the @if
+    // gate (`!loading() && profile()`) doesn't render the textarea until a
+    // second CD pass after the ngOnInit promise resolves.
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const textarea: HTMLTextAreaElement = fixture.nativeElement.querySelector('#pref-notes');
+    expect(textarea).toBeTruthy();
+
+    textarea.value = 'typed-in-textarea';
+    textarea.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(fixture.componentInstance.preferenceNotesDraft).toBe('typed-in-textarea');
   });
 });

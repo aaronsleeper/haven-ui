@@ -39,11 +39,12 @@ export class ProfileComponent implements OnInit {
   readonly loading = signal(true);
   readonly profile = signal<Profile | null>(null);
   readonly preferences = signal<DietaryPreference[]>([]);
-  readonly preferenceNotesDraft = signal('');
-  readonly deliveryNotesDraft = signal('');
   readonly savingPreferences = signal(false);
   readonly savingDeliveryNote = signal(false);
   readonly errorMessage = signal<string | null>(null);
+
+  preferenceNotesDraft = '';
+  deliveryNotesDraft = '';
 
   readonly fullName = computed(() => {
     const p = this.profile();
@@ -59,7 +60,7 @@ export class ProfileComponent implements OnInit {
       const data: ProfilePageData = await this.patientData.loadProfileData();
       this.profile.set(data.profile.patientProfiles[0] ?? null);
       this.preferences.set(data.dietaryPreferences.patientDietaryPreferences ?? []);
-      this.preferenceNotesDraft.set(this.firstPreferenceNotes(data.dietaryPreferences));
+      this.preferenceNotesDraft = this.firstPreferenceNotes(data.dietaryPreferences);
     } finally {
       this.loading.set(false);
     }
@@ -67,7 +68,7 @@ export class ProfileComponent implements OnInit {
 
   async onSavePreferences(): Promise<void> {
     const snapshot = this.preferences();
-    const draft = this.preferenceNotesDraft();
+    const draft = this.preferenceNotesDraft;
     this.savingPreferences.set(true);
     this.errorMessage.set(null);
 
@@ -86,7 +87,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async onSaveDeliveryNote(): Promise<void> {
-    const note = this.deliveryNotesDraft();
+    const note = this.deliveryNotesDraft;
     this.savingDeliveryNote.set(true);
     this.errorMessage.set(null);
 
