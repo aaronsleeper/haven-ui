@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "event-mutation",
+  "type": "registry:cena-pattern",
+  "title": "Event wiring — UI action → service mutation → optimistic update",
+  "description": "Pattern for wiring a user-initiated action (send message, save preferences) to a service-backed mutation (Data Connect connector call), including optimistic update + error handling. Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": ["list-stream"],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "code-template",
+      "whenToUse": "Any UI action that mutates server state. Primary use cases: sendMessage (Messages compose-bar), updatePreferences (Profile save), submitFeedback.",
+      "phases": [
+        {
+          "phase": "intent",
+          "description": "User triggers the action (button click, form submit). Component receives the event via output()."
+        },
+        {
+          "phase": "optimistic-write",
+          "description": "Component writes the new state to its local signal IMMEDIATELY (don't wait for server). Flag the item as pending if list-shape; replace the visible state if detail-shape."
+        },
+        {
+          "phase": "service-call",
+          "description": "Component calls the service method; service calls the Data Connect connector (sendMessage(), updatePreferences()). Awaited or subscribed."
+        },
+        {
+          "phase": "reconciliation",
+          "description": "On success: replace the pending/optimistic state with the server-confirmed result. On failure: roll back (remove the pending item / restore previous state) AND surface an error to the user."
+        }
+      ],
+      "template": "// Component (e.g., MessagesComponent)\nasync onSend(body: string): Promise<void> {\n  const tempId = crypto.randomUUID();\n  this.messages.update(list => [...list, { id: tempId, body, pending: true, ... }]);\n  try {\n    await this.dc.sendMessage(body);\n    // server-confirmed list refreshes via getMessages() — the pending entry is replaced by the real one\n    await this.refreshMessages();\n  } catch (err) {\n    this.messages.update(list => list.filter(m => m.id !== tempId));\n    this.toast.error('Could not send. Try again.');\n  }\n}",
+      "gotchas": [
+        "Generate client-side temp ids with crypto.randomUUID() (or similar); never reuse array indices, never use empty strings",
+        "The pending flag is part of the item's shape, not an external Set lookup — keeps the @for track-by stable when reconciling",
+        "Error handling MUST roll back the optimistic write — failing to roll back is a silent state divergence between client and server",
+        "Don't conflate UI-error display (toast / inline message) with logging — emit both. The user needs to know it failed; we need to see why later."
+      ],
+      "preferenceLedgerRows": [
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "actions emit via output(); state updates via signal.update()"},
+        {"row": 13, "name": "Data Connect contract shape", "applies": "mutations call connector methods (sendMessage, updatePreferences) — see data-connect-binding (deferred)"},
+        {"row": 15, "name": "Behavior primitives as signals (not IIFE)", "applies": "mutation flow is re-expressed in signals, not imported as a behavior IIFE"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "signal.update + standalone — all 21.x"}
+      ],
+      "references": [
+        "Andrey's anchor — immediate-persist (relevant to cart): cena-health-spark/patients/src/app/meals/meals.component.ts changeQuantity (persist-on-change). Audit-noted cart product-rule open question; out of scope for E1/E2 (Messages + Profile don't have this controversy in the same shape)",
+        "In-catalog cross-references: list-stream (for optimistic-list reconciliation), detail-view (for optimistic-section reconciliation)"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage; explicitly references the cart-persist-timing open question without bringing it into this slice's scope"
+    }
+  }
+}

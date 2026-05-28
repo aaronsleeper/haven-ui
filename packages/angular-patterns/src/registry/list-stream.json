@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "list-stream",
+  "type": "registry:cena-pattern",
+  "title": "List with stream/append shape (chat-list and similar)",
+  "description": "Pattern for rendering a list whose items arrive over time and append at the end (chat messages, activity feed, log stream). Distinct from a finite-list pattern: optimistic-update + scroll-anchor + new-items-since-last-read are first-class concerns. Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": ["card"],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "composition-pattern",
+      "whenToUse": "List rendering where (a) items arrive incrementally, (b) the natural reading order is oldest→newest with newest at the bottom, and (c) optimistic updates are common (user sends a message, it appears immediately, then the server confirms). Primary use case: Care-team messages thread.",
+      "loadBearingProperties": [
+        {
+          "name": "renderingMode",
+          "values": ["template-driven (@for)", "virtual-scroll (CDK)"],
+          "guidance": "Default to @for unless the list is genuinely long (>100 items typically). Virtual scroll adds complexity that's only worth paying for long lists."
+        },
+        {
+          "name": "scrollAnchor",
+          "values": ["bottom-on-new", "bottom-on-mount-only", "user-controlled"],
+          "guidance": "Chat-list defaults to bottom-on-new (auto-scroll when a new item arrives AND the user is already near the bottom). Use IntersectionObserver to detect 'near the bottom' rather than scroll-position math."
+        },
+        {
+          "name": "optimisticUpdate",
+          "values": ["server-confirmed (no optimistic)", "optimistic-with-pending-flag", "optimistic-with-rollback"],
+          "guidance": "For Messages: optimistic-with-pending-flag. Show the message immediately with a 'sending' indicator; replace with server-confirmed item on response. Roll back only on hard failure (network or permission)."
+        }
+      ],
+      "compositionSketch": "@Component({\n  selector: 'app-messages',\n  imports: [ZardCardComponent, MessageBubbleComponent],\n  template: `\n    <div #scrollContainer class=\"messages-scroll\">\n      @for (msg of messages(); track msg.id) {\n        <app-message-bubble [message]=\"msg\" [pending]=\"isPending(msg.id)\" />\n      }\n    </div>\n    <z-compose-bar (send)=\"onSend($event)\" />\n  `,\n  ...\n})\nexport class MessagesComponent {\n  private readonly dc = inject(DataConnectService); // see data-connect-binding (deferred)\n  readonly messages = signal<Message[]>([]);\n  readonly pendingIds = signal<Set<string>>(new Set());\n  // ...\n}",
+      "gotchas": [
+        "Always use a stable track-by key (track msg.id), not the array index — required for optimistic updates to swap the pending item with the server-confirmed one without re-rendering the whole list",
+        "Scroll anchor logic should run in afterNextRender, not in a constructor effect — the DOM has to exist before measurements are valid",
+        "Optimistic items need a way to be uniquely identified BEFORE server confirms an id. Generate a client-side temp id (crypto.randomUUID()) and reconcile when the server responds.",
+        "Don't put scroll-position-tracking logic in the same effect that mutates messages — under zoneless, that creates the auto-trigger loop the cd-zoneless pattern warns about"
+      ],
+      "preferenceLedgerRows": [
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "messages/pendingIds are signals; onSend emits output"},
+        {"row": 5, "name": "control-flow @if/@for blocks", "applies": "template uses @for with track"},
+        {"row": 13, "name": "Data Connect contract shape", "applies": "messages list binds to getMessages() from dataconnect.service — see data-connect-binding (deferred)"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "signals + @for + afterNextRender — all 21.x"}
+      ],
+      "references": [
+        "Andrey's anchor: cena-health-spark/patients/src/app/care-team/messages/messages.component.ts + compose-bar.component.ts (real Messages implementation in his tree)",
+        "In-catalog cross-reference: cd-zoneless (the auto-trigger loop warning)",
+        "Angular @for: https://angular.dev/guide/templates/control-flow#for-block"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage; references Andrey's existing implementation as the shape anchor"
+    }
+  }
+}

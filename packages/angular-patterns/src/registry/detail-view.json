@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "detail-view",
+  "type": "registry:cena-pattern",
+  "title": "Detail view — read existing state + render sections",
+  "description": "Pattern for rendering a detail view of a single resource (Profile, Appointment, Assessment result). Distinct from a list-detail navigation pattern: this pattern owns the composition of card sections, edit-affordance entry points, and loading/empty states for ONE resource. Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": ["card", "button"],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "composition-pattern",
+      "whenToUse": "Rendering a single resource's full view, typically reached via a list-row click or a deep link. Primary use cases: Profile/preferences detail, Appointment detail, Assessment result detail.",
+      "loadBearingProperties": [
+        {
+          "name": "sectionGrouping",
+          "values": ["single-card", "multi-card (sectioned)", "tabs"],
+          "guidance": "Default to multi-card — each conceptual group (personal info, dietary preferences, communication preferences) gets its own card. Tabs only when the view has >5 sections and tab-navigation aids comprehension."
+        },
+        {
+          "name": "editAffordance",
+          "values": ["inline-edit (each field becomes a control)", "edit-card-mode (whole card flips to edit)", "edit-route (navigate to a dedicated edit screen)"],
+          "guidance": "For Profile: edit-card-mode (z-card-action button toggles the card between view + edit modes). Inline-edit is too aggressive for low-tech-literacy patients; edit-route adds a navigation hop for trivial changes."
+        },
+        {
+          "name": "loadingState",
+          "values": ["spinner-overlay", "skeleton-cards", "previous-state-with-overlay"],
+          "guidance": "Skeleton-cards on first load (no previous state); previous-state-with-overlay on refresh (user has context already). Avoid spinner-overlay — it masks the content the user is here to read."
+        }
+      ],
+      "compositionSketch": "@Component({\n  selector: 'app-profile',\n  imports: [ZardCardComponent],\n  template: `\n    @if (profile()) {\n      <z-card zTitle=\"Personal information\" [zAction]=\"editingPersonal() ? 'Save' : 'Edit'\" (zActionClick)=\"toggleEdit('personal')\">\n        <!-- view OR form per editingPersonal() -->\n      </z-card>\n      <z-card zTitle=\"Dietary preferences\" ...>\n      </z-card>\n    } @else {\n      <!-- skeleton cards -->\n    }\n  `,\n  ...\n})",
+      "gotchas": [
+        "Each card section should bind to its own slice of the resource (not the whole resource) — keeps card components focused and makes optimistic updates per-section cleaner",
+        "Edit mode toggles per-card, not per-page. Two cards in edit at once is a real UX, and the pattern supports it naturally.",
+        "Validation runs at save-time; the form-batch primitives carry validation via z-form-control's errorMessage/helpText inputs"
+      ],
+      "preferenceLedgerRows": [
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "profile/editing state are signals"},
+        {"row": 5, "name": "control-flow @if/@for blocks", "applies": "template uses @if for loading and edit-mode toggles"},
+        {"row": 13, "name": "Data Connect contract shape", "applies": "profile binds to getProfile() + getDietaryPreferences(); save binds to updatePreferences() — see data-connect-binding (deferred)"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "signals + @if + standalone — all 21.x"}
+      ],
+      "references": [
+        "Andrey's anchor: cena-health-spark/patients/src/app/profile/{profile,food-preferences-edit,personal-info-card}.component.ts (real Profile implementation in his tree)",
+        "In-catalog cross-references: card (section primitive), form (edit mode), input (form controls), button (action affordance)"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage; references Andrey's existing implementation as the shape anchor"
+    }
+  }
+}
