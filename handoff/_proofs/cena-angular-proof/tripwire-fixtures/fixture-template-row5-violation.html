@@ -1,0 +1,9 @@
+<!--
+  FIXTURE — planted violation for tripwire `cena-angular-control-flow-row5`.
+  This file deliberately uses legacy *ngIf / *ngFor to prove the tripwire can catch them.
+  Real emitted templates MUST use @if (...) { ... } and @for (item of items; track item.id) { ... } instead.
+  See README.md in this directory + .claude/config/invariant-patterns.json.
+-->
+<div *ngIf="visible">
+  <p *ngFor="let item of items">{{ item.label }}</p>
+</div>
