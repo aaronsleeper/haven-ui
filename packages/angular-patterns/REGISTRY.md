@@ -8,6 +8,7 @@ Catalog of registry items the agentic pipeline emits against. Each item lives at
 |---|---|---|
 | `registry:ui` | A component primitive — source files + variant axes + Helm/Brain classification | Cena owns the lines from the day they land; ZardUI is the source of initial starts (see UPSTREAM.md) |
 | `registry:cena-pattern` | A pattern — code template, decision tree, or knowledge entry. NO component source. The agent reads `meta.cena.template` / `principles` / `phases` to emit code into consumer apps. | Cena-authored. No upstream lineage. |
+| `registry:cena-data-binding` | A data-binding pattern — the 4-tier shape (connector → service wrapper → component signals → template) for binding catalog components to Firebase Data Connect. The structural row (#13) in the preference ledger. | Cena-authored. No upstream lineage in any contender. |
 
 ## Component primitives (registry:ui)
 
@@ -45,17 +46,19 @@ Every registry item declares the preference-ledger rows (`Lab/haven-ui/planning/
 - Row 8 (PL semantic class vocabulary): every component primitive
 - Row 10 (linkedSignal): `cd-zoneless`, `input`
 - Row 11 (viewChild signal queries): `card`
-- Row 13 (Data Connect contract shape): `list-stream`, `detail-view`, `event-mutation` (all marked deferred — see below)
+- Row 13 (Data Connect contract shape): `data-connect-binding` (canonical, structural-row owner), plus `list-stream`, `detail-view`, `event-mutation` (all reference data-connect-binding)
 - Row 15 (Behavior re-expressed as signals): `event-mutation`
 - Row 16 (Angular 21.2.13 signal APIs): every registry item
 
-## Gap: Data Connect binding (deferred)
+## Data Connect bindings (registry:cena-data-binding)
 
-The single largest open item is a new `registry-item` type for **Firebase Data Connect binding**. No upstream precedent in any contender (spartan-ng, Volt UI, ZardUI); 1–2 week authoring effort per the evaluation pass (`handoff/_proofs/cena-angular-proof/research/adoption-decision.md`).
+| Name | Iteration | Reference implementations |
+|---|---|---|
+| `data-connect-binding` | first-pass (2026-05-28) | Messages (E1) + Profile (E2) inline references |
 
-Plan: design against ONE real catalog item end-to-end (Messages — list-with-stream + `sendMessage` mutation) before generalizing the binding type. Tracked in the proving slice plan.
+The structural row (#13) in the preference ledger. First-pass authored 2026-05-28 — 4-tier shape (raw connector → DataConnectService → PatientDataService → component signals) + read/write templates + Messages/Profile reference implementations + gotchas covering structural-tier violations. Refines against real emission attempts in subsequent commits (E1 + E2 of the proving slice).
 
-Until then, `list-stream`, `detail-view`, and `event-mutation` reference the binding as deferred and point at Andrey's existing `dataconnect.service.ts` for the contract shape.
+The previous "deferred" status (when this section described a 1–2 week gap) lifts with this entry. What remains is the iteration loop — emit, observe friction, refine templates — not the initial authoring.
 
 ## Authoring discipline
 

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-connect-binding",
+  "type": "registry:cena-data-binding",
+  "title": "Firebase Data Connect binding — 4-tier shape (connector → service wrapper → component signals → template)",
+  "description": "Pattern for binding catalog-emitted Angular components to Firebase Data Connect connectors. This is the structural row (#13) in the preference ledger — no upstream precedent in any contender (spartan-ng, Volt UI, ZardUI); Cena writes it from scratch. First-pass pattern; iterates against real emission attempts.",
+  "dependencies": [],
+  "registryDependencies": ["list-stream", "detail-view", "event-mutation"],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "data-binding",
+      "structuralRow": 13,
+      "whenToUse": "Every component that reads or writes server-backed state. Required for E1 (Care-team messages), E2 (Profile/preferences), and any future patient-app surface that touches the Data Connect data layer.",
+      "tiers": [
+        {
+          "tier": 1,
+          "name": "Raw connector functions",
+          "owner": "@dataconnect/generated (Firebase Data Connect generates this)",
+          "shape": "function getMessages(dc, vars?: GetMessagesVariables): Promise<GetMessagesData>",
+          "consumeFrom": "DataConnectService only — components do NOT import these directly",
+          "rationale": "Generated SDK. Type signatures are the contract; treat as authoritative."
+        },
+        {
+          "tier": 2,
+          "name": "DataConnectService",
+          "owner": "Andrey (cena-health-spark/patients/src/app/services/dataconnect.service.ts)",
+          "shape": "@Injectable({providedIn: 'root'}) — provides `this.dc` to the connector functions; offers 1:1 typed async methods (getMessages(...), sendMessage(...), getProfile(...), updatePreferences(...))",
+          "consumeFrom": "PatientDataService only — components do NOT inject DataConnectService directly",
+          "rationale": "Single chokepoint for DC instance configuration. If we change DC connection, only this service changes."
+        },
+        {
+          "tier": 3,
+          "name": "Domain-service wrapper (PatientDataService for patient app)",
+          "owner": "Andrey + Cena (the catalog emits new domain methods here when needed)",
+          "shape": "@Injectable({providedIn: 'root'}) — composes DataConnectService methods into higher-level domain operations (e.g., loadProfileData() runs Promise.all of profile + dietary preferences)",
+          "consumeFrom": "Components — they inject this service, not the tiers below it",
+          "rationale": "The catalog targets THIS tier when emitting new bindings. Adding methods here keeps cross-cutting concerns (caching, retries, error normalization, optimistic-update reconciliation) in one place — invisible to components."
+        },
+        {
+          "tier": 4,
+          "name": "Component signal state",
+          "owner": "Cena (the catalog emits these as part of E1/E2 emission)",
+          "shape": "signal<GetXData['xPath']>([]) for reads; await this.svc.xMutation() for writes",
+          "consumeFrom": "Templates — via @if (xLoading()) / @for (item of xList(); track item.id)",
+          "rationale": "Components own the read state as signals; mutations call up to tier 3 and refresh-on-success or roll-back-on-failure (per event-mutation pattern)."
+        }
+      ],
+      "templates": {
+        "readBinding": "// Component\nprivate readonly svc = inject(PatientDataService);\nreadonly {entity} = signal<{TypeFromGenerated} | null>(null);\nreadonly loading = signal(true);\n\nasync ngOnInit(): Promise<void> {\n  try {\n    const data = await this.svc.{getMethod}({...variables});\n    this.{entity}.set(data.{dataPath});\n  } finally {\n    this.loading.set(false);\n  }\n}",
+        "writeBinding": "// Component\nasync on{Action}(payload: {PayloadType}): Promise<void> {\n  const optimistic = this.{entity}();\n  // 1. Optimistic write (per event-mutation pattern)\n  this.{entity}.update(prev => /* compute optimistic state */);\n  try {\n    // 2. Service call (tier 3)\n    await this.svc.{mutationMethod}(payload);\n    // 3. Reconcile — re-read or trust optimistic\n    await this.refresh{Entity}();\n  } catch (err) {\n    // 4. Roll back\n    this.{entity}.set(optimistic);\n    this.errorService.surface(err);\n  }\n}"
+      },
+      "parameters": {
+        "entity": "Lowercase singular entity name (e.g., messages, profile)",
+        "TypeFromGenerated": "Type imported from @dataconnect/generated (e.g., GetMessagesData, GetProfileData)",
+        "getMethod": "Method name on PatientDataService (e.g., getMessages, getProfile)",
+        "dataPath": "The path on the returned data to extract the entity (e.g., 'patientMessages', 'profile')",
+        "Action": "PascalCase action name (e.g., Send, SavePreferences)",
+        "PayloadType": "Type of the mutation payload",
+        "mutationMethod": "Mutation method name (e.g., sendMessage, updatePreferences)"
+      },
+      "referenceImplementations": [
+        {
+          "entity": "messages (E1)",
+          "type": "list-stream (read) + event-mutation (sendMessage)",
+          "andreyAnchor": "cena-health-spark/patients/src/app/care-team/messages/messages.component.ts",
+          "shape": "signal<Message[]>([]) + computed thread items + onSend optimistic-append + await svc.sendMessage(body)",
+          "ledgerRow13Coverage": "Binds against GetMessagesData['patientMessages'] type from generated; uses svc.getMessages({limit}) and svc.sendMessage(body) — both real methods on PatientDataService"
+        },
+        {
+          "entity": "profile (E2)",
+          "type": "detail-view (read) + event-mutation (updatePreferences, updateDeliveryNote)",
+          "andreyAnchor": "cena-health-spark/patients/src/app/profile/profile.component.ts",
+          "shape": "signal<GetProfileData | null>(null) + multi-card sections + per-section save methods + svc.loadProfileData()/updatePreferences()/updateDeliveryNote()",
+          "ledgerRow13Coverage": "Binds against GetProfileData type from generated; uses svc.loadProfileData() (composite), svc.updatePreferences(), svc.updateDeliveryNote() — all real methods"
+        }
+      ],
+      "gotchas": [
+        "Components inject the DOMAIN service (PatientDataService), not the raw DataConnectService. The catalog's emission MUST respect this boundary — wrong import is a structural-tier violation.",
+        "Types come from @dataconnect/generated; never hand-author duplicates. If the generated SDK doesn't expose a needed type, fix the schema, not the component.",
+        "Optimistic-update reconciliation is the responsibility of the component, not the service. The service returns Promise<void> for mutations and Promise<Data> for queries; the component decides how to merge.",
+        "Composite operations (e.g., loadProfileData composing profile + preferences) belong in the domain service. Components calling Promise.all of multiple service methods is a smell — promote to the service tier.",
+        "Error handling: domain service throws; components catch + roll back + surface (per event-mutation pattern). Do NOT swallow errors at the service tier — components need to see them for rollback semantics.",
+        "When schema changes upstream: the generated types update; the catalog's binding refs need re-verification against the new types. Tripwire `structural` row #13 covers this — plant a violation by importing a non-existent contract type to confirm the tripwire fires."
+      ],
+      "preferenceLedgerRows": [
+        {"row": 4, "name": "functional DI via inject()", "applies": "components inject the domain service via inject()"},
+        {"row": 13, "name": "Data Connect contract shape", "applies": "this entire pattern — the only structural row in the ledger; this binding IS the contract"},
+        {"row": 15, "name": "Behavior re-expressed as signals (not IIFE)", "applies": "data-binding state lives in signals; not behavior IIFEs"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "inject + signal + async/await — all 21.x"}
+      ],
+      "references": [
+        "Andrey's anchors: cena-health-spark/patients/src/app/services/{dataconnect,patient-data}.service.ts (tiers 2+3); messages.component.ts + profile.component.ts (tier 4 reference implementations)",
+        "In-catalog cross-references: list-stream (chat-list read shape), detail-view (single-resource read shape), event-mutation (write reconciliation 4-phase template)",
+        "Firebase Data Connect docs: https://firebase.google.com/docs/data-connect"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — first-pass pattern; iterates against real E1/E2 emission attempts. No upstream lineage; this is the structural-row chunk the evaluation pass named as the catalog's load-bearing novel-authoring effort.",
+      "iterationStatus": "first-pass — the 4-tier shape + Messages/Profile reference implementations are documented but UN-TESTED via actual emission. Tested by SC #2 + SC #3 of the proving slice."
+    }
+  }
+}
