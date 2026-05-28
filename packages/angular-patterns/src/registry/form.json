@@ -1,0 +1,55 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "type": "registry:ui",
+  "title": "Form",
+  "description": "Form composition primitives — z-form-field (wrapper), z-form-control (with errorMessage + helpText), z-form-label (with required indicator), z-form-message (with type variants). Designed to wrap inputs/selects/checkboxes for consistent form structure.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/shared/components/form/form.component.ts",
+      "type": "registry:ui",
+      "target": "shared/components/form/form.component.ts"
+    },
+    {
+      "path": "src/shared/components/form/form.variants.ts",
+      "type": "registry:ui",
+      "target": "shared/components/form/form.variants.ts"
+    },
+    {
+      "path": "src/shared/components/form/form.imports.ts",
+      "type": "registry:ui",
+      "target": "shared/components/form/form.imports.ts"
+    },
+    {
+      "path": "src/shared/components/form/index.ts",
+      "type": "registry:ui",
+      "target": "shared/components/form/index.ts"
+    }
+  ],
+  "meta": {
+    "cena": {
+      "classification": "Helm",
+      "classificationRationale": "Pure presentation primitives — wrapper + control + label + message. No state machinery. Composes around inputs/selects/checkboxes (which carry their own Brain via NG_VALUE_ACCESSOR). Pair with input for full form patterns.",
+      "preferenceLedgerRows": [
+        {"row": 5, "name": "control-flow @if blocks", "applies": "form-control template uses @if/@else for errorMessage vs helpText"},
+        {"row": 8, "name": "PL semantic class vocabulary", "applies": "variants follow Tailwind utility shape"},
+        {"row": 16, "name": "Angular 21.2.13 signal APIs", "applies": "input(), computed() — all 21.x signals"}
+      ],
+      "upstream": {
+        "source": "zard-ui/zardui",
+        "anchorCommit": "1e069d70120c09583999f2e4e7500b00ec258a9d",
+        "componentPath": "libs/zard/src/lib/shared/components/form",
+        "license": "MIT"
+      },
+      "ownership": "@cena/catalog-ui owns these lines from 2026-05-28",
+      "convenienceImport": "ZardFormImports array in form.imports.ts — bundle pattern for component standalone imports",
+      "pairsWith": ["input"]
+    }
+  }
+}

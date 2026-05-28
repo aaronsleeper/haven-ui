@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "A form input directive (selector: input[z-input], textarea[z-input]). Implements ControlValueAccessor for Angular Forms integration. Supports text, textarea, and numeric inputs with size variants (default, sm, lg), status variants (error, warning, success), and borderless mode.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/shared/components/input/input.directive.ts",
+      "type": "registry:ui",
+      "target": "shared/components/input/input.directive.ts"
+    },
+    {
+      "path": "src/shared/components/input/input.variants.ts",
+      "type": "registry:ui",
+      "target": "shared/components/input/input.variants.ts"
+    },
+    {
+      "path": "src/shared/components/input/index.ts",
+      "type": "registry:ui",
+      "target": "shared/components/input/index.ts"
+    }
+  ],
+  "meta": {
+    "cena": {
+      "classification": "Helm",
+      "classificationRationale": "Styled input directive with CVA variant axes (zType, zSize, zStatus, zBorderless). Brain behavior supplied by native HTML input/textarea + Angular's NG_VALUE_ACCESSOR contract — no separate behavior primitive to install. Uses signal-based state (input(), model(), linkedSignal, effect, computed) per Angular 21 idiom.",
+      "preferenceLedgerRows": [
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "uses input() and model() for all reactive bindings"},
+        {"row": 8, "name": "PL semantic class vocabulary", "applies": "variants follow Tailwind utility shape"},
+        {"row": 16, "name": "Angular 21.2.13 signal APIs", "applies": "linkedSignal, effect, computed — all 21.x signals"}
+      ],
+      "upstream": {
+        "source": "zard-ui/zardui",
+        "anchorCommit": "1e069d70120c09583999f2e4e7500b00ec258a9d",
+        "componentPath": "libs/zard/src/lib/shared/components/input",
+        "license": "MIT"
+      },
+      "ownership": "@cena/catalog-ui owns these lines from 2026-05-28",
+      "pairsWith": ["form"]
+    }
+  }
+}
