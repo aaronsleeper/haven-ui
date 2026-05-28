@@ -1,5 +1,4 @@
 ---
-title: Delivering UConn Nutrition Counseling Sessions
 role: Registered Dietitian
 type: Standard Operating Procedure
 version: "0.1 (draft)"
@@ -7,6 +6,9 @@ status: draft
 reviewed: 2026-05
 accountable: Director of Clinical Operations
 slug: registered-dietitian
+caps: [14, 15]
+caps_source: pattern-library/pages/doc-rd-sop.html header
+caps_note: Coverage Map row lists 14/15/06/16; HTML lists 14/15 only; using HTML as canonical artifact source. Drift flagged for Aaron's later reconciliation.
 ---
 
 # Delivering UConn Nutrition Counseling Sessions

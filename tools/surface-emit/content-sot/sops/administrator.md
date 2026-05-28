@@ -1,5 +1,4 @@
 ---
-title: Keeping the UConn Program Running
 role: Program Administrator
 type: Standard Operating Procedure
 version: "0.1 (draft)"
@@ -7,6 +6,9 @@ status: draft
 reviewed: 2026-05
 accountable: Director of Clinical Operations
 slug: administrator
+caps: [13, 54, 55, 56, 58, 61, 63]
+caps_source: pattern-library/pages/doc-admin-sop.html header (13 CITI / 55-61 access / 54 materials / 58 data export / 56-63 subcontractors)
+caps_note: M3 2026-05-27 added consent-form digitization step; cap reference pending — flagged for D2 interface reconciliation.
 ---
 
 # Keeping the UConn Program Running

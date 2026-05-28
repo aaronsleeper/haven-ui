@@ -1,5 +1,4 @@
 ---
-title: Working the UConn Care Coordination Program
 role: Care Coordinator
 type: Standard Operating Procedure
 version: "0.1 (draft)"
@@ -7,6 +6,8 @@ status: draft
 reviewed: 2026-05
 accountable: Director of Clinical Operations
 slug: care-coordinator
+caps: [21, 24, 25, 27]
+caps_source: pattern-library/pages/doc-care-coordinator-sop.html header
 ---
 
 # Working the UConn Care Coordination Program

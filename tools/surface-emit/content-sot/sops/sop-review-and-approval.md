@@ -1,5 +1,4 @@
 ---
-title: SoP Review & Approval Process
 type: Standard Operating Procedure
 role: Program Operations
 version: "0.1 (draft)"
@@ -7,6 +6,8 @@ status: draft
 reviewed: 2026-05
 accountable: Director of Clinical Operations
 slug: sop-review-and-approval
+caps: []
+caps_note: Process SoP — the workflow the other SoPs ride on. No cap traceability because it codifies the meta-workflow, not a Cap of the UConn pilot. Derived from the Clinical Staff SOP pipeline's process axis at Knowledge/Areas/Meta/Entities/workflows/clinical-staff-sop.md.
 ---
 
 # SoP Review & Approval Process

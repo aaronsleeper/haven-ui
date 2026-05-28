@@ -1,5 +1,4 @@
 ---
-title: Enrolling a UConn Participant
 roles: [Care Coordinator, Registered Dietitian]
 type: Standard Operating Procedure
 version: "0.1 (draft)"
@@ -7,6 +6,9 @@ status: draft
 reviewed: 2026-05
 accountable: Director of Clinical Operations
 slug: enrollment-onboarding
+caps: [2, 3, 5, 7, 8, 10, 12]
+caps_source: pattern-library/pages/doc-enrollment-onboarding-sop.html header (Ex B.A.b 7-day intake)
+caps_note: M3 2026-05-27 refinements added consent-at-screening, in-person first visit, baseline-before-intervention invariant, PHQ9 + 3-item anxiety to baseline set. Refresh pending — flagged for D2.
 ---
 
 # Enrolling a UConn Participant
