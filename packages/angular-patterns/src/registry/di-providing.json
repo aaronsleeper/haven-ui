@@ -1,0 +1,50 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "di-providing",
+  "type": "registry:cena-pattern",
+  "title": "DI provider scoping — root vs route-level vs component-level",
+  "description": "Pattern for choosing where to provide an Angular service. Wrong choice causes either bloat (root for feature-specific service) or duplication (component for shared state). Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "decision-tree",
+      "decisionTree": [
+        {
+          "if": "Service is used app-wide AND has no per-feature state",
+          "use": "providedIn: 'root' on the service itself",
+          "example": "AuthService, NotificationService",
+          "template": "@Injectable({ providedIn: 'root' })\nexport class {Service} { ... }"
+        },
+        {
+          "if": "Service is used only within one lazy-loaded feature AND should be torn down when leaving the feature",
+          "use": "Route-level providers via providers: [...] on the route",
+          "example": "MessagingFeatureService (lives while user is in messaging)",
+          "template": "{ path: 'messages', providers: [MessagingFeatureService], loadComponent: () => import('./messages.component').then(m => m.MessagesComponent) }"
+        },
+        {
+          "if": "Service holds per-instance state that should NOT be shared across instances of the same component",
+          "use": "Component-level providers via providers: [...] on @Component decorator",
+          "example": "FormStateService for a multi-step form",
+          "template": "@Component({\n  selector: 'app-form',\n  providers: [FormStateService],\n  ...\n})"
+        }
+      ],
+      "gotchas": [
+        "providedIn: 'root' is the right default — only deviate when you have a specific reason (lifecycle scope or per-instance state)",
+        "Route-level providers require a routing entry that has both `providers: [...]` AND a child loadComponent (or a children array). The providers belong to the route, not the leaf component.",
+        "Component-level providers create a new injector for the component AND its children — this affects every consumer down the tree, not just the component itself."
+      ],
+      "preferenceLedgerRows": [
+        {"row": 4, "name": "functional DI via inject()", "applies": "consumers use inject(Service) regardless of provider scope"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "providedIn + route-level providers are 14+ features"}
+      ],
+      "references": [
+        "Angular DI providers: https://angular.dev/guide/di/dependency-injection-providers",
+        "Angular hierarchical injectors: https://angular.dev/guide/di/hierarchical-dependency-injection"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage"
+    }
+  }
+}

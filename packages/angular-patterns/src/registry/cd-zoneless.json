@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cd-zoneless",
+  "type": "registry:cena-pattern",
+  "title": "Change-detection signal-emission timing under zoneless",
+  "description": "Pattern for understanding when signal emissions trigger change detection in zoneless Angular, and how to compose computed/effect to avoid common pitfalls. Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "knowledge",
+      "whenToUse": "Whenever authoring a component or service that uses signals (input(), model(), signal(), computed(), effect()) under provideZonelessChangeDetection().",
+      "principles": [
+        "Signal reads inside templates are auto-tracked; the framework re-renders the component when a tracked signal changes",
+        "computed() is lazy + memoized; it does NOT re-evaluate until a consumer reads it AND a dependency changed since last read",
+        "effect() runs after the consumer's microtask boundary; do NOT mutate a signal inside an effect that also reads it (creates a loop) — guard with untracked() if needed",
+        "input() is read-only inside the component; output() emits via EventEmitter; model() is two-way (consumer can read + set)",
+        "linkedSignal seeds from another signal and stays linked; useful for 'derive from input but allow local override' patterns (see input.directive.ts — size = linkedSignal(() => zSize()))"
+      ],
+      "gotchas": [
+        "DOM imperative mutations do NOT trigger change detection under zoneless — use signals + computed classes (see button.component.ts host bindings for the canonical pattern)",
+        "afterNextRender runs after the next render, after the microtask queue drains — use for DOM measurement and observer setup (see button.component.ts MutationObserver setup for the canonical pattern)",
+        "Avoid mixing signals with RxJS observables in the same flow; pick one for clarity. When bridging is required, use toSignal() at the boundary"
+      ],
+      "preferenceLedgerRows": [
+        {"row": 1, "name": "Standalone components", "applies": "zoneless requires standalone components throughout"},
+        {"row": 2, "name": "Zoneless change detection", "applies": "this entire pattern is the zoneless contract"},
+        {"row": 3, "name": "signal input()/output() I/O", "applies": "this entire pattern"},
+        {"row": 10, "name": "linkedSignal seeded from input", "applies": "noted in principles"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "stable zoneless + signal forms are 21.x"}
+      ],
+      "references": [
+        "Angular zoneless: https://angular.dev/guide/zoneless",
+        "Angular signals: https://angular.dev/guide/signals",
+        "In-catalog references: button.component.ts (afterNextRender + MutationObserver + computed host bindings); input.directive.ts (linkedSignal + effect + signal-based ControlValueAccessor)"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "route-lazy",
+  "type": "registry:cena-pattern",
+  "title": "Route declaration with loadComponent (lazy)",
+  "description": "Pattern for declaring a route in apps/*/src/app/app.routes.ts that lazy-loads its component. All non-shell routes use loadComponent. Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "code-template",
+      "whenToUse": "Whenever adding a new route that points to a component which is not in the eager-loaded shell. All feature-route components should be lazy-loaded.",
+      "template": "{ path: '{path}', loadComponent: () => import('./{relative-path}/{component-file}').then(m => m.{ComponentClassName}), canActivate: [{guards}], data: {data} }",
+      "parameters": {
+        "path": "Route URL segment, no leading slash",
+        "relative-path": "Relative path from app.routes.ts to the component file (no leading './')",
+        "component-file": "Component filename without .ts extension",
+        "ComponentClassName": "Exported component class name",
+        "guards": "Optional comma-separated list of functional guards (see route-guard pattern)",
+        "data": "Optional route data object"
+      },
+      "gotchas": [
+        "Path strings without leading slash; the router resolves relative to the parent route",
+        "loadComponent's import path is relative to the routes file, not absolute",
+        "Use .then(m => m.X) form, not .then(({X}) => X) — easier to spot the exported class name in PR review"
+      ],
+      "preferenceLedgerRows": [
+        {"row": 16, "name": "Angular 21.2.13", "applies": "loadComponent is the standalone way since Angular 17; we are on 21.x"}
+      ],
+      "references": [
+        "Angular routes: https://angular.dev/guide/routing/define-routes",
+        "Andrey's anchor: cena-health-spark/patients/src/app/app.routes.ts (uses loadComponent throughout)"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage"
+    }
+  }
+}

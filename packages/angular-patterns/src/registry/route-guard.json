@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "route-guard",
+  "type": "registry:cena-pattern",
+  "title": "Functional route guard composition",
+  "description": "Pattern for authoring functional CanActivateFn guards and composing them on route declarations. Cena uses functional guards (not class-based CanActivate). Pure pattern entry — no component source.",
+  "dependencies": [],
+  "registryDependencies": ["route-lazy"],
+  "files": [],
+  "meta": {
+    "cena": {
+      "classification": "Pattern",
+      "patternType": "code-template",
+      "whenToUse": "Whenever a route needs auth, role, onboarding-state, or feature-flag gating. Multiple guards compose by listing them in canActivate array; all must return true for navigation to proceed.",
+      "templates": {
+        "guardAuthoring": "export const {guardName}Guard: CanActivateFn = (route, state) => {\n  const {service} = inject({Service});\n  const router = inject(Router);\n  return {service}.{check}() ? true : router.createUrlTree(['{fallback}']);\n};",
+        "routeComposition": "{ path: 'x', loadComponent: () => import('./x.component').then(m => m.XComponent), canActivate: [authGuard, onboardingGuard] }"
+      },
+      "parameters": {
+        "guardName": "Camel-case base name (e.g. 'onboarding', 'auth')",
+        "Service": "Angular service providing the gating logic",
+        "check": "Method on the service returning the boolean",
+        "fallback": "Route path to redirect to when the gate fails"
+      },
+      "gotchas": [
+        "Use inject() inside the functional guard body, not constructor — functional guards have no class context",
+        "Return UrlTree (via Router.createUrlTree) instead of returning false bare — provides clean redirect semantics with explicit destination",
+        "Avoid stateful checks inside guards; delegate to services that own the state",
+        "Functional guards execute in array order; place cheapest checks first (e.g., auth before role lookup that requires a server call)"
+      ],
+      "preferenceLedgerRows": [
+        {"row": 4, "name": "functional DI via inject()", "applies": "guards use inject() inside the functional body"},
+        {"row": 16, "name": "Angular 21.2.13", "applies": "functional guards are Angular 14.2+; we are on 21.x"}
+      ],
+      "references": [
+        "Angular CanActivateFn: https://angular.dev/api/router/CanActivateFn",
+        "Andrey's anchor: cena-health-spark/patients/src/app/guards/ (4 functional guards — reference for our shape)"
+      ],
+      "ownership": "Cena-authored 2026-05-28 — no upstream lineage"
+    }
+  }
+}
