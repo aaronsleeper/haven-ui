@@ -30,6 +30,8 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "@ng-icons/core": "^33.1.0",
+    "@ng-icons/lucide": "^33.1.0"
   }
 }

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "An interactive element that triggers an action or navigation. Supports variants (default, destructive, outline, secondary, ghost, link), sizes (default, xs, sm, lg, icon variants), shapes (default, circle, square), and loading/disabled states.",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+    "@ng-icons/core",
+    "@ng-icons/lucide"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/shared/components/button/button.component.ts",
+      "type": "registry:ui",
+      "target": "shared/components/button/button.component.ts"
+    },
+    {
+      "path": "src/shared/components/button/button.variants.ts",
+      "type": "registry:ui",
+      "target": "shared/components/button/button.variants.ts"
+    },
+    {
+      "path": "src/shared/components/button/index.ts",
+      "type": "registry:ui",
+      "target": "shared/components/button/index.ts"
+    }
+  ],
+  "meta": {
+    "cena": {
+      "classification": "Helm",
+      "classificationRationale": "Styled composition with CVA-based variant axes (zType, zSize, zShape, zFull, zLoading, zDisabled). Brain behavior is supplied by the native HTML <button> / <a> semantics + the host element's parent-tag check; no separate behavior primitive to install. Copy-and-parameterize is the right adoption shape.",
+      "preferenceLedgerRows": [
+        {"row": 5, "name": "control-flow @if/@for blocks", "applies": "template uses @if for loading state"},
+        {"row": 8, "name": "PL semantic class vocabulary", "applies": "variant classes follow Tailwind utility shape; semantic aliases may be added in a Cena theme layer"},
+        {"row": 16, "name": "Angular 21.2.13 / zoneless API pin", "applies": "uses input(), signal(), computed(), afterNextRender — all Angular 21 signal APIs"}
+      ],
+      "upstream": {
+        "source": "zard-ui/zardui",
+        "anchorCommit": "1e069d70120c09583999f2e4e7500b00ec258a9d",
+        "componentPath": "libs/zard/src/lib/shared/components/button",
+        "license": "MIT"
+      },
+      "ownership": "@cena/catalog-ui owns these lines from 2026-05-28; upstream is the source of future starts, not a continuously-merged dependency"
+    }
+  }
+}
