@@ -32,24 +32,55 @@ cp "${ANDREY_TREE}/tsconfig.app.json" ./tsconfig.app.json 2>/dev/null || true
 cp "${ANDREY_TREE}/tsconfig.spec.json" ./tsconfig.spec.json 2>/dev/null || true
 cp "${ANDREY_TREE}/angular.json" ./angular.json 2>/dev/null || true
 
+# Andrey's tree is a yarn workspace; package.json uses `link:` for @dataconnect/generated.
+# npm doesn't support `link:` — rewrite to `file:` (same semantics; npm-compatible).
+# This is a gate-workspace adaptation, not an upstream change.
+echo "==> Adapting package.json (link: → file: for @dataconnect/generated; npm-vs-yarn shim)"
+sed -i '' 's|"link:src/dataconnect-generated"|"file:src/dataconnect-generated"|' ./package.json
+
 echo "==> Copying @dataconnect/generated (required for type resolution)"
-if [[ -d "${ANDREY_TREE}/../dataconnect/generated" ]]; then
+# Patient SDK is a `link:src/dataconnect-generated` in patients/package.json.
+# Populate BOTH node_modules (for type resolution) AND the link target (so npm's
+# `link:` dep resolution doesn't break during install).
+if [[ -d "${ANDREY_TREE}/src/dataconnect-generated" ]]; then
   mkdir -p ./node_modules/@dataconnect
-  cp -R "${ANDREY_TREE}/../dataconnect/generated" ./node_modules/@dataconnect/generated
-elif [[ -d "${ANDREY_TREE}/node_modules/@dataconnect/generated" ]]; then
-  mkdir -p ./node_modules/@dataconnect
-  cp -R "${ANDREY_TREE}/node_modules/@dataconnect/generated" ./node_modules/@dataconnect/generated
+  cp -R "${ANDREY_TREE}/src/dataconnect-generated" ./node_modules/@dataconnect/generated
+  mkdir -p ./src
+  cp -R "${ANDREY_TREE}/src/dataconnect-generated" ./src/dataconnect-generated
 else
-  echo "    WARN: @dataconnect/generated not found in expected locations."
-  echo "    Check ${ANDREY_TREE}/../dataconnect/ or his node_modules."
-  echo "    Continuing; npm install will fail on the @dataconnect/* peer if it can't be resolved."
+  echo "    ERROR: @dataconnect/generated not found at ${ANDREY_TREE}/src/dataconnect-generated"
+  echo "    Patient SDK has not been generated. Run:"
+  echo "      cd ${VAULT_ROOT}/Lab/cena-health-spark && yarn install && yarn sdk:generate"
+  echo "    Then re-run this setup script."
+  exit 1
 fi
 
 echo "==> Copying @cena/catalog-ui source into ${GATE_WORKSPACE}/src/lib/catalog-ui/"
 cp -R "${CATALOG_SRC}/." ./src/lib/catalog-ui/
 
-echo "==> Running npm install (this is the step that's harness-gated; run in terminal)"
-npm install
+echo "==> Copying Andrey's tier 2+3 services (real Data Connect contract for emission)"
+mkdir -p ./src/app/services
+cp "${ANDREY_TREE}/src/app/services/dataconnect.service.ts" ./src/app/services/dataconnect.service.ts
+cp "${ANDREY_TREE}/src/app/services/patient-data.service.ts" ./src/app/services/patient-data.service.ts
+
+echo "==> Patching tsconfig.json with catalog path mappings (@cena/catalog-ui + @/* internals)"
+python3 - <<'EOF'
+import json
+with open('./tsconfig.json', 'r') as f:
+    cfg = json.load(f)
+paths = cfg.setdefault('compilerOptions', {}).setdefault('paths', {})
+paths['@cena/catalog-ui'] = ['lib/catalog-ui/index']
+paths['@/*'] = ['lib/catalog-ui/*']
+with open('./tsconfig.json', 'w') as f:
+    json.dump(cfg, f, indent=2)
+print('    tsconfig paths now:', list(paths.keys()))
+EOF
+
+echo "==> Running npm install with --legacy-peer-deps"
+# Reason: @angular/fire@20.0.1 peer-conflicts with @angular/common@^21.2.13 in
+# Andrey's tree. This is a real smell on the plan's Remaining list — flagging,
+# not silencing. Gate makes it empirical; EVIDENCE.md records it.
+npm install --legacy-peer-deps
 
 echo "==> Running baseline tsc --noEmit"
 npx tsc --noEmit

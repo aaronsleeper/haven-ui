@@ -1,0 +1,43 @@
+<main class="messages-screen">
+  <div class="messages-header">
+    <h1>Your Care Team</h1>
+    <p>Your dietitian and coordinator</p>
+  </div>
+
+  <div class="messages-thread">
+    @if (loading()) {
+      <div class="messages-loading">Loading…</div>
+    }
+
+    @if (!loading() && threadItems().length === 0) {
+      <z-card>
+        <p>No messages yet.</p>
+      </z-card>
+    }
+
+    @for (item of threadItems(); track item.id) {
+      @if (item.type === 'separator') {
+        <div class="message-date-sep">{{ item.label }}</div>
+      } @else if (item.direction === 'in') {
+        <div class="message-row message-row-in">
+          <p class="message-sender-label">{{ item.sender }}</p>
+          <div class="message-bubble-in">{{ item.body }}</div>
+          <span class="message-timestamp">{{ item.time }}</span>
+        </div>
+      } @else {
+        <div class="message-row message-row-out">
+          <div class="message-bubble-out">{{ item.body }}</div>
+          <span class="message-timestamp">{{ item.time }}</span>
+        </div>
+      }
+    }
+
+    @if (!loading() && hasUnreadIncoming()) {
+      <div class="message-new-pill" role="status" aria-live="polite">
+        <span>New message</span>
+      </div>
+    }
+  </div>
+
+  <app-compose-bar (sent)="onSend($event)" />
+</main>

@@ -1,0 +1,11 @@
+<div class="compose-bar">
+  <textarea
+    class="compose-textarea"
+    [(ngModel)]="text"
+    (keydown)="handleKeydown($event)"
+    placeholder="Type a message"
+    rows="2"
+    aria-label="Message body"
+  ></textarea>
+  <button z-button (click)="send()" [zDisabled]="!text.trim()">Send</button>
+</div>

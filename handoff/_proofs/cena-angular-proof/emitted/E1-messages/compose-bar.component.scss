@@ -1,0 +1,16 @@
+.compose-bar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-top: 1px solid var(--border, #e5e5e5);
+  align-items: flex-end;
+}
+
+.compose-textarea {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border, #e5e5e5);
+  border-radius: 0.5rem;
+  resize: vertical;
+  font-family: inherit;
+}
