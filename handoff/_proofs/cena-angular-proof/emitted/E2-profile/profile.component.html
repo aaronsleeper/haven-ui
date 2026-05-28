@@ -1,0 +1,80 @@
+<main class="profile-screen">
+  <div class="profile-header">
+    <h1>Profile</h1>
+    <p>Your information and preferences</p>
+  </div>
+
+  @if (loading()) {
+    <div class="profile-loading">Loading…</div>
+  }
+
+  @if (!loading() && profile()) {
+    <div class="profile-sections">
+      <z-card>
+        <h2 class="profile-section-title">Personal Information</h2>
+        <dl class="profile-fields">
+          <dt>Name</dt>
+          <dd>{{ fullName() }}</dd>
+          <dt>Date of Birth</dt>
+          <dd>{{ profile()?.dateOfBirth }}</dd>
+          <dt>Email</dt>
+          <dd>{{ profile()?.email ?? '—' }}</dd>
+        </dl>
+      </z-card>
+
+      <z-card>
+        <h2 class="profile-section-title">Dietary Preferences</h2>
+
+        <div class="profile-preference-tags">
+          @if (preferenceTypes().length === 0) {
+            <p class="profile-empty">No dietary preferences on file.</p>
+          }
+          @for (type of preferenceTypes(); track type) {
+            <z-badge>{{ type }}</z-badge>
+          }
+        </div>
+
+        <z-form-field>
+          <label z-form-label for="pref-notes">Preference notes</label>
+          <z-form-control>
+            <textarea
+              z-input
+              id="pref-notes"
+              rows="3"
+              [(ngModel)]="preferenceNotesDraft"
+              placeholder="Anything else we should know about your preferences?"
+            ></textarea>
+          </z-form-control>
+          @if (errorMessage()) {
+            <z-form-message>{{ errorMessage() }}</z-form-message>
+          }
+        </z-form-field>
+
+        <button z-button (click)="onSavePreferences()" [zLoading]="savingPreferences()">
+          Save preferences
+        </button>
+      </z-card>
+
+      <z-card>
+        <h2 class="profile-section-title">Delivery Notes</h2>
+
+        <z-form-field>
+          <label z-form-label for="delivery-notes">Notes for the courier</label>
+          <z-form-control>
+            <textarea
+              z-input
+              id="delivery-notes"
+              rows="3"
+              [(ngModel)]="deliveryNotesDraft"
+              placeholder="Gate code, parking, allergies in the home, etc."
+            ></textarea>
+          </z-form-control>
+        </z-form-field>
+
+        <button z-button (click)="onSaveDeliveryNote()" [zLoading]="savingDeliveryNote()">
+          Save delivery note
+        </button>
+      </z-card>
+    </div>
+  }
+</main>
