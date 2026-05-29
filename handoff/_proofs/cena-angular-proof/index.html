@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cena Angular Emit Proof — Browser Index</title>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --border: #e5e5e5;
+    --accent: #5f9a8f;
+    --pass: #4a8a4a;
+    --card: #ffffff;
+    --code-bg: #f4f4f1;
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Source Sans 3", system-ui, sans-serif;
+    line-height: 1.55;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+  aside {
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 1.25rem;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  aside h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 1.5rem 0 0.5rem;
+  }
+  aside h2:first-child { margin-top: 0; }
+  aside ul { list-style: none; padding: 0; margin: 0; }
+  aside li { margin: 0.35rem 0; }
+  aside a {
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px dotted var(--border);
+    padding-bottom: 1px;
+  }
+  aside a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  main { padding: 2rem 3rem; max-width: 800px; }
+  .banner {
+    background: var(--pass);
+    color: white;
+    padding: 0.875rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta code { background: var(--code-bg); padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.85em; }
+  #verdict-body { font-size: 0.98rem; }
+  #verdict-body h1 { font-size: 1.6rem; margin: 0 0 1rem; }
+  #verdict-body h2 { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--border); }
+  #verdict-body h3 { font-size: 1.0rem; margin: 1.25rem 0 0.4rem; }
+  #verdict-body code { background: var(--code-bg); padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.85em; }
+  #verdict-body blockquote { border-left: 3px solid var(--border); margin: 0.75rem 0; padding: 0.25rem 1rem; color: var(--muted); }
+  #verdict-body ul, #verdict-body ol { padding-left: 1.5rem; }
+  #verdict-body li { margin: 0.25rem 0; }
+  #verdict-body a { color: var(--accent); }
+  #verdict-body strong { font-weight: 650; }
+  #verdict-body table { border-collapse: collapse; margin: 0.75rem 0; font-size: 0.9rem; }
+  #verdict-body th, #verdict-body td { border: 1px solid var(--border); padding: 0.35rem 0.75rem; text-align: left; }
+  #verdict-body th { background: var(--code-bg); }
+  #verdict-body hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .loading { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<aside>
+  <h2>Headline doc</h2>
+  <ul>
+    <li><a href="#verdict-body">▸ VERDICT.md (rendered ↓)</a></li>
+    <li><a href="EVIDENCE.md">EVIDENCE.md (raw)</a></li>
+  </ul>
+
+  <h2>Emitted code (the artifact)</h2>
+  <ul>
+    <li><a href="emitted/E1-messages/">emitted/E1-messages/</a></li>
+    <li><a href="emitted/E1-messages/messages.component.ts">↳ messages.component.ts</a></li>
+    <li><a href="emitted/E1-messages/messages.component.html">↳ messages.component.html</a></li>
+    <li><a href="emitted/E1-messages/compose-bar.component.ts">↳ compose-bar.component.ts</a></li>
+    <li><a href="emitted/E2-profile/">emitted/E2-profile/</a></li>
+    <li><a href="emitted/E2-profile/profile.component.ts">↳ profile.component.ts</a></li>
+    <li><a href="emitted/E2-profile/profile.component.html">↳ profile.component.html</a></li>
+    <li><a href="emitted/E2-profile/profile.component.spec.ts">↳ profile.component.spec.ts (regression test)</a></li>
+  </ul>
+
+  <h2>Review layers</h2>
+  <ul>
+    <li><a href="review-layers/andrey-seat-findings-2026-05-28.md">Andrey-seat findings</a></li>
+    <li><a href="review-layers/angular-structural-findings-2026-05-28.md">Structural skeptic findings</a></li>
+    <li><a href="review-layers/andrey-seat-skeptic.md">— prompt template</a></li>
+    <li><a href="review-layers/angular-structural-skeptic.md">— prompt template</a></li>
+  </ul>
+
+  <h2>Gate + tripwires</h2>
+  <ul>
+    <li><a href="evidence-gate/">evidence-gate/</a></li>
+    <li><a href="evidence-gate/README.md">↳ README.md</a></li>
+    <li><a href="evidence-gate/setup.sh">↳ setup.sh</a></li>
+    <li><a href="tripwire-fixtures/">tripwire-fixtures/</a></li>
+  </ul>
+
+  <h2>Research provenance</h2>
+  <ul>
+    <li><a href="research/existing-systems.md">existing-systems.md</a></li>
+    <li><a href="research/adoption-decision.md">adoption-decision.md</a></li>
+  </ul>
+</aside>
+
+<main>
+  <div class="banner">VERDICT: PASS — 8/8 success criteria satisfied · proving slice closed 2026-05-28</div>
+
+  <div class="meta">
+    Catalog: <code>Lab/haven-ui/packages/angular-patterns/</code> · 13 registry items, locked pre-emission<br>
+    E1: 7 files, 370 LOC, 6 catalog items invoked · E2: 4 files, 344 LOC, 12 catalog items invoked, zero new pattern entries<br>
+    Gate: <code>tsc --noEmit</code> 0 errors · <code>ng test</code> 7/7 SUCCESS · 4/4 invariant tripwires PASS<br>
+    Closing commits: haven-ui <code>c784a48</code> (VERDICT), <code>342b201</code> (EVIDENCE lock) · vault <code>8390827</code> (PIPELINE-REGISTRY)
+  </div>
+
+  <div id="verdict-body" class="loading">Loading VERDICT.md…</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+fetch('VERDICT.md')
+  .then(r => r.text())
+  .then(md => {
+    document.getElementById('verdict-body').classList.remove('loading');
+    document.getElementById('verdict-body').innerHTML = marked.parse(md);
+  })
+  .catch(err => {
+    document.getElementById('verdict-body').innerHTML = '<p>Could not load VERDICT.md: ' + err.message + '</p>';
+  });
+</script>
+</body>
+</html>
