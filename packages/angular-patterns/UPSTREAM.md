@@ -56,6 +56,30 @@ This is intentionally manual. Automatic upstream merges defeat the "own the line
 - **Upstream is a source of starts, not a continuously-merged dependency.** Our modifications (Brain/Helm classification, Data Connect bindings, Cena-specific theming) can land in-tree without coordinating with upstream maintainers.
 - **License obligations carry forward (MIT).** Attribution preserved here at the package level and at file headers when components are authored upstream.
 
+## Testing strategy — dual-runner reality (unresolved)
+
+Catalog source ships with **Jest-flavored** spec files (`*.spec.ts` using `jest.fn()`, `toHaveValue()`, `toBeDisabled()`) inherited from ZardUI upstream. Consumer apps (Cena's patient app, the proving slice's evidence gate, the future spark patient app) use **Jasmine + Karma** (Angular CLI default).
+
+**Empirical impact, observed in the proving slice 2026-05-28:** when the catalog's `src/` was copied into the evidence-gate Angular workspace, `ng test` compilation failed on catalog spec files (`jest.fn`, `toHaveValue`, `toBeDisabled` not in Jasmine types). The gate worked around it by renaming catalog spec files to `*.spec.ts.gate-excluded` so Angular's bundler skipped them.
+
+**Two valid resolutions, both deferred:**
+
+- **Path A — port catalog specs to Jasmine.** One-time cost (~5 spec files: button, card, badge, form, input). Removes the consumer-side workaround. Aligns catalog with the Angular CLI default. Cost: re-write spec idioms; lose any zone-free Jest assertions that don't have Jasmine equivalents.
+- **Path B — document dual-runner intent and ship two configs.** Catalog keeps Jest specs (matches upstream, lower friction for catalog-internal CI when we add one). Consumer apps exclude catalog specs from their test compilation per the evidence-gate pattern. Cost: documented workaround at every consumer adoption site.
+
+**Current state: implicit Path B + workaround.** Decision deferred until either (a) a catalog-internal CI surfaces a real need for catalog specs to run there, or (b) Andrey's pairing call (or another consumer) surfaces a real cost from the consumer-side exclusion.
+
+When a consumer copies the catalog source: add this to their `tsconfig.spec.json` exclude list, OR move catalog spec files out of compilation scope:
+
+```jsonc
+// tsconfig.spec.json
+{
+  "exclude": ["src/lib/catalog-ui/**/*.spec.ts"]
+}
+```
+
+If the consumer's Angular CLI version auto-includes spec files with `@Component`/`@Directive` metadata regardless of tsconfig (observed in Angular 21.2.x), physically rename the catalog spec files (e.g., `*.spec.ts.consumer-excluded`) so the bundler doesn't pick them up.
+
 ## When NOT to adopt from upstream
 
 - A component upstream doesn't fit our use case shape (over-flexible for our patients, under-flexible for our care-coordinators, etc.).
