@@ -12,8 +12,8 @@
     --font-size-2: 0.925rem; /* ~15px */
 
     /* Colors — surface uses brand warm off-white, never pure white */
-    --color-surface: #FBFAF8;
-    --color-panel-solid: #FBFAF8;
+    --color-surface: #F8F4EC;
+    --color-panel-solid: #F8F4EC;
 
     --accent-9: var(--color-primary-600);
     --accent-10: var(--color-primary-700);

@@ -29,9 +29,9 @@
        200/300/...) are v2-canonical; if you see references to sand-15,
        sand-16, sand-150, or sand-250 elsewhere, those are pre-v2 outliers
        being remediated separately. */
-    --color-sand-50:  #fbfaf8;
-    --color-sand-100: #e6e4e0;
-    --color-sand-200: #d1cec8;
+    --color-sand-50:  #f8f4ec;
+    --color-sand-100: #e4dfd7;
+    --color-sand-200: #cfcac2;
     --color-sand-500: #958e85;
     --color-sand-700: #5a544e;
     --color-sand-800: #3f3934;

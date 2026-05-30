@@ -90,15 +90,15 @@
 
   /* sand — warm neutral (single neutral) */
   --color-sand-50: oklch(98.50% 0.0030 85.00);
-  --color-sand-50-hex: #fbfaf8;
+  --color-sand-50-hex: #f8f4ec;
   --color-sand-100: oklch(91.80% 0.0056 83.00);
-  --color-sand-100-hex: #e6e4e0;
+  --color-sand-100-hex: #e4dfd7;
   --color-sand-200: oklch(85.10% 0.0082 81.00);
-  --color-sand-200-hex: #d1cec8;
+  --color-sand-200-hex: #cfcac2;
   --color-sand-300: oklch(78.40% 0.0108 79.00);
-  --color-sand-300-hex: #bcb8b1;
+  --color-sand-300-hex: #bbb6ad;
   --color-sand-400: oklch(71.70% 0.0134 77.00);
-  --color-sand-400-hex: #a8a39b;
+  --color-sand-400-hex: #a8a298;
   --color-sand-500: oklch(65.00% 0.0160 75.00);
   --color-sand-500-hex: #958e85;
   --color-sand-600: oklch(55.00% 0.0144 72.00);
@@ -114,7 +114,7 @@
 
   /* red — error / critical */
   --color-red-50: oklch(96.00% 0.0200 30.00);
-  --color-red-50-hex: #ffedea;
+  --color-red-50-hex: #ffe9e5;
   --color-red-100: oklch(87.80% 0.0500 29.00);
   --color-red-100-hex: #f6cbc4;
   --color-red-200: oklch(79.60% 0.0800 28.00);
@@ -138,7 +138,7 @@
 
   /* amber — warning / caution */
   --color-amber-50: oklch(96.00% 0.0200 85.00);
-  --color-amber-50-hex: #f8f1e3;
+  --color-amber-50-hex: #faefda;
   --color-amber-100: oklch(89.40% 0.0376 84.40);
   --color-amber-100-hex: #e8dbc1;
   --color-amber-200: oklch(82.80% 0.0552 83.80);
@@ -162,7 +162,7 @@
 
   /* green — success / confirmation */
   --color-green-50: oklch(96.00% 0.0250 155.00);
-  --color-green-50-hex: #e5f7eb;
+  --color-green-50-hex: #def8e6;
   --color-green-100: oklch(87.80% 0.0410 156.00);
   --color-green-100-hex: #c2dfcc;
   --color-green-200: oklch(79.60% 0.0570 157.00);
@@ -186,7 +186,7 @@
 
   /* cyan — info / informational */
   --color-cyan-50: oklch(94.00% 0.0350 215.00);
-  --color-cyan-50-hex: #d2f2fa;
+  --color-cyan-50-hex: #c8f4ff;
   --color-cyan-100: oklch(85.20% 0.0460 219.00);
   --color-cyan-100-hex: #aed6e3;
   --color-cyan-200: oklch(76.40% 0.0570 223.00);
@@ -502,49 +502,49 @@
   --color-primary-hover:  var(--color-teal-800);   /* #113933 — darker on press/hover */
   --color-primary-active: var(--color-teal-800);
   --color-primary-subtle: var(--color-teal-100);   /* #c6ded8 — tinted fill/selection */
-  --color-on-primary:     var(--color-sand-50);    /* #fbfaf8 — warm-tinted, ~white, AAA on teal-700 (brand rule #1: never pure #fff) */
+  --color-on-primary:     var(--color-sand-50);    /* #f8f4ec — warm-tinted, ~white, AAA on teal-700 (brand rule #1: never pure #fff) */
 
   /* Text */
   --color-text-primary:   var(--logo-anchor-dark); /* #0D322D — exact v1 port (was teal-200) */
   --color-text-secondary: var(--color-sand-700);   /* #5a544e ≈ v1 #5B544C */
   --color-text-tertiary:  #6B645C;                 /* adjusted — no exact v2 step; v1 value preserved */
   --color-text-disabled:  var(--color-sand-500);   /* #958e85 = v1 warm-500 exact */
-  --color-text-inverse:   var(--color-sand-50);    /* #fbfaf8 */
+  --color-text-inverse:   var(--color-sand-50);    /* #f8f4ec */
   --color-text-brand:     var(--color-teal-700);   /* #1e5149 — teal accent, AAA on sand-50 */
 
   /* Surface — warm ground, gentle layering (Warm Ground / Cool Figure).
      v2 sand compresses v1's three close light steps; see migration note. */
-  --color-surface-page:      var(--color-sand-50);   /* #fbfaf8 — warm ground, hex-identical to v1 */
-  --color-surface-primary:   var(--color-sand-100);  /* #e6e4e0 — card/panel fill */
-  --color-surface-secondary: var(--color-sand-200);  /* #d1cec8 — recessed/hover */
+  --color-surface-page:      var(--color-sand-50);   /* #f8f4ec — warm ground, hex-identical to v1 */
+  --color-surface-primary:   var(--color-sand-100);  /* #e4dfd7 — card/panel fill */
+  --color-surface-secondary: var(--color-sand-200);  /* #cfcac2 — recessed/hover */
   --color-surface-teal:      var(--color-teal-50);   /* #e9f5f2 — light teal tint */
   --color-surface-sage:      var(--color-sage-50);   /* #e7f2e8 — light sage tint */
   --color-surface-overlay:   oklch(15% 0.025 183 / 60%); /* = v2 teal-950 @ 60% */
 
   /* Border — warm, visible; shadows last (CLAUDE.md rule #4) */
-  --color-border-default: var(--color-sand-300);   /* #bcb8b1 — slightly stronger than v1 for elevation-via-border */
+  --color-border-default: var(--color-sand-300);   /* #bbb6ad — slightly stronger than v1 for elevation-via-border */
   --color-border-strong:  #857E75;                 /* adjusted — no exact v2 step; v1 value preserved */
   --color-border-brand:   var(--color-teal-500);   /* logo primary */
   --color-border-focus:   var(--color-teal-500);
 
   /* Functional — bg(-50) / border(-200) / base(-600) / text(-800) on v2 families.
      Roles match v1's own @theme convention; values now ride canon steps. */
-  --color-error-bg:     var(--color-red-50);    /* #ffedea */
+  --color-error-bg:     var(--color-red-50);    /* #ffe9e5 */
   --color-error-border: var(--color-red-200);   /* #eca9a0 */
   --color-error-base:   var(--color-red-600);   /* #a22f2f */
   --color-error-text:   var(--color-red-800);   /* #661619 */
 
-  --color-warning-bg:     var(--color-amber-50);   /* #f8f1e3 */
+  --color-warning-bg:     var(--color-amber-50);   /* #faefda */
   --color-warning-border: var(--color-amber-200);  /* #d8c49e */
   --color-warning-base:   var(--color-amber-600);  /* #8e6a22 */
   --color-warning-text:   var(--color-amber-800);  /* #593e01 */
 
-  --color-success-bg:     var(--color-green-50);   /* #e5f7eb */
+  --color-success-bg:     var(--color-green-50);   /* #def8e6 */
   --color-success-border: var(--color-green-200);  /* #9fc8ae */
   --color-success-base:   var(--color-green-600);  /* #1b6e4c */
   --color-success-text:   var(--color-green-800);  /* #00442c */
 
-  --color-info-bg:     var(--color-cyan-50);    /* #d2f2fa */
+  --color-info-bg:     var(--color-cyan-50);    /* #c8f4ff */
   --color-info-border: var(--color-cyan-200);   /* #8bbbcd */
   --color-info-base:   var(--color-cyan-600);   /* #17597a */
   --color-info-text:   var(--color-cyan-800);   /* #003753 */

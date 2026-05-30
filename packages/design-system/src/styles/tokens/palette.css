@@ -278,11 +278,11 @@
      css-family.ts). New components use bg-sand-*, text-sand-*, border-sand-*. */
 
   /* stone — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-stone-50:  #fbfaf8;
-  --color-stone-100: #e6e4e0;
-  --color-stone-200: #d1cec8;
-  --color-stone-300: #bcb8b1;
-  --color-stone-400: #a8a39b;
+  --color-stone-50:  #f8f4ec;
+  --color-stone-100: #e4dfd7;
+  --color-stone-200: #cfcac2;
+  --color-stone-300: #bbb6ad;
+  --color-stone-400: #a8a298;
   --color-stone-500: #958e85;
   --color-stone-600: #777069;
   --color-stone-700: #5a544e;
@@ -291,11 +291,11 @@
   --color-stone-950: #0e0a08;
 
   /* slate — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-slate-50:  #fbfaf8;
-  --color-slate-100: #e6e4e0;
-  --color-slate-200: #d1cec8;
-  --color-slate-300: #bcb8b1;
-  --color-slate-400: #a8a39b;
+  --color-slate-50:  #f8f4ec;
+  --color-slate-100: #e4dfd7;
+  --color-slate-200: #cfcac2;
+  --color-slate-300: #bbb6ad;
+  --color-slate-400: #a8a298;
   --color-slate-500: #958e85;
   --color-slate-600: #777069;
   --color-slate-700: #5a544e;
@@ -304,11 +304,11 @@
   --color-slate-950: #0e0a08;
 
   /* gray — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-gray-50:  #fbfaf8;
-  --color-gray-100: #e6e4e0;
-  --color-gray-200: #d1cec8;
-  --color-gray-300: #bcb8b1;
-  --color-gray-400: #a8a39b;
+  --color-gray-50:  #f8f4ec;
+  --color-gray-100: #e4dfd7;
+  --color-gray-200: #cfcac2;
+  --color-gray-300: #bbb6ad;
+  --color-gray-400: #a8a298;
   --color-gray-500: #958e85;
   --color-gray-600: #777069;
   --color-gray-700: #5a544e;
@@ -317,11 +317,11 @@
   --color-gray-950: #0e0a08;
 
   /* zinc — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-zinc-50:  #fbfaf8;
-  --color-zinc-100: #e6e4e0;
-  --color-zinc-200: #d1cec8;
-  --color-zinc-300: #bcb8b1;
-  --color-zinc-400: #a8a39b;
+  --color-zinc-50:  #f8f4ec;
+  --color-zinc-100: #e4dfd7;
+  --color-zinc-200: #cfcac2;
+  --color-zinc-300: #bbb6ad;
+  --color-zinc-400: #a8a298;
   --color-zinc-500: #958e85;
   --color-zinc-600: #777069;
   --color-zinc-700: #5a544e;
@@ -330,11 +330,11 @@
   --color-zinc-950: #0e0a08;
 
   /* neutral — alias to sand (DEFENSIVE FALLBACK ONLY) */
-  --color-neutral-50:  #fbfaf8;
-  --color-neutral-100: #e6e4e0;
-  --color-neutral-200: #d1cec8;
-  --color-neutral-300: #bcb8b1;
-  --color-neutral-400: #a8a39b;
+  --color-neutral-50:  #f8f4ec;
+  --color-neutral-100: #e4dfd7;
+  --color-neutral-200: #cfcac2;
+  --color-neutral-300: #bbb6ad;
+  --color-neutral-400: #a8a298;
   --color-neutral-500: #958e85;
   --color-neutral-600: #777069;
   --color-neutral-700: #5a544e;
