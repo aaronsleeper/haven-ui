@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sand warmth comparison — v2 / HVD-proposed / v1-archive</title>
+<style>
+  :root {
+    --col-page: #fbfaf8;
+    --col-card: #ffffff;
+    --col-ink-strong: #25211d;
+    --col-ink-mid: #5a544e;
+    --col-divider: #e6e4e0;
+    --font-sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-serif: "Lora", Georgia, serif;
+    --font-mono: "Source Code Pro", "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--col-ink-strong);
+    background: var(--col-page);
+    line-height: 1.55;
+    padding: 32px 40px 80px;
+  }
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .lede {
+    font-size: 15px;
+    color: var(--col-ink-mid);
+    max-width: 720px;
+    margin: 0 0 32px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--col-ink-mid);
+    margin: 56px 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+  }
+  /* === SWATCH GRID === */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .col {
+    background: #ffffff;
+    border: 1px solid var(--col-divider);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .col-head { margin-bottom: 16px; }
+  .col-title {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .col-sub {
+    font-size: 12px;
+    color: var(--col-ink-mid);
+    margin: 0;
+  }
+  .col-sub strong { color: var(--col-ink-strong); }
+  .stops { display: flex; flex-direction: column; gap: 6px; }
+  .stop {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border: 1px solid var(--col-divider);
+    border-radius: 4px;
+  }
+  .swatch {
+    width: 100%;
+    height: 36px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .stop-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--col-ink-mid);
+  }
+  .stop-label strong {
+    color: var(--col-ink-strong);
+    font-size: 13px;
+  }
+  .stop-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--col-ink-mid);
+  }
+  .delta {
+    font-size: 10px;
+    color: #2c6a60;
+    background: #e9f5f2;
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* === IN-CONTEXT MOCKUPS === */
+  .context-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .mock {
+    border: 1px solid var(--col-divider);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .mock-page {
+    padding: 24px;
+    min-height: 280px;
+  }
+  .mock-card {
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+  }
+  .mock-card.bordered { border: 1px solid var(--mock-border, transparent); }
+  .mock-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mock-ink-mid, #777069);
+    margin: 0 0 4px;
+  }
+  .mock-h {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 6px;
+    color: var(--mock-ink-strong, #25211d);
+    letter-spacing: -0.005em;
+  }
+  .mock-body {
+    margin: 0;
+    font-size: 13px;
+    color: var(--mock-ink-strong, #25211d);
+    line-height: 1.5;
+  }
+  .mock-body + .mock-body { margin-top: 6px; }
+  .mock-meta {
+    font-size: 11px;
+    color: var(--mock-ink-mid, #777069);
+    margin-top: 8px;
+    font-family: var(--font-mono);
+  }
+  .mock-divider {
+    height: 1px;
+    background: var(--mock-border, #d1cec8);
+    margin: 14px 0;
+  }
+  .mock-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #c6ded8;
+    color: #06231f;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 6px;
+  }
+
+  /* === SIDE-BY-SIDE LIGHT-STOP COMPARISON === */
+  .row-compare {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--col-divider);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1px;
+  }
+  .row-compare > div {
+    padding: 16px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .row-compare .label-cell {
+    background: #ffffff;
+    border-right: 1px solid var(--col-divider);
+    font-weight: 600;
+    color: var(--col-ink-strong);
+    font-size: 13px;
+    align-items: flex-start;
+  }
+  .row-compare .swatch-cell {
+    min-height: 64px;
+    color: rgba(37,33,29,0.7);
+  }
+  .row-compare .swatch-cell strong {
+    color: var(--col-ink-strong);
+    font-size: 12px;
+  }
+  .footer-note {
+    margin-top: 64px;
+    padding: 20px 24px;
+    background: #f8f1e3;
+    border-left: 4px solid #aa8232;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.55;
+    max-width: 920px;
+  }
+  .footer-note strong { color: #593e01; }
+  .footer-note p { margin: 0 0 8px; }
+  .footer-note p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<h1>Sand warmth — three-way comparison</h1>
+<p class="lede">
+  Three columns. Current canon (v2) on the left, Haven Visual Designer's proposal in the middle, archived v1 on the right.
+  Per Grief-Context UX's flag: v1's lightest stop is <em>identical</em> to v2 sand-50 (#FBFAF8) — the "v1 was warmer" framing
+  actually shows up in the <em>mid</em> stops where v1 ran lighter. Use the swatch grid to read hex/OKLCH, and the in-context
+  mockups below to feel the warmth in use.
+</p>
+
+<h2>Light register swatches (50 / 100 / 200 / 300 / 400 / 500)</h2>
+
+<div class="swatch-grid">
+
+  <!-- COLUMN 1: CURRENT V2 -->
+  <div class="col">
+    <div class="col-head">
+      <p class="col-title">Current v2 (canon today)</p>
+      <p class="col-sub">Source: <strong>family-source.json</strong> → palette.css</p>
+    </div>
+    <div class="stops">
+      <div class="stop">
+        <div class="swatch" style="background: oklch(98.50% 0.0030 85.00);"></div>
+        <div class="stop-label"><strong>#fbfaf8</strong><br/>oklch(98.50% .003 85)</div>
+        <div class="stop-num">50</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(91.80% 0.0056 83.00);"></div>
+        <div class="stop-label"><strong>#e6e4e0</strong><br/>oklch(91.80% .006 83)</div>
+        <div class="stop-num">100</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(85.10% 0.0082 81.00);"></div>
+        <div class="stop-label"><strong>#d1cec8</strong><br/>oklch(85.10% .008 81)</div>
+        <div class="stop-num">200</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(78.40% 0.0108 79.00);"></div>
+        <div class="stop-label"><strong>#bcb8b1</strong><br/>oklch(78.40% .011 79)</div>
+        <div class="stop-num">300</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(71.70% 0.0134 77.00);"></div>
+        <div class="stop-label"><strong>#a8a39b</strong><br/>oklch(71.70% .013 77)</div>
+        <div class="stop-num">400</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(65.00% 0.0160 75.00);"></div>
+        <div class="stop-label"><strong>#958e85</strong><br/>oklch(65.00% .016 75)</div>
+        <div class="stop-num">500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN 2: HVD PROPOSED -->
+  <div class="col">
+    <div class="col-head">
+      <p class="col-title">HVD-proposed warmer<span class="delta">moves 50–300</span></p>
+      <p class="col-sub">~3.7× chroma at sand-50; hue holds 78–82°; 400+ unchanged</p>
+    </div>
+    <div class="stops">
+      <div class="stop">
+        <div class="swatch" style="background: oklch(96.80% 0.0110 82.00);"></div>
+        <div class="stop-label"><strong>~#f4ede2</strong><br/>oklch(96.80% .011 82)</div>
+        <div class="stop-num">50</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(91.20% 0.0125 81.00);"></div>
+        <div class="stop-label"><strong>~#e6ddce</strong><br/>oklch(91.20% .013 81)</div>
+        <div class="stop-num">100</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(85.00% 0.0150 79.00);"></div>
+        <div class="stop-label"><strong>~#d4c9b5</strong><br/>oklch(85.00% .015 79)</div>
+        <div class="stop-num">200</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(78.40% 0.0150 78.00);"></div>
+        <div class="stop-label"><strong>~#bfb09a</strong><br/>oklch(78.40% .015 78)</div>
+        <div class="stop-num">300</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(71.70% 0.0134 77.00);"></div>
+        <div class="stop-label" style="opacity:0.5"><strong>#a8a39b</strong><br/>unchanged</div>
+        <div class="stop-num" style="opacity:0.5">400</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: oklch(65.00% 0.0160 75.00);"></div>
+        <div class="stop-label" style="opacity:0.5"><strong>#958e85</strong><br/>unchanged</div>
+        <div class="stop-num" style="opacity:0.5">500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN 3: V1 ARCHIVE -->
+  <div class="col">
+    <div class="col-head">
+      <p class="col-title">v1 archive (warm/ochre)</p>
+      <p class="col-sub">Inverted scale in v1 — remapped here to v2 ordering</p>
+    </div>
+    <div class="stops">
+      <div class="stop">
+        <div class="swatch" style="background: #FBFAF8;"></div>
+        <div class="stop-label"><strong>#FBFAF8</strong><br/>= v2 sand-50</div>
+        <div class="stop-num">50</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: #F3F1EE;"></div>
+        <div class="stop-label"><strong>#F3F1EE</strong><br/>warm-900</div>
+        <div class="stop-num">100</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: #E7E4DF;"></div>
+        <div class="stop-label"><strong>#E7E4DF</strong><br/>warm-800</div>
+        <div class="stop-num">200</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: #D1CDC6;"></div>
+        <div class="stop-label"><strong>#D1CDC6</strong><br/>warm-700</div>
+        <div class="stop-num">300</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: #B3ADA4;"></div>
+        <div class="stop-label"><strong>#B3ADA4</strong><br/>warm-600</div>
+        <div class="stop-num">400</div>
+      </div>
+      <div class="stop">
+        <div class="swatch" style="background: #958E85;"></div>
+        <div class="stop-label"><strong>#958E85</strong><br/>warm-500 = v2 sand-500</div>
+        <div class="stop-num">500</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>Side-by-side at the surface-page stop (sand-50)</h2>
+<div class="row-compare">
+  <div class="label-cell">sand-50</div>
+  <div class="swatch-cell" style="background: oklch(98.50% 0.0030 85.00);">
+    <span><strong>v2 (current)</strong></span>
+    <span>#fbfaf8 · oklch(98.5% .003 85)</span>
+  </div>
+  <div class="swatch-cell" style="background: oklch(96.80% 0.0110 82.00);">
+    <span><strong>HVD proposed</strong></span>
+    <span>~#f4ede2 · oklch(96.8% .011 82)</span>
+  </div>
+  <div class="swatch-cell" style="background: #FBFAF8;">
+    <span><strong>v1 archive</strong></span>
+    <span>#FBFAF8 (identical to v2)</span>
+  </div>
+</div>
+
+<h2>In-context: card on page, with bordered card, eyebrow text, body, divider, pill</h2>
+<div class="context-grid">
+
+  <!-- MOCK 1: V2 CURRENT -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(98.50% 0.0030 85.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.10% 0.0082 81.00);">
+      <span class="mock-pill">v2 · current</span>
+      <p class="mock-eyebrow" style="margin-top: 14px;">CARE PLAN UPDATE</p>
+      <h3 class="mock-h">Weekly meal plan ready</h3>
+      <p class="mock-body">Three new recipes are queued. The plan honors your sodium limit and preserves Sunday family meal.</p>
+      <div class="mock-divider"></div>
+      <div class="mock-card bordered" style="background: oklch(91.80% 0.0056 83.00);">
+        <p class="mock-body" style="font-weight: 600;">Pollo guisado · 35 min</p>
+        <p class="mock-meta">Serves 4 · 480 cal/serving</p>
+      </div>
+      <div class="mock-card bordered" style="background: oklch(91.80% 0.0056 83.00);">
+        <p class="mock-body" style="font-weight: 600;">Sopa de lentejas · 25 min</p>
+        <p class="mock-meta">Serves 6 · 320 cal/serving</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOCK 2: HVD PROPOSED -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(96.80% 0.0110 82.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.00% 0.0150 79.00);">
+      <span class="mock-pill">HVD · proposed</span>
+      <p class="mock-eyebrow" style="margin-top: 14px;">CARE PLAN UPDATE</p>
+      <h3 class="mock-h">Weekly meal plan ready</h3>
+      <p class="mock-body">Three new recipes are queued. The plan honors your sodium limit and preserves Sunday family meal.</p>
+      <div class="mock-divider"></div>
+      <div class="mock-card bordered" style="background: oklch(91.20% 0.0125 81.00);">
+        <p class="mock-body" style="font-weight: 600;">Pollo guisado · 35 min</p>
+        <p class="mock-meta">Serves 4 · 480 cal/serving</p>
+      </div>
+      <div class="mock-card bordered" style="background: oklch(91.20% 0.0125 81.00);">
+        <p class="mock-body" style="font-weight: 600;">Sopa de lentejas · 25 min</p>
+        <p class="mock-meta">Serves 6 · 320 cal/serving</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOCK 3: V1 ARCHIVE -->
+  <div class="mock">
+    <div class="mock-page" style="background: #FBFAF8; --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: #E7E4DF;">
+      <span class="mock-pill">v1 · archive</span>
+      <p class="mock-eyebrow" style="margin-top: 14px;">CARE PLAN UPDATE</p>
+      <h3 class="mock-h">Weekly meal plan ready</h3>
+      <p class="mock-body">Three new recipes are queued. The plan honors your sodium limit and preserves Sunday family meal.</p>
+      <div class="mock-divider"></div>
+      <div class="mock-card bordered" style="background: #F3F1EE;">
+        <p class="mock-body" style="font-weight: 600;">Pollo guisado · 35 min</p>
+        <p class="mock-meta">Serves 4 · 480 cal/serving</p>
+      </div>
+      <div class="mock-card bordered" style="background: #F3F1EE;">
+        <p class="mock-body" style="font-weight: 600;">Sopa de lentejas · 25 min</p>
+        <p class="mock-meta">Serves 6 · 320 cal/serving</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>In-context: clinical surface — medication list (Grief-Context UX's gravitas test)</h2>
+<div class="context-grid">
+
+  <!-- MOCK 1: V2 CURRENT -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(98.50% 0.0030 85.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.10% 0.0082 81.00);">
+      <span class="mock-pill">v2 · current</span>
+      <p class="mock-eyebrow" style="margin-top: 14px; color: #832224;">ACTIVE MEDICATIONS</p>
+      <h3 class="mock-h" style="font-size: 16px;">Maria Rivera · MRN PT-2024-0847</h3>
+      <div style="font-family: var(--font-mono); font-size: 12px; line-height: 1.8; margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid oklch(85.10% 0.0082 81.00);">
+          <span><strong>Metformin</strong> 500 mg</span><span>2× daily</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid oklch(85.10% 0.0082 81.00);">
+          <span><strong>Lisinopril</strong> 10 mg</span><span>1× daily</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+          <span><strong>Atorvastatin</strong> 20 mg</span><span>1× evening</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOCK 2: HVD PROPOSED -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(96.80% 0.0110 82.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.00% 0.0150 79.00);">
+      <span class="mock-pill">HVD · proposed</span>
+      <p class="mock-eyebrow" style="margin-top: 14px; color: #832224;">ACTIVE MEDICATIONS</p>
+      <h3 class="mock-h" style="font-size: 16px;">Maria Rivera · MRN PT-2024-0847</h3>
+      <div style="font-family: var(--font-mono); font-size: 12px; line-height: 1.8; margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid oklch(85.00% 0.0150 79.00);">
+          <span><strong>Metformin</strong> 500 mg</span><span>2× daily</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid oklch(85.00% 0.0150 79.00);">
+          <span><strong>Lisinopril</strong> 10 mg</span><span>1× daily</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+          <span><strong>Atorvastatin</strong> 20 mg</span><span>1× evening</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOCK 3: V1 ARCHIVE -->
+  <div class="mock">
+    <div class="mock-page" style="background: #FBFAF8; --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: #E7E4DF;">
+      <span class="mock-pill">v1 · archive</span>
+      <p class="mock-eyebrow" style="margin-top: 14px; color: #832224;">ACTIVE MEDICATIONS</p>
+      <h3 class="mock-h" style="font-size: 16px;">Maria Rivera · MRN PT-2024-0847</h3>
+      <div style="font-family: var(--font-mono); font-size: 12px; line-height: 1.8; margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #E7E4DF;">
+          <span><strong>Metformin</strong> 500 mg</span><span>2× daily</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #E7E4DF;">
+          <span><strong>Lisinopril</strong> 10 mg</span><span>1× daily</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+          <span><strong>Atorvastatin</strong> 20 mg</span><span>1× evening</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2 style="margin-top: 72px;">Round 2 — functional -50 surface tints</h2>
+<p class="lede" style="margin-bottom: 20px;">
+  HVD's principle: it's not "neutrals undershoot" — it's "any stop carrying a surface job at sub-JND chroma sits below the perceptual floor."
+  The four functional -50s do the same surface job sand-50 does (callout backgrounds per <code>haven-directive-styling.md</code>),
+  so the lift transfers — but smaller (~1.3–1.5× chroma vs. sand's 3.7×) because these started higher.
+</p>
+
+<div class="row-compare">
+  <div class="label-cell">cyan-50<br/><span style="font-weight:400; font-size:10px;">callout-info bg</span></div>
+  <div class="swatch-cell" style="background: oklch(94.00% 0.0350 215);">
+    <span><strong>current</strong></span>
+    <span>oklch(94.00% .035 215) · #d2f2fa</span>
+  </div>
+  <div class="swatch-cell" style="background: oklch(94.00% 0.0480 215);">
+    <span><strong>proposed</strong></span>
+    <span>oklch(94.00% .048 215) · ~1.4× chroma</span>
+  </div>
+  <div class="swatch-cell" style="background: #ffffff; color: var(--col-ink-mid);">
+    <span style="font-weight:600;">Δ</span>
+    <span>chroma .035 → .048 · L held</span>
+  </div>
+</div>
+
+<div class="row-compare">
+  <div class="label-cell">amber-50<br/><span style="font-weight:400; font-size:10px;">callout-warning bg<br/><strong style="color:#832224;">RISK: hue-adj to sand</strong></span></div>
+  <div class="swatch-cell" style="background: oklch(96.00% 0.0200 85);">
+    <span><strong>current</strong></span>
+    <span>oklch(96.00% .020 85) · #f8f1e3</span>
+  </div>
+  <div class="swatch-cell" style="background: oklch(95.50% 0.0300 84);">
+    <span><strong>proposed</strong></span>
+    <span>oklch(95.50% .030 84) · ~1.5× chroma</span>
+  </div>
+  <div class="swatch-cell" style="background: #ffffff; color: var(--col-ink-mid);">
+    <span style="font-weight:600;">Δ</span>
+    <span>chroma .020 → .030 · L -0.5</span>
+  </div>
+</div>
+
+<div class="row-compare">
+  <div class="label-cell">green-50<br/><span style="font-weight:400; font-size:10px;">callout-success bg</span></div>
+  <div class="swatch-cell" style="background: oklch(96.00% 0.0250 155);">
+    <span><strong>current</strong></span>
+    <span>oklch(96.00% .025 155) · #e5f7eb</span>
+  </div>
+  <div class="swatch-cell" style="background: oklch(95.50% 0.0360 156);">
+    <span><strong>proposed</strong></span>
+    <span>oklch(95.50% .036 156) · ~1.4× chroma</span>
+  </div>
+  <div class="swatch-cell" style="background: #ffffff; color: var(--col-ink-mid);">
+    <span style="font-weight:600;">Δ</span>
+    <span>chroma .025 → .036 · L -0.5</span>
+  </div>
+</div>
+
+<div class="row-compare">
+  <div class="label-cell">red-50<br/><span style="font-weight:400; font-size:10px;">callout-error bg</span></div>
+  <div class="swatch-cell" style="background: oklch(96.00% 0.0200 30);">
+    <span><strong>current</strong></span>
+    <span>oklch(96.00% .020 30) · #ffedea</span>
+  </div>
+  <div class="swatch-cell" style="background: oklch(95.50% 0.0300 28);">
+    <span><strong>proposed</strong></span>
+    <span>oklch(95.50% .030 28) · ~1.5× chroma</span>
+  </div>
+  <div class="swatch-cell" style="background: #ffffff; color: var(--col-ink-mid);">
+    <span style="font-weight:600;">Δ</span>
+    <span>chroma .020 → .030 · L -0.5</span>
+  </div>
+</div>
+
+<h2>Stress test — amber callout on card on page (the warm-on-warm-on-warm case)</h2>
+<p class="lede" style="margin-bottom: 20px;">
+  HVD's specific flag: amber-50 and sand-50 are both in the H:80–85 band. Both lifting could compress the read
+  between "callout-warning bg" and "page ground." The middle column is the failure mode (sand lifts, amber doesn't —
+  the callout recedes). The right column is the fix (both lifted, callout reasserts).
+</p>
+
+<div class="context-grid">
+
+  <!-- BASELINE: current sand + current amber -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(98.50% 0.0030 85.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.10% 0.0082 81.00); padding: 20px;">
+      <span class="mock-pill">baseline · all current</span>
+      <div class="mock-card bordered" style="background: oklch(91.80% 0.0056 83.00); margin-top: 14px; padding: 14px 16px;">
+        <p class="mock-eyebrow">PATIENT INTAKE</p>
+        <h3 class="mock-h" style="font-size: 16px;">Maria Rivera — Week 3 review</h3>
+        <p class="mock-body" style="font-size: 12px;">Adherence at 78% last week. Spanish-language meal plan delivered Mon.</p>
+        <div style="background: oklch(96.00% 0.0200 85); border-left: 4px solid oklch(63.00% 0.1080 82); padding: 10px 12px; margin-top: 12px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #593e01;"><strong>Pay attention.</strong> Hypoglycemic episode reported Tues. Re-confirm sliding-scale dose with PCP before next refill.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAILURE MODE: new sand + current amber -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(96.80% 0.0110 82.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.00% 0.0150 79.00); padding: 20px;">
+      <span class="mock-pill" style="background: #f6cbc4; color: #832224;">failure · sand lifts, amber doesn't</span>
+      <div class="mock-card bordered" style="background: oklch(91.20% 0.0125 81.00); margin-top: 14px; padding: 14px 16px;">
+        <p class="mock-eyebrow">PATIENT INTAKE</p>
+        <h3 class="mock-h" style="font-size: 16px;">Maria Rivera — Week 3 review</h3>
+        <p class="mock-body" style="font-size: 12px;">Adherence at 78% last week. Spanish-language meal plan delivered Mon.</p>
+        <div style="background: oklch(96.00% 0.0200 85); border-left: 4px solid oklch(63.00% 0.1080 82); padding: 10px 12px; margin-top: 12px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #593e01;"><strong>Pay attention.</strong> Hypoglycemic episode reported Tues. Re-confirm sliding-scale dose with PCP before next refill.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIX: new sand + new amber -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(96.80% 0.0110 82.00); --mock-ink-strong: #25211d; --mock-ink-mid: #777069; --mock-border: oklch(85.00% 0.0150 79.00); padding: 20px;">
+      <span class="mock-pill">fix · both lifted</span>
+      <div class="mock-card bordered" style="background: oklch(91.20% 0.0125 81.00); margin-top: 14px; padding: 14px 16px;">
+        <p class="mock-eyebrow">PATIENT INTAKE</p>
+        <h3 class="mock-h" style="font-size: 16px;">Maria Rivera — Week 3 review</h3>
+        <p class="mock-body" style="font-size: 12px;">Adherence at 78% last week. Spanish-language meal plan delivered Mon.</p>
+        <div style="background: oklch(95.50% 0.0300 84); border-left: 4px solid oklch(63.00% 0.1080 82); padding: 10px 12px; margin-top: 12px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #593e01;"><strong>Pay attention.</strong> Hypoglycemic episode reported Tues. Re-confirm sliding-scale dose with PCP before next refill.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>Stress test — the four callouts together on the new sand-50 page</h2>
+<p class="lede" style="margin-bottom: 20px;">
+  HVD's other flag: the severity ramp cyan→amber→green→red is a learned grammar; if one lifts more than the others,
+  the reader's grammar shifts. This shows all four together on the new sand-50, current values on left, proposed on right —
+  the ramp's relative integrity is the test.
+</p>
+
+<div class="context-grid" style="grid-template-columns: 1fr 1fr;">
+
+  <!-- Current functional -50s on new sand-50 -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(96.80% 0.0110 82.00); padding: 20px;">
+      <span class="mock-pill">current functional -50s · on new sand</span>
+      <div style="margin-top: 14px;">
+        <div style="background: oklch(94.00% 0.0350 215); border-left: 4px solid oklch(50.00% 0.0900 235); padding: 10px 12px; margin-bottom: 8px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #003753;"><strong>Info.</strong> Meal plan synced to Maria's app.</p>
+        </div>
+        <div style="background: oklch(95.50% 0.0360 156); border-left: 4px solid oklch(55.00% 0.1050 160); padding: 10px 12px; margin-bottom: 8px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #00442c;"><strong>Success.</strong> All three refills processed.</p>
+        </div>
+        <div style="background: oklch(96.00% 0.0200 85); border-left: 4px solid oklch(63.00% 0.1080 82); padding: 10px 12px; margin-bottom: 8px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #593e01;"><strong>Warning.</strong> A1C trending up over 3 visits.</p>
+        </div>
+        <div style="background: oklch(96.00% 0.0200 30); border-left: 4px solid oklch(55.00% 0.1700 25); padding: 10px 12px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #661619;"><strong>Critical.</strong> Hypoglycemic event &mdash; PCP call required today.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proposed functional -50s on new sand-50 -->
+  <div class="mock">
+    <div class="mock-page" style="background: oklch(96.80% 0.0110 82.00); padding: 20px;">
+      <span class="mock-pill">proposed functional -50s · on new sand</span>
+      <div style="margin-top: 14px;">
+        <div style="background: oklch(94.00% 0.0480 215); border-left: 4px solid oklch(50.00% 0.0900 235); padding: 10px 12px; margin-bottom: 8px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #003753;"><strong>Info.</strong> Meal plan synced to Maria's app.</p>
+        </div>
+        <div style="background: oklch(95.50% 0.0360 156); border-left: 4px solid oklch(55.00% 0.1050 160); padding: 10px 12px; margin-bottom: 8px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #00442c;"><strong>Success.</strong> All three refills processed.</p>
+        </div>
+        <div style="background: oklch(95.50% 0.0300 84); border-left: 4px solid oklch(63.00% 0.1080 82); padding: 10px 12px; margin-bottom: 8px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #593e01;"><strong>Warning.</strong> A1C trending up over 3 visits.</p>
+        </div>
+        <div style="background: oklch(95.50% 0.0300 28); border-left: 4px solid oklch(55.00% 0.1700 25); padding: 10px 12px; border-radius: 2px;">
+          <p style="margin:0; font-size:12px; color: #661619;"><strong>Critical.</strong> Hypoglycemic event &mdash; PCP call required today.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  <p><strong>Round 1 — sand:</strong> at sand-50, v1 and v2 are identical; HVD-proposed is the only meaningfully different one. v1 ran warmer via <em>more lightness</em>; HVD via <em>more chroma at similar lightness</em> — two distinct axes. <em>Approved 2026-05-30.</em></p>
+  <p><strong>Round 2 — functional -50s:</strong> the question is whether the same surface-job → JND argument carries to cyan/amber/green/red. Stress test #1 shows the amber/sand collision risk (middle = failure mode, right = fix). Stress test #2 shows the severity-ramp integrity at current vs. proposed.</p>
+  <p><strong>Verdict moves:</strong> if the stress tests hold, ship the full set (sand-50/100/200/300 + cyan-50/amber-50/green-50/red-50). If amber fails the collision test, hold amber and ship the other three. If the ramp integrity feels off, all four hold and we revisit.</p>
+</div>
+
+</body>
+</html>
