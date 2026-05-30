@@ -63,11 +63,11 @@
   /* sand — warm neutral (single neutral). CANONICAL surface family.
      All semantic classes in components.css reference sand; the alias families
      below (stone/slate/gray/zinc/neutral) are defensive fallbacks only. */
-  --color-sand-50:  #fbfaf8;
-  --color-sand-100: #e6e4e0;
-  --color-sand-200: #d1cec8;
-  --color-sand-300: #bcb8b1;
-  --color-sand-400: #a8a39b;
+  --color-sand-50:  #f8f4ec;
+  --color-sand-100: #e4dfd7;
+  --color-sand-200: #cfcac2;
+  --color-sand-300: #bbb6ad;
+  --color-sand-400: #a8a298;
   --color-sand-500: #958e85;
   --color-sand-600: #777069;
   --color-sand-700: #5a544e;
@@ -76,11 +76,11 @@
   --color-sand-950: #0e0a08;
 
   /* red — error / critical */
-  --color-red-50:  #ffedea;
-  --color-red-100: #f6cbc4;
-  --color-red-200: #eca9a0;
-  --color-red-300: #df877d;
-  --color-red-400: #d1645c;
+  --color-red-50:  #ffe9e5;
+  --color-red-100: #fac8c1;
+  --color-red-200: #eea79e;
+  --color-red-300: #e0857c;
+  --color-red-400: #d1625b;
   --color-red-500: #c13c3b;
   --color-red-600: #a22f2f;
   --color-red-700: #832224;
@@ -89,11 +89,11 @@
   --color-red-950: #300205;
 
   /* amber — warning / caution */
-  --color-amber-50:  #f8f1e3;
-  --color-amber-100: #e8dbc1;
-  --color-amber-200: #d8c49e;
-  --color-amber-300: #c8ae7c;
-  --color-amber-400: #b99859;
+  --color-amber-50:  #faefda;
+  --color-amber-100: #e9d9b9;
+  --color-amber-200: #d9c399;
+  --color-amber-300: #c9ad78;
+  --color-amber-400: #b99757;
   --color-amber-500: #aa8232;
   --color-amber-600: #8e6a22;
   --color-amber-700: #735311;
@@ -102,11 +102,11 @@
   --color-amber-950: #291600;
 
   /* green — success / confirmation */
-  --color-green-50:  #e5f7eb;
-  --color-green-100: #c2dfcc;
-  --color-green-200: #9fc8ae;
-  --color-green-300: #7cb191;
-  --color-green-400: #579a76;
+  --color-green-50:  #def8e6;
+  --color-green-100: #bce0c9;
+  --color-green-200: #9ac8ac;
+  --color-green-300: #78b190;
+  --color-green-400: #549a75;
   --color-green-500: #2c845c;
   --color-green-600: #1b6e4c;
   --color-green-700: #07593b;
@@ -115,11 +115,11 @@
   --color-green-950: #001e0f;
 
   /* cyan — info / informational */
-  --color-cyan-50:  #d2f2fa;
-  --color-cyan-100: #aed6e3;
-  --color-cyan-200: #8bbbcd;
-  --color-cyan-300: #69a0b8;
-  --color-cyan-400: #4785a3;
+  --color-cyan-50:  #c8f4ff;
+  --color-cyan-100: #a6d8e8;
+  --color-cyan-200: #84bcd1;
+  --color-cyan-300: #64a1ba;
+  --color-cyan-400: #4485a4;
   --color-cyan-500: #236b8f;
   --color-cyan-600: #17597a;
   --color-cyan-700: #0a4866;
