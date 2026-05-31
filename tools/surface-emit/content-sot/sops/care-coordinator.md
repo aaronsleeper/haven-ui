@@ -8,6 +8,7 @@ accountable: Director of Clinical Operations
 slug: care-coordinator
 caps: [21, 24, 25, 27]
 caps_source: pattern-library/pages/doc-care-coordinator-sop.html header
+caps_note: M3 2026-05-27 added PHQ9 + 3-item anxiety screen administration to CC scope (CITI-trained CC under PI oversight). Absorbed 2026-05-31 (D2 pass). Cap reference for mental-health screening pending — flagged for Aaron's reconciliation against the SOP Coverage Map cap inventory.
 ---
 
 # Working the UConn Care Coordination Program
@@ -18,7 +19,7 @@ Care Coordinator · Standard Operating Procedure · Version 0.1 (draft) · Revie
 **Draft — example content pending clinical review and sign-off.** Do not use for training or to guide care until approved.
 :::
 
-This procedure covers how you, as a care coordinator, run the UConn pilot week to week — working your roster, completing weekly check-ins, logging contact, handling appointment requests, and escalating concerns to the clinical team.
+This procedure covers how you, as a care coordinator, run the UConn pilot week to week — working your roster, completing weekly check-ins, logging contact, handling appointment requests, and escalating concerns to the clinical team. It also covers your mental-health screening responsibilities at baseline and the repeat-screening milestones during the intervention.
 
 ## Scope
 
@@ -27,7 +28,7 @@ What this role covers, and where its boundaries are.
 | | |
 |---|---|
 | **For** | Cena care coordinators supporting participants in the UConn Health food-as-medicine pilot. |
-| **Covers** | Working the patient roster, weekly check-in calls, logging contact attempts and outcomes, handling appointment requests, and escalating safety or medical concerns. |
+| **Covers** | Working the patient roster, weekly check-in calls, logging contact attempts and outcomes, handling appointment requests, escalating safety or medical concerns, and administering the PHQ9 and 3-item anxiety screen at baseline (in the in-person first visit) and the program's repeat-screening milestones. |
 | **Does not cover** | Clinical or dietary counseling (the registered dietitian's role), diagnoses, or booking appointments outside Athena. Route those to the registered dietitian or escalate. |
 
 ## The weekly routine
@@ -72,6 +73,20 @@ Two everyday branches, then the escalation flags that decide when the clinical t
 **A participant reports a safety or medical concern.** Escalate to the UConn clinical team per the UConn escalation protocol — do not wait for the next scheduled check-in.
 :::
 
+## Mental-health screening — PHQ9 and 3-item anxiety
+
+Two screenings the care coordinator owns. Administered at baseline (in the in-person first visit, alongside the dietitian's assessments) and again at the program's repeat-screening milestones. Per IRB protocol, these may not be administered by the dietitian or by UConn student researchers.
+
+1. **Administer the PHQ9.** In the Cena assessment forms on the participant record. Result: the participant's depression-screening score is captured and saved on the record. _Note: this is one of the IRB protocol's baseline assessments — accuracy now matters because it repeats and the comparison is what shows change._ `[CONFIRM build state — PHQ9 admin UI in Care-coordinator app]`
+
+2. **Administer the 3-item anxiety screen.** In the Cena assessment forms. Result: the anxiety-screening score is captured. _Note: paired with the PHQ9; both belong to the same baseline set._ `[CONFIRM build state — 3-item anxiety admin UI in Care-coordinator app]`
+
+3. **Watch for response triggers and escalate if needed.** If either screen surfaces a positive response that meets the protocol's escalation threshold, escalate to the UConn clinical team the same day — do not wait for the next weekly check-in. `[NEEDS HEALTHCARE DATA GOVERNANCE REVIEW — PHQ9 / anxiety-screen positive-response thresholds and escalation protocol under CT scope-of-practice]`
+
+::: callout-info
+**Scope-of-practice note.** The PHQ9 and 3-item anxiety screen are administered by the CITI-trained care coordinator under PI oversight. The administration scope under Connecticut licensure is pending confirmation from Healthcare Data Governance — until confirmed, follow PI guidance for any positive-response handling.
+:::
+
 ## Quick reference
 
 The weekly routine, condensed to a tickable list.
@@ -85,6 +100,7 @@ Each week, for every participant
 - [ ] Capture adherence, barriers, and wraparound needs
 - [ ] Log the contact outcome and set the next-touch plan
 - [ ] Raise a flag if the participant is unreachable or a concern surfaced
+- [ ] At a baseline or repeat-screening milestone — administer the PHQ9 and the 3-item anxiety screen; escalate positive responses the same day
 
 ## Terms used in this SOP
 
@@ -123,6 +139,20 @@ Flag
 :::
 ::: glossary-def
 A signal that a participant needs attention: red (unreachable), yellow (a concern came up), or green (on track).
+:::
+
+::: glossary-term
+PHQ9
+:::
+::: glossary-def
+A nine-question depression screening tool. Administered by the care coordinator at baseline and at the program's repeat-screening milestones.
+:::
+
+::: glossary-term
+3-item anxiety screen
+:::
+::: glossary-def
+A three-question anxiety screening, paired with the PHQ9 in the same baseline assessment set.
 :::
 
 ## Sign-off

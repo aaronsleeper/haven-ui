@@ -8,7 +8,7 @@ accountable: Director of Clinical Operations
 slug: registered-dietitian
 caps: [14, 15]
 caps_source: pattern-library/pages/doc-rd-sop.html header
-caps_note: Coverage Map row lists 14/15/06/16; HTML lists 14/15 only; using HTML as canonical artifact source. Drift flagged for Aaron's later reconciliation.
+caps_note: Coverage Map row lists 14/15/06/16; HTML lists 14/15 only; using HTML as canonical artifact source. Drift flagged for Aaron's later reconciliation. M3 2026-05-27 refinements absorbed 2026-05-31 (D2 pass) — in-person first visit framing (consent execution + RDN rapport), baseline assessments at first visit (HFIAS, HEI, WHOQOL-HIV BREF, NKQ; PHQ9 NOT in RD scope), meal plan vs care plan separation, sessions 2-5 modality inverted to virtual-default per M3.
 ---
 
 # Delivering UConn Nutrition Counseling Sessions
@@ -19,7 +19,7 @@ Registered Dietitian · Standard Operating Procedure · Version 0.1 (draft) · R
 **Draft — example content pending clinical review and sign-off.** Do not use for training or to guide care until approved.
 :::
 
-This procedure covers how you, as a registered dietitian, deliver the UConn pilot's nutrition counseling sessions — running each session, capturing encounter notes in Athena, and reviewing the participant's care plan and outcomes in the Cena platform.
+This procedure covers how you, as a registered dietitian, deliver the UConn pilot's nutrition counseling sessions — running each session, capturing encounter notes in Athena, and reviewing the participant's care plan and outcomes in the Cena platform. It also covers what you own at the in-person first visit: written consent execution, the nutrition baseline assessments, and building the initial care plan and meal plan. The Enrollment & Onboarding SOP details the full first-visit flow across roles; this SOP details your share of it.
 
 ## Scope
 
@@ -28,14 +28,28 @@ What this role covers, and where its boundaries are.
 | | |
 |---|---|
 | **For** | Registered dietitians delivering counseling sessions for the UConn Health food-as-medicine pilot. |
-| **Covers** | Delivering the five counseling sessions (Months 0, 2, 4, 6, 9), capturing encounter notes in Athena, and reviewing each participant's care plan and outcomes in the Cena platform. |
-| **Does not cover** | Weekly care-coordination check-ins, contact logging, or appointment booking (the care coordinator's role). Scheduling is handled in Athena by the care coordinator. |
+| **Covers** | Executing written consent at the in-person first visit; administering the nutrition baseline assessments (HFIAS, HEI, WHOQOL-HIV BREF, NKQ); building the initial care plan and personalized meal plan; delivering the five counseling sessions (Months 0, 2, 4, 6, 9); capturing encounter notes in Athena; reviewing each participant's care plan and outcomes in Cena. |
+| **Does not cover** | Weekly care-coordination check-ins, contact logging, or appointment booking (the care coordinator's role); PHQ9 administration and the 3-item anxiety screen (also the care coordinator's role per IRB protocol). Scheduling is handled in Athena by the care coordinator. |
 
-## Each counseling session
+## The in-person first visit (Month 0)
 
-The same flow for every session in the schedule. Notes live in Athena; the care plan lives in Cena.
+The first visit is in person — required for written consent execution and to establish rapport with the participant. The full visit flow across roles is in the Enrollment & Onboarding SOP; below is what's yours.
 
-1. **Deliver the counseling session.** In person for the first session; later sessions follow the Month 0 / 2 / 4 / 6 / 9 schedule. Result: a completed counseling encounter for the participant. _Note: the contract allows sessions 2–5 to be remote, but Cena committed to all-in-person; deliver in person unless this has been reconciled with UConn._
+1. **Execute written consent.** On the UConn-provided IRB consent form, in person with the participant. Hand the signed form to the program administrator the same day for digitization and filing on the record. _Note: written consent is required before any baseline assessment proceeds._
+
+2. **Administer the nutrition baseline assessments.** In the Cena assessment forms on the participant record. Result: HFIAS, HEI (via 24-hour dietary recall), WHOQOL-HIV BREF, and NKQ are completed and scored. _Note: do not administer the PHQ9 or the 3-item anxiety screen — those belong to the care coordinator per IRB protocol._
+
+3. **Confirm the full baseline set is captured before building the care plan.** Care coordinator's PHQ9 + 3-item anxiety must also be on the record. _Note: this is the baseline-before-intervention invariant — if any baseline is missing at the close of the visit, schedule a follow-up to complete it before the care plan begins._
+
+4. **Build the initial care plan.** In [Cena platform → Care plan]{.screen-ref}, seeded from intake and the baseline assessments. Result: an individualized nutrition care plan and goals.
+
+5. **Build the personalized meal plan.** In [Cena platform → Meal plan]{.screen-ref}, alongside the care plan. Informed by dietary preferences, cultural food preferences, and the participant's dietary requirements. `[NEEDS VANESSA CONFIRMATION — meal plan separation from care plan, and Dr. Woo's role on dietary requirements]`
+
+## Each counseling session (Months 2, 4, 6, 9)
+
+The same flow for the follow-up sessions. Notes live in Athena; the care plan lives in Cena.
+
+1. **Deliver the counseling session.** Per the participant's chosen modality (see "Session modality" below). Result: a completed counseling encounter for the participant.
 
 2. **Capture your encounter notes in Athena.** On the participant's encounter — use the quick-snippet pick-lists for fluid note-taking. Result: notes saved to the billable encounter in Athena. _Note: Athena is the system of record for billable encounters — do not re-enter notes into Cena. Cena pulls them from Athena and files them on the patient record for you._
 
@@ -48,9 +62,11 @@ Two routing decisions that come up every session — session modality, and which
 ### Session modality
 
 ::: decision-branch
-**The first session (Month 0)** — Always in person; the contract requires it.
+**The first session (Month 0)** — Always in person; required for written consent execution and to establish rapport.
 
-**Sessions 2–5** — In person by default (Cena's commitment). If remote is needed, reconcile with UConn before scheduling.
+**Sessions 2–5 (Months 2, 4, 6, 9)** — Virtual permitted by default. Reconciled with UConn on 2026-05-27; supersedes Cena's earlier all-in-person commitment.
+
+**Tech-limited fallback** — If the participant cannot complete the session virtually (no internet; flip phone; low-tech; elderly; dementia), they come in for a guided in-person demo. Cena's phone- and transcription-supported workflow handles ongoing support.
 :::
 
 ### Which system holds the data
@@ -69,7 +85,8 @@ The session flow, condensed to a tickable list.
 Every counseling session
 :::
 
-- [ ] Confirm the session modality (session 1 in person; later sessions in person by default)
+- [ ] Confirm the session modality (session 1 in person; later sessions virtual-permitted by default; in-person fallback for tech-limited)
+- [ ] At the in-person first visit — execute written consent; administer HFIAS, HEI, WHOQOL-HIV BREF, NKQ; confirm CC's PHQ9 + 3-item anxiety are captured; build the care plan and meal plan
 - [ ] Deliver the counseling session
 - [ ] Capture encounter notes in Athena (not Cena)
 - [ ] Review the care plan and outcomes in Cena
@@ -96,7 +113,21 @@ The system where encounters are recorded and coded for reimbursement. It is the 
 Care plan
 :::
 ::: glossary-def
-The participant's nutrition plan in Cena — it updates as you learn more across sessions.
+The participant's individualized nutrition care plan and goals — built at the in-person first visit and updated across sessions.
+:::
+
+::: glossary-term
+Meal plan
+:::
+::: glossary-def
+The participant's personalized meal plan — informed by dietary preferences, cultural food preferences, and dietary requirements. Built alongside the care plan at the in-person first visit.
+:::
+
+::: glossary-term
+Baseline assessments
+:::
+::: glossary-def
+Six standard questionnaires given at the in-person first visit (and again at later months). The dietitian administers HFIAS, HEI, WHOQOL-HIV BREF, and NKQ. The care coordinator administers the PHQ9 and the 3-item anxiety screen. All six must complete before the care plan begins.
 :::
 
 ::: glossary-term
