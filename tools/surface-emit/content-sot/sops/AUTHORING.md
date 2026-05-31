@@ -38,15 +38,56 @@ Use `role:` for single-role SoPs and `roles:` (array) for multi-role process SoP
 
 Every SoP uses the same scaffold. The structure exists so reviewers can build a mental model that survives across SoPs; deviate only when you have a real reason.
 
-1. **Title block + masthead** — H1 + a paragraph naming role / type / version / review date
-2. **Scope** — what this SoP covers and where its boundaries are (always a 3-row table: For / Covers / Does not cover)
-3. **The procedure** — numbered list of action-prose-result steps in order
-4. **Decision branches and/or escalation** — `:::decision-branch` for routing forks, `:::callout-warning/error/success` for severity flags, `:::escalation` for "what to do when something already broke"
-5. **Quick reference** — `:::card-title` header followed by a tickable checklist
-6. **Terms used in this SoP** — `:::glossary-term` / `:::glossary-def` pairs
-7. **Sign-off** — `:::attestation` followed by `:::attestation-gate` entries; honest about which gates are pending
+The names below are **internal section names** — the authoring vocabulary the team uses to organize itself. **Never ship these names directly as reader-facing headings.** Each SoP rewrites the heading to name the reader's payoff in their context — see "Heading labels" below.
 
-(Yes that's seven — the masthead and Scope are usually treated as one block by readers, hence "six." Count by visual sections, not by HTML structure.)
+1. **Title block + masthead** — H1 + a paragraph naming role / type / version / review date
+2. **Scope section** — what this SoP covers and where its boundaries are (always a 3-row table: For / Covers / Does not cover)
+3. **Procedure section** — numbered list of action-prose-result steps in order
+4. **Decision branches and/or escalation** — `:::decision-branch` for routing forks, `:::callout-warning/error/success` for severity flags, `:::escalation` for "what to do when something already broke"
+5. **Quick-reference section** — `:::card-title` header followed by a tickable checklist
+6. **Glossary section** — `:::glossary-term` / `:::glossary-def` pairs
+7. **Sign-off section** — `:::attestation` followed by `:::attestation-gate` entries; honest about which gates are pending
+
+(Yes that's seven — the masthead and Scope section are usually treated as one block by readers, hence "six." Count by visual sections, not by HTML structure.)
+
+## Heading labels — the scaffolding-leak rule
+
+The most common SoP failure mode is shipping internal section names as reader-facing headings. The team calls section 2 the "Scope section"; the reader sees `## Scope` and reads it as the team's bucket label, not a question they had. The fix: **every section gets a reader-facing heading that names what the reader will get, not what the team called the bucket.**
+
+Origin: 2026-05-31 Content Design D3 pass on the first 4 staff SoPs flagged `## Scope`, `## Quick reference`, `## Terms used in this SOP`, and `## Sign-off` as the canonical scaffolding-leak catch across all 4 SoPs — same shape as the CAA "Key messages" catch (where a per-module IA template slot label shipped as the rendered page heading). Fixed at this layer (the contract) so every future SoP inherits the discipline.
+
+### Don't ship these names as headings
+
+- `## Scope`
+- `## The procedure` (or `## The weekly routine`, `## Recurring administration tasks` etc. when those name the team's bucket more than the reader's job)
+- `## Decision branches`, `## Escalation flags`
+- `## Quick reference`
+- `## Terms used in this SoP`
+- `## Sign-off`
+
+### Heading patterns that work
+
+Lead with the reader's job, the answer-shape, or the decision; not the artifact-type.
+
+- **Scope section** — `## Who this is for and what it covers` · `## Is this the right procedure for you` · `## What you do, and what you don't`
+- **Procedure section** — name the start-state → end-state arc, verb-led: `## From referral to enrolled` · `## Each counseling session` · `## Each week, for every participant`
+- **Decision-branch sections** — name **what to do + when + the deciding factor**, not the topic: `## Access requests — give only when training is current` (not `## When someone needs access`) · `## Two consent layers — verify both before the care plan begins` (not `## How consent arrives`) · `## Two routing decisions — modality and where data lives` (not `## Where things go`)
+- **Escalation sections** — front-load the stakes: `## Escalation — when to involve the clinical team` · `## Red, yellow, green — what each means and what to do`
+- **Quick-reference section** — promote the inner `card-title` to the section heading (drop the outer "Quick reference" label entirely): `## For every new referral — the 7-day checklist` · `## Keep current — the standing checks` · `## Each week, for every participant — the routine checklist` · `## Every counseling session — the checklist`
+- **Glossary section** — `## Terms used here` or `## Glossary`. Drop "in this SoP" — the reader knows they're in a thing
+- **Sign-off section** — `## Approval status` · `## Not yet approved — gates remaining`
+
+### Scent test for every heading
+
+Before shipping a section heading, ask: would the target reader, scanning, know why to stop here and what they'll get?
+
+- Heading names the team's artifact-type or template slot → rewrite for the reader's payoff
+- Heading names the topic without an answer-shape (e.g., "Where things go") → rewrite to name **what to do + when + the deciding factor**
+- A sub-heading or `card-title` underneath is doing better scent work → promote it; drop the outer label
+
+### Where this rule comes from
+
+This rule is the contract-level fix from the [generative-determinism](../../../../../.claude/rules/generative-determinism.md) discipline applied to SoP emission: the **pipeline contract** (this AUTHORING.md + the [Clinical Staff SOP entity doc](../../../../../Knowledge/Areas/Meta/Entities/workflows/clinical-staff-sop.md)) names internal authoring vocabulary; **per-SoP instances** rewrite for the reader. Fixing it at the contract layer propagates to every future SoP this pipeline emits.
 
 ## Directive vocabulary
 

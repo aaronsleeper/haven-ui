@@ -8,7 +8,7 @@ accountable: Director of Clinical Operations
 slug: registered-dietitian
 caps: [14, 15]
 caps_source: pattern-library/pages/doc-rd-sop.html header
-caps_note: Coverage Map row lists 14/15/06/16; HTML lists 14/15 only; using HTML as canonical artifact source. Drift flagged for Aaron's later reconciliation. M3 2026-05-27 refinements absorbed 2026-05-31 (D2 pass) — in-person first visit framing (consent execution + RDN rapport), baseline assessments at first visit (HFIAS, HEI, WHOQOL-HIV BREF, NKQ; PHQ9 NOT in RD scope), meal plan vs care plan separation, sessions 2-5 modality inverted to virtual-default per M3.
+caps_note: Coverage Map row lists 14/15/06/16; HTML lists 14/15 only; using HTML as canonical artifact source. Drift flagged for Aaron's later reconciliation. M3 2026-05-27 refinements absorbed 2026-05-31 (D2 pass) — in-person first visit framing (consent execution + RDN rapport), baseline assessments at first visit (HFIAS, HEI, WHOQOL-HIV BREF, NKQ; PHQ9 NOT in RD scope), meal plan vs care plan separation, sessions 2-5 modality inverted to virtual-default per M3. Version history — sessions 2-5 virtual-default was reconciled with UConn on 2026-05-27; supersedes Cena's earlier all-in-person commitment (moved here from body 2026-05-31 D3 pass — version history belongs in frontmatter not procedural body).
 ---
 
 # Delivering UConn Nutrition Counseling Sessions
@@ -19,9 +19,9 @@ Registered Dietitian · Standard Operating Procedure · Version 0.1 (draft) · R
 **Draft — example content pending clinical review and sign-off.** Do not use for training or to guide care until approved.
 :::
 
-This procedure covers how you, as a registered dietitian, deliver the UConn pilot's nutrition counseling sessions — running each session, capturing encounter notes in Athena, and reviewing the participant's care plan and outcomes in the Cena platform. It also covers what you own at the in-person first visit: written consent execution, the nutrition baseline assessments, and building the initial care plan and meal plan. The Enrollment & Onboarding SOP details the full first-visit flow across roles; this SOP details your share of it.
+This procedure covers how you, as a registered dietitian, deliver the UConn pilot's nutrition counseling sessions — running each session, capturing encounter notes in Athena, and reviewing the participant's care plan and outcomes in the Cena platform. It also covers what you own at the in-person first visit: written consent execution, the nutrition baseline assessments, and building the initial care plan and meal plan.
 
-## Scope
+## Who this is for and what it covers
 
 What this role covers, and where its boundaries are.
 
@@ -55,18 +55,18 @@ The same flow for the follow-up sessions. Notes live in Athena; the care plan li
 
 3. **Review the care plan and outcomes in Cena.** In [Cena platform → Participant detail]{.screen-ref}. Result: the care plan reflects the latest session and the participant's current outcomes. _Note: patient-experience data — food preferences and care-plan changes — lives in Cena, not Athena._
 
-## Where things go
+## Two routing decisions — modality and where data lives
 
-Two routing decisions that come up every session — session modality, and which system holds which data.
+Two decisions that come up every session — session modality, and which system holds which data.
 
 ### Session modality
 
 ::: decision-branch
 **The first session (Month 0)** — Always in person; required for written consent execution and to establish rapport.
 
-**Sessions 2–5 (Months 2, 4, 6, 9)** — Virtual permitted by default. Reconciled with UConn on 2026-05-27; supersedes Cena's earlier all-in-person commitment.
+**Sessions 2–5 (Months 2, 4, 6, 9)** — Virtual permitted by default.
 
-**Tech-limited fallback** — If the participant cannot complete the session virtually (no internet; flip phone; low-tech; elderly; dementia), they come in for a guided in-person demo. Cena's phone- and transcription-supported workflow handles ongoing support.
+**Tech-limited fallback** — If the participant cannot complete the session virtually — no internet, a phone without video, or any other access limit — they come in for a guided in-person session. Cena's phone- and transcription-supported workflow handles ongoing support.
 :::
 
 ### Which system holds the data
@@ -77,13 +77,9 @@ Two routing decisions that come up every session — session modality, and which
 **Patient-experience data** — Cena. Food preferences, care-plan iteration, and custom outcomes.
 :::
 
-## Quick reference
+## Every counseling session — the checklist
 
 The session flow, condensed to a tickable list.
-
-::: card-title
-Every counseling session
-:::
 
 - [ ] Confirm the session modality (session 1 in person; later sessions virtual-permitted by default; in-person fallback for tech-limited)
 - [ ] At the in-person first visit — execute written consent; administer HFIAS, HEI, WHOQOL-HIV BREF, NKQ; confirm CC's PHQ9 + 3-item anxiety are captured; build the care plan and meal plan
@@ -91,7 +87,7 @@ Every counseling session
 - [ ] Capture encounter notes in Athena (not Cena)
 - [ ] Review the care plan and outcomes in Cena
 
-## Terms used in this SOP
+## Terms used here
 
 Plain-language definitions, no system jargon.
 
@@ -144,7 +140,7 @@ Patient-experience data
 What lives in Cena rather than Athena — food preferences, care-plan changes, and custom outcomes.
 :::
 
-## Sign-off
+## Approval status
 
 An RD SOP clears more than one gate. It is approved for training only when all of them are signed.
 

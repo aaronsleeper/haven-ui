@@ -19,18 +19,18 @@ Program Operations · Standard Operating Procedure · Version 0.1 (draft) · Rev
 **Draft — example content pending clinical and operational review.** Do not use for training or to enroll participants until approved.
 :::
 
-This procedure takes a participant from UConn referral to enrolled and onboarded — the handoff from care coordinator to registered dietitian. The contract sets the pace: **intake happens within 7 days of the referral.**
+This procedure takes a participant from UConn referral to enrolled and onboarded — the handoff from care coordinator to registered dietitian. **Intake happens within 7 days of the referral** — that's the contract.
 
-UConn captures verbal consent at screening, before the referral comes to you. **Written consent is executed at the in-person first visit with the dietitian** — that visit is required to be in person; all subsequent visits may be virtual. **All baseline assessments must complete before the care plan begins** — that's the invariant.
+UConn captures verbal consent at screening, before the referral comes to you. **Written consent is executed at the in-person first visit with the dietitian.** That first visit must be in person; every visit after it may be virtual. **All baseline assessments must complete before the care plan begins** — that's the invariant.
 
-## Scope
+## Who this is for and what it covers
 
 A shared procedure across two roles. Each step names who owns it.
 
 | | |
 |---|---|
 | **For** | Cena care coordinators and registered dietitians enrolling participants into the UConn Health pilot. |
-| **Covers** | Receiving a referral, obtaining consent, creating the participant record, completing the intake assessment within 7 days, administering the baseline assessments, and kicking off the care plan. |
+| **Covers** | Receiving a referral, obtaining consent, creating the participant record, completing the intake assessment within 7 days, administering the baseline assessments, and starting the care plan. |
 | **Does not cover** | Ongoing weekly check-ins (Care Coordinator SOP) or the recurring counseling sessions (Registered Dietitian SOP). UConn owns screening and referral generation upstream. |
 
 ## From referral to enrolled
@@ -47,7 +47,7 @@ Work the steps in order. The first five are the care coordinator's; the in-perso
 
 5. **Care Coordinator — Complete the intake assessment.** In the intake form on the participant record, before or during the in-person first visit. Result: demographics, medical history, dietary assessment, and cultural food preferences are captured. _Note: some fields import from Athena or the referral; the rest come from talking with the participant._
 
-6. **In-person first visit — written consent and baseline assessments.** At the in-person appointment, with the participant, the dietitian, and the care coordinator. Three things happen here:
+6. **In-person first visit — written consent and baseline assessments.** At the in-person appointment, with the participant, the dietitian, and the care coordinator:
 
    - **Registered Dietitian — Execute written consent.** On the UConn-provided consent form. Scan the signed form to PDF and file it on the participant record in Athena. _Note: written consent is required before any baseline assessment proceeds. Paper-only signatures must be scanned the same day._
    - **Care Coordinator — Administer the PHQ9 and the 3-item anxiety screen.** In the Cena assessment forms. Result: depression and anxiety screening results are recorded on the participant record. _Note: PHQ9 administration is the care coordinator's responsibility — not the dietitian's and not the UConn student researcher's — and requires CITI training, performed under PI oversight._ `[CONFIRM build state — PHQ9 admin UI in Care-coordinator app]` `[NEEDS HEALTHCARE DATA GOVERNANCE REVIEW — CITI vs CT scope-of-practice for PHQ9 administration]`
@@ -61,7 +61,7 @@ Work the steps in order. The first five are the care coordinator's; the in-perso
 **Baseline-before-intervention invariant.** The care plan does not begin until every baseline assessment in Step 6 is captured on the record — HFIAS, HEI, WHOQOL-HIV BREF, NKQ, PHQ9, and the 3-item anxiety screen. If any are missing at the close of the in-person first visit, schedule a follow-up to complete them before starting the care plan.
 :::
 
-## How consent arrives
+## Two consent layers — verify both before the care plan begins
 
 Consent has two layers. UConn captures verbal consent at screening; Cena captures written consent at the in-person first visit. Confirm both layers are on the record before the care plan begins.
 
@@ -73,13 +73,9 @@ Consent has two layers. UConn captures verbal consent at screening; Cena capture
 **Out-of-process referral** — external / non-CommonWell referrals handled case-by-case with two-way confirmation. The two consent layers still apply.
 :::
 
-## Quick reference
+## For every new referral — the 7-day checklist
 
 The 7-day enrollment, condensed to a tickable list.
-
-::: card-title
-For every new referral
-:::
 
 - [ ] Acknowledge the referral and start the 7-day clock
 - [ ] Verify screening consent (UConn-side) on the participant record
@@ -92,7 +88,7 @@ For every new referral
 - [ ] Build the initial care plan only after all baseline assessments are captured (RD)
 - [ ] Build the personalized meal plan alongside the care plan (RD)
 
-## Terms used in this SOP
+## Terms used here
 
 Plain-language definitions, no system jargon.
 
@@ -152,7 +148,7 @@ Meal plan
 The participant's personalized meal plan, informed by dietary preferences, cultural food preferences, and dietary requirements. Built alongside the care plan at the in-person first visit.
 :::
 
-## Sign-off
+## Approval status
 
 This procedure clears more than one gate. It is approved for use only when all are signed.
 

@@ -23,9 +23,9 @@ Program Administrator · Standard Operating Procedure · Version 0.1 (draft) · 
 **Proposed task set — confirm with Vanessa.** The admin role's exact responsibilities are not yet finalized. The tasks below are a starting proposal drawn from the pilot's operational needs; treat them as a draft to react to, not a settled scope.
 :::
 
-The administrator keeps the program's operational backbone in place — staff readiness, system access, materials, data requests, and subcontractors — so the clinical team can focus on participants.
+As the administrator, you keep five things current so the clinical team can focus on participants: staff readiness, system access, materials, UConn data requests, and subcontractor onboarding.
 
-## Scope
+## Who this is for and what it covers
 
 What this role covers, and where its boundaries are (proposed).
 
@@ -35,39 +35,35 @@ What this role covers, and where its boundaries are (proposed).
 | **Covers** | Staff training and credential tracking, system-access provisioning, materials-distribution tracking, consent-form digitization and storage, UConn data-export requests, and subcontractor onboarding. |
 | **Does not cover** | Clinical work (Registered Dietitian), participant care coordination (Care Coordinator), or participant enrollment intake (Enrollment & Onboarding SOP). |
 
-## Recurring administration tasks
+## Your standing responsibilities
 
-The standing responsibilities that keep the program compliant and running.
+What keeps the program compliant and running.
 
 1. **Track staff training and credentials.** In the staff training tracker — every staff member and MPH student. Result: everyone who touches participant data has current CITI / IRB training on file. _Note: someone without current training must not be given access to participant data._
 
-2. **Provision role-based system access.** In the system admin settings. Result: each person has exactly the access their role requires under the IRB protocol — no more.
+2. **Give each person the system access their role needs.** In the system admin settings. Result: each person has the access their role requires under the IRB protocol — and no more than that. The cap protects participant data.
 
 3. **Track materials distribution.** In the materials-distribution tracker. Result: a record of which educational materials and recipe booklets (English / Spanish) reached which participant.
 
-4. **Fulfill UConn data-export requests.** Through the data-export process. Result: requested data delivered to UConn in a non-proprietary format within 15 days. _Note: the 15-day turnaround is a contract requirement — start promptly when a request comes in._
+4. **Send UConn the data they requested.** Through the data-export process. Result: requested data delivered in a format UConn can open without Cena's tools (a non-proprietary format) within 15 days. _Note: the 15-day turnaround is a contract requirement — start promptly when a request comes in._
 
 5. **Onboard subcontractors with signed BAAs.** Through the subcontractor onboarding checklist. Result: kitchen, delivery, and clinical subcontractors are onboarded with a signed BAA before they handle any participant data.
 
 6. **Digitize and store signed consent forms.** Scan paper consent forms signed at the in-person first visit to PDF; file the PDF on the participant record in Athena the same day the form is signed. Result: every active participant has a signed-consent PDF on their record; no paper consents persist outside Athena. _Note: this supersedes the earlier "locked-cabinet paper copies" approach. The signed PDF is the only canonical consent artifact going forward._ `[CONFIRM build state — consent-PDF upload workflow in admin app]` `[NEEDS VANESSA CONFIRMATION — digitization owner: admin role or shared with care coordinator]`
 
-## When someone needs access
+## Access requests — give only when training is current
 
 The one branch that comes up often — and the gate that protects participant data.
 
 ::: decision-branch
-**Their CITI / IRB training is current** — Provision the access their role requires under the IRB protocol.
+**Their CITI / IRB training is current** — Give the access their role requires under the IRB protocol.
 
-**Their training is missing or expired** — Hold access until training is complete. No participant-data access without current training.
+**Their training is missing or expired** — Hold access until training is complete. Participant-data access requires current training — no exceptions.
 :::
 
-## Quick reference
+## Keep current — the standing checks
 
 The standing checks, condensed.
-
-::: card-title
-Keep current
-:::
 
 - [ ] Every staff member and MPH student has current CITI / IRB training
 - [ ] System access matches each person's role under the IRB protocol
@@ -76,7 +72,7 @@ Keep current
 - [ ] Every active subcontractor has a signed BAA on file
 - [ ] Every active participant has a signed-consent PDF filed in Athena
 
-## Terms used in this SOP
+## Terms used here
 
 Plain-language definitions.
 
@@ -122,7 +118,7 @@ Signed-consent PDF
 The participant's paper IRB-consent form, signed at the in-person first visit and scanned to PDF the same day. The PDF is the canonical consent artifact, filed on the participant record in Athena.
 :::
 
-## Sign-off
+## Approval status
 
 Approved for use only when the scope is confirmed and the gates are signed.
 

@@ -19,9 +19,11 @@ Care Coordinator · Standard Operating Procedure · Version 0.1 (draft) · Revie
 **Draft — example content pending clinical review and sign-off.** Do not use for training or to guide care until approved.
 :::
 
-This procedure covers how you, as a care coordinator, run the UConn pilot week to week — working your roster, completing weekly check-ins, logging contact, handling appointment requests, and escalating concerns to the clinical team. It also covers your mental-health screening responsibilities at baseline and the repeat-screening milestones during the intervention.
+This procedure covers how you, as a care coordinator, run the UConn pilot week to week — working your roster, completing weekly check-ins, logging contact, handling appointment requests, and escalating concerns to the clinical team.
 
-## Scope
+It also covers two mental-health screenings you administer — the PHQ9 and a 3-item anxiety screen — at baseline (during the in-person first visit) and again at the program's repeat-screening milestones.
+
+## Who this is for and what it covers
 
 What this role covers, and where its boundaries are.
 
@@ -33,7 +35,7 @@ What this role covers, and where its boundaries are.
 
 ## The weekly routine
 
-For the 26-week intervention, each participant gets one check-in per week. Work the routine in order.
+Work the routine in order — one check-in per participant per week for the 26-week intervention.
 
 1. **Open your roster and find who is due this week.** In [Care-coordinator app → Roster]{.screen-ref}, participants are sorted by days since last contact. Participants with the longest gap appear at the top — work from there.
 
@@ -41,19 +43,15 @@ For the 26-week intervention, each participant gets one check-in per week. Work 
 
 3. **Capture the check-in and log the outcome.** Fill the check-in fields: adherence, barriers, wraparound needs, and a next-touch plan. Record the contact outcome — successful, voicemail, no answer, refused, or deferred.
 
-## Handling requests and concerns
+## Escalation — when to involve the clinical team
 
-Two everyday branches, then the escalation flags that decide when the clinical team gets involved.
+The two highest-stakes responses. Read first.
 
-### Everyday routing
-
-::: decision-branch
-**A participant requests an appointment** — You receive an email in your queue. Book the visit in Athena, then confirm the time with the participant.
-
-**A check-in call goes unanswered** — Log the outcome (voicemail / no answer). Missed-visit outreach is auto-flagged at 48 hours.
+::: escalation
+**A participant reports a safety or medical concern.** Escalate to the UConn clinical team per the UConn escalation protocol — do not wait for the next scheduled check-in. `[NEEDS VANESSA / MARRERO — first action specifics for an at-the-time-of-call safety escalation]`
 :::
 
-### Escalation flags
+### Red, yellow, green — what each means and what to do
 
 ::: callout-error
 **Red flag — no response within 3 days.** Place a follow-up call within the next 2 days.
@@ -64,18 +62,22 @@ Two everyday branches, then the escalation flags that decide when the clinical t
 :::
 
 ::: callout-success
-**Green — engaged and on track.** Continue the routine weekly cadence; no action needed.
+**Green flag — engaged and on track.** Continue the routine weekly cadence; no action needed.
 :::
 
-### If a safety or medical concern comes up
+## Everyday routing — requests and missed calls
 
-::: escalation
-**A participant reports a safety or medical concern.** Escalate to the UConn clinical team per the UConn escalation protocol — do not wait for the next scheduled check-in.
+The two everyday branches.
+
+::: decision-branch
+**A participant requests an appointment** — You receive an email in your queue. Book the visit in Athena, then confirm the time with the participant.
+
+**A check-in call goes unanswered** — Log the outcome (voicemail / no answer). Missed-visit outreach is auto-flagged at 48 hours.
 :::
 
 ## Mental-health screening — PHQ9 and 3-item anxiety
 
-Two screenings the care coordinator owns. Administered at baseline (in the in-person first visit, alongside the dietitian's assessments) and again at the program's repeat-screening milestones. Per IRB protocol, these may not be administered by the dietitian or by UConn student researchers.
+The care coordinator owns these two screenings — by IRB protocol, the dietitian and UConn student researchers may not administer them. Administered at baseline (in the in-person first visit, alongside the dietitian's assessments) and again at the program's repeat-screening milestones.
 
 1. **Administer the PHQ9.** In the Cena assessment forms on the participant record. Result: the participant's depression-screening score is captured and saved on the record. _Note: this is one of the IRB protocol's baseline assessments — accuracy now matters because it repeats and the comparison is what shows change._ `[CONFIRM build state — PHQ9 admin UI in Care-coordinator app]`
 
@@ -87,13 +89,9 @@ Two screenings the care coordinator owns. Administered at baseline (in the in-pe
 **Scope-of-practice note.** The PHQ9 and 3-item anxiety screen are administered by the CITI-trained care coordinator under PI oversight. The administration scope under Connecticut licensure is pending confirmation from Healthcare Data Governance — until confirmed, follow PI guidance for any positive-response handling.
 :::
 
-## Quick reference
+## Each week, for every participant — the routine checklist
 
 The weekly routine, condensed to a tickable list.
-
-::: card-title
-Each week, for every participant
-:::
 
 - [ ] Work the roster top-down by days since last contact
 - [ ] Complete the weekly check-in by the participant's preferred channel
@@ -102,7 +100,7 @@ Each week, for every participant
 - [ ] Raise a flag if the participant is unreachable or a concern surfaced
 - [ ] At a baseline or repeat-screening milestone — administer the PHQ9 and the 3-item anxiety screen; escalate positive responses the same day
 
-## Terms used in this SOP
+## Terms used here
 
 Plain-language definitions, no system jargon.
 
@@ -138,7 +136,7 @@ Extra support a participant may need — SNAP, a food pantry, transportation, or
 Flag
 :::
 ::: glossary-def
-A signal that a participant needs attention: red (unreachable), yellow (a concern came up), or green (on track).
+A signal about a participant's current state. Three states: **red flag** (no response within 3 days — unreachable, place a follow-up call), **yellow flag** (a concern surfaced during a check-in — escalate to the UConn clinical team per protocol), **green flag** (engaged and on track — continue the routine weekly cadence).
 :::
 
 ::: glossary-term
@@ -155,7 +153,7 @@ A nine-question depression screening tool. Administered by the care coordinator 
 A three-question anxiety screening, paired with the PHQ9 in the same baseline assessment set.
 :::
 
-## Sign-off
+## Approval status
 
 This SOP is approved for training only when the accountable human signs it. Until then it is a draft.
 
