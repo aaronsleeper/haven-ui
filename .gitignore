@@ -30,3 +30,8 @@ _site/
 packages/design-system/pattern-library/_docs-spike/
 packages/design-system/pattern-library/_sot-spike/
 packages/design-system/pattern-library/_reason-spike/
+
+# Surface-emit standalone bundles — regenerable build output, served via
+# handoff/ for /preview. Regenerate: bash tools/surface-emit/build-bundle.sh {sot|reason}
+handoff/cena-sot/
+handoff/cena-reasoning/

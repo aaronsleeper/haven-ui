@@ -73,7 +73,7 @@ const SURFACES = {
     ],
     contentDir: null,
     devOut: resolve(__dirname, '../../packages/design-system/pattern-library/_sot-spike'),
-    standaloneOut: resolve(__dirname, 'dist-sot'),
+    standaloneOut: resolve(__dirname, '../../handoff/cena-sot'),
   },
   // The cena-reasoning surface re-expressed as a CONSUMER of the engine (was
   // hand-built HTML). Proof that the third emitter folds in too. Content slice
@@ -88,7 +88,7 @@ const SURFACES = {
     pages: [{ slug: 'index', title: 'Reasoning Surface' }],
     contentDir: resolve(__dirname, 'content-reason'),
     devOut: resolve(__dirname, '../../packages/design-system/pattern-library/_reason-spike'),
-    standaloneOut: resolve(__dirname, 'dist-reason'),
+    standaloneOut: resolve(__dirname, '../../handoff/cena-reasoning'),
   },
 };
 

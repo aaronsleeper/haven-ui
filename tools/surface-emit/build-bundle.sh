@@ -42,8 +42,8 @@ if [ -n "$OUT_OVERRIDE" ]; then
 else
   case "$SURFACE" in
     docs)   OUT="$HERE/dist" ;;
-    sot)    OUT="$HERE/dist-sot" ;;
-    reason) OUT="$HERE/dist-reason" ;;
+    sot)    OUT="$REPO/handoff/cena-sot" ;;
+    reason) OUT="$REPO/handoff/cena-reasoning" ;;
   esac
 fi
 ASSETS="$OUT/assets"
