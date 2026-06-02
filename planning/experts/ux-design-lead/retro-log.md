@@ -93,6 +93,46 @@ to validate whether the spec produces good output.
 
 ---
 
+## 2026-06-02 — Capture-pattern friction + context-preview signals (workflow-mapping asset reshape)
+
+**Trigger:** Aaron's iterative visual review of the 2026-06-02 1:30 PM PDT workflow-mapping asset ([content-sot/uconn-workflow-mapping-2026-06-02.md](../../../tools/surface-emit/content-sot/uconn-workflow-mapping-2026-06-02.md), emitted v2). Two design patterns surfaced as friction worth recording for future asset work.
+
+**Observations:**
+
+- **Capture-pattern friction — "confirm or flag" should be checkbox + free-text, not two-radio.** Section 2 originally asked: "All ten rows confirmed as ratified" OR "Want to discuss specific rows (note them below)". Aaron's read: this is two clicks where it should be one. "Confirm" is binary (checkbox). "Want to discuss" doesn't need its own click — typing into the textarea IS the discussion signal. Same shape as Claude Code's AskUserQuestion sheet that we pulled into haven (clear options with label + description, plus a free-text catch-all at the bottom for "other"). Generalizable rule: when the "other" path is "type your own answer," don't burn a radio on selecting it — typing IS the selection.
+
+- **Context-preview primitive need.** When a section references prior context ("Open per Andrey's 1:1 observation 2026-06-01"), the meeting-runner's immediate question is *"what was the observation?"* That context lives elsewhere (the SoT, a meeting note, a prior thread). Asking the reader to break flow and go find it costs continuity. Today's fix used `:::reason` (the haven disclosure directive) to inline the quoted excerpt + an Obsidian deep-link to the source. The pattern is recurring — every decision-driving section asset will hit this. **Shape candidates** (in increasing weight): inline quote+link (this asset's solution); collapsible disclosure (`:::reason` works); popover/tooltip on hover; side-pane preview. The right haven primitive may be a typed `<a>` annotation that the engine renders with one of these treatments per author intent.
+
+- **List-shape choice for cascade content.** Section 4's "vendor lock cascades to: A · B · C · D · E · F · G · H" as a wrapped paragraph with middot separators was hard to parse — even for the meeting-runner who wrote it. Bulleted list (or chip cluster, per this asset's `.cascade-list` flex-wrap pattern) reads materially better at 8+ items. Inflection point feels like ~5 items: below that, inline middot reads fine as prose-flow; above that, list shape wins.
+
+**Calibration updates:**
+
+- **For working-tool assets (asset reshape pattern):** capture inputs should match the cognitive shape of the question, not the option-count. Binary state = checkbox. Free-text-OR-categorical = textarea is the catch-all, options are the shortcuts. Don't burn a radio on "other / discuss / type your own."
+- **For context references in flow:** never reference prior context by metadata alone (e.g., "per Andrey's 1:1 observation"). Provide the substance inline (excerpt + source link) OR a preview affordance (disclosure / popover / deep-link). The meeting-runner's question *"what was the X?"* should be answerable without leaving the page.
+- **For cascade / dependency lists in working tools:** above ~5 items, drop the middot-prose and go to bulleted/chip list. Below ~5, prose-with-middot reads fine.
+
+**Changes to this expert:**
+
+- Add to `judgment-framework.md`: "capture-pattern selection by cognitive shape" rule (binary → checkbox; free-text-OR-categorical → textarea as catch-all + options as shortcuts).
+- Add to `quality-criteria.md`: "context references must be answerable in-flow" — references-by-metadata are an anti-pattern in decision-driving assets.
+- Add to `quality-criteria.md`: cascade-list shape inflection (~5 items).
+
+**Open questions:**
+
+- **Is the context-preview pattern haven-PL-promotable yet?** This asset is the first emit-pipeline consumer. Per `generative-determinism.md` 3-use floor, codify on the third instance — but the SHAPE TRIGGER ("structurally recurring primitive — a context reference w/ preview") suggests pre-emptive proposal next time a working-tool asset is being scoped. Defer to design-system-steward whether the haven `:::reason` directive is the canonical shape or if a typed `<a context="">` annotation is cleaner.
+- **Does the question-sheet pattern (response-option-group + free-text catch-all) belong in the asset-reshape pipeline as the default capture shape?** Today's asset uses inline radios + textarea; the question-sheet shape would be richer (label + description per option). Trade-off: vertical real estate per question vs. cognitive clarity. Worth testing on the next working-tool asset.
+- **Obsidian deep-link reliability across collaborators.** The `obsidian://open?vault=Vaults&file=…` scheme works when the receiver's Obsidian vault is named "Vaults" and has the same internal path. Vanessa doesn't use this vault. The Obsidian link in this asset works for Aaron (and any future collaborator who clones the vault) but is dead for V. Worth a generalized "context preview" pattern that degrades gracefully when the source isn't reachable.
+
+**Next:** Apply observations to the next working-tool asset reshape. If a second asset hits the same capture-pattern issue, that's the second instance — promote the shape decision to a haven canonical pattern (PL-first per `define-once.md`).
+
+**Cross-references:**
+
+- Asset emission: ledger entry `pipeline: ui, id: 2026-06-02-workflow-mapping-session, version: v2`
+- Parent plan: [cena-sop-marrero-engagement.md](~/.claude/plans/cena-sop-marrero-engagement.md)
+- Related haven primitives: `response-option-group.html`, `response-option.html`, `:::reason` directive in surface-emit, `.radio-row` in `components.css`
+
+---
+
 ## Self-assessments
 
 _No self-assessments yet — first one will run during the initial `/expert-update` sweep

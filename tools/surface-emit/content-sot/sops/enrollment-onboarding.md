@@ -55,7 +55,7 @@ Work the steps in order. The first five are the care coordinator's; the in-perso
 
 7. **Registered Dietitian — Build the initial care plan.** In [Cena platform → Care plan]{.screen-ref}, after all baseline assessments above are complete. Result: an individualized nutrition care plan and goals, seeded from intake and the baseline assessments.
 
-8. **Registered Dietitian — Build the personalized meal plan.** In [Cena platform → Meal plan]{.screen-ref}, alongside the care plan. Result: an individualized meal plan informed by dietary preferences, cultural food preferences, and the participant's dietary requirements. The participant is now enrolled. `[NEEDS VANESSA CONFIRMATION — meal plan separation from care plan, and Dr. Woo's role on dietary requirements]`
+8. **Registered Dietitian — Build the personalized meal plan.** In [Cena platform → Meal plan]{.screen-ref}, alongside the care plan. Result: an individualized meal plan informed by dietary preferences, cultural food preferences, and the participant's dietary requirements. The participant is now enrolled. `[NEEDS VANESSA CONFIRMATION — meal plan separation from care plan, and Dr. Wu's role on dietary requirements]`
 
 ::: callout-warning
 **Baseline-before-intervention invariant.** The care plan does not begin until every baseline assessment in Step 6 is captured on the record — HFIAS, HEI, WHOQOL-HIV BREF, NKQ, PHQ9, and the 3-item anxiety screen. If any are missing at the close of the in-person first visit, schedule a follow-up to complete them before starting the care plan.

@@ -43,7 +43,7 @@ The first visit is in person — required for written consent execution and to e
 
 4. **Build the initial care plan.** In [Cena platform → Care plan]{.screen-ref}, seeded from intake and the baseline assessments. Result: an individualized nutrition care plan and goals.
 
-5. **Build the personalized meal plan.** In [Cena platform → Meal plan]{.screen-ref}, alongside the care plan. Informed by dietary preferences, cultural food preferences, and the participant's dietary requirements. `[NEEDS VANESSA CONFIRMATION — meal plan separation from care plan, and Dr. Woo's role on dietary requirements]`
+5. **Build the personalized meal plan.** In [Cena platform → Meal plan]{.screen-ref}, alongside the care plan. Informed by dietary preferences, cultural food preferences, and the participant's dietary requirements. `[NEEDS VANESSA CONFIRMATION — meal plan separation from care plan, and Dr. Wu's role on dietary requirements]`
 
 ## Each counseling session (Months 2, 4, 6, 9)
 
