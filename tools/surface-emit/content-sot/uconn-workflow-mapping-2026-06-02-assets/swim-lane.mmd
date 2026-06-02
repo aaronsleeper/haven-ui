@@ -1,0 +1,46 @@
+flowchart TD
+    classDef cenaLane fill:#e8f1ef,stroke:#5f9a8f,stroke-width:1.5px,color:#0b3934
+    classDef athenaLane fill:#fdf6e6,stroke:#c9954a,stroke-width:1.5px,color:#3d2f0e
+    classDef paperLane fill:#f3efe7,stroke:#7a6f5a,stroke-width:1.5px,color:#2c2515
+    classDef partnerLane fill:#eef0f3,stroke:#566173,stroke-width:1.5px,color:#1c2536
+
+    subgraph PARTNER["Partner — UConn + food vendor + kitchen"]
+      direction LR
+      UE[UConn Epic referral]
+      FV[Food vendor]
+      KIT[Kitchen + fulfillment partner]
+    end
+    subgraph ATHENA["Athena — referrals + scheduling + signed consents"]
+      direction LR
+      AR[Athena referral inbox]
+      AS[Appointment scheduling]
+      EN[Encounter notes]
+      WCS[Signed consent PDFs]
+    end
+    subgraph CENA["Cena — apps + meal ordering + reporting"]
+      direction LR
+      CCA[Care coordinator app]
+      RDA[Registered dietitian app]
+      PA[Patient app]
+      MO[Meal ordering]
+      DB[Reporting + dashboards]
+    end
+    subgraph PAPER["Paper — in-person signatures + backup paths"]
+      direction LR
+      WC[Written consent signing]
+      FAX[Fax / external referral fallback]
+      PARTPAGES[Partner one-pagers]
+    end
+
+    UE -.->|primary: CommonWell| AR
+    FAX -.->|backup path| AR
+    AR --> CCA
+    CCA -->|books visit in| AS
+    WC -->|scanned to| WCS
+    MO -->|orders to| FV
+    FV --> KIT
+
+    class CCA,RDA,PA,MO,DB cenaLane
+    class AR,AS,EN,WCS athenaLane
+    class WC,FAX,PARTPAGES paperLane
+    class UE,FV,KIT partnerLane

@@ -1,0 +1,20 @@
+flowchart LR
+    classDef happyPath fill:#e8f1ef,stroke:#5f9a8f,stroke-width:1.5px,color:#0b3934
+    classDef divergence fill:#fbe9e7,stroke:#b6452f,stroke-width:1.5px,color:#3e1b13
+    classDef gate fill:#eef0f3,stroke:#566173,stroke-width:1.5px,color:#1c2536
+
+    A[Referral acknowledged] --> B{Where does the<br/>account get created?}
+    B -->|Athena task on<br/>referral receipt — current default| C[Athena account created]
+    B -->|Care coordinator<br/>creates in Cena software| D[Cena platform account]
+    B -->|Paper fallback| E[CC enters manually]
+    C --> F{Daryl-vs-Ryan workflow<br/>which system holds<br/>day-to-day data?}
+    D --> F
+    E --> F
+    F -->|Internal software only<br/>Daryl-style| G[Cena platform record]
+    F -->|Athena only<br/>Ryan-style| H[Athena record]
+    G --> I[7-day intake proceeds]
+    H --> I
+
+    class A,C,D,G,H,I happyPath
+    class B,F gate
+    class E divergence

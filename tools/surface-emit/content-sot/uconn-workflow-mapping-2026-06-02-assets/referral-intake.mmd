@@ -1,0 +1,18 @@
+flowchart LR
+    classDef happyPath fill:#e8f1ef,stroke:#5f9a8f,stroke-width:1.5px,color:#0b3934
+    classDef fallback fill:#fdf6e6,stroke:#c9954a,stroke-width:1.5px,color:#3d2f0e
+    classDef blocker fill:#fbe9e7,stroke:#b6452f,stroke-width:1.5px,color:#3e1b13
+    classDef gate fill:#eef0f3,stroke:#566173,stroke-width:1.5px,color:#1c2536
+
+    A[UConn Epic referral] --> B{Cena listed in<br/>UConn Epic directory?}
+    B -->|yes — primary path| C[Athena referral inbox<br/>via CommonWell]
+    B -->|no — current state| D[Fax form / external form / EAC referral]
+    D --> C
+    C --> E[Care coordinator<br/>acknowledges referral]
+    E --> F[7-day intake clock starts]
+    F --> G[Verify screening consent<br/>on record]
+    G --> H[Schedule in-person<br/>first visit]
+
+    class A,C,E,F,G,H happyPath
+    class D fallback
+    class B gate
