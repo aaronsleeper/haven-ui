@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PHQ9 Administration Use Case — Diagram (DRAFT)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   CANDIDATE MODIFIER CLASSES — pending promotion to components.css.
+   Authored per diagram-mapper skill spec (Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md).
+   Pattern: small modifier additions to existing diagram-* primitives.
+   Promotion path: 4-expert review panel (brand-fidelity weighted) → components.css edit.
+   COPIED VERBATIM from sibling use case escalation-phq9-positive/rendered-diagram.html
+   for cross-use-case visual consistency. Do not diverge here — change source,
+   then re-render both.
+   ──────────────────────────────────────────────────────────────────────── */
+.diagram-box--attestation-gate .diagram-box-shape {
+  stroke: var(--color-primary-700, #1e5149);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  fill: var(--color-surface-card, #ffffff);
+}
+.diagram-box--uncertain-tbd .diagram-box-shape {
+  stroke-dasharray: 6 4;
+  stroke: var(--color-warm-amber-500, #aa8232);
+  fill: var(--color-warm-amber-50, #f8f1e3);
+}
+.diagram-box--uncertain-assumption .diagram-box-shape {
+  stroke-dasharray: 3 2;
+  stroke: var(--color-warm-sand-500, #7a6f5a);
+  fill: var(--color-warm-sand-50, #faf6ee);
+}
+.diagram-box--uncertain-gap .diagram-box-shape {
+  stroke-dasharray: 1 3;
+  stroke: var(--color-red-500, #c13c3b);
+  fill: var(--color-red-50, #ffedea);
+}
+.diagram-box-watcher-label {
+  font-size: 9px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-text-muted, #555);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.diagram-tbd-callout {
+  font-size: 10px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-warm-amber-700, #735311);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.diagram-tbd-callout--critical {
+  fill: var(--color-red-700, #8a2a29);
+}
+.diagram-tbd-callout--gap {
+  fill: var(--color-red-600, #a8332f);
+}
+.diagram-tbd-callout--assumption {
+  fill: var(--color-warm-sand-700, #4d4538);
+}
+
+/* TODO (do not add now): diagram-box--watcher-cross-lane modifier — render a short
+   line from the watcher label down into the PARTNER lane label, for the
+   partner-as-watcher case (fragment 02's UConn PI). Pending 4-expert review +
+   PL promotion; for this draft the watcher-label text alone names the cross-lane
+   relationship. See diagram.md "Visualization rules" for the @Claude note. */
+
+/* Page chrome (not part of the diagram primitives; per-rendering only) */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 1180px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Pattern: diagram-mapper skill render of use-case phq9-administration
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Candidate modifier classes inline-defined above (verbatim copy from
+       sibling use case escalation-phq9-positive); promotion is Tier 1 PL work
+     - Inline <style> block is precedented (yesterday's UConn workflow-mapping
+       artifact + escalation worked example)
+     - Notable: partner-as-watcher annotation on fragment 02 — the PARTNER lane
+       is occupied by a watcher only, no step boxes
+     - Notable: terminal edge crosses out-of-frame to sibling use case
+       (escalation-phq9-positive entry); this is the cross-use-case routing
+       the catalog identifies as inventive primitive "escalation-route"
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>Administration — PHQ9 at baseline and repeat screenings</h1>
+  <span class="draft-marker">DRAFT • v0.1 • pending Marrero + Healthcare Data Governance review</span>
+</header>
+
+<svg class="diagram-frame" viewBox="0 0 1180 540" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" style="display: block;">
+  <title id="diagram-title">PHQ9 Administration flow — five-step swim-lane diagram across agent, human, partner (watcher only), and system lanes</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-default, #8c7c5e)"/>
+    </marker>
+    <marker id="arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-primary-700, #1e5149)"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="100" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">AGENT</text>
+    <line x1="80" y1="115" x2="1160" y2="115" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="220" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">HUMAN</text>
+    <line x1="80" y1="235" x2="1160" y2="235" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="340" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">PARTNER</text>
+    <line x1="80" y1="355" x2="1160" y2="355" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+    <!-- Partner-as-watcher: this lane is occupied by a watcher only, no step boxes -->
+    <text x="120" y="345" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" font-style="italic">(watcher-only lane — UConn PI provides scope-of-practice oversight on the CC administration step)</text>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="460" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">SYSTEM</text>
+    <line x1="80" y1="475" x2="1160" y2="475" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- Node 01: Trigger — SYSTEM lane (scheduling-system), default emphasis -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="100" y="420" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text x="190" y="448" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Trigger</text>
+    <text x="190" y="466" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">screening milestone</text>
+    <text x="190" y="480" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">reached</text>
+    <text class="diagram-box-watcher-label" x="190" y="497" text-anchor="middle">▲ watches: care-coordinator</text>
+  </g>
+
+  <!-- Node 02: Action — HUMAN lane (CC administers), high emphasis (attestation-gate modifier + uncertain-tbd) -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="330" y="175" width="200" height="115" rx="4" ry="4"/>
+    <text x="430" y="203" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Action</text>
+    <text x="430" y="221" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="12" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">CC administers PHQ9</text>
+    <text x="430" y="237" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">CITI-trained scope</text>
+    <text x="430" y="250" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">excludes RD + students</text>
+    <text x="430" y="263" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">channel: in-person | remote</text>
+    <text class="diagram-box-watcher-label" x="430" y="282" text-anchor="middle">▲ watches: UConn PI (partner)</text>
+  </g>
+  <text class="diagram-tbd-callout" x="430" y="160" text-anchor="middle">[TBD] CT scope-of-practice pending HDG · UI build state unconfirmed</text>
+  <!-- Partner-as-watcher visualization: a short dashed line from the watcher-label down into the PARTNER lane -->
+  <line x1="430" y1="290" x2="430" y2="340" stroke="var(--color-warm-sand-500, #7a6f5a)" stroke-width="1" stroke-dasharray="2 3" aria-hidden="true"/>
+  <circle cx="430" cy="340" r="3" fill="var(--color-warm-sand-500, #7a6f5a)" aria-hidden="true"/>
+
+  <!-- Node 03: Enquiry — SYSTEM lane (Cena platform), default emphasis -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="570" y="420" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text x="660" y="448" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Enquiry</text>
+    <text x="660" y="466" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">score captured to</text>
+    <text x="660" y="480" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">participant record</text>
+  </g>
+
+  <!-- Node 04: Decision — AGENT lane (threshold check), uncertain-tbd modifier -->
+  <g class="diagram-box diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="790" y="65" width="180" height="100" rx="4" ry="4"/>
+    <text x="880" y="93" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Decision</text>
+    <text x="880" y="111" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">threshold check</text>
+    <text x="880" y="125" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">score ≥ threshold</text>
+    <text x="880" y="137" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">OR Q9 > 0 → positive</text>
+    <text class="diagram-box-watcher-label" x="880" y="158" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout" x="880" y="40" text-anchor="middle">[TBD] threshold pending HDG (same gap as escalation 01)</text>
+
+  <!-- Node 05: Hand-off — AGENT lane (routing decision), high emphasis (attestation-gate modifier + uncertain-gap) -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="990" y="60" width="170" height="110" rx="4" ry="4"/>
+    <text x="1075" y="88" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Hand-off</text>
+    <text x="1075" y="106" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">positive → escalation</text>
+    <text x="1075" y="120" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">sub-threshold → monitor</text>
+    <text x="1075" y="138" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">same-day SLA on positive;</text>
+    <text x="1075" y="151" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">no deferral permitted</text>
+    <text class="diagram-box-watcher-label" x="1075" y="167" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="1075" y="40" text-anchor="middle">[GAP] remote-channel first-action pending Marrero (catalog #4)</text>
+
+  <!-- Edges -->
+  <!-- 01 → 02 (SYSTEM → HUMAN, cross-lane) -->
+  <path d="M 280 460 C 320 460, 320 290, 330 270" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="320" y="375" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">milestone → CC</text>
+
+  <!-- 02 → 03 (HUMAN → SYSTEM, cross-lane) -->
+  <path d="M 530 270 C 560 270, 560 460, 570 460" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="535" y="375" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">complete → save</text>
+
+  <!-- 03 → 04 (SYSTEM → AGENT, cross-lane) -->
+  <path d="M 750 440 C 780 440, 780 115, 790 115" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="752" y="275" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">score → check</text>
+
+  <!-- 04 → 05 (within AGENT lane) -->
+  <path d="M 970 115 L 990 115" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+
+  <!-- 05 → out-of-frame: positive → escalation (emphasized, cross-use-case routing) -->
+  <path d="M 1160 95 L 1175 95 L 1175 80" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="1098" y="55" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-primary-700, #1e5149)" font-weight="600">positive →</text>
+  <text x="1098" y="68" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-primary-700, #1e5149)" font-weight="600">escalation use case</text>
+
+  <!-- 05 → out-of-frame: sub-threshold → monitoring (muted dashed, passive) -->
+  <path d="M 1160 145 L 1175 145 L 1175 160" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="1085" y="180" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">sub-threshold → monitor</text>
+
+  <!-- Caption -->
+  <text x="590" y="525" font-family="var(--font-serif, 'Lora', serif)" font-style="italic" font-weight="500" font-size="12" fill="var(--color-text-muted, #555)" text-anchor="middle">Trigger → CC administers (UConn PI watches CT scope) → score captured → threshold check → routes to escalation (same-day, no deferral) or monitoring. Partner-as-watcher is the load-bearing structural feature.</text>
+</svg>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    Cena's PHQ9 administration flow drives a CITI-trained Care Coordinator through baseline and repeat-screening administration milestones, captures the score on the canonical participant record, applies a protocol threshold check, and routes positive results same-day to the escalation use case (no deferral) while sub-threshold results route to longitudinal monitoring. The UConn PI provides scope-of-practice oversight as a partner-as-watcher annotation on the administration step.
+  </p>
+  <h4>Elements</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Trigger — screening milestone reached</strong> — system enquiry step in the SYSTEM lane; the Cena scheduling system tracks each enrolled patient's IRB-protocol screening schedule (baseline + repeat-screening) and notifies the assigned care coordinator.</li>
+    <li><strong>Action — CC administers PHQ9</strong> — human action step in the HUMAN lane; the CITI-trained Care Coordinator administers the screening to the patient on the Cena assessment-forms platform; channel is in-person at baseline and remote (pending Marrero) at repeat-screenings; CT scope-of-practice is pending Healthcare Data Governance confirmation; the UConn PI watches scope-of-practice from the PARTNER lane.</li>
+    <li><strong>Enquiry — score captured to participant record</strong> — system enquiry step in the SYSTEM lane; the Cena assessment-forms platform records total score, per-item responses, and administration metadata to the participant's assessment-results subcollection; this is the canonical record-of-score for all downstream reasoning.</li>
+    <li><strong>Decision — threshold check</strong> — agent decision step in the AGENT lane; the agent compares the captured score against the protocol-defined positive threshold (pending HDG, same gap shape as escalation use case fragment 01) and the Q9 (suicidal ideation) override; classification is policy-derived, not clinical-judgment per-case.</li>
+    <li><strong>Hand-off — positive routes to escalation; sub-threshold routes to monitoring</strong> — agent hand-off step in the AGENT lane; positive results route same-day with no deferral to the escalation-phq9-positive use case (cross-use-case routing); sub-threshold results route passively to longitudinal monitoring; remote-channel first-action specifics are a structural gap per catalog open question #4.</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>Trigger → CC administers: system-to-human cross-lane flow (default arrow).</li>
+    <li>CC administers → score captured: human-to-system cross-lane flow (default arrow); the questionnaire is complete and the platform writes the canonical record.</li>
+    <li>Score captured → threshold check: system-to-agent cross-lane flow (default arrow).</li>
+    <li>Threshold check → hand-off: within-AGENT-lane flow (default arrow).</li>
+    <li>Hand-off → escalation use case (positive): cross-use-case routing (emphasized arrow); the case leaves the administration frame and enters the escalation-phq9-positive frame at its trigger fragment.</li>
+    <li>Hand-off → longitudinal monitoring (sub-threshold): passive cross-use-case routing (muted dashed arrow); the canonical record is left on the participant record for next-protocol-milestone review.</li>
+    <li>CC administers — UConn PI watches: cross-lane watcher annotation rendered as a dashed line from the CC's box down into the PARTNER lane; the PI does not produce a step but provides scope-of-practice oversight on the CC's administration.</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Three uncertainty annotations are surfaced visibly on the diagram: CT scope-of-practice + UI build state on fragment 02 (TBD pending HDG), threshold value on fragment 04 (TBD pending HDG — deliberately the same modifier as escalation fragment 01 for consistency), and remote-channel first-action specifics on fragment 05 (GAP per catalog open question #4). The downstream escalation use case carries its own gaps (BHN role, clinical-lead identity, severity tier boundaries) which are inherited via the cross-use-case routing edge but not duplicated in this diagram.
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Rendered via:</strong> diagram-mapper skill (DRAFT — see <code>Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md</code>). <br>
+  <strong>Sibling use case:</strong> <code>../escalation-phq9-positive/</code> — this use case produces the trigger that the escalation use case consumes; the positive-path edge is the entry to that sibling. <br>
+  <strong>Status:</strong> v0.1 draft for the Friday Marrero session. Candidate modifier classes (5) copied verbatim from the escalation worked example for cross-use-case visual consistency; promotion to <code>components.css</code> is Tier 1 PL work pending 4-expert review panel.
+</div>
+
+</div>
+</body>
+</html>

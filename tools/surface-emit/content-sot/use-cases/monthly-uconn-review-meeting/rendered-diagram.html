@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Monthly UConn Review Meeting Use Case — Diagram (DRAFT)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   CANDIDATE MODIFIER CLASSES — pending promotion to components.css.
+   Authored per diagram-mapper skill spec (Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md).
+   Pattern: small modifier additions to existing diagram-* primitives.
+   Promotion path: 4-expert review panel (brand-fidelity weighted) → components.css edit.
+   ──────────────────────────────────────────────────────────────────────── */
+.diagram-box--attestation-gate .diagram-box-shape {
+  stroke: var(--color-primary-700, #1e5149);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  fill: var(--color-surface-card, #ffffff);
+}
+.diagram-box--uncertain-tbd .diagram-box-shape {
+  stroke-dasharray: 6 4;
+  stroke: var(--color-warm-amber-500, #aa8232);
+  fill: var(--color-warm-amber-50, #f8f1e3);
+}
+.diagram-box--uncertain-assumption .diagram-box-shape {
+  stroke-dasharray: 3 2;
+  stroke: var(--color-warm-sand-500, #7a6f5a);
+  fill: var(--color-warm-sand-50, #faf6ee);
+}
+.diagram-box--uncertain-gap .diagram-box-shape {
+  stroke-dasharray: 1 3;
+  stroke: var(--color-red-500, #c13c3b);
+  fill: var(--color-red-50, #ffedea);
+}
+.diagram-box-watcher-label {
+  font-size: 9px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-text-muted, #555);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.diagram-tbd-callout {
+  font-size: 10px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-warm-amber-700, #735311);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.diagram-tbd-callout--critical {
+  fill: var(--color-red-700, #8a2a29);
+}
+.diagram-tbd-callout--gap {
+  fill: var(--color-red-600, #a8332f);
+}
+.diagram-tbd-callout--assumption {
+  fill: var(--color-warm-sand-700, #4d4538);
+}
+
+/* Page chrome (not part of the diagram primitives; per-rendering only) */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 1240px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Pattern: diagram-mapper skill render of use-case monthly-uconn-review-meeting
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Candidate modifier classes inline-defined above (COPIED VERBATIM from
+       escalation-phq9-positive/rendered-diagram.html); promotion is Tier 1 PL work
+     - Inline <style> block is precedented (escalation worked example + UConn
+       workflow-mapping artifact)
+     - All canonical primitives (diagram-frame / diagram-marker-defs / diagram-box /
+       diagram-arrow / diagram-lane / diagram-caption) are referenced by class name
+     - This use case is the THINNEST catalog entry; the visual story is
+       "linear cadence + labeled gaps + undefined ownership-transition gate"
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>Monthly UConn program review meeting — prep and facilitation</h1>
+  <span class="draft-marker">DRAFT • v0.1 • no SoP draft; deferred post-launch (catalog cap-48)</span>
+</header>
+
+<svg class="diagram-frame" viewBox="0 0 1240 540" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" style="display: block;">
+  <title id="diagram-title">Monthly UConn review meeting flow — five-step swim-lane diagram across system, agent, human, and partner lanes; emphasis on labeled gaps and the undefined ownership-transition attestation arc</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-default, #8c7c5e)"/>
+    </marker>
+    <marker id="arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-primary-700, #1e5149)"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="100" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">AGENT</text>
+    <line x1="80" y1="115" x2="1220" y2="115" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="220" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">HUMAN</text>
+    <line x1="80" y1="235" x2="1220" y2="235" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="340" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">PARTNER</text>
+    <line x1="80" y1="355" x2="1220" y2="355" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="460" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">SYSTEM</text>
+    <line x1="80" y1="475" x2="1220" y2="475" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- Node 01: Trigger — SYSTEM lane, uncertain-assumption modifier -->
+  <g class="diagram-box diagram-box--uncertain-assumption">
+    <rect class="diagram-box-shape" x="100" y="420" width="180" height="85" rx="4" ry="4"/>
+    <text x="190" y="450" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Trigger</text>
+    <text x="190" y="468" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">monthly cadence +</text>
+    <text x="190" y="482" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">reports closed</text>
+    <text class="diagram-box-watcher-label" x="190" y="500" text-anchor="middle">▲ watches: admin-pm</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--assumption" x="190" y="395" text-anchor="middle">[ASSUMPTION] timing offset + survey integration unspecified</text>
+
+  <!-- Node 02: Action — AGENT lane, uncertain-gap modifier -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="315" y="65" width="180" height="85" rx="4" ry="4"/>
+    <text x="405" y="95" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Action</text>
+    <text x="405" y="113" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Auto-generate</text>
+    <text x="405" y="127" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">agenda template</text>
+    <text class="diagram-box-watcher-label" x="405" y="145" text-anchor="middle">▲ watches: admin-pm</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="405" y="40" text-anchor="middle">[GAP] dashboard data-element set pending Marinka/Andrey (Exhibit F)</text>
+
+  <!-- Node 03: Action — HUMAN lane, uncertain-gap modifier -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="535" y="180" width="180" height="85" rx="4" ry="4"/>
+    <text x="625" y="210" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Action</text>
+    <text x="625" y="228" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Customize</text>
+    <text x="625" y="242" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">talking points</text>
+    <text class="diagram-box-watcher-label" x="625" y="260" text-anchor="middle">▲ watches: self</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="625" y="155" text-anchor="middle">[GAP] customization criteria undefined</text>
+
+  <!-- Node 04: Action — HUMAN lane, uncertain-gap modifier, emphasis=high -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="755" y="180" width="180" height="85" rx="4" ry="4" stroke-width="2"/>
+    <text x="845" y="210" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="700" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Action</text>
+    <text x="845" y="228" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Facilitate</text>
+    <text x="845" y="242" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">monthly meeting</text>
+    <text class="diagram-box-watcher-label" x="845" y="260" text-anchor="middle">▲ watches: self</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="845" y="155" text-anchor="middle">[GAP] meeting format + UConn attendee list unspecified</text>
+
+  <!-- Partner drop-line: encodes UConn participants attending without a separate fragment -->
+  <path d="M 845 265 L 845 320" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="3 3" aria-hidden="true"/>
+  <g>
+    <ellipse cx="845" cy="340" rx="100" ry="20" fill="var(--color-warm-sand-50, #faf6ee)" stroke="var(--color-warm-sand-500, #7a6f5a)" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="845" y="338" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" font-style="italic" fill="var(--color-text-muted, #555)" text-anchor="middle">UConn participants</text>
+    <text x="845" y="350" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="9" fill="var(--color-text-muted, #555)" text-anchor="middle">attendee list TBD</text>
+  </g>
+
+  <!-- Node 05: Hand-off — HUMAN lane, uncertain-gap modifier, emphasis=high -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="975" y="170" width="220" height="110" rx="4" ry="4" stroke-width="2"/>
+    <text x="1085" y="198" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="700" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Hand-off (×2)</text>
+    <text x="1085" y="216" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Refinement routing:</text>
+    <text x="1085" y="230" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">clinical → Marrero</text>
+    <text x="1085" y="243" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">operational → Vanessa</text>
+    <text x="1085" y="261" font-family="var(--font-serif, 'Lora', serif)" font-size="10" font-style="italic" fill="var(--color-text-muted, #555)" text-anchor="middle">+ ownership transition arc</text>
+    <text class="diagram-box-watcher-label" x="1085" y="277" text-anchor="middle">▲ Vanessa → Marrero (transition)</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--critical" x="1085" y="150" text-anchor="middle">[GAP CRITICAL] ownership-transition gate UNDEFINED (novel attestation shape)</text>
+
+  <!-- Edges -->
+  <!-- 01 → 02 (SYSTEM lane up to AGENT lane) -->
+  <path d="M 280 440 C 320 440, 320 107, 315 107" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="305" y="275" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" transform="rotate(-90 305 275)">reports closed → fire</text>
+
+  <!-- 02 → 03 (AGENT lane to HUMAN lane) -->
+  <path d="M 495 130 C 530 130, 530 220, 535 220" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="513" y="180" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">template →</text>
+
+  <!-- 03 → 04 (within HUMAN lane) -->
+  <path d="M 715 222 L 755 222" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="730" y="215" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">→</text>
+
+  <!-- 04 → 05 (within HUMAN lane, emphasized) -->
+  <path d="M 935 222 L 975 222" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="955" y="215" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">notes →</text>
+
+  <!-- Caption -->
+  <text x="620" y="525" font-family="var(--font-serif, 'Lora', serif)" font-style="italic" font-weight="500" font-size="12" fill="var(--color-text-muted, #555)" text-anchor="middle">Linear monthly cadence. The load-bearing missing piece is the ownership-transition attestation gate (Vanessa → Marrero) — a novel attestation shape with no defined criterion.</text>
+</svg>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    Cena's monthly UConn program review workflow runs on a monthly cadence: the reporting system fires a trigger when upstream monthly reports close; the agenda-generation pipeline produces a data-filled template; the meeting owner customizes talking points; the owner facilitates the review meeting with UConn participants; protocol refinement proposals route to Marrero (clinical) or Vanessa (operational), with a separate cross-cycle ownership transition from Vanessa to Marrero whose attestation gate is undefined.
+  </p>
+  <h4>Elements</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Trigger — Monthly cadence + reports closed</strong> — system enquiry step in the SYSTEM lane; timing offset between report closure and meeting date, plus survey-integration semantics for Months 3/6/9, are unspecified.</li>
+    <li><strong>Action — Auto-generate agenda template</strong> — agent action in the AGENT lane; the dashboard data-element set (Exhibit F) is pending Marinka and Andrey, so the agenda template's content is undefined.</li>
+    <li><strong>Action — Customize talking points</strong> — human action in the HUMAN lane; customization criteria are undefined; no sight-check before facilitation.</li>
+    <li><strong>Action — Facilitate monthly meeting</strong> — human action in the HUMAN lane with a dashed drop-line into the PARTNER lane encoding UConn participants attending; meeting format (in-person vs virtual) and UConn attendee list are unspecified; no facilitation-close attestation gate currently defined.</li>
+    <li><strong>Hand-off (×2) — Protocol refinement routing + ownership transition arc</strong> — human hand-off in the HUMAN lane carrying both per-meeting refinement routing (clinical to Marrero, operational to Vanessa) AND the cross-cycle ownership transition from Vanessa to Marrero. Classification criteria are undefined; the ownership-transition attestation gate (a novel attestation shape where Vanessa attests that Marrero is ready to assume ownership) is undefined.</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>Trigger → Auto-generate: reports-closed event fires the agenda pipeline (default arrow).</li>
+    <li>Auto-generate → Customize: agenda template hands off from agent to human meeting owner (default arrow).</li>
+    <li>Customize → Facilitate: customized agenda flows into the meeting (default arrow).</li>
+    <li>Facilitate → UConn participants: dashed drop-line encoding partner attendance (no separate fragment; participation, not handoff).</li>
+    <li>Facilitate → Routing: meeting notes carry refinement proposals into the routing fragment (emphasized arrow).</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Five gap annotations are surfaced visibly on the diagram. Four are tier-gap (red-dotted): dashboard data-element set, customization criteria, meeting format and attendee list, and the ownership-transition gate. One is tier-assumption (sand-dashed): trigger timing and survey integration. The single critical annotation is the ownership-transition gate — a novel attestation shape (Vanessa attesting that Marrero is ready) with NO defined criterion, evidence requirement, or sign-off mechanism. The catalog explicitly flagged this as load-bearing but undocumented. The dashed partner-attendance bubble surfaces UConn participation visually without inventing a separate workflow fragment.
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Rendered via:</strong> diagram-mapper skill (DRAFT — see <code>Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md</code>). <br>
+  <strong>Status:</strong> v0.1 — thinnest catalog entry (no SoP draft yet; deferred post-launch). Candidate modifier classes (5) inline-defined above, COPIED VERBATIM from <code>escalation-phq9-positive/rendered-diagram.html</code>; promotion to <code>components.css</code> is Tier 1 PL work pending 4-expert review panel.
+</div>
+
+</div>
+</body>
+</html>

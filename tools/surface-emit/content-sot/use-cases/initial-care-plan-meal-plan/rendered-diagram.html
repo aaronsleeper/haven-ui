@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Initial care plan + meal plan Use Case — Diagram (DRAFT)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   CANDIDATE MODIFIER CLASSES — pending promotion to components.css.
+   Authored per diagram-mapper skill spec (Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md).
+   Pattern: small modifier additions to existing diagram-* primitives.
+   Promotion path: 4-expert review panel (brand-fidelity weighted) → components.css edit.
+   ──────────────────────────────────────────────────────────────────────── */
+.diagram-box--attestation-gate .diagram-box-shape {
+  stroke: var(--color-primary-700, #1e5149);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  fill: var(--color-surface-card, #ffffff);
+}
+.diagram-box--uncertain-tbd .diagram-box-shape {
+  stroke-dasharray: 6 4;
+  stroke: var(--color-warm-amber-500, #aa8232);
+  fill: var(--color-warm-amber-50, #f8f1e3);
+}
+.diagram-box--uncertain-assumption .diagram-box-shape {
+  stroke-dasharray: 3 2;
+  stroke: var(--color-warm-sand-500, #7a6f5a);
+  fill: var(--color-warm-sand-50, #faf6ee);
+}
+.diagram-box--uncertain-gap .diagram-box-shape {
+  stroke-dasharray: 1 3;
+  stroke: var(--color-red-500, #c13c3b);
+  fill: var(--color-red-50, #ffedea);
+}
+.diagram-box-watcher-label {
+  font-size: 9px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-text-muted, #555);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.diagram-tbd-callout {
+  font-size: 10px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-warm-amber-700, #735311);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.diagram-tbd-callout--critical {
+  fill: var(--color-red-700, #8a2a29);
+}
+.diagram-tbd-callout--gap {
+  fill: var(--color-red-600, #a8332f);
+}
+.diagram-tbd-callout--assumption {
+  fill: var(--color-warm-sand-700, #4d4538);
+}
+
+/* Page chrome (not part of the diagram primitives; per-rendering only) */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 1180px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Pattern: diagram-mapper skill render of use-case initial-care-plan-meal-plan
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Candidate modifier classes inline-defined above; promotion is Tier 1 PL work
+     - Inline <style> block reused verbatim from escalation-phq9-positive worked example
+     - Three lanes only (AGENT / HUMAN / SYSTEM) — no PARTNER lane (internal hand-off)
+     - All canonical primitives (diagram-frame / diagram-marker-defs / diagram-box /
+       diagram-arrow / diagram-lane / diagram-caption) are referenced by class name
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>Initial care plan + meal plan — Month 0 combined-artifact creation</h1>
+  <span class="draft-marker">DRAFT • v0.1 • pending Marrero + Healthcare Data Governance review; SoP body reconciliation pending Vanessa</span>
+</header>
+
+<svg class="diagram-frame" viewBox="0 0 1180 440" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" style="display: block;">
+  <title id="diagram-title">Initial care plan and meal plan creation flow — four-step swim-lane diagram across agent, human, and system lanes</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-default, #8c7c5e)"/>
+    </marker>
+    <marker id="arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-primary-700, #1e5149)"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes (3 — no PARTNER lane for this internal-handoff use case) -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="100" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">AGENT</text>
+    <line x1="80" y1="115" x2="1160" y2="115" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="220" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">HUMAN</text>
+    <line x1="80" y1="235" x2="1160" y2="235" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="340" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">SYSTEM</text>
+    <line x1="80" y1="355" x2="1160" y2="355" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- Node 01: Trigger — AGENT lane, uncertain-tbd modifier -->
+  <g class="diagram-box diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="100" y="65" width="180" height="90" rx="4" ry="4"/>
+    <text x="190" y="92" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Trigger</text>
+    <text x="190" y="110" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">All 6 baselines complete</text>
+    <text x="190" y="124" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">+ Month 0 visit in progress</text>
+    <text class="diagram-box-watcher-label" x="190" y="148" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout" x="190" y="40" text-anchor="middle">[TBD] first-action specifics pending Vanessa/Marrero</text>
+
+  <!-- Node 02: Action — HUMAN lane, uncertain-tbd modifier (Dr. Wu role pending) -->
+  <g class="diagram-box diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="340" y="180" width="200" height="100" rx="4" ry="4"/>
+    <text x="440" y="207" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Action</text>
+    <text x="440" y="225" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">RD authors combined</text>
+    <text x="440" y="239" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">care-plan + meal-plan</text>
+    <text x="440" y="253" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">artifact in Cena</text>
+    <text class="diagram-box-watcher-label" x="440" y="273" text-anchor="middle">▲ watches: dr-wu (dietary reqs)</text>
+  </g>
+  <text class="diagram-tbd-callout" x="440" y="160" text-anchor="middle">[TBD] Dr. Wu role — review vs approve (Vanessa)</text>
+
+  <!-- Node 03: Attestation Gate — HUMAN lane, attestation-gate + uncertain-gap modifiers -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="580" y="180" width="200" height="100" rx="4" ry="4"/>
+    <text x="680" y="208" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Attestation gate</text>
+    <text x="680" y="226" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="12" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">RDN approval</text>
+    <text x="680" y="244" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">evidence package +</text>
+    <text x="680" y="257" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">approve / revise / defer</text>
+    <text x="680" y="270" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">+ rationale + signed_at</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="680" y="160" text-anchor="middle">[GAP CRITICAL] approval gate in workflow-spec, NOT in SoP body</text>
+
+  <!-- Node 04: Hand-off — SYSTEM lane, uncertain-assumption (deferred) modifier -->
+  <g class="diagram-box diagram-box--uncertain-assumption">
+    <rect class="diagram-box-shape" x="830" y="295" width="200" height="95" rx="4" ry="4"/>
+    <text x="930" y="324" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Hand-off</text>
+    <text x="930" y="342" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">activates → meal</text>
+    <text x="930" y="356" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">prescription workflow</text>
+    <text class="diagram-box-watcher-label" x="930" y="380" text-anchor="middle">▲ watches: RDN</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--assumption" x="930" y="275" text-anchor="middle">[DEFERRED] downstream workflow out of RD SoP scope</text>
+
+  <!-- Edges -->
+  <!-- 01 → 02 (cross-lane AGENT → HUMAN: ready-to-author signal) -->
+  <path d="M 190 155 C 190 180, 340 200, 340 218" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="245" y="190" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">ready-to-author signal</text>
+
+  <!-- 02 → 03 (within HUMAN lane, draft → approve emphasized) -->
+  <path d="M 540 230 L 580 230" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="560" y="220" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">draft → approve</text>
+
+  <!-- 03 → 04 (cross-lane HUMAN → SYSTEM: signed → activates) -->
+  <path d="M 780 250 C 815 250, 815 295, 830 320" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="815" y="282" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">signed → activates</text>
+
+  <!-- 03 → 02 (revise loop, muted dashed back-edge) -->
+  <path d="M 580 270 C 540 305, 480 305, 440 285" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="510" y="318" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">revise → re-author</text>
+
+  <!-- 04 → 03 (rejection page, muted dashed back-edge) -->
+  <path d="M 830 345 C 800 345, 800 270, 780 268" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="755" y="310" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">rejection → RDN paged</text>
+
+  <!-- Caption -->
+  <text x="590" y="420" font-family="var(--font-serif, 'Lora', serif)" font-style="italic" font-weight="500" font-size="12" fill="var(--color-text-muted, #555)" text-anchor="middle">Emphasized path: draft → RDN approval → activation → meal prescription hand-off. RDN approval gate is the load-bearing structural-gap moment.</text>
+</svg>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    Cena's Month 0 combined-care-plan-and-meal-plan creation flow routes a participant from baseline-complete trigger through RD authoring, RDN approval, and hand-off to the downstream meal-prescription workflow. The RDN approval gate is enforced by the platform but is not yet surfaced in the RD SoP body — a structural documentation gap.
+  </p>
+  <h4>Elements</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Trigger — All 6 baselines complete + Month 0 visit in progress</strong> — agent enquiry step in the AGENT lane; first-action specifics on visit start pending Vanessa/Marrero.</li>
+    <li><strong>Action — RD authors combined care-plan + meal-plan artifact in Cena</strong> — human action step in the HUMAN lane; Dr. Wu's role on dietary requirements (review vs approve) pending Vanessa.</li>
+    <li><strong>Attestation gate — RDN approval</strong> — human attestation in the HUMAN lane; the gate is hardcoded in the workflow-spec but is NOT surfaced in the RD SoP body as a named step — critical structural gap.</li>
+    <li><strong>Hand-off — Activated artifact → downstream meal-prescription workflow</strong> — internal Cena hand-off in the SYSTEM lane; downstream workflow contract intentionally deferred (out of RD SoP scope).</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>Trigger → Action: ready-to-author signal raised when baselines complete and visit is in progress (default arrow).</li>
+    <li>Action → RDN approval: completed draft routes to approval gate (emphasized arrow).</li>
+    <li>RDN approval → Hand-off: signed approval activates the artifact and triggers meal-prescription generation (emphasized arrow).</li>
+    <li>RDN approval → Action: revise decision routes the case back to authoring (muted dashed arrow).</li>
+    <li>Hand-off → RDN approval: downstream rejection pages the RDN (muted dashed arrow).</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Four uncertainty annotations are surfaced visibly on the diagram: trigger first-action specifics (TBD pending Vanessa/Marrero), Dr. Wu role on dietary requirements (TBD pending Vanessa — review vs approve), RDN approval gate documentation (GAP CRITICAL — gate is in workflow-spec, not in SoP body), and downstream meal-prescription workflow contract (DEFERRED — out of RD SoP scope). The GAP CRITICAL annotation on the RDN approval gate is the single largest authoring-debt signal for this use case.
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Rendered via:</strong> diagram-mapper skill (DRAFT — see <code>Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md</code>). <br>
+  <strong>Status:</strong> v0.1 sibling use case to the escalation worked example. Candidate modifier classes (5) reused inline from the escalation rendering; promotion to <code>components.css</code> is Tier 1 PL work pending 4-expert review panel.
+</div>
+
+</div>
+</body>
+</html>

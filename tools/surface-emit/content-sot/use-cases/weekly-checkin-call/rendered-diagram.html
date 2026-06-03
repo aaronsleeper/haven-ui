@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weekly Check-in Call Use Case — Diagram (DRAFT)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   CANDIDATE MODIFIER CLASSES — pending promotion to components.css.
+   Authored per diagram-mapper skill spec (Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md).
+   Pattern: small modifier additions to existing diagram-* primitives.
+   Promotion path: 4-expert review panel (brand-fidelity weighted) → components.css edit.
+   ──────────────────────────────────────────────────────────────────────── */
+.diagram-box--attestation-gate .diagram-box-shape {
+  stroke: var(--color-primary-700, #1e5149);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  fill: var(--color-surface-card, #ffffff);
+}
+.diagram-box--uncertain-tbd .diagram-box-shape {
+  stroke-dasharray: 6 4;
+  stroke: var(--color-warm-amber-500, #aa8232);
+  fill: var(--color-warm-amber-50, #f8f1e3);
+}
+.diagram-box--uncertain-assumption .diagram-box-shape {
+  stroke-dasharray: 3 2;
+  stroke: var(--color-warm-sand-500, #7a6f5a);
+  fill: var(--color-warm-sand-50, #faf6ee);
+}
+.diagram-box--uncertain-gap .diagram-box-shape {
+  stroke-dasharray: 1 3;
+  stroke: var(--color-red-500, #c13c3b);
+  fill: var(--color-red-50, #ffedea);
+}
+.diagram-box-watcher-label {
+  font-size: 9px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-text-muted, #555);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.diagram-tbd-callout {
+  font-size: 10px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-warm-amber-700, #735311);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.diagram-tbd-callout--critical {
+  fill: var(--color-red-700, #8a2a29);
+}
+.diagram-tbd-callout--gap {
+  fill: var(--color-red-600, #a8332f);
+}
+.diagram-tbd-callout--assumption {
+  fill: var(--color-warm-sand-700, #4d4538);
+}
+
+/* Page chrome (not part of the diagram primitives; per-rendering only) */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 1480px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Pattern: diagram-mapper skill render of use-case weekly-checkin-call
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Candidate modifier classes inline-defined above; promotion is Tier 1 PL work
+     - Inline <style> block reused verbatim from escalation-phq9-positive (same 5 classes)
+     - All canonical primitives (diagram-frame / diagram-marker-defs / diagram-box /
+       diagram-arrow / diagram-lane / diagram-caption) are referenced by class name
+     - No SYSTEM lane (workflow-shaped decision — no terminal audit-system gate
+       in this routine; see diagram.md "Lane choice" prose)
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>Weekly check-in call — Care Coordinator routine</h1>
+  <span class="draft-marker">DRAFT • v0.1 • pending Marrero + Healthcare Data Governance review</span>
+</header>
+
+<svg class="diagram-frame" viewBox="0 0 1440 500" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" style="display: block;">
+  <title id="diagram-title">Weekly check-in call flow — seven-step swim-lane diagram across agent, human, and partner lanes</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-default, #8c7c5e)"/>
+    </marker>
+    <marker id="arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-primary-700, #1e5149)"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes (AGENT / HUMAN / PARTNER — no SYSTEM in this use case) -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="100" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">AGENT</text>
+    <line x1="80" y1="115" x2="1420" y2="115" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="235" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">HUMAN</text>
+    <line x1="80" y1="250" x2="1420" y2="250" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="380" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">PARTNER</text>
+    <line x1="80" y1="395" x2="1420" y2="395" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- Node 01: Trigger — AGENT lane, resolved (default) -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="80" y="65" width="170" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text x="165" y="95" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Trigger</text>
+    <text x="165" y="113" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Roster top</text>
+    <text x="165" y="127" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">days-since-last-contact</text>
+  </g>
+
+  <!-- Node 02: Decision channel — AGENT lane, uncertain-tbd -->
+  <g class="diagram-box diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="290" y="65" width="170" height="80" rx="4" ry="4"/>
+    <text x="375" y="95" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Decision</text>
+    <text x="375" y="113" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Channel selection</text>
+    <text x="375" y="127" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">phone / text</text>
+  </g>
+  <text class="diagram-tbd-callout" x="375" y="40" text-anchor="middle">[TBD] channel-switch protocol pending cap-26</text>
+
+  <!-- Node 03: Enquiry the call — HUMAN lane, HIGH emphasis + uncertain-gap -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="510" y="195" width="180" height="95" rx="4" ry="4"/>
+    <text x="600" y="222" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Enquiry</text>
+    <text x="600" y="240" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="12" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">10–15 min check-in</text>
+    <text x="600" y="256" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">order support / adherence /</text>
+    <text x="600" y="269" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">barriers</text>
+    <text class="diagram-box-watcher-label" x="600" y="284" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="600" y="175" text-anchor="middle">[GAP] cap-25 script + cap-26 protocol unauthored</text>
+
+  <!-- Node 04: Decision outcome — HUMAN lane, HIGH emphasis + uncertain-tbd -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="750" y="195" width="180" height="95" rx="4" ry="4"/>
+    <text x="840" y="222" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Decision</text>
+    <text x="840" y="240" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="12" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Outcome classification</text>
+    <text x="840" y="256" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">5-way enum + yellow-flag</text>
+    <text x="840" y="269" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">overlay</text>
+    <text class="diagram-box-watcher-label" x="840" y="284" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout" x="840" y="175" text-anchor="middle">[TBD] yellow-flag criteria pending Marrero</text>
+
+  <!-- Node 05: Action log outcome — HUMAN lane, uncertain-tbd (default emphasis) -->
+  <g class="diagram-box diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="990" y="200" width="180" height="85" rx="4" ry="4"/>
+    <text x="1080" y="227" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Action</text>
+    <text x="1080" y="245" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Log outcome +</text>
+    <text x="1080" y="259" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">set next-touch</text>
+    <text class="diagram-box-watcher-label" x="1080" y="278" text-anchor="middle">▲ supervisor: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout" x="1080" y="180" text-anchor="middle">[TBD] field schema pending Marrero</text>
+
+  <!-- Node 06: Hand-off yellow flag — PARTNER lane, HIGH emphasis + uncertain-assumption -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-assumption">
+    <rect class="diagram-box-shape" x="990" y="340" width="180" height="95" rx="4" ry="4"/>
+    <text x="1080" y="368" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Hand-off</text>
+    <text x="1080" y="385" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Yellow flag →</text>
+    <text x="1080" y="399" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">UConn clinical team</text>
+    <text x="1080" y="413" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">(BHN role unresolved)</text>
+    <text class="diagram-box-watcher-label" x="1080" y="430" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--assumption" x="1080" y="320" text-anchor="middle">[ASSUMPTION] BHN/UConn role unresolved + first-action specifics pending</text>
+
+  <!-- Node 07: Action schedule followup — HUMAN lane, LOW emphasis + uncertain-gap -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="1210" y="200" width="195" height="85" rx="4" ry="4"/>
+    <text x="1307" y="227" font-family="var(--font-serif, 'Lora', serif)" font-size="12" font-style="italic" font-weight="500" fill="var(--color-text-muted, #555)" text-anchor="middle">Action (retry path)</text>
+    <text x="1307" y="245" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Schedule follow-up</text>
+    <text x="1307" y="259" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">per cap-26 protocol</text>
+    <text class="diagram-box-watcher-label" x="1307" y="278" text-anchor="middle">▲ supervisor: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="1307" y="180" text-anchor="middle">[GAP] cap-26 multi-modal contact protocol entirely undefined</text>
+
+  <!-- Edges -->
+
+  <!-- 01 → 02 (within AGENT lane) -->
+  <path d="M 250 105 L 290 105" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+
+  <!-- 02 → 03 (cross-lane AGENT → HUMAN) -->
+  <path d="M 460 105 C 500 105, 500 195, 600 195" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="475" y="160" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">phone / text</text>
+
+  <!-- 03 → 04 (within HUMAN lane) -->
+  <path d="M 690 240 L 750 240" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+
+  <!-- 04 → 05 (successful — default within HUMAN lane) -->
+  <path d="M 930 230 L 990 230" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="935" y="223" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">successful</text>
+
+  <!-- 04 → 06 (yellow flag — emphasized, cross-lane HUMAN → PARTNER) -->
+  <path d="M 840 290 C 840 340, 990 340, 1080 340" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="870" y="330" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-primary-700, #1e5149)" font-weight="600">yellow flag → escalation</text>
+
+  <!-- 04 → 07 (voicemail / no-answer / refused / deferred — muted dashed within HUMAN) -->
+  <path d="M 930 270 C 1070 270, 1100 320, 1210 270" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="1075" y="313" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">voicemail / no answer / refused / deferred</text>
+
+  <!-- 06 → 05 (ack → CC logs — return arrow PARTNER → HUMAN) -->
+  <path d="M 1080 340 C 1080 320, 1170 320, 1170 285" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="1175" y="315" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">ack → CC logs</text>
+
+  <!-- 07 → 05 (retry logged — muted dashed back-edge within HUMAN) -->
+  <path d="M 1210 245 L 1170 245" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="1170" y="237" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">retry logged</text>
+
+  <!-- Caption -->
+  <text x="720" y="475" font-family="var(--font-serif, 'Lora', serif)" font-style="italic" font-weight="500" font-size="12" fill="var(--color-text-muted, #555)" text-anchor="middle">Emphasized path: routine CC call → outcome classification → yellow-flag escalation to UConn clinical team. Cap-25 and cap-26 are catalog-level gaps blocking operational deployment.</text>
+</svg>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    Cena's weekly check-in call flow runs hundreds of times across the 26-week intervention. The Care Coordinator selects a participant from the roster, conducts a 10–15 minute call covering order support, adherence, and barriers, classifies the outcome, and either logs and sets the next-touch plan, escalates to the UConn clinical team on a yellow flag, or schedules a follow-up retry for unsuccessful contact.
+  </p>
+  <h4>Elements</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Trigger — Roster top by days-since-last-contact</strong> — agent enquiry step in the AGENT lane; semantics resolved.</li>
+    <li><strong>Decision — Channel selection (phone or text)</strong> — agent decision step in the AGENT lane; channel-switch protocol pending cap-26.</li>
+    <li><strong>Enquiry — 10–15 minute check-in</strong> — human enquiry step in the HUMAN lane, HIGH emphasis as the gravity center of the routine; cap-25 script and cap-26 protocol unauthored.</li>
+    <li><strong>Decision — Outcome classification (5-way) with yellow-flag overlay</strong> — human decision step in the HUMAN lane, HIGH emphasis; yellow-flag criteria pending Marrero.</li>
+    <li><strong>Action — Log outcome + set next-touch</strong> — human action step in the HUMAN lane closing the routine path; structured-field schema pending Marrero.</li>
+    <li><strong>Hand-off — Yellow flag to UConn clinical team</strong> — cross-organization hand-off in the PARTNER lane, HIGH emphasis; receiving-actor identity (UConn-clinical-team vs. Cena-staffed BHN) unresolved (catalog #1 carry-forward); first-action specifics pending Vanessa/Marrero (catalog #2 carry-forward).</li>
+    <li><strong>Action — Schedule follow-up retry</strong> — human action step in the HUMAN lane, LOW emphasis; cap-26 multi-modal contact protocol entirely undefined.</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>Trigger → Channel selection: agent-to-agent within-lane flow (default arrow).</li>
+    <li>Channel selection → 10–15 minute check-in: cross-lane (AGENT → HUMAN) — channel is selected and the call is initiated (default arrow).</li>
+    <li>10–15 minute check-in → Outcome classification: within-lane flow as the CC classifies at the end of the call (default arrow).</li>
+    <li>Outcome classification → Log outcome: successful contact (no yellow flag) routes to log-and-next-touch (default arrow).</li>
+    <li>Outcome classification → Yellow-flag hand-off: emphasized cross-lane arrow (HUMAN → PARTNER) marking the cross-org escape hatch.</li>
+    <li>Outcome classification → Follow-up retry: voicemail, no answer, refused, or deferred outcomes route to retry scheduling (muted dashed arrow).</li>
+    <li>Yellow-flag hand-off → Log outcome: ack received from UConn clinical team; CC logs the escalation and sets next-touch (default arrow).</li>
+    <li>Follow-up retry → Log outcome: retry attempt outcomes log back through the same action step (muted dashed back-edge).</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Six uncertainty annotations are surfaced visibly on the diagram. Two carry the catalog-level structural gaps (cap-25 CC do/don't script + cap-26 multi-modal protocol) which block operational deployment. Two carry forward shared gaps with escalation-phq9-positive (BHN role unresolved, first-action specifics pending Vanessa/Marrero). The remaining annotations capture per-step Marrero-pending decisions (yellow-flag criteria, structured-field schema). No SYSTEM lane is shown — the routine workflow has no terminal audit-system gate in this use case; lane omission is workflow-shaped.
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Rendered via:</strong> diagram-mapper skill (DRAFT — see <code>Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md</code>). <br>
+  <strong>Status:</strong> v0.1 sibling to escalation-phq9-positive (Phase 2 fan-out). Candidate modifier classes (5) inline-defined above; promotion to <code>components.css</code> is Tier 1 PL work pending 4-expert review panel. Three-lane variant (AGENT / HUMAN / PARTNER) — SYSTEM lane omitted as workflow-shaped decision; see <code>diagram.md</code> "Lane choice."
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Written Consent Execution Use Case — Diagram (DRAFT)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   CANDIDATE MODIFIER CLASSES — pending promotion to components.css.
+   Authored per diagram-mapper skill spec (Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md).
+   Pattern: small modifier additions to existing diagram-* primitives.
+   Promotion path: 4-expert review panel (brand-fidelity weighted) → components.css edit.
+   ──────────────────────────────────────────────────────────────────────── */
+.diagram-box--attestation-gate .diagram-box-shape {
+  stroke: var(--color-primary-700, #1e5149);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  fill: var(--color-surface-card, #ffffff);
+}
+.diagram-box--uncertain-tbd .diagram-box-shape {
+  stroke-dasharray: 6 4;
+  stroke: var(--color-warm-amber-500, #aa8232);
+  fill: var(--color-warm-amber-50, #f8f1e3);
+}
+.diagram-box--uncertain-assumption .diagram-box-shape {
+  stroke-dasharray: 3 2;
+  stroke: var(--color-warm-sand-500, #7a6f5a);
+  fill: var(--color-warm-sand-50, #faf6ee);
+}
+.diagram-box--uncertain-gap .diagram-box-shape {
+  stroke-dasharray: 1 3;
+  stroke: var(--color-red-500, #c13c3b);
+  fill: var(--color-red-50, #ffedea);
+}
+.diagram-box-watcher-label {
+  font-size: 9px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-text-muted, #555);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.diagram-tbd-callout {
+  font-size: 10px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-warm-amber-700, #735311);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.diagram-tbd-callout--critical {
+  fill: var(--color-red-700, #8a2a29);
+}
+.diagram-tbd-callout--gap {
+  fill: var(--color-red-600, #a8332f);
+}
+.diagram-tbd-callout--assumption {
+  fill: var(--color-warm-sand-700, #4d4538);
+}
+
+/* Page chrome (not part of the diagram primitives; per-rendering only) */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 1180px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Pattern: diagram-mapper skill render of use-case written-consent-execution
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Candidate modifier classes inline-defined above (verbatim from escalation worked example); promotion is Tier 1 PL work
+     - Structural variations from escalation: no AGENT lane (no agent steps); no PARTNER lane (no cross-org handoff);
+       PATIENT lane added (participant performs visible workflow action); no watcher annotations (no documented supervisor role)
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>Written consent execution — Month 0 in-person</h1>
+  <span class="draft-marker">DRAFT • v0.1 • pending Marrero + Healthcare Data Governance review</span>
+</header>
+
+<svg class="diagram-frame" viewBox="0 0 1180 540" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" style="display: block;">
+  <title id="diagram-title">Written consent execution flow — four-step swim-lane diagram across human, patient, and system lanes</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-default, #8c7c5e)"/>
+    </marker>
+    <marker id="arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-primary-700, #1e5149)"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="130" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">HUMAN</text>
+    <line x1="80" y1="145" x2="1160" y2="145" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="260" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">PATIENT</text>
+    <line x1="80" y1="275" x2="1160" y2="275" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="410" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">SYSTEM</text>
+    <line x1="80" y1="425" x2="1160" y2="425" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- Node 01: Trigger — HUMAN lane (RD), default emphasis -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="90" y="95" width="180" height="85" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text x="180" y="125" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Trigger</text>
+    <text x="180" y="143" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Month 0 visit</text>
+    <text x="180" y="157" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">RD ready to execute</text>
+    <text x="180" y="173" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">(actor: RD)</text>
+  </g>
+
+  <!-- Node 02: Attestation Gate — PATIENT lane, attestation-gate + uncertain-gap modifiers -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="335" y="220" width="200" height="100" rx="4" ry="4"/>
+    <text x="435" y="248" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Attestation gate</text>
+    <text x="435" y="266" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="12" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Participant signs</text>
+    <text x="435" y="284" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">IRB paper form +</text>
+    <text x="435" y="297" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">handwritten signature +</text>
+    <text x="435" y="310" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">date (attestor: patient)</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="435" y="200" text-anchor="middle">[GAP] decline-to-sign path undocumented</text>
+
+  <!-- Decline-to-sign terminal — ghost box in PATIENT lane, off-path -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="335" y="345" width="200" height="50" rx="4" ry="4"/>
+    <text x="435" y="368" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" font-style="italic" fill="var(--color-text-muted, #555)" text-anchor="middle">out of scope:</text>
+    <text x="435" y="384" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" font-style="italic" fill="var(--color-text-muted, #555)" text-anchor="middle">decline-or-reschedule (gap)</text>
+  </g>
+
+  <!-- Node 03: Hand-off — HUMAN lane (RD → administrator), default emphasis, cross-medium -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="590" y="80" width="200" height="100" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text x="690" y="110" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Hand-off</text>
+    <text x="690" y="128" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">RD → administrator</text>
+    <text x="690" y="142" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">paper, same day</text>
+    <text x="690" y="160" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">(actor: RD)</text>
+    <text x="690" y="173" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">(recv: program-admin)</text>
+  </g>
+
+  <!-- Node 04: Action — SYSTEM lane (administrator + Athena), uncertain-gap modifier -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="845" y="370" width="200" height="95" rx="4" ry="4"/>
+    <text x="945" y="400" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Action</text>
+    <text x="945" y="418" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Digitize paper →</text>
+    <text x="945" y="432" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">PDF on Athena chart</text>
+    <text x="945" y="450" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">(actor: program-admin)</text>
+    <text x="945" y="463" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">(system: Athena)</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="945" y="350" text-anchor="middle">[GAP] PDF-landed verification missing</text>
+
+  <!-- Edges -->
+  <!-- 01 → 02 (cross-lane, HUMAN → PATIENT, emphasized) -->
+  <path d="M 270 137 C 310 137, 310 250, 335 250" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="280" y="200" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">visit confirmed →</text>
+  <text x="280" y="213" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">execute consent</text>
+
+  <!-- 02 → 03 (cross-lane, PATIENT → HUMAN, emphasized, signed → handoff) -->
+  <path d="M 535 250 C 565 250, 565 130, 590 130" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="545" y="195" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">signed → handoff</text>
+
+  <!-- 03 → 04 (cross-lane, HUMAN → SYSTEM, emphasized, paper received → digitize) -->
+  <path d="M 790 145 C 820 145, 820 410, 845 410" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="800" y="270" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">paper received →</text>
+  <text x="800" y="283" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">digitize</text>
+
+  <!-- 02 → out-of-scope-decline (PATIENT lane, muted dashed, declines → gap) -->
+  <path d="M 435 320 L 435 345" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="455" y="338" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">declines</text>
+
+  <!-- Caption -->
+  <text x="590" y="510" font-family="var(--font-serif, 'Lora', serif)" font-style="italic" font-weight="500" font-size="12" fill="var(--color-text-muted, #555)" text-anchor="middle">Linear cross-medium path: face-to-face visit → paper signature → hand-delivered paper → Athena PDF. Two structural gaps surfaced.</text>
+</svg>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    Cena's in-person IRB written consent execution flow at the Month 0 visit. The Registered Dietitian executes consent with the participant, who signs on paper. The signed paper is handed to the Program Administrator the same day, who digitizes it and uploads the PDF to the participant's Athena record. Consent execution is the hard prerequisite gate before any baseline assessment.
+  </p>
+  <h4>Elements</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Trigger — Month 0 visit, RD ready to execute</strong> — enquiry step in the HUMAN lane (Registered Dietitian); witness requirement TBD pending Marrero.</li>
+    <li><strong>Attestation gate — Participant signs IRB paper form</strong> — patient attestation in the PATIENT lane; the only v0.1 use case where the attestor is the patient; decline-to-sign branch is a structural gap.</li>
+    <li><strong>Hand-off — RD to Program Administrator (paper, same day)</strong> — cross-medium hand-off in the HUMAN lane; paper hand-delivered; chain-of-custody specifics pending Marrero.</li>
+    <li><strong>Action — Digitize paper, upload PDF to Athena chart</strong> — action step in the SYSTEM lane (Program Administrator operates on Athena); PDF-landed verification is a structural gap.</li>
+    <li><strong>Out-of-scope terminal — decline-or-reschedule (gap)</strong> — ghost terminal in the PATIENT lane reachable from the attestation gate if the participant declines; no documented downstream procedure.</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>Trigger → Participant signs: visit confirmation routes to the attestation gate (emphasized arrow).</li>
+    <li>Participant signs → Hand-off: signed paper routes to the cross-medium hand-off (emphasized arrow).</li>
+    <li>Hand-off → Digitize and upload: received paper routes to the system-of-record action (emphasized arrow).</li>
+    <li>Participant signs → Out-of-scope decline-or-reschedule: declines routes to a ghost terminal with no documented procedure (muted dashed arrow).</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Two structural gaps are surfaced visibly on the diagram: the decline-to-sign procedure (GAP — no documented re-consent, reschedule, or termination pathway) and PDF-landed verification (GAP — no explicit audit step confirms the PDF reached the participant's Athena record before downstream care-plan work proceeds). The use case has no AGENT lane (no agent-mediated steps), no PARTNER lane (fully internal to Cena + UConn site), and no watcher annotations (no documented supervisor role for the administrator's digitization step). The participant-as-attestor shape is unique among v0.1 use cases.
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Rendered via:</strong> diagram-mapper skill (DRAFT — see <code>Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md</code>). <br>
+  <strong>Status:</strong> v0.1 sibling worked example for the Friday Marrero session (Phase 2 fan-out from escalation-phq9-positive). Candidate modifier classes inline-defined above (verbatim from escalation); promotion to <code>components.css</code> is Tier 1 PL work pending 4-expert review panel.
+</div>
+
+</div>
+</body>
+</html>
