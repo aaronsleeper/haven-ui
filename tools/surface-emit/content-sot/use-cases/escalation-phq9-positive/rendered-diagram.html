@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PHQ9 Escalation Use Case — Diagram (DRAFT)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   CANDIDATE MODIFIER CLASSES — pending promotion to components.css.
+   Authored per diagram-mapper skill spec (Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md).
+   Pattern: small modifier additions to existing diagram-* primitives.
+   Promotion path: 4-expert review panel (brand-fidelity weighted) → components.css edit.
+   ──────────────────────────────────────────────────────────────────────── */
+.diagram-box--attestation-gate .diagram-box-shape {
+  stroke: var(--color-primary-700, #1e5149);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  fill: var(--color-surface-card, #ffffff);
+}
+.diagram-box--uncertain-tbd .diagram-box-shape {
+  stroke-dasharray: 6 4;
+  stroke: var(--color-warm-amber-500, #aa8232);
+  fill: var(--color-warm-amber-50, #f8f1e3);
+}
+.diagram-box--uncertain-assumption .diagram-box-shape {
+  stroke-dasharray: 3 2;
+  stroke: var(--color-warm-sand-500, #7a6f5a);
+  fill: var(--color-warm-sand-50, #faf6ee);
+}
+.diagram-box--uncertain-gap .diagram-box-shape {
+  stroke-dasharray: 1 3;
+  stroke: var(--color-red-500, #c13c3b);
+  fill: var(--color-red-50, #ffedea);
+}
+.diagram-box-watcher-label {
+  font-size: 9px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-text-muted, #555);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.diagram-tbd-callout {
+  font-size: 10px;
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  fill: var(--color-warm-amber-700, #735311);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.diagram-tbd-callout--critical {
+  fill: var(--color-red-700, #8a2a29);
+}
+.diagram-tbd-callout--gap {
+  fill: var(--color-red-600, #a8332f);
+}
+.diagram-tbd-callout--assumption {
+  fill: var(--color-warm-sand-700, #4d4538);
+}
+
+/* Page chrome (not part of the diagram primitives; per-rendering only) */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 1180px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Pattern: diagram-mapper skill render of use-case escalation-phq9-positive
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Candidate modifier classes inline-defined above; promotion is Tier 1 PL work
+     - Inline <style> block is precedented (yesterday's UConn workflow-mapping artifact)
+     - All canonical primitives (diagram-frame / diagram-marker-defs / diagram-box /
+       diagram-arrow / diagram-lane / diagram-caption) are referenced by class name
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>Escalation — PHQ9 positive response</h1>
+  <span class="draft-marker">DRAFT • v0.1 • pending Marrero + Healthcare Data Governance review</span>
+</header>
+
+<svg class="diagram-frame" viewBox="0 0 1180 540" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" style="display: block;">
+  <title id="diagram-title">PHQ9 Escalation flow — five-step swim-lane diagram across agent, human, partner, and system lanes</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-default, #8c7c5e)"/>
+    </marker>
+    <marker id="arrow-end-emphasis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-primary-700, #1e5149)"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="100" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">AGENT</text>
+    <line x1="80" y1="115" x2="1160" y2="115" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="220" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">HUMAN</text>
+    <line x1="80" y1="235" x2="1160" y2="235" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="340" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">PARTNER</text>
+    <line x1="80" y1="355" x2="1160" y2="355" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="12" y="460" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="11" font-weight="600" letter-spacing="0.12em" fill="var(--color-text-muted, #555)">SYSTEM</text>
+    <line x1="80" y1="475" x2="1160" y2="475" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- Node 01: Trigger — AGENT lane, uncertain-tbd modifier -->
+  <g class="diagram-box diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="100" y="65" width="180" height="85" rx="4" ry="4"/>
+    <text x="190" y="95" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Trigger</text>
+    <text x="190" y="113" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">PHQ9 positive</text>
+    <text x="190" y="127" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">response detected</text>
+    <text class="diagram-box-watcher-label" x="190" y="145" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout" x="190" y="40" text-anchor="middle">[TBD] threshold pending HDG</text>
+
+  <!-- Node 02: Decision — AGENT lane, uncertain-gap modifier -->
+  <g class="diagram-box diagram-box--uncertain-gap">
+    <rect class="diagram-box-shape" x="340" y="65" width="180" height="85" rx="4" ry="4"/>
+    <text x="430" y="95" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Decision</text>
+    <text x="430" y="113" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Severity assessment</text>
+    <text x="430" y="127" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">red / yellow / green</text>
+    <text class="diagram-box-watcher-label" x="430" y="145" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--gap" x="430" y="40" text-anchor="middle">[GAP] tier boundaries pending Marrero</text>
+
+  <!-- Node 03: Attestation Gate — HUMAN lane, attestation-gate + uncertain-tbd modifiers -->
+  <g class="diagram-box diagram-box--attestation-gate diagram-box--uncertain-tbd">
+    <rect class="diagram-box-shape" x="580" y="180" width="200" height="100" rx="4" ry="4"/>
+    <text x="680" y="208" font-family="var(--font-serif, 'Lora', serif)" font-size="13" font-style="italic" font-weight="500" fill="var(--color-primary-700, #1e5149)" text-anchor="middle">Attestation gate</text>
+    <text x="680" y="226" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="12" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Clinical lead review</text>
+    <text x="680" y="244" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">evidence package +</text>
+    <text x="680" y="257" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">decision + rationale</text>
+    <text x="680" y="270" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">+ SLA timeout fallback</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--critical" x="680" y="160" text-anchor="middle">[TBD CRITICAL] first-action specifics — Vanessa/Marrero</text>
+
+  <!-- Node 04: Hand-off — PARTNER lane, uncertain-assumption modifier -->
+  <g class="diagram-box diagram-box--uncertain-assumption">
+    <rect class="diagram-box-shape" x="860" y="295" width="200" height="90" rx="4" ry="4"/>
+    <text x="960" y="325" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="13" font-weight="600" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">Hand-off</text>
+    <text x="960" y="343" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">to BHN / UConn</text>
+    <text x="960" y="357" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="11" fill="var(--color-text-normal, #0d322d)" text-anchor="middle">clinical team</text>
+    <text class="diagram-box-watcher-label" x="960" y="378" text-anchor="middle">▲ watches: clinical-lead</text>
+  </g>
+  <text class="diagram-tbd-callout diagram-tbd-callout--assumption" x="960" y="275" text-anchor="middle">[ASSUMPTION] BHN role unresolved (Cena vs UConn)</text>
+
+  <!-- Node 05: Audit Record Sealed — SYSTEM lane, default (resolved) -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="580" y="420" width="200" height="80" rx="4" ry="4" fill="var(--color-surface-subtle, #faf6ee)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text x="680" y="450" font-family="var(--font-serif, 'Lora', serif)" font-size="12" font-style="italic" font-weight="500" fill="var(--color-text-muted, #555)" text-anchor="middle">Audit record sealed</text>
+    <text x="680" y="468" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">chain of custody +</text>
+    <text x="680" y="481" font-family="var(--font-sans, 'Source Sans 3', sans-serif)" font-size="10" fill="var(--color-text-muted, #555)" text-anchor="middle">terminal state</text>
+  </g>
+
+  <!-- Edges -->
+  <!-- 01 → 02 (within AGENT lane) -->
+  <path d="M 280 107 L 340 107" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+
+  <!-- 02 → 03 (cross-lane, red/yellow path emphasized) -->
+  <path d="M 430 150 C 430 180, 580 180, 680 180" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="525" y="172" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">red / yellow</text>
+
+  <!-- 03 → 04 (cross-lane, signed → handoff emphasized) -->
+  <path d="M 780 230 C 850 230, 850 295, 960 295" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" marker-end="url(#arrow-end-emphasis)" aria-hidden="true"/>
+  <text x="845" y="265" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">signed → handoff</text>
+
+  <!-- 04 → 05 (cross-lane, ack → audit) -->
+  <path d="M 960 385 C 960 420, 800 420, 780 425" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="850" y="410" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">ack → audit</text>
+
+  <!-- 03 → 05 (deferred/decline → audit, muted dashed) -->
+  <path d="M 580 250 C 510 290, 510 410, 580 440" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="492" y="345" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)" transform="rotate(-90 492 345)">deferred / decline → audit</text>
+
+  <!-- 04 → 03 (handoff timeout → paged back, muted dashed) -->
+  <path d="M 860 340 C 800 280, 800 280, 780 250" fill="none" stroke="var(--color-arrow-muted, #b8a988)" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-end)" aria-hidden="true"/>
+  <text x="755" y="295" font-family="var(--font-mono, 'Source Code Pro', monospace)" font-size="10" fill="var(--color-text-muted, #555)">timeout → paged</text>
+
+  <!-- Caption -->
+  <text x="590" y="525" font-family="var(--font-serif, 'Lora', serif)" font-style="italic" font-weight="500" font-size="12" fill="var(--color-text-muted, #555)" text-anchor="middle">Emphasized path: red/yellow severity → clinical-lead attestation → BHN/UConn handoff. Audit sealed at every terminal state.</text>
+</svg>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    Cena's PHQ9 escalation flow routes a patient's positive screening result through agent-classification, clinical-lead human attestation, and partner-clinical-team handoff, with every step audited for chain-of-custody.
+  </p>
+  <h4>Elements</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Trigger — PHQ9 positive response detected</strong> — agent enquiry step in the AGENT lane; threshold value pending Healthcare Data Governance review.</li>
+    <li><strong>Decision — Severity assessment</strong> — agent decision step in the AGENT lane; red/yellow/green tier boundaries pending Marrero.</li>
+    <li><strong>Attestation gate — Clinical lead review</strong> — human attestation in the HUMAN lane; first-action specifics pending Vanessa/Marrero (critical Friday blocker).</li>
+    <li><strong>Hand-off — to BHN / UConn clinical team</strong> — cross-organization hand-off in the PARTNER lane; receiver role (Cena-staffed BHN vs UConn-side function) unresolved.</li>
+    <li><strong>Audit record sealed</strong> — terminal system attestation in the SYSTEM lane; chain-of-custody hash of all upstream events.</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>Trigger → Decision: agent-to-agent within-lane flow (default arrow).</li>
+    <li>Decision → Clinical lead review: red/yellow severity routes to attestation gate (emphasized arrow).</li>
+    <li>Clinical lead review → Hand-off to BHN: signed approval routes the case to partner (emphasized arrow).</li>
+    <li>Hand-off → Audit record: acknowledgment closes the case to audit (default arrow).</li>
+    <li>Clinical lead review → Audit record: deferred or downgraded cases skip handoff and route directly to audit (muted dashed arrow).</li>
+    <li>Hand-off → Clinical lead review: ack-timeout pages the clinical lead back (muted dashed arrow).</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Three TBD annotations are surfaced visibly on the diagram: PHQ9 threshold (TBD pending HDG), severity tier boundaries (GAP pending Marrero), and first-action specifics (TBD CRITICAL pending Vanessa/Marrero — single largest Friday blocker per the catalog). The BHN-receiver identity is marked as an ASSUMPTION (Cena-staffed role vs. UConn-side function still unresolved per catalog #1 structural gap).
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Rendered via:</strong> diagram-mapper skill (DRAFT — see <code>Lab/haven-ui/.project-docs/agent-workflow/skills/diagram-mapper.md</code>). <br>
+  <strong>Status:</strong> v0.1 worked example for the Friday Marrero session. Candidate modifier classes (5) inline-defined above; promotion to <code>components.css</code> is Tier 1 PL work pending 4-expert review panel.
+</div>
+
+</div>
+</body>
+</html>
