@@ -7,6 +7,14 @@ x_cena_uncertainty: tbd
 trigger:
   source: PHQ9 screening assessment completion (onboarding or recurring check-in)
   fires_when: result >= threshold OR Q9 > 0
+upstream_producers:
+  - use_case: phq9-administration
+    fragment: 05-handoff-to-escalation-or-monitoring (positive_path)
+incoming_package:
+  - canonical PHQ9 record (total score, per-item, admin metadata)
+  - patient identity package
+  - administration context (in-person baseline vs. remote repeat-screening)
+  - prior PHQ9 screenings if any (for trajectory at decision time)
 gaps:
   - threshold value for total score (10 or 15 per standard clinical guidance — pending HDG)
   - Q9 (suicidal ideation) override semantics — pending Marrero

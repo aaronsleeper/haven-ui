@@ -15,6 +15,7 @@ Example: `escalation-phq9-positive/`
 | `diagram.md` | Visual rendering intent — lanes, node placement, emphasis, uncertainty visualization | The `diagram-mapper` skill |
 | `rendered-diagram.html` | The actual diagram (SVG + haven primitives) — output of `diagram-mapper` | Vanessa, Marrero, clinical team, internal review |
 | `rendered-sop.md` | Directive-marked markdown SoP — input to the existing surface-emit pipeline | Partners, auditors, staff training (after surface-emit converts to docx) |
+| `rendered-sop.docx` | Brand-fidelity Word document — `docx-emit.sh rendered-sop.md rendered-sop.docx` (untracked; regenerate locally) | External review surface — Vanessa, Marrero, partner sign-off |
 
 ## How the pipeline works
 
@@ -64,14 +65,14 @@ Marrero-owned use cases enumerated by the catalog workflow `wf_804a8e73-bfc` (20
 
 | Use case | SoP | Status | Primitives exercised |
 |---|---|---|---|
-| escalation-phq9-positive | Escalation Protocol (folded in CC) | DRAFT — worked example | attestation-gate, escalation-route, who-watches, hand-off |
-| written-consent-execution | Enrollment & Onboarding | not yet authored | attestation-gate, hand-off |
-| phq9-administration | Care Coordinator | not yet authored | attestation-gate, escalation-route |
-| monthly-uconn-review-meeting | Monthly Reporting | not yet authored | hand-off, who-watches |
-| weekly-checkin-call | Care Coordinator | not yet authored | escalation-route, who-watches |
-| initial-care-plan-meal-plan | Registered Dietitian | not yet authored | attestation-gate |
+| escalation-phq9-positive | Escalation Protocol (folded in CC) | DRAFT — worked example (Phase 1) | attestation-gate, escalation-route, who-watches, hand-off |
+| written-consent-execution | Enrollment & Onboarding | DRAFT (Phase 2) | attestation-gate, hand-off |
+| phq9-administration | Care Coordinator | DRAFT (Phase 2) | escalation-route, who-watches, hand-off |
+| monthly-uconn-review-meeting | Monthly Reporting | DRAFT (Phase 2) | hand-off, who-watches |
+| weekly-checkin-call | Care Coordinator | DRAFT (Phase 2) | escalation-route, who-watches, hand-off |
+| initial-care-plan-meal-plan | Registered Dietitian | DRAFT (Phase 2) | attestation-gate, who-watches, hand-off |
 
-Full catalog (all 33) lives at `~/.claude/plans/cena-workflow-diagram-asset-family.md` in the plan's completion notes.
+Coherence-synthesis pass across the 6 bundles: [`coherence-synthesis-phase2.md`](./coherence-synthesis-phase2.md). Full 33-use-case catalog lives at `~/.claude/plans/cena-workflow-diagram-asset-family.md` in the plan's completion notes.
 
 ## Source
 
