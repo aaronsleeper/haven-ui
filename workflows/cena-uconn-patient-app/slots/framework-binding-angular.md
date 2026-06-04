@@ -89,3 +89,46 @@ The deterministic PL→Angular mapping (semantic classes verbatim, `input()`/`ou
 ## Guard pattern (survey addition — his, REUSE)
 
 - Four functional guards (`authGuard`, `patientAccessGuard`, `onboardingGuard`, `loginRedirectGuard`) under `patients/src/app/guards/`, wired as `canActivate` arrays in `app.routes.ts`. **The porter never emits guards** — they are auth/access policy Andrey owns, same boundary class as the data layer. Emitted routes slot into his existing guard arrays; the new IA's added routes inherit the shell's guard array.
+
+## v2 captures (post-slice retro 2026-06-04)
+
+Three deltas from the dietary-recall proving-slice walk + Aaron's corrected scope feedback. Each is a *binding-level* learning, not a per-row idiom adjustment.
+
+### v2-1. Andrey-canon inheritance discipline: structure YES, design-completeness NO
+
+The porter inherits **structural** conventions from Andrey's code (`observed` rows in the ledger: standalone, zoneless, signal I/O, `inject()`, control-flow surface, FormsModule, lazy `loadComponent`, separate `.html`/`.scss`). The porter does **not** inherit **design completeness** from his existing patient-app UI. His shipped UI is bare-bones-by-spec (Datirium-CTO discipline: build-only-what's-asked); the haven design system is the *visual* spec the porter emits against.
+
+This collapse is the recurring drift risk: an emit-author looks at Andrey's existing patient UI, sees it's plain, and concludes "the haven design is wrong for this app." It is not — Andrey's UI is plain because the structural spec didn't ask for more; the design layer is what the porter brings. **Structure inheritance: ledger-row-by-ledger-row. Design completeness: from haven canon, never from his existing app.**
+
+Source: Aaron 2026-06-04 — *"structure inheritance YES, design-completeness conflation NO. Visual design comes from haven canon, not Andrey's existing canon."*
+
+### v2-2. Angular emit role boundary: faithful implementation, NOT UX critique
+
+The Angular emit step's job is **faithful implementation of the haven HTML target** in framework-bound Angular code. UX questions surfaced during emit (input-gating principles, mobile redesign considerations, copy verification, affordance value) are **routed to UX team / wireframe stage**, not addressed in-emit.
+
+This delta exists because the dietary-recall walk surfaced ~6 UX questions that an emit author was tempted to "fix" in-slice. Fixing them in-slice would (a) extend slice surface area indefinitely; (b) couple emit quality to UX iteration cycle; (c) make the slice un-reviewable as an emit (Andrey + HVD can't separate "is this Angular faithful to the target" from "is this UI right"). The fix is the boundary: emit faithfully, surface UX residual as a feedback brief.
+
+Operationally: when an in-slice emit pass detects UX-class questions, log them to a per-slice feedback brief at `planning/team/feedback/{date}-{slice}-design-review-asks.md` rather than acting on them. Example brief: [`2026-06-04-recall-emit-design-review-asks.md`](../../../planning/team/feedback/2026-06-04-recall-emit-design-review-asks.md).
+
+Source: Aaron 2026-06-04 — *"Pipeline boundary clarified: Angular emit = faithful implementation, NOT UX critique."*
+
+### v2-3. HTML-target-debt-inheritance gap (open)
+
+`render-check.mjs` PASS on the HTML target is **mechanical** (renders at declared viewports without breaking), NOT "thoroughly visually reviewed by HVD." Angular emit currently inherits whatever latent design debt the HTML target carries — if the HTML target's hover state is buggy, the Angular emit's hover state inherits the bug; if the HTML target's alignment is off, the Angular emit reproduces the misalignment.
+
+The dietary-recall slice surfaced this on two items: the `.patient-recall-list-add` hover background (caught + fixed at haven canon source), and the recall-list/chat-thread top alignment (HVD brief item, not in-slice fixable). Both should have been caught at the HTML target stage, not after Angular emit.
+
+**Two possible mitigations (decision deferred):**
+1. **Tighten the HTML target gate** — make `render-check.mjs` strictness incorporate HVD review (gated step before HTML target is "done"). Expensive but root-cause.
+2. **Add HVD check at framework-binding step** — separate gate after the HTML target lands, before Angular emit begins. Cheaper but adds a stage.
+
+Until decided, the porter operates against potentially-debt-laden HTML targets and surfaces the inherited debt to HVD via the per-slice feedback brief (see v2-2). This is a known gap, not a tolerated default — flagged in [`2026-06-04-recall-emit-design-review-asks.md`](../../../planning/team/feedback/2026-06-04-recall-emit-design-review-asks.md) HVD section for the wider audit.
+
+Source: Aaron 2026-06-04 — *"HTML-target-debt-inheritance gap: render-check.mjs PASS is mechanical, not 'thoroughly visually reviewed by HVD.' Either tighten the HTML target gate OR add an HVD check at the framework-binding step."*
+
+---
+
+**Retro deltas summary (for future emits):**
+- Treat the haven design system as the design-completeness source; treat Andrey's existing app as the structural-idioms source. Don't cross the streams.
+- In-emit UX critique → out. Per-slice feedback brief → in.
+- HTML-target debt is inherited until the upstream gate tightens; surface inherited debt explicitly per-slice.
