@@ -2704,6 +2704,10 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     background: transparent;
 }
 
+.meal-type-toggle:hover {
+    @apply text-sand-700;
+}
+
 .meal-type-toggle:first-child {
     @apply rounded-s-full ps-3;
 }
@@ -2941,6 +2945,11 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .hs-accordion-toggle:hover {
     background-color: var(--color-sand-100) !important;
+}
+
+.hs-dropdown-toggle:hover,
+.hs-collapse-toggle:hover {
+    @apply text-sand-700;
 }
 
 /* Accordion Active State */
@@ -3826,10 +3835,6 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 
 .patient-recall-list-add {
     @apply inline-flex items-center gap-2 text-sm text-primary-600 hover:text-primary-800 font-medium;
-    /* hover:bg-transparent defeats defaults.css's global `button:hover { bg: accent-10 }`
-       contamination — this is a text-only affordance per canon; surfaced as HVD brief
-       item 2026-06-04 (global rule should arguably be removed; defeating per-class for now). */
-    @apply hover:bg-transparent;
     @apply focus:outline-none focus:underline;
     @apply dark:text-primary-400 dark:hover:text-primary-300;
 }
@@ -5031,6 +5036,11 @@ canvas {
     border-right: 1px solid var(--color-sand-200);
 }
 
+.segmented-control-btn:hover,
+.view-toggle-btn:hover {
+    @apply text-sand-700;
+}
+
 .segmented-control-btn:last-child,
 .view-toggle-btn:last-child {
     border-right: none;
@@ -5211,6 +5221,10 @@ canvas {
     @apply px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap;
     @apply bg-sand-50 text-sand-600 border-sand-200;
     @apply hover:bg-sand-50 transition-colors cursor-pointer;
+}
+
+.stratification-bar-item:hover {
+    @apply border-sand-400;
 }
 
 .stratification-bar-item.active {

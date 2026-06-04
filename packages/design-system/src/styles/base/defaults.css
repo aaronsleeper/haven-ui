@@ -73,9 +73,3 @@ button,
     font-weight: 500;
     cursor: pointer;
 }
-
-button:hover,
-[type="button"]:hover,
-[type="submit"]:hover {
-    background-color: var(--accent-10);
-}
