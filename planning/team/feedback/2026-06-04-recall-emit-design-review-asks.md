@@ -147,10 +147,97 @@ This is a small-stakes copy question per surface but a load-bearing voice decisi
 
 ---
 
+## Slice-2 additions (2026-06-04 afternoon)
+
+The slice-2 emit (pass2 / pass3 / pass4 / review on branch `claude/emit-dietary-recall-slice-2`) surfaced six additional residuals during faithful implementation of the four remaining pass components. Per v2-2 of `framework-binding-angular.md`, these are routed here rather than fixed in-slice.
+
+### HVD-05 — `chat-numeric-input` primitive — when does it earn its slot?
+
+**Observed (pass4 HTML target):** `html-target-pass4.html` lines 73-77 introduce `chat-numeric-input` (a labeled numeric input with a units button) as the affordance for "how much oatmeal — about a coffee-cup full?" prompts. This is a primitive the slice-1 patterns (pass1/entry/confirm) did not use; no canon documentation found for when it's the right choice over the haven `prompt-input-container` (textarea + send).
+
+**Slice-2 choice:** emit pass4 with the same `prompt-input-container` pattern as pass1/pass3 — consistent with the conversational chat-input pattern across the rest of the surface. The `chat-numeric-input` was NOT used.
+
+**Ask:** is `chat-numeric-input` the right affordance for portion-class questions in agentic chat surfaces? Three sub-questions:
+  - When IS it the right affordance? (numeric portions with units? scoring inputs? quantity stepping in conversational flow?)
+  - Should pass4 use it specifically (because portion is numeric-with-units), or does the conversational-text affordance better fit the "size anchors" prompting style ("about a coffee-cup full?")?
+  - If `chat-numeric-input` IS canon-correct for pass4, document the surface-rule so a future emit doesn't re-conflate.
+
+**Why it matters:** primitive selection rule. Same question class as `chat-input-area` vs `prompt-input-container` in pass1 (which we already resolved to `prompt-input-container`).
+
+---
+
+### HVD-06 — `chat-button-row.has-helper` pattern — surfaces in pass4 HTML target, not used in slice
+
+**Observed (pass4 HTML target):** lines 80-83 use `<div class="chat-button-row has-helper">` with a primary button + `<p class="chat-row-helper">` underneath ("Saves this amount and moves to the next item."). Same pattern appears in the review HTML target (lines 77-80) for the "Looks right, submit" button with helper text "Sends to your care team. You won't be able to make changes after this."
+
+**Slice-2 choice:** review component DOES use `chat-button-row.has-helper` (faithful to review HTML target). Pass4 does NOT use it (the per-item submit-portion pattern was inlined as a chip-row instead, since pass4 walks items via the conversational textarea rather than per-item button+helper rows).
+
+**Ask:** is `chat-button-row.has-helper` the canon affordance for "single committing action + consequence prose underneath"? Two sub-questions:
+  - Should pass4's per-item amount submission use this pattern instead of the chip-row pattern slice-2 chose?
+  - Is the helper text always *consequence prose* (what happens when you tap), or can it carry other classes of microcopy?
+
+**Why it matters:** the slice-2 pass4 currently lacks the helper-text affordance the HTML target shows — patient submits amount via send-button (no consequence prose). Faithful to the conversational pattern but not faithful to the HTML target's per-item commit pattern. HVD/UX call.
+
+---
+
+### UX-07 — Per-item generic prompts vs. context-aware prompts (pass3/pass4)
+
+**Observed:** the slice-2 pass3 and pass4 components use generic agent prompts templated on item name: *"And the {item.name} — around what time?"* (pass3) and *"And the {item.name} — about how much did you have?"* (pass4). The HTML targets show context-aware variations: *"The crackers — was that before or after lunch?"* and *"Starting with breakfast: the oatmeal — about how much did you have?"*
+
+**Why slice-2 emitted generic:** Angular emit has no agent NLG (natural language generation) in v1; the deterministic templated prompt is the faithful contract for "patient walks through items and answers each one." The HTML target's contextual variation is what a real agent would produce; the slice approximates the pattern.
+
+**Ask the UX team:** is the templated generic prompt acceptable as the v1 faithful baseline, or does the agentic-chat experience hinge on per-item prompt variation enough that we need a content layer that selects from a small prompt set per item context (meal type, time-of-day, item category)?
+
+**Why it matters:** the conversational feel of the recall depends on the agent sounding like a person, not a templater. If templated prompts read as robotic in user testing, the next-level fix is a context-aware content layer (canned variations selected by item context) before full agent-runtime integration.
+
+---
+
+### UX-08 — Time-of-day / size chip presets — fixed set or context-adaptive?
+
+**Observed:** pass3 chips offer Morning / Afternoon / Not sure. Pass4 chips offer Small / Medium / Large / Not sure. Same fixed sets regardless of item context.
+
+**Ask the UX team:** should chip sets adapt to item context?
+  - For pass3 time chips: breakfast items might offer Morning / Lunch / Snack instead of generic Morning / Afternoon, etc.
+  - For pass4 size chips: drink items might offer Small / Medium / Large / Refill; main-meal items might offer Half-plate / Full-plate / Multiple servings.
+
+**Why it matters:** chip sets are an information-architecture choice. Fixed sets are cheaper to maintain; context-adaptive sets read more conversationally. The faithful-implementation baseline is fixed sets; surfacing the question lets UX decide if context-adaptive is the right next step.
+
+---
+
+### UX-09 — Review verbal summary — what should it actually say?
+
+**Observed (review HTML target):** the agent reads back a structured verbal summary: *"For breakfast you had oatmeal, a glass of juice, and a cup of black coffee, all around 7 in the morning. Lunch was a turkey sandwich at work around 12:30. Some crackers in the afternoon. And dinner was rice and chicken around 7 PM."* This is hardcoded demo content — meal-grouped, conversational, NOT a list dump (per the flow spec edge case "the agent's spoken summary is a comprehension check, NOT a duplication of the right-pane content").
+
+**Slice-2 choice:** review component replaces the structured summary with a pointer to the right-pane list: *"Okay — here's everything I have. Take a look at the list on the right. Does that look right? Anything missing or wrong?"* Deterministic Angular emit can't generate a meal-grouped conversational summary without (a) a content layer that templates from items, OR (b) an agent-runtime that does NLG. The pointer-to-list is the simplest faithful baseline.
+
+**Ask the UX team:** what should the v1 review summary actually say?
+  - Pointer-to-list (slice-2 choice) — minimal but loses conversational comprehension-check.
+  - Templated meal-grouped summary — deterministic content layer that infers meal-grouping from .when values and generates "For breakfast you had X, Y, Z" prose. Costs implementation, gains conversational feel.
+  - Defer until agent-runtime — no review summary in v1; advance straight to submit affordance. Acceptable trade-off if the right-pane list is sufficient.
+
+**Why it matters:** the review phase is the comprehension-check moment per flow spec; getting it wrong erodes the recall's trust contract. The summary decision shapes the content layer for several future agentic surfaces (assessment review, profile review, care-plan review — all have analogous comprehension-check phases).
+
+---
+
+### UX-10 — "Add another item" affordance during pass3/pass4 — broken-by-design in faithful emit
+
+**Observed:** the `recall-list.component.html` shows the "Add another item" footer button across pass2/pass3/pass4 (it's hidden in entry, locked passes, and confirm). The footer button emits `addRequested` which the parent phase component handles by focusing the textarea. In pass1/pass2 this works correctly — textarea submit adds a new item. In pass3/pass4 this is broken-by-design — submit() in those components records `.when` / `.amount` for the *currently-asked* item rather than adding a new item.
+
+**Flow spec context:** Step 7 explicitly states edit-in-place is available throughout passes 2-6 via Path B (direct manipulation of right-pane). The HTML targets show the add affordance as visible in pass3/pass4. The flow spec assumes a real agent that interprets free-text input ("I didn't have eggs, I had oatmeal" → swap item) — Angular emit has no agent, so the affordance can't work as designed.
+
+**Ask the UX team:** how should the "Add another item" affordance work in pass3/pass4 in a deterministic-emit world?
+  - **Hide the footer in pass3/pass4** — clean break; patient can only edit items in pass1/pass2 add-mode. Costs flow-spec divergence.
+  - **Add a modal/inline editor** — clicking "Add another item" opens an inline form (name field) that explicitly adds an item, bypassing the per-pass submit logic. Costs implementation.
+  - **Defer until agent-runtime** — leave the broken-by-design affordance in place as a known limitation; document it in the slice README. Acceptable if real-agent integration is on the near horizon.
+
+**Why it matters:** the same affordance pattern (edit-in-place during structured walk) will recur in other agentic surfaces (assessment edit, profile edit, care-plan edit). Resolving this now defines the pattern.
+
+---
+
 ## Routing
 
-- **HVD-01 through HVD-04** → Haven Visual Designer expert (`Lab/haven-ui/planning/experts/brand-fidelity/` or vault-tier HVD if escalation needed).
-- **UX-01 through UX-06** → UX team / `ux-design-lead` expert (`Lab/haven-ui/planning/experts/ux-design-lead/`).
+- **HVD-01 through HVD-06** → Haven Visual Designer expert (`Lab/haven-ui/planning/experts/brand-fidelity/` or vault-tier HVD if escalation needed).
+- **UX-01 through UX-10** → UX team / `ux-design-lead` expert (`Lab/haven-ui/planning/experts/ux-design-lead/`).
 
 Both files can be routed via `/route` from the vault root.
 
@@ -158,7 +245,10 @@ Both files can be routed via `/route` from the vault root.
 
 ## Provenance
 
-- Source slice: `cena-health-spark` branch `claude/emit-dietary-recall` (commit pending — slice in v1 polish).
-- Walk session: 2026-06-04 morning PDT, Aaron walked the running app at http://localhost:4203/recall on desktop 1280px + mobile 390px.
+- Source slice (v1): `cena-health-spark` branch `claude/emit-dietary-recall`, PR #44, commits `5709136` / `0acc1c5` / `7f1b5bb`.
+- Source slice (v2 / slice-2): `cena-health-spark` branch `claude/emit-dietary-recall-slice-2`, stacked on v1 (PR pending after this commit).
+- Walk sessions:
+  - 2026-06-04 morning PDT — Aaron walked the v1 running app at http://localhost:4203/recall on desktop 1280px + mobile 390px (originated HVD-01 through HVD-04 + UX-01 through UX-06).
+  - 2026-06-04 afternoon PDT — slice-2 emit pass3/pass4/review/pass2 walk on http://localhost:4203/recall (originated HVD-05/HVD-06 + UX-07 through UX-10).
 - In-slice fixes that addressed adjacent items: hover CSS-collision (HVD-04 partial — per-class patch landed, global rule audit deferred to HVD), agentic chat conversion (UX-01 partial — visible-by-default state established, gating principle deferred to UX).
 - Plan: `~/.claude/plans/cena-angular-emit-dietary-recall.md`.
