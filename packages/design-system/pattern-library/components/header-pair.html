@@ -1,0 +1,45 @@
+<!--
+  @component-meta
+  name: Header Pair
+  category: Layout
+  file: header-pair.html
+  classes: header-pair, header-pair-primary, header-pair-secondary
+  variants: identifier-state (record header), heading-count (list heading)
+  when-to-use: Any record header that pairs a primary identifier (Lora humanized label) with a secondary state/status label (uppercase tracking-wider, semantic-state register). Examples: recall day + pass-label, record title + status-pill, queue heading + count, list header + meta. Stacks vertically at narrow viewports (<sm); horizontal with space-between at >=sm.
+  do-not-use-when: The two labels are equal-weight (use a flex row directly). The pair is body-text (use prose). The pair is in a chat thread (use chat-message hierarchies). The pair is a Page Title with actions (use `page-header`).
+  preline-required: no
+  notes: Vault-tier primitive promoted from the patient-recall-list-header pattern (UX-06, 2026-06-04). The breakpoint is sm (640px) — narrow enough that 390px-class phones always stack, wide enough that compact tablets get the horizontal register. Preserves haven's two-register typography (Lora identifier + uppercase tracking-wider state) at both layouts. The primary takes available space (min-w-0 allows truncation/wrap); the secondary keeps its width (shrink-0).
+
+    Consumers: `.patient-recall-list-header` recomposed to drop its inline flex and use `.header-pair`. Future consumers: any list/record header with primary + state pairing.
+
+  interactive-usage: none (presentational layout primitive)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Header Pair</h3>
+  <p class="pl-description">
+    Primary identifier + secondary state label composition. Stacks vertically at &lt;sm; horizontal with space-between at &gt;=sm. Preserves the two-register typography (Lora identifier + uppercase tracking-wider state) at both layouts.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Identifier + state (recall day + pass)</h4>
+    <!-- @component: header-pair (identifier-state) -->
+    <div class="header-pair px-4 py-3 border border-sand-200 rounded-md bg-sand-50">
+      <span class="header-pair-primary patient-recall-list-header-day">Yesterday</span>
+      <span class="header-pair-secondary patient-recall-list-header-pass">Pass 1 of 4</span>
+    </div>
+    <!-- @end -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Heading + count</h4>
+    <!-- @component: header-pair (heading-count) -->
+    <div class="header-pair px-4 py-3 border border-sand-200 rounded-md bg-sand-50">
+      <span class="header-pair-primary text-base font-medium text-sand-900">Open referrals</span>
+      <span class="header-pair-secondary text-xs uppercase tracking-wider font-semibold text-sand-700">12 items</span>
+    </div>
+    <!-- @end -->
+  </div>
+</section>

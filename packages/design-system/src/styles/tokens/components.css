@@ -492,10 +492,40 @@ input[type='checkbox'] {
 }
 
 /* ===================================
+   HEADER-PAIR (haven-canon UX-06)
+   ===================================
+   Primary identifier + secondary state/status label composition. Stacks
+   vertically at narrow widths; horizontal with space-between at ≥sm.
+   Used by any record header that pairs a primary identifier with a state
+   indicator (recall day + pass label, record title + status, queue
+   heading + count). Preserves haven's two-register typography (Lora
+   identifier + uppercase tracking-wider state) at both layouts. */
+
+.header-pair {
+    @apply flex flex-col gap-1;
+    @apply sm:flex-row sm:items-baseline sm:justify-between sm:gap-2;
+}
+
+.header-pair-primary {
+    /* Allow truncation/wrap at narrow widths without breaking the flex. */
+    @apply min-w-0;
+}
+
+.header-pair-secondary {
+    /* Status label keeps its width; primary takes available space. */
+    @apply shrink-0;
+}
+
+/* ===================================
    BUTTONS
    =================================== */
 
-/* Default button styles - apply to ALL buttons and <a> button variants */
+/* Default button styles - apply to ALL buttons and <a> button variants.
+   The `border border-transparent` is load-bearing: it gives every button
+   a 1px border slot so bordered consumers (.btn-outline, .chat-chip.is-soft)
+   shift only border-color, never border-width — bounding boxes and text
+   baselines align mathematically in mixed-border rows. Do not remove.
+   See HVD-02 canon in brand-fidelity/domain-knowledge.md. */
 button,
 [type='button'],
 [type='submit'],
@@ -3769,11 +3799,23 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
 .patient-recall-list {
     @apply flex flex-col bg-sand-50 border border-sand-200 shadow-2xs rounded-md;
     @apply dark:bg-sand-900 dark:border-sand-700 dark:shadow-sand-700/70;
+    /* HVD-01: desktop right-pane top equalization. layout-two-pane-grid is
+       consumer-agnostic; when paired with chat-thread (which carries its own
+       top padding for breathing room), the recall-list card pays matching
+       top padding so first-content lines align. */
+    @apply lg:pt-6;
 }
 
 .patient-recall-list-header {
-    @apply px-4 py-3 border-b border-sand-100 flex items-baseline justify-between gap-2;
+    @apply px-4 py-3 border-b border-sand-100;
     @apply dark:border-sand-700;
+    /* Composes header-pair stacking inline so the existing spark consumer
+       (recall-list.component.html — uses .patient-recall-list-header without
+       .header-pair wrapping) keeps working without DOM changes. Stacks
+       vertically at narrow viewports; horizontal with space-between at ≥sm.
+       UX-06 canon — new consumers should reach for .header-pair directly. */
+    @apply flex flex-col gap-1;
+    @apply sm:flex-row sm:items-baseline sm:justify-between sm:gap-2;
 }
 
 .patient-recall-list-header-day {
@@ -3833,6 +3875,27 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply dark:border-sand-700;
 }
 
+/* Mobile-canonical composition (UX-02). The recall surface is mobile-first:
+   chat-primary view with the food list as a bottom-sheet on mobile,
+   right-pane on desktop. One DOM, viewport-switched. */
+
+.patient-recall-mobile-trigger {
+    /* The chat-sheet-link trigger ("Tap to view your list") is only rendered
+       on mobile — desktop seats the list in the right-pane and doesn't need
+       an in-chat trigger. */
+    @apply lg:hidden;
+}
+
+.patient-recall-desktop-pane {
+    /* The right-pane container wrapping patient-recall-list on desktop.
+       Hidden on mobile (list lives in bottom-sheet there). */
+    @apply hidden lg:block;
+}
+
+/* @deprecated 2026-06-04 (UX-03 + HVD-03) — "Add another item" button removed
+   from the recall list; agent's verbal continuation carries discoverability.
+   Slice-1 retrofit removes the DOM; this class stays until then so the
+   shipped slice-1 still styles correctly. Do not introduce new consumers. */
 .patient-recall-list-add {
     @apply inline-flex items-center gap-2 text-sm text-primary-600 hover:text-primary-800 font-medium;
     @apply focus:outline-none focus:underline;

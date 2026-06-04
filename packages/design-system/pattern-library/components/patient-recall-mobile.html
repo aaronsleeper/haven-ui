@@ -1,0 +1,112 @@
+<!--
+  @component-meta
+  name: Patient Recall (Mobile Composition)
+  category: Patient App — A2UI Chat Compositions
+  file: patient-recall-mobile.html
+  classes: patient-recall-mobile-trigger, patient-recall-desktop-pane
+  variants: mobile-sheet (default), desktop-right-pane
+  when-to-use: Dietary-recall surface. This is a composition entry, not a new primitive — it wires existing haven primitives (chat-sheet-link, bottom-sheet-panel, patient-recall-list, layout-two-pane-grid) to render the recall surface mobile-canonically. The same DOM serves mobile and desktop; viewport-switching is done via two utility classes.
+  do-not-use-when: A surface that is not patient-recall (compose your own bottom-sheet directly if needed). A surface that is desktop-only (use the right-pane composition directly). A surface where the list is the primary content (mobile-canonical assumes the chat thread is primary; list is referenced).
+  preline-required: yes — hs-overlay (for the bottom-sheet open/close, backdrop, focus trap, Escape-to-dismiss)
+  notes: UX-02 canon (2026-06-04). The recall surface is mobile-canonical: mobile sees a single-column chat-primary view; the food list opens as a bottom-sheet via an agent-uttered chat-sheet-link trigger ("Tap to view your list"). Desktop sees the chat thread on the left and the same patient-recall-list in the right-pane via layout-two-pane-grid. One DOM, viewport-switched.
+
+    The trigger (`chat-sheet-link.patient-recall-mobile-trigger`) is mobile-only (`lg:hidden`). The right-pane container (`.patient-recall-desktop-pane`) is desktop-only (`hidden lg:block`). The mobile bottom-sheet uses the existing `overlay-bottom-sheet` primitive; the desktop right-pane uses the existing `layout-two-pane-grid` primitive. No new chrome.
+
+    Pull-to-reveal is REJECTED for this composition: the bottom-sheet-handle signals drag-to-dismiss; using it as drag-to-summon conflicts with the existing affordance and is undiscoverable. The agent's verbal anchors ("Added oatmeal to your list", "Tap to view your list") carry trigger discoverability.
+
+    Future-cleanup hook: if first-week observation shows the in-chat trigger is consistently missed, escalation is a sticky bottom-bar count peek (e.g., "3 items"). Additive, not redesign.
+
+    Demo note: the variant demos below intentionally omit the `lg:hidden` / `hidden lg:block` responsive classes so both variants render inspectable side-by-side regardless of viewport. In production consumers, those classes ARE applied; see the @component-meta `classes:` declaration above.
+
+  interactive-usage: required (hs-overlay open/close)
+  interactive:
+    role: composition (each child carries its own role)
+    keyboard:
+      - Tab navigates into chat-sheet-link; Enter/Space opens the bottom-sheet
+      - Bottom-sheet handles Escape-to-dismiss via hs-overlay
+    aria:
+      - chat-sheet-link carries aria-haspopup="dialog"
+      - bottom-sheet-panel is the dialog target
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Patient Recall (Mobile Composition)</h3>
+  <p class="pl-description">
+    Mobile-canonical recall composition. Renders agent-uttered chat-sheet-link → bottom-sheet-panel containing patient-recall-list at &lt;lg; renders patient-recall-list directly in the right-pane at &gt;=lg. One DOM, viewport-switched via <code>.patient-recall-mobile-trigger</code> (<code>lg:hidden</code>) and <code>.patient-recall-desktop-pane</code> (<code>hidden lg:block</code>) — these are omitted in the demos below so both variants stay inspectable.
+  </p>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Mobile — agent message with bottom-sheet trigger</h4>
+    <!-- @component: patient-recall-mobile (mobile-sheet) -->
+    <div class="max-w-md p-4 border border-sand-200 rounded-md bg-sand-50 space-y-3">
+      <p class="text-sm text-sand-900">Got it — added oatmeal to your list.</p>
+      <p>
+        <!-- In production: <button class="chat-sheet-link patient-recall-mobile-trigger" …> -->
+        <button type="button" class="chat-sheet-link" aria-haspopup="dialog">
+          Tap to view your list <i class="fa-solid fa-arrow-up-right-from-square chat-sheet-link-icon" aria-hidden="true"></i>
+        </button>
+      </p>
+      <p class="text-sm text-sand-900">What else did you eat?</p>
+    </div>
+    <!-- @end -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Mobile — bottom-sheet target (preview)</h4>
+    <p class="pl-description mb-3">When the trigger is tapped, the existing <code>overlay-bottom-sheet</code> primitive opens with <code>patient-recall-list</code> as its body. Shown here as a static preview of what the sheet contains.</p>
+    <!-- @component: patient-recall-mobile (bottom-sheet preview) -->
+    <div class="max-w-md p-4 border border-sand-200 rounded-t-lg bg-white shadow-sm">
+      <div class="bottom-sheet-handle mx-auto" aria-hidden="true"></div>
+      <div class="bottom-sheet-header">
+        <h2 class="bottom-sheet-title">Your recall list</h2>
+      </div>
+      <div class="patient-recall-list mt-3">
+        <div class="patient-recall-list-header">
+          <span class="patient-recall-list-header-day">Yesterday</span>
+          <span class="patient-recall-list-header-pass">Pass 1 of 4</span>
+        </div>
+        <ul class="patient-recall-list-rows">
+          <li class="patient-recall-list-row">
+            <span class="patient-recall-list-row-name">Oatmeal</span>
+          </li>
+          <li class="patient-recall-list-row">
+            <span class="patient-recall-list-row-name">Coffee</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- @end -->
+  </div>
+
+  <div class="mb-8">
+    <h4 class="text-xs font-semibold uppercase tracking-wider text-sand-500 mb-5">Desktop — right-pane via layout-two-pane-grid</h4>
+    <p class="pl-description mb-3">At &gt;=lg, the same <code>patient-recall-list</code> renders in the right pane; the in-chat trigger is hidden. <code>.patient-recall-list</code> auto-gets <code>lg:pt-6</code> for HVD-01 consumer-pairing alignment with the chat thread.</p>
+    <!-- @component: patient-recall-mobile (desktop-right-pane) -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-4 border border-sand-200 rounded-md bg-sand-50 p-4">
+      <div class="space-y-3">
+        <div class="text-xs uppercase tracking-wider text-sand-500">Chat thread (left pane)</div>
+        <div class="p-3 bg-white rounded border border-sand-200 text-sm text-sand-900">Got it — added oatmeal to your list. What else did you eat?</div>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-sand-500 mb-2">Patient recall list (right pane)</div>
+        <div class="patient-recall-list">
+          <div class="patient-recall-list-header">
+            <span class="patient-recall-list-header-day">Yesterday</span>
+            <span class="patient-recall-list-header-pass">Pass 1 of 4</span>
+          </div>
+          <ul class="patient-recall-list-rows">
+            <li class="patient-recall-list-row">
+              <span class="patient-recall-list-row-name">Oatmeal</span>
+            </li>
+            <li class="patient-recall-list-row">
+              <span class="patient-recall-list-row-name">Coffee</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- @end -->
+  </div>
+</section>
