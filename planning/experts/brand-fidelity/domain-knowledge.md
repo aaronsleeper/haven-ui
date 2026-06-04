@@ -79,3 +79,9 @@ The rule: teal earns its weight by being rare. Overuse kills the commitment sign
 5. **Elevated surfaces** (coach-marks, dialogs, notifications) — `elevation/02` or `elevation/03`, stone-family bg
 
 Shadows are warm-black (`rgba(4,3,1, <opacity>)`) — not pure black — because Haven's visual world is warm.
+
+## Interactive affordances — button hover policy
+
+Haven sets **no default hover** on bare `<button>` elements. Every interactive element classes its own hover register at the canvas-semantic layer (`.btn-*` for the named-tier taxonomy, or a context-specific canvas class like `.chat-chip`, `.pagination-btn`, `.navbar-action-btn`, `.queue-item`). Bare `<button>` is a discipline gap — class it. The historical global `button:hover { background-color: var(--accent-10) }` rule in `defaults.css` was structurally broken (contrast-blind across surface contexts; painted text-only affordances teal on hover) and was removed 2026-06-04 (HVD-04). The Preline `.hs-dropdown-toggle` / `.hs-collapse-toggle` bridges carry a `text-sand-700` floor hover so the bare-trigger case still reads interactive; consumers wrapping them in a button-shaped surface should compose a haven semantic class to override.
+
+Restraint guidance for new canvas-class hovers: text-darken or border-darken first; bg-paint only when discoverability genuinely needs it (committable affordances, listed-item rows where the row IS the click target). The `option-row` / `response-option` / `queue-item` family uses `bg-sand-50` with a darker border for hover; that's the high-bar register. Most chrome / dismissal / utility buttons use text-only or `bg-sand-100`. Match the existing register; don't invent.
