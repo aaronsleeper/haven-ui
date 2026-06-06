@@ -4,6 +4,11 @@ type: attestation-gate
 x_cena_actor: human
 x_cena_actor_role: clinical-lead
 x_cena_uncertainty: tbd
+detail:
+  - Clinical lead review
+  - evidence package +
+  - decision + rationale
+  - + SLA timeout fallback
 attestation:
   attestor_role: clinical-lead
   evidence_required:

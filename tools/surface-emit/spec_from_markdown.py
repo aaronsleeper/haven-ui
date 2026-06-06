@@ -27,9 +27,12 @@ Honest limits:
   - Callout text derived from the first item in fragment.gaps[], truncated.
     Hand-crafted callouts are tighter; iterate the gaps list ordering in source
     markdown if a different gap should surface.
-  - Node title/detail derived from the H1 heading (split on first colon).
-    Doesn't reproduce the hand-tuned "Audit record sealed" etc.; if rendering
-    misses a load-bearing label, edit the H1 in the fragment source.
+  - Node title derived from the H1 heading (split on first colon).
+  - Node detail lines: if fragment frontmatter declares `detail:` as a list,
+    those lines are used verbatim (author-curated, 1-5 short lines, ~25-char
+    visual budget per line at default box width). Otherwise falls back to the
+    H1 subtitle as a single detail line. Matches the hand-authored content
+    density (2-5 supporting lines per box) without forcing prose extraction.
 """
 
 import re
@@ -182,7 +185,7 @@ def spec_from_use_case(use_case_dir, default_w=200, default_h=90):
     # Lane y-center lookup
     lane_y = {lane["id"]: lane["y_center"] for lane in diagram["lanes"]}
     lanes = [
-        {"label": lane["label"], "y": lane["y_center"]}
+        {"id": lane["id"], "label": lane["label"], "y": lane["y_center"]}
         for lane in diagram["lanes"]
     ]
 
@@ -221,10 +224,23 @@ def spec_from_use_case(use_case_dir, default_w=200, default_h=90):
         x = x_center - w / 2
         y = y_center - h / 2
 
-        detail = [subtitle] if subtitle else []
+        fm_detail = fm.get("detail")
+        if isinstance(fm_detail, list) and fm_detail:
+            detail = [str(line).strip() for line in fm_detail if str(line).strip()]
+        elif subtitle:
+            detail = [subtitle]
+        else:
+            detail = []
+        if len(detail) > 5:
+            print(
+                f"warning: fragment {frag_id} declares {len(detail)} detail lines; "
+                "soft cap is 5 (box height grows past visual budget).",
+                file=sys.stderr,
+            )
 
         node = {
             "id": frag_id,
+            "lane": lane_id,
             "x": x, "y": y, "w": w, "h": h,
             "title": title,
             "detail": detail,
@@ -283,9 +299,19 @@ def spec_from_use_case(use_case_dir, default_w=200, default_h=90):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: spec_from_markdown.py <use-case-dir>", file=sys.stderr)
+    argv = sys.argv[1:]
+    json_mode = False
+    if argv and argv[0] == "--json":
+        json_mode = True
+        argv = argv[1:]
+    if len(argv) != 1:
+        print("Usage: spec_from_markdown.py [--json] <use-case-dir>", file=sys.stderr)
         sys.exit(64)
-    import pprint
-    spec = spec_from_use_case(sys.argv[1])
-    pprint.pprint(spec, width=110, sort_dicts=False)
+    spec = spec_from_use_case(argv[0])
+    if json_mode:
+        import json
+        json.dump(spec, sys.stdout, indent=2)
+        sys.stdout.write("\n")
+    else:
+        import pprint
+        pprint.pprint(spec, width=110, sort_dicts=False)

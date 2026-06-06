@@ -4,6 +4,9 @@ type: decision
 x_cena_actor: agent
 x_cena_watches: clinical-lead
 x_cena_uncertainty: gap
+detail:
+  - Severity assessment
+  - red / yellow / green
 gaps:
   - severity tier boundaries (red/yellow/green specific score ranges) pending Marrero
   - answer-pattern overrides into higher tier pending Marrero

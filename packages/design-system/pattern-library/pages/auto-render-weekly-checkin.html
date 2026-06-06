@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weekly check-in call (CC routine) — Diagram (auto, grid+labels)</title>
+<link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<style>
+body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
+       font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+       color: var(--color-text-normal, #0d322d); }
+.diagram-frame-wrapper { margin: 0 auto; max-width: 1600px; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 { font-family: var(--font-serif, 'Lora', serif); font-size: 28px;
+                     font-weight: 500; margin: 0 0 6px 0; }
+.diagram-header .draft-marker { font-family: var(--font-mono, 'Source Code Pro', monospace);
+                                color: var(--color-warm-amber-700, #735311);
+                                font-size: 12px; letter-spacing: 0.05em; }
+
+/* Grid: interleaved node + label columns */
+.diagram-grid {
+  display: grid;
+  grid-template-columns: 90px minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr);
+  grid-template-rows: repeat(3, minmax(140px, auto));
+  column-gap: 8px;
+  row-gap: 12px;
+  position: relative;
+  padding: 24px 0;
+}
+
+/* Lane labels (col 1) */
+.diagram-lane-label-cell { grid-column: 1; display: flex; align-items: center; padding-left: 12px; }
+.diagram-lane-label { font-family: var(--font-mono, 'Source Code Pro', monospace);
+                      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+                      color: var(--color-text-muted, #555); }
+
+/* Lane dividers */
+.diagram-lane-divider {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+  height: 0; align-self: start; margin-top: -6px; z-index: 0;
+}
+
+/* Node cell: callout stacked above box. position:relative needed for z-index. */
+/* padding-top buffer keeps callouts off the lane divider boundary above. */
+.diagram-node-cell {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; position: relative; z-index: 3;
+  padding-top: 8px;
+}
+
+/* Callout above box — bg masks lines that cross callout area (skip-edge jogs, etc.) */
+.diagram-callout {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--color-warm-amber-700, #735311);
+  max-width: 220px; text-align: center; line-height: 1.25;
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 4px 8px; border-radius: 3px;
+}
+.diagram-callout--critical { color: var(--color-red-700, #8a2a29); }
+.diagram-callout--gap { color: var(--color-red-600, #a8332f); }
+.diagram-callout--assumption { color: var(--color-warm-sand-700, #4d4538); }
+
+/* Node box */
+.diagram-box {
+  width: 220px; min-height: 90px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 10px 12px 22px; box-sizing: border-box;
+  border: 1.5px solid var(--color-border-default, #d6cdbe);
+  border-radius: 4px; background: var(--color-surface-card, #fff);
+  text-align: center; position: relative;
+}
+.diagram-box--attestation-gate { border: 2.5px solid var(--color-primary-700, #1e5149); }
+.diagram-box--uncertain-tbd { border-style: dashed;
+  border-color: var(--color-warm-amber-500, #aa8232);
+  background: var(--color-warm-amber-50, #f8f1e3); }
+.diagram-box--uncertain-assumption { border-style: dashed;
+  border-color: var(--color-warm-sand-500, #7a6f5a);
+  background: var(--color-warm-sand-50, #faf6ee); }
+.diagram-box--uncertain-gap { border-style: dotted;
+  border-color: var(--color-red-500, #c13c3b);
+  background: var(--color-red-50, #ffedea); }
+.diagram-box-title { font-size: 13px; font-weight: 600;
+  color: var(--color-text-normal, #0d322d); line-height: 1.2; }
+.diagram-box--attestation-gate .diagram-box-title {
+  font-family: var(--font-serif, 'Lora', serif); font-style: italic;
+  font-weight: 500; color: var(--color-primary-700, #1e5149); }
+.diagram-box-detail { font-size: 11px; line-height: 1.3; margin-top: 2px;
+  color: var(--color-text-normal, #0d322d); }
+.diagram-box-detail.is-secondary { color: var(--color-text-muted, #555); font-size: 10px; }
+.diagram-box-watcher { font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 9px; color: var(--color-text-muted, #555); letter-spacing: 0.1em;
+  text-transform: uppercase; position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; }
+
+/* Edge label cell — bg lives on the label-group wrapper (sizes to content), NOT the cell. */
+/* Cell-level bg would mask the full grid row height (~140px+) and cut lines at row boundaries. */
+/* The wrapper sizes to its contents so masking only covers the labels' actual extent. */
+/* position:relative needed for z-index. */
+.diagram-edge-label-cell {
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2; min-width: 100px;
+}
+.diagram-edge-label-group {
+  display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  background: var(--color-surface-page, #fbfaf8);
+  border-radius: 3px;
+  padding: 4px 0;
+}
+.diagram-edge-label {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 10px; color: var(--color-text-muted, #555);
+  padding: 3px 10px; line-height: 1.3;
+  text-align: center; white-space: normal;
+  max-width: 160px;
+  overflow-wrap: break-word; hyphens: auto;
+}
+
+/* SVG edges overlay — under labels (z-index 1), under nodes (z-index 3) */
+.diagram-edges { position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                 pointer-events: none; z-index: 1; }
+
+.diagram-meta { font-size: 13px; color: var(--color-text-muted, #555);
+                margin-top: 24px; padding-top: 16px;
+                border-top: 1px solid var(--color-border-muted, #e8dfca); max-width: 900px; }
+</style>
+</head>
+<body>
+
+<div class="diagram-frame-wrapper">
+<header class="diagram-header">
+  <h1>Weekly check-in call (CC routine)</h1>
+  <span class="draft-marker">DRAFT • v0.1 • pending Marrero review</span>
+</header>
+
+<div class="diagram-grid">
+  <div class="diagram-lane-label-cell" style="grid-row: 1;">
+    <span class="diagram-lane-label">AGENT</span>
+  </div>
+  <div class="diagram-lane-label-cell" style="grid-row: 2;">
+    <span class="diagram-lane-label">HUMAN</span>
+  </div>
+  <div class="diagram-lane-label-cell" style="grid-row: 3;">
+    <span class="diagram-lane-label">PARTNER</span>
+  </div>
+  <div class="diagram-lane-divider" style="grid-row: 2;"></div>
+  <div class="diagram-lane-divider" style="grid-row: 3;"></div>
+  <div class="diagram-node-cell" style="grid-row: 1; grid-column: 2;" data-node="01-trigger-roster-top">
+    <div class="diagram-box">
+      <div class="diagram-box-title">Trigger</div>
+      <div class="diagram-box-detail">Participant surfaces at top of CC roster</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-node-cell" style="grid-row: 1; grid-column: 4;" data-node="02-decision-channel-selection">
+    <div class="diagram-callout">[TBD] data source for saved channel preference — is the...</div>
+    <div class="diagram-box diagram-box--uncertain-tbd">
+      <div class="diagram-box-title">Decision</div>
+      <div class="diagram-box-detail">Channel selection (phone or text)</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-node-cell" style="grid-row: 2; grid-column: 6;" data-node="03-enquiry-checkin-call">
+    <div class="diagram-callout diagram-callout--gap">[GAP] cap-25 CC do/don't guidance — added 2026-06-02 but...</div>
+    <div class="diagram-box diagram-box--attestation-gate">
+      <div class="diagram-box-title">Enquiry</div>
+      <div class="diagram-box-detail">Conduct the 10–15 minute check-in</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-node-cell" style="grid-row: 2; grid-column: 8;" data-node="04-decision-outcome-classification">
+    <div class="diagram-callout">[TBD] boundary semantics for the 5-way enum — pending Marrero</div>
+    <div class="diagram-box diagram-box--attestation-gate">
+      <div class="diagram-box-title">Decision</div>
+      <div class="diagram-box-detail">Outcome classification (5-way)</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-node-cell" style="grid-row: 2; grid-column: 10;" data-node="05-action-log-outcome">
+    <div class="diagram-callout">[TBD] structured outcome-field schema — pending Marrero +...</div>
+    <div class="diagram-box diagram-box--uncertain-tbd">
+      <div class="diagram-box-title">Action</div>
+      <div class="diagram-box-detail">Log outcome + set next-touch plan</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-node-cell" style="grid-row: 3; grid-column: 12;" data-node="06-handoff-yellow-flag-escalation">
+    <div class="diagram-callout diagram-callout--assumption">[ASSUMPTION] first-action specifics — what the CC does in the first...</div>
+    <div class="diagram-box diagram-box--attestation-gate">
+      <div class="diagram-box-title">Hand-off</div>
+      <div class="diagram-box-detail">Care Coordinator → UConn clinical team (yellow flag)</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-node-cell" style="grid-row: 2; grid-column: 14;" data-node="07-action-schedule-followup">
+    <div class="diagram-callout diagram-callout--gap">[GAP] cap-26 multi-modal contact protocol — undefined; retry...</div>
+    <div class="diagram-box">
+      <div class="diagram-box-title">Action</div>
+      <div class="diagram-box-detail">Schedule follow-up retry</div>
+      <div class="diagram-box-watcher">▲ watches: clinical-lead</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 1; grid-column: 3;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">roster surfaces next participant</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 1 / 3; grid-column: 5;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">phone — call participant</div>
+      <div class="diagram-edge-label">text — initiate SMS thread</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 2; grid-column: 7;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">call concludes</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 2; grid-column: 9;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">successful — log + next-touch</div>
+      <div class="diagram-edge-label">voicemail — schedule retry</div>
+      <div class="diagram-edge-label">no answer — schedule retry</div>
+      <div class="diagram-edge-label">refused — log + flag for...</div>
+      <div class="diagram-edge-label">deferred — log + schedule per...</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 2 / 4; grid-column: 9;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">yellow flag — escalation route</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 2 / 4; grid-column: 13;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">ack → CC logs escalation + sets...</div>
+      <div class="diagram-edge-label">timeout-recovered → CC logs +...</div>
+    </div>
+  </div>
+  <div class="diagram-edge-label-cell" style="grid-row: 2; grid-column: 15;">
+    <div class="diagram-edge-label-group">
+      <div class="diagram-edge-label">log outcome → roster re-sorts...</div>
+    </div>
+  </div>
+  <svg class="diagram-edges" xmlns="http://www.w3.org/2000/svg"></svg>
+</div> <!-- /diagram-grid -->
+
+<div class="diagram-meta"><p>Care Coordinator initiates a 10–15 minute weekly check-in from the patient profile by participant-preferred channel (phone or text), covering order support, adherence, and barriers to participation, then captures and logs the outcome — with a yellow-flag escalation route to the...</p></div>
+</div> <!-- /diagram-frame-wrapper -->
+
+<script>
+(function() {
+  const EDGES = [{"from":"01-trigger-roster-top","to":"02-decision-channel-selection","label":"roster surfaces next participant","style":"default","srcRowIdx":0,"tgtRowIdx":0},{"from":"02-decision-channel-selection","to":"03-enquiry-checkin-call","label":"phone — call participant","style":"default","srcRowIdx":0,"tgtRowIdx":1},{"from":"02-decision-channel-selection","to":"03-enquiry-checkin-call","label":"text — initiate SMS thread","style":"default","srcRowIdx":0,"tgtRowIdx":1},{"from":"03-enquiry-checkin-call","to":"04-decision-outcome-classification","label":"call concludes","style":"default","srcRowIdx":1,"tgtRowIdx":1},{"from":"04-decision-outcome-classification","to":"05-action-log-outcome","label":"successful — log + next-touch","style":"default","srcRowIdx":1,"tgtRowIdx":1},{"from":"04-decision-outcome-classification","to":"06-handoff-yellow-flag-escalation","label":"yellow flag — escalation route","style":"emphasis","srcRowIdx":1,"tgtRowIdx":2},{"from":"04-decision-outcome-classification","to":"07-action-schedule-followup","label":"voicemail — schedule retry","style":"default","srcRowIdx":1,"tgtRowIdx":1},{"from":"04-decision-outcome-classification","to":"07-action-schedule-followup","label":"no answer — schedule retry","style":"default","srcRowIdx":1,"tgtRowIdx":1},{"from":"04-decision-outcome-classification","to":"07-action-schedule-followup","label":"refused — log + flag for...","style":"default","srcRowIdx":1,"tgtRowIdx":1},{"from":"04-decision-outcome-classification","to":"07-action-schedule-followup","label":"deferred — log + schedule per...","style":"default","srcRowIdx":1,"tgtRowIdx":1},{"from":"06-handoff-yellow-flag-escalation","to":"05-action-log-outcome","label":"ack → CC logs escalation + sets...","style":"default","srcRowIdx":2,"tgtRowIdx":1},{"from":"06-handoff-yellow-flag-escalation","to":"05-action-log-outcome","label":"timeout-recovered → CC logs +...","style":"muted","srcRowIdx":2,"tgtRowIdx":1},{"from":"07-action-schedule-followup","to":"05-action-log-outcome","label":"log outcome → roster re-sorts...","style":"default","srcRowIdx":1,"tgtRowIdx":1}];
+  const CORNER_R = 24;
+  const PARALLEL_OFFSET = 18;
+
+  function qCurvePath(points, radius) {
+    if (!points.length) return '';
+    if (points.length < 3) return points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ');
+    const segs = [`M ${points[0].x} ${points[0].y}`];
+    for (let i = 1; i < points.length - 1; i++) {
+      const p0 = points[i - 1], p1 = points[i], p2 = points[i + 1];
+      const inDx = p1.x - p0.x, inDy = p1.y - p0.y;
+      const outDx = p2.x - p1.x, outDy = p2.y - p1.y;
+      const inIsH = Math.abs(inDy) < 0.5, outIsH = Math.abs(outDy) < 0.5;
+      if (inIsH === outIsH) { segs.push(`L ${p1.x} ${p1.y}`); continue; }
+      const inLen = Math.hypot(inDx, inDy), outLen = Math.hypot(outDx, outDy);
+      const r = Math.min(radius, inLen / 2, outLen / 2);
+      if (r < 8) { segs.push(`L ${p1.x} ${p1.y}`); continue; }
+      const ax = p1.x - (inDx / inLen) * r, ay = p1.y - (inDy / inLen) * r;
+      const dx = p1.x + (outDx / outLen) * r, dy = p1.y + (outDy / outLen) * r;
+      segs.push(`L ${ax.toFixed(1)} ${ay.toFixed(1)}`);
+      segs.push(`Q ${p1.x} ${p1.y} ${dx.toFixed(1)} ${dy.toFixed(1)}`);
+    }
+    const last = points[points.length - 1];
+    segs.push(`L ${last.x} ${last.y}`);
+    return segs.join(' ');
+  }
+
+  function routeEdge(srcRect, tgtRect, gridRect, dupIdx, totalDup, edge, grid) {
+    const offset = totalDup > 1 ? (dupIdx - (totalDup - 1) / 2) * PARALLEL_OFFSET : 0;
+    const sx = srcRect.right - gridRect.left;
+    const sy = srcRect.top + srcRect.height / 2 - gridRect.top + offset;
+    const tx = tgtRect.left - gridRect.left;
+    const ty = tgtRect.top + tgtRect.height / 2 - gridRect.top + offset;
+    if (Math.abs(sy - ty) < 1) {
+      // Same-lane edge. If non-adjacent (long horizontal distance), jog above lane
+      // to clear intermediate boxes AND their callouts. Threshold: > 2*box-width (~440px).
+      const distance = Math.abs(tx - sx);
+      if (distance > 440) {
+        // Jog above the source row's TOP edge into the row-gap area.
+        // Use lane label cell as a stable row-top reference.
+        let jogY = sy - (srcRect.height / 2 + 60); // fallback
+        const laneLabelCells = grid.querySelectorAll('.diagram-lane-label-cell');
+        const srcRowIdx = edge && typeof edge.srcRowIdx === 'number' ? edge.srcRowIdx : 0;
+        if (laneLabelCells.length > srcRowIdx) {
+          const cellTop = laneLabelCells[srcRowIdx].getBoundingClientRect().top - gridRect.top;
+          jogY = cellTop - 4; // 4px above row's top edge, into the row gap
+        }
+        const jogOut = 20; // step out horizontally before going up
+        return [
+          {x: sx, y: sy},
+          {x: sx + jogOut, y: sy},
+          {x: sx + jogOut, y: jogY},
+          {x: tx - jogOut, y: jogY},
+          {x: tx - jogOut, y: ty},
+          {x: tx, y: ty}
+        ];
+      }
+      return [{x: sx, y: sy}, {x: tx, y: ty}];
+    }
+    const midX = (sx + tx) / 2 + offset * 0.5;
+    return [{x: sx, y: sy}, {x: midX, y: sy}, {x: midX, y: ty}, {x: tx, y: ty}];
+  }
+
+  function render() {
+    const grid = document.querySelector('.diagram-grid');
+    const svg = document.querySelector('.diagram-edges');
+    if (!grid || !svg) return;
+    const gridRect = grid.getBoundingClientRect();
+    const w = grid.offsetWidth, h = grid.offsetHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.setAttribute('width', w);
+    svg.setAttribute('height', h);
+
+    const dupCounts = new Map();
+    for (const e of EDGES) { const k = e.from + '->' + e.to; dupCounts.set(k, (dupCounts.get(k) || 0) + 1); }
+    const dupIdx = new Map();
+
+    let inner = '<defs>';
+    inner += '<marker id="arrow-end" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true"><path d="M 0 0 L 13 7 L 0 14" fill="none" stroke="var(--color-arrow-default, #8c7c5e)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    inner += '<marker id="arrow-end-emphasis" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true"><path d="M 0 0 L 13 7 L 0 14" fill="none" stroke="var(--color-primary-700, #1e5149)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></marker>';
+    inner += '</defs>';
+
+    for (const e of EDGES) {
+      const srcBox = grid.querySelector(`[data-node="${e.from}"] .diagram-box`);
+      const tgtBox = grid.querySelector(`[data-node="${e.to}"] .diagram-box`);
+      if (!srcBox || !tgtBox) continue;
+      const k = e.from + '->' + e.to;
+      const totalDup = dupCounts.get(k);
+      const idx = dupIdx.get(k) || 0;
+      dupIdx.set(k, idx + 1);
+      const points = routeEdge(srcBox.getBoundingClientRect(), tgtBox.getBoundingClientRect(), gridRect, idx, totalDup, e, grid);
+      const emphasis = e.style === 'emphasis';
+      const muted = e.style === 'muted';
+      const stroke = emphasis ? 'var(--color-primary-700, #1e5149)' : 'var(--color-arrow-default, #8c7c5e)';
+      const strokeW = muted ? 1 : (emphasis ? 1.75 : 1.5);
+      const dash = muted ? ' stroke-dasharray="4 4"' : '';
+      const marker = emphasis ? 'arrow-end-emphasis' : 'arrow-end';
+      const d = qCurvePath(points, CORNER_R);
+      inner += `<path d="${d}" fill="none" stroke="${stroke}" stroke-width="${strokeW}"${dash} marker-end="url(#${marker})" aria-hidden="true"/>`;
+    }
+    svg.innerHTML = inner;
+  }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+  else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+  else render();
+  window.addEventListener('resize', render);
+  if (window.ResizeObserver) {
+    const grid = document.querySelector('.diagram-grid');
+    if (grid) new ResizeObserver(render).observe(grid);
+  }
+})();
+</script>
+
+</body>
+</html>
