@@ -1,0 +1,841 @@
+<!--
+  @component-meta
+  name: Hue Family Picker
+  category: Forms
+  file: forms-hue-family-picker.html
+  classes: hue-family-picker, hue-family-picker-header, hue-family-picker-family-label, hue-family-picker-family-select, hue-family-picker-swatch, hue-family-picker-stop-readout, hue-family-picker-stop-label, hue-family-picker-stop-role, hue-family-picker-gamut-badge, hue-family-picker-gamut-badge-text, hue-family-picker-slider-wrap, hue-family-picker-track, hue-family-picker-ticks, hue-family-picker-tick, hue-family-picker-tick-label, hue-family-picker-values, hue-family-picker-value-row, hue-family-picker-value-label, hue-family-picker-value, hue-family-picker-copy-btn, hue-family-picker-expand-toggle, hue-family-picker-drawer
+  modifiers: is-compact (density variant for stacked use), is-expanded (drawer state in compact)
+  shared-classes: slider-track
+  when-to-use: Continuous color selection along a Haven hue family's OKLCH line. Designed for theming editors, brand-token exploration, and any surface where a designer wants to dial a color between the canonical stop-50 and stop-950 anchors of a family. Reads the family-source canon (root/max/min OKLCH triplets) so the selectable space is exactly the same line palette.css interpolates. Use the `.is-compact` variant for stacked use in theming editors where 8+ pickers appear together as theme "anchors."
+  do-not-use-when: Discrete palette selection (use `forms-color-picker`), generic numeric range input (use `assess-slider`), or selecting across families/hues (this picker is single-family; pair with a separate family selector if multi-family choice is needed — that's what this component's own family dropdown does).
+  preline-required: no
+  notes: |
+    Requires hue-family-picker.js (loaded as ES module so it can import culori).
+    The track is rendered as a continuous OKLCH gradient computed in JS — every
+    sub-pixel of the slider sits at a real color along the family line, not an
+    sRGB approximation. Tick marks at every 10% snap-target the 11 canonical
+    stops (0=950, 50=500, 100=50). Shift-drag snaps to nearest tick. Each color
+    value (OKLCH / HEX / RGB / HSL) has a copy-to-clipboard button.
+
+    Events: dispatches `hue-pick` CustomEvent on the root element with detail
+    `{ family, value, oklch, hex, rgb, hsl, stopName, stopRole, inGamut, source }`.
+
+    Programmatic API on the root element: `el._hueFamilyPicker.setValue(n)`,
+    `setFamily(slug)`, `getState()`.
+
+    A11y: native input[type=range] with aria-valuetext set to the stop name
+    ("teal-500 · root"); arrow keys ±1; Shift+arrow snaps to nearest canonical
+    tick; Home/End jump to min/max anchors; 44px touch-target on thumb; focus
+    ring on slider and copy buttons. Out-of-sRGB-gamut colors carry a visible
+    badge so designers know the OKLCH value is being clamped at the hex layer.
+
+    Compact variant: add `.is-compact` to the root and include a
+    `[data-hfp-expand-toggle]` chevron button alongside the HEX value row.
+    OKLCH/RGB/HSL rows live inside a `.hue-family-picker-drawer` block that
+    toggles via the `is-expanded` state class. Target footprint ~56–64px
+    collapsed, ~140px expanded. Tick labels recede to hover/active to keep
+    stacked use visually quiet.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Hue Family Picker</h3>
+  <p class="pl-description">
+    Single slider along a Haven hue family's OKLCH line. Drag the thumb to pick any continuous point between the family's <code class="text-xs font-mono">min</code> anchor (stop-950, darkest) on the left and <code class="text-xs font-mono">max</code> anchor (stop-50, lightest) on the right, with <code class="text-xs font-mono">root</code> (stop-500) at the midpoint. Canonical stops snap at every 10% interval; intermediate values render as derived stop numbers (e.g. value 35 → <code class="text-xs font-mono">teal-650</code>).
+  </p>
+
+  <!-- Default — teal at root -->
+  <div class="mb-12">
+    <p class="pl-variant-title">Default (teal · root)</p>
+    <!-- @component: hue-family-picker-default -->
+    <div class="hue-family-picker" data-hue-family-picker data-family="teal" data-value="50">
+
+      <div class="hue-family-picker-header">
+        <label class="hue-family-picker-family-label" for="hfp-family-default">Family</label>
+        <select
+          id="hfp-family-default"
+          class="hue-family-picker-family-select"
+          data-hfp-family-select
+          aria-label="Hue family">
+          <!-- Options populated by JS from family-source canon -->
+        </select>
+      </div>
+
+      <div
+        class="hue-family-picker-swatch"
+        data-hfp-swatch
+        aria-label="Selected color preview"
+        role="img"></div>
+
+      <div class="hue-family-picker-stop-readout" aria-live="polite">
+        <span class="hue-family-picker-stop-label" data-hfp-stop-label>teal-500</span>
+        <span class="hue-family-picker-stop-role" data-hfp-stop-role>· root</span>
+        <span
+          class="hue-family-picker-gamut-badge"
+          data-hfp-gamut-badge
+          hidden
+          title="The OKLCH value is outside the sRGB gamut; the displayed HEX/RGB is the nearest in-gamut sRGB approximation.">
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+        </span>
+      </div>
+
+      <div class="hue-family-picker-slider-wrap" data-hfp-track>
+        <input
+          type="range"
+          class="slider-track hue-family-picker-track"
+          data-hfp-slider
+          min="0"
+          max="100"
+          step="1"
+          value="50"
+          aria-label="Position along family line"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          aria-valuetext="teal-500 (root)">
+        <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true">
+          <!-- Tick buttons populated by JS -->
+        </div>
+      </div>
+
+      <div class="hue-family-picker-values">
+        <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+          <span class="hue-family-picker-value-label">OKLCH</span>
+          <span class="hue-family-picker-value" data-hfp-value>oklch(56.30% 0.0762 181.30)</span>
+          <button
+            type="button"
+            class="hue-family-picker-copy-btn"
+            data-hfp-copy
+            aria-label="Copy OKLCH value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+          <span class="hue-family-picker-value-label">HEX</span>
+          <span class="hue-family-picker-value" data-hfp-value>#3A8478</span>
+          <button
+            type="button"
+            class="hue-family-picker-copy-btn"
+            data-hfp-copy
+            aria-label="Copy HEX value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+          <span class="hue-family-picker-value-label">RGB</span>
+          <span class="hue-family-picker-value" data-hfp-value>rgb(58, 132, 120)</span>
+          <button
+            type="button"
+            class="hue-family-picker-copy-btn"
+            data-hfp-copy
+            aria-label="Copy RGB value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+          <span class="hue-family-picker-value-label">HSL</span>
+          <span class="hue-family-picker-value" data-hfp-value>hsl(170, 39%, 37%)</span>
+          <button
+            type="button"
+            class="hue-family-picker-copy-btn"
+            data-hfp-copy
+            aria-label="Copy HSL value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- Initialized at a non-root value — sage at value 30 (between stop-700 and stop-600) -->
+  <div class="mb-12">
+    <p class="pl-variant-title">Initialized off-root (sage · value 30)</p>
+    <!-- @component: hue-family-picker-off-root -->
+    <div class="hue-family-picker" data-hue-family-picker data-family="sage" data-value="30">
+
+      <div class="hue-family-picker-header">
+        <label class="hue-family-picker-family-label" for="hfp-family-off-root">Family</label>
+        <select
+          id="hfp-family-off-root"
+          class="hue-family-picker-family-select"
+          data-hfp-family-select
+          aria-label="Hue family">
+        </select>
+      </div>
+
+      <div
+        class="hue-family-picker-swatch"
+        data-hfp-swatch
+        aria-label="Selected color preview"
+        role="img"></div>
+
+      <div class="hue-family-picker-stop-readout" aria-live="polite">
+        <span class="hue-family-picker-stop-label" data-hfp-stop-label>sage-700</span>
+        <span class="hue-family-picker-stop-role" data-hfp-stop-role></span>
+        <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden>
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+        </span>
+      </div>
+
+      <div class="hue-family-picker-slider-wrap" data-hfp-track>
+        <input
+          type="range"
+          class="slider-track hue-family-picker-track"
+          data-hfp-slider
+          min="0"
+          max="100"
+          step="1"
+          value="30"
+          aria-label="Position along family line"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="30"
+          aria-valuetext="sage-700">
+        <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+      </div>
+
+      <div class="hue-family-picker-values">
+        <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+          <span class="hue-family-picker-value-label">OKLCH</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+          <span class="hue-family-picker-value-label">HEX</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+          <span class="hue-family-picker-value-label">RGB</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+          <span class="hue-family-picker-value-label">HSL</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- A warm accent example — rose at the lightest anchor -->
+  <div class="mb-12">
+    <p class="pl-variant-title">At the lightest anchor (rose · value 100, max)</p>
+    <!-- @component: hue-family-picker-max-anchor -->
+    <div class="hue-family-picker" data-hue-family-picker data-family="rose" data-value="100">
+
+      <div class="hue-family-picker-header">
+        <label class="hue-family-picker-family-label" for="hfp-family-max-anchor">Family</label>
+        <select
+          id="hfp-family-max-anchor"
+          class="hue-family-picker-family-select"
+          data-hfp-family-select
+          aria-label="Hue family">
+        </select>
+      </div>
+
+      <div
+        class="hue-family-picker-swatch"
+        data-hfp-swatch
+        aria-label="Selected color preview"
+        role="img"></div>
+
+      <div class="hue-family-picker-stop-readout" aria-live="polite">
+        <span class="hue-family-picker-stop-label" data-hfp-stop-label>rose-50</span>
+        <span class="hue-family-picker-stop-role" data-hfp-stop-role>· max anchor</span>
+        <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden>
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+        </span>
+      </div>
+
+      <div class="hue-family-picker-slider-wrap" data-hfp-track>
+        <input
+          type="range"
+          class="slider-track hue-family-picker-track"
+          data-hfp-slider
+          min="0"
+          max="100"
+          step="1"
+          value="100"
+          aria-label="Position along family line"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="100"
+          aria-valuetext="rose-50 (max anchor)">
+        <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+      </div>
+
+      <div class="hue-family-picker-values">
+        <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+          <span class="hue-family-picker-value-label">OKLCH</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+          <span class="hue-family-picker-value-label">HEX</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+          <span class="hue-family-picker-value-label">RGB</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+          <span class="hue-family-picker-value-label">HSL</span>
+          <span class="hue-family-picker-value" data-hfp-value>—</span>
+          <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+            <i class="fa-solid fa-copy" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <!-- /component -->
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- Compact variant — for stacked use in theming editor surfaces      -->
+  <!-- ================================================================ -->
+  <div class="mb-12">
+    <h3 class="section-title mb-2">Compact variant — for stacked use</h3>
+    <p class="pl-description">
+      The dense variant intended for theming editors that stack 8+ pickers as theme "anchors." Add <code class="text-xs font-mono">.is-compact</code> to the root and include a chevron toggle next to the HEX readout to reveal OKLCH/RGB/HSL in an expand drawer. Each row collapses to ~56–64px so a stack of a dozen reads as a navigable list rather than a wall.
+    </p>
+    <p class="pl-description text-sm text-sand-600 mt-2 mb-6">
+      Tick labels recede to hover at this density — hover any tick to confirm its stop number; click jumps to that stop.
+    </p>
+
+    <div class="space-y-2">
+
+      <!-- @component: hue-family-picker-compact-teal -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="teal" data-value="50">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-teal">Family</label>
+          <select id="hfp-cmp-teal" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>teal-500</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role>· root</span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="50"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                 aria-valuetext="teal-500 (root)">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button"
+                  class="hue-family-picker-expand-toggle"
+                  data-hfp-expand-toggle
+                  aria-expanded="false"
+                  aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-sage -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="sage" data-value="30">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-sage">Family</label>
+          <select id="hfp-cmp-sage" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>sage-700</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role></span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="30"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"
+                 aria-valuetext="sage-700">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-sand -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="sand" data-value="70">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-sand">Family</label>
+          <select id="hfp-cmp-sand" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>sand-300</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role></span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="70"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="70"
+                 aria-valuetext="sand-300">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-rose -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="rose" data-value="50">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-rose">Family</label>
+          <select id="hfp-cmp-rose" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>rose-500</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role>· root</span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="50"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                 aria-valuetext="rose-500">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-amber -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="amber" data-value="80">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-amber">Family</label>
+          <select id="hfp-cmp-amber" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>amber-200</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role></span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="80"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="80"
+                 aria-valuetext="amber-200">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-blue -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="blue" data-value="40">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-blue">Family</label>
+          <select id="hfp-cmp-blue" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>blue-600</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role></span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="40"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"
+                 aria-valuetext="blue-600">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-violet -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="violet" data-value="50">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-violet">Family</label>
+          <select id="hfp-cmp-violet" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>violet-500</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role>· root</span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="50"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                 aria-valuetext="violet-500">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+      <!-- @component: hue-family-picker-compact-emerald -->
+      <div class="hue-family-picker is-compact" data-hue-family-picker data-family="emerald" data-value="60">
+        <div class="hue-family-picker-header">
+          <label class="hue-family-picker-family-label" for="hfp-cmp-emerald">Family</label>
+          <select id="hfp-cmp-emerald" class="hue-family-picker-family-select" data-hfp-family-select aria-label="Hue family"></select>
+          <div class="hue-family-picker-swatch" data-hfp-swatch aria-label="Selected color preview" role="img"></div>
+          <div class="hue-family-picker-stop-readout" aria-live="polite">
+            <span class="hue-family-picker-stop-label" data-hfp-stop-label>emerald-400</span>
+            <span class="hue-family-picker-stop-role" data-hfp-stop-role></span>
+            <span class="hue-family-picker-gamut-badge" data-hfp-gamut-badge hidden title="OKLCH outside sRGB; HEX/RGB clamped to nearest in-gamut value.">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+              <span class="hue-family-picker-gamut-badge-text">sRGB clamped</span>
+            </span>
+          </div>
+        </div>
+        <div class="hue-family-picker-slider-wrap" data-hfp-track>
+          <input type="range" class="slider-track hue-family-picker-track" data-hfp-slider
+                 min="0" max="100" step="1" value="60"
+                 aria-label="Position along family line"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"
+                 aria-valuetext="emerald-400">
+          <div class="hue-family-picker-ticks" data-hfp-ticks aria-hidden="true"></div>
+        </div>
+        <div class="hue-family-picker-values">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hex">
+            <span class="hue-family-picker-value-label">HEX</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HEX value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="button" class="hue-family-picker-expand-toggle" data-hfp-expand-toggle aria-expanded="false" aria-label="Show additional color formats">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="hue-family-picker-drawer">
+          <div class="hue-family-picker-value-row" data-hfp-value-row="oklch">
+            <span class="hue-family-picker-value-label">OKLCH</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy OKLCH value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="rgb">
+            <span class="hue-family-picker-value-label">RGB</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy RGB value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="hue-family-picker-value-row" data-hfp-value-row="hsl">
+            <span class="hue-family-picker-value-label">HSL</span>
+            <span class="hue-family-picker-value" data-hfp-value>—</span>
+            <button type="button" class="hue-family-picker-copy-btn" data-hfp-copy aria-label="Copy HSL value">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /component -->
+
+    </div>
+  </div>
+
+</section>

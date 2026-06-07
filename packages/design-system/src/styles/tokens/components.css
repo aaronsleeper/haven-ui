@@ -6635,6 +6635,72 @@ canvas {
 }
 
 /* ===================================
+   SLIDER TRACK — shared base
+   ===================================
+
+   Shared range-input chrome extracted from `.assess-slider-track` (2026-06-06)
+   so additional sliders (hue-family-picker, future tokens-spacing slider, etc.)
+   can ride on one rule and parameterize their visual treatment.
+
+   Contract:
+     - `.slider-track` carries the cross-cutting affordance: full-width 44px
+       touch-target thumb with a 4px white border, focus ring, appearance:none.
+     - Track FILL is owned by the consumer. Default fill is a two-stop solid
+       (teal-300 → sand-200) parameterized by `--slider-fill` for backwards
+       compatibility with the assess-slider precedent. The hue-family-picker
+       overrides the background entirely via `--hfp-track-gradient` (a
+       continuous OKLCH gradient).
+     - Thumb color is `--slider-thumb-bg` (default teal-600), thumb focus ring
+       is `--slider-thumb-focus-ring` (default teal-300). Both are CSS custom
+       properties so per-instance theming (different teal stop, different
+       family) is one variable away.
+     - `.assess-slider-track` is now an alias that applies `.slider-track` with
+       its specific value-display behavior. No visual regression intended —
+       run a side-by-side check on /pattern-library/pages/patient-assessment.html
+       after editing this rule.
+*/
+
+.slider-track {
+  @apply block w-full h-2 rounded-full appearance-none cursor-pointer;
+  /* Default two-stop fill — consumers override `background` or `--slider-fill`. */
+  background: linear-gradient(
+    to right,
+    var(--slider-fill-color, var(--color-teal-300)) 0%,
+    var(--slider-fill-color, var(--color-teal-300)) var(--slider-fill, 50%),
+    var(--slider-track-color, var(--color-sand-200)) var(--slider-fill, 50%),
+    var(--slider-track-color, var(--color-sand-200)) 100%
+  );
+}
+
+.slider-track::-webkit-slider-thumb {
+  @apply appearance-none rounded-full border-4 border-white shadow-md;
+  background: var(--slider-thumb-bg, var(--color-teal-600));
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.slider-track::-moz-range-thumb {
+  @apply rounded-full border-4 border-white shadow-md;
+  background: var(--slider-thumb-bg, var(--color-teal-600));
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.slider-track:focus {
+  @apply outline-none;
+}
+
+.slider-track:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--slider-thumb-focus-ring, var(--color-teal-300));
+}
+
+.slider-track:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--slider-thumb-focus-ring, var(--color-teal-300));
+}
+
+/* ===================================
    PATIENT APP — ASSESSMENT SLIDER
    =================================== */
 
@@ -6648,6 +6714,8 @@ canvas {
   @apply dark:text-teal-400;
 }
 
+/* Rides `.slider-track` for chrome; uses default fill colors (teal-300 /
+   sand-200) parameterized via the `--slider-fill` percentage from JS. */
 .assess-slider-track {
   @apply block w-full h-2 rounded-full appearance-none cursor-pointer;
   background: linear-gradient(
@@ -13006,4 +13074,513 @@ span.diagram-icon::before {
     margin-top: 16pt;
     padding-top: 8pt;
     max-width: 900px;
+}
+
+/* ===================================
+   HUE FAMILY PICKER — pattern-library component
+   ===================================
+
+   A single slider whose track IS a Haven hue-family's OKLCH line. Drag the
+   thumb to pick any continuous point on that line; canonical stops snap to
+   tick marks. Companion JS at src/scripts/components/hue-family-picker.js.
+
+   The track gradient is a continuous OKLCH gradient computed in JS and
+   pushed in via `--hfp-track-gradient`. The thumb rides on the shared
+   `.slider-track` base; we override the track background but inherit thumb
+   chrome and focus behavior.
+*/
+
+.hue-family-picker {
+  @apply block;
+}
+
+.hue-family-picker-header {
+  @apply flex items-center gap-3 mb-6;
+}
+
+.hue-family-picker-family-label {
+  @apply text-sm font-medium text-sand-700;
+  @apply dark:text-sand-300;
+}
+
+.hue-family-picker-family-select {
+  @apply block w-full max-w-xs py-2 px-3 border border-sand-200 rounded-lg text-sm bg-white;
+  @apply focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200;
+  @apply dark:bg-sand-900 dark:border-sand-700 dark:text-sand-100;
+  font-family: var(--font-sans);
+}
+
+/* Full-width swatch that previews the currently selected color. ~80px tall
+   per spec; we use a measured token-friendly value via @apply. */
+.hue-family-picker-swatch {
+  @apply block w-full rounded-xl border border-sand-200 shadow-sm;
+  @apply dark:border-sand-700;
+  height: 80px;
+  transition: background 180ms ease-out;
+}
+
+.hue-family-picker-stop-readout {
+  @apply mt-4 mb-2 flex items-baseline gap-2;
+}
+
+.hue-family-picker-stop-label {
+  @apply text-2xl font-semibold text-sand-900;
+  @apply dark:text-sand-100;
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+/* When NOT on a canonical tick, render the derived label one shade lighter
+   to signal "interpolated, not canonical." This is the small typographic
+   restraint that earns the picker the right to show both states. */
+.hue-family-picker-stop-label:not(.is-on-tick) {
+  @apply text-sand-600;
+  @apply dark:text-sand-400;
+}
+
+.hue-family-picker-stop-role {
+  @apply text-sm text-sand-500;
+  @apply dark:text-sand-400;
+}
+
+.hue-family-picker-gamut-badge {
+  @apply inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full text-xs font-medium;
+  background: var(--color-amber-100);
+  color: var(--color-amber-800);
+  @apply dark:bg-amber-900 dark:text-amber-200;
+}
+
+/* ---- Slider mechanic (rides `.slider-track`) ---- */
+
+.hue-family-picker-slider-wrap {
+  @apply relative;
+  padding-top: 8px; /* room for thumb top edge */
+  padding-bottom: 44px; /* room for tick lines + 11px stop-number labels */
+}
+
+/* The track itself — override the base `.slider-track` background with the
+   computed OKLCH gradient pushed in by JS. We also raise the track height a
+   touch so the gradient reads as a substantial surface, not a hairline. */
+.hue-family-picker-track {
+  background: var(--hfp-track-gradient, linear-gradient(to right, var(--color-sand-300), var(--color-sand-100), var(--color-sand-300)));
+  height: 12px;
+  /* Slim warm-tone border so out-of-gamut clamping at the edges still reads
+     as a track, not as bleeding into the page. */
+  border: 1px solid var(--color-sand-300);
+}
+
+.hue-family-picker-track::-webkit-slider-thumb {
+  /* Use a white thumb with the current color's value showing through the
+     border ring — gives the thumb the "puck on a track" feel of figui3 while
+     staying brand-restrained. */
+  background: #ffffff;
+  border-color: var(--color-sand-50);
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 1px 3px rgba(0,0,0,0.18);
+}
+
+.hue-family-picker-track::-moz-range-thumb {
+  background: #ffffff;
+  border-color: var(--color-sand-50);
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 1px 3px rgba(0,0,0,0.18);
+}
+
+.hue-family-picker-track:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 0 0 5px var(--color-primary-300);
+}
+
+.hue-family-picker-track:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 0 0 5px var(--color-primary-300);
+}
+
+/* ---- Tick marks ---- */
+
+.hue-family-picker-ticks {
+  @apply absolute left-0 right-0 pointer-events-none;
+  /* Place the ticks just below the bottom edge of the slider thumb. The
+     44px thumb extends ~16px below the 12px track (centered on it), so we
+     sit the ticks at top: 44px from the slider-wrap top edge. */
+  top: 44px;
+  height: 30px;
+}
+
+/* Each tick is a button that, when clicked, jumps the slider to that stop.
+   Visually it's a short vertical hairline + the stop number below it. The
+   marks read as a small typographic ruler — restrained, but visible enough
+   to scan when picking. */
+.hue-family-picker-tick {
+  @apply absolute pointer-events-auto;
+  /* Centered around its `left: N%` position */
+  top: 0;
+  transform: translateX(-50%);
+  width: auto;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-sand-600);
+  transition: color 120ms ease;
+}
+
+.hue-family-picker-tick::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 10px;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.hue-family-picker-tick-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem; /* ~11px */
+  line-height: 1;
+  color: var(--color-sand-700);
+}
+
+.hue-family-picker-tick:hover {
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-tick:hover .hue-family-picker-tick-label {
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-tick:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 4px;
+}
+
+.hue-family-picker-tick.is-active {
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-tick.is-active::before {
+  opacity: 1;
+  height: 14px;
+  width: 2px;
+}
+
+.hue-family-picker-tick.is-active .hue-family-picker-tick-label {
+  font-weight: 600;
+  color: var(--color-primary-800);
+}
+
+/* ---- Value chip rows (OKLCH / HEX / RGB / HSL with copy buttons) ---- */
+
+.hue-family-picker-values {
+  @apply mt-8 grid gap-2;
+  /* Stack on small screens, two columns on >= sm */
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .hue-family-picker-values {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.hue-family-picker-value-row {
+  @apply flex items-center gap-2 px-3 py-2 rounded-lg border border-sand-200 bg-sand-50;
+  @apply dark:bg-sand-900 dark:border-sand-700;
+}
+
+.hue-family-picker-value-label {
+  @apply text-xs font-semibold uppercase text-sand-500 shrink-0;
+  font-family: var(--font-sans);
+  letter-spacing: 0.05em;
+  width: 3.5rem;
+}
+
+.hue-family-picker-value {
+  @apply flex-1 text-sm text-sand-900 truncate;
+  @apply dark:text-sand-100;
+  font-family: var(--font-mono);
+}
+
+.hue-family-picker-copy-btn {
+  @apply inline-flex items-center justify-center shrink-0 rounded-md border border-transparent;
+  width: 32px;
+  height: 32px;
+  color: var(--color-sand-600);
+  background: transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.hue-family-picker-copy-btn:hover {
+  color: var(--color-primary-700);
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+}
+
+.hue-family-picker-copy-btn:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.hue-family-picker-copy-btn.is-copied {
+  color: var(--color-primary-700);
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-300);
+  /* Subtle pulse for the "Copied" affirmation. */
+  animation: hue-family-picker-copy-pulse 220ms ease-out;
+}
+
+@keyframes hue-family-picker-copy-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hue-family-picker-swatch,
+  .hue-family-picker-tick,
+  .hue-family-picker-copy-btn {
+    transition: none;
+  }
+  .hue-family-picker-copy-btn.is-copied {
+    animation: none;
+  }
+}
+
+/* ---- Compact variant — for stacked use in theming editor surfaces ----
+
+   Use `.hue-family-picker.is-compact` for the dense, single-row variant
+   intended for the Obsidian theming editor and any future surface that
+   stacks 8+ pickers vertically as theme "anchors." Same canonical
+   capabilities — family selector, full 0–100 slider with 11 canonical
+   tick snaps, OKLCH gradient track, shift-snap, click-tick-jump, gamut
+   signal, all 4 value formats reachable, accessibility unchanged
+   (44px touch target on thumb preserved).
+
+   The 4-value panel becomes 1 always-visible primary readout (HEX) plus
+   3 secondary values revealed via an expand drawer. Tick labels recede
+   to hover/active to keep the visual quiet at density. Target footprint:
+   ~64px collapsed, ~140px expanded.
+*/
+
+.hue-family-picker.is-compact {
+  /* Three-zone horizontal layout: identity (family + swatch + stop),
+     slider, primary readout + actions. Grid lets the slider absorb
+     leftover horizontal space without rigid widths on the side zones. */
+  @apply grid items-center gap-4 px-3 py-2 rounded-lg border border-sand-200 bg-white;
+  @apply dark:border-sand-700 dark:bg-sand-900;
+  grid-template-columns: minmax(0, auto) minmax(180px, 1fr) minmax(0, auto);
+  grid-template-areas: "identity slider readout";
+  min-height: 56px;
+}
+
+/* Identity zone — family select, mini swatch, stop label inline */
+.hue-family-picker.is-compact .hue-family-picker-header {
+  @apply m-0 flex items-center gap-2;
+  grid-area: identity;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-family-label {
+  /* Visually hidden — the dropdown carries its own affordance at this
+     density. aria-label on the <select> preserves a11y. */
+  @apply sr-only;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-family-select {
+  @apply py-1 px-2 text-xs rounded-md max-w-[10rem];
+  /* Tighten height while keeping a hit target the dropdown reads cleanly. */
+  min-height: 32px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-swatch {
+  @apply m-0 rounded-md shrink-0;
+  width: 36px;
+  height: 36px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-stop-readout {
+  @apply m-0 flex items-baseline gap-1;
+  min-width: 0; /* allow truncation if family slug is long */
+}
+
+.hue-family-picker.is-compact .hue-family-picker-stop-label {
+  @apply text-sm;
+  letter-spacing: 0;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-stop-role {
+  @apply text-xs;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-gamut-badge {
+  @apply ml-1 px-1.5 py-0 text-xs;
+  /* Drop the icon-+-text combo to icon-only at density; the title
+     attribute still carries the explanation on hover. */
+}
+
+.hue-family-picker.is-compact .hue-family-picker-gamut-badge > .fa-triangle-exclamation {
+  /* Icon stays; label text inside the badge gets visually hidden. */
+}
+
+.hue-family-picker.is-compact .hue-family-picker-gamut-badge-text {
+  @apply sr-only;
+}
+
+/* Slider zone — middle, absorbs flex space */
+.hue-family-picker.is-compact .hue-family-picker-slider-wrap {
+  grid-area: slider;
+  /* Reduce vertical padding — ticks become hairlines, no labels by default. */
+  padding-top: 4px;
+  padding-bottom: 14px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-track {
+  height: 8px;
+  /* Slightly muted border at density to keep the row visually quiet. */
+  border-color: var(--color-sand-200);
+}
+
+/* Ticks: shorter hairlines, labels hidden by default, revealed on hover. */
+.hue-family-picker.is-compact .hue-family-picker-ticks {
+  top: 30px;
+  height: 10px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick::before {
+  height: 6px;
+  opacity: 0.55;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick-label {
+  /* Hidden by default at density to keep the ruler from competing. The
+     stop number is reachable on hover/active for picking precision. */
+  position: absolute;
+  top: 9px;
+  font-size: 0.625rem; /* ~10px */
+  opacity: 0;
+  transition: opacity 100ms ease;
+  pointer-events: none;
+  white-space: nowrap;
+  background: var(--color-sand-50);
+  color: var(--color-sand-700);
+  padding: 1px 4px;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick:hover .hue-family-picker-tick-label,
+.hue-family-picker.is-compact .hue-family-picker-tick:focus-visible .hue-family-picker-tick-label,
+.hue-family-picker.is-compact .hue-family-picker-tick.is-active .hue-family-picker-tick-label {
+  opacity: 1;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick.is-active::before {
+  height: 9px;
+  width: 2px;
+}
+
+/* Readout zone — primary value + actions */
+.hue-family-picker.is-compact .hue-family-picker-values {
+  grid-area: readout;
+  /* Override the grid from the default variant; the compact readout
+     is a horizontal cluster, not a stacked panel. */
+  @apply m-0 flex items-center gap-1;
+  grid-template-columns: none;
+}
+
+/* In compact, the OKLCH/RGB/HSL rows live inside a drawer; only HEX
+   is rendered in the always-visible readout. We use the existing
+   value-row markup — the JS will set `data-hfp-value-row="hex"` rows
+   as primary and hide the others until the drawer opens. */
+.hue-family-picker.is-compact .hue-family-picker-value-row {
+  @apply m-0 px-2 py-1 rounded-md border-0 bg-transparent;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value-row[data-hfp-value-row="hex"] {
+  /* Primary readout — always visible at density */
+  @apply flex items-center gap-1 bg-sand-50 border border-sand-200;
+  @apply dark:bg-sand-800 dark:border-sand-700;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value-label {
+  /* The HEX label takes very little room; keep it as a small mono tag
+     so the readout reads as "this is HEX" without a verbose word. */
+  width: auto;
+  @apply text-xs uppercase tracking-wider;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value {
+  @apply text-sm;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-copy-btn {
+  width: 28px;
+  height: 28px;
+  @apply rounded-md;
+}
+
+/* Expand toggle — chevron button that opens the secondary value drawer */
+.hue-family-picker-expand-toggle {
+  @apply inline-flex items-center justify-center shrink-0 rounded-md border border-transparent;
+  width: 28px;
+  height: 28px;
+  color: var(--color-sand-600);
+  background: transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, transform 180ms ease;
+}
+
+.hue-family-picker-expand-toggle:hover {
+  color: var(--color-primary-700);
+  background: var(--color-primary-50);
+}
+
+.hue-family-picker-expand-toggle:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Rotate chevron when expanded — the small motion is the drawer-state
+   affordance. */
+.hue-family-picker.is-expanded .hue-family-picker-expand-toggle {
+  transform: rotate(180deg);
+  color: var(--color-primary-700);
+}
+
+/* The secondary drawer — OKLCH / RGB / HSL rows revealed below the main
+   row when expanded. Hidden by default; revealed only when the compact
+   root also carries .is-expanded. Lives outside the grid (full-width
+   below) via grid-column: 1 / -1. */
+.hue-family-picker-drawer {
+  display: none;
+}
+
+.hue-family-picker.is-compact.is-expanded .hue-family-picker-drawer {
+  display: grid;
+  grid-column: 1 / -1;
+  @apply mt-1 gap-1 pt-2 border-t border-sand-100;
+  @apply dark:border-sand-800;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-drawer .hue-family-picker-value-row {
+  @apply flex items-center gap-1 px-2 py-1 rounded-md border border-sand-200 bg-sand-50;
+  @apply dark:bg-sand-800 dark:border-sand-700;
+}
+
+/* When the page narrows, the readout zone can crowd. Stack to a second
+   row gracefully — drawer becomes single-column. */
+@media (max-width: 720px) {
+  .hue-family-picker.is-compact {
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    grid-template-areas:
+      "identity readout"
+      "slider   slider";
+    row-gap: 6px;
+  }
+  .hue-family-picker.is-compact .hue-family-picker-drawer {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
