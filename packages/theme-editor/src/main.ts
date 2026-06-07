@@ -342,7 +342,41 @@ presetDelete.addEventListener('click', async () => {
   }
 });
 
-subscribe(render);
+// ============================================================ Drag gate
+//
+// Sliders (the hue-family-picker track + the elevation shadow-intensity range)
+// fire `input` events continuously while the user drags. Each event mutates
+// the store, which triggers render(), which `innerHTML`-swaps the anchor list
+// and destroys the slider element mid-drag — the pointer no longer captures
+// the element, and the drag dies.
+//
+// Fix: gate the render while a pointer-drag is active on any range input.
+// Store mutations + debounced theme.css writes continue (so Obsidian still
+// previews live); only the editor's own DOM swap is suppressed. One final
+// render() fires on pointerup/pointercancel to sync the DOM with truth.
+
+let isDragging = false;
+
+document.addEventListener('pointerdown', (e) => {
+  const t = e.target as HTMLElement | null;
+  if (t?.closest('input[type="range"]')) {
+    isDragging = true;
+  }
+}, { capture: true });
+
+function endDrag() {
+  if (!isDragging) return;
+  isDragging = false;
+  render();
+}
+
+document.addEventListener('pointerup', endDrag, { capture: true });
+document.addEventListener('pointercancel', endDrag, { capture: true });
+
+subscribe(() => {
+  if (isDragging) return;
+  render();
+});
 
 // ============================================================ Boot
 
