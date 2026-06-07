@@ -13113,7 +13113,7 @@ span.diagram-icon::before {
 /* Full-width swatch that previews the currently selected color. ~80px tall
    per spec; we use a measured token-friendly value via @apply. */
 .hue-family-picker-swatch {
-  @apply block w-full rounded-xl border border-sand-200 shadow-sm;
+  @apply block w-full rounded-md border border-sand-200 shadow-sm;
   @apply dark:border-sand-700;
   height: 80px;
   transition: background 180ms ease-out;
