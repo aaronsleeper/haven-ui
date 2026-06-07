@@ -247,6 +247,50 @@ export function refreshCompanionFromAccent(next: ColorAnchorValue) {
 }
 
 // ---------------------------------------------------------------------------
+// Relation override + lock mutators (Phase 3)
+// ---------------------------------------------------------------------------
+
+/**
+ * Lock a relation — freezes the currently-resolved value. Caller passes the
+ * resolved string (so the store doesn't need to know about the resolver).
+ */
+export function lockRelation(cssVar: string, frozenValue: string) {
+  if (!state.preset) return;
+  const existing = state.preset.relations[cssVar];
+  if (existing?.kind === 'override') {
+    state.preset.relations[cssVar] = {
+      kind: 'override+lock',
+      expr: existing.expr,
+      frozenValue,
+    };
+  } else if (existing?.kind === 'override+lock') {
+    state.preset.relations[cssVar] = { ...existing, frozenValue };
+  } else {
+    state.preset.relations[cssVar] = { kind: 'lock', frozenValue };
+  }
+  emit();
+}
+
+/** Remove the lock on a relation (override expression survives if present). */
+export function unlockRelation(cssVar: string) {
+  if (!state.preset) return;
+  const existing = state.preset.relations[cssVar];
+  if (!existing) return;
+  if (existing.kind === 'lock') {
+    delete state.preset.relations[cssVar];
+  } else if (existing.kind === 'override+lock') {
+    state.preset.relations[cssVar] = { kind: 'override', expr: existing.expr };
+  }
+  emit();
+}
+
+/** True if a relation is locked. */
+export function isRelationLocked(cssVar: string): boolean {
+  const o = state.preset?.relations[cssVar];
+  return o?.kind === 'lock' || o?.kind === 'override+lock';
+}
+
+// ---------------------------------------------------------------------------
 // Address resolution helpers
 // ---------------------------------------------------------------------------
 

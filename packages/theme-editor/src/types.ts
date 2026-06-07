@@ -3,8 +3,11 @@
  *
  * v1 (Phase 2, 2026-06-07): all 11 anchors (5 color + 3 type + 3 shape),
  * shared-vs-pinned ModedValue<T> wrapper, companion pairing, signals as
- * a struct of 5 individually-mode-pinnable color anchors. No relations
- * (Phase 3) or overrides (Phase 4) yet.
+ * a struct of 5 individually-mode-pinnable color anchors.
+ *
+ * v1.1 (Phase 3, 2026-06-07): adds `relations` field carrying per-preset
+ * overrides and locks against the canonical relation registry. Additive —
+ * v1 presets still load (empty `relations` object defaults).
  *
  * Stability contract: existing v1 fields keep their meaning across point
  * releases; additions are additive (existing presets remain readable).
@@ -206,16 +209,101 @@ export interface PresetMeta {
   description?: string;
 }
 
-/** v1 preset — Phase 2 contract. */
+/** v1.x preset — Phase 2/3 contract. */
 export interface Preset {
-  version: 1;
+  /**
+   * 1 = Phase 2 (anchors only; relations field optional).
+   * 1.1 = Phase 3 (relations field carries override/lock entries).
+   * Backwards compatible — loader treats missing `relations` as empty.
+   */
+  version: 1 | 1.1;
   meta: PresetMeta;
   anchors: PresetAnchors;
-  /** Phase 3 — relation language; empty placeholder for v1. */
-  relations: Record<string, never>;
-  /** Phase 4 — raw token overrides; empty placeholder for v1. */
+  /**
+   * Per-preset relation overrides + locks, keyed by Obsidian CSS variable
+   * name (e.g. `--interactive-accent`). Entries override the canonical
+   * registry; missing entries inherit the registry default.
+   */
+  relations: Record<string, RelationOverride>;
+  /** Phase 4 — raw token overrides; empty placeholder. */
   overrides: Record<string, never>;
 }
+
+// ---------------------------------------------------------------------------
+// Relation language (Phase 3)
+// ---------------------------------------------------------------------------
+
+/**
+ * Anchor identifiers a relation can reference. Color relations use the
+ * 5 color anchor keys (surface, ink, accent, companion, signals.*) plus
+ * signal sub-anchors. Non-color relations reference type/shape anchors.
+ */
+export type ColorAnchorRef =
+  | 'surface'
+  | 'ink'
+  | 'accent'
+  | 'companion'
+  | `signals.${keyof SignalsAnchorValue}`;
+
+export type TypeAnchorRef = 'typeScale';
+export type ShapeAnchorRef = 'spacing' | 'corners' | 'elevation';
+
+/**
+ * Color relation operators (UX proposal §2):
+ * - ref(anchor, stop)              Pick a specific stop of an anchor's family.
+ * - traverse(anchor, ±Δ)           Walk Δ stops up (lighter) or down from anchor.
+ * - sib(anchor, [±Δ])              Sibling stop — convenience for traverse ±1.
+ * - cross(other-anchor, stop)      Pull a stop from a DIFFERENT anchor's family.
+ * - alpha(inner, 0..1)             Mix `inner` with surface at given opacity.
+ * - mix(a, b, 0..1)                Linear OKLCH blend of two resolved values.
+ *
+ * Non-color (UX proposal §2):
+ * - ratio(anchor, base, step)      Geometric: basePx * ratio^step
+ * - multiple(anchor, n)            Linear multiple: basePx * n
+ * - stop(anchor, name)             Named-stop reference (corners s/m/l/xl).
+ */
+export type ColorRelation =
+  | { op: 'ref'; anchor: ColorAnchorRef; stop: number }
+  | { op: 'traverse'; anchor: ColorAnchorRef; delta: number }
+  | { op: 'sib'; anchor: ColorAnchorRef; delta?: number }
+  | { op: 'cross'; anchor: ColorAnchorRef; stop: number }
+  | { op: 'alpha'; inner: ColorRelation; opacity: number }
+  | { op: 'mix'; a: ColorRelation; b: ColorRelation; t: number };
+
+export type NonColorRelation =
+  | { op: 'ratio'; anchor: TypeAnchorRef; baseOverride?: number; step: number }
+  | { op: 'multiple'; anchor: ShapeAnchorRef; n: number }
+  | { op: 'stop'; anchor: ShapeAnchorRef; name: 'hairline' | 's' | 'm' | 'l' | 'xl' };
+
+export type Relation = ColorRelation | NonColorRelation;
+
+/**
+ * A registered relation in the canonical registry. The `kind` flag tells the
+ * emitter which resolver path to take (color hex vs. dimension/string).
+ */
+export interface RegisteredRelation {
+  /** The Obsidian CSS variable this relation populates (e.g. "--interactive-accent"). */
+  cssVar: string;
+  /** Plain-language description for the row tooltip. */
+  description: string;
+  /** Expression — color or non-color. */
+  expr: Relation;
+  /** Which top-level anchor this relation reads from (for the Relations filter). */
+  anchorKey: AnchorKey;
+}
+
+/**
+ * Per-preset override against the canonical registry. Two flavors:
+ * - `override` — replaces the registry's expression with a designer-authored one
+ * - `lock` — freezes the resolved value as of lock time (Phase 3 lock semantics)
+ *
+ * A relation may have BOTH a custom expression AND a lock; the lock wins at
+ * resolution time (the frozen value is emitted).
+ */
+export type RelationOverride =
+  | { kind: 'override'; expr: Relation }
+  | { kind: 'lock'; frozenValue: string }
+  | { kind: 'override+lock'; expr: Relation; frozenValue: string };
 
 // ---------------------------------------------------------------------------
 // Resolved color (returned by the picker / color helpers)

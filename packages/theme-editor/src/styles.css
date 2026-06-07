@@ -405,6 +405,130 @@ code {
   gap: 12px;
 }
 
+/* ============================================================ Relations section */
+
+.te-section-body {
+  padding: 16px 20px;
+}
+
+.te-relations-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--te-border);
+}
+
+.te-relations-summary {
+  margin: 0;
+  font-size: 13px;
+  color: var(--te-ink-muted);
+}
+
+.te-relations-controls {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.te-input--wide {
+  width: 280px;
+}
+
+.te-relations-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.te-relation-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 100px 32px;
+  gap: 10px;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--te-border);
+  align-items: center;
+  font-size: 13px;
+}
+
+.te-relation-row:last-child {
+  border-bottom: 0;
+}
+
+.te-relation-row--locked {
+  background: rgba(95, 154, 143, 0.06);
+}
+
+.te-relation-swatch {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--te-radius-sm);
+  border: 1px solid var(--te-border);
+  justify-self: center;
+}
+
+.te-relation-dimension {
+  font-family: var(--te-font-mono);
+  font-size: 11px;
+  color: var(--te-ink-muted);
+  text-align: center;
+  width: 22px;
+  justify-self: center;
+}
+
+.te-relation-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.te-relation-var {
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  color: var(--te-ink);
+  background: transparent;
+  padding: 0;
+}
+
+.te-relation-formula {
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  color: var(--te-ink-muted);
+  background: transparent;
+  padding: 0;
+}
+
+.te-relation-value {
+  font-family: var(--te-font-mono);
+  font-size: 11px;
+  color: var(--te-ink-muted);
+  background: transparent;
+  padding: 0;
+}
+
+.te-relation-lock {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--te-radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+}
+
+.te-relation-lock:hover {
+  border-color: var(--te-border);
+  background: var(--te-surface-alt);
+}
+
+.te-relation-lock.is-locked {
+  border-color: var(--te-accent);
+}
+
 /* ============================================================ Undo chip */
 
 .te-undo-chip {

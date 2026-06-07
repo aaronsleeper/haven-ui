@@ -18,6 +18,7 @@
 import { initHueFamilyPickers } from '@haven/design-system/scripts/components/hue-family-picker.js';
 import { loadFamilies } from './families';
 import { renderAnchorList, wireAnchorEvents, type OnEdit } from './anchors';
+import { renderRelationsSection, wireRelationsEvents } from './relations-ui';
 import { emitObsidian } from './emitter-obsidian';
 import {
   fetchTarget,
@@ -50,6 +51,7 @@ const $ = <T extends Element = HTMLElement>(sel: string): T => {
 const modeButtons = document.querySelectorAll<HTMLButtonElement>('.te-mode');
 const presetSelect = $<HTMLSelectElement>('#te-preset');
 const anchorList = $<HTMLElement>('#te-anchor-list');
+const relationsSection = $<HTMLElement>('#te-relations-body');
 const statusSave = $('#te-status-save');
 const statusTarget = $('#te-status-target');
 
@@ -130,6 +132,19 @@ function renderAnchors() {
   initHueFamilyPickers();
 }
 
+function renderRelations() {
+  const s = getState();
+  if (!s.preset) {
+    relationsSection.innerHTML = '<p class="te-section-placeholder">— no preset loaded —</p>';
+    return;
+  }
+  relationsSection.innerHTML = renderRelationsSection(s.preset, s.mode);
+  wireRelationsEvents(relationsSection, {
+    scheduleWrite,
+    rerender: renderRelations,
+  });
+}
+
 function renderStatus() {
   const s = getState();
   switch (s.saveStatus) {
@@ -156,6 +171,7 @@ function render() {
   renderModeSelector(s.mode);
   renderPresetSelect(s.presetList, s.presetName);
   renderAnchors();
+  renderRelations();
   renderStatus();
 }
 

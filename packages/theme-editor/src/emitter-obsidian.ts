@@ -1,144 +1,112 @@
 /**
- * Obsidian theme.css emitter — Phase 2.
+ * Obsidian theme.css emitter — Phase 3.
  *
- * Emits the CSS the editor's middleware writes as `theme.editor-overrides.css`
- * (composed into the runtime `theme.css` per the Path-E split). Walks all 11
- * v1 anchors, resolving each ModedValue<T> to its per-mode concrete value
- * and writing a per-mode block of Obsidian CSS variables.
+ * Walks the canonical relation registry (RELATION_REGISTRY) and for each
+ * registered Obsidian CSS variable, resolves the relation against the
+ * current preset + mode and writes the result. Designer-authored overrides
+ * in preset.relations replace the registry's expression at resolution time;
+ * locks freeze the resolved value at lock-time.
  *
- * Variable coverage is the minimum needed to make every anchor visibly
- * affect the rendered theme — the full UX-proposal § 1 map is the Phase 3
- * relation layer's job. v2 emitter passes can broaden coverage when the
- * relation language ships.
+ * Phase 2's per-anchor hardcoded var list is gone — coverage is entirely
+ * driven by the registry. Type-face vars (font families) are still emitted
+ * directly because they aren't relation-typed; everything else flows
+ * through the registry walk.
  */
 
 import type {
   Preset,
   ModeKey,
-  ColorAnchorValue,
   TypeFaceValue,
-  TypeScaleValue,
-  CornerValue,
-  ElevationValue,
+  Relation,
 } from './types';
 import { valueForMode } from './types';
-import { resolveStop } from './color';
+import { resolveColorRelation, resolveNonColorRelation, isColorRelation } from './relations';
+import { REGISTERED_RELATIONS } from './relation-registry';
 
 const MODE_SELECTOR: Record<ModeKey, string> = {
   light: '.theme-light',
   dark: '.theme-dark',
 };
 
-function hex(value: ColorAnchorValue): string {
-  return resolveStop(value.family, value.stop).hex;
+// ---------------------------------------------------------------------------
+// Relation resolution — with override + lock support
+// ---------------------------------------------------------------------------
+
+function resolveRegisteredVar(
+  cssVar: string,
+  defaultExpr: Relation,
+  preset: Preset,
+  mode: ModeKey,
+): string {
+  const override = preset.relations?.[cssVar];
+
+  // Lock wins regardless of override expression — frozen value emits verbatim.
+  if (override && (override.kind === 'lock' || override.kind === 'override+lock')) {
+    return override.frozenValue;
+  }
+
+  // Designer-authored override expression replaces the registry default.
+  const expr = override?.kind === 'override' ? override.expr : defaultExpr;
+
+  if (isColorRelation(expr)) {
+    return resolveColorRelation(expr, preset, mode);
+  }
+  const numeric = resolveNonColorRelation(expr, preset, mode);
+  // Non-color vars are px-valued dimensions; emit with `px` suffix.
+  return `${roundDim(numeric)}px`;
 }
 
-function emitColorAnchorBlock(
-  value: ColorAnchorValue,
-  varNames: string[],
-): string[] {
-  const h = hex(value);
-  return varNames.map((v) => `  ${v}: ${h};`);
-}
-
-function emitSurfaceVars(value: ColorAnchorValue): string[] {
-  const primary = hex(value);
-  // Soft step one stop lighter for --background-secondary. (Phase 3 replaces
-  // this with sib(surface, +1).)
-  const altPos = Math.min(100, value.stop + 10);
-  const secondary = resolveStop(value.family, altPos).hex;
-  return [
-    `  --background-primary: ${primary};`,
-    `  --background-secondary: ${secondary};`,
-  ];
-}
-
-function emitInkVars(value: ColorAnchorValue): string[] {
-  return emitColorAnchorBlock(value, [
-    '--text-normal',
-    '--h1-color',
-    '--h2-color',
-    '--h3-color',
-  ]);
-}
-
-function emitAccentVars(value: ColorAnchorValue): string[] {
-  return emitColorAnchorBlock(value, [
-    '--interactive-accent',
-    '--text-accent',
-    '--link-color',
-    '--checkbox-color',
-  ]);
-}
-
-function emitCompanionVars(value: ColorAnchorValue): string[] {
-  return emitColorAnchorBlock(value, [
-    '--blockquote-border-color',
-    '--tag-color',
-  ]);
-}
-
-function emitSignalVar(varName: string, value: ColorAnchorValue): string {
-  return `  ${varName}: ${hex(value)};`;
-}
-
-function emitTypeFaceVar(varName: string, value: TypeFaceValue): string {
-  // Quote the family in case it contains whitespace.
-  const quoted = /^[A-Za-z_][A-Za-z0-9_-]*$/.test(value.family)
-    ? value.family
-    : `'${value.family.replace(/'/g, "\\'")}'`;
-  return `  ${varName}: ${quoted};`;
-}
-
-function emitTypeScaleVar(value: TypeScaleValue): string {
-  return `  --font-text-size: ${value.basePx}px;`;
-}
-
-function emitCornerVars(value: CornerValue): string[] {
-  return [
-    `  --radius-s: ${value.s}px;`,
-    `  --radius-m: ${value.m}px;`,
-    `  --radius-l: ${value.l}px;`,
-    `  --radius-xl: ${value.xl}px;`,
-  ];
-}
-
-function emitElevationVar(value: ElevationValue): string {
-  return `  --border-width: ${value.borderWeight}px;`;
+function roundDim(n: number): number {
+  // Round to 2 decimals to keep emitted CSS tidy.
+  return Math.round(n * 100) / 100;
 }
 
 // ---------------------------------------------------------------------------
-// Per-mode block builder — collects all 11 anchors' var lines for one mode
+// Type-face vars — emitted directly (not relation-typed)
+// ---------------------------------------------------------------------------
+
+function quoteFont(value: TypeFaceValue): string {
+  return /^[A-Za-z_][A-Za-z0-9_-]*$/.test(value.family)
+    ? value.family
+    : `'${value.family.replace(/'/g, "\\'")}'`;
+}
+
+function emitTypeFaceVars(preset: Preset, mode: ModeKey): string[] {
+  const display = quoteFont(valueForMode(preset.anchors.displayFace, mode));
+  const reading = quoteFont(valueForMode(preset.anchors.readingFace, mode));
+  return [
+    `  --font-display-theme: ${display};`,
+    `  --h1-font: ${display};`,
+    `  --h2-font: ${display};`,
+    `  --h3-font: ${display};`,
+    `  --font-text-theme: ${reading};`,
+    `  --font-interface-theme: ${reading};`,
+    `  --h4-font: ${reading};`,
+    `  --h5-font: ${reading};`,
+    `  --h6-font: ${reading};`,
+  ];
+}
+
+// ---------------------------------------------------------------------------
+// Per-mode block builder
 // ---------------------------------------------------------------------------
 
 function buildModeBlock(preset: Preset, mode: ModeKey): string {
-  const a = preset.anchors;
   const lines: string[] = [];
 
-  lines.push(...emitSurfaceVars(valueForMode(a.surface, mode)));
-  lines.push(...emitInkVars(valueForMode(a.ink, mode)));
-  lines.push(...emitAccentVars(valueForMode(a.accent, mode)));
-  lines.push(...emitCompanionVars(valueForMode(a.companion.value, mode)));
+  for (const entry of REGISTERED_RELATIONS) {
+    try {
+      const value = resolveRegisteredVar(entry.cssVar, entry.expr, preset, mode);
+      lines.push(`  ${entry.cssVar}: ${value};`);
+    } catch (e) {
+      // Resolution failure for one var must not poison the whole block.
+      const msg = e instanceof Error ? e.message : String(e);
+      lines.push(`  /* ${entry.cssVar}: resolve error — ${msg} */`);
+    }
+  }
 
-  // Signals — 5 sub-anchors mapped to their Obsidian "text-*" variables.
-  lines.push(emitSignalVar('--text-error', valueForMode(a.signals.error, mode)));
-  lines.push(emitSignalVar('--text-warning', valueForMode(a.signals.warning, mode)));
-  lines.push(emitSignalVar('--text-success', valueForMode(a.signals.success, mode)));
-
-  // Type faces — these don't strictly differ by mode in v1 but we honor the
-  // ModedValue contract uniformly.
-  lines.push(emitTypeFaceVar('--font-display-theme', valueForMode(a.displayFace, mode)));
-  lines.push(emitTypeFaceVar('--h1-font', valueForMode(a.displayFace, mode)));
-  lines.push(emitTypeFaceVar('--h2-font', valueForMode(a.displayFace, mode)));
-  lines.push(emitTypeFaceVar('--h3-font', valueForMode(a.displayFace, mode)));
-  lines.push(emitTypeFaceVar('--font-text-theme', valueForMode(a.readingFace, mode)));
-  lines.push(emitTypeFaceVar('--font-interface-theme', valueForMode(a.readingFace, mode)));
-
-  lines.push(emitTypeScaleVar(valueForMode(a.typeScale, mode)));
-
-  lines.push(...emitCornerVars(valueForMode(a.corners, mode)));
-
-  lines.push(emitElevationVar(valueForMode(a.elevation, mode)));
+  lines.push('', '  /* Type faces */');
+  lines.push(...emitTypeFaceVars(preset, mode));
 
   return lines.join('\n');
 }
@@ -150,6 +118,7 @@ function buildModeBlock(preset: Preset, mode: ModeKey): string {
 export function emitObsidian(preset: Preset): string {
   const out: string[] = [];
   out.push(`/* Generated by @haven/theme-editor — preset: ${preset.meta.name} */`);
+  out.push(`/* Phase 3 — ${REGISTERED_RELATIONS.length} canonical relations + type-face vars per mode */`);
   for (const mode of ['light', 'dark'] as ModeKey[]) {
     out.push('');
     out.push(`${MODE_SELECTOR[mode]} {`);
