@@ -43,10 +43,10 @@ The names below are **internal section names** — the authoring vocabulary the 
 1. **Title block + masthead** — H1 + a paragraph naming role / type / version / review date
 2. **Scope section** — what this SoP covers and where its boundaries are (always a 3-row table: For / Covers / Does not cover)
 3. **Procedure section** — numbered list of action-prose-result steps in order
-4. **Decision branches and/or escalation** — `:::decision-branch` for routing forks, `:::callout-warning/error/success` for severity flags, `:::escalation` for "what to do when something already broke"
+4. **Decision branches and/or escalation** — `:::decision-branch` for routing forks, `:::alert-warning/error/success` for severity flags, `:::escalation` for "what to do when something already broke"
 5. **Quick-reference section** — `:::card-title` header followed by a tickable checklist
 6. **Glossary section** — `:::glossary-term` / `:::glossary-def` pairs
-7. **Sign-off section** — `:::attestation` followed by `:::attestation-gate` entries; honest about which gates are pending
+7. **Sign-off section** — `:::attestation-block` followed by `:::attestation-gate` entries; honest about which gates are pending
 
 (Yes that's seven — the masthead and Scope section are usually treated as one block by readers, hence "six." Count by visual sections, not by HTML structure.)
 
@@ -91,25 +91,27 @@ This rule is the contract-level fix from the [generative-determinism](../../../.
 
 ## Directive vocabulary
 
-The 13 directives that author SoP content. Use them; don't invent new ones without updating the brand spec.
+The 15 directives that author SoP content. Use them; don't invent new ones without updating the brand spec.
 
 ### Block-level (paragraph styles)
 
 | Directive | Semantic intent | When to use |
 |---|---|---|
-| `:::callout-info` | Informational note, lowest severity | Context the reader benefits from but doesn't need to act on |
-| `:::callout-warning` | Pay-attention note | Draft banner, "do this with care," gentle flag |
-| `:::callout-success` | Affirmative state | "On track," "green flag," confirmation of correct path |
-| `:::callout-error` | Critical risk | "Stop and do X," safety-adjacent alerts |
+| `:::alert-info` | Informational note, lowest severity | Context the reader benefits from but doesn't need to act on |
+| `:::alert-warning` | Pay-attention note | Draft banner, "do this with care," gentle flag |
+| `:::alert-success` | Affirmative state | "On track," "green flag," confirmation of correct path |
+| `:::alert-error` | Critical risk | "Stop and do X," safety-adjacent alerts |
 | `:::card` | Quiet structural container | Use sparingly — most content speaks for itself |
 | `:::card-title` | Title for a card-wrapped section | Pair with checklist for the Quick Reference section |
 | `:::card-body` | Body within a card | Rarely needed — only when you want sand-50 shading on a block |
-| `:::attestation` | Sign-off block header | Once per SoP, in the Sign-off section |
+| `:::attestation-block` | Sign-off block header | Once per SoP, in the Sign-off section |
 | `:::attestation-gate` | One sign-off gate line | One per gate (clinical / operational / accountable) |
-| `:::escalation` | Routing rule with safety weight | "When something already broke, do X" — distinct from `callout-warning` (forward-looking caution) and `callout-error` (critical risk) |
+| `:::escalation` | Routing rule with safety weight | "When something already broke, do X" — distinct from `alert-warning` (forward-looking caution) and `alert-error` (critical risk) |
 | `:::decision-branch` | Multi-row "if A → X; if B → Y" fork | Multiple rows in one block, separated by blank lines, each row of shape `**condition** — outcome.` |
 | `:::glossary-term` | A term being defined | Pair with `glossary-def` directly below |
 | `:::glossary-def` | The definition of the term above | One per term; indent in docx provides the printed-reference register |
+| `:::diagram` | Resolved-asset workflow diagram embed | `:::diagram{workflow="<slug>"}` — runner resolves slug → asset; eyebrow/caption/description register; see brand spec §3.13 |
+| `:::review-marker` | Visible scaffolding for unresolved review prompts | Open question to a reviewer that must be answered before the SoP ships; the dashed amber chrome makes leftover markers obvious; strip every marker before approved state; see brand spec §3.14 |
 
 ### Inline (character style)
 
@@ -123,11 +125,12 @@ The screen-ref uses Pandoc's bracketed-span syntax, not the `:::` block syntax. 
 
 The brand spec leaves restraint to authoring discipline (the styling can't enforce it). Aim for these per-SoP caps, deviating only when the content genuinely demands more:
 
-- **At most 1** `:::callout-error` (a second critical-risk callout means there's an unhandled hazard pattern)
-- **At most 1** `:::escalation` block (a second one usually means two distinct escalations that should be in separate SoPs, or the escalation belongs in a callout)
-- **At most 2** `:::callout-warning` blocks (a draft banner + one yellow flag is typical)
+- **At most 1** `:::alert-error` (a second critical-risk alert means there's an unhandled hazard pattern)
+- **At most 1** `:::escalation` block (a second one usually means two distinct escalations that should be in separate SoPs, or the escalation belongs in an alert)
+- **At most 2** `:::alert-warning` blocks (a draft banner + one yellow flag is typical)
 - **At most 3** `:::decision-branch` blocks (more usually means a flowchart, not an SoP)
-- **At most 2 callouts of any one severity** (info / warning / success / error)
+- **At most 2 alerts of any one severity** (info / warning / success / error)
+- **At most 2** `:::diagram` blocks (HVD §3.13 soft cap; more usually means the workflow needs to split rather than the figure)
 - **Glossary should have 5–7 entries** (fewer and it's not earning the section; more and it's a glossary doc, not an SoP glossary)
 
 If you find yourself exceeding these caps, ask whether the SoP is doing too much — most over-cap SoPs decompose cleanly into two.
