@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haven theme editor</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <header class="te-header">
+      <div class="te-header-row">
+        <h1 class="te-title">Haven theme editor</h1>
+        <div class="te-mode-selector" role="tablist" aria-label="Theme mode">
+          <button type="button" class="te-mode te-mode--active" data-mode="light" role="tab" aria-selected="true">
+            Light
+          </button>
+          <button type="button" class="te-mode" data-mode="dark" role="tab" aria-selected="false">Dark</button>
+        </div>
+        <div class="te-preset-selector">
+          <label for="te-preset" class="te-preset-label">Preset</label>
+          <select id="te-preset" class="te-preset-select">
+            <option value="">— loading —</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <main class="te-main">
+      <section class="te-section" aria-labelledby="te-anchors-heading">
+        <h2 class="te-section-heading" id="te-anchors-heading">Anchors</h2>
+        <div class="te-anchor-list" id="te-anchor-list">
+          <article class="te-anchor" data-anchor="surface">
+            <header class="te-anchor-header">
+              <span class="te-anchor-number">1</span>
+              <span class="te-anchor-name">Surface</span>
+              <span class="te-anchor-readout" id="te-anchor-surface-readout">— family · stop —</span>
+            </header>
+            <div class="te-anchor-body">
+              <p class="te-anchor-description">The warm ground everything sits on.</p>
+              <label class="te-control">
+                <span class="te-control-label">Family stop position (0–100)</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="90"
+                  step="1"
+                  id="te-surface-stop"
+                  class="te-control-range"
+                />
+                <output for="te-surface-stop" id="te-surface-stop-output" class="te-control-output">90</output>
+              </label>
+              <p class="te-anchor-resolved">
+                Resolved: <code id="te-anchor-surface-resolved">—</code>
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="te-section" aria-labelledby="te-relations-heading">
+        <h2 class="te-section-heading">Relations</h2>
+        <p class="te-section-placeholder">Phase 2 — will list derivations from the anchor above.</p>
+      </section>
+
+      <section class="te-section" aria-labelledby="te-tokens-heading">
+        <h2 class="te-section-heading">Tokens</h2>
+        <p class="te-section-placeholder">Phase 4 — raw 422-variable surface.</p>
+      </section>
+    </main>
+
+    <footer class="te-status">
+      <span class="te-status-item" id="te-status-save">Idle</span>
+      <span class="te-status-sep">·</span>
+      <span class="te-status-item" id="te-status-target">target: —</span>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

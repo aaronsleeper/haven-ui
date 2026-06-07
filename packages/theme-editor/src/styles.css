@@ -1,0 +1,279 @@
+/* =============================================================================
+   Haven theme editor — Phase 1 shell stylesheet
+
+   Self-contained for Phase 1; Phase 2+ will consume haven-ui design-system
+   tokens via workspace import. Brand fonts loaded in index.html.
+   ========================================================================== */
+
+:root {
+  /* Haven canon — vendored Phase 1 minimum. Replaced by design-system import in Phase 2. */
+  --te-sand-50: #f8f5ed;
+  --te-sand-100: #ede4d2;
+  --te-sand-200: #ddcdaa;
+  --te-sand-700: #6f5a3a;
+  --te-sand-900: #2c2412;
+  --te-sand-950: #1a1208;
+  --te-teal-500: #3a8478;
+  --te-teal-700: #1e5149;
+  --te-teal-900: #103530;
+
+  --te-surface: var(--te-sand-50);
+  --te-surface-alt: var(--te-sand-100);
+  --te-ink: var(--te-sand-900);
+  --te-ink-muted: var(--te-sand-700);
+  --te-accent: var(--te-teal-700);
+  --te-border: var(--te-sand-200);
+
+  --te-font-display: 'Lora', 'Source Sans 3', serif;
+  --te-font-body: 'Source Sans 3', system-ui, sans-serif;
+  --te-font-mono: 'Source Code Pro', ui-monospace, monospace;
+
+  --te-radius-sm: 4px;
+  --te-radius-md: 8px;
+  --te-radius-lg: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--te-surface);
+  color: var(--te-ink);
+  font-family: var(--te-font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  font-feature-settings: 'ss01', 'ss03', 'kern', 'liga';
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+code {
+  font-family: var(--te-font-mono);
+  font-size: 0.92em;
+  background: var(--te-surface-alt);
+  padding: 1px 5px;
+  border-radius: var(--te-radius-sm);
+}
+
+/* ============================================================ Header */
+
+.te-header {
+  border-bottom: 1px solid var(--te-border);
+  padding: 16px 24px;
+  background: var(--te-surface);
+}
+
+.te-header-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.te-title {
+  font-family: var(--te-font-display);
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+  flex: 1;
+}
+
+.te-mode-selector {
+  display: inline-flex;
+  gap: 0;
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-md);
+  overflow: hidden;
+}
+
+.te-mode {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: var(--te-ink-muted);
+  padding: 6px 14px;
+  cursor: pointer;
+  border-right: 1px solid var(--te-border);
+}
+
+.te-mode:last-child {
+  border-right: 0;
+}
+
+.te-mode--active {
+  background: var(--te-accent);
+  color: var(--te-sand-50);
+}
+
+.te-preset-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.te-preset-label {
+  color: var(--te-ink-muted);
+  font-size: 13px;
+}
+
+.te-preset-select {
+  font: inherit;
+  padding: 5px 10px;
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-sm);
+  background: var(--te-surface);
+  color: var(--te-ink);
+  min-width: 160px;
+}
+
+/* ============================================================ Main */
+
+.te-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.te-section {
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-lg);
+  background: var(--te-surface);
+}
+
+.te-section-heading {
+  font-family: var(--te-font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--te-ink-muted);
+  margin: 0;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--te-border);
+}
+
+.te-section-placeholder {
+  margin: 0;
+  padding: 20px;
+  color: var(--te-ink-muted);
+  font-style: italic;
+}
+
+/* ============================================================ Anchor row */
+
+.te-anchor-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.te-anchor {
+  border-bottom: 1px solid var(--te-border);
+}
+
+.te-anchor:last-child {
+  border-bottom: 0;
+}
+
+.te-anchor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--te-surface-alt);
+}
+
+.te-anchor-number {
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  color: var(--te-ink-muted);
+  width: 20px;
+}
+
+.te-anchor-name {
+  font-family: var(--te-font-display);
+  font-weight: 600;
+  font-size: 16px;
+  flex: 0 0 auto;
+  min-width: 120px;
+}
+
+.te-anchor-readout {
+  font-family: var(--te-font-mono);
+  font-size: 13px;
+  color: var(--te-ink-muted);
+}
+
+.te-anchor-body {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.te-anchor-description {
+  margin: 0;
+  color: var(--te-ink-muted);
+  font-size: 14px;
+}
+
+.te-anchor-resolved {
+  margin: 0;
+  font-size: 13px;
+  color: var(--te-ink-muted);
+}
+
+/* ============================================================ Control */
+
+.te-control {
+  display: grid;
+  grid-template-columns: 220px 1fr 60px;
+  gap: 12px;
+  align-items: center;
+}
+
+.te-control-label {
+  font-size: 13px;
+  color: var(--te-ink-muted);
+}
+
+.te-control-range {
+  width: 100%;
+}
+
+.te-control-output {
+  font-family: var(--te-font-mono);
+  font-size: 13px;
+  text-align: right;
+}
+
+/* ============================================================ Status bar */
+
+.te-status {
+  border-top: 1px solid var(--te-border);
+  padding: 8px 24px;
+  background: var(--te-surface-alt);
+  font-size: 12px;
+  color: var(--te-ink-muted);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--te-font-mono);
+}
+
+.te-status-sep {
+  opacity: 0.5;
+}
