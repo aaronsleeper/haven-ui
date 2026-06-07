@@ -21,7 +21,7 @@
   --font-weight-semibold: 600;
 
   /* ----------------------------------------
-     Type scale — major-third ratio.
+     Type scale — minor-third ratio (1.2; verified 16 × 1.2 = 19.2 → 23.04 → 27.65 → ...).
      Values in pixels per DESIGN.md §Typography.
      Paired tokens: --text-<name> + --text-<name>--line-height.
      ---------------------------------------- */

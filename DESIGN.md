@@ -186,7 +186,7 @@ Three fonts. Load in this order.
 | Body + UI | **Source Sans 3** | 400, 500, 600 (+ Italic, Bold Italic) |
 | Mono (code, tabular data) | **Source Code Pro** | 400 |
 
-Type scale (major-third ratio, values in pixels):
+Type scale (minor-third ratio, 1.2; values in pixels):
 
 | Token | Size | Weight | Line height | Use |
 |---|---|---|---|---|
