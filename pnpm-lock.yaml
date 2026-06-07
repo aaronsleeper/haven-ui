@@ -136,6 +136,13 @@ importers:
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.6.0
+    devDependencies:
+      '@testing-library/angular':
+        specifier: ^19.4.1
+        version: 19.4.1(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2))(@angular/platform-browser@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2)))(@angular/router@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2))(@angular/platform-browser@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2)))(rxjs@7.8.2))(@testing-library/dom@10.4.0)
+      '@testing-library/user-event':
+        specifier: ^14.6.1
+        version: 14.6.1(@testing-library/dom@10.4.0)
 
   packages/design-system:
     dependencies:
@@ -1350,6 +1357,15 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
+  '@testing-library/angular@19.4.1':
+    resolution: {integrity: sha512-C9gIfKf3cpkLqNoUy0pbz8/YpmxyFQTZP6Qzo9HrolQPyVSMdc0+ev3vewCouZDyQQwfRkJNlpgjaHHyhL9oqw==}
+    peerDependencies:
+      '@angular/common': '>= 21.0.0'
+      '@angular/core': '>= 21.0.0'
+      '@angular/platform-browser': '>= 21.0.0'
+      '@angular/router': '>= 21.0.0'
+      '@testing-library/dom': ^10.0.0
+
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
     engines: {node: '>=18'}
@@ -1360,6 +1376,12 @@ packages:
 
   '@testing-library/user-event@14.5.2':
     resolution: {integrity: sha512-YAh82Wh4TIrxYLmfGcixwD18oIjyC1pFQC2Y01F2lzV2HTMiYrI0nze0FD0ocB//CKS/7jIUgae+adPqxK5yCQ==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
+
+  '@testing-library/user-event@14.6.1':
+    resolution: {integrity: sha512-vq7fv0rnt+QTXgPxr5Hjc210p6YKq2kmdziLgnsZGgLJ9e6VAShx1pACLuRjd/AS/sr7phAR58OIIpf0LlmQNw==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
@@ -3606,6 +3628,15 @@ snapshots:
       tailwindcss: 4.2.2
       vite: 6.4.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)
 
+  '@testing-library/angular@19.4.1(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2))(@angular/platform-browser@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2)))(@angular/router@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2))(@angular/platform-browser@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2)))(rxjs@7.8.2))(@testing-library/dom@10.4.0)':
+    dependencies:
+      '@angular/common': 21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2)
+      '@angular/core': 21.2.13(rxjs@7.8.2)
+      '@angular/platform-browser': 21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2))
+      '@angular/router': 21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2))(@angular/platform-browser@21.2.13(@angular/common@21.2.13(@angular/core@21.2.13(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.13(rxjs@7.8.2)))(rxjs@7.8.2)
+      '@testing-library/dom': 10.4.0
+      tslib: 2.8.1
+
   '@testing-library/dom@10.4.0':
     dependencies:
       '@babel/code-frame': 7.29.0
@@ -3628,6 +3659,10 @@ snapshots:
       redent: 3.0.0
 
   '@testing-library/user-event@14.5.2(@testing-library/dom@10.4.0)':
+    dependencies:
+      '@testing-library/dom': 10.4.0
+
+  '@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0)':
     dependencies:
       '@testing-library/dom': 10.4.0
 

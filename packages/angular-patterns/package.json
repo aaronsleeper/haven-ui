@@ -33,5 +33,9 @@
     "tailwind-merge": "^3.4.0",
     "@ng-icons/core": "^33.1.0",
     "@ng-icons/lucide": "^33.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/angular": "^19.4.1",
+    "@testing-library/user-event": "^14.6.1"
   }
 }

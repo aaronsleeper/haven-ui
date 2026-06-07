@@ -268,8 +268,10 @@ Default is still PL-first. The carve-out is the exception, not the on-ramp. "Pro
 Not all 14 conform gates need to run on every patch.
 
 - **Blocking on patch (always):** `typecheck`, `conform:manifest`, `conform:app-shell`, `conform:plain-language`, `conform:css-family`, `conform:brand-fonts`, `conform:wireframe-shell`
-- **Blocking on merge:** `conform:surface-role`, `conform:contrast-pairs`, `conform:wireframe-completeness`, `conform:font-features`, `conform:button-font-size`, `conform:radius-pill`
+- **Blocking on merge:** `conform:surface-role`, `conform:contrast-pairs`, `conform:wireframe-completeness`, `conform:font-features`, `conform:button-font-size`, `conform:radius-pill`, `conform:deps`
 - **Local-only / informational:** `conform:token`, `conform:visual` (Playwright; no CI enforcement yet)
+
+`conform:deps` catches install-drift bugs where a workspace package imports a module that resolves only via hoisted orphan in `node_modules/` — `pnpm install --frozen-lockfile` on CI then fails. Two checks: (1) every external import is declared in the importing package's own `package.json`; (2) JS-only modules require either `@types/X` declared or a local `declare module 'X'`. Runs in the umbrella `pnpm conform`, not in pre-push (~1s, but the goal is to keep push lean). Source: 2026-06-07 culori type-import flooded Gmail with ~24 CI failure emails before the missing `@types/culori` devDependency was declared — see [repo-inventory.md](../../repo-inventory.md) haven-ui row.
 
 The "blocking on patch" set catches what breaks the build or violates authoring discipline. The "blocking on merge" set catches drift that's safe to accumulate during iteration but unsafe to ship. Run the full umbrella `pnpm conform` before opening a PR.
 
@@ -550,3 +552,7 @@ jumping to wireframes.
 **Design artifacts live in:** `apps/[persona]/design/`.
 
 **Constraints Lookup (before any build prompt):** read `.project-docs/decisions-log.md`; apply every "Rule to follow in future prompts" entry under a "Known Constraints" heading.
+
+## Cross-AI context
+
+Claude.ai has two related projects for this work: **"Haven UI"** (snapshot at `Knowledge/Areas/Meta/External AI Context/projects.md` under `### 🧬 Haven UI`) and **"Haven Design System - Agent Workflow"** (under `### 📦 Haven Design System - Agent Workflow`), both mined 2026-05-29. The two are historical snapshots from the earlier state when the design system was vendored inside `cena-health-spark/haven-tailwind-theme/` before being lifted out into the standalone `haven-ui/` repo here. Vault is canonical for current state; the snapshots are reference for the older agent-workflow conventions (Claude Desktop connector path, `.project-docs/prompts/next-task.md` agent prompt pattern, debrief protocol). Useful when historical context surfaces about why a structure decision was made.
