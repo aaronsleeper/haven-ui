@@ -446,7 +446,7 @@ code {
 
 .te-relation-row {
   display: grid;
-  grid-template-columns: 28px 1fr 1fr 100px 32px;
+  grid-template-columns: 28px 1fr 1fr 100px 56px 32px;
   gap: 10px;
   padding: 8px 4px;
   border-bottom: 1px solid var(--te-border);
@@ -529,6 +529,276 @@ code {
   border-color: var(--te-accent);
 }
 
+.te-relation-indicators {
+  display: flex;
+  gap: 4px;
+  justify-self: center;
+  align-items: center;
+}
+
+/* ============================================================ Indicators (Phase 4) */
+
+.te-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--te-radius-sm);
+  font-size: 12px;
+  line-height: 1;
+  cursor: help;
+}
+
+.te-indicator--contrast {
+  color: #b48a2a;
+  background: rgba(180, 138, 42, 0.12);
+}
+
+.te-indicator--gamut {
+  color: var(--te-ink-muted);
+  background: var(--te-surface-alt);
+}
+
+/* ============================================================ Tokens layer (Phase 4) */
+
+.te-tokens-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--te-border);
+}
+
+.te-tokens-summary {
+  margin: 0;
+  font-size: 13px;
+  color: var(--te-ink-muted);
+}
+
+.te-tokens-controls {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.te-tokens-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.te-token-row {
+  display: grid;
+  grid-template-columns: 28px 1.2fr 0.8fr 1fr 100px;
+  gap: 10px;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--te-border);
+  align-items: center;
+  font-size: 13px;
+}
+
+.te-token-row:last-child {
+  border-bottom: 0;
+}
+
+.te-token-row--broken {
+  background: rgba(180, 138, 42, 0.05);
+}
+
+.te-token-swatch {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--te-radius-sm);
+  border: 1px solid var(--te-border);
+  justify-self: center;
+}
+
+.te-token-dimension {
+  font-family: var(--te-font-mono);
+  font-size: 11px;
+  color: var(--te-ink-muted);
+  text-align: center;
+  width: 22px;
+  justify-self: center;
+}
+
+.te-token-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.te-token-var,
+.te-token-value,
+.te-token-formula {
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  background: transparent;
+  padding: 0;
+}
+
+.te-token-var { color: var(--te-ink); }
+.te-token-value { color: var(--te-ink-muted); }
+.te-token-formula { color: var(--te-ink-muted); }
+
+.te-token-badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.te-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-family: var(--te-font-mono);
+  padding: 2px 6px;
+  border-radius: var(--te-radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: help;
+}
+
+.te-badge--overridden {
+  background: rgba(95, 154, 143, 0.16);
+  color: #2a665b;
+}
+
+.te-badge--locked {
+  background: var(--te-surface-alt);
+  color: var(--te-ink-muted);
+  border: 1px solid var(--te-border);
+}
+
+/* ============================================================ Issues panel (Phase 4) */
+
+.te-issues-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100vh;
+  background: var(--te-surface);
+  border-left: 1px solid var(--te-border);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+}
+
+.te-issues-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--te-border);
+}
+
+.te-issues-title {
+  font-family: var(--te-font-display);
+  font-size: 18px;
+  margin: 0;
+}
+
+.te-issues-close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--te-ink-muted);
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.te-issues-close:hover {
+  color: var(--te-ink);
+}
+
+.te-issues-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.te-issues-subhead {
+  font-family: var(--te-font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--te-ink-muted);
+  margin: 16px 0 8px;
+}
+
+.te-issues-subhead:first-child {
+  margin-top: 0;
+}
+
+.te-issues-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.te-issue {
+  padding: 10px 12px;
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-md);
+  background: var(--te-surface-alt);
+}
+
+.te-issue-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.te-issue-icon {
+  font-size: 14px;
+  color: #b48a2a;
+}
+
+.te-issue--gamut .te-issue-icon {
+  color: var(--te-ink-muted);
+}
+
+.te-issue-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.te-issue-ratio {
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  color: var(--te-ink-muted);
+}
+
+.te-issue-body {
+  font-size: 12px;
+  color: var(--te-ink-muted);
+  line-height: 1.45;
+}
+
+.te-issue-body code {
+  font-size: 11px;
+}
+
+.te-issues-empty {
+  font-size: 13px;
+  color: var(--te-ink-muted);
+  font-style: italic;
+}
+
 /* ============================================================ Undo chip */
 
 .te-undo-chip {
@@ -601,4 +871,25 @@ code {
 
 .te-status-sep {
   opacity: 0.5;
+}
+
+.te-status-issues {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  color: #b48a2a;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: var(--te-radius-sm);
+}
+
+.te-status-issues:hover {
+  background: rgba(180, 138, 42, 0.12);
+}
+
+.te-status-issues[hidden] {
+  display: none;
 }

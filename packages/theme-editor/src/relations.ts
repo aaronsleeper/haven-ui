@@ -208,6 +208,57 @@ export function resolveColorRelation(
   }
 }
 
+/**
+ * Resolve a color relation AND report whether the underlying OKLCH point
+ * fell inside the displayable sRGB gamut. Walks the AST so nested ops
+ * propagate the worst-case (any inner out-of-gamut taints the result).
+ *
+ * Phase 4 (2026-06-07) — same `inGamut` signal the picker's "sRGB clamped"
+ * badge uses, surfaced at the relation row.
+ */
+export function resolveColorRelationWithGamut(
+  rel: ColorRelation,
+  preset: Preset,
+  mode: ModeKey,
+): { value: string; inGamut: boolean } {
+  switch (rel.op) {
+    case 'ref': {
+      const anchor = resolveColorAnchor(rel.anchor, preset, mode);
+      const r = resolveStop(anchor.family, stopNameToSlider(rel.stop));
+      return { value: r.hex, inGamut: r.inGamut };
+    }
+    case 'traverse': {
+      const anchor = resolveColorAnchor(rel.anchor, preset, mode);
+      const nextSlider = Math.max(0, Math.min(100, anchor.stop + rel.delta * 10));
+      const r = resolveStop(anchor.family, nextSlider);
+      return { value: r.hex, inGamut: r.inGamut };
+    }
+    case 'sib': {
+      const anchor = resolveColorAnchor(rel.anchor, preset, mode);
+      const delta = rel.delta ?? 1;
+      const nextSlider = Math.max(0, Math.min(100, anchor.stop + delta * 10));
+      const r = resolveStop(anchor.family, nextSlider);
+      return { value: r.hex, inGamut: r.inGamut };
+    }
+    case 'cross': {
+      const anchor = resolveColorAnchor(rel.anchor, preset, mode);
+      const r = resolveStop(anchor.family, stopNameToSlider(rel.stop));
+      return { value: r.hex, inGamut: r.inGamut };
+    }
+    case 'alpha': {
+      const inner = resolveColorRelationWithGamut(rel.inner, preset, mode);
+      const value = hexToRgba(inner.value, Math.max(0, Math.min(1, rel.opacity)));
+      return { value, inGamut: inner.inGamut };
+    }
+    case 'mix': {
+      const a = resolveColorRelationWithGamut(rel.a, preset, mode);
+      const b = resolveColorRelationWithGamut(rel.b, preset, mode);
+      const value = opMix(rel.a, rel.b, rel.t, preset, mode);
+      return { value, inGamut: a.inGamut && b.inGamut };
+    }
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Non-color operators
 // ---------------------------------------------------------------------------

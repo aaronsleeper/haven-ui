@@ -58,12 +58,20 @@
 
       <section class="te-section" aria-labelledby="te-tokens-heading">
         <h2 class="te-section-heading" id="te-tokens-heading">Tokens</h2>
-        <p class="te-section-placeholder">Phase 4 — raw 422-variable surface.</p>
+        <div class="te-section-body" id="te-tokens-body">
+          <p class="te-section-placeholder">— loading —</p>
+        </div>
       </section>
     </main>
 
+    <div id="te-issues-mount"></div>
+
     <footer class="te-status">
       <span class="te-status-item" id="te-status-save">Idle</span>
+      <span class="te-status-sep">·</span>
+      <button type="button" class="te-status-issues" id="te-status-issues" hidden>
+        <span id="te-status-issues-count">0</span> issues
+      </button>
       <span class="te-status-sep">·</span>
       <span class="te-status-item" id="te-status-target">target: —</span>
     </footer>

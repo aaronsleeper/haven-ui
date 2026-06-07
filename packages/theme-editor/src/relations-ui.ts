@@ -24,6 +24,12 @@ import {
 import { REGISTERED_RELATIONS } from './relation-registry';
 import { lockRelation, unlockRelation, isRelationLocked, getState } from './store';
 import { ANCHOR_LIST } from './anchors';
+import {
+  type IssueSet,
+  issuesForVar,
+  formatContrastTooltip,
+  formatGamutTooltip,
+} from './issues';
 
 // ---------------------------------------------------------------------------
 // Local UI state
@@ -111,11 +117,31 @@ function renderHeader(filtered: RegisteredRelation[]): string {
 </div>`;
 }
 
-function renderRow(reg: RegisteredRelation, preset: Preset, mode: ModeKey): string {
+function renderIndicators(cssVar: string, issues: IssueSet): string {
+  const list = issuesForVar(issues, cssVar);
+  if (list.length === 0) return '';
+  const badges: string[] = [];
+  for (const i of list) {
+    if (i.kind === 'contrast') {
+      badges.push(`<span class="te-indicator te-indicator--contrast" title="${escapeAttr(formatContrastTooltip(i))}" aria-label="Contrast warning">⚠</span>`);
+    } else {
+      badges.push(`<span class="te-indicator te-indicator--gamut" title="${escapeAttr(formatGamutTooltip(i))}" aria-label="Gamut clamped">◐</span>`);
+    }
+  }
+  return badges.join('');
+}
+
+function renderRow(
+  reg: RegisteredRelation,
+  preset: Preset,
+  mode: ModeKey,
+  issues: IssueSet,
+): string {
   const { value, isColor } = resolveForReadout(reg, preset, mode);
   const formula = formulaFor(reg, preset);
   const description = descriptionFor(reg, preset);
   const locked = isRelationLocked(reg.cssVar);
+  const indicators = renderIndicators(reg.cssVar, issues);
   const swatch = isColor
     ? `<span class="te-relation-swatch" style="background:${value}"></span>`
     : `<span class="te-relation-dimension">${escapeHtml(value)}</span>`;
@@ -131,6 +157,7 @@ function renderRow(reg: RegisteredRelation, preset: Preset, mode: ModeKey): stri
   <div class="te-relation-cell te-relation-cell--value">
     <code class="te-relation-value">${isColor ? escapeHtml(value) : ''}</code>
   </div>
+  <div class="te-relation-indicators">${indicators}</div>
   <button type="button" class="te-relation-lock${locked ? ' is-locked' : ''}"
           data-relation-lock-toggle="${escapeAttr(reg.cssVar)}"
           aria-pressed="${locked}"
@@ -140,9 +167,13 @@ function renderRow(reg: RegisteredRelation, preset: Preset, mode: ModeKey): stri
 </div>`;
 }
 
-export function renderRelationsSection(preset: Preset, mode: ModeKey): string {
+export function renderRelationsSection(
+  preset: Preset,
+  mode: ModeKey,
+  issues: IssueSet,
+): string {
   const filtered = REGISTERED_RELATIONS.filter(visible);
-  const rows = filtered.map((r) => renderRow(r, preset, mode)).join('');
+  const rows = filtered.map((r) => renderRow(r, preset, mode, issues)).join('');
   return `
 ${renderHeader(filtered)}
 <div class="te-relations-list">

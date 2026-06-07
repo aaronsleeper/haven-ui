@@ -19,6 +19,15 @@ import { initHueFamilyPickers } from '@haven/design-system/scripts/components/hu
 import { loadFamilies } from './families';
 import { renderAnchorList, wireAnchorEvents, type OnEdit } from './anchors';
 import { renderRelationsSection, wireRelationsEvents } from './relations-ui';
+import { renderTokensSection, wireTokensEvents } from './tokens-ui';
+import { computeIssues, type IssueSet } from './issues';
+import {
+  renderIssuesPanel,
+  wireIssuesPanelEvents,
+  toggleIssuesPanel,
+  isIssuesPanelOpen,
+  setIssuesPanelOpen,
+} from './issues-panel';
 import { emitObsidian } from './emitter-obsidian';
 import {
   fetchTarget,
@@ -52,8 +61,12 @@ const modeButtons = document.querySelectorAll<HTMLButtonElement>('.te-mode');
 const presetSelect = $<HTMLSelectElement>('#te-preset');
 const anchorList = $<HTMLElement>('#te-anchor-list');
 const relationsSection = $<HTMLElement>('#te-relations-body');
+const tokensSection = $<HTMLElement>('#te-tokens-body');
+const issuesMount = $<HTMLElement>('#te-issues-mount');
 const statusSave = $('#te-status-save');
 const statusTarget = $('#te-status-target');
+const statusIssues = $<HTMLButtonElement>('#te-status-issues');
+const statusIssuesCount = $('#te-status-issues-count');
 
 // ============================================================ Debounce / write
 
@@ -120,6 +133,14 @@ function renderPresetSelect(names: string[], current: string | null) {
   }
 }
 
+function currentIssues(): IssueSet {
+  const s = getState();
+  if (!s.preset) {
+    return { contrast: [], gamut: [], byVar: new Map() };
+  }
+  return computeIssues(s.preset, s.mode);
+}
+
 function renderAnchors() {
   const s = getState();
   if (!s.preset) {
@@ -132,17 +153,46 @@ function renderAnchors() {
   initHueFamilyPickers();
 }
 
-function renderRelations() {
+function renderRelations(issues: IssueSet) {
   const s = getState();
   if (!s.preset) {
     relationsSection.innerHTML = '<p class="te-section-placeholder">— no preset loaded —</p>';
     return;
   }
-  relationsSection.innerHTML = renderRelationsSection(s.preset, s.mode);
+  relationsSection.innerHTML = renderRelationsSection(s.preset, s.mode, issues);
   wireRelationsEvents(relationsSection, {
     scheduleWrite,
-    rerender: renderRelations,
+    rerender: () => renderRelations(currentIssues()),
   });
+}
+
+function renderTokens(issues: IssueSet) {
+  const s = getState();
+  if (!s.preset) {
+    tokensSection.innerHTML = '<p class="te-section-placeholder">— no preset loaded —</p>';
+    return;
+  }
+  tokensSection.innerHTML = renderTokensSection(s.preset, s.mode, issues);
+  wireTokensEvents(tokensSection, {
+    rerender: () => renderTokens(currentIssues()),
+  });
+}
+
+function renderIssues(issues: IssueSet) {
+  const total = issues.contrast.length + issues.gamut.length;
+  if (total > 0) {
+    statusIssues.hidden = false;
+    statusIssuesCount.textContent = String(total);
+  } else {
+    statusIssues.hidden = true;
+    statusIssuesCount.textContent = '0';
+    // Auto-close the panel when no issues remain.
+    setIssuesPanelOpen(false);
+  }
+  issuesMount.innerHTML = renderIssuesPanel(issues);
+  if (isIssuesPanelOpen()) {
+    wireIssuesPanelEvents(issuesMount, render);
+  }
 }
 
 function renderStatus() {
@@ -168,10 +218,13 @@ function renderStatus() {
 
 function render() {
   const s = getState();
+  const issues = s.preset ? computeIssues(s.preset, s.mode) : { contrast: [], gamut: [], byVar: new Map() };
   renderModeSelector(s.mode);
   renderPresetSelect(s.presetList, s.presetName);
   renderAnchors();
-  renderRelations();
+  renderRelations(issues);
+  renderTokens(issues);
+  renderIssues(issues);
   renderStatus();
 }
 
@@ -195,6 +248,11 @@ presetSelect.addEventListener('change', async () => {
   } catch (e) {
     setSaveStatus('error', e instanceof Error ? e.message : String(e));
   }
+});
+
+statusIssues.addEventListener('click', () => {
+  toggleIssuesPanel();
+  render();
 });
 
 subscribe(render);
