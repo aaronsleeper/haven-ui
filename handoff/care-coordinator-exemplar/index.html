@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Care Coordinator — Standard Operating Procedure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" />
+<link rel="stylesheet" href="./assets/haven.css" />
+<style>
+  body { margin: 0; background: var(--color-surface-page, #fbfaf8); }
+</style>
+</head>
+<body>
+<main class="document-shell">
+<h1 class="page-title">Working the UConn Care Coordination Program</h1>
+<p>Care Coordinator · Standard Operating Procedure · Version 0.1 (draft) · Reviewed May 2026</p>
+<p>::: callout-warning
+<strong>Draft — example content pending clinical review and sign-off.</strong> Do not use for training or to guide care until approved.
+:::</p>
+<p>This procedure covers how you, as a care coordinator, run the UConn pilot week to week — working your roster, completing weekly check-ins, logging contact, handling appointment requests, and escalating concerns to the clinical team.</p>
+<p>It also covers two mental-health screenings you administer — the PHQ9 and a 3-item anxiety screen — at baseline (during the in-person first visit) and again at the program's repeat-screening milestones.</p>
+<h2 class="section-title" id="who-this-is-for-and-what-it-covers">Who this is for and what it covers</h2>
+<p>What this role covers, and where its boundaries are.</p>
+<div class="data-table"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>For</strong></td>
+<td>Cena care coordinators supporting participants in the UConn Health food-as-medicine pilot.</td>
+</tr>
+<tr>
+<td><strong>Covers</strong></td>
+<td>Working the patient roster, weekly check-in calls, logging contact attempts and outcomes, handling appointment requests, escalating safety or medical concerns, and administering the PHQ9 and 3-item anxiety screen at baseline (in the in-person first visit) and the program's repeat-screening milestones.</td>
+</tr>
+<tr>
+<td><strong>Does not cover</strong></td>
+<td>Clinical or dietary counseling (the registered dietitian's role), diagnoses, or booking appointments outside Athena. Route those to the registered dietitian or escalate.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 class="section-title" id="the-weekly-routine">The weekly routine</h2>
+<p>Work the routine in order — one check-in per participant per week for the 26-week intervention.</p>
+<ol>
+<li>
+<p><strong>Open your roster and find who is due this week.</strong> In [Care-coordinator app → Roster]{.screen-ref}, participants are sorted by days since last contact. Participants with the longest gap appear at the top — work from there.</p>
+</li>
+<li>
+<p><strong>Start the weekly check-in from the patient profile.</strong> In [Care-coordinator app → Patient profile]{.screen-ref}, start a check-in and choose phone or text per the participant's saved preference. A 10–15 minute call covering order support, adherence, and any barriers to participation.</p>
+</li>
+<li>
+<p><strong>Capture the check-in and log the outcome.</strong> Fill the check-in fields: adherence, barriers, wraparound needs, and a next-touch plan. Record the contact outcome — successful, voicemail, no answer, refused, or deferred.</p>
+</li>
+</ol>
+<h2 class="section-title" id="escalation-when-to-involve-the-clinical-team">Escalation — when to involve the clinical team</h2>
+<p>The two highest-stakes responses. Read first.</p>
+<p>::: escalation
+<strong>A participant reports a safety or medical concern.</strong> Escalate to the UConn clinical team per the UConn escalation protocol — do not wait for the next scheduled check-in. <code class="px-1.5 py-0.5 rounded bg-sand-100 text-sand-800 text-sm">[NEEDS VANESSA / MARRERO — first action specifics for an at-the-time-of-call safety escalation]</code>
+:::</p>
+<h3 id="red-yellow-green-what-each-means-and-what-to-do">Red, yellow, green — what each means and what to do</h3>
+<p>::: callout-error
+<strong>Red flag — no response within 3 days.</strong> Place a follow-up call within the next 2 days.
+:::</p>
+<p>::: callout-warning
+<strong>Yellow flag — a concern surfaced during a check-in.</strong> Escalate to the UConn clinical team per protocol.
+:::</p>
+<p>::: callout-success
+<strong>Green flag — engaged and on track.</strong> Continue the routine weekly cadence; no action needed.
+:::</p>
+<h2 class="section-title" id="everyday-routing-requests-and-missed-calls">Everyday routing — requests and missed calls</h2>
+<p>The two everyday branches.</p>
+<p>::: decision-branch
+<strong>A participant requests an appointment</strong> — You receive an email in your queue. Book the visit in Athena, then confirm the time with the participant.</p>
+<p><strong>A check-in call goes unanswered</strong> — Log the outcome (voicemail / no answer). Missed-visit outreach is auto-flagged at 48 hours.
+:::</p>
+<h2 class="section-title" id="mental-health-screening-phq9-and-3-item-anxiety">Mental-health screening — PHQ9 and 3-item anxiety</h2>
+<p>The care coordinator owns these two screenings — by IRB protocol, the dietitian and UConn student researchers may not administer them. Administered at baseline (in the in-person first visit, alongside the dietitian's assessments) and again at the program's repeat-screening milestones.</p>
+<ol>
+<li>
+<p><strong>Administer the PHQ9.</strong> In the Cena assessment forms on the participant record. Result: the participant's depression-screening score is captured and saved on the record. <em>Note: this is one of the IRB protocol's baseline assessments — accuracy now matters because it repeats and the comparison is what shows change.</em> <code class="px-1.5 py-0.5 rounded bg-sand-100 text-sand-800 text-sm">[CONFIRM build state — PHQ9 admin UI in Care-coordinator app]</code></p>
+</li>
+<li>
+<p><strong>Administer the 3-item anxiety screen.</strong> In the Cena assessment forms. Result: the anxiety-screening score is captured. <em>Note: paired with the PHQ9; both belong to the same baseline set.</em> <code class="px-1.5 py-0.5 rounded bg-sand-100 text-sand-800 text-sm">[CONFIRM build state — 3-item anxiety admin UI in Care-coordinator app]</code></p>
+</li>
+<li>
+<p><strong>Watch for response triggers and escalate if needed.</strong> If either screen surfaces a positive response that meets the protocol's escalation threshold, escalate to the UConn clinical team the same day — do not wait for the next weekly check-in. <code class="px-1.5 py-0.5 rounded bg-sand-100 text-sand-800 text-sm">[NEEDS HEALTHCARE DATA GOVERNANCE REVIEW — PHQ9 / anxiety-screen positive-response thresholds and escalation protocol under CT scope-of-practice]</code></p>
+</li>
+</ol>
+<p>::: callout-info
+<strong>Scope-of-practice note.</strong> The PHQ9 and 3-item anxiety screen are administered by the CITI-trained care coordinator under PI oversight. The administration scope under Connecticut licensure is pending confirmation from Healthcare Data Governance — until confirmed, follow PI guidance for any positive-response handling.
+:::</p>
+<figure class="diagram-figure" data-workflow="escalation-phq9-positive"><figcaption class="diagram-figure-caption"><span class="diagram-figure-eyebrow">WORKFLOW DIAGRAM</span><span class="diagram-figure-title">PHQ9 Positive Response Escalation</span></figcaption><div class="diagram-figure-asset"><iframe class="diagram-figure-frame" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;PHQ9 Positive Response Escalation — Diagram (auto, grid+labels)&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&amp;family=Source+Sans+3:ital,wght@0,300..900;1,300..900&amp;family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../../../../packages/design-system/src/styles/main.css&quot;&gt;
+&lt;script src=&quot;https://unpkg.com/panzoom@9.4.3/dist/panzoom.min.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
+       font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+       color: var(--color-text-normal, #0d322d); }
+.diagram-frame-wrapper { margin: 0 auto; max-width: 1600px; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 { font-family: var(--font-serif, 'Lora', serif); font-size: 28px;
+                     font-weight: 500; margin: 0 0 6px 0; }
+.diagram-header .draft-marker { font-family: var(--font-mono, 'Source Code Pro', monospace);
+                                color: var(--color-warm-amber-700, #735311);
+                                font-size: 12px; letter-spacing: 0.05em; }
+
+/* Grid: interleaved node + label columns */
+.diagram-grid {
+  display: grid;
+  grid-template-columns: 90px minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr) minmax(100px, 160px) minmax(220px, 1fr);
+  grid-template-rows: repeat(4, minmax(140px, auto));
+  column-gap: 8px;
+  row-gap: 12px;
+  position: relative;
+  padding: 24px 0;
+}
+
+/* Lane labels (col 1) */
+.diagram-lane-label-cell { grid-column: 1; display: flex; align-items: center; padding-left: 12px; }
+.diagram-lane-label { font-family: var(--font-mono, 'Source Code Pro', monospace);
+                      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+                      color: var(--color-text-muted, #555); }
+
+/* Lane dividers */
+.diagram-lane-divider {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+  height: 0; align-self: start; margin-top: -6px; z-index: 0;
+}
+
+/* Node cell: callout stacked above box. position:relative needed for z-index. */
+/* padding-top buffer keeps callouts off the lane divider boundary above. */
+.diagram-node-cell {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; position: relative; z-index: 3;
+  padding-top: 8px;
+}
+
+/* Callout above box — bg masks lines that cross callout area (skip-edge jogs, etc.) */
+.diagram-callout {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.05em;
+  color: var(--color-warm-amber-700, #735311);
+  max-width: 220px; text-align: center; line-height: 1.25;
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 4px 8px; border-radius: 3px;
+}
+.diagram-callout--critical { color: var(--color-red-700, #8a2a29); }
+.diagram-callout--gap { color: var(--color-red-600, #a8332f); }
+.diagram-callout--assumption { color: var(--color-warm-sand-700, #4d4538); }
+
+/* Node box */
+.diagram-box {
+  width: 220px; min-height: 90px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 10px 12px 22px; box-sizing: border-box;
+  border: 1.5px solid var(--color-border-default, #d6cdbe);
+  border-radius: 4px; background: var(--color-surface-card, #fff);
+  text-align: center; position: relative;
+}
+.diagram-box--attestation-gate { border: 2.5px solid var(--color-primary-700, #1e5149); }
+.diagram-box--uncertain-tbd { border-style: dashed;
+  border-color: var(--color-warm-amber-500, #aa8232);
+  background: var(--color-warm-amber-50, #f8f1e3); }
+.diagram-box--uncertain-assumption { border-style: dashed;
+  border-color: var(--color-warm-sand-500, #7a6f5a);
+  background: var(--color-warm-sand-50, #faf6ee); }
+.diagram-box--uncertain-gap { border-style: dotted;
+  border-color: var(--color-red-500, #c13c3b);
+  background: var(--color-red-50, #ffedea); }
+.diagram-box-title { font-size: 13px; font-weight: 600;
+  color: var(--color-text-normal, #0d322d); line-height: 1.2; }
+.diagram-box--attestation-gate .diagram-box-title {
+  font-family: var(--font-serif, 'Lora', serif); font-style: italic;
+  font-weight: 500; color: var(--color-primary-700, #1e5149); }
+.diagram-box-detail { font-size: 11px; line-height: 1.3; margin-top: 2px;
+  color: var(--color-text-normal, #0d322d); }
+.diagram-box-detail.is-secondary { color: var(--color-text-muted, #555); font-size: 10px; }
+.diagram-box-watcher { font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 9px; color: var(--color-text-muted, #555); letter-spacing: 0.1em;
+  text-transform: uppercase; position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; }
+
+/* Edge label cell — bg lives on the label-group wrapper (sizes to content), NOT the cell. */
+/* Cell-level bg would mask the full grid row height (~140px+) and cut lines at row boundaries. */
+/* The wrapper sizes to its contents so masking only covers the labels' actual extent. */
+/* position:relative needed for z-index. */
+.diagram-edge-label-cell {
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2; min-width: 100px;
+}
+.diagram-edge-label-group {
+  display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  background: var(--color-surface-page, #fbfaf8);
+  border-radius: 3px;
+  padding: 4px 0;
+}
+.diagram-edge-label {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 10px; color: var(--color-text-muted, #555);
+  padding: 3px 10px; line-height: 1.3;
+  text-align: center; white-space: normal;
+  max-width: 160px;
+  overflow-wrap: break-word; hyphens: auto;
+}
+
+/* SVG edges overlay — under labels (z-index 1), under nodes (z-index 3) */
+.diagram-edges { position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                 pointer-events: none; z-index: 1; }
+
+.diagram-meta { font-size: 13px; color: var(--color-text-muted, #555);
+                margin-top: 24px; padding-top: 16px;
+                border-top: 1px solid var(--color-border-muted, #e8dfca); max-width: 900px; }
+
+/* Pan/zoom viewport — wraps the grid; controls overlay; @media print applies fit-zoom via CSS var */
+.diagram-viewport {
+  position: relative; width: 100%; height: 75vh; min-height: 500px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-muted, #e8dfca); border-radius: 4px;
+  background: var(--color-surface-page, #fbfaf8);
+  touch-action: none;
+}
+.diagram-grid { transform-origin: 0 0; cursor: grab; }
+.diagram-grid:active { cursor: grabbing; }
+.diagram-controls {
+  position: absolute; bottom: 16px; right: 16px;
+  display: flex; gap: 4px; z-index: 100;
+}
+.diagram-controls button {
+  width: 32px; height: 32px; padding: 0;
+  font-family: var(--font-mono, monospace); font-size: 14px; font-weight: 600;
+  background: white; color: var(--color-text-normal, #0d322d);
+  border: 1px solid var(--color-border-default, #d6cdbe); border-radius: 3px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.diagram-controls button:hover {
+  border-color: var(--color-primary-700, #1e5149);
+}
+.diagram-controls .diagram-fit-btn {
+  width: auto; padding: 0 10px; font-size: 11px; letter-spacing: 0.05em;
+}
+.diagram-zoom-indicator {
+  position: absolute; bottom: 16px; left: 16px;
+  padding: 6px 10px;
+  font-family: var(--font-mono, monospace); font-size: 11px;
+  color: var(--color-text-muted, #555);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--color-border-default, #d6cdbe); border-radius: 3px;
+  z-index: 100;
+}
+.diagram-help {
+  position: absolute; top: 16px; left: 16px;
+  padding: 6px 10px;
+  font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.03em;
+  color: var(--color-text-muted, #555);
+  background: rgba(255,255,255,0.85);
+  border: 1px solid var(--color-border-muted, #e8dfca); border-radius: 3px;
+  z-index: 100;
+}
+
+/* Print: hide interactive chrome; apply zoom from JS-set CSS var so the deterministic
+   fit-to-print scale lands in the PDF regardless of where panzoom left the user. */
+@media print {
+  body { padding: 0; }
+  .diagram-viewport { height: auto; min-height: 0; overflow: visible; border: none; background: transparent; }
+  .diagram-controls, .diagram-zoom-indicator, .diagram-help { display: none; }
+  .diagram-grid {
+    zoom: var(--print-zoom, 1);
+    transform: none !important;
+    cursor: default;
+  }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;diagram-frame-wrapper&quot;&gt;
+&lt;header class=&quot;diagram-header&quot;&gt;
+  &lt;h1&gt;PHQ9 Positive Response Escalation&lt;/h1&gt;
+  &lt;span class=&quot;draft-marker&quot;&gt;DRAFT • v0.1 • pending Marrero review&lt;/span&gt;
+&lt;/header&gt;
+
+&lt;div class=&quot;diagram-viewport&quot;&gt;
+  &lt;div class=&quot;diagram-help&quot;&gt;drag · wheel zoom · +/− · 0 fit · ← → ↑ ↓ pan&lt;/div&gt;
+  &lt;div class=&quot;diagram-zoom-indicator&quot;&gt;100%&lt;/div&gt;
+  &lt;div class=&quot;diagram-controls&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;diagram-zoom-out-btn&quot; title=&quot;Zoom out (−)&quot;&gt;−&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;diagram-fit-btn&quot; title=&quot;Fit to viewport (0)&quot;&gt;FIT&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;diagram-zoom-in-btn&quot; title=&quot;Zoom in (+)&quot;&gt;+&lt;/button&gt;
+  &lt;/div&gt;
+&lt;div class=&quot;diagram-grid&quot;&gt;
+  &lt;div class=&quot;diagram-lane-label-cell&quot; style=&quot;grid-row: 1;&quot;&gt;
+    &lt;span class=&quot;diagram-lane-label&quot;&gt;AGENT&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-lane-label-cell&quot; style=&quot;grid-row: 2;&quot;&gt;
+    &lt;span class=&quot;diagram-lane-label&quot;&gt;HUMAN&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-lane-label-cell&quot; style=&quot;grid-row: 3;&quot;&gt;
+    &lt;span class=&quot;diagram-lane-label&quot;&gt;PARTNER&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-lane-label-cell&quot; style=&quot;grid-row: 4;&quot;&gt;
+    &lt;span class=&quot;diagram-lane-label&quot;&gt;SYSTEM&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-lane-divider&quot; style=&quot;grid-row: 2;&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;diagram-lane-divider&quot; style=&quot;grid-row: 3;&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;diagram-lane-divider&quot; style=&quot;grid-row: 4;&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;diagram-node-cell&quot; style=&quot;grid-row: 1; grid-column: 2;&quot; data-node=&quot;01-trigger-phq9-positive&quot;&gt;
+    &lt;div class=&quot;diagram-callout&quot;&gt;[TBD] threshold value for total score&lt;/div&gt;
+    &lt;div class=&quot;diagram-box diagram-box--uncertain-tbd&quot;&gt;
+      &lt;div class=&quot;diagram-box-title&quot;&gt;Trigger&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail&quot;&gt;PHQ9 positive response detected&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-watcher&quot;&gt;▲ watches: clinical-lead&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-node-cell&quot; style=&quot;grid-row: 1; grid-column: 4;&quot; data-node=&quot;02-decision-severity-assessment&quot;&gt;
+    &lt;div class=&quot;diagram-callout diagram-callout--gap&quot;&gt;[GAP] severity tier boundaries pending Marrero&lt;/div&gt;
+    &lt;div class=&quot;diagram-box diagram-box--uncertain-gap&quot;&gt;
+      &lt;div class=&quot;diagram-box-title&quot;&gt;Decision&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail&quot;&gt;Severity assessment&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail is-secondary&quot;&gt;red / yellow / green&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-watcher&quot;&gt;▲ watches: clinical-lead&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-node-cell&quot; style=&quot;grid-row: 2; grid-column: 6;&quot; data-node=&quot;03-attestation-clinical-lead-review&quot;&gt;
+    &lt;div class=&quot;diagram-callout&quot;&gt;[TBD] clinical-lead role identity — pending Cena hire&lt;/div&gt;
+    &lt;div class=&quot;diagram-box diagram-box--attestation-gate&quot;&gt;
+      &lt;div class=&quot;diagram-box-title&quot;&gt;Attestation gate&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail&quot;&gt;Clinical lead review&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail is-secondary&quot;&gt;evidence package +&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail is-secondary&quot;&gt;decision + rationale&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail is-secondary&quot;&gt;+ SLA timeout fallback&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-node-cell&quot; style=&quot;grid-row: 3; grid-column: 8;&quot; data-node=&quot;04-handoff-to-bhn&quot;&gt;
+    &lt;div class=&quot;diagram-callout diagram-callout--assumption&quot;&gt;[ASSUMPTION] BHN partner protocol for receiving handoffs — pending...&lt;/div&gt;
+    &lt;div class=&quot;diagram-box diagram-box--uncertain-assumption&quot;&gt;
+      &lt;div class=&quot;diagram-box-title&quot;&gt;Hand-off&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail&quot;&gt;Care Coordinator → BHN partner&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-watcher&quot;&gt;▲ watches: clinical-lead&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-node-cell&quot; style=&quot;grid-row: 4; grid-column: 10;&quot; data-node=&quot;05-attestation-audit-record&quot;&gt;
+    &lt;div class=&quot;diagram-box&quot;&gt;
+      &lt;div class=&quot;diagram-box-title&quot;&gt;Attestation gate&lt;/div&gt;
+      &lt;div class=&quot;diagram-box-detail&quot;&gt;Audit record sealed&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-edge-label-cell&quot; style=&quot;grid-row: 1; grid-column: 3;&quot;&gt;
+    &lt;div class=&quot;diagram-edge-label-group&quot;&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;positive response detected&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-edge-label-cell&quot; style=&quot;grid-row: 1 / 3; grid-column: 5;&quot;&gt;
+    &lt;div class=&quot;diagram-edge-label-group&quot;&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;red — same-hour escalation&lt;/div&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;yellow — same-day escalation&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-edge-label-cell&quot; style=&quot;grid-row: 2 / 4; grid-column: 7;&quot;&gt;
+    &lt;div class=&quot;diagram-edge-label-group&quot;&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;signed → handoff&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-edge-label-cell&quot; style=&quot;grid-row: 2 / 5; grid-column: 7;&quot;&gt;
+    &lt;div class=&quot;diagram-edge-label-group&quot;&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;signed → audit&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;diagram-edge-label-cell&quot; style=&quot;grid-row: 3 / 5; grid-column: 9;&quot;&gt;
+    &lt;div class=&quot;diagram-edge-label-group&quot;&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;BHN ack → audit&lt;/div&gt;
+      &lt;div class=&quot;diagram-edge-label&quot;&gt;timeout → escalation re-fired&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;svg class=&quot;diagram-edges&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&lt;/svg&gt;
+&lt;/div&gt; &lt;!-- /diagram-grid --&gt;
+&lt;/div&gt; &lt;!-- /diagram-viewport --&gt;
+
+&lt;div class=&quot;diagram-meta&quot;&gt;&lt;p&gt;When a patient's PHQ9 screening result triggers the same-day-escalation threshold, route to clinical lead for review and hand off to the Behavioral Health Network (BHN) partner for follow-up.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt; &lt;!-- /diagram-frame-wrapper --&gt;
+
+&lt;script&gt;
+(function() {
+  const EDGES = [{&quot;from&quot;:&quot;01-trigger-phq9-positive&quot;,&quot;to&quot;:&quot;02-decision-severity-assessment&quot;,&quot;label&quot;:&quot;positive response detected&quot;,&quot;style&quot;:&quot;default&quot;,&quot;srcRowIdx&quot;:0,&quot;tgtRowIdx&quot;:0},{&quot;from&quot;:&quot;02-decision-severity-assessment&quot;,&quot;to&quot;:&quot;03-attestation-clinical-lead-review&quot;,&quot;label&quot;:&quot;red — same-hour escalation&quot;,&quot;style&quot;:&quot;emphasis&quot;,&quot;srcRowIdx&quot;:0,&quot;tgtRowIdx&quot;:1},{&quot;from&quot;:&quot;02-decision-severity-assessment&quot;,&quot;to&quot;:&quot;03-attestation-clinical-lead-review&quot;,&quot;label&quot;:&quot;yellow — same-day escalation&quot;,&quot;style&quot;:&quot;emphasis&quot;,&quot;srcRowIdx&quot;:0,&quot;tgtRowIdx&quot;:1},{&quot;from&quot;:&quot;03-attestation-clinical-lead-review&quot;,&quot;to&quot;:&quot;04-handoff-to-bhn&quot;,&quot;label&quot;:&quot;signed → handoff&quot;,&quot;style&quot;:&quot;emphasis&quot;,&quot;srcRowIdx&quot;:1,&quot;tgtRowIdx&quot;:2},{&quot;from&quot;:&quot;03-attestation-clinical-lead-review&quot;,&quot;to&quot;:&quot;05-attestation-audit-record&quot;,&quot;label&quot;:&quot;signed → audit&quot;,&quot;style&quot;:&quot;muted&quot;,&quot;srcRowIdx&quot;:1,&quot;tgtRowIdx&quot;:3},{&quot;from&quot;:&quot;04-handoff-to-bhn&quot;,&quot;to&quot;:&quot;05-attestation-audit-record&quot;,&quot;label&quot;:&quot;BHN ack → audit&quot;,&quot;style&quot;:&quot;default&quot;,&quot;srcRowIdx&quot;:2,&quot;tgtRowIdx&quot;:3},{&quot;from&quot;:&quot;04-handoff-to-bhn&quot;,&quot;to&quot;:&quot;05-attestation-audit-record&quot;,&quot;label&quot;:&quot;timeout → escalation re-fired&quot;,&quot;style&quot;:&quot;muted&quot;,&quot;srcRowIdx&quot;:2,&quot;tgtRowIdx&quot;:3}];
+  const CORNER_R = 24;
+  const PARALLEL_OFFSET = 18;
+
+  function qCurvePath(points, radius) {
+    if (!points.length) return '';
+    if (points.length &lt; 3) return points.map((p, i) =&gt; (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ');
+    const segs = [`M ${points[0].x} ${points[0].y}`];
+    for (let i = 1; i &lt; points.length - 1; i++) {
+      const p0 = points[i - 1], p1 = points[i], p2 = points[i + 1];
+      const inDx = p1.x - p0.x, inDy = p1.y - p0.y;
+      const outDx = p2.x - p1.x, outDy = p2.y - p1.y;
+      const inIsH = Math.abs(inDy) &lt; 0.5, outIsH = Math.abs(outDy) &lt; 0.5;
+      if (inIsH === outIsH) { segs.push(`L ${p1.x} ${p1.y}`); continue; }
+      const inLen = Math.hypot(inDx, inDy), outLen = Math.hypot(outDx, outDy);
+      const r = Math.min(radius, inLen / 2, outLen / 2);
+      if (r &lt; 8) { segs.push(`L ${p1.x} ${p1.y}`); continue; }
+      const ax = p1.x - (inDx / inLen) * r, ay = p1.y - (inDy / inLen) * r;
+      const dx = p1.x + (outDx / outLen) * r, dy = p1.y + (outDy / outLen) * r;
+      segs.push(`L ${ax.toFixed(1)} ${ay.toFixed(1)}`);
+      segs.push(`Q ${p1.x} ${p1.y} ${dx.toFixed(1)} ${dy.toFixed(1)}`);
+    }
+    const last = points[points.length - 1];
+    segs.push(`L ${last.x} ${last.y}`);
+    return segs.join(' ');
+  }
+
+  // rectFromOffsets — getBoundingClientRect-shaped object with coords relative to grid,
+  // computed via offsetLeft/offsetTop. Transform-immune: pan/zoom transforms on grid
+  // don't affect offset* (CSS-layout coords), so arrow geometry stays correct under any
+  // transform applied to the grid wrapper.
+  function rectFromOffsets(el, grid) {
+    let x = 0, y = 0, cur = el;
+    while (cur &amp;&amp; cur !== grid) {
+      x += cur.offsetLeft;
+      y += cur.offsetTop;
+      cur = cur.offsetParent;
+    }
+    const w = el.offsetWidth, h = el.offsetHeight;
+    return { left: x, top: y, right: x + w, bottom: y + h, width: w, height: h };
+  }
+
+  function routeEdge(srcRect, tgtRect, gridRect, dupIdx, totalDup, edge, grid) {
+    const offset = totalDup &gt; 1 ? (dupIdx - (totalDup - 1) / 2) * PARALLEL_OFFSET : 0;
+    const sx = srcRect.right - gridRect.left;
+    const sy = srcRect.top + srcRect.height / 2 - gridRect.top + offset;
+    const tx = tgtRect.left - gridRect.left;
+    const ty = tgtRect.top + tgtRect.height / 2 - gridRect.top + offset;
+    if (Math.abs(sy - ty) &lt; 1) {
+      // Same-lane edge. If non-adjacent (long horizontal distance), jog above lane
+      // to clear intermediate boxes AND their callouts. Threshold: &gt; 2*box-width (~440px).
+      const distance = Math.abs(tx - sx);
+      if (distance &gt; 440) {
+        // Jog above the source row's TOP edge into the row-gap area.
+        // Use lane label cell as a stable row-top reference (grid-relative offsetTop).
+        let jogY = sy - (srcRect.height / 2 + 60); // fallback
+        const laneLabelCells = grid.querySelectorAll('.diagram-lane-label-cell');
+        const srcRowIdx = edge &amp;&amp; typeof edge.srcRowIdx === 'number' ? edge.srcRowIdx : 0;
+        if (laneLabelCells.length &gt; srcRowIdx) {
+          jogY = laneLabelCells[srcRowIdx].offsetTop - 4; // 4px above row's top edge, into the row gap
+        }
+        const jogOut = 20; // step out horizontally before going up
+        return [
+          {x: sx, y: sy},
+          {x: sx + jogOut, y: sy},
+          {x: sx + jogOut, y: jogY},
+          {x: tx - jogOut, y: jogY},
+          {x: tx - jogOut, y: ty},
+          {x: tx, y: ty}
+        ];
+      }
+      return [{x: sx, y: sy}, {x: tx, y: ty}];
+    }
+    const midX = (sx + tx) / 2 + offset * 0.5;
+    return [{x: sx, y: sy}, {x: midX, y: sy}, {x: midX, y: ty}, {x: tx, y: ty}];
+  }
+
+  function render() {
+    const grid = document.querySelector('.diagram-grid');
+    const svg = document.querySelector('.diagram-edges');
+    if (!grid || !svg) return;
+    const w = grid.offsetWidth, h = grid.offsetHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.setAttribute('width', w);
+    svg.setAttribute('height', h);
+    // gridRect is pseudo: offset-based coords are grid-relative, so grid is at origin.
+    const gridRect = { left: 0, top: 0, right: w, bottom: h, width: w, height: h };
+
+    const dupCounts = new Map();
+    for (const e of EDGES) { const k = e.from + '-&gt;' + e.to; dupCounts.set(k, (dupCounts.get(k) || 0) + 1); }
+    const dupIdx = new Map();
+
+    let inner = '&lt;defs&gt;';
+    inner += '&lt;marker id=&quot;arrow-end&quot; viewBox=&quot;0 0 14 14&quot; refX=&quot;13&quot; refY=&quot;7&quot; markerWidth=&quot;11&quot; markerHeight=&quot;11&quot; markerUnits=&quot;userSpaceOnUse&quot; orient=&quot;auto&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M 0 0 L 13 7 L 0 14&quot; fill=&quot;none&quot; stroke=&quot;var(--color-arrow-default, #8c7c5e)&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/marker&gt;';
+    inner += '&lt;marker id=&quot;arrow-end-emphasis&quot; viewBox=&quot;0 0 14 14&quot; refX=&quot;13&quot; refY=&quot;7&quot; markerWidth=&quot;11&quot; markerHeight=&quot;11&quot; markerUnits=&quot;userSpaceOnUse&quot; orient=&quot;auto&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M 0 0 L 13 7 L 0 14&quot; fill=&quot;none&quot; stroke=&quot;var(--color-primary-700, #1e5149)&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/marker&gt;';
+    inner += '&lt;/defs&gt;';
+
+    for (const e of EDGES) {
+      const srcBox = grid.querySelector(`[data-node=&quot;${e.from}&quot;] .diagram-box`);
+      const tgtBox = grid.querySelector(`[data-node=&quot;${e.to}&quot;] .diagram-box`);
+      if (!srcBox || !tgtBox) continue;
+      const k = e.from + '-&gt;' + e.to;
+      const totalDup = dupCounts.get(k);
+      const idx = dupIdx.get(k) || 0;
+      dupIdx.set(k, idx + 1);
+      const points = routeEdge(rectFromOffsets(srcBox, grid), rectFromOffsets(tgtBox, grid), gridRect, idx, totalDup, e, grid);
+      const emphasis = e.style === 'emphasis';
+      const muted = e.style === 'muted';
+      const stroke = emphasis ? 'var(--color-primary-700, #1e5149)' : 'var(--color-arrow-default, #8c7c5e)';
+      const strokeW = muted ? 1 : (emphasis ? 1.75 : 1.5);
+      const dash = muted ? ' stroke-dasharray=&quot;4 4&quot;' : '';
+      const marker = emphasis ? 'arrow-end-emphasis' : 'arrow-end';
+      const d = qCurvePath(points, CORNER_R);
+      inner += `&lt;path d=&quot;${d}&quot; fill=&quot;none&quot; stroke=&quot;${stroke}&quot; stroke-width=&quot;${strokeW}&quot;${dash} marker-end=&quot;url(#${marker})&quot; aria-hidden=&quot;true&quot;/&gt;`;
+    }
+    svg.innerHTML = inner;
+  }
+
+  // Initial draw after fonts/layout settle. window.resize re-runs render() because
+  // a wider viewport changes the grid's natural layout (1fr columns) — arrows are
+  // recomputed against the new offsets. Pan/zoom does NOT trigger resize and does NOT
+  // affect offset coords, so the arrows stay correct under any transform.
+  if (document.fonts &amp;&amp; document.fonts.ready) document.fonts.ready.then(render);
+  else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+  else render();
+  window.addEventListener('resize', render);
+})();
+&lt;/script&gt;
+
+&lt;!-- Pan/zoom init: panzoom (CDN) + initial fit-to-viewport + sets --print-zoom CSS var
+     so @media print scales the diagram deterministically regardless of where the user
+     left panzoom. Graceful degrade: if panzoom didn't load, the static --print-zoom still
+     applies in PDF, and the diagram renders at natural size in the browser. --&gt;
+&lt;script&gt;
+(function() {
+  // 15in x 10in landscape @ 96dpi with 0.3in margins -&gt; 14.4in x 9.4in content -&gt; 1382 x 902 px
+  const PRINT_W = 1382, PRINT_H = 902;
+
+  function computeScales(grid, viewport) {
+    const naturalW = grid.offsetWidth;
+    const naturalH = grid.offsetHeight;
+    const printScale = Math.min(1, PRINT_W / naturalW, PRINT_H / naturalH);
+    const vpRect = viewport.getBoundingClientRect();
+    const intScale = Math.min(vpRect.width / naturalW, vpRect.height / naturalH) * 0.96;
+    return { naturalW, naturalH, printScale, intScale, vpW: vpRect.width, vpH: vpRect.height };
+  }
+
+  function setExportZoom(grid, scale) {
+    document.documentElement.style.setProperty('--print-zoom', scale.toFixed(3));
+    grid.setAttribute('data-export-zoom', scale.toFixed(3));
+  }
+
+  function init() {
+    const grid = document.querySelector('.diagram-grid');
+    const viewport = document.querySelector('.diagram-viewport');
+    if (!grid || !viewport) return;
+
+    // Always set the print-zoom CSS var from natural dimensions, so PDF emission has a
+    // deterministic value even if panzoom never inits.
+    const { printScale, intScale, naturalW, naturalH, vpW, vpH } = computeScales(grid, viewport);
+    setExportZoom(grid, printScale);
+
+    const indicator = document.querySelector('.diagram-zoom-indicator');
+    const updateIndicator = (s) =&gt; { if (indicator) indicator.textContent = (s * 100).toFixed(0) + '%'; };
+
+    if (typeof panzoom === 'undefined') {
+      // Graceful degrade — show natural size, no interactivity.
+      updateIndicator(1);
+      return;
+    }
+
+    const pz = panzoom(grid, {
+      maxZoom: 4,
+      minZoom: 0.1,
+      bounds: false,
+      smoothScroll: false,
+      zoomDoubleClickSpeed: 1,
+      beforeWheel: () =&gt; false,  // wheel always zooms, no modifier required
+    });
+
+    const fit = () =&gt; {
+      const m = computeScales(grid, viewport);
+      // Reset then apply absolute zoom + center translate.
+      pz.zoomAbs(0, 0, 1); pz.moveTo(0, 0);
+      pz.zoomAbs(0, 0, m.intScale);
+      const tx = (m.vpW - m.naturalW * m.intScale) / 2;
+      const ty = (m.vpH - m.naturalH * m.intScale) / 2;
+      pz.moveTo(tx, ty);
+      updateIndicator(m.intScale);
+    };
+
+    pz.on('zoom', () =&gt; {
+      const t = pz.getTransform();
+      updateIndicator(t.scale);
+      // Note: --print-zoom stays pinned to the fit-to-print scale, not the user's
+      // current interactive zoom. PDF export is a deterministic snapshot, not a screenshot.
+    });
+
+    const fitBtn  = document.querySelector('.diagram-fit-btn');
+    const zinBtn  = document.querySelector('.diagram-zoom-in-btn');
+    const zoutBtn = document.querySelector('.diagram-zoom-out-btn');
+    if (fitBtn)  fitBtn.onclick = fit;
+    if (zinBtn)  zinBtn.onclick  = () =&gt; { const r = viewport.getBoundingClientRect(); pz.smoothZoom(r.width / 2, r.height / 2, 1.25); };
+    if (zoutBtn) zoutBtn.onclick = () =&gt; { const r = viewport.getBoundingClientRect(); pz.smoothZoom(r.width / 2, r.height / 2, 0.8); };
+
+    document.addEventListener('keydown', (e) =&gt; {
+      const t = e.target;
+      if (t &amp;&amp; (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      const r = viewport.getBoundingClientRect();
+      const cx = r.width / 2, cy = r.height / 2;
+      if (e.key === '+' || e.key === '=') { e.preventDefault(); pz.smoothZoom(cx, cy, 1.2); }
+      else if (e.key === '-' || e.key === '_') { e.preventDefault(); pz.smoothZoom(cx, cy, 0.85); }
+      else if (e.key === '0') { e.preventDefault(); fit(); }
+      else if (e.key === 'ArrowLeft')  { e.preventDefault(); pz.moveBy(80, 0, true); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); pz.moveBy(-80, 0, true); }
+      else if (e.key === 'ArrowUp')    { e.preventDefault(); pz.moveBy(0, 80, true); }
+      else if (e.key === 'ArrowDown')  { e.preventDefault(); pz.moveBy(0, -80, true); }
+    });
+
+    // Fit after fonts have loaded + arrows have drawn (small delay covers both).
+    if (document.fonts &amp;&amp; document.fonts.ready) {
+      document.fonts.ready.then(() =&gt; setTimeout(fit, 150));
+    } else {
+      setTimeout(fit, 250);
+    }
+
+    // Refresh the print-zoom CSS var whenever the natural layout changes (window resize).
+    window.addEventListener('resize', () =&gt; {
+      const m = computeScales(grid, viewport);
+      setExportZoom(grid, m.printScale);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;" title="Workflow diagram: PHQ9 Positive Response Escalation" style="width:100%;min-height:600px;border:0;display:block;" loading="lazy"></iframe></div><p class="diagram-figure-description">When a patient's PHQ9 screening result triggers the same-day-escalation threshold, route to clinical lead for review and hand off to the Behavioral Health Network (BHN) partner for follow-up.</p></figure>
+<h2 class="section-title" id="each-week-for-every-participant-the-routine-checklist">Each week, for every participant — the routine checklist</h2>
+<p>The weekly routine, condensed to a tickable list.</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Work the roster top-down by days since last contact</li>
+<li class="task-list-item"><input type="checkbox" disabled> Complete the weekly check-in by the participant's preferred channel</li>
+<li class="task-list-item"><input type="checkbox" disabled> Capture adherence, barriers, and wraparound needs</li>
+<li class="task-list-item"><input type="checkbox" disabled> Log the contact outcome and set the next-touch plan</li>
+<li class="task-list-item"><input type="checkbox" disabled> Raise a flag if the participant is unreachable or a concern surfaced</li>
+<li class="task-list-item"><input type="checkbox" disabled> At a baseline or repeat-screening milestone — administer the PHQ9 and the 3-item anxiety screen; escalate positive responses the same day</li>
+</ul>
+<h2 class="section-title" id="terms-used-here">Terms used here</h2>
+<p>Plain-language definitions, no system jargon.</p>
+<p>::: glossary-term
+Roster
+:::
+::: glossary-def
+Your list of participants — who they are and when each is due for a check-in.
+:::</p>
+<p>::: glossary-term
+Check-in
+:::
+::: glossary-def
+The weekly call where you support ordering, ask about adherence, and surface any barriers.
+:::</p>
+<p>::: glossary-term
+Athena
+:::
+::: glossary-def
+The system where appointments are booked. It stays the official record for scheduling.
+:::</p>
+<p>::: glossary-term
+Wraparound services
+:::
+::: glossary-def
+Extra support a participant may need — SNAP, a food pantry, transportation, or housing help.
+:::</p>
+<p>::: glossary-term
+Flag
+:::
+::: glossary-def
+A signal about a participant's current state. Three states: <strong>red flag</strong> (no response within 3 days — unreachable, place a follow-up call), <strong>yellow flag</strong> (a concern surfaced during a check-in — escalate to the UConn clinical team per protocol), <strong>green flag</strong> (engaged and on track — continue the routine weekly cadence).
+:::</p>
+<p>::: glossary-term
+PHQ9
+:::
+::: glossary-def
+A nine-question depression screening tool. Administered by the care coordinator at baseline and at the program's repeat-screening milestones.
+:::</p>
+<p>::: glossary-term
+3-item anxiety screen
+:::
+::: glossary-def
+A three-question anxiety screening, paired with the PHQ9 in the same baseline assessment set.
+:::</p>
+<h2 class="section-title" id="approval-status">Approval status</h2>
+<p>This SOP is approved for training only when the accountable human signs it. Until then it is a draft.</p>
+<p>::: attestation
+<strong>Sign-off</strong>
+:::</p>
+<p>::: attestation-gate
+⏳ Awaiting sign-off — draft, not yet approved for training
+:::</p>
+<p>::: attestation-gate
+<em>Director of Clinical Ops — signature pending</em>
+:::</p>
+<p>::: attestation-gate
+Accountable for clinical accuracy and operational truth · Version 0.1
+:::</p>
+</main>
+</body>
+</html>

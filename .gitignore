@@ -35,3 +35,7 @@ packages/design-system/pattern-library/_reason-spike/
 # handoff/ for /preview. Regenerate: bash tools/surface-emit/build-bundle.sh {sot|reason}
 handoff/cena-sot/
 handoff/cena-reasoning/
+
+# sop-docx-emit.sh staging dirs (regenerable: re-run the wrapper)
+# Holds resolver-rewritten markdown + _diagram-cache/ per SoP exemplar
+handoff/*/_sop-staging-*/

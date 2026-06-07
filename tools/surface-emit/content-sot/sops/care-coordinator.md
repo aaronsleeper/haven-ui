@@ -89,6 +89,9 @@ The care coordinator owns these two screenings — by IRB protocol, the dietitia
 **Scope-of-practice note.** The PHQ9 and 3-item anxiety screen are administered by the CITI-trained care coordinator under PI oversight. The administration scope under Connecticut licensure is pending confirmation from Healthcare Data Governance — until confirmed, follow PI guidance for any positive-response handling.
 :::
 
+:::diagram{workflow="escalation-phq9-positive"}
+:::
+
 ## Each week, for every participant — the routine checklist
 
 The weekly routine, condensed to a tickable list.
