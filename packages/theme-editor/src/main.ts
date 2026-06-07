@@ -34,6 +34,7 @@ import {
   listPresets,
   loadPreset,
   savePreset,
+  deletePreset,
   writeThemeBlock,
 } from './fs-client';
 import {
@@ -59,6 +60,9 @@ const $ = <T extends Element = HTMLElement>(sel: string): T => {
 
 const modeButtons = document.querySelectorAll<HTMLButtonElement>('.te-mode');
 const presetSelect = $<HTMLSelectElement>('#te-preset');
+const presetSaveAs = $<HTMLButtonElement>('#te-preset-save-as');
+const presetDuplicate = $<HTMLButtonElement>('#te-preset-duplicate');
+const presetDelete = $<HTMLButtonElement>('#te-preset-delete');
 const anchorList = $<HTMLElement>('#te-anchor-list');
 const relationsSection = $<HTMLElement>('#te-relations-body');
 const tokensSection = $<HTMLElement>('#te-tokens-body');
@@ -253,6 +257,89 @@ presetSelect.addEventListener('change', async () => {
 statusIssues.addEventListener('click', () => {
   toggleIssuesPanel();
   render();
+});
+
+// ============================================================ Preset CRUD
+
+function safePresetSlug(input: string): string | null {
+  const slug = input.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
+  if (!slug || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(slug)) return null;
+  return slug;
+}
+
+async function refreshPresetList(selectName: string | null): Promise<void> {
+  const presets = await listPresets();
+  setPresetList(presets);
+  if (selectName && presets.includes(selectName)) {
+    const p = await loadPreset(selectName);
+    setPreset(selectName, p);
+  }
+}
+
+async function saveAsNewName(seed: string): Promise<void> {
+  const { preset } = getState();
+  if (!preset) return;
+  const input = window.prompt('Save preset as…', seed);
+  if (input === null) return;
+  const slug = safePresetSlug(input);
+  if (!slug) {
+    setSaveStatus('error', 'invalid name (use lowercase letters, numbers, dashes)');
+    return;
+  }
+  const existing = getState().presetList;
+  if (existing.includes(slug)) {
+    if (!window.confirm(`Overwrite existing preset "${slug}"?`)) return;
+  }
+  const copy: typeof preset = JSON.parse(JSON.stringify(preset));
+  copy.meta = { ...copy.meta, name: slug, updated: new Date().toISOString() };
+  setSaveStatus('saving');
+  try {
+    await savePreset(slug, copy);
+    await refreshPresetList(slug);
+    // Repaint the runtime theme.css under the new preset.
+    scheduleWrite();
+    setSaveStatus('saved');
+  } catch (e) {
+    setSaveStatus('error', e instanceof Error ? e.message : String(e));
+  }
+}
+
+presetSaveAs.addEventListener('click', () => {
+  const { presetName } = getState();
+  void saveAsNewName(presetName ?? 'new-preset');
+});
+
+presetDuplicate.addEventListener('click', () => {
+  const { presetName } = getState();
+  if (!presetName) return;
+  void saveAsNewName(`${presetName}-copy`);
+});
+
+presetDelete.addEventListener('click', async () => {
+  const { presetName, presetList } = getState();
+  if (!presetName) return;
+  if (!window.confirm(`Delete preset "${presetName}"? This cannot be undone.`)) return;
+  setSaveStatus('saving');
+  try {
+    await deletePreset(presetName);
+    // Pick a sibling to switch to, or none if the list emptied.
+    const remaining = presetList.filter((n) => n !== presetName);
+    if (remaining.length === 0) {
+      setPresetList([]);
+      // No preset to load — clear and let the UI render the empty state.
+      // (setPreset accepts a Preset; we can't pass null without changing the
+      // store contract. Leave the in-memory preset stale; the next save-as
+      // will write it under a new name.)
+      setSaveStatus('saved');
+      return;
+    }
+    const next = remaining[0];
+    await refreshPresetList(next);
+    scheduleWrite();
+    setSaveStatus('saved');
+  } catch (e) {
+    setSaveStatus('error', e instanceof Error ? e.message : String(e));
+  }
 });
 
 subscribe(render);

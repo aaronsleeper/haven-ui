@@ -47,6 +47,16 @@ export async function savePreset(name: string, preset: Preset): Promise<void> {
   }
 }
 
+export async function deletePreset(name: string): Promise<void> {
+  const res = await fetch(`/api/presets/${encodeURIComponent(name)}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`${res.status} ${res.statusText}: ${detail}`);
+  }
+}
+
 export async function writeThemeBlock(css: string): Promise<void> {
   const res = await fetch('/api/theme', {
     method: 'POST',

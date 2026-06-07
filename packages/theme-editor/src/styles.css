@@ -140,6 +140,37 @@ code {
   min-width: 160px;
 }
 
+.te-preset-actions {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+
+.te-preset-action {
+  appearance: none;
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-sm);
+  background: var(--te-surface);
+  color: var(--te-ink);
+  cursor: pointer;
+}
+
+.te-preset-action:hover {
+  background: var(--te-surface-alt);
+}
+
+.te-preset-action--danger {
+  color: #a35450;
+}
+
+.te-preset-action--danger:hover {
+  background: rgba(163, 84, 80, 0.08);
+  border-color: rgba(163, 84, 80, 0.3);
+}
+
 /* ============================================================ Main */
 
 .te-main {

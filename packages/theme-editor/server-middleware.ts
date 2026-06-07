@@ -1,5 +1,5 @@
 import type { ViteDevServer, Connect } from 'vite';
-import { readFile, writeFile, readdir, mkdir, stat } from 'node:fs/promises';
+import { readFile, writeFile, readdir, mkdir, stat, unlink } from 'node:fs/promises';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -183,6 +183,21 @@ export function themeEditorMiddleware(server: ViteDevServer) {
         await ensurePresetsDir();
         await writeFile(join(PRESETS_DIR, `${name}.json`), body, 'utf8');
         return json(res, 200, { ok: true, written: `${name}.json` });
+      }
+
+      // DELETE /api/presets/:name — remove a preset file
+      if (req.method === 'DELETE' && getPresetMatch) {
+        const name = safePresetName(getPresetMatch[1]);
+        if (!name) return json(res, 400, { error: 'invalid preset name' });
+        try {
+          await unlink(join(PRESETS_DIR, `${name}.json`));
+          return json(res, 200, { ok: true, removed: `${name}.json` });
+        } catch (e: unknown) {
+          if ((e as NodeJS.ErrnoException).code === 'ENOENT') {
+            return json(res, 404, { error: 'preset not found' });
+          }
+          throw e;
+        }
       }
 
       // POST /api/theme — write the editor's CSS as overrides AND compose
