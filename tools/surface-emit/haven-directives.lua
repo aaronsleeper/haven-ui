@@ -91,27 +91,57 @@ function Div(div)
     local png_path = div.attributes["png_path"]
     local title = div.attributes["title"] or ""
     local description = div.attributes["description"] or ""
+    local slug = div.attributes["workflow"] or ""
     if not png_path or png_path == "" then
       io.stderr:write("[haven-directives.lua] :::diagram missing png_path; ")
       io.stderr:write("did resolve-diagram-directives.mjs run before pandoc?\n")
       return nil
     end
-    local result = pandoc.List({})
-    -- Eyebrow row: "Workflow diagram" in diagram-figure-eyebrow character
-    -- style. Source carries natural-case; uppercase emission lives in the
-    -- docx reference style (caps flag, per HVD Q2) so a track-changes
+
+    -- HTML output: raw <figure> with semantic haven classes so the haven
+    -- CSS bundle styles the eyebrow + title + image + description block.
+    -- Static <img> for v1 (matches what DOCX shows); interactive HTML embed
+    -- (pan/zoom iframe) is deferred to a future slice when the SoP HTML
+    -- surface graduates from approval-deferred.
+    if FORMAT:match("html") then
+      local function esc(s)
+        return (s:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;"):gsub("\"", "&quot;"))
+      end
+      local desc_block = ""
+      if description ~= "" then
+        desc_block = '<p class="diagram-figure-description">' .. esc(description) .. '</p>'
+      end
+      local html = string.format(
+        '<figure class="diagram-figure" data-workflow="%s">\n' ..
+        '  <figcaption class="diagram-figure-caption">\n' ..
+        '    <span class="diagram-figure-eyebrow">WORKFLOW DIAGRAM</span>\n' ..
+        '    <span class="diagram-figure-title">%s</span>\n' ..
+        '  </figcaption>\n' ..
+        '  <div class="diagram-figure-asset">\n' ..
+        '    <img src="%s" alt="%s" style="display:block;max-width:100%%;height:auto;" />\n' ..
+        '  </div>\n' ..
+        '  %s\n' ..
+        '</figure>',
+        esc(slug), esc(title), esc(png_path), esc(title), desc_block
+      )
+      return { pandoc.RawBlock("html", html) }
+    end
+
+    -- DOCX output (and any other format): emit four paragraphs — eyebrow,
+    -- title, image, description. Eyebrow + title spans carry custom-style
+    -- directly in attrs (pandoc's Span filter below this Div is not invoked
+    -- recursively on filter-emitted Spans on this pandoc version, so we
+    -- bypass it and write the attribute ourselves). Source carries
+    -- natural-case "Workflow diagram"; uppercase emission lives in the docx
+    -- reference style via the caps flag (HVD Q2) so a track-changes
     -- round-trip doesn't surface SHOUTED text in markdown.
-    --
-    -- Set custom-style directly in span attributes — pandoc's Span filter
-    -- function below this Div is not invoked recursively on Spans we emit
-    -- here, so we bypass it and write the docx attribute ourselves.
+    local result = pandoc.List({})
     result:insert(pandoc.Para({
       pandoc.Span(
         { pandoc.Str("Workflow diagram") },
         pandoc.Attr("", {}, { ["custom-style"] = "diagram-figure-eyebrow" })
       ),
     }))
-    -- Title row: diagram-figure-title character style.
     if title ~= "" then
       result:insert(pandoc.Para({
         pandoc.Span(
@@ -120,11 +150,7 @@ function Div(div)
         ),
       }))
     end
-    -- The PNG asset — pandoc.Image with empty alt + path. The runner places
-    -- the PNG into a cache dir relative to the rewritten markdown so the
-    -- relative path resolves at pandoc-time.
     result:insert(pandoc.Para({ pandoc.Image({}, png_path, "") }))
-    -- Description paragraph below, italic.
     if description ~= "" then
       result:insert(pandoc.Para({ pandoc.Emph({ pandoc.Str(description) }) }))
     end
