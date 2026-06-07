@@ -1,0 +1,31 @@
+<!--
+  @component-meta
+  name: Glossary Pair
+  category: Document District
+  file: doc-glossary-pair.html
+  classes: glossary-term, glossary-def
+  when-to-use: Sequential term/definition pairs authored directly in document flow (typically via `:::glossary-term` + `:::glossary-def` directives in a SoP). Bolded term with tight space-after, definition indented with looser space-after to separate pairs. Reads as a printed-reference-book entry.
+  do-not-use-when: You want a card-wrapped table of glossary entries — use the Block Glossary composition (card + kv-table) for that richer presentation. Use Glossary Pair when the directive vocabulary produces sequential top-level pairs without table grouping.
+  preline-required: no
+  notes: Two haven primitives matching brand spec §3.12. Pairs with `:::glossary-term` + `:::glossary-def` directives in markdown SoP authoring. Visual binding is structural (consecutive sibling divs with margin discipline) rather than semantic (no <dl>/<dt>/<dd> required); the term's bold weight + the def's indent do the work without needing wrapping logic in the renderer. Sibling to (not replacement of) Block Glossary; both patterns serve the same intent at different scales.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Glossary Pair</h3>
+  <p class="pl-description">
+    Sequential term/definition pairs in document flow. Bolded term, indented definition.
+  </p>
+
+  <!-- @component: doc-glossary-pair -->
+  <div class="glossary-term">Roster</div>
+  <div class="glossary-def">Your list of participants — who they are and when each is due for a check-in.</div>
+
+  <div class="glossary-term">Check-in</div>
+  <div class="glossary-def">The weekly call where you support ordering, ask about adherence, and surface any barriers.</div>
+
+  <div class="glossary-term">Athena</div>
+  <div class="glossary-def">The system where appointments are booked. It stays the official record for scheduling.</div>
+  <!-- /component -->
+</section>

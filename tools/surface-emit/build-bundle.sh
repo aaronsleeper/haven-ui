@@ -66,8 +66,20 @@ for js in $JS_LIST; do
   if [ -f "$DS_SCRIPTS/$js.js" ]; then cp "$DS_SCRIPTS/$js.js" "$ASSETS"/; else echo "  ! missing $DS_SCRIPTS/$js.js"; fi
 done
 
-echo "build-bundle[$TAG]: [3/4] relativizing url(/assets/) → url(./) into assets/haven.css …"
-sed -E 's|url\(/assets/|url(./|g' "$DIST/haven-ui.css" > "$ASSETS/haven.css"
+echo "build-bundle[$TAG]: [3/4] concatenating + relativizing url(/assets/) → url(./) into assets/haven.css …"
+# Vite splits the design-system CSS across `haven-ui.css`, `haven-ui2.css`,
+# `haven-ui3.css`, etc. — one per entry chunk. The dist's own index.html
+# loads ALL of them in order. The bundle must ship the same union; copying
+# only `haven-ui.css` drops every class that ended up in a sibling chunk
+# (the components-heavy `haven-ui2.css` is the load-bearing one — alert,
+# escalation, glossary-*, attestation-block, diagram-figure-*, etc.).
+# Source incident: 2026-06-07 directive-canon-alignment slice — new haven
+# primitives landed in components.css but never reached the SOT bundle
+# because Vite had split them into haven-ui2.css.
+: > "$ASSETS/haven.css"
+for css in "$DIST"/haven-ui*.css; do
+  sed -E 's|url\(/assets/|url(./|g' "$css" >> "$ASSETS/haven.css"
+done
 
 if [ -n "$ASSETS_ONLY" ]; then
   echo "build-bundle[$TAG]: [4/4] assets-only — no HTML emit."

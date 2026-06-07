@@ -13076,6 +13076,52 @@ span.diagram-icon::before {
     max-width: 900px;
 }
 
+/* --- Escalation: routing rule with safety weight ---
+   Distinct from .alert-* family — escalation is "what to do when something
+   already broke" (infrastructure providing the route), not advisory ("pay
+   attention here"). Brand spec §3.10. amber-700 left rule on sand-50 bg
+   reads as warmer/quieter than alert-error (red) and signals safety weight
+   without alarming. Pairs with directive vocabulary `:::escalation`. */
+.escalation {
+    @apply bg-sand-50 dark:bg-sand-900/30 my-4 py-3 px-4;
+    border-left: 4px solid var(--color-amber-700, #735311);
+}
+
+/* --- Glossary term + def: definition-list pair register ---
+   In-document glossary entries. Each `:::glossary-term` + `:::glossary-def`
+   pair binds visually: bolded term with tight space-after, definition
+   indented to align with prose with looser space-after to separate from
+   the next pair. Brand spec §3.12. Reads as a printed-reference-book
+   entry; pairs render cleanly as consecutive sibling divs without needing
+   <dl>/<dt>/<dd> grouping logic. */
+.glossary-term {
+    @apply font-sans font-semibold text-sand-900 dark:text-sand-100;
+    margin-top: 12pt;
+    margin-bottom: 2pt;
+}
+
+.glossary-def {
+    @apply font-sans text-sand-700 dark:text-sand-300;
+    margin-left: 12pt;
+    margin-bottom: 6pt;
+}
+
+/* --- Review marker: visible scaffolding for unresolved review prompts ---
+   When a SoP draft carries open questions for a clinical reviewer or other
+   approver, the prompt is wrapped in `:::review-marker` so the rendered
+   page visibly distinguishes "the team is asking you this" from "the
+   procedure says this." Dashed amber-700 left rule on amber-50 bg reads as
+   "draft, pay attention, not approved" without overloading any callout
+   register. Failure shape this prevents: a coordinator on a live call
+   reading "escalate per protocol — `[NEEDS VANESSA / MARRERO …]`" and not
+   knowing whether the bracketed content is procedure or a hole. Brand
+   spec §3.14. Surfaced by UX panel review of Care Coordinator SoP HTML,
+   2026-06-07. */
+.review-marker {
+    @apply bg-amber-50 dark:bg-amber-900/20 my-4 py-3 px-4;
+    border-left: 4px dashed var(--color-amber-700, #735311);
+}
+
 /* ===================================
    HUE FAMILY PICKER — pattern-library component
    ===================================

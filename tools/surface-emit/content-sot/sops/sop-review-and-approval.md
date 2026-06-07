@@ -14,7 +14,7 @@ caps_note: Process SoP — the workflow the other SoPs ride on. No cap traceabil
 
 Program Operations · Standard Operating Procedure · Version 0.1 (draft) · Reviewed May 2026
 
-::: callout-warning
+::: alert-warning
 **Draft — this is the first version of the process itself.** Read it as a starting point and tell us what to change. Once approved, this is how every Cena SoP moves from draft to operational.
 :::
 
@@ -88,11 +88,11 @@ The everyday routing decisions that come up during a review cycle.
 
 ## Escalation flags
 
-::: callout-warning
+::: alert-warning
 **A review pass goes 14 days without a response.** Aaron follows up directly with the reviewer to check whether they need more context, a call, or a re-prioritization.
 :::
 
-::: callout-error
+::: alert-error
 **A reviewer rejects an entire SoP or asks for the scope to be rethought.** This is a scope conversation, not a content edit — pause the cycle and bring the conversation up a level before continuing.
 :::
 
@@ -168,7 +168,7 @@ The attestation block at the bottom of every SoP listing each gate that must cle
 
 The process itself is approved for use only when all gates are signed. Until then, it is a proposal in active drafting.
 
-::: attestation
+::: attestation-block
 **Sign-off**
 :::
 

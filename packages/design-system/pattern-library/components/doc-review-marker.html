@@ -1,0 +1,26 @@
+<!--
+  @component-meta
+  name: Review Marker
+  category: Document District
+  file: doc-review-marker.html
+  classes: review-marker
+  when-to-use: A pre-approval SoP carries open questions for a clinical reviewer (or other approver) that need visible chrome distinguishing "the team is asking the reviewer this" from "the procedure says this." Wrap each prompt in `:::review-marker`. Dashed amber-700 left rule on amber-50 bg signals draft / not approved / pay attention without overloading any callout register.
+  do-not-use-when: The content is genuinely procedural (use the relevant directive — alert/escalation/decision-branch), the prompt belongs in a tracker rather than the document (use the project ledger), or the draft has been signed off (remove the marker entirely — the SoP is approved).
+  preline-required: no
+  notes: Single haven primitive matching brand spec §3.14. Pairs with `:::review-marker` directive in markdown SoP authoring. Renders on both surfaces (HTML + DOCX via reference-cena.docx) so reviewers see the same prompt regardless of which they're reading. Strip every review-marker before the SoP ships to operational use; the visual chrome makes leftover markers obvious. UX-panel source incident: 2026-06-07 Care Coordinator SoP review found `[NEEDS / CONFIRM]` markers rendering as inline `<code>` inside binding clinical instructions — a coordinator on a live call could read "escalate per protocol — `[NEEDS VANESSA / MARRERO …]`" and not know whether the bracketed content is procedure or a hole.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Review Marker</h3>
+  <p class="pl-description">
+    Visible scaffolding for unresolved review prompts in pre-approval SoP drafts. Dashed amber left rule signals "draft, pay attention, not approved."
+  </p>
+
+  <!-- @component: doc-review-marker -->
+  <div class="review-marker">
+    <p><strong>[Needs Vanessa / Marrero]</strong> Specifics of the first action at the time of a safety escalation — what does the coordinator say in the first 30 seconds while opening the escalation protocol?</p>
+  </div>
+  <!-- /component -->
+</section>

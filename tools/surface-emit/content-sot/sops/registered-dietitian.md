@@ -15,7 +15,7 @@ caps_note: Coverage Map row lists 14/15/06/16; HTML lists 14/15 only; using HTML
 
 Registered Dietitian · Standard Operating Procedure · Version 0.1 (draft) · Reviewed May 2026
 
-::: callout-warning
+::: alert-warning
 **Draft — example content pending clinical review and sign-off.** Do not use for training or to guide care until approved.
 :::
 
@@ -144,7 +144,7 @@ What lives in Cena rather than Athena — food preferences, care-plan changes, a
 
 An RD SOP clears more than one gate. It is approved for training only when all of them are signed.
 
-::: attestation
+::: attestation-block
 **Sign-off**
 :::
 

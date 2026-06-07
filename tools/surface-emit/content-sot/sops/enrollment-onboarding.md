@@ -15,7 +15,7 @@ caps_note: M3 2026-05-27 refinements absorbed 2026-05-31 (D2 pass) — consent-a
 
 Program Operations · Standard Operating Procedure · Version 0.1 (draft) · Reviewed May 2026 · Roles: Care Coordinator + Registered Dietitian
 
-::: callout-warning
+::: alert-warning
 **Draft — example content pending clinical and operational review.** Do not use for training or to enroll participants until approved.
 :::
 
@@ -57,7 +57,7 @@ Work the steps in order. The first five are the care coordinator's; the in-perso
 
 8. **Registered Dietitian — Build the personalized meal plan.** In [Cena platform → Meal plan]{.screen-ref}, alongside the care plan. Result: an individualized meal plan informed by dietary preferences, cultural food preferences, and the participant's dietary requirements. The participant is now enrolled. `[NEEDS VANESSA CONFIRMATION — meal plan separation from care plan, and Dr. Wu's role on dietary requirements]`
 
-::: callout-warning
+::: alert-warning
 **Baseline-before-intervention invariant.** The care plan does not begin until every baseline assessment in Step 6 is captured on the record — HFIAS, HEI, WHOQOL-HIV BREF, NKQ, PHQ9, and the 3-item anxiety screen. If any are missing at the close of the in-person first visit, schedule a follow-up to complete them before starting the care plan.
 :::
 
@@ -152,7 +152,7 @@ The participant's personalized meal plan, informed by dietary preferences, cultu
 
 This procedure clears more than one gate. It is approved for use only when all are signed.
 
-::: attestation
+::: attestation-block
 **Sign-off**
 :::
 

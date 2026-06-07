@@ -15,11 +15,11 @@ caps_note: M3 2026-05-27 consent-form digitization step absorbed 2026-05-31 (D2 
 
 Program Administrator · Standard Operating Procedure · Version 0.1 (draft) · Reviewed May 2026
 
-::: callout-warning
+::: alert-warning
 **Draft — example content pending review and sign-off.** Do not use for training until approved.
 :::
 
-::: callout-info
+::: alert-info
 **Proposed task set — confirm with Vanessa.** The admin role's exact responsibilities are not yet finalized. The tasks below are a starting proposal drawn from the pilot's operational needs; treat them as a draft to react to, not a settled scope.
 :::
 
@@ -122,7 +122,7 @@ The participant's paper IRB-consent form, signed at the in-person first visit an
 
 Approved for use only when the scope is confirmed and the gates are signed.
 
-::: attestation
+::: attestation-block
 **Sign-off**
 :::
 

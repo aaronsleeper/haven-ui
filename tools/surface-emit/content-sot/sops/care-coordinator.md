@@ -15,7 +15,7 @@ caps_note: M3 2026-05-27 added PHQ9 + 3-item anxiety screen administration to CC
 
 Care Coordinator · Standard Operating Procedure · Version 0.1 (draft) · Reviewed May 2026
 
-::: callout-warning
+::: alert-warning
 **Draft — example content pending clinical review and sign-off.** Do not use for training or to guide care until approved.
 :::
 
@@ -48,20 +48,20 @@ Work the routine in order — one check-in per participant per week for the 26-w
 The two highest-stakes responses. Read first.
 
 ::: escalation
-**A participant reports a safety or medical concern.** Escalate to the UConn clinical team per the UConn escalation protocol — do not wait for the next scheduled check-in. `[NEEDS VANESSA / MARRERO — first action specifics for an at-the-time-of-call safety escalation]`
+**A participant reports a safety or medical concern.** Escalate to the UConn clinical team per the UConn escalation protocol — do not wait for the next scheduled check-in.
+:::
+
+::: review-marker
+**[Needs Vanessa / Marrero]** First-action specifics for an at-the-time-of-call safety escalation — what does the coordinator say in the first 30 seconds while opening the escalation protocol?
 :::
 
 ### Red, yellow, green — what each means and what to do
 
-::: callout-error
+::: decision-branch
 **Red flag — no response within 3 days.** Place a follow-up call within the next 2 days.
-:::
 
-::: callout-warning
 **Yellow flag — a concern surfaced during a check-in.** Escalate to the UConn clinical team per protocol.
-:::
 
-::: callout-success
 **Green flag — engaged and on track.** Continue the routine weekly cadence; no action needed.
 :::
 
@@ -79,13 +79,17 @@ The two everyday branches.
 
 The care coordinator owns these two screenings — by IRB protocol, the dietitian and UConn student researchers may not administer them. Administered at baseline (in the in-person first visit, alongside the dietitian's assessments) and again at the program's repeat-screening milestones.
 
-1. **Administer the PHQ9.** In the Cena assessment forms on the participant record. Result: the participant's depression-screening score is captured and saved on the record. _Note: this is one of the IRB protocol's baseline assessments — accuracy now matters because it repeats and the comparison is what shows change._ `[CONFIRM build state — PHQ9 admin UI in Care-coordinator app]`
+1. **Administer the PHQ9.** In the Cena assessment forms on the participant record. Result: the participant's depression-screening score is captured and saved on the record. _Note: this is one of the IRB protocol's baseline assessments — accuracy now matters because it repeats and the comparison is what shows change._
 
-2. **Administer the 3-item anxiety screen.** In the Cena assessment forms. Result: the anxiety-screening score is captured. _Note: paired with the PHQ9; both belong to the same baseline set._ `[CONFIRM build state — 3-item anxiety admin UI in Care-coordinator app]`
+2. **Administer the 3-item anxiety screen.** In the Cena assessment forms. Result: the anxiety-screening score is captured. _Note: paired with the PHQ9; both belong to the same baseline set._
 
-3. **Watch for response triggers and escalate if needed.** If either screen surfaces a positive response that meets the protocol's escalation threshold, escalate to the UConn clinical team the same day — do not wait for the next weekly check-in. `[NEEDS HEALTHCARE DATA GOVERNANCE REVIEW — PHQ9 / anxiety-screen positive-response thresholds and escalation protocol under CT scope-of-practice]`
+3. **Watch for response triggers and escalate if needed.** If either screen surfaces a positive response that meets the protocol's escalation threshold, escalate to the UConn clinical team the same day — do not wait for the next weekly check-in.
 
-::: callout-info
+::: review-marker
+**[Needs Healthcare Data Governance review]** PHQ9 + 3-item anxiety screen positive-response thresholds, and the escalation protocol under Connecticut scope-of-practice for a CITI-trained CC. Until confirmed, follow PI guidance for any positive-response handling.
+:::
+
+::: alert-info
 **Scope-of-practice note.** The PHQ9 and 3-item anxiety screen are administered by the CITI-trained care coordinator under PI oversight. The administration scope under Connecticut licensure is pending confirmation from Healthcare Data Governance — until confirmed, follow PI guidance for any positive-response handling.
 :::
 
@@ -156,11 +160,39 @@ A nine-question depression screening tool. Administered by the care coordinator 
 A three-question anxiety screening, paired with the PHQ9 in the same baseline assessment set.
 :::
 
+::: glossary-term
+BHN (Behavioral Health Network)
+:::
+::: glossary-def
+UConn's referral partner for participants whose mental-health screen triggers a same-day escalation. When a positive PHQ9 or anxiety-screen response surfaces, the case routes through the clinical lead to BHN for follow-up.
+:::
+
+::: glossary-term
+IRB
+:::
+::: glossary-def
+Institutional Review Board — the research-ethics body that approved this pilot's protocol. The IRB protocol defines what the care coordinator may administer (PHQ9, 3-item anxiety screen) and what stays with the dietitian or UConn student researchers.
+:::
+
+::: glossary-term
+CITI training
+:::
+::: glossary-def
+The research-ethics training required for everyone on this pilot who interacts with participants. The "CITI-trained care coordinator" phrasing in this SOP means: you have completed this training, which is what authorizes you to administer the screening tools.
+:::
+
+::: glossary-term
+PI (principal investigator)
+:::
+::: glossary-def
+The clinician responsible for the pilot's clinical conduct. PI oversight is what authorizes the care coordinator's scope under the IRB protocol; positive-response handling defers to PI guidance until thresholds are formalized.
+:::
+
 ## Approval status
 
 This SOP is approved for training only when the accountable human signs it. Until then it is a draft.
 
-::: attestation
+::: attestation-block
 **Sign-off**
 :::
 
