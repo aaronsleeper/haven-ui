@@ -1,0 +1,40 @@
+<!--
+  @component-meta
+  name: Diagram Figure
+  category: Document District
+  file: doc-diagram-figure.html
+  classes: diagram-figure, diagram-figure-caption, diagram-figure-eyebrow, diagram-figure-title, diagram-figure-asset, diagram-figure-description
+  when-to-use: Embed a pre-rendered workflow swim-lane diagram inline in a document body — most commonly a SoP body. Authors reach this composition via the `:::diagram{workflow="<slug>"}` directive in markdown source; the surface-emit runner resolves the slug to a rendered asset and rewrites the authored block into this figure shape on both surfaces (HTML inline interactive SVG via iframe, DOCX inline PNG via pandoc).
+  do-not-use-when: You want to call out an advisory note (callouts), gate a structural commitment (attestation), or label a routing rule (escalation). A diagram is structural — it IS the workflow shown visually, not a comment on the workflow.
+  preline-required: no
+  notes: The first resolved-asset directive in the haven vocabulary (§3.13 in `Lab/cena-health-brand/specs/haven-directive-styling.md`). Distinct from styled-paragraph directives — the rendered output is a pre-built asset, not the author's prose. Figure-frame uses no left rule (left rules signal advisory blocks); the figure inherits page warm-ground. Restraint cap: ≤2 diagrams per SoP (HVD Q5 soft cap). The diagram-* renderer-internal classes inside `spec_to_haven_svg.mjs` migrate to `components.css` as a Tier 1 PL promotion in a follow-up slice — until then, HTML embed uses iframe srcdoc to avoid CSS-scope conflicts.
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Diagram Figure</h3>
+  <p class="pl-description">
+    Resolved-asset figure embedding a workflow swim-lane diagram. Eyebrow + caption above, asset, description below. Rendered by `:::diagram{workflow="<slug>"}` at emit time.
+  </p>
+
+  <!-- @component: doc-diagram-figure -->
+  <figure class="diagram-figure" data-workflow="example-workflow">
+    <figcaption class="diagram-figure-caption">
+      <span class="diagram-figure-eyebrow">WORKFLOW DIAGRAM</span>
+      <span class="diagram-figure-title">PHQ9 Positive Response Escalation</span>
+    </figcaption>
+    <div class="diagram-figure-asset">
+      <!-- In production this is the resolved <iframe srcdoc="..."> (HTML)
+           or pandoc.Image (DOCX). PL preview shows a static placeholder so
+           the figure frame can be reviewed without invoking the runner. -->
+      <div class="diagram-frame-placeholder" style="min-height:280px;display:flex;align-items:center;justify-content:center;">
+        <span class="diagram-frame-placeholder-label">Resolved workflow diagram (interactive in HTML, PNG snapshot in DOCX)</span>
+      </div>
+    </div>
+    <p class="diagram-figure-description">
+      When a patient's PHQ9 screening result triggers the same-day-escalation threshold, route to clinical lead for review and hand off to the Behavioral Health Network (BHN) partner for follow-up.
+    </p>
+  </figure>
+  <!-- /component -->
+</section>

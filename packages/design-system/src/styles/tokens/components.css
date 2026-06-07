@@ -12945,3 +12945,65 @@ span.diagram-icon::before {
 .attestation-signature-placeholder {
     @apply font-serif text-lg text-sand-600 italic dark:text-sand-400;
 }
+
+/* --- Diagram figure: resolved-asset figure frame ---
+   The figure-frame composition that wraps a workflow diagram embedded in
+   document body. Authored by the :::diagram{workflow="<slug>"} directive,
+   resolved at emit time by the runner. Vocabulary: figure → caption (eyebrow
+   + title) → asset wrapper (the resolved spec_to_haven_svg output) → description.
+   No left rule (left rules are the advisory-block family signature; a diagram
+   is structural, not advisory); the figure inherits the page's warm ground,
+   the existing diagram-frame-wrap carries the only hairline. Brand spec §3.13
+   in Lab/cena-health-brand/specs/haven-directive-styling.md. */
+.diagram-figure {
+    display: block;
+    margin: 8pt 0 12pt;
+    max-width: 100%;
+}
+
+.diagram-figure-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 2pt;
+    margin-bottom: 6pt;
+}
+
+/* Eyebrow above caption — Source Code Pro uppercase, sand-600. Repurposes the
+   register-shift slot the rendered-diagram standalone used for the draft-marker:
+   permanent "WORKFLOW DIAGRAM" reading on shipped diagrams; "DRAFT WORKFLOW
+   DIAGRAM — v0.1" when the draft attribute is set. */
+.diagram-figure-eyebrow {
+    @apply font-mono uppercase text-sand-600;
+    @apply dark:text-sand-400;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+/* Caption — Source Sans 3 12pt sand-700, regular weight. One step up from body
+   11pt without competing with H2/H3 hierarchy (Source Sans, not Lora). */
+.diagram-figure-title {
+    @apply font-sans text-sand-700;
+    @apply dark:text-sand-300;
+    font-size: 12pt;
+    font-weight: 400;
+}
+
+/* Asset wrapper — no styling of its own. The resolved spec_to_haven_svg output
+   carries its own diagram-frame-wrap + viewport chrome. Present as a hook so
+   consumers can target "the asset slot within a figure" if needed. */
+.diagram-figure-asset {
+    /* intentionally empty — asset self-styles */
+}
+
+/* Description below figure — Source Sans 3 italic, text-muted, hairline border
+   above (sand-200/sand-700 in dark) for register separation, max-width 900px so
+   the prose doesn't blow past the body measure even when the diagram is wider. */
+.diagram-figure-description {
+    @apply font-sans italic text-sand-600 border-t border-sand-200;
+    @apply dark:text-sand-400 dark:border-sand-700;
+    font-size: 13pt;
+    margin-top: 16pt;
+    padding-top: 8pt;
+    max-width: 900px;
+}

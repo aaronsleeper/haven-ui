@@ -1,0 +1,9 @@
+{
+  "_comment": "Workflow slug -> use-case directory containing manifest.md + fragment files for spec_from_markdown.py. Today's entries point at haven-ui's content-sot/use-cases/; cena-sot migration updates the paths here without changing :::diagram{workflow=\"<slug>\"} author syntax. Per sop-diagram-embedding.md Q4. Absolute paths in v1 — keep the lookup unambiguous regardless of where the runner is invoked from.",
+  "escalation-phq9-positive": "/Users/aaronsleeper/Vaults/Lab/haven-ui/tools/surface-emit/content-sot/use-cases/escalation-phq9-positive",
+  "initial-care-plan-meal-plan": "/Users/aaronsleeper/Vaults/Lab/haven-ui/tools/surface-emit/content-sot/use-cases/initial-care-plan-meal-plan",
+  "monthly-uconn-review-meeting": "/Users/aaronsleeper/Vaults/Lab/haven-ui/tools/surface-emit/content-sot/use-cases/monthly-uconn-review-meeting",
+  "phq9-administration": "/Users/aaronsleeper/Vaults/Lab/haven-ui/tools/surface-emit/content-sot/use-cases/phq9-administration",
+  "weekly-checkin-call": "/Users/aaronsleeper/Vaults/Lab/haven-ui/tools/surface-emit/content-sot/use-cases/weekly-checkin-call",
+  "written-consent-execution": "/Users/aaronsleeper/Vaults/Lab/haven-ui/tools/surface-emit/content-sot/use-cases/written-consent-execution"
+}
