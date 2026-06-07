@@ -44,7 +44,9 @@ const state: EditorState = {
   presetName: null,
   presetList: [],
   mode: 'light',
-  expanded: new Set(['surface']),
+  // Phase 6 (2026-06-07): no card opens by default. Cards open on swatch
+  // click (color anchors) or stay closed (type/shape anchors render inline).
+  expanded: new Set<string>(),
   saveStatus: 'idle',
   saveError: null,
 };

@@ -208,101 +208,267 @@ code {
   font-style: italic;
 }
 
-/* ============================================================ Anchor row */
+/* ============================================================ Anchor groups (Phase 6) */
 
 .te-anchor-list {
   display: flex;
   flex-direction: column;
+  gap: 18px;
+  padding: 16px 20px 20px;
 }
 
-.te-anchor {
+.te-anchor-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.te-anchor-group-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px 6px;
   border-bottom: 1px solid var(--te-border);
 }
 
-.te-anchor:last-child {
-  border-bottom: 0;
-}
-
-.te-anchor-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  background: var(--te-surface-alt);
-}
-
-.te-anchor-number {
+.te-anchor-group-title {
+  margin: 0;
   font-family: var(--te-font-mono);
-  font-size: 12px;
-  color: var(--te-ink-muted);
-  width: 20px;
-}
-
-.te-anchor-name {
-  font-family: var(--te-font-display);
+  font-size: 11px;
   font-weight: 600;
-  font-size: 16px;
-  flex: 0 0 auto;
-  min-width: 120px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--te-ink);
 }
 
-.te-anchor-readout {
-  font-family: var(--te-font-mono);
-  font-size: 13px;
+.te-anchor-group-meta {
+  font-size: 11px;
   color: var(--te-ink-muted);
+  font-family: var(--te-font-mono);
 }
 
-.te-anchor-body {
-  padding: 16px 20px 20px;
+.te-anchor-group-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 4px 0 2px;
+}
+
+/* ============================================================ Cards (Phase 6) */
+
+.te-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
+  padding: 10px;
+  background: var(--te-surface);
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-md);
 }
 
-.te-anchor-description {
-  margin: 0;
-  color: var(--te-ink-muted);
-  font-size: 14px;
-}
-
-.te-anchor-resolved {
-  margin: 0;
-  font-size: 13px;
-  color: var(--te-ink-muted);
-}
-
-/* ============================================================ Control */
-
-.te-control {
-  display: grid;
-  grid-template-columns: 220px 1fr 60px;
-  gap: 12px;
+.te-card-head {
+  display: flex;
   align-items: center;
-}
-
-.te-control-label {
-  display: inline-flex;
-  align-items: center;
+  justify-content: space-between;
   gap: 8px;
+}
+
+.te-card-label {
+  font-family: var(--te-font-display);
   font-size: 13px;
+  font-weight: 600;
+  color: var(--te-ink);
+}
+
+.te-card-readout {
+  font-family: var(--te-font-mono);
+  font-size: 11px;
   color: var(--te-ink-muted);
 }
 
-.te-control-range {
+.te-card-modepin {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  color: var(--te-accent);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--te-font-mono);
+  pointer-events: none;
+}
+
+.te-card-chain {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  color: var(--te-accent);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+/* Color swatch cards */
+
+.te-card--color {
+  width: 110px;
+  flex: 0 0 110px;
+}
+
+.te-card-swatch-btn {
+  position: relative;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.te-card-swatch {
+  width: 100%;
+  height: 60px;
+  border-radius: var(--te-radius-sm);
+  border: 1px solid var(--te-border);
+}
+
+.te-card--color.is-open .te-card-swatch {
+  outline: 2px solid var(--te-accent);
+  outline-offset: 2px;
+}
+
+/* Signals card */
+
+.te-card--signals {
+  width: 188px;
+  flex: 0 0 188px;
+}
+
+.te-signal-strip {
+  display: flex;
+  gap: 2px;
+  height: 60px;
+}
+
+.te-signal-sub {
+  position: relative;
+  flex: 1;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-sm);
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.te-signal-sub.is-active {
+  outline: 2px solid var(--te-accent);
+  outline-offset: 1px;
+}
+
+.te-signal-sub-swatch {
+  flex: 1;
+  width: 100%;
+  display: block;
+}
+
+.te-signal-sub-label {
+  display: block;
+  font-family: var(--te-font-mono);
+  font-size: 9px;
+  line-height: 1;
+  color: var(--te-ink-muted);
+  background: var(--te-surface);
+  padding: 2px 0;
   width: 100%;
 }
 
-.te-control-output {
+.te-signal-sub-pin {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: 9px;
+  color: var(--te-accent);
   font-family: var(--te-font-mono);
-  font-size: 13px;
-  text-align: right;
 }
 
-.te-control-unit {
-  font-family: var(--te-font-mono);
-  font-size: 12px;
-  color: var(--te-ink-muted);
+/* Type + Shape cards */
+
+.te-card--type,
+.te-card--shape {
+  flex: 1 1 220px;
+  min-width: 200px;
+  max-width: 320px;
 }
+
+.te-card--type-scale,
+.te-card--corners {
+  flex-basis: 280px;
+}
+
+/* Inline label-above (solo controls) */
+
+.te-control-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.te-control-label-above {
+  font-size: 11px;
+  font-family: var(--te-font-mono);
+  color: var(--te-ink-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Paired controls (Figma W/H pattern — inline-leading labels) */
+
+.te-paired-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.te-paired-row--four {
+  gap: 4px;
+}
+
+.te-paired-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--te-surface-alt);
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-sm);
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.te-paired-label {
+  font-family: var(--te-font-mono);
+  font-size: 10px;
+  text-transform: lowercase;
+  color: var(--te-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+.te-card-mini-preview {
+  font-family: var(--te-font-mono);
+  font-size: 10px;
+  color: var(--te-ink-muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Base inputs (shared with Relations + Tokens) */
 
 .te-input,
 .te-select,
@@ -316,63 +482,39 @@ code {
 }
 
 .te-input {
-  width: 84px;
+  width: 80px;
 }
 
-.te-range {
-  padding: 0;
-  width: 200px;
+.te-input--narrow {
+  width: 56px;
+  padding: 2px 4px;
+  font-size: 12px;
+  background: transparent;
+  border-color: transparent;
 }
 
-/* ============================================================ Anchor row chrome refinements */
-
-.te-anchor-header {
-  width: 100%;
-  appearance: none;
-  background: var(--te-surface-alt);
-  border: 0;
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
+.te-input--narrow:hover,
+.te-input--narrow:focus {
+  background: var(--te-surface);
+  border-color: var(--te-border);
 }
 
-.te-anchor-header:hover {
-  background: var(--te-sand-100);
-}
-
-.te-anchor-caret {
-  margin-left: auto;
-  color: var(--te-ink-muted);
+.te-input--tiny {
+  width: 38px;
+  padding: 2px 4px;
+  font-size: 11px;
+  background: transparent;
+  border-color: transparent;
   font-family: var(--te-font-mono);
 }
 
-.te-anchor-readout {
-  font-family: var(--te-font-mono);
-  font-size: 13px;
-  color: var(--te-ink-muted);
-  flex: 1;
+.te-input--tiny:hover,
+.te-input--tiny:focus {
+  background: var(--te-surface);
+  border-color: var(--te-border);
 }
 
-.te-anchor-modepin {
-  display: inline-block;
-  margin-left: 6px;
-  color: var(--te-accent);
-  font-size: 14px;
-  font-weight: 700;
-  font-family: var(--te-font-mono);
-  cursor: help;
-}
-
-.te-anchor-chain {
-  display: inline-block;
-  margin-left: 6px;
-  color: var(--te-accent);
-  font-size: 14px;
-  cursor: help;
-}
-
-.te-anchor-toggle-row {
+.te-control-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -380,60 +522,50 @@ code {
   color: var(--te-ink-muted);
 }
 
+.te-control-unit {
+  font-family: var(--te-font-mono);
+  font-size: 10px;
+  color: var(--te-ink-muted);
+}
+
+.te-range {
+  padding: 0;
+  width: 100%;
+}
+
+.te-range--narrow {
+  width: 80px;
+}
+
+/* Popovers (the hue-family-picker, anchored to its card) */
+
+.te-card-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 30;
+  margin-top: 6px;
+  min-width: 360px;
+  max-width: 380px;
+  padding: 10px;
+  background: var(--te-surface);
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.te-card-pair-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--te-ink-muted);
+  margin-bottom: 8px;
+}
+
 .te-anchor-disabled-block {
   opacity: 0.5;
   pointer-events: none;
-}
-
-.te-anchor-preview {
-  margin: 8px 0 0;
-  padding: 8px 12px;
-  background: var(--te-surface-alt);
-  border-radius: var(--te-radius-sm);
-  color: var(--te-ink);
-  font-size: 13px;
-}
-
-/* ============================================================ Signals */
-
-.te-signal-chips {
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.te-signal-chip {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid var(--te-border);
-}
-
-.te-signal-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.te-signal-row {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.te-signal-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--te-ink);
-}
-
-/* ============================================================ Corners grid */
-
-.te-corner-grid {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: 12px;
 }
 
 /* ============================================================ Relations section */

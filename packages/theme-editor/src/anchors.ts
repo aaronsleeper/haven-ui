@@ -1,20 +1,27 @@
 /**
- * Anchor row factories — all 11 v1 anchors.
+ * Anchor row factories — Phase 6 (Figma-density grouped grid, 2026-06-07).
  *
- * Each anchor has a row factory that owns:
- *   - rendering its collapsed header (name + value readout + mode-pin glyph)
- *   - rendering its expanded body (editor specific to the value type)
- *   - listening to value-change events and pushing into the store
+ * The Anchors section is now three labeled groups (Color · Type · Shape).
+ * Every anchor is visible at rest. Color anchors render a swatch-card; the
+ * hue-family-picker pops over from a click on the swatch. Type/shape anchors
+ * render their controls inline at rest (no popover — the controls ARE the
+ * authoring surface).
  *
- * Color anchors render the shipped @haven/design-system hue-family-picker
- * (compact variant). Type/shape anchors use simple form controls because
- * they don't have a brand-canon-aligned shared editor yet.
+ * Spec: ~/.claude/plans/haven-theme-editor-ux-proposal.md §3 (revised 2026-06-07).
  *
- * The picker JS auto-inits on DOMContentLoaded but we render dynamically.
- * Boot sequence handles this by dynamic-importing the picker module AFTER
- * the editor renders its DOM the first time; on programmatic preset/mode
- * changes we drive each picker via its `_hueFamilyPicker.setValue()` and
- * `setFamily()` API (no re-init needed).
+ * Store contract preserved: the `expanded` Set drives popover-open state for
+ * color cards. Single-anchor-open by default; meta-click pins multiple open.
+ * Type/shape cards ignore `expanded` (they have no popover state).
+ *
+ * Responsive: each group's body uses `display: flex; flex-wrap: wrap` so cards
+ * reflow on narrow viewports rather than getting cut off (Aaron's narrow-window
+ * Obsidian-alongside use case).
+ *
+ * Label discipline (Figma read):
+ *   - Solo controls (Display face / Reading face / Spacing) → label above input
+ *   - Paired controls (Type scale base+ratio, Corners s/m/l/xl, Elevation) →
+ *     inline-leading short labels (Figma W/H pattern)
+ *   - Group headers (Color / Type / Shape) name the substrate decision.
  */
 
 import type {
@@ -27,6 +34,7 @@ import type {
   SpacingValue,
   CornerValue,
   ElevationValue,
+  Preset,
 } from './types';
 import { valueForMode } from './types';
 import {
@@ -34,23 +42,25 @@ import {
   toggleExpanded,
   setCompanionPaired,
   refreshCompanionFromAccent,
+  getState,
   type AnchorAddress,
   type OptimisticEdit,
 } from './store';
 import { resolveStop, companionPairedToAccent } from './color';
 
+// ANCHOR_LIST retained for the Relations filter (relations-ui imports it).
 export const ANCHOR_LIST: { key: string; label: string; description: string; kind: AnchorKind }[] = [
-  { key: 'surface',     label: 'Surface',     description: 'The warm ground everything sits on',          kind: 'color' },
-  { key: 'ink',         label: 'Ink',         description: 'The reading colour and figure on the surface', kind: 'color' },
-  { key: 'accent',      label: 'Accent',      description: 'Interactive register — links, focus, active states', kind: 'color' },
-  { key: 'companion',   label: 'Companion',   description: 'The second voice — blockquotes, tags, hue-shift partner', kind: 'companion' },
-  { key: 'signals',     label: 'Signals',     description: 'Status colours — error, warning, success, info, note', kind: 'signals' },
+  { key: 'surface',     label: 'Surface',      description: 'The warm ground everything sits on', kind: 'color' },
+  { key: 'ink',         label: 'Ink',          description: 'The reading colour and figure on the surface', kind: 'color' },
+  { key: 'accent',      label: 'Accent',       description: 'Interactive register — links, focus, active states', kind: 'color' },
+  { key: 'companion',   label: 'Companion',    description: 'The second voice — blockquotes, tags, hue-shift partner', kind: 'companion' },
+  { key: 'signals',     label: 'Signals',      description: 'Status colours — error, warning, success, info, note', kind: 'signals' },
   { key: 'displayFace', label: 'Display face', description: 'Headlines and section titles', kind: 'type-face' },
   { key: 'readingFace', label: 'Reading face', description: 'Body text and UI', kind: 'type-face' },
-  { key: 'typeScale',   label: 'Type scale',  description: 'Base size and ratio between heading sizes', kind: 'type-scale' },
-  { key: 'spacing',     label: 'Spacing',     description: 'Base unit and rhythm', kind: 'spacing' },
-  { key: 'corners',     label: 'Corners',     description: 'Border-radius register', kind: 'corners' },
-  { key: 'elevation',   label: 'Elevation',   description: 'Border weight and shadow intensity', kind: 'elevation' },
+  { key: 'typeScale',   label: 'Type scale',   description: 'Base size and ratio between heading sizes', kind: 'type-scale' },
+  { key: 'spacing',     label: 'Spacing',      description: 'Base unit and rhythm', kind: 'spacing' },
+  { key: 'corners',     label: 'Corners',      description: 'Border-radius register', kind: 'corners' },
+  { key: 'elevation',   label: 'Elevation',    description: 'Border weight and shadow intensity', kind: 'elevation' },
 ];
 
 type AnchorKind =
@@ -73,19 +83,29 @@ const SIGNAL_LABELS: Record<(typeof SIGNAL_KEYS)[number], string> = {
   accentInfo: 'Accent info',
 };
 
-// ---------------------------------------------------------------------------
-// Optimistic-edit + undo chip wiring
-// ---------------------------------------------------------------------------
+const SIGNAL_SHORT: Record<(typeof SIGNAL_KEYS)[number], string> = {
+  error:      'er',
+  warning:    'wa',
+  success:    'su',
+  info:       'in',
+  accentInfo: 'ai',
+};
 
-/**
- * One callback type for every anchor-row optimistic edit. The factory wires
- * each picker/input to call this with the OptimisticEdit so main.ts can
- * surface the undo chip + schedule the write.
- */
+const COMMON_FONTS = [
+  'Lora',
+  'Source Sans 3',
+  'Source Code Pro',
+  'Plus Jakarta Sans',
+  'Inter',
+  'IBM Plex Serif',
+  'IBM Plex Sans',
+  'system-ui',
+];
+
 export type OnEdit = (edit: OptimisticEdit<unknown>) => void;
 
 // ---------------------------------------------------------------------------
-// Picker markup template — used by all color anchors + signals sub-rows
+// Picker markup — unchanged from prior phases; rendered inside a popover
 // ---------------------------------------------------------------------------
 
 function pickerMarkup(id: string, family: FamilySlug, stop: number): string {
@@ -155,320 +175,264 @@ function pickerMarkup(id: string, family: FamilySlug, stop: number): string {
 }
 
 // ---------------------------------------------------------------------------
-// Row scaffolding — shared header structure
+// Common glyphs
 // ---------------------------------------------------------------------------
 
 function modePinGlyph<T>(m: ModedValue<T>): string {
-  return m.kind === 'pinned' ? '<span class="te-anchor-modepin" title="Mode-pinned">⌐</span>' : '';
-}
-
-function shapeRowHeader(
-  index: number,
-  label: string,
-  readout: string,
-  isExpanded: boolean,
-  extraGlyphs = '',
-): string {
-  return `
-<button type="button" class="te-anchor-header" data-anchor-toggle
-        aria-expanded="${isExpanded}">
-  <span class="te-anchor-number">${index}</span>
-  <span class="te-anchor-name">${label}</span>
-  <span class="te-anchor-readout">${readout}</span>
-  ${extraGlyphs}
-  <span class="te-anchor-caret">${isExpanded ? '▾' : '▸'}</span>
-</button>`;
+  return m.kind === 'pinned'
+    ? '<span class="te-card-modepin" title="Mode-pinned" aria-label="Mode-pinned">⌐</span>'
+    : '';
 }
 
 // ---------------------------------------------------------------------------
-// Color anchor row (Surface, Ink, Accent)
+// Color swatch-card (Surface / Ink / Accent / Companion)
 // ---------------------------------------------------------------------------
 
-function renderColorRow(
-  index: number,
-  key: 'surface' | 'ink' | 'accent',
+function colorSwatchCard(
+  key: string,
   label: string,
   description: string,
   m: ModedValue<ColorAnchorValue>,
   mode: ModeKey,
-  isExpanded: boolean,
+  isOpen: boolean,
+  extraTopLeft = '',
 ): string {
   const v = valueForMode(m, mode);
   const resolved = resolveStop(v.family, v.stop);
   const readout = `${v.family} · ${resolved.stopName}`;
-  const gamut = resolved.inGamut ? '' : ' · sRGB clamped';
   return `
-<div class="te-anchor te-anchor--color" data-anchor-row="${key}">
-  ${shapeRowHeader(index, label, readout + gamut, isExpanded, modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      ${pickerMarkup(`${key}`, v.family, v.stop)}
-      <p class="te-anchor-resolved">${resolved.hex} · ${resolved.oklch}</p>
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--color${isOpen ? ' is-open' : ''}" data-anchor-row="${key}"
+         data-card-kind="color" title="${escapeAttr(description)}">
+  <button type="button" class="te-card-swatch-btn" data-anchor-toggle aria-expanded="${isOpen}"
+          aria-label="${label} — open picker">
+    <div class="te-card-swatch" style="background:${resolved.hex}"></div>
+    ${extraTopLeft}
+    ${modePinGlyph(m)}
+  </button>
+  <div class="te-card-label">${label}</div>
+  <div class="te-card-readout">${readout}</div>
+  ${isOpen ? `<div class="te-card-popover" data-popover>${pickerMarkup(key, v.family, v.stop)}</div>` : ''}
+</article>`;
 }
 
-// ---------------------------------------------------------------------------
-// Companion anchor (paired-to-accent variant)
-// ---------------------------------------------------------------------------
-
-function renderCompanionRow(
-  index: number,
-  label: string,
-  description: string,
-  paired: boolean,
+function companionCard(
   m: ModedValue<ColorAnchorValue>,
+  paired: boolean,
   mode: ModeKey,
-  isExpanded: boolean,
+  isOpen: boolean,
 ): string {
   const v = valueForMode(m, mode);
   const resolved = resolveStop(v.family, v.stop);
-  const chain = paired ? '<span class="te-anchor-chain" title="Paired with Accent">⚭</span>' : '';
+  const chain = paired
+    ? '<span class="te-card-chain" title="Paired with Accent (canonical sage hue-shift)" aria-label="Paired with Accent">⚭</span>'
+    : '';
   const readout = `${v.family} · ${resolved.stopName}${paired ? ' · paired' : ''}`;
   return `
-<div class="te-anchor te-anchor--color" data-anchor-row="companion">
-  ${shapeRowHeader(index, label, readout, isExpanded, chain + modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <label class="te-anchor-toggle-row">
+<article class="te-card te-card--color${isOpen ? ' is-open' : ''}" data-anchor-row="companion"
+         data-card-kind="color" title="The second voice — blockquotes, tags, hue-shift partner">
+  <button type="button" class="te-card-swatch-btn" data-anchor-toggle aria-expanded="${isOpen}"
+          aria-label="Companion — open picker">
+    <div class="te-card-swatch" style="background:${resolved.hex}"></div>
+    ${chain}
+    ${modePinGlyph(m)}
+  </button>
+  <div class="te-card-label">Companion</div>
+  <div class="te-card-readout">${readout}</div>
+  ${isOpen ? `
+    <div class="te-card-popover" data-popover>
+      <label class="te-card-pair-toggle">
         <input type="checkbox" data-companion-pair ${paired ? 'checked' : ''}>
         <span>Pair with Accent (canonical sage hue-shift)</span>
       </label>
       <div class="${paired ? 'te-anchor-disabled-block' : ''}">
         ${pickerMarkup('companion', v.family, v.stop)}
       </div>
-      <p class="te-anchor-resolved">${resolved.hex} · ${resolved.oklch}</p>
     </div>
   ` : ''}
-</div>`;
+</article>`;
 }
 
 // ---------------------------------------------------------------------------
-// Signals anchor — 5 sub-pickers
+// Signals card — 5 inline sub-swatches; click any → popover with that sub-picker
 // ---------------------------------------------------------------------------
 
-function renderSignalsRow(
-  index: number,
-  label: string,
-  description: string,
-  signals: { error: ModedValue<ColorAnchorValue>; warning: ModedValue<ColorAnchorValue>;
-             success: ModedValue<ColorAnchorValue>; info: ModedValue<ColorAnchorValue>;
-             accentInfo: ModedValue<ColorAnchorValue> },
+function signalsCard(
+  signals: {
+    error: ModedValue<ColorAnchorValue>;
+    warning: ModedValue<ColorAnchorValue>;
+    success: ModedValue<ColorAnchorValue>;
+    info: ModedValue<ColorAnchorValue>;
+    accentInfo: ModedValue<ColorAnchorValue>;
+  },
   mode: ModeKey,
-  isExpanded: boolean,
+  openSignal: (typeof SIGNAL_KEYS)[number] | null,
 ): string {
-  const summary = SIGNAL_KEYS
-    .map((k) => {
-      const v = valueForMode(signals[k], mode);
-      return `<span class="te-signal-chip" style="background:${resolveStop(v.family, v.stop).hex}" title="${SIGNAL_LABELS[k]} · ${v.family}"></span>`;
-    })
-    .join('');
+  const strip = SIGNAL_KEYS.map((k) => {
+    const v = valueForMode(signals[k], mode);
+    const r = resolveStop(v.family, v.stop);
+    const isActive = openSignal === k;
+    return `
+      <button type="button" class="te-signal-sub${isActive ? ' is-active' : ''}"
+              data-signal-sub="${k}" aria-pressed="${isActive}"
+              aria-label="${SIGNAL_LABELS[k]} — open picker"
+              title="${SIGNAL_LABELS[k]} · ${v.family}">
+        <span class="te-signal-sub-swatch" style="background:${r.hex}"></span>
+        <span class="te-signal-sub-label">${SIGNAL_SHORT[k]}</span>
+        ${signals[k].kind === 'pinned' ? '<span class="te-signal-sub-pin" title="Mode-pinned">⌐</span>' : ''}
+      </button>`;
+  }).join('');
+
+  let popover = '';
+  if (openSignal) {
+    const v = valueForMode(signals[openSignal], mode);
+    popover = `<div class="te-card-popover" data-popover>${pickerMarkup(`signal-${openSignal}`, v.family, v.stop)}</div>`;
+  }
+
   return `
-<div class="te-anchor te-anchor--signals" data-anchor-row="signals">
-  ${shapeRowHeader(index, label, `<span class="te-signal-chips">${summary}</span>`, isExpanded)}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <div class="te-signal-list">
-        ${SIGNAL_KEYS.map((k) => {
-          const v = valueForMode(signals[k], mode);
-          return `
-            <div class="te-signal-row" data-signal-row="${k}">
-              <span class="te-signal-label">${SIGNAL_LABELS[k]}${modePinGlyph(signals[k])}</span>
-              ${pickerMarkup(`signal-${k}`, v.family, v.stop)}
-            </div>`;
-        }).join('')}
-      </div>
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--signals${openSignal ? ' is-open' : ''}" data-anchor-row="signals"
+         data-card-kind="signals" title="Status colours — error, warning, success, info, note">
+  <div class="te-signal-strip">${strip}</div>
+  <div class="te-card-label">Signals</div>
+  <div class="te-card-readout">5 status</div>
+  ${popover}
+</article>`;
 }
 
 // ---------------------------------------------------------------------------
-// Type-face row (display, reading)
+// Type cards
 // ---------------------------------------------------------------------------
 
-const COMMON_FONTS = [
-  'Lora',
-  'Source Sans 3',
-  'Source Code Pro',
-  'Plus Jakarta Sans',
-  'Inter',
-  'IBM Plex Serif',
-  'IBM Plex Sans',
-  'system-ui',
-];
-
-function renderTypeFaceRow(
-  index: number,
+function typeFaceCard(
   key: 'displayFace' | 'readingFace',
   label: string,
-  description: string,
   m: ModedValue<TypeFaceValue>,
   mode: ModeKey,
-  isExpanded: boolean,
 ): string {
   const v = valueForMode(m, mode);
   const options = COMMON_FONTS.includes(v.family) ? COMMON_FONTS : [v.family, ...COMMON_FONTS];
   return `
-<div class="te-anchor te-anchor--type-face" data-anchor-row="${key}">
-  ${shapeRowHeader(index, label, v.family, isExpanded, modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <label class="te-control-label">Font family
-        <select class="te-select" data-type-face-select>
-          ${options.map((f) => `<option value="${f}" ${f === v.family ? 'selected' : ''}>${f}</option>`).join('')}
-        </select>
-      </label>
-      <p class="te-anchor-preview" style="font-family: '${v.family}', system-ui, sans-serif;">
-        The quick brown fox jumps over the lazy dog.
-      </p>
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--type" data-anchor-row="${key}" data-card-kind="type">
+  <div class="te-card-head">
+    <div class="te-card-label">${label}</div>
+    ${modePinGlyph(m)}
+  </div>
+  <label class="te-control-stacked">
+    <span class="te-control-label-above">Font family</span>
+    <select class="te-select" data-type-face-select>
+      ${options.map((f) => `<option value="${escapeAttr(f)}" ${f === v.family ? 'selected' : ''}>${escapeHtml(f)}</option>`).join('')}
+    </select>
+  </label>
+</article>`;
 }
 
-// ---------------------------------------------------------------------------
-// Type-scale row
-// ---------------------------------------------------------------------------
-
-function renderTypeScaleRow(
-  index: number,
-  label: string,
-  description: string,
-  m: ModedValue<TypeScaleValue>,
-  mode: ModeKey,
-  isExpanded: boolean,
-): string {
+function typeScaleCard(m: ModedValue<TypeScaleValue>, mode: ModeKey): string {
   const v = valueForMode(m, mode);
+  const sizes = [5, 4, 3, 2, 1, 0]
+    .map((n) => Math.round(v.basePx * Math.pow(v.ratio, n) * 100) / 100)
+    .map((n) => `${n}`)
+    .join(' · ');
   return `
-<div class="te-anchor te-anchor--type-scale" data-anchor-row="typeScale">
-  ${shapeRowHeader(index, label, `${v.basePx}px · ratio ${v.ratio}`, isExpanded, modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <label class="te-control-label">Base size
-        <input type="number" class="te-input" min="10" max="24" step="1"
-               data-type-scale-base value="${v.basePx}">
-        <span class="te-control-unit">px</span>
-      </label>
-      <label class="te-control-label">Ratio
-        <input type="number" class="te-input" min="1.05" max="1.6" step="0.025"
-               data-type-scale-ratio value="${v.ratio}">
-      </label>
-      <p class="te-anchor-preview">
-        ${[5, 4, 3, 2, 1, 0]
-          .map((n) => {
-            const size = Math.round(v.basePx * Math.pow(v.ratio, n) * 100) / 100;
-            return `<span style="font-size:${size}px">h${6 - n}</span>`;
-          })
-          .join(' ')}
-      </p>
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--type te-card--type-scale" data-anchor-row="typeScale" data-card-kind="type">
+  <div class="te-card-head">
+    <div class="te-card-label">Type scale</div>
+    ${modePinGlyph(m)}
+  </div>
+  <div class="te-paired-row">
+    <label class="te-paired-input">
+      <span class="te-paired-label">base</span>
+      <input type="number" class="te-input te-input--narrow" min="10" max="24" step="1"
+             data-type-scale-base value="${v.basePx}">
+    </label>
+    <label class="te-paired-input">
+      <span class="te-paired-label">ratio</span>
+      <input type="number" class="te-input te-input--narrow" min="1.05" max="1.6" step="0.025"
+             data-type-scale-ratio value="${v.ratio}">
+    </label>
+  </div>
+  <div class="te-card-mini-preview">${sizes}</div>
+</article>`;
 }
 
 // ---------------------------------------------------------------------------
-// Shape rows
+// Shape cards
 // ---------------------------------------------------------------------------
 
-function renderSpacingRow(
-  index: number,
-  label: string,
-  description: string,
-  m: ModedValue<SpacingValue>,
-  mode: ModeKey,
-  isExpanded: boolean,
-): string {
+function spacingCard(m: ModedValue<SpacingValue>, mode: ModeKey): string {
   const v = valueForMode(m, mode);
+  const preview = [1, 2, 3, 4, 6, 8].map((n) => `${v.basePx * n}`).join(' · ');
   return `
-<div class="te-anchor te-anchor--spacing" data-anchor-row="spacing">
-  ${shapeRowHeader(index, label, `${v.basePx}px base · ${v.kind}`, isExpanded, modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <label class="te-control-label">Base
-        <input type="number" class="te-input" min="2" max="8" step="1"
-               data-spacing-base value="${v.basePx}">
-        <span class="te-control-unit">px</span>
-      </label>
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--shape" data-anchor-row="spacing" data-card-kind="shape">
+  <div class="te-card-head">
+    <div class="te-card-label">Spacing</div>
+    ${modePinGlyph(m)}
+  </div>
+  <div class="te-paired-row">
+    <label class="te-paired-input">
+      <span class="te-paired-label">base</span>
+      <input type="number" class="te-input te-input--narrow" min="2" max="8" step="1"
+             data-spacing-base value="${v.basePx}">
+      <span class="te-control-unit">px</span>
+    </label>
+  </div>
+  <div class="te-card-mini-preview">${preview}</div>
+</article>`;
 }
 
-function renderCornersRow(
-  index: number,
-  label: string,
-  description: string,
-  m: ModedValue<CornerValue>,
-  mode: ModeKey,
-  isExpanded: boolean,
-): string {
+function cornersCard(m: ModedValue<CornerValue>, mode: ModeKey): string {
   const v = valueForMode(m, mode);
-  const ratioReadout = v.derivedFrom
-    ? ` · base ${v.derivedFrom.base} × ${v.derivedFrom.ratio}`
-    : '';
+  const derived = !!v.derivedFrom;
   return `
-<div class="te-anchor te-anchor--corners" data-anchor-row="corners">
-  ${shapeRowHeader(index, label, `${v.s} / ${v.m} / ${v.l} / ${v.xl}${ratioReadout}`, isExpanded, modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <div class="te-corner-grid">
-        ${(['s', 'm', 'l', 'xl'] as const).map((k) => `
-          <label class="te-control-label">${k.toUpperCase()}
-            <input type="number" class="te-input" min="0" max="64" step="1"
-                   data-corner-stop="${k}" value="${v[k]}">
-            <span class="te-control-unit">px</span>
-          </label>`).join('')}
-      </div>
-      ${v.derivedFrom ? `<p class="te-anchor-resolved">Detected ratio ladder: base ${v.derivedFrom.base} × ${v.derivedFrom.ratio}</p>` : ''}
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--shape te-card--corners" data-anchor-row="corners" data-card-kind="shape">
+  <div class="te-card-head">
+    <div class="te-card-label">Corners</div>
+    ${modePinGlyph(m)}
+  </div>
+  <div class="te-paired-row te-paired-row--four">
+    ${(['s', 'm', 'l', 'xl'] as const).map((k) => `
+      <label class="te-paired-input">
+        <span class="te-paired-label">${k}</span>
+        <input type="number" class="te-input te-input--tiny" min="0" max="64" step="1"
+               data-corner-stop="${k}" value="${v[k]}">
+      </label>
+    `).join('')}
+  </div>
+  ${derived ? `<div class="te-card-mini-preview">base ${v.derivedFrom!.base} × ${v.derivedFrom!.ratio}</div>` : ''}
+</article>`;
 }
 
-function renderElevationRow(
-  index: number,
-  label: string,
-  description: string,
-  m: ModedValue<ElevationValue>,
-  mode: ModeKey,
-  isExpanded: boolean,
-): string {
+function elevationCard(m: ModedValue<ElevationValue>, mode: ModeKey): string {
   const v = valueForMode(m, mode);
+  const shadowPct = Math.round(v.shadowIntensity * 100);
   return `
-<div class="te-anchor te-anchor--elevation" data-anchor-row="elevation">
-  ${shapeRowHeader(index, label, `${v.borderWeight}px borders · shadow ${Math.round(v.shadowIntensity * 100)}%`, isExpanded, modePinGlyph(m))}
-  ${isExpanded ? `
-    <div class="te-anchor-body">
-      <p class="te-anchor-description">${description}</p>
-      <label class="te-control-label">Border weight
-        <input type="number" class="te-input" min="0" max="3" step="1"
-               data-elevation-border value="${v.borderWeight}">
-        <span class="te-control-unit">px</span>
-      </label>
-      <label class="te-control-label">Shadow intensity
-        <input type="range" class="te-range" min="0" max="100" step="5"
-               data-elevation-shadow value="${Math.round(v.shadowIntensity * 100)}">
-        <span class="te-control-unit">${Math.round(v.shadowIntensity * 100)}%</span>
-      </label>
-    </div>
-  ` : ''}
-</div>`;
+<article class="te-card te-card--shape" data-anchor-row="elevation" data-card-kind="shape">
+  <div class="te-card-head">
+    <div class="te-card-label">Elevation</div>
+    ${modePinGlyph(m)}
+  </div>
+  <div class="te-paired-row">
+    <label class="te-paired-input">
+      <span class="te-paired-label">border</span>
+      <input type="number" class="te-input te-input--tiny" min="0" max="3" step="1"
+             data-elevation-border value="${v.borderWeight}">
+      <span class="te-control-unit">px</span>
+    </label>
+    <label class="te-paired-input">
+      <span class="te-paired-label">shadow</span>
+      <input type="range" class="te-range te-range--narrow" min="0" max="100" step="5"
+             data-elevation-shadow value="${shadowPct}">
+      <span class="te-control-unit">${shadowPct}%</span>
+    </label>
+  </div>
+</article>`;
 }
 
 // ---------------------------------------------------------------------------
-// Top-level render — produces the markup for all 11 anchors
+// Top-level group renderer
 // ---------------------------------------------------------------------------
 
-import type { Preset } from './types';
+function isSignalKey(k: string): k is (typeof SIGNAL_KEYS)[number] {
+  return (SIGNAL_KEYS as readonly string[]).includes(k);
+}
 
 export function renderAnchorList(
   preset: Preset,
@@ -476,35 +440,65 @@ export function renderAnchorList(
   expanded: Set<string>,
 ): string {
   const a = preset.anchors;
-  return ANCHOR_LIST.map((spec, i) => {
-    const idx = i + 1;
-    const isExpanded = expanded.has(spec.key);
-    switch (spec.kind) {
-      case 'color':
-        return renderColorRow(idx, spec.key as 'surface' | 'ink' | 'accent', spec.label, spec.description,
-          a[spec.key as 'surface' | 'ink' | 'accent'], mode, isExpanded);
-      case 'companion':
-        return renderCompanionRow(idx, spec.label, spec.description,
-          a.companion.pairedToAccent, a.companion.value, mode, isExpanded);
-      case 'signals':
-        return renderSignalsRow(idx, spec.label, spec.description, a.signals, mode, isExpanded);
-      case 'type-face':
-        return renderTypeFaceRow(idx, spec.key as 'displayFace' | 'readingFace', spec.label, spec.description,
-          a[spec.key as 'displayFace' | 'readingFace'], mode, isExpanded);
-      case 'type-scale':
-        return renderTypeScaleRow(idx, spec.label, spec.description, a.typeScale, mode, isExpanded);
-      case 'spacing':
-        return renderSpacingRow(idx, spec.label, spec.description, a.spacing, mode, isExpanded);
-      case 'corners':
-        return renderCornersRow(idx, spec.label, spec.description, a.corners, mode, isExpanded);
-      case 'elevation':
-        return renderElevationRow(idx, spec.label, spec.description, a.elevation, mode, isExpanded);
+  // For Signals, the `expanded` Set may contain entries like `signals.error` to
+  // mark which sub-picker is open. We extract the first such entry as the open
+  // signal sub-anchor. If none, openSignal stays null.
+  const openSignal = ((): (typeof SIGNAL_KEYS)[number] | null => {
+    for (const k of expanded) {
+      if (k.startsWith('signals.')) {
+        const sub = k.slice('signals.'.length);
+        if (isSignalKey(sub)) return sub;
+      }
     }
-  }).join('');
+    return null;
+  })();
+
+  const colorGroup = `
+<div class="te-anchor-group">
+  <header class="te-anchor-group-header">
+    <h3 class="te-anchor-group-title">Color</h3>
+    <span class="te-anchor-group-meta">5 anchors · click swatch to open picker</span>
+  </header>
+  <div class="te-anchor-group-body">
+    ${colorSwatchCard('surface', 'Surface', 'The warm ground everything sits on', a.surface, mode, expanded.has('surface'))}
+    ${colorSwatchCard('ink', 'Ink', 'The reading colour and figure on the surface', a.ink, mode, expanded.has('ink'))}
+    ${colorSwatchCard('accent', 'Accent', 'Interactive register — links, focus, active states', a.accent, mode, expanded.has('accent'))}
+    ${companionCard(a.companion.value, a.companion.pairedToAccent, mode, expanded.has('companion'))}
+    ${signalsCard(a.signals, mode, openSignal)}
+  </div>
+</div>`;
+
+  const typeGroup = `
+<div class="te-anchor-group">
+  <header class="te-anchor-group-header">
+    <h3 class="te-anchor-group-title">Type</h3>
+    <span class="te-anchor-group-meta">3 anchors · scale derived from base × ratio</span>
+  </header>
+  <div class="te-anchor-group-body">
+    ${typeFaceCard('displayFace', 'Display face', a.displayFace, mode)}
+    ${typeFaceCard('readingFace', 'Reading face', a.readingFace, mode)}
+    ${typeScaleCard(a.typeScale, mode)}
+  </div>
+</div>`;
+
+  const shapeGroup = `
+<div class="te-anchor-group">
+  <header class="te-anchor-group-header">
+    <h3 class="te-anchor-group-title">Shape</h3>
+    <span class="te-anchor-group-meta">3 anchors · spacing / corners / elevation</span>
+  </header>
+  <div class="te-anchor-group-body">
+    ${spacingCard(a.spacing, mode)}
+    ${cornersCard(a.corners, mode)}
+    ${elevationCard(a.elevation, mode)}
+  </div>
+</div>`;
+
+  return colorGroup + typeGroup + shapeGroup;
 }
 
 // ---------------------------------------------------------------------------
-// Event wiring — called after each render to bind handlers
+// Event wiring
 // ---------------------------------------------------------------------------
 
 interface WireOpts {
@@ -512,34 +506,110 @@ interface WireOpts {
   scheduleWrite: () => void;
 }
 
+// One outside-click handler attached lazily; closes any open picker (color
+// anchor or signal sub-picker) when the click lands outside both the trigger
+// and the popover. The handler stays attached for the page lifetime since the
+// editor is a single SPA-shaped surface.
+let outsideClickAttached = false;
+
+function attachOutsideClickOnce() {
+  if (outsideClickAttached) return;
+  outsideClickAttached = true;
+  document.addEventListener('mousedown', (e) => {
+    const target = e.target as Node | null;
+    if (!target) return;
+    const root = document.querySelector<HTMLElement>('#te-anchor-list');
+    if (!root || !root.contains(target)) {
+      // Click outside the anchors section → close every open card.
+      closeAllOpen();
+      return;
+    }
+    // Click inside — close only if the click is not inside an open card's
+    // swatch/strip-button OR its popover. (Clicks on other cards' swatches
+    // will be handled by the toggle handler, which already closes others.)
+    const card = (target as HTMLElement).closest<HTMLElement>('[data-anchor-row]');
+    if (!card) {
+      closeAllOpen();
+      return;
+    }
+    const inPopover = (target as HTMLElement).closest('[data-popover]');
+    const inToggle = (target as HTMLElement).closest('[data-anchor-toggle], [data-signal-sub]');
+    if (!inPopover && !inToggle) {
+      // Click was inside a card but not on a toggle or its popover (e.g. the
+      // label area) — don't close anything.
+    }
+  }, true);
+
+  // Esc closes any open picker.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllOpen();
+    }
+  });
+}
+
+function closeAllOpen() {
+  const { expanded } = getState();
+  if (expanded.size === 0) return;
+  const keys = Array.from(expanded);
+  for (const k of keys) {
+    // Treat each as its own "close" toggle — pass non-additive so toggleExpanded
+    // clears it cleanly when it's the only entry, or removes from the set.
+    toggleExpanded(k, true);
+  }
+}
+
 export function wireAnchorEvents(root: HTMLElement, opts: WireOpts): void {
-  // Header toggles
+  attachOutsideClickOnce();
+
+  // Color swatch buttons — toggle popover open/closed
   root.querySelectorAll<HTMLButtonElement>('[data-anchor-toggle]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const row = btn.closest('[data-anchor-row]') as HTMLElement | null;
       if (!row) return;
       const key = row.dataset.anchorRow!;
       const additive = e.metaKey || e.ctrlKey;
+      // When opening this card without additive, also clear any open signal sub.
+      const { expanded } = getState();
+      if (!additive && !expanded.has(key)) {
+        for (const k of Array.from(expanded)) {
+          if (k.startsWith('signals.')) toggleExpanded(k, true);
+        }
+      }
       toggleExpanded(key, additive);
     });
   });
 
-  // Hue-family-picker events — bubble from the picker root
+  // Signal sub-swatches — open/close the per-signal popover
+  root.querySelectorAll<HTMLButtonElement>('[data-signal-sub]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const sub = btn.dataset.signalSub!;
+      const key = `signals.${sub}`;
+      const additive = e.metaKey || e.ctrlKey;
+      // Close any other open signal subs unless additive
+      const { expanded } = getState();
+      if (!additive) {
+        for (const k of Array.from(expanded)) {
+          if (k !== key && k.startsWith('signals.')) toggleExpanded(k, true);
+          // Also close any open card-level color anchors so the popover doesn't stack
+          if (k !== key && !k.startsWith('signals.')) toggleExpanded(k, true);
+        }
+      }
+      toggleExpanded(key, additive);
+    });
+  });
+
+  // Hue-family-picker events — bubble from the picker root in any popover
   root.querySelectorAll<HTMLElement>('[data-hue-family-picker]').forEach((pickerEl) => {
     pickerEl.addEventListener('hue-pick', (e: Event) => {
-      const detail = (e as CustomEvent).detail as {
-        family: FamilySlug;
-        value: number;
-        source: string;
-      };
-      if (detail.source === 'set') return; // ignore programmatic changes
+      const detail = (e as CustomEvent).detail as { family: FamilySlug; value: number; source: string };
+      if (detail.source === 'set') return;
       const id = pickerEl.dataset.anchorPickerId!;
       const address = pickerIdToAddress(id);
       if (!address) return;
       const nextValue: ColorAnchorValue = { family: detail.family, stop: detail.value };
       const result = editAnchor.color(address, nextValue);
       if (result) opts.onEdit(result);
-      // Companion auto-pair: when accent moves, refresh companion cache
       if (address === 'accent') {
         refreshCompanionFromAccent(companionPairedToAccent(detail.family));
       }
@@ -572,10 +642,7 @@ export function wireAnchorEvents(root: HTMLElement, opts: WireOpts): void {
   const tsRatio = root.querySelector<HTMLInputElement>('[data-type-scale-ratio]');
   if (tsBase && tsRatio) {
     const fire = () => {
-      const result = editAnchor.typeScale({
-        basePx: Number(tsBase.value),
-        ratio: Number(tsRatio.value),
-      });
+      const result = editAnchor.typeScale({ basePx: Number(tsBase.value), ratio: Number(tsRatio.value) });
       if (result) opts.onEdit(result);
       opts.scheduleWrite();
     };
@@ -587,10 +654,7 @@ export function wireAnchorEvents(root: HTMLElement, opts: WireOpts): void {
   const spBase = root.querySelector<HTMLInputElement>('[data-spacing-base]');
   if (spBase) {
     spBase.addEventListener('change', () => {
-      const result = editAnchor.spacing({
-        basePx: Number(spBase.value),
-        kind: 'linear',
-      });
+      const result = editAnchor.spacing({ basePx: Number(spBase.value), kind: 'linear' });
       if (result) opts.onEdit(result);
       opts.scheduleWrite();
     });
@@ -638,4 +702,21 @@ function pickerIdToAddress(id: string): AnchorAddress | null {
     }
   }
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeAttr(s: string): string {
+  return escapeHtml(s);
 }
