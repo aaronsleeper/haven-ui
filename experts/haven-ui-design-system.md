@@ -5,6 +5,7 @@ scope: project
 projects: [Cena Health, haven-ui]
 created: 2026-05-16
 last_verified: 2026-05-16
+practice: engineering
 ---
 
 ## Essential briefing
