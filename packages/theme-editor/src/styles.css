@@ -1,9 +1,13 @@
 /* =============================================================================
-   Haven theme editor — Phase 1 shell stylesheet
+   Haven theme editor — shell stylesheet
 
-   Self-contained for Phase 1; Phase 2+ will consume haven-ui design-system
-   tokens via workspace import. Brand fonts loaded in index.html.
+   Editor-local semantic classes (te-* prefix). Picker chrome is vendored
+   from haven-ui at src/vendor/picker.css (see that file's SOURCE header).
+   Brand fonts loaded in index.html.
    ========================================================================== */
+
+@import "./vendor/picker.css";
+
 
 :root {
   /* Haven canon — vendored Phase 1 minimum. Replaced by design-system import in Phase 2. */
@@ -246,6 +250,9 @@ code {
 }
 
 .te-control-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 13px;
   color: var(--te-ink-muted);
 }
@@ -258,6 +265,200 @@ code {
   font-family: var(--te-font-mono);
   font-size: 13px;
   text-align: right;
+}
+
+.te-control-unit {
+  font-family: var(--te-font-mono);
+  font-size: 12px;
+  color: var(--te-ink-muted);
+}
+
+.te-input,
+.te-select,
+.te-range {
+  font: inherit;
+  padding: 4px 8px;
+  border: 1px solid var(--te-border);
+  border-radius: var(--te-radius-sm);
+  background: var(--te-surface);
+  color: var(--te-ink);
+}
+
+.te-input {
+  width: 84px;
+}
+
+.te-range {
+  padding: 0;
+  width: 200px;
+}
+
+/* ============================================================ Anchor row chrome refinements */
+
+.te-anchor-header {
+  width: 100%;
+  appearance: none;
+  background: var(--te-surface-alt);
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.te-anchor-header:hover {
+  background: var(--te-sand-100);
+}
+
+.te-anchor-caret {
+  margin-left: auto;
+  color: var(--te-ink-muted);
+  font-family: var(--te-font-mono);
+}
+
+.te-anchor-readout {
+  font-family: var(--te-font-mono);
+  font-size: 13px;
+  color: var(--te-ink-muted);
+  flex: 1;
+}
+
+.te-anchor-modepin {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--te-accent);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--te-font-mono);
+  cursor: help;
+}
+
+.te-anchor-chain {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--te-accent);
+  font-size: 14px;
+  cursor: help;
+}
+
+.te-anchor-toggle-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--te-ink-muted);
+}
+
+.te-anchor-disabled-block {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.te-anchor-preview {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  background: var(--te-surface-alt);
+  border-radius: var(--te-radius-sm);
+  color: var(--te-ink);
+  font-size: 13px;
+}
+
+/* ============================================================ Signals */
+
+.te-signal-chips {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.te-signal-chip {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--te-border);
+}
+
+.te-signal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.te-signal-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.te-signal-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--te-ink);
+}
+
+/* ============================================================ Corners grid */
+
+.te-corner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 12px;
+}
+
+/* ============================================================ Undo chip */
+
+.te-undo-chip {
+  position: fixed;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--te-ink);
+  color: var(--te-sand-50);
+  border-radius: var(--te-radius-md);
+  font-size: 13px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.te-undo-chip[hidden] {
+  display: none;
+}
+
+.te-undo-chip-action {
+  appearance: none;
+  font: inherit;
+  background: var(--te-accent);
+  color: var(--te-sand-50);
+  border: 0;
+  padding: 4px 10px;
+  border-radius: var(--te-radius-sm);
+  cursor: pointer;
+}
+
+.te-undo-chip-action:hover {
+  filter: brightness(1.1);
+}
+
+.te-undo-chip-dismiss {
+  appearance: none;
+  font: inherit;
+  background: transparent;
+  color: var(--te-sand-50);
+  opacity: 0.6;
+  border: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 18px;
+}
+
+.te-undo-chip-dismiss:hover {
+  opacity: 1;
 }
 
 /* ============================================================ Status bar */

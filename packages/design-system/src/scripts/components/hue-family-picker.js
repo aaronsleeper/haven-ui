@@ -517,8 +517,16 @@ function initPicker(picker) {
 
 // ---- Bootstrap ----
 function initAll() {
-  document.querySelectorAll('[data-hue-family-picker]').forEach(initPicker);
+  document.querySelectorAll('[data-hue-family-picker]').forEach((picker) => {
+    if (picker._hueFamilyPicker) return; // already initialized, skip
+    initPicker(picker);
+  });
 }
+
+// Public re-init hook for consumers that mount pickers dynamically
+// (e.g. theme editors that re-render markup after preset / mode changes).
+// Idempotent — skips pickers that already carry _hueFamilyPicker.
+export { initAll as initHueFamilyPickers };
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initAll);

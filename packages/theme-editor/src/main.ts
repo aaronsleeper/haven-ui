@@ -1,13 +1,23 @@
 /**
- * Haven theme editor — Phase 1 wiring.
+ * Haven theme editor — Phase 2 wiring.
  *
- * Boots the editor: fetches target info, loads the first preset in the list,
- * binds DOM inputs to state, and on every state change debounces an emit →
- * filesystem write. Phase 2 swaps the single hand-rolled control for the
- * shipped hue-family-picker and grows to all 11 anchors.
+ * Boot order:
+ *   1. fetch /api/target (display target path in status bar)
+ *   2. fetch /api/families and cache the canon for the session
+ *   3. fetch /api/presets, pick the first, load it
+ *   4. render the 11-anchor list, mode selector, status bar
+ *   5. dynamic-import the picker module — auto-inits all picker DOM elements
+ *
+ * On preset/mode change: rerender the anchor list, then re-call
+ * `initHueFamilyPickers()` (idempotent — skips already-inited pickers).
+ *
+ * On user picker change ('hue-pick' event): apply optimistically as `shared`,
+ * surface the undo chip, schedule the debounced write.
  */
 
-import { resolveStop } from './color';
+import { initHueFamilyPickers } from '@haven/design-system/scripts/components/hue-family-picker.js';
+import { loadFamilies } from './families';
+import { renderAnchorList, wireAnchorEvents, type OnEdit } from './anchors';
 import { emitObsidian } from './emitter-obsidian';
 import {
   fetchTarget,
@@ -22,9 +32,9 @@ import {
   setPreset,
   setPresetList,
   setSaveStatus,
-  setSurfaceStop,
   subscribe,
 } from './store';
+import { showUndoChip } from './mode-pin-chip';
 import type { ModeKey } from './types';
 
 const DEBOUNCE_MS = 250;
@@ -39,10 +49,7 @@ const $ = <T extends Element = HTMLElement>(sel: string): T => {
 
 const modeButtons = document.querySelectorAll<HTMLButtonElement>('.te-mode');
 const presetSelect = $<HTMLSelectElement>('#te-preset');
-const surfaceStop = $<HTMLInputElement>('#te-surface-stop');
-const surfaceStopOutput = $<HTMLOutputElement>('#te-surface-stop-output');
-const surfaceReadout = $('#te-anchor-surface-readout');
-const surfaceResolved = $('#te-anchor-surface-resolved');
+const anchorList = $<HTMLElement>('#te-anchor-list');
 const statusSave = $('#te-status-save');
 const statusTarget = $('#te-status-target');
 
@@ -77,6 +84,12 @@ async function performWrite() {
   }
 }
 
+// ============================================================ Edit handler
+
+const onEdit: OnEdit = (edit) => {
+  showUndoChip(edit);
+};
+
 // ============================================================ Render
 
 function renderModeSelector(mode: ModeKey) {
@@ -105,25 +118,16 @@ function renderPresetSelect(names: string[], current: string | null) {
   }
 }
 
-function renderSurfaceAnchor() {
+function renderAnchors() {
   const s = getState();
   if (!s.preset) {
-    surfaceReadout.textContent = '— no preset loaded —';
-    surfaceResolved.textContent = '—';
+    anchorList.innerHTML = '<p class="te-section-placeholder">— no preset loaded —</p>';
     return;
   }
-  const surface = s.preset.anchors.surface;
-  if (!surface) {
-    surfaceReadout.textContent = '— anchor not in preset —';
-    surfaceResolved.textContent = '—';
-    return;
-  }
-  const value = surface.modes[s.mode];
-  const resolved = resolveStop(value.family, value.stop);
-  surfaceReadout.textContent = `${value.family} · ${resolved.stopName}`;
-  surfaceResolved.textContent = `${resolved.hex} · ${resolved.oklch}${resolved.inGamut ? '' : ' · sRGB clamped'}`;
-  surfaceStop.value = String(value.stop);
-  surfaceStopOutput.value = String(value.stop);
+  anchorList.innerHTML = renderAnchorList(s.preset, s.mode, s.expanded);
+  wireAnchorEvents(anchorList, { onEdit, scheduleWrite });
+  // Re-init any newly-mounted pickers. Idempotent.
+  initHueFamilyPickers();
 }
 
 function renderStatus() {
@@ -151,7 +155,7 @@ function render() {
   const s = getState();
   renderModeSelector(s.mode);
   renderPresetSelect(s.presetList, s.presetName);
-  renderSurfaceAnchor();
+  renderAnchors();
   renderStatus();
 }
 
@@ -177,13 +181,6 @@ presetSelect.addEventListener('change', async () => {
   }
 });
 
-surfaceStop.addEventListener('input', () => {
-  const stop = Number(surfaceStop.value);
-  surfaceStopOutput.value = String(stop);
-  setSurfaceStop(stop);
-  scheduleWrite();
-});
-
 subscribe(render);
 
 // ============================================================ Boot
@@ -192,13 +189,14 @@ async function boot() {
   try {
     const target = await fetchTarget();
     statusTarget.textContent = `target: ${target.overridesCss}`;
+    await loadFamilies();
     const presets = await listPresets();
     setPresetList(presets);
     if (presets.length > 0) {
       const first = presets[0];
       const p = await loadPreset(first);
       setPreset(first, p);
-      // Initial paint of the managed block so theme.css matches the loaded preset.
+      // Initial paint of the overrides block so theme.css matches the loaded preset.
       scheduleWrite();
     }
   } catch (e) {

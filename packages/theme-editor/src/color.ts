@@ -1,15 +1,19 @@
 /**
  * Color math — OKLCH interpolation along a family line.
  *
- * Phase 1 uses culori the same way the shipped hue-family-picker does:
+ * Uses culori the same way the shipped hue-family-picker does:
  * linear-in-L between the family's three anchors (min → root → max),
  * then convert to sRGB hex for emission. Gamut detection inherited from
  * culori's displayable() check.
+ *
+ * Phase 2 (2026-06-07): reads families via the runtime canon loader
+ * (see `./families.ts`). Caller must await `loadFamilies()` before any
+ * synchronous resolveStop() call.
  */
 
 import { parse, formatHex, formatCss, displayable, type Color } from 'culori';
 import type { FamilySlug, ResolvedColor } from './types';
-import { FAMILIES, stopNameFor } from './families';
+import { getFamilySync, stopNameFor } from './families';
 
 function parseOklch(input: string): Color {
   const c = parse(input);
@@ -25,7 +29,6 @@ interface OklchTriple {
 
 function toLCH(c: Color): OklchTriple {
   // culori parse('oklch(...)') yields {mode:'oklch', l, c, h}.
-  // Defensive: coerce missing components.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const any = c as any;
   return {
@@ -47,8 +50,7 @@ function lerp(a: number, b: number, t: number): number {
  * matching the family-generator's behavior.
  */
 export function resolveStop(family: FamilySlug, position: number): ResolvedColor {
-  const anchors = FAMILIES[family];
-  if (!anchors) throw new Error(`unknown family: ${family}`);
+  const anchors = getFamilySync(family);
   const min = toLCH(parseOklch(anchors.min));
   const root = toLCH(parseOklch(anchors.root));
   const max = toLCH(parseOklch(anchors.max));
@@ -74,4 +76,27 @@ export function resolveStop(family: FamilySlug, position: number): ResolvedColor
     stopName: stopNameFor(family, position),
     inGamut,
   };
+}
+
+/**
+ * Compute the canonical "companion" OKLCH from accent — the teal→sage
+ * hue-shift baseline Cena's brand uses. Per UX proposal Tension 3, the
+ * canonical offset is hue+325° at stop 500. The picker draws the value
+ * from the accent's family line; this helper produces the *cached*
+ * ColorAnchorValue (family slug + stop) that gets stored on the
+ * Companion anchor when pairedToAccent is true.
+ *
+ * Returns the closest matching named family in the canon (sage is the
+ * canonical companion to teal; for other accents we fall back to a
+ * heuristic that picks the canonical sage-paired companion if the
+ * accent isn't recognized).
+ */
+export function companionPairedToAccent(
+  accentFamily: FamilySlug,
+): { family: FamilySlug; stop: number } {
+  // v1 simplification: when accent=teal → companion=sage; otherwise default
+  // to sage so the brand-canonical pairing is the visible default. A
+  // future emitter pass can extend this for other accent families.
+  if (accentFamily === 'teal') return { family: 'sage', stop: 50 };
+  return { family: 'sage', stop: 50 };
 }

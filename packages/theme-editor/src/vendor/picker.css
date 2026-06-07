@@ -1,0 +1,663 @@
+/* =============================================================================
+   VENDORED — Hue Family Picker chrome (Phase 2 Q1 vendor decision, 2026-06-07)
+
+   SOURCE:
+     - Lab/haven-ui/packages/design-system/src/styles/tokens/components.css
+       Block A: lines 6663–6701 (.slider-track shared base)
+       Block B: lines 13093–13585 (.hue-family-picker.* + .is-compact + .is-expanded)
+     - Lab/haven-ui/packages/design-system/src/styles/tokens/palette.css
+       (Sand 50–900, Amber 100/200/800 — Cena Color System v2 canon)
+     - Lab/haven-ui/packages/design-system/src/styles/tokens/semantic.css
+       (primary aliases → teal)
+
+   WHY VENDORED:
+     The editor is a vanilla-CSS package (no Tailwind, no @apply pipeline).
+     Importing components.css verbatim would require absorbing haven-ui's
+     Tailwind v4 + tokens stack. Hand-translating @apply → raw CSS keeps the
+     editor lightweight and avoids dragging unrelated classes in. The picker
+     JS is still imported live from @haven/design-system; only chrome CSS is
+     vendored here.
+
+     Define-once preserved via this SOURCE marker + generative-determinism
+     3-use floor: when a second consumer wants the picker CSS, extract
+     packages/design-system/picker.css as a resolved-Tailwind export and
+     replace this vendor copy with the import.
+
+   DARK MODE:
+     The editor is light-only. `dark:*` Tailwind variants from the source
+     are intentionally omitted. Re-introducing dark mode in the editor
+     would require restoring them; pull from the SOURCE blocks above.
+
+   LAST SYNC: 2026-06-07
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Picker-scoped tokens — Cena Color System v2 canon, scoped to the picker
+   so the editor's global :root stays focused on its own UI tokens.
+   --------------------------------------------------------------------------- */
+.hue-family-picker,
+.slider-track {
+  --color-sand-50:  #f8f4ec;
+  --color-sand-100: #e4dfd7;
+  --color-sand-200: #cfcac2;
+  --color-sand-300: #bbb6ad;
+  --color-sand-400: #a8a298;
+  --color-sand-500: #958e85;
+  --color-sand-600: #777069;
+  --color-sand-700: #5a544e;
+  --color-sand-800: #3f3934;
+  --color-sand-900: #25211d;
+
+  --color-teal-50:  #e9f5f2;
+  --color-teal-100: #c6ded8;
+  --color-teal-200: #a4c7bf;
+  --color-teal-300: #82b0a7;
+  --color-teal-500: #3a8478;
+  --color-teal-600: #2c6a60;
+  --color-teal-700: #1e5149;
+  --color-teal-800: #113933;
+
+  --color-amber-100: #e9d9b9;
+  --color-amber-200: #d9c399;
+  --color-amber-800: #593e01;
+
+  /* primary aliases → teal (per semantic.css) */
+  --color-primary-50:  var(--color-teal-50);
+  --color-primary-100: var(--color-teal-100);
+  --color-primary-200: var(--color-teal-200);
+  --color-primary-300: var(--color-teal-300);
+  --color-primary-500: var(--color-teal-500);
+  --color-primary-700: var(--color-teal-700);
+  --color-primary-800: var(--color-teal-800);
+
+  --font-sans: 'Source Sans 3', system-ui, sans-serif;
+  --font-mono: 'Source Code Pro', ui-monospace, monospace;
+}
+
+/* ===========================================================================
+   .slider-track — shared base (components.css lines 6663–6701)
+   =========================================================================== */
+.slider-track {
+  display: block;
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 9999px;
+  appearance: none;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    var(--slider-fill-color, var(--color-teal-300)) 0%,
+    var(--slider-fill-color, var(--color-teal-300)) var(--slider-fill, 50%),
+    var(--slider-track-color, var(--color-sand-200)) var(--slider-fill, 50%),
+    var(--slider-track-color, var(--color-sand-200)) 100%
+  );
+}
+
+.slider-track::-webkit-slider-thumb {
+  appearance: none;
+  border-radius: 9999px;
+  border: 4px solid white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  background: var(--slider-thumb-bg, var(--color-teal-600));
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.slider-track::-moz-range-thumb {
+  border-radius: 9999px;
+  border: 4px solid white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  background: var(--slider-thumb-bg, var(--color-teal-600));
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.slider-track:focus {
+  outline: none;
+}
+
+.slider-track:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--slider-thumb-focus-ring, var(--color-teal-300));
+}
+
+.slider-track:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--slider-thumb-focus-ring, var(--color-teal-300));
+}
+
+/* ===========================================================================
+   .hue-family-picker — default variant (components.css lines 13093–13348)
+   =========================================================================== */
+.hue-family-picker {
+  display: block;
+}
+
+.hue-family-picker-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.hue-family-picker-family-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-sand-700);
+}
+
+.hue-family-picker-family-select {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-sand-200);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: white;
+  font-family: var(--font-sans);
+}
+
+.hue-family-picker-family-select:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 2px var(--color-primary-200);
+}
+
+.hue-family-picker-swatch {
+  display: block;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-sand-200);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  height: 80px;
+  transition: background 180ms ease-out;
+}
+
+.hue-family-picker-stop-readout {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.hue-family-picker-stop-label {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: var(--color-sand-900);
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+.hue-family-picker-stop-label:not(.is-on-tick) {
+  color: var(--color-sand-600);
+}
+
+.hue-family-picker-stop-role {
+  font-size: 0.875rem;
+  color: var(--color-sand-500);
+}
+
+.hue-family-picker-gamut-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--color-amber-100);
+  color: var(--color-amber-800);
+}
+
+/* ---- Slider mechanic (rides .slider-track) ---- */
+
+.hue-family-picker-slider-wrap {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 44px;
+}
+
+.hue-family-picker-track {
+  background: var(--hfp-track-gradient, linear-gradient(to right, var(--color-sand-300), var(--color-sand-100), var(--color-sand-300)));
+  height: 12px;
+  border: 1px solid var(--color-sand-300);
+}
+
+.hue-family-picker-track::-webkit-slider-thumb {
+  background: #ffffff;
+  border-color: var(--color-sand-50);
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 1px 3px rgba(0,0,0,0.18);
+}
+
+.hue-family-picker-track::-moz-range-thumb {
+  background: #ffffff;
+  border-color: var(--color-sand-50);
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 1px 3px rgba(0,0,0,0.18);
+}
+
+.hue-family-picker-track:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 0 0 5px var(--color-primary-300);
+}
+
+.hue-family-picker-track:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 2px var(--color-sand-400), 0 0 0 5px var(--color-primary-300);
+}
+
+/* ---- Tick marks ---- */
+
+.hue-family-picker-ticks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  top: 44px;
+  height: 30px;
+}
+
+.hue-family-picker-tick {
+  position: absolute;
+  pointer-events: auto;
+  top: 0;
+  transform: translateX(-50%);
+  width: auto;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-sand-600);
+  transition: color 120ms ease;
+}
+
+.hue-family-picker-tick::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 10px;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.hue-family-picker-tick-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--color-sand-700);
+}
+
+.hue-family-picker-tick:hover {
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-tick:hover .hue-family-picker-tick-label {
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-tick:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 4px;
+}
+
+.hue-family-picker-tick.is-active {
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-tick.is-active::before {
+  opacity: 1;
+  height: 14px;
+  width: 2px;
+}
+
+.hue-family-picker-tick.is-active .hue-family-picker-tick-label {
+  font-weight: 600;
+  color: var(--color-primary-800);
+}
+
+/* ---- Value chip rows (OKLCH / HEX / RGB / HSL with copy buttons) ---- */
+
+.hue-family-picker-values {
+  margin-top: 2rem;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .hue-family-picker-values {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.hue-family-picker-value-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-sand-200);
+  background: var(--color-sand-50);
+}
+
+.hue-family-picker-value-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-sand-500);
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  letter-spacing: 0.05em;
+  width: 3.5rem;
+}
+
+.hue-family-picker-value {
+  flex: 1 1 0%;
+  font-size: 0.875rem;
+  color: var(--color-sand-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.hue-family-picker-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  width: 32px;
+  height: 32px;
+  color: var(--color-sand-600);
+  background: transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.hue-family-picker-copy-btn:hover {
+  color: var(--color-primary-700);
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+}
+
+.hue-family-picker-copy-btn:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.hue-family-picker-copy-btn.is-copied {
+  color: var(--color-primary-700);
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-300);
+  animation: hue-family-picker-copy-pulse 220ms ease-out;
+}
+
+@keyframes hue-family-picker-copy-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hue-family-picker-swatch,
+  .hue-family-picker-tick,
+  .hue-family-picker-copy-btn {
+    transition: none;
+  }
+  .hue-family-picker-copy-btn.is-copied {
+    animation: none;
+  }
+}
+
+/* ===========================================================================
+   Compact variant (.is-compact) — components.css lines 13366–13585
+   =========================================================================== */
+
+.hue-family-picker.is-compact {
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-sand-200);
+  background: white;
+  grid-template-columns: minmax(0, auto) minmax(180px, 1fr) minmax(0, auto);
+  grid-template-areas: "identity slider readout";
+  min-height: 56px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-header {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  grid-area: identity;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-family-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-family-select {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 0.375rem;
+  max-width: 10rem;
+  min-height: 32px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-swatch {
+  margin: 0;
+  border-radius: 0.375rem;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-stop-readout {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-stop-label {
+  font-size: 0.875rem;
+  letter-spacing: 0;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-stop-role {
+  font-size: 0.75rem;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-gamut-badge {
+  margin-left: 0.25rem;
+  padding: 0 0.375rem;
+  font-size: 0.75rem;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-gamut-badge-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-slider-wrap {
+  grid-area: slider;
+  padding-top: 4px;
+  padding-bottom: 14px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-track {
+  height: 8px;
+  border-color: var(--color-sand-200);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-ticks {
+  top: 30px;
+  height: 10px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick::before {
+  height: 6px;
+  opacity: 0.55;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick-label {
+  position: absolute;
+  top: 9px;
+  font-size: 0.625rem;
+  opacity: 0;
+  transition: opacity 100ms ease;
+  pointer-events: none;
+  white-space: nowrap;
+  background: var(--color-sand-50);
+  color: var(--color-sand-700);
+  padding: 1px 4px;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick:hover .hue-family-picker-tick-label,
+.hue-family-picker.is-compact .hue-family-picker-tick:focus-visible .hue-family-picker-tick-label,
+.hue-family-picker.is-compact .hue-family-picker-tick.is-active .hue-family-picker-tick-label {
+  opacity: 1;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-tick.is-active::before {
+  height: 9px;
+  width: 2px;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-values {
+  grid-area: readout;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  grid-template-columns: none;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value-row {
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  border: 0;
+  background: transparent;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value-row[data-hfp-value-row="hex"] {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--color-sand-50);
+  border: 1px solid var(--color-sand-200);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value-label {
+  width: auto;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-value {
+  font-size: 0.875rem;
+}
+
+.hue-family-picker.is-compact .hue-family-picker-copy-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 0.375rem;
+}
+
+/* Expand toggle */
+.hue-family-picker-expand-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  width: 28px;
+  height: 28px;
+  color: var(--color-sand-600);
+  background: transparent;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, transform 180ms ease;
+}
+
+.hue-family-picker-expand-toggle:hover {
+  color: var(--color-primary-700);
+  background: var(--color-primary-50);
+}
+
+.hue-family-picker-expand-toggle:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+.hue-family-picker.is-expanded .hue-family-picker-expand-toggle {
+  transform: rotate(180deg);
+  color: var(--color-primary-700);
+}
+
+.hue-family-picker-drawer {
+  display: none;
+}
+
+.hue-family-picker.is-compact.is-expanded .hue-family-picker-drawer {
+  display: grid;
+  grid-column: 1 / -1;
+  margin-top: 0.25rem;
+  gap: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-sand-100);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.hue-family-picker.is-compact .hue-family-picker-drawer .hue-family-picker-value-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-sand-200);
+  background: var(--color-sand-50);
+}
+
+@media (max-width: 720px) {
+  .hue-family-picker.is-compact {
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    grid-template-areas:
+      "identity readout"
+      "slider   slider";
+    row-gap: 6px;
+  }
+  .hue-family-picker.is-compact .hue-family-picker-drawer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

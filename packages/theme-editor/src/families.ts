@@ -1,11 +1,17 @@
 /**
- * Hue family anchors — Phase 1 vendored subset.
+ * Hue family canon — fetched live from cena-health-brand on editor boot.
  *
- * Mirrors a subset of Lab/cena-health-brand/tools/color-generator/family-source.json.
- * Phase 2 replaces this with a load of the full file via the fs-client (define-once);
- * the picker JS in haven-ui already mirrors family-source.json the same way and is
- * a 3-use trigger candidate for promoting the canon to a brand-toolchain JSON-emit
- * (see hue-family-picker plan's completion note #3).
+ * Phase 2 (2026-06-07) replaces the Phase 1 vendored 3-family subset with
+ * a runtime fetch via GET /api/families (served by server-middleware.ts).
+ * The middleware reads `Lab/cena-health-brand/tools/color-generator/family-source.json`
+ * which is the machine-canonical mirror of the brand spec's family table.
+ *
+ * Define-once preserved: the JSON file is the single source of truth; the
+ * editor holds an in-memory cache for the session. Canon updates land via
+ * editor restart (deliberate — the picker JS in @haven/design-system also
+ * mirrors family-source.json as a vendored copy, marked for 3-use-floor
+ * promotion to a brand-toolchain JSON-emit. When that promotion lands,
+ * both the picker and this editor will load via the same canonical export.)
  */
 
 import type { FamilySlug } from './types';
@@ -14,25 +20,71 @@ export interface FamilyAnchors {
   root: string;
   max: string;
   min: string;
+  role?: string;
 }
 
-export const FAMILIES: Partial<Record<FamilySlug, FamilyAnchors>> = {
-  teal: {
-    root: 'oklch(56.3% 0.0762 181.3)',
-    max: 'oklch(96% 0.013 181)',
-    min: 'oklch(15% 0.025 183)',
-  },
-  sage: {
-    root: 'oklch(55% 0.085 145.5)',
-    max: 'oklch(95% 0.018 148)',
-    min: 'oklch(15% 0.020 148)',
-  },
-  sand: {
-    root: 'oklch(65% 0.016 75)',
-    max: 'oklch(96.8% 0.011 82)',
-    min: 'oklch(15% 0.008 60)',
-  },
-};
+/**
+ * Shape returned by the brand-side family-source.json — the `families`
+ * map carries one entry per family slug, each with root/max/min OKLCH
+ * triplets. The full document includes additional fields (`$schema`,
+ * `logo_identity`, `interpolation`, `dropped`); we keep them only as
+ * untyped metadata for the editor's UI.
+ */
+interface FamilySourceDoc {
+  $version?: string;
+  families: Record<string, FamilyAnchors>;
+  logo_identity?: unknown;
+  interpolation?: unknown;
+  dropped?: unknown;
+}
+
+let cache: Record<FamilySlug, FamilyAnchors> | null = null;
+let inflight: Promise<Record<FamilySlug, FamilyAnchors>> | null = null;
+
+/**
+ * Load the full family canon from the middleware. Cached for the session.
+ * Throws if the canon is unreachable — the editor cannot function without
+ * family data, so failing loud is correct.
+ */
+export async function loadFamilies(): Promise<Record<FamilySlug, FamilyAnchors>> {
+  if (cache) return cache;
+  if (inflight) return inflight;
+
+  inflight = (async () => {
+    const r = await fetch('/api/families');
+    if (!r.ok) {
+      const detail = await r.text().catch(() => '');
+      throw new Error(`GET /api/families failed: ${r.status} ${detail}`);
+    }
+    const doc = (await r.json()) as FamilySourceDoc;
+    if (!doc.families || typeof doc.families !== 'object') {
+      throw new Error('family-source.json missing `families` map');
+    }
+    cache = doc.families as Record<FamilySlug, FamilyAnchors>;
+    return cache;
+  })();
+
+  try {
+    return await inflight;
+  } finally {
+    inflight = null;
+  }
+}
+
+/** Synchronous accessor — caller must have awaited loadFamilies() first. */
+export function getFamiliesSync(): Record<FamilySlug, FamilyAnchors> {
+  if (!cache) {
+    throw new Error('families not loaded — call loadFamilies() first');
+  }
+  return cache;
+}
+
+/** Synchronous accessor for one family — caller must have loaded first. */
+export function getFamilySync(slug: FamilySlug): FamilyAnchors {
+  const f = getFamiliesSync()[slug];
+  if (!f) throw new Error(`unknown family slug: ${slug}`);
+  return f;
+}
 
 /**
  * Canonical-stop name for a slider position 0–100.
@@ -47,8 +99,6 @@ export function stopNameFor(family: FamilySlug, position: number): string {
   if (Number.isInteger(idx) && idx >= 0 && idx <= 10) {
     return `${family}-${stops[idx]}`;
   }
-  // Derived (between ticks). Interpolate the stop-number linearly between
-  // the surrounding canonical stops for the readout.
   const lower = Math.floor(idx);
   const upper = Math.ceil(idx);
   const lowerStop = stops[lower];

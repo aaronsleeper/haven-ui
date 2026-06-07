@@ -11,6 +11,7 @@
     "clean": "rm -rf dist .turbo"
   },
   "dependencies": {
+    "@haven/design-system": "workspace:*",
     "culori": "^4.0.1"
   },
   "devDependencies": {

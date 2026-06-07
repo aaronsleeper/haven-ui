@@ -36,6 +36,14 @@ const THEME_CSS = join(INSTALL_DIR, 'theme.css');
 const THEME_COMPILED = join(INSTALL_DIR, 'theme.compiled.css');
 const THEME_OVERRIDES = join(INSTALL_DIR, 'theme.editor-overrides.css');
 const PRESETS_DIR = join(REPO_DIR, 'presets');
+// Hue-family canon — read live from cena-health-brand so the editor and the
+// generated theme palette stay aligned. The editor pulls this on boot via
+// GET /api/families and caches in memory; canon updates land via editor
+// restart (deliberate — no rebuild needed).
+const FAMILY_SOURCE = resolve(
+  PKG_ROOT,
+  '../../../cena-health-brand/tools/color-generator/family-source.json',
+);
 
 let compiledCache: string | null = null;
 async function loadCompiled(): Promise<string> {
@@ -114,6 +122,24 @@ export function themeEditorMiddleware(server: ViteDevServer) {
           overridesCss: THEME_OVERRIDES,
           presetsDir: PRESETS_DIR,
         });
+      }
+
+      // GET /api/families — read the cena-health-brand hue family canon
+      // (family-source.json). Editor caches result on boot; canon updates
+      // require an editor restart.
+      if (req.method === 'GET' && url === '/api/families') {
+        try {
+          const raw = await readFile(FAMILY_SOURCE, 'utf8');
+          return json(res, 200, JSON.parse(raw));
+        } catch (e: unknown) {
+          if ((e as NodeJS.ErrnoException).code === 'ENOENT') {
+            return json(res, 404, {
+              error: 'family-source.json not found',
+              expectedAt: FAMILY_SOURCE,
+            });
+          }
+          throw e;
+        }
       }
 
       // GET /api/presets — list preset names
