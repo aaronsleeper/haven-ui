@@ -9,7 +9,7 @@ accountable: Director of Clinical Operations
 slug: escalation-phq9-positive
 ---
 
-:::callout-warning
+:::alert-warning
 **DRAFT** — clinical content pending Marrero + Healthcare Data Governance review. Do not use operationally. This document is rendered from the use-case spec at `use-cases/escalation-phq9-positive/`; corrections land in the source fragments, not in this rendered output.
 :::
 
@@ -42,7 +42,7 @@ Does not cover
    **Green — Moderate.** Mild-moderate range, stable trajectory → routes to RD next-business-day follow-up (separate procedure, not this SoP).
    :::
 
-   :::callout-warning
+   :::alert-warning
    **Tier boundary specifics pending Marrero.** What scores constitute red / yellow / green; what answer-pattern combinations override a case to a higher tier.
    :::
 
@@ -50,7 +50,7 @@ Does not cover
 
    The clinical lead chooses one of four sign-off decisions: escalate to BHN partner; escalate to emergency services; downgrade to RD follow-up; or defer with note. Each decision generates an immutable audit-record entry with attestor identity, rationale, and timestamp.
 
-   :::callout-error
+   :::alert-error
    **First-action specifics pending Vanessa + Marrero — this is the critical blocker for the Friday session and operational deployment.** What the clinical lead does in the first 5 minutes of a red-tier case is undefined; the catalog flagged this as the most operationally load-bearing gap. The Care Coordinator SoP carries an explicit `[NEEDS VANESSA / MARRERO]` placeholder for this content.
    :::
 
@@ -73,7 +73,7 @@ Does not cover
 
 :::
 
-:::callout-warning
+:::alert-warning
 **Hand-off receiver identity unresolved.** Whether the receiving team is a Cena-staffed BHN role or a UConn-side clinical-team function is pending UConn partner protocol. The hand-off transport (secure messaging API via Athena CommonWell, fax fallback) is also pending.
 :::
 
@@ -148,7 +148,7 @@ The sequenced, hashed record of every action taken on a case — from the trigge
 
 ## Not yet approved — gates remaining
 
-::: attestation
+::: attestation-block
 
 This procedure is a DRAFT. Three approval gates remain before operational use.
 

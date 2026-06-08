@@ -9,7 +9,7 @@ accountable: Director of Clinical Operations
 slug: phq9-administration
 ---
 
-:::callout-warning
+:::alert-warning
 **DRAFT** — clinical content pending Marrero + Healthcare Data Governance review. Do not use operationally. This document is rendered from the use-case spec at `use-cases/phq9-administration/`; corrections land in the source fragments, not in this rendered output.
 :::
 
@@ -31,11 +31,11 @@ slug: phq9-administration
 
 2. **The Care Coordinator administers the PHQ9 to the patient on the Cena assessment-forms platform.** Administration is scoped to the CITI-trained CC by IRB protocol; the registered dietitian and UConn student researchers are not authorized to administer it.
 
-   :::callout-warning
+   :::alert-warning
    **Scope of practice pending Healthcare Data Governance.** CT licensure for CC administration under CT scope-of-practice rules is pending HDG confirmation. Until licensure is confirmed, the CC may administer the PHQ9 under PI oversight, and any positive-response handling follows PI guidance rather than autonomous CC action. The UConn PI is supervisor-of-record for the CC's scope on this step.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **PHQ9 admin UI build state unconfirmed.** The build state of the PHQ9 admin UI in the Care-coordinator app is unconfirmed per the SoP draft — flagged as `[CONFIRM build state]`.
    :::
 
@@ -61,13 +61,13 @@ slug: phq9-administration
    **Sub-threshold — monitoring.** Total score below threshold AND Q9 == 0. Record stays on the participant record; no escalation fires; the clinical team uses the result for longitudinal comparison at the next protocol review point.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **Threshold value pending Healthcare Data Governance.** The specific PHQ9 score that constitutes "positive" under CT scope-of-practice is pending HDG review. Standard clinical practice ranges from 10 to 15. Q9 any-positive (suicidal ideation) override semantics are pending Marrero. Whether the threshold differs between baseline and repeat-screening contexts is pending Marrero.
    :::
 
 5. **The case routes to its downstream destination.** Positive routes same-day to the escalation use case (`escalation-phq9-positive`); sub-threshold remains on the participant record for the next clinical-team review point.
 
-   :::callout-error
+   :::alert-error
    **First-action specifics for a positive PHQ9 on a remote check-in are not addressed (catalog open question #4).** The in-person baseline path benefits from the CC and RD being co-located; the remote path needs an explicit reach-back protocol — channel selection, who is paged synchronously, and what the CC does in the first 5 minutes before a clinical-lead response arrives. This is the local instance of the broader first-action structural gap (catalog #2) that the escalation use case also names at its clinical-lead gate.
    :::
 
@@ -179,7 +179,7 @@ The sequenced, hashed record of every action taken on a case — from the trigge
 
 ## Not yet approved — gates remaining
 
-::: attestation
+::: attestation-block
 
 This procedure is a DRAFT. Three approval gates remain before operational use.
 

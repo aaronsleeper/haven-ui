@@ -9,7 +9,7 @@ accountable: Director of Clinical Operations
 slug: weekly-checkin-call
 ---
 
-:::callout-warning
+:::alert-warning
 **DRAFT** — clinical content pending Marrero + Healthcare Data Governance review. Do not use operationally. This document is rendered from the use-case spec at `use-cases/weekly-checkin-call/`; corrections land in the source fragments, not in this rendered output.
 :::
 
@@ -28,7 +28,7 @@ slug: weekly-checkin-call
 
 2. **The CC selects the channel per saved preference.** The patient profile carries a saved channel preference field (phone or text). The CC initiates the check-in on the saved channel.
 
-   :::callout-warning
+   :::alert-warning
    **Channel-switch protocol pending cap-26.** If the preferred channel fails (phone unanswered, text bounces, participant unreachable), the protocol for switching channels and what counts as a successful contact attempt across modalities is not yet authored. The cap-26 multi-modal contact protocol is a structural gap blocking operational deployment.
    :::
 
@@ -36,7 +36,7 @@ slug: weekly-checkin-call
 
    The CC's posture during the call is **service provider, not friend** — the routine surfaces participant state, captures structured fields, and routes concerns. The cap-25 do/don't guidance operationalizing this posture is contingent on the Dr. Wu script and data-goals draft; **the posture is named but not yet authored as operational guidance.**
 
-   :::callout-warning
+   :::alert-warning
    **Cap-25 CC do/don't guidance pending Dr. Wu script + data-goals draft.** The service-provider-not-friend posture is named in current SoP but operational specifics (what to say, what to avoid, how to redirect a friendly drift, per-scope-area script content) are not yet authored.
    :::
 
@@ -56,29 +56,29 @@ slug: weekly-checkin-call
    **Deferred.** Participant requested to reschedule the check-in → routes to follow-up retry scheduling at the participant-requested time.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **Yellow-flag criteria pending Marrero.** Which barriers or concerns surfaced during the call warrant a yellow-flag escalation versus log-and-monitor is the primary clinical-policy question for the outcome decision and is undefined in the current SoP. **5-way enum boundary semantics also pending** — when an unanswered call counts as voicemail vs. no answer, when a rescheduled mid-call counts as deferred vs. successful with next-touch.
    :::
 
 5. **On successful outcome (no yellow flag), the CC logs structured outcome fields and sets the next-touch plan.** The patient profile surfaces structured fields for contact outcome, adherence rating, barriers surfaced, wraparound needs, satisfaction signal, and free-text note. The next-touch is set per the routine cadence (default +7 days; tier-by-barrier-severity adjustment pending Marrero).
 
-   :::callout-warning
+   :::alert-warning
    **Structured-field schema pending Marrero + platform spec.** Specific fields surfaced for CC entry are not yet finalized. Next-touch cadence rules — fixed weekly vs. adjusted by barrier severity vs. clinical-lead-set — pending Marrero.
    :::
 
 6. **On yellow-flag outcome, the CC routes the case to the UConn clinical team.** The hand-off package contains patient identity, check-in call summary, structured outcome, concern detail (free-text narrative of what surfaced and why CC classified as yellow flag), current care plan summary, prior check-in history, and patient contact preferences.
 
-   :::callout-error
+   :::alert-error
    **First-action specifics pending Vanessa + Marrero — same critical structural gap as the PHQ9 escalation use case.** What the CC does in the first 5 minutes after firing a yellow flag is undefined: does the CC stay on the line, end the call and transmit asynchronously, schedule a same-day callback, bridge the clinical team into a live text thread? The Care Coordinator SoP carries an explicit `[NEEDS VANESSA / MARRERO]` placeholder. Resolution unblocks both this use case and PHQ9 escalation.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **Receiving-actor identity unresolved.** Whether the receiving team is a UConn-side clinical team member or a Cena-staffed BHN function is pending UConn partner protocol. The hand-off transport (secure messaging API via Athena CommonWell, fax fallback) is also pending. **This is the same structural gap as escalation-phq9-positive** — resolution applies to both use cases.
    :::
 
 7. **On voicemail, no-answer, refused, or deferred outcome, the CC schedules a follow-up retry.** The retry is scheduled per the cap-26 multi-modal contact protocol. Refused outcomes additionally flag the case for clinical-lead review (immediate vs. accumulated-pattern threshold pending Marrero).
 
-   :::callout-warning
+   :::alert-warning
    **Cap-26 multi-modal contact protocol entirely undefined.** Retry cadence, channel-switch rules, what counts as a successful contact attempt across modalities, and the retry-attempt allowance per week before clinical-lead escalation — all pending. This is a structural gap blocking operational deployment.
    :::
 
@@ -102,7 +102,7 @@ Yellow-flag hand-off package contents
 
 :::
 
-:::callout-warning
+:::alert-warning
 **Same hand-off package and transport as PHQ9 escalation.** Identity-resolution and transport gaps resolve once for both use cases.
 :::
 
@@ -195,7 +195,7 @@ A capability slot in the SOP Coverage Map representing the multi-modal contact p
 
 ## Not yet approved — gates remaining
 
-::: attestation
+::: attestation-block
 
 This procedure is a DRAFT. Three approval gates remain before operational use.
 

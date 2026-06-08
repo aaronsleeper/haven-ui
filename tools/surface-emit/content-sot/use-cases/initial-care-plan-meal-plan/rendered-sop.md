@@ -9,11 +9,11 @@ accountable: Director of Clinical Operations
 slug: initial-care-plan-meal-plan
 ---
 
-:::callout-warning
+:::alert-warning
 **DRAFT** — clinical content pending Marrero + Healthcare Data Governance review. Do not use operationally. This document is rendered from the use-case spec at `use-cases/initial-care-plan-meal-plan/`; corrections land in the source fragments, not in this rendered output.
 :::
 
-:::callout-warning
+:::alert-warning
 **SoP body reconciliation pending Vanessa.** Per Vanessa's 2026-06-02 decision, care plan and meal plan are **one combined artifact**, not two distinct artifacts as described in the RD SoP body v0.1 (Steps 4 and 5). This rendered SoP carries the combined-artifact framing; the upstream RD SoP body needs a separate reconciliation pass.
 :::
 
@@ -30,19 +30,19 @@ slug: initial-care-plan-meal-plan
 
    When the baselines are complete AND the Month 0 in-person visit is in progress, the platform raises a ready-to-author signal that surfaces the combined-artifact authoring surface to the Registered Dietitian.
 
-   :::callout-warning
+   :::alert-warning
    **First-action specifics on visit start pending Vanessa + Marrero.** What the RD does in the first 5 minutes of the Month 0 visit before opening the authoring surface — greeting, consent re-confirmation, data sanity-check — is not specified in the current SoP. Analogous to the catalog #2 first-action gap in the Care Coordinator SoP.
    :::
 
 2. **The RD opens the authoring surface in Cena and builds the combined care-plan-and-meal-plan artifact.** The surface is seeded with the baseline assessment results and intake data; the RD layers participant-stated dietary preferences, cultural food preferences, and Dr. Wu–sourced dietary requirements over that base.
 
-   :::callout-warning
+   :::alert-warning
    **Dr. Wu role on dietary requirements pending Vanessa.** Whether Dr. Wu **reviews** the dietary requirements before they seed the meal plan, or **approves** them, is open. A review pattern surfaces requirements as input; an approval pattern is a second attestation gate upstream of the RDN approval gate. The RD SoP body v0.1 line 46 carries an explicit `NEEDS VANESSA CONFIRMATION` placeholder on this question.
    :::
 
 3. **The RDN approves the completed combined artifact.** The RDN reviews the draft against the evidence package and records a structured sign-off: approve, revise, or defer. Each decision generates an immutable audit-record entry with attestor identity, rationale, and timestamp.
 
-   :::callout-error
+   :::alert-error
    **The RDN approval gate is enforced by the platform but is NOT surfaced in the RD SoP body — this is the critical structural gap for this use case.** The workflow-spec at `planning/workflows/care-plan-creation/steps.md` hardcodes the approval action; the RD SoP body does not describe it as a named step. An RD reading the current SoP would not know there is an explicit approval action they must take before the combined artifact activates and meal prescription generates downstream. The SoP needs a reconciliation pass to surface the approval step.
    :::
 
@@ -186,7 +186,7 @@ The sequenced, hashed record of every action taken on a case — from the trigge
 
 ## Not yet approved — gates remaining
 
-::: attestation
+::: attestation-block
 
 This procedure is a DRAFT. Three approval gates remain before operational use, plus an explicit SoP reconciliation pass to surface the RDN approval gate as a named step in the body.
 

@@ -9,7 +9,7 @@ accountable: Director of Clinical Operations
 slug: written-consent-execution
 ---
 
-:::callout-warning
+:::alert-warning
 **DRAFT** — clinical content pending Marrero + Healthcare Data Governance review. Do not use operationally. This document is rendered from the use-case spec at `use-cases/written-consent-execution/`; corrections land in the source fragments, not in this rendered output.
 :::
 
@@ -26,7 +26,7 @@ slug: written-consent-execution
 
    No remote or digital substitute is permitted for the Month 0 consent execution. The consent must be written, in person, on paper.
 
-   :::callout-warning
+   :::alert-warning
    **Witness requirement pending Marrero.** Some IRB-compliant written-consent protocols require a separate witness signature beyond the executor. Whether the UConn IRB protocol for this study requires a witness, or treats the RD-as-executor as the witness, is unconfirmed. If a witness is required, the visit cannot proceed to signing until both RD and a designated witness are present.
    :::
 
@@ -38,11 +38,11 @@ slug: written-consent-execution
    **Declines.** The participant declines to sign. The case routes out of scope for this procedure. There is no documented downstream pathway.
    :::
 
-   :::callout-error
+   :::alert-error
    **Decline-to-sign path undocumented — structural gap.** The parent SoP does not specify what happens if the participant declines at the visit. There is no documented re-consent pathway (can the participant change their mind later?), no documented reschedule procedure (can the Month 0 visit be re-attempted?), and no documented termination-of-enrollment procedure (what happens to participant data already collected?). Pending Marrero clarification.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **Patient-as-attestor — structural shape worth surfacing.** In every other use case in the current catalog, the attestor is a clinician or named operations role. This is the only one where the attestor is the participant — the participant's handwritten signature on the paper form is the attestation. Audit-chain treatment of a non-staff attestor's identity (participant ID rather than staff role + signature) needs explicit handling and will recur in future patient-facing consent use cases.
    :::
 
@@ -50,13 +50,13 @@ slug: written-consent-execution
 
    The administrator acknowledges receipt before close of business on the visit day. If the administrator is unavailable the same day, the RD retains the paper in chain-of-custody-preserving storage and re-attempts the next business day, flagging a consent-delay note for clinical-lead awareness.
 
-   :::callout-warning
+   :::alert-warning
    **Chain-of-custody for the paper between signing and administrator pickup is unspecified.** Whether the paper lives in the RD's locked drawer, in a sealed envelope, or in direct hand-to-hand transfer immediately after the visit is pending Marrero / administrator SoP. Each option carries different chain-of-custody risk.
    :::
 
 4. **The Program Administrator digitizes the signed paper and uploads the PDF to the participant's Athena record.** The administrator scans or photographs the full form (both sides if double-sided), assembles a single PDF, locates the participant record in Athena by MRN or name + DOB match, and uploads the PDF under the IRB-consent document category. The paper original is filed or destroyed per UConn IRB retention policy.
 
-   :::callout-error
+   :::alert-error
    **PDF-landed verification missing — structural gap.** No explicit audit step confirms the digitized PDF reached the Athena participant record before downstream care-plan work proceeds. A failed upload (Athena unavailable, wrong patient match, miscategorized document) could allow baseline assessment to proceed against a participant whose consent is not actually on record. Pending Marrero.
    :::
 
@@ -157,7 +157,7 @@ Medical Record Number — the unique identifier for a participant in the EHR (At
 
 ## Not yet approved — gates remaining
 
-::: attestation
+::: attestation-block
 
 This procedure is a DRAFT. Three approval gates remain before operational use.
 

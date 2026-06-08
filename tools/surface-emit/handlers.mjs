@@ -126,9 +126,13 @@ export function havenDirectives() {
     visit(tree, (node) => {
       if (!['containerDirective', 'leafDirective', 'textDirective'].includes(node.type)) return;
 
-      // :::callout{variant="success" title="Saved"}  ->  <div class="alert alert-success">
-      if (node.name === 'callout') {
-        const variant = node.attributes?.variant || 'info';
+      // :::alert-{info|warning|success|error}{title="..."}  ->  <div class="alert alert-{variant}">
+      // Directive names are haven canon per .claude/rules/markdown-directives.md.
+      // Hard-renamed from `callout`/`callout-*` 2026-06-08 (Phase B of canon alignment);
+      // SoP source content was migrated in the same commit, so no back-compat alias.
+      if (node.name === 'alert-info' || node.name === 'alert-warning' ||
+          node.name === 'alert-success' || node.name === 'alert-error') {
+        const variant = node.name.slice('alert-'.length);
         const title = node.attributes?.title;
         const body = el('div', {}, [
           ...(title ? [el('span', { className: ['font-medium'] }, [text(title + ' ')])] : []),
@@ -136,6 +140,34 @@ export function havenDirectives() {
         ]);
         node.children = [icon(['fa-solid', `fa-${ALERT_ICON[variant] || 'circle-info'}`, 'alert-icon']), body];
         node.data = { hName: 'div', hProperties: { className: ['alert', `alert-${variant}`], role: 'alert' } };
+        return;
+      }
+
+      // :::escalation  ->  <div class="escalation">
+      // Single-class haven primitive (brand spec §3.10) — amber-700 left rule on
+      // sand-50 bg. Content carries the routing instruction; no extra chrome.
+      if (node.name === 'escalation') {
+        node.data = { hName: 'div', hProperties: { className: ['escalation'] } };
+        return;
+      }
+
+      // :::glossary-term  ->  <div class="glossary-term">  (bold term paragraph)
+      // :::glossary-def   ->  <div class="glossary-def">   (indented def paragraph)
+      // Sequential sibling pairs per brand spec §3.12; visual binding is structural.
+      if (node.name === 'glossary-term') {
+        node.data = { hName: 'div', hProperties: { className: ['glossary-term'] } };
+        return;
+      }
+      if (node.name === 'glossary-def') {
+        node.data = { hName: 'div', hProperties: { className: ['glossary-def'] } };
+        return;
+      }
+
+      // :::review-marker  ->  <div class="review-marker">
+      // Pre-approval scaffolding (brand spec §3.14) — dashed amber-700 left rule on
+      // amber-50 bg. Author convention: open with [Needs <reviewer>] prefix.
+      if (node.name === 'review-marker') {
+        node.data = { hName: 'div', hProperties: { className: ['review-marker'] } };
         return;
       }
 

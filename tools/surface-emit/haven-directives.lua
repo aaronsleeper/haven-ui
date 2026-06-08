@@ -3,9 +3,9 @@
 -- custom-style attribute, so the contained content gets the matching Word
 -- style applied: paragraph style for divs, character style for spans.
 --
--- Carve-out: container directives (currently `card` + `attestation`) wrap
--- their inner content in a single-cell OOXML table so the visual container
--- holds across nested directives + list content. Pandoc-docx's
+-- Carve-out: container directives (currently `card` + `attestation-block`)
+-- wrap their inner content in a single-cell OOXML table so the visual
+-- container holds across nested directives + list content. Pandoc-docx's
 -- custom-style-per-paragraph mechanism can't express an outer container
 -- when its direct children are themselves Divs or BulletLists (style is
 -- applied only to direct paragraph children). The table cell carries the
@@ -20,15 +20,16 @@
 --     -o output.docx
 --
 -- The reference docx must define styles named exactly after the directive
--- classes used (e.g., callout-warning, attestation as paragraph styles;
--- screen-ref as a character style).
+-- classes used (e.g., alert-warning, attestation-block as paragraph styles;
+-- screen-ref as a character style). Directive names are haven canon — see
+-- .claude/rules/markdown-directives.md for the registered vocabulary.
 
 -- Container directives → cell bg hex (must match the directive's bg_color
 -- in `apply_directive_styles` so the cell shading and inner-paragraph
 -- shading appear continuous, not as nested layers).
 local CONTAINER_DIRECTIVES = {
-  ["card"] = "f8f4ec",          -- sand-50
-  ["attestation"] = "e4dfd7",   -- sand-100
+  ["card"] = "f8f4ec",                -- sand-50
+  ["attestation-block"] = "e4dfd7",   -- sand-100
 }
 
 local function container_open_xml(bg_hex)

@@ -9,11 +9,11 @@ accountable: Director of Clinical Operations
 slug: monthly-uconn-review-meeting
 ---
 
-:::callout-warning
+:::alert-warning
 **DRAFT** — no SoP draft exists in source material; this document is the structural shape with labeled gaps where operational content is undocumented. Do not use operationally. Rendered from the use-case spec at `use-cases/monthly-uconn-review-meeting/`; corrections land in the source fragments, not in this rendered output.
 :::
 
-:::callout-error
+:::alert-error
 **This SoP is largely labeled uncertainty.** Per the source catalog (cap-48): "no SoP draft; deferred post-launch." Most steps below carry gaps. The structural shape (monthly cadence, agent-generates → human-customizes → meeting → routing) is what's authored; the operational specifics await Vanessa, Marrero, Marinka, and Andrey.
 :::
 
@@ -28,39 +28,39 @@ slug: monthly-uconn-review-meeting
 
 1. **The reporting system closes the monthly cycle.** When cap-44 through cap-47 monthly reports complete, the reporting system fires the cadence trigger and the agenda-generation pipeline kicks off.
 
-   :::callout-warning
+   :::alert-warning
    **Timing offset undocumented.** How many days before the scheduled review meeting the trigger fires (T-7? T-3?) is not specified. What happens if a report is late (delay the meeting? fire with partial data?) is not specified.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **Survey integration undocumented.** At Months 3, 6, and 9 of the pilot, participant satisfaction surveys (cap-9) provide CQI inputs. Whether the trigger waits for survey results or attaches them when available is unspecified. The data-collection tool for surveys (UConn Qualtrics vs. a Cena-built tool) is open as of 2026-05-27.
    :::
 
 2. **The reporting system auto-generates an agenda template.** The pipeline produces a template populated with current dashboard data — operational metrics, participant feedback themes, candidate protocol-refinement items surfaced upstream. Design intent: data fills automatically; talking-point customization stays human.
 
-   :::callout-error
+   :::alert-error
    **Dashboard data-element set pending Marinka + Andrey (Exhibit F).** What data the agenda template actually contains is not yet specified. Until Exhibit F lands, the agenda template's content is undefined.
    :::
 
 3. **The meeting owner customizes talking points.** The auto-generated agenda goes to the meeting owner, who reviews the data, identifies operational challenges and protocol refinement opportunities to anchor discussion, and authors talking points. The meeting is CQI (continuous quality improvement) oriented — outcome review is explicitly NOT the meeting's purpose (research-blind constraint).
 
-   :::callout-warning
+   :::alert-warning
    **Customization criteria undocumented.** What makes a dashboard-generated draft "ready" for facilitation is undefined. No sight-check / sign-off step before facilitation. During ownership-transition cycles, whether Vanessa customizes alone, Marrero customizes with Vanessa shadowing, or some other arrangement, is undefined.
    :::
 
 4. **The meeting owner facilitates the program review with UConn participants.** The meeting surfaces operational challenges, walks through participant feedback themes from upstream reports, and captures protocol refinement proposals.
 
-   :::callout-warning
+   :::alert-warning
    **Meeting format and UConn attendees undocumented.** Whether the meeting is in-person or virtual is unspecified. The UConn-side attendee list is unspecified — without it, partner-side accountability and decision-rights structure is undefined.
    :::
 
-   :::callout-warning
+   :::alert-warning
    **No defined attestation moment at meeting close.** There is currently no formal "decisions captured — signed off" gate at the end of facilitation. This is a candidate gap worth raising with Vanessa and Marrero: without it, there's no formal record that the captured decisions reflect what was agreed.
    :::
 
 5. **Protocol refinement proposals route to the right owner.** Each proposal is classified as clinical (routes to Dr. Marrero) or operational (routes to Vanessa Sena). Classification is currently the meeting owner's judgment.
 
-   :::callout-error
+   :::alert-error
    **Classification criteria undocumented.** What makes a refinement "clinical" vs "operational" is undefined. Whether a proposal can be both (and route to both) is undefined. Transport mechanism (Slack? email? structured queue?) is undefined. No acknowledgment contract or SLA from the receiving owner.
    :::
 
@@ -68,7 +68,7 @@ slug: monthly-uconn-review-meeting
 
 Beyond the per-meeting flow above, this workflow carries a second hand-off the catalog explicitly flagged but did not specify: **meeting ownership migrates from Vanessa to Marrero over multiple cycles.**
 
-:::callout-error
+:::alert-error
 **The ownership-transition gate is undefined — this is a NOVEL attestation shape the catalog flagged but did not author.** The arc names Vanessa as the attestor and Marrero as the subject; the thing being attested is that Marrero is ready to assume ownership. No analogous gate exists elsewhere in the surveyed catalog. The catalog records:
 
 - That Vanessa must walk Marrero through "several cycles" — count undefined
@@ -153,7 +153,7 @@ Behavioral Health Network — the partner clinical team that receives escalated 
 
 ## Not yet approved — gates remaining
 
-::: attestation
+::: attestation-block
 
 This procedure is a DRAFT with substantial labeled uncertainty. Three approval gates remain before operational use, and three structural gaps remain before the SoP can be operationally complete.
 
