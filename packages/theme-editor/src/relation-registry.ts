@@ -148,7 +148,7 @@ const SIGNALS_RELATIONS: RegisteredRelation[] = [
 
   // Accent-info / cyan
   { cssVar: '--color-cyan',                      expr: ref('signals.accentInfo', 500), description: 'Accent-info / cyan family root',        anchorKey: 'signals' },
-  { cssVar: '--callout-note',                    expr: ref('signals.accentInfo', 500), description: 'Note callout',                          anchorKey: 'signals' },
+  { cssVar: '--signal-info-accent',              expr: ref('signals.accentInfo', 500), description: 'Cyan accent-info design token (NOT a directive class — per HVD 2026-06-08: alert-* directive vocabulary stays at 4 variants info/warning/success/error)', anchorKey: 'signals' },
 ];
 
 // ---------------------------------------------------------------------------
