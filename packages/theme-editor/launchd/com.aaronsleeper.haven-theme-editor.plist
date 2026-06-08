@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.aaronsleeper.haven-theme-editor</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/aaronsleeper/Vaults/Lab/haven-ui/packages/theme-editor/launchd/run.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/aaronsleeper/Vaults/Lab/haven-ui/packages/theme-editor</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/tmp/haven-theme-editor.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/haven-theme-editor.err</string>
+</dict>
+</plist>
