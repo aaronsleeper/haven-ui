@@ -128,23 +128,23 @@ const SIGNALS_RELATIONS: RegisteredRelation[] = [
   { cssVar: '--color-red',                       expr: ref('signals.error', 500),     description: 'Error / red family root',                anchorKey: 'signals' },
   { cssVar: '--text-error',                      expr: ref('signals.error', 700),     description: 'Error text colour',                      anchorKey: 'signals' },
   { cssVar: '--background-modifier-error',       expr: alpha(ref('signals.error', 500), 0.2), description: 'Error background modifier',      anchorKey: 'signals' },
-  { cssVar: '--callout-error',                   expr: ref('signals.error', 500),     description: 'Error callout',                          anchorKey: 'signals' },
+  { cssVar: '--alert-error',                     expr: ref('signals.error', 500),     description: 'Error alert (haven canon: alert-error)',  anchorKey: 'signals' },
 
   // Warning / yellow
   { cssVar: '--color-yellow',                    expr: ref('signals.warning', 500),   description: 'Warning / yellow family root',           anchorKey: 'signals' },
   { cssVar: '--text-warning',                    expr: ref('signals.warning', 700),   description: 'Warning text colour',                    anchorKey: 'signals' },
   { cssVar: '--background-modifier-warning',     expr: alpha(ref('signals.warning', 500), 0.2), description: 'Warning background modifier', anchorKey: 'signals' },
-  { cssVar: '--callout-warning',                 expr: ref('signals.warning', 500),   description: 'Warning callout',                        anchorKey: 'signals' },
+  { cssVar: '--alert-warning',                   expr: ref('signals.warning', 500),   description: 'Warning alert (haven canon: alert-warning)', anchorKey: 'signals' },
 
   // Success / green
   { cssVar: '--color-green',                     expr: ref('signals.success', 500),   description: 'Success / green family root',            anchorKey: 'signals' },
   { cssVar: '--text-success',                    expr: ref('signals.success', 700),   description: 'Success text colour',                    anchorKey: 'signals' },
   { cssVar: '--background-modifier-success',     expr: alpha(ref('signals.success', 500), 0.2), description: 'Success background modifier', anchorKey: 'signals' },
-  { cssVar: '--callout-success',                 expr: ref('signals.success', 500),   description: 'Success callout',                        anchorKey: 'signals' },
+  { cssVar: '--alert-success',                   expr: ref('signals.success', 500),   description: 'Success alert (haven canon: alert-success)', anchorKey: 'signals' },
 
   // Info / blue
   { cssVar: '--color-blue',                      expr: ref('signals.info', 500),      description: 'Info / blue family root',                anchorKey: 'signals' },
-  { cssVar: '--callout-info',                    expr: ref('signals.info', 500),      description: 'Info callout',                           anchorKey: 'signals' },
+  { cssVar: '--alert-info',                      expr: ref('signals.info', 500),      description: 'Info alert (haven canon: alert-info)',   anchorKey: 'signals' },
 
   // Accent-info / cyan
   { cssVar: '--color-cyan',                      expr: ref('signals.accentInfo', 500), description: 'Accent-info / cyan family root',        anchorKey: 'signals' },

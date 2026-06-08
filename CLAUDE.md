@@ -10,6 +10,8 @@ The React port has its own architectural decisions (AD-08 React 19 + Vite, AD-09
 
 **Design system spec:** [DESIGN.md](./DESIGN.md) at repo root, plus the pattern-library HTML and CSS tokens, is the canonical source of truth for haven-ui. Vault docs (`Vaults/Knowledge/Projects/Cena Health/`) are the canonical companion docs; Figma is no longer the upstream source. Measurement tokens stay on haven-ui's 4px Tailwind scalar.
 
+**Directive vocabulary:** The set of `:::name{}` markdown directives haven-ui's surface-emit pipeline renders (alert-info/warning/success/error, card, escalation, decision-branch, attestation-block/-gate, glossary-term/-def, screen-ref, diagram, review-marker) is owned by the vault rule [`.claude/rules/markdown-directives.md`](../../.claude/rules/markdown-directives.md) — single source of truth across the HTML handler (`tools/surface-emit/handlers.mjs`), the DOCX Lua filter (`tools/surface-emit/haven-directives.lua`), the brand spec, and the SoP authoring guide (`tools/surface-emit/content-sot/sops/AUTHORING.md`). Adding a new directive is the registered three-place change documented in that rule.
+
 The handoff-to-Andrey model has been retired. The vanilla HTML composites from that era live at `archive/vanilla-html-handoff/` for reference only; do not modify them.
 
 ## Watch for these drifts
