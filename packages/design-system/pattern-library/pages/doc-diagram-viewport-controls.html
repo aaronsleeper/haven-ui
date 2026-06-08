@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-16">
+
+      <div class="page-header">
+        <h1>Diagram Viewport Controls</h1>
+        <p class="text-gray-500 dark:text-neutral-400">
+          Pan/zoom chrome layered over an interactive workflow diagram. Hardened
+          <code>.btn-secondary</code> variant for the diagram-viewport surface — sand-100 bg + 1px
+          sand-500 border (WCAG 1.4.11 boundary at 3.99:1) + secondary-200 hover bg-shift + 2px
+          secondary-700 <code>:focus-visible</code> outline. Consumed inside the iframe srcdoc rendered
+          by the <code>doc-diagram-figure</code> resolved-asset directive. See <code>COMPONENT-INDEX.md</code>
+          and Brand Spec §3.13.
+        </p>
+      </div>
+
+      <load src="../components/doc-diagram-viewport-controls.html" />
+
+    </main>
+  </div>
+  <load src="../partials/pl-scripts.html" />
+</body>
+</html>
