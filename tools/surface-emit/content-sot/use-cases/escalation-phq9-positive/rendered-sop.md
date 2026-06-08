@@ -15,10 +15,14 @@ slug: escalation-phq9-positive
 
 ## Who this is for and what it covers
 
-| For | Care coordinators handling participants whose PHQ9 screening returns a positive response. |
-|---|---|
-| Covers | Trigger detection through clinical-lead sign-off, partner hand-off, and audit. |
-| Does not cover | Routine PHQ9 administration (separate procedure); emergency 911 routing (separate procedure); RD next-business-day follow-up for green-tier results. |
+For
+:   Care coordinators handling participants whose PHQ9 screening returns a positive response.
+
+Covers
+:   Trigger detection through clinical-lead sign-off, partner hand-off, and audit.
+
+Does not cover
+:   Routine PHQ9 administration (separate procedure); emergency 911 routing (separate procedure); RD next-business-day follow-up for green-tier results.
 
 ## When the screening fires the trigger
 
@@ -58,10 +62,6 @@ slug: escalation-phq9-positive
 
 ::: card
 
-::: card-title
-Hand-off package contents
-:::
-
 ::: card-body
 - Patient identity (name, DOB, contact information, MRN if applicable)
 - PHQ9 result + answer pattern; prior screenings if available
@@ -90,10 +90,6 @@ Hand-off package contents
 ## Each case — the checklist
 
 ::: card
-
-::: card-title
-Per-case checklist
-:::
 
 ::: card-body
 - [ ] PHQ9 score calculated against current threshold

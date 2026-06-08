@@ -1,0 +1,36 @@
+{
+  "title": "Cena Health SoT",
+  "subtitle": "Internal · org & program source of truth",
+  "nav": [
+    {
+      "group": "Cena (org)",
+      "pages": [
+        { "title": "Where Cena stands", "slug": "index", "icon": "building" },
+        { "title": "Programs", "slug": "programs", "icon": "layer-group" },
+        { "title": "Governance & compliance", "slug": "governance", "icon": "scale-balanced" },
+        { "title": "Org capabilities", "slug": "org-capabilities", "icon": "cubes" },
+        { "title": "SOPs", "slug": "sops", "icon": "clipboard-list" }
+      ]
+    },
+    {
+      "group": "UConn pilot",
+      "pages": [
+        { "title": "Where things stand", "slug": "uconn", "icon": "compass" },
+        { "title": "State ledger", "slug": "uconn", "href": "./uconn.html#state-ledger", "icon": "table-list" },
+        { "title": "Critical path to launch", "slug": "uconn", "href": "./uconn.html#critical-path-to-launch", "icon": "diagram-project" },
+        { "title": "What we need, from whom", "slug": "uconn", "href": "./uconn.html#what-we-need-and-from-whom", "icon": "circle-question" },
+        { "title": "Patient journey", "slug": "uconn-patient-journey", "icon": "route" },
+        { "title": "Launch timeline & gates", "slug": "uconn-timeline", "icon": "calendar-days" },
+        { "title": "Apps & surfaces", "slug": "uconn-apps", "icon": "mobile-screen" },
+        { "title": "Operations", "slug": "uconn-operations", "icon": "gears" },
+        { "title": "Evidence & data", "slug": "uconn-evidence", "icon": "chart-line" },
+        { "title": "Compliance", "slug": "uconn-compliance", "icon": "shield-halved" },
+        { "title": "Contract & exhibits", "slug": "uconn-contract", "icon": "file-signature" },
+        { "title": "Why it works this way", "slug": "uconn-reasoning", "icon": "lightbulb" },
+        { "title": "Decision log", "slug": "uconn-decisions", "icon": "clipboard-check" },
+        { "title": "Workflow mapping (Jun 2 session)", "slug": "uconn-workflow-mapping-2026-06-02", "icon": "diagram-project" },
+        { "title": "Meeting notes", "slug": "uconn-meetings", "icon": "comments" }
+      ]
+    }
+  ]
+}
