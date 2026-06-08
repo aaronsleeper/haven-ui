@@ -23,12 +23,16 @@ function head({ mode, title, manifest, proseCss }) {
 function renderSidebar(manifest, currentSlug) {
   const groups = manifest.nav.map((group) => {
     const items = group.pages.map((p) => {
-      const active = p.slug === currentSlug;
+      // A nav item may override its target with an explicit href (e.g. a deep-link
+      // to a section anchor on another page: './index.html#state-ledger'). Items
+      // with an href are treated as cross-references, never the "active" page.
+      const target = p.href || `./${p.slug}.html`;
+      const active = !p.href && p.slug === currentSlug;
       const cls = active
         ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300'
         : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-sand-700 hover:bg-sand-100 dark:text-sand-300 dark:hover:bg-sand-800';
       const ic = p.icon ? `<i class="fa-solid fa-${p.icon} w-4 text-center"></i>` : '';
-      return `<li><a href="./${p.slug}.html" class="${cls}">${ic}<span>${p.title}</span></a></li>`;
+      return `<li><a href="${target}" class="${cls}">${ic}<span>${p.title}</span></a></li>`;
     }).join('\n            ');
     return `
         <li class="mb-5">
@@ -41,7 +45,7 @@ function renderSidebar(manifest, currentSlug) {
   return `
   <aside class="fixed inset-y-0 left-0 w-64 border-r border-sand-200 dark:border-sand-700 bg-white dark:bg-sand-900 overflow-y-auto">
     <div class="px-6 py-5 border-b border-sand-200 dark:border-sand-700">
-      <a href="./${manifest.nav[0].pages[0].slug}.html" class="text-lg font-display font-semibold text-sand-900 dark:text-sand-100">${manifest.title}</a>
+      <a href="./${manifest.nav[0].pages[0].slug}.html" class="text-lg font-serif font-semibold text-sand-900 dark:text-sand-100">${manifest.title}</a>
       <p class="text-xs text-sand-500 mt-0.5">${manifest.subtitle || ''}</p>
     </div>
     <nav class="px-3 py-4" aria-label="Docs navigation"><ul>${groups}
@@ -54,7 +58,7 @@ function sidebarBody({ manifest, slug, title, description, bodyHtml }) {
   <main class="ml-64 min-h-screen">
     <div class="max-w-3xl mx-auto px-10 py-12">
       <header class="mb-8 pb-6 border-b border-sand-200 dark:border-sand-700">
-        <h1 class="text-3xl font-display font-bold text-sand-900 dark:text-sand-100">${title}</h1>
+        <h1 class="text-3xl font-serif font-bold text-sand-900 dark:text-sand-100">${title}</h1>
         ${description ? `<p class="mt-2 text-lg text-sand-600 dark:text-sand-400">${description}</p>` : ''}
       </header>
       <article class="space-y-5 text-sand-800 dark:text-sand-200 leading-relaxed">

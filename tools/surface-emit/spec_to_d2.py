@@ -148,6 +148,16 @@ def spec_to_d2(spec):
         out.append(f"# {spec['draft_marker']}")
     out.append("")
 
+    # ELK does orthogonal edge routing natively. Dagre produces diagonals
+    # when nodes stack vertically across lanes, which read as suboptimal in
+    # swim-lane diagrams. Self-contained in source — no CLI flag needed.
+    out.append("vars: {")
+    out.append("  d2-config: {")
+    out.append("    layout-engine: elk")
+    out.append("  }")
+    out.append("}")
+    out.append("")
+
     # Vertical-stack lanes; horizontal flow within each lane.
     out.append("direction: down")
     out.append("")

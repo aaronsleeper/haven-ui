@@ -44,4 +44,9 @@ pandoc "$INPUT" \
   --lua-filter="$HAVEN_DIRECTIVES" \
   -o "$OUTPUT"
 
+# Post-process: patch numbering.xml (pandoc regenerates it at emit time using
+# its own per-level indents, ignoring reference-docx numbering patches). See
+# patch-docx.py header.
+python3 "$SCRIPT_DIR/patch-docx.py" "$OUTPUT"
+
 echo "  ✓ $OUTPUT"

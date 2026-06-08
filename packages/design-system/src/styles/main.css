@@ -40,6 +40,10 @@
 @source inline("space-y-10 space-y-12");
 /* Onboarding focused-canvas + sticky-footer layout (handoff/cena-uconn/onboarding/*). */
 @source inline("pt-16 pb-32 pb-36 left-0 right-0 max-h-48 border-none col-span-2 -ml-1 -mt-1 ml-0!");
+/* surface-emit sidebar chrome (tools/surface-emit/shell.mjs — docs + sot surfaces).
+   These layout/typography utilities live only in emitted HTML (outside the content
+   scan), so pin them into the sanctioned surface. */
+@source inline("px-10 py-5 border-r underline-offset-2 dark:hover:bg-sand-800 dark:text-primary-300");
 
 @import "../../node_modules/preline/css/themes/theme.css";
 
