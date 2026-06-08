@@ -436,6 +436,18 @@ Gallery (all archetypes stacked): `deck/index.html` → http://localhost:5173/pa
 
 ---
 
+## Cena Public Site
+
+Compositions for the Cena public-facing marketing site (`/`, `/reference-program`, `/your-program-on-cena`, `/how-the-substrate-works/*`, etc.). These rows index **compositions of existing canon primitives + canonical PL components** (not new primitives). New primitives required by a Cena public-site page get authored in their own row under the appropriate primitive category, NOT under this section.
+
+Each row names what's being composed (`composes:` field), where the source bundle / content brief lives, and the directive equivalent (if the composition emits via a named pipeline).
+
+| Composition | File | Composes | Bundle source / brief | Directive equivalent | Notes |
+|---|---|---|---|---|---|
+| Patient Journey Timeline | `pages/cena-public/patient-journey-timeline.html` | `doc-diagram-figure` + `doc-diagram-viewport-controls` (PL components) + `diagram-frame` / `diagram-lane` / `diagram-box` / `diagram-box--substrate` / `diagram-arrow` / `diagram-arrow--muted` / `diagram-marker-defs` / `diagram-caption` (canon primitives) | Bundle: `Lab/haven-ui/tools/surface-emit/diagrams/public-site/patient-journey-timeline/` (manifest.md + diagram.md + 9 fragments + rendered-diagram.html). Brief: `Lab/cena-health-public-site/strategy/content/reference-program.md` §2. | `:::diagram{workflow="patient-journey-timeline"}` — alias registered in `tools/surface-emit/diagram-aliases.json`. | Phase 3a slice 1 **v2** — emits via the canonical **Diagram pipeline** (`PIPELINE-REGISTRY.md` Diagram row; entity `Knowledge/Areas/Meta/Entities/cena-health/haven-diagram.md`); rendered SVG itself uses haven canon classes only, **NOT authored as a static SVG primitive in components.css**. 7th swim-lane instance (joining 6 SoP use-case bundles). New `tools/surface-emit/diagrams/public-site/` namespace for non-SoP diagrams. 9 stages × 4 lanes = 36 cells; generic-AMC framing (strict-superset UConn-named upgrade pending Vanessa clearance per outstanding-partner-input.md item #1). Visual-language calls (lane background tints, substrate-uniformity register, provenance-lane treatment, stage-column-header treatment) deferred to Haven Visual Designer. Supersedes the reverted v1 hand-coordinate composition (which bypassed the figure + viewport canon). |
+
+---
+
 ## Adding New Components
 
 When you add a new component:

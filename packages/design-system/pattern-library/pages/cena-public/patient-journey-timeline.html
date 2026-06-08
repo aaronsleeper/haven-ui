@@ -1,0 +1,172 @@
+<!--
+  @component-meta
+  name: Patient Journey Timeline — Cena Public Site
+  category: Cena Public Site
+  file: pages/cena-public/patient-journey-timeline.html
+  slice: Phase 3a slice 1 v2 — `/reference-program` §2 primary visual primitive
+  composes:
+    - doc-diagram-figure (PL component): packages/design-system/pattern-library/components/doc-diagram-figure.html
+    - doc-diagram-viewport-controls (PL component): packages/design-system/pattern-library/components/doc-diagram-viewport-controls.html
+    - .diagram-frame, .diagram-lane, .diagram-box, .diagram-box--substrate, .diagram-arrow, .diagram-arrow--muted, .diagram-marker-defs, .diagram-caption (canon primitives)
+  bundle-source: Lab/haven-ui/tools/surface-emit/diagrams/public-site/patient-journey-timeline/ (manifest.md + diagram.md + fragments/*.md + rendered-diagram.html)
+  directive-equivalent: :::diagram{workflow="patient-journey-timeline"} (alias registered in tools/surface-emit/diagram-aliases.json)
+  pipeline: Diagram (per PIPELINE-REGISTRY.md row); canonical identity Knowledge/Areas/Meta/Entities/cena-health/haven-diagram.md
+  viewer-pattern: doc-diagram-viewport-controls (pan/zoom chrome layered over the rendered SVG iframe per HVD §3.13)
+  when-to-use: Reviewer surface for the Phase 3a slice 1 v2 composition of the patient-journey timeline. This composition is NOT a new primitive — it composes the canonical doc-diagram-figure + doc-diagram-viewport-controls + existing diagram-* canon classes against the bundle's rendered-diagram.html (which itself uses canon classes only, no inline modifier candidates).
+  do-not-use-when: You're authoring a SoP-side diagram. SoPs reach the diagram pipeline via :::diagram{workflow="<slug>"} directives in markdown source; this is the public-site reviewer surface.
+  preline-required: no
+  notes: |
+    v2 supersedes the reverted v1 (which authored a hand-coordinate inline SVG composition without the figure / viewport canon). v1 violated catalog-first by bypassing the existing Diagram pipeline + viewer pattern Aaron flagged; v2 routes through the canonical pipeline per .claude/rules/emit-vs-create.md.
+    Visual-language calls deferred to Haven Visual Designer: (1) lane background tints, (2) substrate-uniformity register, (3) provenance-lane treatment, (4) stage-column-header treatment. These four calls inherit from v1's deferred list — the v1 reverted composition stopped short of HVD review precisely because these calls needed expert judgment.
+    Bundle namespace: tools/surface-emit/diagrams/public-site/ is a NEW namespace sibling to tools/surface-emit/content-sot/use-cases/ for non-SoP diagrams. The runner's diagram-aliases.json uses absolute paths so the namespace choice is fully flexible (no runner constraint friction observed). If the namespace is wrong, the alias row is the single edit point.
+  @end-meta
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-12">
+
+      <div class="page-header">
+        <h1>Patient Journey Timeline — Cena Public Site</h1>
+        <p class="text-gray-500 dark:text-neutral-400">
+          Phase 3a slice 1 v2 composition for <code>/reference-program</code> §2's primary visual primitive.
+          Composes the canonical <code>doc-diagram-figure</code> + <code>doc-diagram-viewport-controls</code>
+          PL components with the existing <code>diagram-*</code> canon primitives. Bundle authored under the
+          new <code>tools/surface-emit/diagrams/public-site/</code> namespace and registered in
+          <code>diagram-aliases.json</code> as <code>patient-journey-timeline</code> — reachable from any
+          consumer via the <code>:::diagram{workflow="patient-journey-timeline"}</code> directive.
+        </p>
+      </div>
+
+      <section class="prose-section">
+        <h2>What this showcases</h2>
+        <p>
+          A 9-stage × 4-lane swim-lane timeline of the live academic-medical-center HIV-nutrition program,
+          rendered against the canonical Diagram pipeline (per <code>PIPELINE-REGISTRY.md</code>'s Diagram row
+          + entity doc at <code>Knowledge/Areas/Meta/Entities/cena-health/haven-diagram.md</code>). The bundle
+          is the 7th swim-lane instance (joining the 6 existing SoP use-case bundles); it's authored under
+          a new <code>diagrams/public-site/</code> namespace because it's a marketing-visual diagram, not an
+          SoP use case.
+        </p>
+        <p>
+          Reviewers should look for:
+        </p>
+        <ul>
+          <li>The four-lane structure reads at a glance — patient, partner's clinical staff, Cena substrate, provenance artifact (top to bottom)</li>
+          <li>Substrate-lane cells use the existing <code>.diagram-box--substrate</code> teal-800 variant uniformly across all 9 stages (encodes "by the system, automatically")</li>
+          <li>Patient + clinical-staff + provenance cells use the default <code>.diagram-box</code> (sand-50 fill, sand-300 stroke) — restraint per blueprint-voice register</li>
+          <li>No emphasis modifier on any cell (deliberate breadth-not-climax call per blueprint document register)</li>
+          <li>Generic-AMC framing throughout — every cell uses <em>"the partner"</em> / <em>"the partner's clinician"</em> phrasing; the strict-superset UConn-named upgrade lands when Vanessa clearance does</li>
+          <li>HDG row 3 — no vendor stack names anywhere in the rendering</li>
+          <li>HDG row 4 — clinical-staff cells use partner-clinician phrasing per the accountability model</li>
+        </ul>
+        <p>
+          Source brief: <code>Lab/cena-health-public-site/strategy/content/reference-program.md</code> §2.
+          Bundle: <code>Lab/haven-ui/tools/surface-emit/diagrams/public-site/patient-journey-timeline/</code>.
+          Audit (revised lens — primitive vocabulary still valid; the "hand-coordinate composition"
+          recommendation is superseded by this v2): <code>Lab/cena-health-public-site/strategy/phase-3a-primitive-audit.md</code> §3.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-title mb-4">Composition</h2>
+        <p class="pl-description mb-6">
+          <code>doc-diagram-figure</code> wraps the rendered SVG asset (eyebrow + caption above, asset
+          slot, description below); the asset slot is an <code>&lt;iframe&gt;</code> loading the bundle's
+          <code>rendered-diagram.html</code> via a relative path. Production directive emission inlines the
+          same standalone via <code>srcdoc</code> (per <code>handlers.mjs</code>
+          <code>resolveDiagramPlaceholders</code>); the PL showcase uses <code>src=</code> for static-page
+          legibility.
+        </p>
+
+        <!-- @component: cena-public-patient-journey-timeline-figure -->
+        <figure class="diagram-figure" data-workflow="patient-journey-timeline">
+          <figcaption class="diagram-figure-caption">
+            <span class="diagram-figure-eyebrow">WORKFLOW DIAGRAM</span>
+            <span class="diagram-figure-title">Patient Journey Timeline — Live Academic-Medical-Center HIV-Nutrition Program</span>
+          </figcaption>
+          <div class="diagram-figure-asset">
+            <iframe class="diagram-figure-frame"
+                    src="./_assets/rendered-diagram.html"
+                    title="Workflow diagram: Patient Journey Timeline — Live AMC HIV-Nutrition Program"
+                    style="width:100%;min-height:780px;border:0;display:block;"
+                    loading="lazy"></iframe>
+          </div>
+          <p class="diagram-figure-description">
+            Horizontal patient-journey timeline rendering of the live academic-medical-center HIV-nutrition
+            program — 9 stages (Referral through Re-assessment) across 4 swim-lanes (Patient / Clinical
+            staff / Cena substrate / Provenance artifact). The bottom provenance lane carries the
+            audit-trail artifact written at each stage; this is the page's load-bearing legal/compliance read.
+          </p>
+        </figure>
+        <!-- /component -->
+      </section>
+
+      <section class="prose-section">
+        <h2>Visual-language calls deferred to Haven Visual Designer</h2>
+        <p>
+          Four visual-language calls are deliberately deferred to a Haven Visual Designer expert pass.
+          v0.1 ships with the existing canon set (no inline modifier candidates added) so the deferred
+          calls don't get foreclosed by a freelance render decision.
+        </p>
+        <ul>
+          <li><strong>Lane background tints.</strong> Each lane could carry a subtle background tint (e.g., patient lane white, clinical lane sand-50, substrate lane sand-100 underneath the substrate-fill boxes, provenance lane a darker sand-100 to anchor it visually as the audit-trail substrate ground). v0.1 uses no lane background tints; all lanes share the same diagram-frame ground. HVD call.</li>
+          <li><strong>Substrate-uniformity register.</strong> All 9 substrate cells use the existing <code>.diagram-box--substrate</code> variant uniformly. HVD should evaluate whether the uniformity reads as "by the system, automatically" (intended) or as visually monotonous (unintended). Promoting a register-differentiated set of substrate variants is HVD's call if the uniformity reads as the wrong density.</li>
+          <li><strong>Provenance-lane treatment.</strong> v0.1 uses the default <code>.diagram-box</code> for all 9 provenance cells. The Phase 3a audit §3 brand-fidelity considerations noted that <code>.diagram-box--milestone-done</code> (green-50 fill) reads as <em>"outcome achieved"</em> which collides with the artifact-voice constraint. Promoting a new <code>.diagram-box--provenance</code> variant (e.g., a quieter sand register with a hairline accent) for register differentiation is HVD's call.</li>
+          <li><strong>Stage-column-header treatment.</strong> v0.1 stages each column with tiny-caps Source Code Pro headers matching the <code>.diagram-lane-label</code> register. Background tint, separator weight, and vertical-rhythm hooks are deferred to HVD.</li>
+        </ul>
+      </section>
+
+      <section class="prose-section">
+        <h2>Pipeline + directive details</h2>
+        <ul>
+          <li><strong>Bundle path:</strong> <code>Lab/haven-ui/tools/surface-emit/diagrams/public-site/patient-journey-timeline/</code></li>
+          <li><strong>Files in bundle:</strong> <code>manifest.md</code> (title, description, sequence, gaps), <code>diagram.md</code> (Direction D spec — lanes, node_placement, edges, visualization rules), <code>fragments/01-referral.md</code> through <code>fragments/09-re-assessment.md</code> (per-stage cell content + prose body), <code>rendered-diagram.html</code> (hand-authored SVG using canon primitives only)</li>
+          <li><strong>Alias slug:</strong> <code>patient-journey-timeline</code> — registered in <code>Lab/haven-ui/tools/surface-emit/diagram-aliases.json</code> at the new namespace path</li>
+          <li><strong>Directive equivalent:</strong> <code>:::diagram{workflow="patient-journey-timeline"}</code> — any markdown source consuming the diagram via the canonical resolved-asset directive resolves this slug through the runner (<code>resolve-diagram-directives.mjs</code> on the DOCX side; <code>resolveDiagramPlaceholders</code> rehype plugin on the HTML side)</li>
+          <li><strong>Pipeline:</strong> Diagram — see <code>PIPELINE-REGISTRY.md</code> row + canonical identity <code>Knowledge/Areas/Meta/Entities/cena-health/haven-diagram.md</code></li>
+          <li><strong>Sibling instances:</strong> 6 swim-lane bundles at <code>tools/surface-emit/content-sot/use-cases/&lt;slug&gt;/</code> — <code>escalation-phq9-positive</code>, <code>initial-care-plan-meal-plan</code>, <code>monthly-uconn-review-meeting</code>, <code>phq9-administration</code>, <code>weekly-checkin-call</code>, <code>written-consent-execution</code></li>
+        </ul>
+      </section>
+
+      <section class="prose-section">
+        <h2>Open the rendered diagram standalone</h2>
+        <p>
+          The iframe above loads a Vite-served copy of the bundle's rendered diagram at
+          <code>./_assets/rendered-diagram.html</code>. The canonical source-of-truth lives in the bundle
+          at <code>Lab/haven-ui/tools/surface-emit/diagrams/public-site/patient-journey-timeline/rendered-diagram.html</code>
+          — the <code>_assets/</code> copy is a PL-served view (stylesheet link adjusted for served-depth).
+          When the bundle changes, regenerate the <code>_assets/</code> copy from the bundle.
+        </p>
+        <p>
+          <a href="./_assets/rendered-diagram.html" target="_blank" rel="noopener" class="btn btn-secondary">
+            Open standalone rendered diagram in new tab
+          </a>
+        </p>
+      </section>
+
+      <section class="prose-section">
+        <h2>Reference: the canonical viewer pattern</h2>
+        <p class="pl-description">
+          The <code>doc-diagram-viewport-controls</code> PL component is the canonical pan/zoom chrome that
+          layers over the rendered diagram inside the iframe srcdoc rendered by the directive runner. For
+          v0.1 the showcase above uses a plain iframe without the viewport chrome (the rendered-diagram.html
+          standalone is wider than the figure-asset slot; pan/zoom is a later HVD-coordinated slice that
+          would require integrating the panzoom JS from <code>tools/surface-emit/spec_to_haven_svg.mjs</code>).
+          The viewer-pattern demo below is for reference — it shows the chrome shape so reviewers can
+          evaluate the eventual integration.
+        </p>
+
+        <load src="../../components/doc-diagram-viewport-controls.html" />
+      </section>
+
+    </main>
+  </div>
+  <load src="../../partials/pl-scripts.html" />
+</body>
+</html>

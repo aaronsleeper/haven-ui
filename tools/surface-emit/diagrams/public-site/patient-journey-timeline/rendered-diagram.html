@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Patient Journey Timeline — Live AMC HIV-Nutrition Program (DRAFT)</title>
+<link rel="stylesheet" href="../../../../../packages/design-system/src/styles/main.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   Page chrome ONLY (not part of the diagram primitives; per-rendering only).
+   No candidate modifier classes inline-defined here — v0.1 deliberately uses
+   the existing haven canon set (.diagram-frame, .diagram-lane, .diagram-box,
+   .diagram-box--substrate, .diagram-arrow, .diagram-arrow--muted,
+   .diagram-marker-defs, .diagram-caption) and defers visual-language calls
+   (lane background tints, substrate-uniformity register, provenance-lane
+   treatment, stage-column-header treatment) to the Haven Visual Designer.
+
+   This is a Phase 3a slice 1 v2 render — emits via the canonical Diagram
+   pipeline (manifest.md + diagram.md + fragments/), authored to mirror the
+   sibling content-sot/use-cases/<slug>/ bundle shape. Output bundle path:
+   tools/surface-emit/diagrams/public-site/patient-journey-timeline/.
+   ──────────────────────────────────────────────────────────────────────── */
+body {
+  background: var(--color-surface-page, #fbfaf8);
+  padding: 32px;
+  font-family: var(--font-sans, 'Source Sans 3', sans-serif);
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-frame-wrapper { max-width: 2080px; margin: 0 auto; }
+.diagram-header { margin-bottom: 24px; }
+.diagram-header h1 {
+  font-family: var(--font-serif, 'Lora', serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: var(--color-text-normal, #0d322d);
+}
+.diagram-header .draft-marker {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  color: var(--color-warm-amber-700, #735311);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.diagram-meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #555);
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-muted, #e8dfca);
+}
+.diagram-long-desc { display: none; }
+/* Per-rendering stage-column-header text style — uses the lane-label register
+   (Source Code Pro tiny-caps, sand-700) for visual consistency with
+   .diagram-lane-label. Treatment specifics (background tint, separator
+   weight) deferred to Haven Visual Designer per v1 deferred-calls list. */
+.stage-column-header {
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--color-text-muted, #555);
+}
+</style>
+</head>
+<body>
+
+<!-- ──────────────────────────────────────────────────────────────────────
+     DRIFT NOTES (for the rendering agent / reviewer / future-self)
+     - Bundle: tools/surface-emit/diagrams/public-site/patient-journey-timeline/
+     - Source: ./manifest.md + ./fragments/*.md + ./diagram.md
+     - Pattern: hand-authored SVG mirroring sibling
+       content-sot/use-cases/phq9-administration/rendered-diagram.html shape
+     - NO inline modifier classes — v0.1 uses existing haven canon only:
+       .diagram-frame, .diagram-frame-wrap, .diagram-lane, .diagram-lane-label,
+       .diagram-box, .diagram-box-shape, .diagram-box-label,
+       .diagram-box-sublabel, .diagram-box--substrate, .diagram-arrow,
+       .diagram-arrow--muted, .diagram-marker-defs, .diagram-caption
+     - Visual-language calls deferred to Haven Visual Designer:
+       (1) lane background tints, (2) substrate-uniformity register,
+       (3) provenance-lane treatment, (4) stage-column-header treatment
+     - Generic-AMC framing; strict-superset UConn-named upgrade pending
+       Vanessa clearance (outstanding-partner-input.md item #1)
+     - HDG row 3: no vendor stack names anywhere in this rendering
+     - HDG row 4: clinical-staff cells use partner-clinician phrasing
+     - 9 stages × 4 lanes = 36 cells; no emphasis modifiers (deliberate
+       breadth-not-climax restraint per diagram.md Visualization rules)
+     ────────────────────────────────────────────────────────────────────── -->
+
+<div class="diagram-frame-wrapper">
+
+<header class="diagram-header">
+  <h1>The live academic-medical-center HIV-nutrition program — end-to-end</h1>
+  <span class="draft-marker">DRAFT • v0.1 • generic-AMC framing; UConn-named upgrade pending Vanessa clearance</span>
+</header>
+
+<div class="diagram-frame-wrap">
+<svg class="diagram-frame" viewBox="0 0 2080 720" role="img" aria-labelledby="diagram-title" aria-describedby="diagram-desc" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" style="display: block;">
+  <title id="diagram-title">Patient journey timeline — 9-stage swim-lane diagram across patient, clinical staff, Cena substrate, and provenance artifact lanes</title>
+
+  <defs class="diagram-marker-defs">
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto" aria-hidden="true">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-arrow-muted, #b8a988)"/>
+    </marker>
+  </defs>
+
+  <!-- Stage column headers (top) — names each of the 9 stages above the lane stack -->
+  <text class="stage-column-header" x="145" y="38" text-anchor="middle">REFERRAL</text>
+  <text class="stage-column-header" x="360" y="38" text-anchor="middle">ENROLLMENT</text>
+  <text class="stage-column-header" x="575" y="38" text-anchor="middle">ASSESSMENT</text>
+  <text class="stage-column-header" x="790" y="38" text-anchor="middle">CARE PLAN</text>
+  <text class="stage-column-header" x="1005" y="38" text-anchor="middle">ORDERING</text>
+  <text class="stage-column-header" x="1220" y="38" text-anchor="middle">FULFILLMENT</text>
+  <text class="stage-column-header" x="1435" y="38" text-anchor="middle">ADHERENCE CHECK-INS</text>
+  <text class="stage-column-header" x="1650" y="38" text-anchor="middle">OUTCOME CAPTURE</text>
+  <text class="stage-column-header" x="1865" y="38" text-anchor="middle">RE-ASSESSMENT</text>
+
+  <!-- ─────────────── LANES ─────────────── -->
+  <!-- Lane 1: PATIENT -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="20" y="110">PATIENT</text>
+    <line x1="170" y1="125" x2="2060" y2="125" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <!-- Lane 2: CLINICAL STAFF -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="20" y="280">CLINICAL STAFF</text>
+    <line x1="170" y1="295" x2="2060" y2="295" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <!-- Lane 3: CENA SUBSTRATE -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="20" y="450">CENA SUBSTRATE</text>
+    <line x1="170" y1="465" x2="2060" y2="465" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+  <!-- Lane 4: PROVENANCE ARTIFACT -->
+  <g class="diagram-lane">
+    <text class="diagram-lane-label" x="20" y="620">PROVENANCE ARTIFACT</text>
+    <line x1="170" y1="635" x2="2060" y2="635" stroke="var(--color-border-muted, #e8dfca)" stroke-width="1"/>
+  </g>
+
+  <!-- ─────────────── STAGE 01 — Referral (x_center 145) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="55" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="145" y="85" text-anchor="middle">Patient enters</text>
+    <text class="diagram-box-sublabel" x="145" y="105" text-anchor="middle">via partner's</text>
+    <text class="diagram-box-sublabel" x="145" y="120" text-anchor="middle">referral pathway</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="55" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="145" y="250" text-anchor="middle">Partner intake</text>
+    <text class="diagram-box-label" x="145" y="265" text-anchor="middle">reviews referral</text>
+    <text class="diagram-box-sublabel" x="145" y="285" text-anchor="middle">eligibility against</text>
+    <text class="diagram-box-sublabel" x="145" y="300" text-anchor="middle">IRB protocol</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="55" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="145" y="420" text-anchor="middle">Substrate ingests</text>
+    <text class="diagram-box-label" x="145" y="435" text-anchor="middle">referral</text>
+    <text class="diagram-box-sublabel" x="145" y="455" text-anchor="middle">normalizes</text>
+    <text class="diagram-box-sublabel" x="145" y="470" text-anchor="middle">intake record</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="55" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="145" y="590" text-anchor="middle">Referral receipt</text>
+    <text class="diagram-box-sublabel" x="145" y="610" text-anchor="middle">source attribution</text>
+    <text class="diagram-box-sublabel" x="145" y="625" text-anchor="middle">timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 02 — Enrollment (x_center 360) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="270" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="360" y="85" text-anchor="middle">Patient consents</text>
+    <text class="diagram-box-sublabel" x="360" y="105" text-anchor="middle">in-person</text>
+    <text class="diagram-box-sublabel" x="360" y="120" text-anchor="middle">enrollment visit</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="270" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="360" y="250" text-anchor="middle">Partner's program</text>
+    <text class="diagram-box-label" x="360" y="265" text-anchor="middle">coordinator enrolls</text>
+    <text class="diagram-box-sublabel" x="360" y="285" text-anchor="middle">obtains consent</text>
+    <text class="diagram-box-sublabel" x="360" y="300" text-anchor="middle">registers participant</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="270" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="360" y="420" text-anchor="middle">Substrate registers</text>
+    <text class="diagram-box-label" x="360" y="435" text-anchor="middle">enrollment</text>
+    <text class="diagram-box-sublabel" x="360" y="455" text-anchor="middle">captures consent</text>
+    <text class="diagram-box-sublabel" x="360" y="470" text-anchor="middle">record</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="270" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="360" y="585" text-anchor="middle">Consent record +</text>
+    <text class="diagram-box-label" x="360" y="600" text-anchor="middle">enrollment artifact</text>
+    <text class="diagram-box-sublabel" x="360" y="620" text-anchor="middle">clinician signature</text>
+    <text class="diagram-box-sublabel" x="360" y="635" text-anchor="middle">timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 03 — Assessment (x_center 575) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="485" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="575" y="80" text-anchor="middle">Patient completes</text>
+    <text class="diagram-box-label" x="575" y="95" text-anchor="middle">intake assessment</text>
+    <text class="diagram-box-sublabel" x="575" y="115" text-anchor="middle">with partner's RD</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="485" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="575" y="255" text-anchor="middle">Partner's RD assesses</text>
+    <text class="diagram-box-sublabel" x="575" y="275" text-anchor="middle">nutrition history</text>
+    <text class="diagram-box-sublabel" x="575" y="290" text-anchor="middle">clinical indicators</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="485" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="575" y="420" text-anchor="middle">Substrate captures</text>
+    <text class="diagram-box-label" x="575" y="435" text-anchor="middle">assessment</text>
+    <text class="diagram-box-sublabel" x="575" y="455" text-anchor="middle">structures</text>
+    <text class="diagram-box-sublabel" x="575" y="470" text-anchor="middle">clinical data</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="485" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="575" y="590" text-anchor="middle">Assessment record</text>
+    <text class="diagram-box-sublabel" x="575" y="610" text-anchor="middle">clinical-staff</text>
+    <text class="diagram-box-sublabel" x="575" y="625" text-anchor="middle">attribution + timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 04 — Care plan (x_center 790) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="700" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="790" y="80" text-anchor="middle">Patient receives</text>
+    <text class="diagram-box-label" x="790" y="95" text-anchor="middle">care plan</text>
+    <text class="diagram-box-sublabel" x="790" y="115" text-anchor="middle">reviewed with</text>
+    <text class="diagram-box-sublabel" x="790" y="130" text-anchor="middle">partner's clinician</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="700" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="790" y="250" text-anchor="middle">Partner's clinician</text>
+    <text class="diagram-box-label" x="790" y="265" text-anchor="middle">approves recommendation</text>
+    <text class="diagram-box-sublabel" x="790" y="285" text-anchor="middle">retains</text>
+    <text class="diagram-box-sublabel" x="790" y="300" text-anchor="middle">accountability</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="700" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="790" y="420" text-anchor="middle">Substrate generates</text>
+    <text class="diagram-box-label" x="790" y="435" text-anchor="middle">recommendation</text>
+    <text class="diagram-box-sublabel" x="790" y="455" text-anchor="middle">with peer-reviewed</text>
+    <text class="diagram-box-sublabel" x="790" y="470" text-anchor="middle">citations</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="700" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="790" y="585" text-anchor="middle">Recommendation record</text>
+    <text class="diagram-box-sublabel" x="790" y="605" text-anchor="middle">cited literature</text>
+    <text class="diagram-box-sublabel" x="790" y="620" text-anchor="middle">clinician approval</text>
+    <text class="diagram-box-sublabel" x="790" y="635" text-anchor="middle">timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 05 — Ordering (x_center 1005) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="915" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1005" y="85" text-anchor="middle">Patient receives</text>
+    <text class="diagram-box-label" x="1005" y="100" text-anchor="middle">order confirmation</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="915" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1005" y="250" text-anchor="middle">Partner's care</text>
+    <text class="diagram-box-label" x="1005" y="265" text-anchor="middle">coordinator confirms</text>
+    <text class="diagram-box-sublabel" x="1005" y="285" text-anchor="middle">against approved</text>
+    <text class="diagram-box-sublabel" x="1005" y="300" text-anchor="middle">plan</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="915" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="1005" y="420" text-anchor="middle">Substrate places</text>
+    <text class="diagram-box-label" x="1005" y="435" text-anchor="middle">order</text>
+    <text class="diagram-box-sublabel" x="1005" y="455" text-anchor="middle">to partner's</text>
+    <text class="diagram-box-sublabel" x="1005" y="470" text-anchor="middle">fulfillment contract</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="915" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1005" y="590" text-anchor="middle">Order record</text>
+    <text class="diagram-box-sublabel" x="1005" y="610" text-anchor="middle">fulfillment-contract</text>
+    <text class="diagram-box-sublabel" x="1005" y="625" text-anchor="middle">attribution + timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 06 — Fulfillment (x_center 1220) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1130" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1220" y="80" text-anchor="middle">Patient receives</text>
+    <text class="diagram-box-label" x="1220" y="95" text-anchor="middle">fulfillment</text>
+    <text class="diagram-box-sublabel" x="1220" y="115" text-anchor="middle">per partner's</text>
+    <text class="diagram-box-sublabel" x="1220" y="130" text-anchor="middle">delivery channel</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1130" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1220" y="250" text-anchor="middle">Partner's navigator</text>
+    <text class="diagram-box-label" x="1220" y="265" text-anchor="middle">monitors fulfillment</text>
+    <text class="diagram-box-sublabel" x="1220" y="285" text-anchor="middle">exception-driven</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="1130" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="1220" y="425" text-anchor="middle">Substrate logs</text>
+    <text class="diagram-box-label" x="1220" y="440" text-anchor="middle">delivery confirmation</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1130" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1220" y="585" text-anchor="middle">Fulfillment</text>
+    <text class="diagram-box-label" x="1220" y="600" text-anchor="middle">confirmation</text>
+    <text class="diagram-box-sublabel" x="1220" y="620" text-anchor="middle">delivery confirmation</text>
+    <text class="diagram-box-sublabel" x="1220" y="635" text-anchor="middle">timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 07 — Adherence check-ins (x_center 1435) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1345" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1435" y="80" text-anchor="middle">Patient engages</text>
+    <text class="diagram-box-label" x="1435" y="95" text-anchor="middle">adherence check-ins</text>
+    <text class="diagram-box-sublabel" x="1435" y="115" text-anchor="middle">patient-facing</text>
+    <text class="diagram-box-sublabel" x="1435" y="130" text-anchor="middle">interface</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1345" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1435" y="250" text-anchor="middle">Partner's care</text>
+    <text class="diagram-box-label" x="1435" y="265" text-anchor="middle">coordinator intervenes</text>
+    <text class="diagram-box-sublabel" x="1435" y="285" text-anchor="middle">per substrate-flagged</text>
+    <text class="diagram-box-sublabel" x="1435" y="300" text-anchor="middle">signal</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="1345" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="1435" y="420" text-anchor="middle">Substrate captures</text>
+    <text class="diagram-box-label" x="1435" y="435" text-anchor="middle">adherence signal</text>
+    <text class="diagram-box-sublabel" x="1435" y="455" text-anchor="middle">flags when threshold</text>
+    <text class="diagram-box-sublabel" x="1435" y="470" text-anchor="middle">crosses</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1345" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1435" y="585" text-anchor="middle">Adherence-signal</text>
+    <text class="diagram-box-label" x="1435" y="600" text-anchor="middle">capture</text>
+    <text class="diagram-box-sublabel" x="1435" y="620" text-anchor="middle">intervention record</text>
+    <text class="diagram-box-sublabel" x="1435" y="635" text-anchor="middle">(if triggered) + timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 08 — Outcome capture (x_center 1650) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1560" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1650" y="80" text-anchor="middle">Patient completes</text>
+    <text class="diagram-box-label" x="1650" y="95" text-anchor="middle">outcome measures</text>
+    <text class="diagram-box-sublabel" x="1650" y="115" text-anchor="middle">per protocol cadence</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1560" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1650" y="250" text-anchor="middle">Partner's clinician</text>
+    <text class="diagram-box-label" x="1650" y="265" text-anchor="middle">reviews outcome record</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="1560" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="1650" y="420" text-anchor="middle">Substrate logs</text>
+    <text class="diagram-box-label" x="1650" y="435" text-anchor="middle">outcome record</text>
+    <text class="diagram-box-sublabel" x="1650" y="455" text-anchor="middle">with measurement</text>
+    <text class="diagram-box-sublabel" x="1650" y="470" text-anchor="middle">methodology</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1560" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1650" y="590" text-anchor="middle">Outcome record</text>
+    <text class="diagram-box-sublabel" x="1650" y="610" text-anchor="middle">measurement</text>
+    <text class="diagram-box-sublabel" x="1650" y="625" text-anchor="middle">methodology + timestamp</text>
+  </g>
+
+  <!-- ─────────────── STAGE 09 — Re-assessment (x_center 1865) ─────────────── -->
+  <!-- Patient -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1775" y="60" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1865" y="80" text-anchor="middle">Patient returns for</text>
+    <text class="diagram-box-label" x="1865" y="95" text-anchor="middle">re-assessment</text>
+    <text class="diagram-box-sublabel" x="1865" y="115" text-anchor="middle">per protocol schedule</text>
+  </g>
+  <!-- Clinical staff -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1775" y="225" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1865" y="250" text-anchor="middle">Partner's clinician</text>
+    <text class="diagram-box-label" x="1865" y="265" text-anchor="middle">closes the loop</text>
+    <text class="diagram-box-sublabel" x="1865" y="285" text-anchor="middle">revises care plan</text>
+    <text class="diagram-box-sublabel" x="1865" y="300" text-anchor="middle">as needed</text>
+  </g>
+  <!-- Substrate -->
+  <g class="diagram-box diagram-box--substrate">
+    <rect class="diagram-box-shape" x="1775" y="395" width="180" height="80" rx="4" ry="4"/>
+    <text class="diagram-box-label" x="1865" y="420" text-anchor="middle">Substrate flags</text>
+    <text class="diagram-box-label" x="1865" y="435" text-anchor="middle">re-assessment trigger</text>
+    <text class="diagram-box-sublabel" x="1865" y="455" text-anchor="middle">per protocol</text>
+    <text class="diagram-box-sublabel" x="1865" y="470" text-anchor="middle">criteria</text>
+  </g>
+  <!-- Provenance -->
+  <g class="diagram-box">
+    <rect class="diagram-box-shape" x="1775" y="565" width="180" height="80" rx="4" ry="4" fill="var(--color-surface-card, #ffffff)" stroke="var(--color-border-default, #d6cdbe)" stroke-width="1"/>
+    <text class="diagram-box-label" x="1865" y="585" text-anchor="middle">Re-assessment</text>
+    <text class="diagram-box-label" x="1865" y="600" text-anchor="middle">trigger record</text>
+    <text class="diagram-box-sublabel" x="1865" y="620" text-anchor="middle">criteria</text>
+    <text class="diagram-box-sublabel" x="1865" y="635" text-anchor="middle">timestamp</text>
+  </g>
+
+  <!-- ─────────────── SUBSTRATE-LANE INTER-STAGE EDGES (muted, default arrow) ─────────────── -->
+  <!-- The substrate lane carries the load-bearing temporal axis (per diagram.md
+       Visualization rules); 8 inter-stage arrows show flow at lane y_center 435.
+       Other lanes do not carry inter-stage arrows — those lanes read as the
+       cells themselves; adding 24 more for symmetry would clutter without
+       adding signal. -->
+  <line class="diagram-arrow diagram-arrow--muted" x1="235" y1="435" x2="270" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="450" y1="435" x2="485" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="665" y1="435" x2="700" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="880" y1="435" x2="915" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="1095" y1="435" x2="1130" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="1310" y1="435" x2="1345" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="1525" y1="435" x2="1560" y2="435" marker-end="url(#arrow-end)"/>
+  <line class="diagram-arrow diagram-arrow--muted" x1="1740" y1="435" x2="1775" y2="435" marker-end="url(#arrow-end)"/>
+
+  <!-- Caption -->
+  <text class="diagram-caption" x="1040" y="700" text-anchor="middle">The live academic-medical-center HIV-nutrition program, end-to-end — patient action, partner's clinical staff action, Cena substrate action, and the audit-trail artifact written at each stage.</text>
+</svg>
+</div>
+
+<!-- Structured screen-reader description (sr-only via .diagram-long-desc class) -->
+<div id="diagram-desc" class="diagram-long-desc">
+  <p class="diagram-long-desc__purpose">
+    The patient-journey timeline depicts the 9-stage patient journey through the live academic-medical-center HIV-nutrition program running on Cena's substrate today. The timeline reads left-to-right by temporal stage (Referral → Re-assessment); each stage crosses four top-to-bottom actor lanes (Patient action / Clinical staff action / Cena substrate action / Provenance artifact created). The fourth bottom lane carries the audit-trail artifact written at each stage and serves the legal/compliance reader's deep-link path from /how-the-substrate-works/provenance-and-accountability.
+  </p>
+  <h4>Lanes</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>Patient (top lane)</strong> — the patient as the protagonist of their own care, mediated by the partner's clinical team. Patient cells use role language not identity language.</li>
+    <li><strong>Clinical staff (second lane)</strong> — the partner-institution's clinical team at every stage where a clinical call is required. Every cell uses HDG row 4 partner-clinician phrasing; clinical accountability stays partner-owned throughout the program.</li>
+    <li><strong>Cena substrate (third lane)</strong> — the substrate's structural action at each stage. Verbs are structural (writes, captures, generates, flags, logs, places, ingests, registers). The substrate-action lane uses the haven canon `.diagram-box--substrate` variant (teal-800 fill, white text) uniformly across all 9 cells to encode "by the system, automatically."</li>
+    <li><strong>Provenance artifact (bottom lane)</strong> — the audit-trail artifact written to the audit-trail store at each stage. Cells are nominal (artifact name + attribution + timestamp); a complete scan of this lane reads as the program's defensible trail end-to-end.</li>
+  </ul>
+  <h4>Stages</h4>
+  <ul class="diagram-long-desc__elements">
+    <li><strong>01 Referral</strong> — patient enters via the partner's referral pathway; partner intake reviews eligibility against IRB protocol; substrate ingests and normalizes the intake record; referral receipt with source attribution and timestamp written to audit store.</li>
+    <li><strong>02 Enrollment</strong> — patient consents at in-person enrollment visit; partner's program coordinator obtains consent and registers the participant; substrate registers the enrollment and captures the consent record; consent record + enrollment artifact + clinician signature + timestamp written to audit store.</li>
+    <li><strong>03 Assessment</strong> — patient completes intake assessment with partner's RD; partner's RD assesses nutrition history and clinical indicators; substrate captures the assessment record and structures the clinical data; assessment record + clinical-staff attribution + timestamp written to audit store.</li>
+    <li><strong>04 Care plan</strong> — patient receives care plan reviewed with partner's clinician; partner's clinician approves the substrate-generated recommendation and retains accountability; substrate generates the recommendation with peer-reviewed citations attached; recommendation record + cited literature + clinician approval + timestamp written to audit store.</li>
+    <li><strong>05 Ordering</strong> — patient receives order confirmation; partner's care coordinator confirms the order against the approved plan; substrate places the order to the partner's existing fulfillment contract; order record + fulfillment-contract attribution + timestamp written to audit store.</li>
+    <li><strong>06 Fulfillment</strong> — patient receives fulfillment per the partner's delivery channel; partner's navigator monitors fulfillment exception-driven; substrate logs the delivery confirmation; fulfillment confirmation + delivery confirmation + timestamp written to audit store.</li>
+    <li><strong>07 Adherence check-ins</strong> — patient engages adherence check-ins via the patient-facing interface; partner's care coordinator intervenes per substrate-flagged signal; substrate captures the adherence signal and flags when threshold crosses; adherence-signal capture + intervention record (if triggered) + timestamp written to audit store.</li>
+    <li><strong>08 Outcome capture</strong> — patient completes outcome measures per protocol cadence; partner's clinician reviews the outcome record; substrate logs the outcome record with measurement methodology captured; outcome record + measurement methodology + timestamp written to audit store. Outcome VALUES are deferred to /proof; this stage's claim is the artifact's existence.</li>
+    <li><strong>09 Re-assessment</strong> — patient returns for re-assessment per protocol schedule; partner's clinician closes the loop and revises care plan as needed; substrate flags the re-assessment trigger per protocol criteria; re-assessment trigger record + criteria + timestamp written to audit store. A subsequent care-plan revision produces a fresh recommendation record at stage 04 of the next cycle.</li>
+  </ul>
+  <h4>Relationships</h4>
+  <ul class="diagram-long-desc__relationships">
+    <li>The substrate lane carries the load-bearing temporal axis — 8 inter-stage arrows show flow across the 9 substrate cells.</li>
+    <li>The patient, clinical staff, and provenance lanes do not carry inter-stage arrows; those lanes read as the cells themselves and the temporal axis is shared with the substrate lane.</li>
+    <li>Stage 09 (Re-assessment) produces a soft back-edge to Stage 04 (Care plan) in operational reality — a re-assessment can trigger a care-plan revision. For v0.1 this back-edge is documentation-only (named in the substrate-action cell at Stage 09 and in the Re-assessment fragment) rather than a visible loop arrow.</li>
+  </ul>
+  <p class="diagram-long-desc__notes">
+    Generic-AMC framing throughout — every cell uses "the partner" / "the partner's clinician" / "the partner's RD" / etc. The strict-superset UConn-named upgrade is deferred to a later edit when Vanessa's red-line clearance lands per outstanding-partner-input.md item #1. Stage 07 (adherence check-ins) and stage 08 (outcome capture) carry the HDG §8 watchlist cells — the v0.1 copy is written conservatively; substantive claims must hold under technical-evaluator scrutiny against current Spark + Ava shipped fidelity before launch.
+  </p>
+</div>
+
+<div class="diagram-meta">
+  <strong>Sources:</strong> <code>./manifest.md</code> + <code>./fragments/*.md</code> + <code>./diagram.md</code> in this folder. <br>
+  <strong>Pipeline:</strong> Diagram (per <code>PIPELINE-REGISTRY.md</code>); canonical definition <code>Knowledge/Areas/Meta/Entities/cena-health/haven-diagram.md</code>. <br>
+  <strong>Sibling instances:</strong> 6 swim-lane bundles at <code>tools/surface-emit/content-sot/use-cases/&lt;slug&gt;/</code>; this is the 7th, the first under the new <code>tools/surface-emit/diagrams/public-site/</code> namespace for non-SoP diagrams. <br>
+  <strong>Render approach:</strong> hand-authored SVG using existing haven primitives (canon classes only — no inline modifier candidates); mirrors sibling bundle shape. <br>
+  <strong>Status:</strong> v0.1 draft for Phase 3a slice 1 v2 render verification. Generic-AMC framing; UConn-named upgrade is strict-superset when Vanessa clearance lands. Visual-language calls (lane background tints, substrate-uniformity register, provenance-lane treatment, stage-column-header treatment) deferred to Haven Visual Designer.
+</div>
+
+</div>
+</body>
+</html>
