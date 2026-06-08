@@ -1,0 +1,889 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1272" height="1472" viewBox="0 0 1272 1472" font-family="Source Sans 3, system-ui, sans-serif">
+  <title>Haven Design System — Color Palette</title>
+  <desc>Cena Color System v2. 18 hue families x 11 stops + 4 logo identity tokens. Generated from packages/design-system/src/styles/tokens/palette.css.</desc>
+  <rect id="canvas" x="0" y="0" width="1272" height="1472" fill="#fbfaf8"/>
+  <g id="hue-families">
+    <g id="stop-headers">
+      <text id="header-50" x="176.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">50</text>
+      <text id="header-100" x="280.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">100</text>
+      <text id="header-200" x="384.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">200</text>
+      <text id="header-300" x="488.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">300</text>
+      <text id="header-400" x="592.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">400</text>
+      <text id="header-500" x="696.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">500</text>
+      <text id="header-600" x="800.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">600</text>
+      <text id="header-700" x="904.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">700</text>
+      <text id="header-800" x="1008.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">800</text>
+      <text id="header-900" x="1112.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">900</text>
+      <text id="header-950" x="1216.0" y="28" font-size="12" fill="#5a544e" text-anchor="middle">950</text>
+    </g>
+    <g id="teal">
+      <text id="teal-label" x="116" y="81.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">teal</text>
+      <g id="teal-50">
+        <rect id="teal-50-swatch" x="128" y="44" width="96" height="64" fill="#e9f5f2" rx="4"/>
+        <text id="teal-50-hex" x="176.0" y="100" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e9f5f2</text>
+      </g>
+      <g id="teal-100">
+        <rect id="teal-100-swatch" x="232" y="44" width="96" height="64" fill="#c6ded8" rx="4"/>
+        <text id="teal-100-hex" x="280.0" y="100" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c6ded8</text>
+      </g>
+      <g id="teal-200">
+        <rect id="teal-200-swatch" x="336" y="44" width="96" height="64" fill="#a4c7bf" rx="4"/>
+        <text id="teal-200-hex" x="384.0" y="100" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#a4c7bf</text>
+      </g>
+      <g id="teal-300">
+        <rect id="teal-300-swatch" x="440" y="44" width="96" height="64" fill="#82b0a7" rx="4"/>
+        <text id="teal-300-hex" x="488.0" y="100" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#82b0a7</text>
+      </g>
+      <g id="teal-400">
+        <rect id="teal-400-swatch" x="544" y="44" width="96" height="64" fill="#5f9a8f" rx="4"/>
+        <text id="teal-400-hex" x="592.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#5f9a8f</text>
+      </g>
+      <g id="teal-500">
+        <rect id="teal-500-swatch" x="648" y="44" width="96" height="64" fill="#3a8478" rx="4"/>
+        <text id="teal-500-hex" x="696.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#3a8478</text>
+      </g>
+      <g id="teal-600">
+        <rect id="teal-600-swatch" x="752" y="44" width="96" height="64" fill="#2c6a60" rx="4"/>
+        <text id="teal-600-hex" x="800.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2c6a60</text>
+      </g>
+      <g id="teal-700">
+        <rect id="teal-700-swatch" x="856" y="44" width="96" height="64" fill="#1e5149" rx="4"/>
+        <text id="teal-700-hex" x="904.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#1e5149</text>
+      </g>
+      <g id="teal-800">
+        <rect id="teal-800-swatch" x="960" y="44" width="96" height="64" fill="#113933" rx="4"/>
+        <text id="teal-800-hex" x="1008.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#113933</text>
+      </g>
+      <g id="teal-900">
+        <rect id="teal-900-swatch" x="1064" y="44" width="96" height="64" fill="#06231f" rx="4"/>
+        <text id="teal-900-hex" x="1112.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#06231f</text>
+      </g>
+      <g id="teal-950">
+        <rect id="teal-950-swatch" x="1168" y="44" width="96" height="64" fill="#010f0c" rx="4"/>
+        <text id="teal-950-hex" x="1216.0" y="100" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#010f0c</text>
+      </g>
+    </g>
+    <g id="sage">
+      <text id="sage-label" x="116" y="153.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">sage</text>
+      <g id="sage-50">
+        <rect id="sage-50-swatch" x="128" y="116" width="96" height="64" fill="#e7f2e8" rx="4"/>
+        <text id="sage-50-hex" x="176.0" y="172" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e7f2e8</text>
+      </g>
+      <g id="sage-100">
+        <rect id="sage-100-swatch" x="232" y="116" width="96" height="64" fill="#c7dac9" rx="4"/>
+        <text id="sage-100-hex" x="280.0" y="172" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c7dac9</text>
+      </g>
+      <g id="sage-200">
+        <rect id="sage-200-swatch" x="336" y="116" width="96" height="64" fill="#a8c3aa" rx="4"/>
+        <text id="sage-200-hex" x="384.0" y="172" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#a8c3aa</text>
+      </g>
+      <g id="sage-300">
+        <rect id="sage-300-swatch" x="440" y="116" width="96" height="64" fill="#8aac8c" rx="4"/>
+        <text id="sage-300-hex" x="488.0" y="172" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#8aac8c</text>
+      </g>
+      <g id="sage-400">
+        <rect id="sage-400-swatch" x="544" y="116" width="96" height="64" fill="#6d956f" rx="4"/>
+        <text id="sage-400-hex" x="592.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#6d956f</text>
+      </g>
+      <g id="sage-500">
+        <rect id="sage-500-swatch" x="648" y="116" width="96" height="64" fill="#507f53" rx="4"/>
+        <text id="sage-500-hex" x="696.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#507f53</text>
+      </g>
+      <g id="sage-600">
+        <rect id="sage-600-swatch" x="752" y="116" width="96" height="64" fill="#3f6642" rx="4"/>
+        <text id="sage-600-hex" x="800.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#3f6642</text>
+      </g>
+      <g id="sage-700">
+        <rect id="sage-700-swatch" x="856" y="116" width="96" height="64" fill="#2f4e32" rx="4"/>
+        <text id="sage-700-hex" x="904.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2f4e32</text>
+      </g>
+      <g id="sage-800">
+        <rect id="sage-800-swatch" x="960" y="116" width="96" height="64" fill="#203722" rx="4"/>
+        <text id="sage-800-hex" x="1008.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#203722</text>
+      </g>
+      <g id="sage-900">
+        <rect id="sage-900-swatch" x="1064" y="116" width="96" height="64" fill="#122114" rx="4"/>
+        <text id="sage-900-hex" x="1112.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#122114</text>
+      </g>
+      <g id="sage-950">
+        <rect id="sage-950-swatch" x="1168" y="116" width="96" height="64" fill="#060d07" rx="4"/>
+        <text id="sage-950-hex" x="1216.0" y="172" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#060d07</text>
+      </g>
+    </g>
+    <g id="sand">
+      <text id="sand-label" x="116" y="225.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">sand</text>
+      <g id="sand-50">
+        <rect id="sand-50-swatch" x="128" y="188" width="96" height="64" fill="#fbfaf8" rx="4"/>
+        <text id="sand-50-hex" x="176.0" y="244" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#fbfaf8</text>
+      </g>
+      <g id="sand-100">
+        <rect id="sand-100-swatch" x="232" y="188" width="96" height="64" fill="#e6e4e0" rx="4"/>
+        <text id="sand-100-hex" x="280.0" y="244" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e6e4e0</text>
+      </g>
+      <g id="sand-200">
+        <rect id="sand-200-swatch" x="336" y="188" width="96" height="64" fill="#d1cec8" rx="4"/>
+        <text id="sand-200-hex" x="384.0" y="244" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d1cec8</text>
+      </g>
+      <g id="sand-300">
+        <rect id="sand-300-swatch" x="440" y="188" width="96" height="64" fill="#bcb8b1" rx="4"/>
+        <text id="sand-300-hex" x="488.0" y="244" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#bcb8b1</text>
+      </g>
+      <g id="sand-400">
+        <rect id="sand-400-swatch" x="544" y="188" width="96" height="64" fill="#a8a39b" rx="4"/>
+        <text id="sand-400-hex" x="592.0" y="244" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#a8a39b</text>
+      </g>
+      <g id="sand-500">
+        <rect id="sand-500-swatch" x="648" y="188" width="96" height="64" fill="#958e85" rx="4"/>
+        <text id="sand-500-hex" x="696.0" y="244" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#958e85</text>
+      </g>
+      <g id="sand-600">
+        <rect id="sand-600-swatch" x="752" y="188" width="96" height="64" fill="#777069" rx="4"/>
+        <text id="sand-600-hex" x="800.0" y="244" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#777069</text>
+      </g>
+      <g id="sand-700">
+        <rect id="sand-700-swatch" x="856" y="188" width="96" height="64" fill="#5a544e" rx="4"/>
+        <text id="sand-700-hex" x="904.0" y="244" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#5a544e</text>
+      </g>
+      <g id="sand-800">
+        <rect id="sand-800-swatch" x="960" y="188" width="96" height="64" fill="#3f3934" rx="4"/>
+        <text id="sand-800-hex" x="1008.0" y="244" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#3f3934</text>
+      </g>
+      <g id="sand-900">
+        <rect id="sand-900-swatch" x="1064" y="188" width="96" height="64" fill="#25211d" rx="4"/>
+        <text id="sand-900-hex" x="1112.0" y="244" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#25211d</text>
+      </g>
+      <g id="sand-950">
+        <rect id="sand-950-swatch" x="1168" y="188" width="96" height="64" fill="#0e0a08" rx="4"/>
+        <text id="sand-950-hex" x="1216.0" y="244" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#0e0a08</text>
+      </g>
+    </g>
+    <g id="red">
+      <text id="red-label" x="116" y="297.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">red</text>
+      <g id="red-50">
+        <rect id="red-50-swatch" x="128" y="260" width="96" height="64" fill="#ffedea" rx="4"/>
+        <text id="red-50-hex" x="176.0" y="316" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#ffedea</text>
+      </g>
+      <g id="red-100">
+        <rect id="red-100-swatch" x="232" y="260" width="96" height="64" fill="#f6cbc4" rx="4"/>
+        <text id="red-100-hex" x="280.0" y="316" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#f6cbc4</text>
+      </g>
+      <g id="red-200">
+        <rect id="red-200-swatch" x="336" y="260" width="96" height="64" fill="#eca9a0" rx="4"/>
+        <text id="red-200-hex" x="384.0" y="316" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#eca9a0</text>
+      </g>
+      <g id="red-300">
+        <rect id="red-300-swatch" x="440" y="260" width="96" height="64" fill="#df877d" rx="4"/>
+        <text id="red-300-hex" x="488.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#df877d</text>
+      </g>
+      <g id="red-400">
+        <rect id="red-400-swatch" x="544" y="260" width="96" height="64" fill="#d1645c" rx="4"/>
+        <text id="red-400-hex" x="592.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d1645c</text>
+      </g>
+      <g id="red-500">
+        <rect id="red-500-swatch" x="648" y="260" width="96" height="64" fill="#c13c3b" rx="4"/>
+        <text id="red-500-hex" x="696.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c13c3b</text>
+      </g>
+      <g id="red-600">
+        <rect id="red-600-swatch" x="752" y="260" width="96" height="64" fill="#a22f2f" rx="4"/>
+        <text id="red-600-hex" x="800.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#a22f2f</text>
+      </g>
+      <g id="red-700">
+        <rect id="red-700-swatch" x="856" y="260" width="96" height="64" fill="#832224" rx="4"/>
+        <text id="red-700-hex" x="904.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#832224</text>
+      </g>
+      <g id="red-800">
+        <rect id="red-800-swatch" x="960" y="260" width="96" height="64" fill="#661619" rx="4"/>
+        <text id="red-800-hex" x="1008.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#661619</text>
+      </g>
+      <g id="red-900">
+        <rect id="red-900-swatch" x="1064" y="260" width="96" height="64" fill="#4a0a0e" rx="4"/>
+        <text id="red-900-hex" x="1112.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#4a0a0e</text>
+      </g>
+      <g id="red-950">
+        <rect id="red-950-swatch" x="1168" y="260" width="96" height="64" fill="#300205" rx="4"/>
+        <text id="red-950-hex" x="1216.0" y="316" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#300205</text>
+      </g>
+    </g>
+    <g id="amber">
+      <text id="amber-label" x="116" y="369.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">amber</text>
+      <g id="amber-50">
+        <rect id="amber-50-swatch" x="128" y="332" width="96" height="64" fill="#f8f1e3" rx="4"/>
+        <text id="amber-50-hex" x="176.0" y="388" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#f8f1e3</text>
+      </g>
+      <g id="amber-100">
+        <rect id="amber-100-swatch" x="232" y="332" width="96" height="64" fill="#e8dbc1" rx="4"/>
+        <text id="amber-100-hex" x="280.0" y="388" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e8dbc1</text>
+      </g>
+      <g id="amber-200">
+        <rect id="amber-200-swatch" x="336" y="332" width="96" height="64" fill="#d8c49e" rx="4"/>
+        <text id="amber-200-hex" x="384.0" y="388" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d8c49e</text>
+      </g>
+      <g id="amber-300">
+        <rect id="amber-300-swatch" x="440" y="332" width="96" height="64" fill="#c8ae7c" rx="4"/>
+        <text id="amber-300-hex" x="488.0" y="388" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c8ae7c</text>
+      </g>
+      <g id="amber-400">
+        <rect id="amber-400-swatch" x="544" y="332" width="96" height="64" fill="#b99859" rx="4"/>
+        <text id="amber-400-hex" x="592.0" y="388" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#b99859</text>
+      </g>
+      <g id="amber-500">
+        <rect id="amber-500-swatch" x="648" y="332" width="96" height="64" fill="#aa8232" rx="4"/>
+        <text id="amber-500-hex" x="696.0" y="388" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#aa8232</text>
+      </g>
+      <g id="amber-600">
+        <rect id="amber-600-swatch" x="752" y="332" width="96" height="64" fill="#8e6a22" rx="4"/>
+        <text id="amber-600-hex" x="800.0" y="388" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#8e6a22</text>
+      </g>
+      <g id="amber-700">
+        <rect id="amber-700-swatch" x="856" y="332" width="96" height="64" fill="#735311" rx="4"/>
+        <text id="amber-700-hex" x="904.0" y="388" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#735311</text>
+      </g>
+      <g id="amber-800">
+        <rect id="amber-800-swatch" x="960" y="332" width="96" height="64" fill="#593e01" rx="4"/>
+        <text id="amber-800-hex" x="1008.0" y="388" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#593e01</text>
+      </g>
+      <g id="amber-900">
+        <rect id="amber-900-swatch" x="1064" y="332" width="96" height="64" fill="#412900" rx="4"/>
+        <text id="amber-900-hex" x="1112.0" y="388" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#412900</text>
+      </g>
+      <g id="amber-950">
+        <rect id="amber-950-swatch" x="1168" y="332" width="96" height="64" fill="#291600" rx="4"/>
+        <text id="amber-950-hex" x="1216.0" y="388" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#291600</text>
+      </g>
+    </g>
+    <g id="green">
+      <text id="green-label" x="116" y="441.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">green</text>
+      <g id="green-50">
+        <rect id="green-50-swatch" x="128" y="404" width="96" height="64" fill="#e5f7eb" rx="4"/>
+        <text id="green-50-hex" x="176.0" y="460" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e5f7eb</text>
+      </g>
+      <g id="green-100">
+        <rect id="green-100-swatch" x="232" y="404" width="96" height="64" fill="#c2dfcc" rx="4"/>
+        <text id="green-100-hex" x="280.0" y="460" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c2dfcc</text>
+      </g>
+      <g id="green-200">
+        <rect id="green-200-swatch" x="336" y="404" width="96" height="64" fill="#9fc8ae" rx="4"/>
+        <text id="green-200-hex" x="384.0" y="460" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#9fc8ae</text>
+      </g>
+      <g id="green-300">
+        <rect id="green-300-swatch" x="440" y="404" width="96" height="64" fill="#7cb191" rx="4"/>
+        <text id="green-300-hex" x="488.0" y="460" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#7cb191</text>
+      </g>
+      <g id="green-400">
+        <rect id="green-400-swatch" x="544" y="404" width="96" height="64" fill="#579a76" rx="4"/>
+        <text id="green-400-hex" x="592.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#579a76</text>
+      </g>
+      <g id="green-500">
+        <rect id="green-500-swatch" x="648" y="404" width="96" height="64" fill="#2c845c" rx="4"/>
+        <text id="green-500-hex" x="696.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2c845c</text>
+      </g>
+      <g id="green-600">
+        <rect id="green-600-swatch" x="752" y="404" width="96" height="64" fill="#1b6e4c" rx="4"/>
+        <text id="green-600-hex" x="800.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#1b6e4c</text>
+      </g>
+      <g id="green-700">
+        <rect id="green-700-swatch" x="856" y="404" width="96" height="64" fill="#07593b" rx="4"/>
+        <text id="green-700-hex" x="904.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#07593b</text>
+      </g>
+      <g id="green-800">
+        <rect id="green-800-swatch" x="960" y="404" width="96" height="64" fill="#00442c" rx="4"/>
+        <text id="green-800-hex" x="1008.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#00442c</text>
+      </g>
+      <g id="green-900">
+        <rect id="green-900-swatch" x="1064" y="404" width="96" height="64" fill="#00301d" rx="4"/>
+        <text id="green-900-hex" x="1112.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#00301d</text>
+      </g>
+      <g id="green-950">
+        <rect id="green-950-swatch" x="1168" y="404" width="96" height="64" fill="#001e0f" rx="4"/>
+        <text id="green-950-hex" x="1216.0" y="460" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#001e0f</text>
+      </g>
+    </g>
+    <g id="cyan">
+      <text id="cyan-label" x="116" y="513.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">cyan</text>
+      <g id="cyan-50">
+        <rect id="cyan-50-swatch" x="128" y="476" width="96" height="64" fill="#d2f2fa" rx="4"/>
+        <text id="cyan-50-hex" x="176.0" y="532" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d2f2fa</text>
+      </g>
+      <g id="cyan-100">
+        <rect id="cyan-100-swatch" x="232" y="476" width="96" height="64" fill="#aed6e3" rx="4"/>
+        <text id="cyan-100-hex" x="280.0" y="532" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#aed6e3</text>
+      </g>
+      <g id="cyan-200">
+        <rect id="cyan-200-swatch" x="336" y="476" width="96" height="64" fill="#8bbbcd" rx="4"/>
+        <text id="cyan-200-hex" x="384.0" y="532" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#8bbbcd</text>
+      </g>
+      <g id="cyan-300">
+        <rect id="cyan-300-swatch" x="440" y="476" width="96" height="64" fill="#69a0b8" rx="4"/>
+        <text id="cyan-300-hex" x="488.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#69a0b8</text>
+      </g>
+      <g id="cyan-400">
+        <rect id="cyan-400-swatch" x="544" y="476" width="96" height="64" fill="#4785a3" rx="4"/>
+        <text id="cyan-400-hex" x="592.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#4785a3</text>
+      </g>
+      <g id="cyan-500">
+        <rect id="cyan-500-swatch" x="648" y="476" width="96" height="64" fill="#236b8f" rx="4"/>
+        <text id="cyan-500-hex" x="696.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#236b8f</text>
+      </g>
+      <g id="cyan-600">
+        <rect id="cyan-600-swatch" x="752" y="476" width="96" height="64" fill="#17597a" rx="4"/>
+        <text id="cyan-600-hex" x="800.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#17597a</text>
+      </g>
+      <g id="cyan-700">
+        <rect id="cyan-700-swatch" x="856" y="476" width="96" height="64" fill="#0a4866" rx="4"/>
+        <text id="cyan-700-hex" x="904.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#0a4866</text>
+      </g>
+      <g id="cyan-800">
+        <rect id="cyan-800-swatch" x="960" y="476" width="96" height="64" fill="#003753" rx="4"/>
+        <text id="cyan-800-hex" x="1008.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#003753</text>
+      </g>
+      <g id="cyan-900">
+        <rect id="cyan-900-swatch" x="1064" y="476" width="96" height="64" fill="#002740" rx="4"/>
+        <text id="cyan-900-hex" x="1112.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#002740</text>
+      </g>
+      <g id="cyan-950">
+        <rect id="cyan-950-swatch" x="1168" y="476" width="96" height="64" fill="#00182e" rx="4"/>
+        <text id="cyan-950-hex" x="1216.0" y="532" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#00182e</text>
+      </g>
+    </g>
+    <g id="orange">
+      <text id="orange-label" x="116" y="585.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">orange</text>
+      <g id="orange-50">
+        <rect id="orange-50-swatch" x="128" y="548" width="96" height="64" fill="#ffede4" rx="4"/>
+        <text id="orange-50-hex" x="176.0" y="604" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#ffede4</text>
+      </g>
+      <g id="orange-100">
+        <rect id="orange-100-swatch" x="232" y="548" width="96" height="64" fill="#f3d0c3" rx="4"/>
+        <text id="orange-100-hex" x="280.0" y="604" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#f3d0c3</text>
+      </g>
+      <g id="orange-200">
+        <rect id="orange-200-swatch" x="336" y="548" width="96" height="64" fill="#e4b4a2" rx="4"/>
+        <text id="orange-200-hex" x="384.0" y="604" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e4b4a2</text>
+      </g>
+      <g id="orange-300">
+        <rect id="orange-300-swatch" x="440" y="548" width="96" height="64" fill="#d49884" rx="4"/>
+        <text id="orange-300-hex" x="488.0" y="604" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d49884</text>
+      </g>
+      <g id="orange-400">
+        <rect id="orange-400-swatch" x="544" y="548" width="96" height="64" fill="#c47b66" rx="4"/>
+        <text id="orange-400-hex" x="592.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c47b66</text>
+      </g>
+      <g id="orange-500">
+        <rect id="orange-500-swatch" x="648" y="548" width="96" height="64" fill="#b45f4a" rx="4"/>
+        <text id="orange-500-hex" x="696.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#b45f4a</text>
+      </g>
+      <g id="orange-600">
+        <rect id="orange-600-swatch" x="752" y="548" width="96" height="64" fill="#974b3a" rx="4"/>
+        <text id="orange-600-hex" x="800.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#974b3a</text>
+      </g>
+      <g id="orange-700">
+        <rect id="orange-700-swatch" x="856" y="548" width="96" height="64" fill="#7b392b" rx="4"/>
+        <text id="orange-700-hex" x="904.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#7b392b</text>
+      </g>
+      <g id="orange-800">
+        <rect id="orange-800-swatch" x="960" y="548" width="96" height="64" fill="#60271d" rx="4"/>
+        <text id="orange-800-hex" x="1008.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#60271d</text>
+      </g>
+      <g id="orange-900">
+        <rect id="orange-900-swatch" x="1064" y="548" width="96" height="64" fill="#46160f" rx="4"/>
+        <text id="orange-900-hex" x="1112.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#46160f</text>
+      </g>
+      <g id="orange-950">
+        <rect id="orange-950-swatch" x="1168" y="548" width="96" height="64" fill="#2d0604" rx="4"/>
+        <text id="orange-950-hex" x="1216.0" y="604" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2d0604</text>
+      </g>
+    </g>
+    <g id="yellow">
+      <text id="yellow-label" x="116" y="657.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">yellow</text>
+      <g id="yellow-50">
+        <rect id="yellow-50-swatch" x="128" y="620" width="96" height="64" fill="#f8f1df" rx="4"/>
+        <text id="yellow-50-hex" x="176.0" y="676" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#f8f1df</text>
+      </g>
+      <g id="yellow-100">
+        <rect id="yellow-100-swatch" x="232" y="620" width="96" height="64" fill="#ece2c2" rx="4"/>
+        <text id="yellow-100-hex" x="280.0" y="676" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#ece2c2</text>
+      </g>
+      <g id="yellow-200">
+        <rect id="yellow-200-swatch" x="336" y="620" width="96" height="64" fill="#e0d2a5" rx="4"/>
+        <text id="yellow-200-hex" x="384.0" y="676" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e0d2a5</text>
+      </g>
+      <g id="yellow-300">
+        <rect id="yellow-300-swatch" x="440" y="620" width="96" height="64" fill="#d4c288" rx="4"/>
+        <text id="yellow-300-hex" x="488.0" y="676" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d4c288</text>
+      </g>
+      <g id="yellow-400">
+        <rect id="yellow-400-swatch" x="544" y="620" width="96" height="64" fill="#c8b369" rx="4"/>
+        <text id="yellow-400-hex" x="592.0" y="676" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c8b369</text>
+      </g>
+      <g id="yellow-500">
+        <rect id="yellow-500-swatch" x="648" y="620" width="96" height="64" fill="#bba447" rx="4"/>
+        <text id="yellow-500-hex" x="696.0" y="676" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#bba447</text>
+      </g>
+      <g id="yellow-600">
+        <rect id="yellow-600-swatch" x="752" y="620" width="96" height="64" fill="#9d8937" rx="4"/>
+        <text id="yellow-600-hex" x="800.0" y="676" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#9d8937</text>
+      </g>
+      <g id="yellow-700">
+        <rect id="yellow-700-swatch" x="856" y="620" width="96" height="64" fill="#7f7028" rx="4"/>
+        <text id="yellow-700-hex" x="904.0" y="676" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#7f7028</text>
+      </g>
+      <g id="yellow-800">
+        <rect id="yellow-800-swatch" x="960" y="620" width="96" height="64" fill="#635718" rx="4"/>
+        <text id="yellow-800-hex" x="1008.0" y="676" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#635718</text>
+      </g>
+      <g id="yellow-900">
+        <rect id="yellow-900-swatch" x="1064" y="620" width="96" height="64" fill="#493f08" rx="4"/>
+        <text id="yellow-900-hex" x="1112.0" y="676" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#493f08</text>
+      </g>
+      <g id="yellow-950">
+        <rect id="yellow-950-swatch" x="1168" y="620" width="96" height="64" fill="#302900" rx="4"/>
+        <text id="yellow-950-hex" x="1216.0" y="676" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#302900</text>
+      </g>
+    </g>
+    <g id="lime">
+      <text id="lime-label" x="116" y="729.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">lime</text>
+      <g id="lime-50">
+        <rect id="lime-50-swatch" x="128" y="692" width="96" height="64" fill="#eaf2e0" rx="4"/>
+        <text id="lime-50-hex" x="176.0" y="748" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#eaf2e0</text>
+      </g>
+      <g id="lime-100">
+        <rect id="lime-100-swatch" x="232" y="692" width="96" height="64" fill="#d5e0c2" rx="4"/>
+        <text id="lime-100-hex" x="280.0" y="748" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d5e0c2</text>
+      </g>
+      <g id="lime-200">
+        <rect id="lime-200-swatch" x="336" y="692" width="96" height="64" fill="#c1cea3" rx="4"/>
+        <text id="lime-200-hex" x="384.0" y="748" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c1cea3</text>
+      </g>
+      <g id="lime-300">
+        <rect id="lime-300-swatch" x="440" y="692" width="96" height="64" fill="#afbc84" rx="4"/>
+        <text id="lime-300-hex" x="488.0" y="748" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#afbc84</text>
+      </g>
+      <g id="lime-400">
+        <rect id="lime-400-swatch" x="544" y="692" width="96" height="64" fill="#9da965" rx="4"/>
+        <text id="lime-400-hex" x="592.0" y="748" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#9da965</text>
+      </g>
+      <g id="lime-500">
+        <rect id="lime-500-swatch" x="648" y="692" width="96" height="64" fill="#8d9742" rx="4"/>
+        <text id="lime-500-hex" x="696.0" y="748" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#8d9742</text>
+      </g>
+      <g id="lime-600">
+        <rect id="lime-600-swatch" x="752" y="692" width="96" height="64" fill="#777e32" rx="4"/>
+        <text id="lime-600-hex" x="800.0" y="748" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#777e32</text>
+      </g>
+      <g id="lime-700">
+        <rect id="lime-700-swatch" x="856" y="692" width="96" height="64" fill="#616622" rx="4"/>
+        <text id="lime-700-hex" x="904.0" y="748" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#616622</text>
+      </g>
+      <g id="lime-800">
+        <rect id="lime-800-swatch" x="960" y="692" width="96" height="64" fill="#4c4e12" rx="4"/>
+        <text id="lime-800-hex" x="1008.0" y="748" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#4c4e12</text>
+      </g>
+      <g id="lime-900">
+        <rect id="lime-900-swatch" x="1064" y="692" width="96" height="64" fill="#373803" rx="4"/>
+        <text id="lime-900-hex" x="1112.0" y="748" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#373803</text>
+      </g>
+      <g id="lime-950">
+        <rect id="lime-950-swatch" x="1168" y="692" width="96" height="64" fill="#242400" rx="4"/>
+        <text id="lime-950-hex" x="1216.0" y="748" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#242400</text>
+      </g>
+    </g>
+    <g id="emerald">
+      <text id="emerald-label" x="116" y="801.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">emerald</text>
+      <g id="emerald-50">
+        <rect id="emerald-50-swatch" x="128" y="764" width="96" height="64" fill="#e3f8ee" rx="4"/>
+        <text id="emerald-50-hex" x="176.0" y="820" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e3f8ee</text>
+      </g>
+      <g id="emerald-100">
+        <rect id="emerald-100-swatch" x="232" y="764" width="96" height="64" fill="#bee1d1" rx="4"/>
+        <text id="emerald-100-hex" x="280.0" y="820" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#bee1d1</text>
+      </g>
+      <g id="emerald-200">
+        <rect id="emerald-200-swatch" x="336" y="764" width="96" height="64" fill="#98cbb5" rx="4"/>
+        <text id="emerald-200-hex" x="384.0" y="820" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#98cbb5</text>
+      </g>
+      <g id="emerald-300">
+        <rect id="emerald-300-swatch" x="440" y="764" width="96" height="64" fill="#71b59b" rx="4"/>
+        <text id="emerald-300-hex" x="488.0" y="820" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#71b59b</text>
+      </g>
+      <g id="emerald-400">
+        <rect id="emerald-400-swatch" x="544" y="764" width="96" height="64" fill="#469f82" rx="4"/>
+        <text id="emerald-400-hex" x="592.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#469f82</text>
+      </g>
+      <g id="emerald-500">
+        <rect id="emerald-500-swatch" x="648" y="764" width="96" height="64" fill="#008a6a" rx="4"/>
+        <text id="emerald-500-hex" x="696.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#008a6a</text>
+      </g>
+      <g id="emerald-600">
+        <rect id="emerald-600-swatch" x="752" y="764" width="96" height="64" fill="#007258" rx="4"/>
+        <text id="emerald-600-hex" x="800.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#007258</text>
+      </g>
+      <g id="emerald-700">
+        <rect id="emerald-700-swatch" x="856" y="764" width="96" height="64" fill="#005c46" rx="4"/>
+        <text id="emerald-700-hex" x="904.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#005c46</text>
+      </g>
+      <g id="emerald-800">
+        <rect id="emerald-800-swatch" x="960" y="764" width="96" height="64" fill="#004635" rx="4"/>
+        <text id="emerald-800-hex" x="1008.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#004635</text>
+      </g>
+      <g id="emerald-900">
+        <rect id="emerald-900-swatch" x="1064" y="764" width="96" height="64" fill="#003224" rx="4"/>
+        <text id="emerald-900-hex" x="1112.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#003224</text>
+      </g>
+      <g id="emerald-950">
+        <rect id="emerald-950-swatch" x="1168" y="764" width="96" height="64" fill="#001f14" rx="4"/>
+        <text id="emerald-950-hex" x="1216.0" y="820" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#001f14</text>
+      </g>
+    </g>
+    <g id="blue">
+      <text id="blue-label" x="116" y="873.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">blue</text>
+      <g id="blue-50">
+        <rect id="blue-50-swatch" x="128" y="836" width="96" height="64" fill="#e0f1fe" rx="4"/>
+        <text id="blue-50-hex" x="176.0" y="892" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e0f1fe</text>
+      </g>
+      <g id="blue-100">
+        <rect id="blue-100-swatch" x="232" y="836" width="96" height="64" fill="#bad4e7" rx="4"/>
+        <text id="blue-100-hex" x="280.0" y="892" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#bad4e7</text>
+      </g>
+      <g id="blue-200">
+        <rect id="blue-200-swatch" x="336" y="836" width="96" height="64" fill="#96b6d0" rx="4"/>
+        <text id="blue-200-hex" x="384.0" y="892" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#96b6d0</text>
+      </g>
+      <g id="blue-300">
+        <rect id="blue-300-swatch" x="440" y="836" width="96" height="64" fill="#729ab9" rx="4"/>
+        <text id="blue-300-hex" x="488.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#729ab9</text>
+      </g>
+      <g id="blue-400">
+        <rect id="blue-400-swatch" x="544" y="836" width="96" height="64" fill="#4f7ea3" rx="4"/>
+        <text id="blue-400-hex" x="592.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#4f7ea3</text>
+      </g>
+      <g id="blue-500">
+        <rect id="blue-500-swatch" x="648" y="836" width="96" height="64" fill="#2c628d" rx="4"/>
+        <text id="blue-500-hex" x="696.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2c628d</text>
+      </g>
+      <g id="blue-600">
+        <rect id="blue-600-swatch" x="752" y="836" width="96" height="64" fill="#205178" rx="4"/>
+        <text id="blue-600-hex" x="800.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#205178</text>
+      </g>
+      <g id="blue-700">
+        <rect id="blue-700-swatch" x="856" y="836" width="96" height="64" fill="#144064" rx="4"/>
+        <text id="blue-700-hex" x="904.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#144064</text>
+      </g>
+      <g id="blue-800">
+        <rect id="blue-800-swatch" x="960" y="836" width="96" height="64" fill="#083050" rx="4"/>
+        <text id="blue-800-hex" x="1008.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#083050</text>
+      </g>
+      <g id="blue-900">
+        <rect id="blue-900-swatch" x="1064" y="836" width="96" height="64" fill="#00203d" rx="4"/>
+        <text id="blue-900-hex" x="1112.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#00203d</text>
+      </g>
+      <g id="blue-950">
+        <rect id="blue-950-swatch" x="1168" y="836" width="96" height="64" fill="#00122b" rx="4"/>
+        <text id="blue-950-hex" x="1216.0" y="892" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#00122b</text>
+      </g>
+    </g>
+    <g id="indigo">
+      <text id="indigo-label" x="116" y="945.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">indigo</text>
+      <g id="indigo-50">
+        <rect id="indigo-50-swatch" x="128" y="908" width="96" height="64" fill="#e6eeff" rx="4"/>
+        <text id="indigo-50-hex" x="176.0" y="964" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#e6eeff</text>
+      </g>
+      <g id="indigo-100">
+        <rect id="indigo-100-swatch" x="232" y="908" width="96" height="64" fill="#c8d4f1" rx="4"/>
+        <text id="indigo-100-hex" x="280.0" y="964" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c8d4f1</text>
+      </g>
+      <g id="indigo-200">
+        <rect id="indigo-200-swatch" x="336" y="908" width="96" height="64" fill="#abbae0" rx="4"/>
+        <text id="indigo-200-hex" x="384.0" y="964" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#abbae0</text>
+      </g>
+      <g id="indigo-300">
+        <rect id="indigo-300-swatch" x="440" y="908" width="96" height="64" fill="#8ea1cd" rx="4"/>
+        <text id="indigo-300-hex" x="488.0" y="964" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#8ea1cd</text>
+      </g>
+      <g id="indigo-400">
+        <rect id="indigo-400-swatch" x="544" y="908" width="96" height="64" fill="#7288bb" rx="4"/>
+        <text id="indigo-400-hex" x="592.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#7288bb</text>
+      </g>
+      <g id="indigo-500">
+        <rect id="indigo-500-swatch" x="648" y="908" width="96" height="64" fill="#5670a9" rx="4"/>
+        <text id="indigo-500-hex" x="696.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#5670a9</text>
+      </g>
+      <g id="indigo-600">
+        <rect id="indigo-600-swatch" x="752" y="908" width="96" height="64" fill="#455d91" rx="4"/>
+        <text id="indigo-600-hex" x="800.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#455d91</text>
+      </g>
+      <g id="indigo-700">
+        <rect id="indigo-700-swatch" x="856" y="908" width="96" height="64" fill="#354b79" rx="4"/>
+        <text id="indigo-700-hex" x="904.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#354b79</text>
+      </g>
+      <g id="indigo-800">
+        <rect id="indigo-800-swatch" x="960" y="908" width="96" height="64" fill="#253a61" rx="4"/>
+        <text id="indigo-800-hex" x="1008.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#253a61</text>
+      </g>
+      <g id="indigo-900">
+        <rect id="indigo-900-swatch" x="1064" y="908" width="96" height="64" fill="#16294b" rx="4"/>
+        <text id="indigo-900-hex" x="1112.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#16294b</text>
+      </g>
+      <g id="indigo-950">
+        <rect id="indigo-950-swatch" x="1168" y="908" width="96" height="64" fill="#091a36" rx="4"/>
+        <text id="indigo-950-hex" x="1216.0" y="964" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#091a36</text>
+      </g>
+    </g>
+    <g id="violet">
+      <text id="violet-label" x="116" y="1017.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">violet</text>
+      <g id="violet-50">
+        <rect id="violet-50-swatch" x="128" y="980" width="96" height="64" fill="#f6e9fd" rx="4"/>
+        <text id="violet-50-hex" x="176.0" y="1036" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#f6e9fd</text>
+      </g>
+      <g id="violet-100">
+        <rect id="violet-100-swatch" x="232" y="980" width="96" height="64" fill="#deccea" rx="4"/>
+        <text id="violet-100-hex" x="280.0" y="1036" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#deccea</text>
+      </g>
+      <g id="violet-200">
+        <rect id="violet-200-swatch" x="336" y="980" width="96" height="64" fill="#c5b1d7" rx="4"/>
+        <text id="violet-200-hex" x="384.0" y="1036" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c5b1d7</text>
+      </g>
+      <g id="violet-300">
+        <rect id="violet-300-swatch" x="440" y="980" width="96" height="64" fill="#ad96c6" rx="4"/>
+        <text id="violet-300-hex" x="488.0" y="1036" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#ad96c6</text>
+      </g>
+      <g id="violet-400">
+        <rect id="violet-400-swatch" x="544" y="980" width="96" height="64" fill="#947cb4" rx="4"/>
+        <text id="violet-400-hex" x="592.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#947cb4</text>
+      </g>
+      <g id="violet-500">
+        <rect id="violet-500-swatch" x="648" y="980" width="96" height="64" fill="#7b63a3" rx="4"/>
+        <text id="violet-500-hex" x="696.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#7b63a3</text>
+      </g>
+      <g id="violet-600">
+        <rect id="violet-600-swatch" x="752" y="980" width="96" height="64" fill="#66528c" rx="4"/>
+        <text id="violet-600-hex" x="800.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#66528c</text>
+      </g>
+      <g id="violet-700">
+        <rect id="violet-700-swatch" x="856" y="980" width="96" height="64" fill="#524175" rx="4"/>
+        <text id="violet-700-hex" x="904.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#524175</text>
+      </g>
+      <g id="violet-800">
+        <rect id="violet-800-swatch" x="960" y="980" width="96" height="64" fill="#40315f" rx="4"/>
+        <text id="violet-800-hex" x="1008.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#40315f</text>
+      </g>
+      <g id="violet-900">
+        <rect id="violet-900-swatch" x="1064" y="980" width="96" height="64" fill="#2e2149" rx="4"/>
+        <text id="violet-900-hex" x="1112.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2e2149</text>
+      </g>
+      <g id="violet-950">
+        <rect id="violet-950-swatch" x="1168" y="980" width="96" height="64" fill="#1d1335" rx="4"/>
+        <text id="violet-950-hex" x="1216.0" y="1036" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#1d1335</text>
+      </g>
+    </g>
+    <g id="purple">
+      <text id="purple-label" x="116" y="1089.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">purple</text>
+      <g id="purple-50">
+        <rect id="purple-50-swatch" x="128" y="1052" width="96" height="64" fill="#efebff" rx="4"/>
+        <text id="purple-50-hex" x="176.0" y="1108" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#efebff</text>
+      </g>
+      <g id="purple-100">
+        <rect id="purple-100-swatch" x="232" y="1052" width="96" height="64" fill="#d3cdee" rx="4"/>
+        <text id="purple-100-hex" x="280.0" y="1108" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d3cdee</text>
+      </g>
+      <g id="purple-200">
+        <rect id="purple-200-swatch" x="336" y="1052" width="96" height="64" fill="#b6b1db" rx="4"/>
+        <text id="purple-200-hex" x="384.0" y="1108" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#b6b1db</text>
+      </g>
+      <g id="purple-300">
+        <rect id="purple-300-swatch" x="440" y="1052" width="96" height="64" fill="#9a95c8" rx="4"/>
+        <text id="purple-300-hex" x="488.0" y="1108" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#9a95c8</text>
+      </g>
+      <g id="purple-400">
+        <rect id="purple-400-swatch" x="544" y="1052" width="96" height="64" fill="#7e7ab5" rx="4"/>
+        <text id="purple-400-hex" x="592.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#7e7ab5</text>
+      </g>
+      <g id="purple-500">
+        <rect id="purple-500-swatch" x="648" y="1052" width="96" height="64" fill="#635fa3" rx="4"/>
+        <text id="purple-500-hex" x="696.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#635fa3</text>
+      </g>
+      <g id="purple-600">
+        <rect id="purple-600-swatch" x="752" y="1052" width="96" height="64" fill="#514e8b" rx="4"/>
+        <text id="purple-600-hex" x="800.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#514e8b</text>
+      </g>
+      <g id="purple-700">
+        <rect id="purple-700-swatch" x="856" y="1052" width="96" height="64" fill="#403e74" rx="4"/>
+        <text id="purple-700-hex" x="904.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#403e74</text>
+      </g>
+      <g id="purple-800">
+        <rect id="purple-800-swatch" x="960" y="1052" width="96" height="64" fill="#2f2e5e" rx="4"/>
+        <text id="purple-800-hex" x="1008.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2f2e5e</text>
+      </g>
+      <g id="purple-900">
+        <rect id="purple-900-swatch" x="1064" y="1052" width="96" height="64" fill="#1f1e49" rx="4"/>
+        <text id="purple-900-hex" x="1112.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#1f1e49</text>
+      </g>
+      <g id="purple-950">
+        <rect id="purple-950-swatch" x="1168" y="1052" width="96" height="64" fill="#111034" rx="4"/>
+        <text id="purple-950-hex" x="1216.0" y="1108" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#111034</text>
+      </g>
+    </g>
+    <g id="fuchsia">
+      <text id="fuchsia-label" x="116" y="1161.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">fuchsia</text>
+      <g id="fuchsia-50">
+        <rect id="fuchsia-50-swatch" x="128" y="1124" width="96" height="64" fill="#fce7f7" rx="4"/>
+        <text id="fuchsia-50-hex" x="176.0" y="1180" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#fce7f7</text>
+      </g>
+      <g id="fuchsia-100">
+        <rect id="fuchsia-100-swatch" x="232" y="1124" width="96" height="64" fill="#ebcbe5" rx="4"/>
+        <text id="fuchsia-100-hex" x="280.0" y="1180" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#ebcbe5</text>
+      </g>
+      <g id="fuchsia-200">
+        <rect id="fuchsia-200-swatch" x="336" y="1124" width="96" height="64" fill="#d9aed3" rx="4"/>
+        <text id="fuchsia-200-hex" x="384.0" y="1180" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d9aed3</text>
+      </g>
+      <g id="fuchsia-300">
+        <rect id="fuchsia-300-swatch" x="440" y="1124" width="96" height="64" fill="#c793c3" rx="4"/>
+        <text id="fuchsia-300-hex" x="488.0" y="1180" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c793c3</text>
+      </g>
+      <g id="fuchsia-400">
+        <rect id="fuchsia-400-swatch" x="544" y="1124" width="96" height="64" fill="#b478b3" rx="4"/>
+        <text id="fuchsia-400-hex" x="592.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#b478b3</text>
+      </g>
+      <g id="fuchsia-500">
+        <rect id="fuchsia-500-swatch" x="648" y="1124" width="96" height="64" fill="#a05da4" rx="4"/>
+        <text id="fuchsia-500-hex" x="696.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#a05da4</text>
+      </g>
+      <g id="fuchsia-600">
+        <rect id="fuchsia-600-swatch" x="752" y="1124" width="96" height="64" fill="#864b8c" rx="4"/>
+        <text id="fuchsia-600-hex" x="800.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#864b8c</text>
+      </g>
+      <g id="fuchsia-700">
+        <rect id="fuchsia-700-swatch" x="856" y="1124" width="96" height="64" fill="#6d3a73" rx="4"/>
+        <text id="fuchsia-700-hex" x="904.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#6d3a73</text>
+      </g>
+      <g id="fuchsia-800">
+        <rect id="fuchsia-800-swatch" x="960" y="1124" width="96" height="64" fill="#552a5c" rx="4"/>
+        <text id="fuchsia-800-hex" x="1008.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#552a5c</text>
+      </g>
+      <g id="fuchsia-900">
+        <rect id="fuchsia-900-swatch" x="1064" y="1124" width="96" height="64" fill="#3e1a45" rx="4"/>
+        <text id="fuchsia-900-hex" x="1112.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#3e1a45</text>
+      </g>
+      <g id="fuchsia-950">
+        <rect id="fuchsia-950-swatch" x="1168" y="1124" width="96" height="64" fill="#290b30" rx="4"/>
+        <text id="fuchsia-950-hex" x="1216.0" y="1180" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#290b30</text>
+      </g>
+    </g>
+    <g id="pink">
+      <text id="pink-label" x="116" y="1233.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">pink</text>
+      <g id="pink-50">
+        <rect id="pink-50-swatch" x="128" y="1196" width="96" height="64" fill="#fce8f1" rx="4"/>
+        <text id="pink-50-hex" x="176.0" y="1252" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#fce8f1</text>
+      </g>
+      <g id="pink-100">
+        <rect id="pink-100-swatch" x="232" y="1196" width="96" height="64" fill="#eccddd" rx="4"/>
+        <text id="pink-100-hex" x="280.0" y="1252" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#eccddd</text>
+      </g>
+      <g id="pink-200">
+        <rect id="pink-200-swatch" x="336" y="1196" width="96" height="64" fill="#dcb3c9" rx="4"/>
+        <text id="pink-200-hex" x="384.0" y="1252" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#dcb3c9</text>
+      </g>
+      <g id="pink-300">
+        <rect id="pink-300-swatch" x="440" y="1196" width="96" height="64" fill="#cb9ab6" rx="4"/>
+        <text id="pink-300-hex" x="488.0" y="1252" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#cb9ab6</text>
+      </g>
+      <g id="pink-400">
+        <rect id="pink-400-swatch" x="544" y="1196" width="96" height="64" fill="#ba80a4" rx="4"/>
+        <text id="pink-400-hex" x="592.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#ba80a4</text>
+      </g>
+      <g id="pink-500">
+        <rect id="pink-500-swatch" x="648" y="1196" width="96" height="64" fill="#a86893" rx="4"/>
+        <text id="pink-500-hex" x="696.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#a86893</text>
+      </g>
+      <g id="pink-600">
+        <rect id="pink-600-swatch" x="752" y="1196" width="96" height="64" fill="#8d547c" rx="4"/>
+        <text id="pink-600-hex" x="800.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#8d547c</text>
+      </g>
+      <g id="pink-700">
+        <rect id="pink-700-swatch" x="856" y="1196" width="96" height="64" fill="#724165" rx="4"/>
+        <text id="pink-700-hex" x="904.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#724165</text>
+      </g>
+      <g id="pink-800">
+        <rect id="pink-800-swatch" x="960" y="1196" width="96" height="64" fill="#592f4f" rx="4"/>
+        <text id="pink-800-hex" x="1008.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#592f4f</text>
+      </g>
+      <g id="pink-900">
+        <rect id="pink-900-swatch" x="1064" y="1196" width="96" height="64" fill="#411e3a" rx="4"/>
+        <text id="pink-900-hex" x="1112.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#411e3a</text>
+      </g>
+      <g id="pink-950">
+        <rect id="pink-950-swatch" x="1168" y="1196" width="96" height="64" fill="#2b0e25" rx="4"/>
+        <text id="pink-950-hex" x="1216.0" y="1252" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2b0e25</text>
+      </g>
+    </g>
+    <g id="rose">
+      <text id="rose-label" x="116" y="1305.0" font-size="14" fill="#25211d" text-anchor="end" font-weight="600">rose</text>
+      <g id="rose-50">
+        <rect id="rose-50-swatch" x="128" y="1268" width="96" height="64" fill="#fee8ee" rx="4"/>
+        <text id="rose-50-hex" x="176.0" y="1324" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#fee8ee</text>
+      </g>
+      <g id="rose-100">
+        <rect id="rose-100-swatch" x="232" y="1268" width="96" height="64" fill="#eccad3" rx="4"/>
+        <text id="rose-100-hex" x="280.0" y="1324" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#eccad3</text>
+      </g>
+      <g id="rose-200">
+        <rect id="rose-200-swatch" x="336" y="1268" width="96" height="64" fill="#d9acba" rx="4"/>
+        <text id="rose-200-hex" x="384.0" y="1324" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#d9acba</text>
+      </g>
+      <g id="rose-300">
+        <rect id="rose-300-swatch" x="440" y="1268" width="96" height="64" fill="#c690a2" rx="4"/>
+        <text id="rose-300-hex" x="488.0" y="1324" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#c690a2</text>
+      </g>
+      <g id="rose-400">
+        <rect id="rose-400-swatch" x="544" y="1268" width="96" height="64" fill="#b3738b" rx="4"/>
+        <text id="rose-400-hex" x="592.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#b3738b</text>
+      </g>
+      <g id="rose-500">
+        <rect id="rose-500-swatch" x="648" y="1268" width="96" height="64" fill="#9f5774" rx="4"/>
+        <text id="rose-500-hex" x="696.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#9f5774</text>
+      </g>
+      <g id="rose-600">
+        <rect id="rose-600-swatch" x="752" y="1268" width="96" height="64" fill="#874762" rx="4"/>
+        <text id="rose-600-hex" x="800.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#874762</text>
+      </g>
+      <g id="rose-700">
+        <rect id="rose-700-swatch" x="856" y="1268" width="96" height="64" fill="#703751" rx="4"/>
+        <text id="rose-700-hex" x="904.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#703751</text>
+      </g>
+      <g id="rose-800">
+        <rect id="rose-800-swatch" x="960" y="1268" width="96" height="64" fill="#59283f" rx="4"/>
+        <text id="rose-800-hex" x="1008.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#59283f</text>
+      </g>
+      <g id="rose-900">
+        <rect id="rose-900-swatch" x="1064" y="1268" width="96" height="64" fill="#44192f" rx="4"/>
+        <text id="rose-900-hex" x="1112.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#44192f</text>
+      </g>
+      <g id="rose-950">
+        <rect id="rose-950-swatch" x="1168" y="1268" width="96" height="64" fill="#2f0b1f" rx="4"/>
+        <text id="rose-950-hex" x="1216.0" y="1324" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#2f0b1f</text>
+      </g>
+    </g>
+  </g>
+  <g id="logo-tokens">
+    <text id="logo-section-label" x="8" y="1384" font-size="14" fill="#25211d" font-weight="600">logo identity tokens (hex-frozen)</text>
+    <g id="logo-primary">
+      <rect id="logo-primary-swatch" x="128" y="1400" width="96" height="64" fill="#3A8478" rx="4"/>
+      <text id="logo-primary-name" x="176.0" y="1418" font-size="11" fill="#fbfaf8" text-anchor="middle" font-weight="600">logo-primary</text>
+      <text id="logo-primary-hex" x="176.0" y="1456" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#3A8478</text>
+    </g>
+    <g id="logo-secondary">
+      <rect id="logo-secondary-swatch" x="232" y="1400" width="96" height="64" fill="#52A395" rx="4"/>
+      <text id="logo-secondary-name" x="280.0" y="1418" font-size="11" fill="#fbfaf8" text-anchor="middle" font-weight="600">logo-secondary</text>
+      <text id="logo-secondary-hex" x="280.0" y="1456" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#52A395</text>
+    </g>
+    <g id="logo-anchor-dark">
+      <rect id="logo-anchor-dark-swatch" x="336" y="1400" width="96" height="64" fill="#0D322D" rx="4"/>
+      <text id="logo-anchor-dark-name" x="384.0" y="1418" font-size="11" fill="#fbfaf8" text-anchor="middle" font-weight="600">logo-anchor-dark</text>
+      <text id="logo-anchor-dark-hex" x="384.0" y="1456" font-size="10" fill="#fbfaf8" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#0D322D</text>
+    </g>
+    <g id="logo-sage">
+      <rect id="logo-sage-swatch" x="440" y="1400" width="96" height="64" fill="#81B983" rx="4"/>
+      <text id="logo-sage-name" x="488.0" y="1418" font-size="11" fill="#0e0a08" text-anchor="middle" font-weight="600">logo-sage</text>
+      <text id="logo-sage-hex" x="488.0" y="1456" font-size="10" fill="#0e0a08" text-anchor="middle" font-family="Source Code Pro, ui-monospace, monospace">#81B983</text>
+    </g>
+  </g>
+</svg>
