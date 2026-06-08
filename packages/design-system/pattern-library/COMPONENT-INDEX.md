@@ -319,6 +319,16 @@ Inline-SVG primitives for system diagrams. Layer 1 = hand-coordinate authoring; 
 
 ---
 
+## Cena Public Site
+
+Page-level compositions for the Cena Health public-facing site (`Lab/cena-health-public-site`). These are NOT primitives — they compose existing haven-ui primitives into the load-bearing visual artifacts each public-site page calls for. Phase 3a primitive-audit scoping doc: `Lab/cena-health-public-site/strategy/phase-3a-primitive-audit.md`. Composition-tier work (Tier 2) by default; the 4-expert panel fires only when a composition surfaces a primitive-tier gap (audit Sequencing Recommendation §2 + §4 capture the planned Tier 1 primitives that DO go through the panel).
+
+| Component | File | Classes | Preline | Notes |
+|---|---|---|---|---|
+| Patient Journey Timeline (`/reference-program` §2) | `pages/cena-public/patient-journey-timeline.html` | *(composition)* `diagram-frame`, `diagram-frame-wrap`, `diagram-lane`, `diagram-lane-label`, `diagram-box`, `diagram-box-shape`, `diagram-box-label`, `diagram-box-overline`, `diagram-box--substrate`, `diagram-arrow`, `diagram-arrow--muted`, `diagram-marker-defs`, `diagram-marker-fill`, `diagram-caption`, `diagram-long-desc` | no | Phase 3a slice 1 (Tier 2). 9-stage × 4-swim-lane horizontal timeline (Patient / Clinical staff / Cena substrate / Provenance artifact) for the partner-protagonist blueprint page. Layer 1 hand-coordinate (viewBox 1480×520) — stage stride 146px, lane stride 110px, cell 120×76. Substrate lane uses `.diagram-box--substrate` (teal-800) on all 9 stages; provenance lane uses default `.diagram-box` per audit spike recommendation (no `.diagram-box--provenance` variant promoted). Within-lane connectors only (`.diagram-arrow--muted`); no cross-lane edges. Generic-AMC framing at launch; UConn-named upgrade is strict-superset edit when Vanessa clears (outstanding-partner-input #1). Mobile <500px relies on `.diagram-frame-wrap` horizontal-scroll fallback per audit. No new `components.css` classes. Visual-language calls (lane background tints, substrate-uniformity, stage-column-header register) deferred to Haven Visual Designer review per Section 3 of the composition. |
+
+---
+
 ## Patient App
 
 | Component | File | Classes | Preline | Notes |

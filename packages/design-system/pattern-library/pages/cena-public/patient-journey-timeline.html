@@ -1,0 +1,390 @@
+<!--
+  @component-meta
+  name: Patient Journey Timeline (Cena Public — /reference-program §2)
+  category: Pages — Cena Public Site
+  file: pages/cena-public/patient-journey-timeline.html
+  composes: diagram-frame, diagram-frame-wrap, diagram-lane, diagram-box, diagram-box--substrate, diagram-arrow, diagram-arrow--muted, diagram-caption, diagram-marker-defs
+  intent: 9-stage × 4-swim-lane horizontal timeline depicting the live academic-medical-center HIV-nutrition program's patient journey end-to-end. Page composition for the Cena Health public site `/reference-program` §2 — the load-bearing visual primitive of the partner-protagonist blueprint page. Generic-AMC framing at launch; strict-superset upgrade to "UConn Health's" lands when Vanessa clears.
+  status: composition (Phase 3a slice 1 — Tier 2)
+  refs:
+    - Cena Health public-site IA §7 partner-protagonist blueprint spec
+    - Cena Health public-site content brief reference-program.md §2
+    - Cena Health public-site voice.md §2 reference program register (blueprint voice)
+    - Cena Health public-site phase-3a-primitive-audit.md §3 patient-journey-timeline
+    - haven-ui pattern-library COMPONENT-INDEX Diagrams section (Diagram Frame, Diagram Box, Diagram Arrow, Diagram Caption, Diagram Lane)
+  layer: Layer 1 (hand-coordinate inline SVG)
+  notes: Layer 1 chosen over Layer 2 `.diagram-graph` because the 9×4 lane structure has fully-deterministic positions (stage stride + lane stride); dagre's auto-layout would add cost without value here. Mobile <500px relies on the existing `.diagram-frame-wrap` horizontal-scroll fallback per audit recommendation; stack-from-data renderer is a separate follow-up. Cell content discipline: verb-first noun-phrases (2–6 words); HDG row 4 partner-clinician phrasing on clinical-staff lane; substrate verbs are structural (writes, captures, generates, flags); patient cells use role language not identity; provenance cells name artifact + when written. No vendor-stack labels (HDG row 3). No outcome figures (citation spec §4). Citation discipline: this composition carries NO inline claim citations — claim/citation responsibility lives in the page-level brief (reference-program.md). Connectors are within-lane only (no cross-lane edges — cross-lane reading is by column, not by edge). All 9 substrate-lane cells use `.diagram-box--substrate` per audit guidance (Cena substrate has work at every stage). Provenance lane uses default `.diagram-box` (sand-100 / sand-300 border) per audit spike recommendation; no `.diagram-box--provenance` variant authored in this slice.
+  viewbox: 1480 × 520 (Layer 1 wide-multi-lane; wraps in .diagram-frame-wrap for <500px horizontal scroll)
+  @end-meta
+-->
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10 space-y-12">
+
+      <div class="page-header">
+        <h1>Patient Journey Timeline — <code>/reference-program</code> §2</h1>
+        <p class="text-gray-500 dark:text-neutral-400">
+          Phase 3a slice 1 (Tier 2 composition). 9-stage × 4-swim-lane horizontal timeline of the live academic-medical-center HIV-nutrition program. Composes existing diagram primitives — no new <code>components.css</code> classes; no brand-spec entry; no 4-expert panel. See <code>@component-meta</code> above and the Phase 3a primitive audit §3 for the structural rationale.
+        </p>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Section 1: The composition itself                              -->
+      <!-- ============================================================== -->
+      <section class="prose-section">
+        <h2>1. The composition</h2>
+        <p>
+          The four swim-lanes top-to-bottom: <strong>Patient</strong> (patient action), <strong>Clinical staff</strong> (partner-institution clinicians; HDG row 4 phrasing), <strong>Cena substrate</strong> (structural verbs; teal-800 substrate variant), <strong>Provenance artifact</strong> (the audit-trail artifact written at each stage). Stages left-to-right per IA §7 locked order.
+        </p>
+
+        <!-- @component: patient-journey-timeline-cena-public -->
+        <div class="diagram-frame-wrap">
+          <svg class="diagram-frame" viewBox="0 0 1480 520" role="img"
+               aria-label="Nine-stage patient journey across four swim-lanes — patient, clinical staff, Cena substrate, and provenance artifact — for the live academic-medical-center HIV-nutrition program."
+               aria-describedby="patient-journey-timeline-desc">
+
+            <!-- Arrow markers for within-lane connectors -->
+            <defs class="diagram-marker-defs">
+              <marker id="pjt-arr-muted" viewBox="0 0 10 10" refX="9" refY="5"
+                      markerWidth="6" markerHeight="6" markerUnits="userSpaceOnUse" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-marker-fill" />
+              </marker>
+            </defs>
+
+            <!-- Stage column headers (above lanes, y=10-50) -->
+            <g class="diagram-lane" aria-hidden="true">
+              <text class="diagram-lane-label" x="20" y="38">STAGE</text>
+              <text class="diagram-box-overline" x="206" y="38" text-anchor="middle">1 · REFERRAL</text>
+              <text class="diagram-box-overline" x="352" y="38" text-anchor="middle">2 · ENROLLMENT</text>
+              <text class="diagram-box-overline" x="498" y="38" text-anchor="middle">3 · ASSESSMENT</text>
+              <text class="diagram-box-overline" x="644" y="38" text-anchor="middle">4 · CARE PLAN</text>
+              <text class="diagram-box-overline" x="790" y="38" text-anchor="middle">5 · ORDERING</text>
+              <text class="diagram-box-overline" x="936" y="38" text-anchor="middle">6 · FULFILLMENT</text>
+              <text class="diagram-box-overline" x="1082" y="38" text-anchor="middle">7 · ADHERENCE</text>
+              <text class="diagram-box-overline" x="1228" y="38" text-anchor="middle">8 · OUTCOME CAPTURE</text>
+              <text class="diagram-box-overline" x="1374" y="38" text-anchor="middle">9 · RE-ASSESSMENT</text>
+            </g>
+
+            <!-- ============= LANE 1: PATIENT (y=60–160, mid y=110) ============= -->
+            <g class="diagram-lane">
+              <text class="diagram-lane-label" x="20" y="115">PATIENT</text>
+
+              <!-- Cells: x = 146 + i*146, y=72, w=120, h=76 -->
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="146" y="72" width="120" height="76" />
+                <text x="206" y="105" class="diagram-box-label" text-anchor="middle">Receives</text>
+                <text x="206" y="120" class="diagram-box-label" text-anchor="middle">referral</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="292" y="72" width="120" height="76" />
+                <text x="352" y="105" class="diagram-box-label" text-anchor="middle">Enrolls,</text>
+                <text x="352" y="120" class="diagram-box-label" text-anchor="middle">consents</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="438" y="72" width="120" height="76" />
+                <text x="498" y="105" class="diagram-box-label" text-anchor="middle">Completes</text>
+                <text x="498" y="120" class="diagram-box-label" text-anchor="middle">assessment</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="584" y="72" width="120" height="76" />
+                <text x="644" y="105" class="diagram-box-label" text-anchor="middle">Reviews</text>
+                <text x="644" y="120" class="diagram-box-label" text-anchor="middle">care plan</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="730" y="72" width="120" height="76" />
+                <text x="790" y="113" class="diagram-box-label" text-anchor="middle">Awaits delivery</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="876" y="72" width="120" height="76" />
+                <text x="936" y="105" class="diagram-box-label" text-anchor="middle">Receives</text>
+                <text x="936" y="120" class="diagram-box-label" text-anchor="middle">nutrition supports</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1022" y="72" width="120" height="76" />
+                <text x="1082" y="105" class="diagram-box-label" text-anchor="middle">Responds to</text>
+                <text x="1082" y="120" class="diagram-box-label" text-anchor="middle">check-ins</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1168" y="72" width="120" height="76" />
+                <text x="1228" y="105" class="diagram-box-label" text-anchor="middle">Reports</text>
+                <text x="1228" y="120" class="diagram-box-label" text-anchor="middle">outcomes</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1314" y="72" width="120" height="76" />
+                <text x="1374" y="105" class="diagram-box-label" text-anchor="middle">Returns for</text>
+                <text x="1374" y="120" class="diagram-box-label" text-anchor="middle">re-assessment</text>
+              </g>
+
+              <!-- Within-lane connectors: cell n right-edge (x = 146+i*146+120 = 266+i*146) to cell n+1 left-edge (292+i*146) -->
+              <path d="M 266 110 L 292 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 412 110 L 438 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 558 110 L 584 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 704 110 L 730 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 850 110 L 876 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 996 110 L 1022 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1142 110 L 1168 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1288 110 L 1314 110" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+            </g>
+
+            <!-- ============= LANE 2: CLINICAL STAFF (y=170–270, mid y=220) ============= -->
+            <g class="diagram-lane">
+              <text class="diagram-lane-label" x="20" y="225">CLINICAL STAFF</text>
+
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="146" y="182" width="120" height="76" />
+                <text x="206" y="215" class="diagram-box-label" text-anchor="middle">Partner clinician</text>
+                <text x="206" y="230" class="diagram-box-label" text-anchor="middle">routes referral</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="292" y="182" width="120" height="76" />
+                <text x="352" y="215" class="diagram-box-label" text-anchor="middle">Partner coordinator</text>
+                <text x="352" y="230" class="diagram-box-label" text-anchor="middle">enrolls</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="438" y="182" width="120" height="76" />
+                <text x="498" y="215" class="diagram-box-label" text-anchor="middle">Partner RD</text>
+                <text x="498" y="230" class="diagram-box-label" text-anchor="middle">conducts assessment</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="584" y="182" width="120" height="76" />
+                <text x="644" y="215" class="diagram-box-label" text-anchor="middle">Partner clinician</text>
+                <text x="644" y="230" class="diagram-box-label" text-anchor="middle">approves plan</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="730" y="182" width="120" height="76" />
+                <text x="790" y="215" class="diagram-box-label" text-anchor="middle">Partner staff</text>
+                <text x="790" y="230" class="diagram-box-label" text-anchor="middle">authorizes order</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="876" y="182" width="120" height="76" />
+                <text x="936" y="223" class="diagram-box-label" text-anchor="middle">Partner monitors delivery</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1022" y="182" width="120" height="76" />
+                <text x="1082" y="215" class="diagram-box-label" text-anchor="middle">Partner clinician</text>
+                <text x="1082" y="230" class="diagram-box-label" text-anchor="middle">intervenes on flag</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1168" y="182" width="120" height="76" />
+                <text x="1228" y="215" class="diagram-box-label" text-anchor="middle">Partner clinician</text>
+                <text x="1228" y="230" class="diagram-box-label" text-anchor="middle">reviews outcomes</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1314" y="182" width="120" height="76" />
+                <text x="1374" y="215" class="diagram-box-label" text-anchor="middle">Partner clinician</text>
+                <text x="1374" y="230" class="diagram-box-label" text-anchor="middle">closes the loop</text>
+              </g>
+
+              <path d="M 266 220 L 292 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 412 220 L 438 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 558 220 L 584 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 704 220 L 730 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 850 220 L 876 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 996 220 L 1022 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1142 220 L 1168 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1288 220 L 1314 220" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+            </g>
+
+            <!-- ============= LANE 3: CENA SUBSTRATE (y=280–380, mid y=330) ============= -->
+            <g class="diagram-lane">
+              <text class="diagram-lane-label" x="20" y="335">CENA SUBSTRATE</text>
+
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="146" y="292" width="120" height="76" />
+                <text x="206" y="325" class="diagram-box-label" text-anchor="middle">Captures source</text>
+                <text x="206" y="340" class="diagram-box-label" text-anchor="middle">attribution</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="292" y="292" width="120" height="76" />
+                <text x="352" y="325" class="diagram-box-label" text-anchor="middle">Records consent,</text>
+                <text x="352" y="340" class="diagram-box-label" text-anchor="middle">signatures</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="438" y="292" width="120" height="76" />
+                <text x="498" y="325" class="diagram-box-label" text-anchor="middle">Logs assessment</text>
+                <text x="498" y="340" class="diagram-box-label" text-anchor="middle">with attribution</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="584" y="292" width="120" height="76" />
+                <text x="644" y="325" class="diagram-box-label" text-anchor="middle">Generates</text>
+                <text x="644" y="340" class="diagram-box-label" text-anchor="middle">recommendation</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="730" y="292" width="120" height="76" />
+                <text x="790" y="325" class="diagram-box-label" text-anchor="middle">Writes order</text>
+                <text x="790" y="340" class="diagram-box-label" text-anchor="middle">to fulfillment</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="876" y="292" width="120" height="76" />
+                <text x="936" y="325" class="diagram-box-label" text-anchor="middle">Confirms delivery,</text>
+                <text x="936" y="340" class="diagram-box-label" text-anchor="middle">timestamps</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="1022" y="292" width="120" height="76" />
+                <text x="1082" y="325" class="diagram-box-label" text-anchor="middle">Captures adherence,</text>
+                <text x="1082" y="340" class="diagram-box-label" text-anchor="middle">flags thresholds</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="1168" y="292" width="120" height="76" />
+                <text x="1228" y="325" class="diagram-box-label" text-anchor="middle">Logs outcomes</text>
+                <text x="1228" y="340" class="diagram-box-label" text-anchor="middle">with methodology</text>
+              </g>
+              <g class="diagram-box diagram-box--substrate">
+                <rect class="diagram-box-shape" x="1314" y="292" width="120" height="76" />
+                <text x="1374" y="325" class="diagram-box-label" text-anchor="middle">Flags re-assessment</text>
+                <text x="1374" y="340" class="diagram-box-label" text-anchor="middle">trigger</text>
+              </g>
+
+              <path d="M 266 330 L 292 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 412 330 L 438 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 558 330 L 584 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 704 330 L 730 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 850 330 L 876 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 996 330 L 1022 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1142 330 L 1168 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1288 330 L 1314 330" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+            </g>
+
+            <!-- ============= LANE 4: PROVENANCE ARTIFACT (y=390–490, mid y=440) ============= -->
+            <g class="diagram-lane">
+              <text class="diagram-lane-label" x="20" y="445">PROVENANCE ARTIFACT</text>
+
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="146" y="402" width="120" height="76" />
+                <text x="206" y="435" class="diagram-box-label" text-anchor="middle">Referral receipt</text>
+                <text x="206" y="450" class="diagram-box-label" text-anchor="middle">+ timestamp</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="292" y="402" width="120" height="76" />
+                <text x="352" y="435" class="diagram-box-label" text-anchor="middle">Consent record</text>
+                <text x="352" y="450" class="diagram-box-label" text-anchor="middle">+ signature</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="438" y="402" width="120" height="76" />
+                <text x="498" y="435" class="diagram-box-label" text-anchor="middle">Assessment record</text>
+                <text x="498" y="450" class="diagram-box-label" text-anchor="middle">+ attribution</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="584" y="402" width="120" height="76" />
+                <text x="644" y="435" class="diagram-box-label" text-anchor="middle">Recommendation +</text>
+                <text x="644" y="450" class="diagram-box-label" text-anchor="middle">clinician approval</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="730" y="402" width="120" height="76" />
+                <text x="790" y="435" class="diagram-box-label" text-anchor="middle">Order record</text>
+                <text x="790" y="450" class="diagram-box-label" text-anchor="middle">+ attribution</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="876" y="402" width="120" height="76" />
+                <text x="936" y="435" class="diagram-box-label" text-anchor="middle">Fulfillment confirmation</text>
+                <text x="936" y="450" class="diagram-box-label" text-anchor="middle">+ timestamp</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1022" y="402" width="120" height="76" />
+                <text x="1082" y="435" class="diagram-box-label" text-anchor="middle">Adherence signal</text>
+                <text x="1082" y="450" class="diagram-box-label" text-anchor="middle">+ intervention log</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1168" y="402" width="120" height="76" />
+                <text x="1228" y="435" class="diagram-box-label" text-anchor="middle">Outcome record</text>
+                <text x="1228" y="450" class="diagram-box-label" text-anchor="middle">+ methodology</text>
+              </g>
+              <g class="diagram-box">
+                <rect class="diagram-box-shape" x="1314" y="402" width="120" height="76" />
+                <text x="1374" y="435" class="diagram-box-label" text-anchor="middle">Re-assessment trigger</text>
+                <text x="1374" y="450" class="diagram-box-label" text-anchor="middle">+ criteria</text>
+              </g>
+
+              <path d="M 266 440 L 292 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 412 440 L 438 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 558 440 L 584 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 704 440 L 730 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 850 440 L 876 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 996 440 L 1022 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1142 440 L 1168 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+              <path d="M 1288 440 L 1314 440" class="diagram-arrow diagram-arrow--muted" marker-end="url(#pjt-arr-muted)" aria-hidden="true" />
+            </g>
+
+            <!-- Below-frame caption (Lora italic) -->
+            <text class="diagram-caption" x="740" y="508" text-anchor="middle">
+              The live academic-medical-center HIV-nutrition program, end-to-end. The blueprint generalizes; the program is one instance.
+            </text>
+          </svg>
+        </div>
+
+        <!-- Sibling long-desc for screen readers (sr-only canonical structure) -->
+        <div class="diagram-long-desc" id="patient-journey-timeline-desc">
+          <p class="diagram-long-desc__purpose">
+            Nine-stage patient journey through the live academic-medical-center HIV-nutrition program, rendered as four horizontal swim-lanes — patient, partner clinical staff, Cena substrate, and provenance artifact — so the legal/compliance reader can scan only the provenance lane and the technical evaluator can scan only the substrate lane without losing the cross-cutting view.
+          </p>
+          <h4 class="sr-only">Elements</h4>
+          <ul class="diagram-long-desc__elements">
+            <li><strong>Stage columns (left to right)</strong> — Referral, Enrollment, Assessment, Care plan, Ordering, Fulfillment, Adherence check-ins, Outcome capture, Re-assessment.</li>
+            <li><strong>Patient lane (top)</strong> — what the patient does at each stage; role language, not identity.</li>
+            <li><strong>Clinical staff lane</strong> — partner-institution clinicians; partner clinician / coordinator / RD retain accountability per Cena pilots-stage accountability model.</li>
+            <li><strong>Cena substrate lane</strong> — structural work the substrate does at each stage (captures, records, logs, generates, writes, confirms, flags); teal-800 substrate variant.</li>
+            <li><strong>Provenance artifact lane (bottom)</strong> — the audit-trail artifact written at each stage; the lane the legal/compliance reader scans to verify a complete defensible trail.</li>
+          </ul>
+          <h4 class="sr-only">Relationships</h4>
+          <ul class="diagram-long-desc__relationships">
+            <li>Within each lane, time flows left-to-right; muted arrows connect consecutive stages.</li>
+            <li>Across lanes at a single stage (column), each actor's action is co-temporal: read top-to-bottom at any stage to see what the patient, partner clinician, substrate, and provenance artifact each do at that moment.</li>
+            <li>No cross-lane edges — cross-lane reading is by column, not by edge.</li>
+          </ul>
+          <p class="diagram-long-desc__notes">
+            Reading order — first scan the stage columns left-to-right to grasp the journey shape, then scan any single lane left-to-right to follow one actor through all nine stages. The substrate-lane verbs (captures, logs, generates, writes, confirms, flags) and the provenance-lane noun artifacts together substantiate the page's claim that the substrate produces an audit-grade trail at every stage.
+          </p>
+        </div>
+        <!-- /component -->
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- Section 2: Cell-content annotations for Phase 3b authoring     -->
+      <!-- ============================================================== -->
+      <section class="prose-section">
+        <h2>2. Cell-content annotations (writer-facing notes for Phase 3b)</h2>
+        <p>
+          Cell labels above carry the load-bearing claim shape. Phase 3b page composition (the actual <code>/reference-program</code> page) inherits these labels as the timeline's canonical cell content; hover/tooltip detail and below-the-fold annotations expand within the per-cell discipline below.
+        </p>
+        <ul>
+          <li><strong>Patient lane.</strong> Role language only — "Receives referral," "Enrolls, consents," "Reviews care plan." Never "patient does X by name." Identity language is HDG-disallowed.</li>
+          <li><strong>Clinical staff lane.</strong> HDG row 4 phrasing — "Partner clinician routes referral," "Partner RD conducts assessment," "Partner clinician approves plan." Cena never holds clinical accountability in pilots; the lane label always names the partner-institution role.</li>
+          <li><strong>Substrate lane.</strong> Structural verbs only — captures, records, logs, generates, writes, confirms, flags. Avoid vendor-flattery verbs (delivers, provides, empowers, orchestrates). Each cell describes what the substrate does, never which vendor underlies it (HDG row 3).</li>
+          <li><strong>Provenance lane.</strong> Noun artifact + write moment — "Referral receipt + timestamp," "Consent record + signature," "Recommendation + clinician approval." The lane reads as a defensible trail when scanned standalone.</li>
+          <li><strong>Per-stage hedging.</strong> Any cell whose substrate or provenance claim does not match current shipped Spark + Ava fidelity must hedge or remove before launch (per audit + HDG packet §3.1 Audit-log automatic capture + §8 future watchlist). Particularly: adherence check-ins (stage 7) and outcome capture (stage 8) are the easiest to overclaim — verify against current implementation before Phase 3b composition.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- Section 3: Visual-language calls deferred to Visual Designer    -->
+      <!-- ============================================================== -->
+      <section class="prose-section">
+        <h2>3. Visual-language calls deferred to Haven Visual Designer review</h2>
+        <p>
+          Per audit §3 brand-fidelity considerations + Tier 2 ceremony (no 4-expert panel by default; HVD review fires only if the slice surfaces a forcing case). The following calls are deferred to HVD review post-composition:
+        </p>
+        <ul>
+          <li><strong>Lane background tints.</strong> Currently all four lanes share the default <code>.diagram-frame</code> sand-50 ground. HVD call: should the substrate lane carry a subtle sand-100 ground tint (to amplify the substrate's "this is where the structural work lives" read), or should provenance carry it (to anchor it visually as the audit-trail substrate ground)? Composition holds the default if HVD does not request a change.</li>
+          <li><strong>Provenance-lane visual register.</strong> Per audit guidance, this slice spikes with default <code>.diagram-box</code> (sand-100 fill, sand-300 border) for all provenance cells. <strong>No forcing case for <code>.diagram-box--provenance</code> surfaced during composition.</strong> The quiet sand register reads as documentation, which matches the artifact voice. HVD may promote a variant on review if a distinct register is wanted.</li>
+          <li><strong>Substrate-lane <code>.diagram-box--substrate</code> uniformity.</strong> All 9 substrate cells use the substrate variant (teal-800). Audit guidance was "at least 6 of 9"; this slice uses 9 of 9 because the Cena substrate has substantive structural work at every stage (no empty/muted cells surfaced during composition). HVD call: does the uniformly-teal substrate lane read as overwhelming, or does the uniformity earn the structural-claim read? Composition holds 9-of-9 unless HVD requests reduction.</li>
+          <li><strong>Diagram-lane-label register.</strong> <code>.diagram-lane-label</code> uses Source Code Pro tiny-caps. HVD call (per audit): does this read as documentation or as code-listing? Composition holds default; HVD may propose a variant if the documentation read is compromised on this surface.</li>
+          <li><strong>Mobile rendering.</strong> Accepted: the <code>.diagram-frame-wrap</code> horizontal-scroll fallback at &lt;500px viewport (per audit recommendation). The Layer-2 stack-from-data renderer is a separate follow-up; not blocking this slice.</li>
+          <li><strong>Stage column header treatment.</strong> Stage labels use <code>.diagram-box-overline</code> (Source Sans 3, 10px, uppercase, sand-700) — borrowed from the substrate-box overline pattern. HVD call: is the overline register correct for above-lane column headers, or does the surface need a sibling stage-column-header class? Composition holds the overline reuse to avoid a new class in Tier 2; HVD may promote a sibling class if visual treatment needs distinction.</li>
+        </ul>
+        <p>
+          <strong>Codification status:</strong> no new <code>components.css</code> classes authored in this slice. The composition uses only registered primitives (Diagram Frame / Box / Arrow / Caption / Lane / Marker Defs / Long-Desc). Per <code>.claude/rules/haven-primitive-codification.md</code>, any new primitive would require five-place codification + brand spec entry + render verification + (for disagreement skips) manager-tier escalation. None of those gates fired during composition.
+        </p>
+      </section>
+
+    </main>
+  </div>
+  <load src="../../partials/pl-scripts.html" />
+</body>
+</html>
