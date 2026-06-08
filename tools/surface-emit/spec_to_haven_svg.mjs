@@ -76,6 +76,8 @@ const TOKEN_FALLBACKS = {
   '--space-1': '4px',
   '--space-2': '8px',
   '--space-4': '16px',
+  '--text-button-large': '16px',
+  '--text-button-medium': '13.33px',
   '--duration-fast': '100ms',
   '--ease-haven-default': 'cubic-bezier(0.4, 0, 0.2, 1)',
 };

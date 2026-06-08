@@ -13152,7 +13152,7 @@ span.diagram-icon::before {
     cursor: pointer;
 
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: var(--text-button-large);
     line-height: 1;
 
     transition: background-color var(--duration-fast) var(--ease-haven-default);
@@ -13168,7 +13168,7 @@ span.diagram-icon::before {
 }
 
 .diagram-controls button .fa-solid {
-    font-size: 14px;
+    font-size: var(--text-button-medium);
 }
 
 .diagram-zoom-indicator {
