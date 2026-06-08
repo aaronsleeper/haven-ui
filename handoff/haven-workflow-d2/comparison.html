@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D2-ELK vs PlantUML vs tldraw — three-way regime scout</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;500&display=swap');
+:root {
+  --sand-50:  #f8f4ec; --sand-100: #efe9da; --sand-200: #cfcac2;
+  --sand-700: #5a544e; --sand-900: #25211D; --teal-700: #0D322D;
+  --bg: #fbf8f1;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--sand-900); font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 15px; line-height: 1.5; }
+.page-header { background: var(--teal-700); color: var(--sand-50); padding: 32px 48px 28px; border-bottom: 4px solid var(--sand-200); }
+.page-header h1 { font-family: 'Lora', Georgia, serif; font-size: 28px; font-weight: 500; margin: 0 0 6px; }
+.page-header .subtitle { font-size: 14px; color: var(--sand-200); font-style: italic; }
+.intro { padding: 24px 48px; background: var(--sand-50); border-bottom: 1px solid var(--sand-200); }
+.intro p { margin: 0 0 10px; max-width: 880px; }
+.intro p:last-child { margin-bottom: 0; }
+.case { padding: 32px 48px 48px; border-bottom: 1px solid var(--sand-200); }
+.case h2 { font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 500; color: var(--teal-700); margin: 0 0 4px; }
+.case .case-note { font-style: italic; color: var(--sand-700); margin: 0 0 24px; }
+.pair { display: grid; grid-template-columns: 1fr; gap: 24px; }
+.engine-block { background: white; border: 1px solid var(--sand-200); border-radius: 6px; padding: 20px; }
+.engine-label { font-family: 'Source Code Pro', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--sand-700); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--sand-200); }
+.engine-label.win { color: var(--teal-700); border-bottom-color: var(--teal-700); }
+img { display: block; max-width: 100%; height: auto; }
+.verdict { padding: 24px 48px 56px; background: var(--sand-50); }
+.verdict h2 { font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 500; color: var(--teal-700); margin: 0 0 14px; }
+.verdict ul { margin: 0; padding-left: 22px; max-width: 880px; }
+.verdict li { margin-bottom: 8px; }
+strong { color: var(--teal-700); }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>D2-ELK vs PlantUML vs tldraw — three-way regime scout</h1>
+  <div class="subtitle">2026-06-04 update · completing step 4 of the emission-regime-scouting rule (spike each regime) — regime 3 (interactive substrate) added</div>
+</header>
+
+<section class="intro">
+  <p><strong>What's new:</strong> the prior version of this page compared two regimes — D2-ELK (text→auto-layout) and PlantUML (text→domain-native) — and called PlantUML the winner. The candidate rule that fell out of that work said: <em>"spike the top candidate in each regime."</em> Regime 3 (interactive surface + manual placement) was named but not spiked. This page adds the third column.</p>
+  <p><strong>The substrate for regime 3 is tldraw</strong> — open-source interactive whiteboard whose document format (<code>.tldr</code> JSON) and SVG renderer are both standalone-usable. Lanes are frames; steps are geo shapes (rectangle / diamond); edges are arrows; annotations are notes. Position is first-class in the document (every shape has explicit <code>x, y</code> — no auto-layout). Generated here by a small Python adapter that consumes the same <code>diagram.md</code> spec the PlantUML and D2 emitters read.</p>
+  <p><strong>tldraw column = second cut (2026-06-04 polish pass).</strong> What changed from cut 1: lane labels now render as separate left-edge text shapes (was: tldraw default frame.name at top-left); 220px canvas-top buffer added so callouts no longer crop; arrow size bumped from "s" to "m" for visibility; diamond enlarged to 240×130 so decision text fits; redundant prefixes ("decision-", "action-") stripped from node labels.</p>
+  <p><strong>Remaining issues you'll see in cut 2</strong> (none are substrate-shape problems; some are tldraw conventions): (1) small "Frame" labels at top-left of each lane frame — tldraw substitutes the default "Frame" name when `name` is empty or single-space, so suppressing them entirely needs a different container shape (use a geo-rectangle as the lane container instead of a frame; ~10 min). (2) Callout sticky-note bounds (tldraw's `note` shape has a min size around 180–200px regardless of text length) overlap with the lane top edge — they don't crop, but they crowd the AGENT-lane nodes. Fix: use a `geo` rectangle with semi-fill for callouts instead of `note`; ~15 min. (3) Right-edge node text wraps oddly because the canvas viewBox grew with the X_BUF + Y_BUF additions. Fix: pad node margins; ~5 min. <strong>None of these change the substrate-fitness call.</strong></p>
+  <p><strong>Decision criteria, pre-named so the call doesn't drift:</strong> tldraw wins if its renders are <em>at least as clean</em> as PlantUML's on both cases <em>and</em> the JSON-as-source feels authorable from the spec (the "fill it in like a Mad Lib" test) <em>and</em> position-as-first-class shows up as a visible lever. PlantUML wins if tldraw doesn't beat its renders. Hybrid wins if both viable — PlantUML for batch-render the catalog, tldraw for iteration-loop nudging during scoping.</p>
+</section>
+
+<section class="case">
+  <h2>Escalation — PHQ9 positive</h2>
+  <p class="case-note">Sparse: 4 lanes (AGENT/HUMAN/PARTNER/SYSTEM), 5 activities, 2 decision diamonds, 1 back-edge.</p>
+  <div class="pair">
+    <div class="engine-block">
+      <div class="engine-label">D2 + ELK · text → auto-layout · containers-as-lanes</div>
+      <img src="escalation-phq9-positive.svg" alt="D2-ELK render">
+    </div>
+    <div class="engine-block">
+      <div class="engine-label win">PlantUML · text → native swim-lane primitive · |partition|</div>
+      <img src="plantuml-escalation.svg" alt="PlantUML render">
+    </div>
+    <div class="engine-block">
+      <div class="engine-label">tldraw · interactive substrate · explicit position · first-cut</div>
+      <img src="tldraw-escalation.svg" alt="tldraw render">
+    </div>
+  </div>
+</section>
+
+<section class="case">
+  <h2>Weekly check-in call</h2>
+  <p class="case-note">Dense: 3 lanes, 7+ activities, 3-way branching decision (the case v0.8 broke hardest on).</p>
+  <div class="pair">
+    <div class="engine-block">
+      <div class="engine-label">D2 + ELK · text → auto-layout · containers-as-lanes</div>
+      <img src="weekly-checkin-call.svg" alt="D2-ELK render">
+    </div>
+    <div class="engine-block">
+      <div class="engine-label win">PlantUML · text → native swim-lane primitive · |partition|</div>
+      <img src="plantuml-weekly-checkin.svg" alt="PlantUML render">
+    </div>
+    <div class="engine-block">
+      <div class="engine-label">tldraw · interactive substrate · explicit position · first-cut</div>
+      <img src="tldraw-weekly-checkin.svg" alt="tldraw render">
+    </div>
+  </div>
+</section>
+
+<section class="verdict">
+  <h2>Read — prior verdict (D2 vs PlantUML)</h2>
+  <ul>
+    <li><strong>Sparse case:</strong> D2-ELK has the two-edge label collision (red/yellow on top of each other) + the two-edge bottom collision (BHN ack / timeout). PlantUML has neither — decision diamonds carry both branch labels cleanly.</li>
+    <li><strong>Dense case:</strong> D2-ELK crams the 3-way branch into a tight HUMAN row with stacked labels. PlantUML's <code>switch/case</code> gives each branch its own labeled outgoing edge with no collision.</li>
+    <li><strong>Modifier colors land in both</strong> — the styling work survives the engine swap. The PlantUML <code>&lt;&lt;#hex&gt;&gt;</code> stereotype is the equivalent of D2's <code>style.fill</code>.</li>
+    <li><strong>Honest limit on PlantUML:</strong> its swim-lanes are vertical bands (not horizontal). Reading direction is top-to-bottom rather than left-to-right. For the use case <em>this</em> repo's diagrams encode (sequential temporal flow), vertical-band reading is fine — arguably more natural for processes that have many decision branches.</li>
+    <li>D2 verdict superseded — PlantUML wins over D2.</li>
+  </ul>
+
+  <h2 style="margin-top: 32px;">Read — tldraw second cut (2026-06-04 polish pass)</h2>
+  <ul>
+    <li><strong>What landed well in cut 2:</strong> lane labels (AGENT/HUMAN/PARTNER/SYSTEM) on left edge as big bold text; callouts no longer crop above canvas; diamond text fits inside the rhombus; lane sequence + node placement faithful to spec coordinates; emphasis treatment visible (blue attestation box, grey ghost audit box, colored callouts).</li>
+    <li><strong>What didn't land cleanly:</strong> the small "Frame" labels at top-left of each lane frame (tldraw's default name substitution), the callout sticky-notes still crowd the AGENT-lane nodes because tldraw's `note` shape has a min size around 180px regardless of text length, and (you'll judge this from your own eyes) arrow visibility at preview scale may still be marginal even at size="m". Honest read: these are tldraw convention-vs-our-spec mismatches more than generator bugs. The fixes exist (use geo-rectangle as lane container; use geo for callouts; bump arrow size further) but each adds ceremony and the substrate keeps imposing its own primitives' defaults.</li>
+    <li><strong>The "fill it in like a Mad Lib" test (still holds):</strong> the generator is now ~220 LOC. Reads the same `diagram.md` YAML. Maps lane → frame, node → geo, edge → arrow, callout → note. The mapping is straightforward; the polish work is in tuning the primitives' sizes and positions to match the spec's visual conventions, not in the mapping itself.</li>
+    <li><strong>Position-as-first-class lever (still holds):</strong> every shape's `x, y` is explicit in the JSON. Nudging a node is a one-field diff. For iteration-loop work this is real.</li>
+    <li><strong>The honest assessment after the polish pass:</strong> the renders still aren't at PlantUML's polish level. The gaps that remain are substrate-convention gaps — tldraw's primitives ship with defaults (Frame name substitution, note min-size, frame.name top-left rendering) that don't naturally match our swim-lane convention. Each is fixable but adds layers (custom shape types instead of primitives, or geo-as-container instead of frame-as-container). Cumulative cost is more than 30 more minutes — closer to 2–3 hours to get visual parity with PlantUML.</li>
+    <li><strong>My read on the criteria call after cut 2:</strong> the substrate is technically viable (renders the shape, supports explicit position, mapping is clean). But PlantUML's syntax fits our swim-lane case more naturally — its primitives (`|partition|`, `:action:`, `if/elseif/else`) directly name the things we care about, whereas tldraw's primitives (`frame`, `geo`, `arrow`, `note`) name *interactive whiteboard* things we're SPECIALIZING into swim-lane things. The lost thread's PlantUML verdict was right for this specific load-bearing primitive. The candidate rule's step 4 has been honored; the answer is: regime 2 still wins for workflow swim-lanes.</li>
+    <li><strong>Where tldraw still has a place — hybrid (option c):</strong> for the *iteration-loop* cases where Aaron/Vanessa want to nudge a diagram during scoping ("move that step left", "this lane goes above that one"), tldraw's explicit-position model is the right tool. For *batch-render the catalog* (the 6 use cases shipped as partner-readable diagrams), PlantUML wins. The two adapters are not mutually exclusive — same `spec_from_markdown.py` parser, two emitters consuming its output.</li>
+    <li><strong>Recommended call:</strong> (b) ship `spec_to_puml.py` as the primary adapter. Defer tldraw to a future "interactive-iteration mode" if that mode earns its keep. Reserves (c) — hybrid — as an option for later, not a commitment now.</li>
+  </ul>
+</section>
+
+</body>
+</html>
