@@ -1,0 +1,121 @@
+<!--
+  @component-meta
+  name: About — Cena Public Site
+  category: Cena Public Site
+  file: pages/cena-public/about.html
+  slice: Phase 3 first page composition — /about per IA spec §4 secondary-pages block
+  composes:
+    - layout-document-shell (PL component)
+    - .document-shell, .document-masthead, .document-eyebrow, .document-title, .document-lead, .document-section, .document-section-title, .document-prose (canon document-district primitives)
+    - .text-link (canon inline-link primitive)
+  content-brief: Lab/cena-health-public-site/strategy/content/about.md
+  ia-anchor: Lab/cena-health-public-site/strategy/phase-2-information-architecture.md §4 (secondary pages — About) + §3 (headline lock) + §9 (no CTA)
+  voice-anchor: Lab/cena-health-public-site/brand/voice.md §2 About row + §3 inheritance
+  hdg-anchor: Lab/cena-health-public-site/strategy/phase-2-hdg-review-packet.md row 4 (accountability-model HDG-cleared phrasing)
+  when-to-use: The /about page composition. Single quiet structural footer page; no CTA, no team grid, no leadership theater. Renders Cena's structural posture in five sections (Hero → Thesis → Team → Accountability → Governance).
+  do-not-use-when: Composing a role-targeted page (/for-clinical-leaders, /for-program-economics, etc.) — those carry a CTA and a different register.
+  preline-required: no
+  notes: |
+    No visual primitives — pure document-district composition. The page composes entirely from existing PL primitives per the Phase 3a primitive audit's "no Phase-3a blockers" list. No new components.css classes added.
+    Headline "What Cena is." is locked verbatim per IA §3 (period included; declarative, not interrogative).
+    Section sequence is hard-locked per content brief: Hero → Thesis → Team → Accountability → Governance.
+    The HDG-cleared accountability phrasing in §Clinical accountability is non-negotiable — voice contextualizes it, does not rewrite it.
+    Andrey first-name-only at launch per content brief Open Question #1 (last-name verification deferred to Aaron-gate).
+    No "Last updated" stamp at page close per content brief Open Question #5 default.
+    Inline cross-links to /how-the-substrate-works/provenance-and-accountability and /sample-audit-trail use IA §1 URL paths verbatim (sub-pages not yet composed; placeholder URLs).
+    Footnote markers resolve to a References section at page end; sources are Cena-specific architecture per citation-discipline-spec §2.
+  @end-meta
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <load src="../../partials/pl-head.html" />
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <load src="../../partials/pl-nav.html" />
+    <main class="flex-1 min-w-0 ml-64 p-8 lg:p-10">
+
+      <!-- @component: cena-public-about -->
+      <article class="document-shell">
+
+        <header class="document-masthead">
+          <p class="document-eyebrow">About</p>
+          <h1 class="document-title">What Cena is.</h1>
+        </header>
+
+        <p class="document-lead">
+          Cena is a three-person company building clinical intelligence infrastructure for food-as-medicine.<sup><a href="#fn-1" id="ref-1">1</a></sup>
+          Agents do the throughput work; humans provide accountability and trust.
+        </p>
+
+        <section class="document-section" id="thesis">
+          <h2 class="document-section-title">The thesis</h2>
+          <div class="document-prose">
+            <p>
+              Cena is built on the thesis that agents are primary brainpower.<sup><a href="#fn-2" id="ref-2">2</a></sup>
+              Agents-first means agents do the throughput work — assembling clinical intelligence from source records, writing the audit trail for every recommendation, running second-system clinical checks, and producing the reports each partner program's reporting cadence requires.
+              Humans provide what agents structurally do not: accountability and trust.
+              The substrate operates in the open; every recommendation it produces carries the trail that makes the recommendation defensible.
+              The work that would size a conventional company sits inside the substrate, not on a team org-chart.
+              That's why the team is three people.
+            </p>
+          </div>
+        </section>
+
+        <section class="document-section" id="team">
+          <h2 class="document-section-title">The team</h2>
+          <div class="document-prose">
+            <p>Three by design — agents-first means the throughput work is agent-led and the team stays small. Roles are functional; titles say what each person does.</p>
+            <p><strong>Aaron Sleeper</strong> — co-founder, UX &amp; experience lead.</p>
+            <p><strong>Vanessa Sena</strong> — CEO.</p>
+            <p><strong>Andrey</strong> — co-founder, engineering.</p>
+          </div>
+        </section>
+
+        <section class="document-section" id="accountability">
+          <h2 class="document-section-title">Clinical accountability</h2>
+          <div class="document-prose">
+            <p>
+              During pilots, partner-institution clinicians retain clinical accountability for every recommendation Cena's substrate generates.<sup><a href="#fn-3" id="ref-3">3</a></sup>
+              Cena's role is the audit-grade trail that makes that accountability defensible — see <a class="text-link" href="/how-the-substrate-works/provenance-and-accountability">provenance and accountability</a> for the regulatory substantiation.
+              The substrate writes one entry per clinical action — input data, reasoning step with citation, recommendation, clinician approval, downstream outcome capture, re-assessment trigger; the <a class="text-link" href="/how-the-substrate-works/sample-audit-trail">sample audit trail</a> makes the artifact concrete.
+              The trail is the structural foundation; the partner's clinical authority sits on top of it.
+              This is the agents-first thesis instantiated in the clinical domain: agents do the throughput; humans hold accountability.
+            </p>
+          </div>
+        </section>
+
+        <section class="document-section" id="governance">
+          <h2 class="document-section-title">Governance</h2>
+          <div class="document-prose">
+            <p>
+              Brand decisions sit with a sole approver, supported by expert agents that handle research, design, execution, and maintenance.<sup><a href="#fn-4" id="ref-4">4</a></sup>
+              There is no separate brand-team contact; brand questions route through the warm-intro motion that brings most partner conversations in.
+              Clinical governance follows the accountability model above — partner-institution clinicians retain authority during pilots, with Cena's substrate as the trail underneath.
+              The governance shape this page describes reflects Cena at pilots-planning stage.
+              When the structure changes, the page changes.
+            </p>
+          </div>
+        </section>
+
+        <section class="document-section" id="references">
+          <h2 class="document-section-title">References</h2>
+          <div class="document-prose">
+            <ol>
+              <li id="fn-1">Three-person team and category positioning — Cena-specific architecture per Cena's internal entity documentation. <a href="#ref-1" aria-label="Back to citation 1">↩</a></li>
+              <li id="fn-2">Agents-first thesis — Cena-specific architecture per Cena's internal product-thesis documentation. <a href="#ref-2" aria-label="Back to citation 2">↩</a></li>
+              <li id="fn-3">Clinical accountability framing — Cena-specific architecture, reviewed by Cena's Healthcare Data Governance authoring track for public-form phrasing. <a href="#ref-3" aria-label="Back to citation 3">↩</a></li>
+              <li id="fn-4">Brand governance posture — Cena-specific architecture per Cena's internal documentation. <a href="#ref-4" aria-label="Back to citation 4">↩</a></li>
+            </ol>
+          </div>
+        </section>
+
+      </article>
+      <!-- /component -->
+
+    </main>
+  </div>
+  <load src="../../partials/pl-scripts.html" />
+</body>
+</html>
