@@ -1,0 +1,55 @@
+<!--
+  @component-meta
+  name: Diagram Viewport Controls
+  category: Document District
+  file: doc-diagram-viewport-controls.html
+  classes: diagram-viewport, diagram-controls, diagram-zoom-indicator, diagram-help, diagram-grid, diagram-fit-btn, diagram-zoom-in-btn, diagram-zoom-out-btn
+  when-to-use: Inside the iframe srcdoc rendered by the doc-diagram-figure resolved-asset directive — the interactive chrome (pan/zoom controls, current-zoom indicator, drag-and-key help legend) layered over a workflow swim-lane diagram. Promoted from spec_to_haven_svg.mjs's internal CSS to canonical haven primitives per HVD §3.13.
+  do-not-use-when: Outside the diagram-viewport iframe context. The classes describe a specific overlay shape (absolutely-positioned controls + indicator + help text inside a relative viewport). For ordinary interactive buttons, use `.btn-secondary` directly.
+  preline-required: no
+  notes: |
+    Buttons adopt a hardened `.btn-secondary` variant — sand-100 bg + 1px sand-500 border (WCAG 1.4.11 idle boundary at 3.99:1 vs the sand-50 viewport surface) + secondary-200 hover bg-shift + 2px secondary-700 (sand-700) focus-visible outline (5.79:1 on button + 7.21:1 on viewport). This hardened pattern is the vault-wide audit candidate for `.btn-secondary` itself — see ~/.claude/plans/scratch/separate-audit-2026-06-07-btn-secondary-vault-wide-wcag.md. The all-sand register (no teal on hover or focus) preserves the "teal = state-changing commits" discipline per the .chat-chip precedent (components.css:3118-3121).
+    Indicator + help text use `color-mix(in srgb, var(--color-sand-50) 92%, transparent)` to recede into the warm ground. Indicator's font-weight 500 + tabular-nums distinguishes live-state from help's font-weight 400 reference register.
+    JS behavior (panzoom integration, keyboard handlers, fit-to-viewport) stays in spec_to_haven_svg.mjs for v1 — JS migration is a future slice when a second consumer needs the same controls.
+    Live-region announcement of zoom changes deferred to JS-migration slice (requires JS debounce per haven-ui a11y convention "JS owns debounce" — raw aria-live="polite" would thrash SR users on rapid zoom).
+    CSS source-of-truth lives in components.css; the iframe srcdoc reads from components.css at build time via the A2 extractor (see `extractDiagramChromeCss()` in spec_to_haven_svg.mjs). The chrome CSS uses plain `var(--token)` references (not @apply directives) so the extractor can inline them into the iframe srcdoc context where Tailwind is unavailable.
+  consumed-by: spec_to_haven_svg.mjs (renderer-internal); doc-diagram-figure.html (asset slot composes inside the figure framing)
+  @end-meta
+-->
+
+<!-- DEMO WRAPPER: visual context only, do not copy -->
+<section>
+  <h3 class="section-title mb-4">Diagram Viewport Controls</h3>
+  <p class="pl-description">
+    Pan/zoom chrome layered over an interactive workflow diagram. Buttons match a hardened <code>.btn-secondary</code> variant; indicator + help text use sand-50 at 92% opacity so they recede into the warm ground.
+  </p>
+
+  <!-- @component: doc-diagram-viewport-controls -->
+  <div class="diagram-viewport" style="height: 320px;">
+    <div class="diagram-help" role="note" aria-label="Diagram keyboard shortcuts">drag · wheel zoom · +/− · 0 fit · ← → ↑ ↓ pan</div>
+    <div class="diagram-zoom-indicator" aria-label="Current zoom">100%</div>
+    <div class="diagram-controls" role="group" aria-label="Diagram pan and zoom controls">
+      <button type="button"
+              class="diagram-zoom-out-btn"
+              aria-label="Zoom out"
+              aria-keyshortcuts="-"
+              title="Zoom out (−)">−</button>
+      <button type="button"
+              class="diagram-fit-btn"
+              aria-label="Fit to viewport"
+              aria-keyshortcuts="0"
+              title="Fit to viewport (0)">
+        <i class="fa-solid fa-arrows-to-dot" aria-hidden="true"></i>
+      </button>
+      <button type="button"
+              class="diagram-zoom-in-btn"
+              aria-label="Zoom in"
+              aria-keyshortcuts="+"
+              title="Zoom in (+)">+</button>
+    </div>
+    <!-- The diagram grid + nodes + edges live inside this viewport in production;
+         PL preview leaves the canvas empty to focus the chrome review. -->
+    <div class="diagram-grid" style="background: repeating-linear-gradient(45deg, var(--color-sand-100) 0 1px, transparent 1px 16px); width: 100%; height: 100%;"></div>
+  </div>
+  <!-- /component -->
+</section>
