@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../../packages/design-system/src/styles/main.css">
+<script src="https://unpkg.com/panzoom@9.4.3/dist/panzoom.min.js"></script>
 <style>
 body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
        font-family: var(--font-sans, 'Source Sans 3', sans-serif);
@@ -125,6 +126,66 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
 .diagram-meta { font-size: 13px; color: var(--color-text-muted, #555);
                 margin-top: 24px; padding-top: 16px;
                 border-top: 1px solid var(--color-border-muted, #e8dfca); max-width: 900px; }
+
+/* Pan/zoom viewport — wraps the grid; controls overlay; @media print applies fit-zoom via CSS var */
+.diagram-viewport {
+  position: relative; width: 100%; height: 75vh; min-height: 500px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-muted, #e8dfca); border-radius: 4px;
+  background: var(--color-surface-page, #fbfaf8);
+  touch-action: none;
+}
+.diagram-grid { transform-origin: 0 0; cursor: grab; }
+.diagram-grid:active { cursor: grabbing; }
+.diagram-controls {
+  position: absolute; bottom: 16px; right: 16px;
+  display: flex; gap: 4px; z-index: 100;
+}
+.diagram-controls button {
+  width: 32px; height: 32px; padding: 0;
+  font-family: var(--font-mono, monospace); font-size: 14px; font-weight: 600;
+  background: white; color: var(--color-text-normal, #0d322d);
+  border: 1px solid var(--color-border-default, #d6cdbe); border-radius: 3px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.diagram-controls button:hover {
+  border-color: var(--color-primary-700, #1e5149);
+}
+.diagram-controls .diagram-fit-btn {
+  width: auto; padding: 0 10px; font-size: 11px; letter-spacing: 0.05em;
+}
+.diagram-zoom-indicator {
+  position: absolute; bottom: 16px; left: 16px;
+  padding: 6px 10px;
+  font-family: var(--font-mono, monospace); font-size: 11px;
+  color: var(--color-text-muted, #555);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--color-border-default, #d6cdbe); border-radius: 3px;
+  z-index: 100;
+}
+.diagram-help {
+  position: absolute; top: 16px; left: 16px;
+  padding: 6px 10px;
+  font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.03em;
+  color: var(--color-text-muted, #555);
+  background: rgba(255,255,255,0.85);
+  border: 1px solid var(--color-border-muted, #e8dfca); border-radius: 3px;
+  z-index: 100;
+}
+
+/* Print: hide interactive chrome; apply zoom from JS-set CSS var so the deterministic
+   fit-to-print scale lands in the PDF regardless of where panzoom left the user. */
+@media print {
+  body { padding: 0; }
+  .diagram-viewport { height: auto; min-height: 0; overflow: visible; border: none; background: transparent; }
+  .diagram-controls, .diagram-zoom-indicator, .diagram-help { display: none; }
+  .diagram-grid {
+    zoom: var(--print-zoom, 1);
+    transform: none !important;
+    cursor: default;
+  }
+}
 </style>
 </head>
 <body>
@@ -135,6 +196,14 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
   <span class="draft-marker">DRAFT • v0.1 • pending Marrero review</span>
 </header>
 
+<div class="diagram-viewport">
+  <div class="diagram-help">drag · wheel zoom · +/− · 0 fit · ← → ↑ ↓ pan</div>
+  <div class="diagram-zoom-indicator">100%</div>
+  <div class="diagram-controls">
+    <button type="button" class="diagram-zoom-out-btn" title="Zoom out (−)">−</button>
+    <button type="button" class="diagram-fit-btn" title="Fit to viewport (0)">FIT</button>
+    <button type="button" class="diagram-zoom-in-btn" title="Zoom in (+)">+</button>
+  </div>
 <div class="diagram-grid">
   <div class="diagram-lane-label-cell" style="grid-row: 1;">
     <span class="diagram-lane-label">AGENT</span>
@@ -245,6 +314,7 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
   </div>
   <svg class="diagram-edges" xmlns="http://www.w3.org/2000/svg"></svg>
 </div> <!-- /diagram-grid -->
+</div> <!-- /diagram-viewport -->
 
 <div class="diagram-meta"><p>Care Coordinator initiates a 10–15 minute weekly check-in from the patient profile by participant-preferred channel (phone or text), covering order support, adherence, and barriers to participation, then captures and logs the outcome — with a yellow-flag escalation route to the...</p></div>
 </div> <!-- /diagram-frame-wrapper -->
@@ -278,6 +348,21 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
     return segs.join(' ');
   }
 
+  // rectFromOffsets — getBoundingClientRect-shaped object with coords relative to grid,
+  // computed via offsetLeft/offsetTop. Transform-immune: pan/zoom transforms on grid
+  // don't affect offset* (CSS-layout coords), so arrow geometry stays correct under any
+  // transform applied to the grid wrapper.
+  function rectFromOffsets(el, grid) {
+    let x = 0, y = 0, cur = el;
+    while (cur && cur !== grid) {
+      x += cur.offsetLeft;
+      y += cur.offsetTop;
+      cur = cur.offsetParent;
+    }
+    const w = el.offsetWidth, h = el.offsetHeight;
+    return { left: x, top: y, right: x + w, bottom: y + h, width: w, height: h };
+  }
+
   function routeEdge(srcRect, tgtRect, gridRect, dupIdx, totalDup, edge, grid) {
     const offset = totalDup > 1 ? (dupIdx - (totalDup - 1) / 2) * PARALLEL_OFFSET : 0;
     const sx = srcRect.right - gridRect.left;
@@ -290,13 +375,12 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
       const distance = Math.abs(tx - sx);
       if (distance > 440) {
         // Jog above the source row's TOP edge into the row-gap area.
-        // Use lane label cell as a stable row-top reference.
+        // Use lane label cell as a stable row-top reference (grid-relative offsetTop).
         let jogY = sy - (srcRect.height / 2 + 60); // fallback
         const laneLabelCells = grid.querySelectorAll('.diagram-lane-label-cell');
         const srcRowIdx = edge && typeof edge.srcRowIdx === 'number' ? edge.srcRowIdx : 0;
         if (laneLabelCells.length > srcRowIdx) {
-          const cellTop = laneLabelCells[srcRowIdx].getBoundingClientRect().top - gridRect.top;
-          jogY = cellTop - 4; // 4px above row's top edge, into the row gap
+          jogY = laneLabelCells[srcRowIdx].offsetTop - 4; // 4px above row's top edge, into the row gap
         }
         const jogOut = 20; // step out horizontally before going up
         return [
@@ -318,11 +402,12 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
     const grid = document.querySelector('.diagram-grid');
     const svg = document.querySelector('.diagram-edges');
     if (!grid || !svg) return;
-    const gridRect = grid.getBoundingClientRect();
     const w = grid.offsetWidth, h = grid.offsetHeight;
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
     svg.setAttribute('width', w);
     svg.setAttribute('height', h);
+    // gridRect is pseudo: offset-based coords are grid-relative, so grid is at origin.
+    const gridRect = { left: 0, top: 0, right: w, bottom: h, width: w, height: h };
 
     const dupCounts = new Map();
     for (const e of EDGES) { const k = e.from + '->' + e.to; dupCounts.set(k, (dupCounts.get(k) || 0) + 1); }
@@ -341,7 +426,7 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
       const totalDup = dupCounts.get(k);
       const idx = dupIdx.get(k) || 0;
       dupIdx.set(k, idx + 1);
-      const points = routeEdge(srcBox.getBoundingClientRect(), tgtBox.getBoundingClientRect(), gridRect, idx, totalDup, e, grid);
+      const points = routeEdge(rectFromOffsets(srcBox, grid), rectFromOffsets(tgtBox, grid), gridRect, idx, totalDup, e, grid);
       const emphasis = e.style === 'emphasis';
       const muted = e.style === 'muted';
       const stroke = emphasis ? 'var(--color-primary-700, #1e5149)' : 'var(--color-arrow-default, #8c7c5e)';
@@ -354,14 +439,123 @@ body { background: var(--color-surface-page, #fbfaf8); margin: 0; padding: 32px;
     svg.innerHTML = inner;
   }
 
+  // Initial draw after fonts/layout settle. window.resize re-runs render() because
+  // a wider viewport changes the grid's natural layout (1fr columns) — arrows are
+  // recomputed against the new offsets. Pan/zoom does NOT trigger resize and does NOT
+  // affect offset coords, so the arrows stay correct under any transform.
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
   else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
   else render();
   window.addEventListener('resize', render);
-  if (window.ResizeObserver) {
-    const grid = document.querySelector('.diagram-grid');
-    if (grid) new ResizeObserver(render).observe(grid);
+})();
+</script>
+
+<!-- Pan/zoom init: panzoom (CDN) + initial fit-to-viewport + sets --print-zoom CSS var
+     so @media print scales the diagram deterministically regardless of where the user
+     left panzoom. Graceful degrade: if panzoom didn't load, the static --print-zoom still
+     applies in PDF, and the diagram renders at natural size in the browser. -->
+<script>
+(function() {
+  // 15in x 10in landscape @ 96dpi with 0.3in margins -> 14.4in x 9.4in content -> 1382 x 902 px
+  const PRINT_W = 1382, PRINT_H = 902;
+
+  function computeScales(grid, viewport) {
+    const naturalW = grid.offsetWidth;
+    const naturalH = grid.offsetHeight;
+    const printScale = Math.min(1, PRINT_W / naturalW, PRINT_H / naturalH);
+    const vpRect = viewport.getBoundingClientRect();
+    const intScale = Math.min(vpRect.width / naturalW, vpRect.height / naturalH) * 0.96;
+    return { naturalW, naturalH, printScale, intScale, vpW: vpRect.width, vpH: vpRect.height };
   }
+
+  function setExportZoom(grid, scale) {
+    document.documentElement.style.setProperty('--print-zoom', scale.toFixed(3));
+    grid.setAttribute('data-export-zoom', scale.toFixed(3));
+  }
+
+  function init() {
+    const grid = document.querySelector('.diagram-grid');
+    const viewport = document.querySelector('.diagram-viewport');
+    if (!grid || !viewport) return;
+
+    // Always set the print-zoom CSS var from natural dimensions, so PDF emission has a
+    // deterministic value even if panzoom never inits.
+    const { printScale, intScale, naturalW, naturalH, vpW, vpH } = computeScales(grid, viewport);
+    setExportZoom(grid, printScale);
+
+    const indicator = document.querySelector('.diagram-zoom-indicator');
+    const updateIndicator = (s) => { if (indicator) indicator.textContent = (s * 100).toFixed(0) + '%'; };
+
+    if (typeof panzoom === 'undefined') {
+      // Graceful degrade — show natural size, no interactivity.
+      updateIndicator(1);
+      return;
+    }
+
+    const pz = panzoom(grid, {
+      maxZoom: 4,
+      minZoom: 0.1,
+      bounds: false,
+      smoothScroll: false,
+      zoomDoubleClickSpeed: 1,
+      beforeWheel: () => false,  // wheel always zooms, no modifier required
+    });
+
+    const fit = () => {
+      const m = computeScales(grid, viewport);
+      // Reset then apply absolute zoom + center translate.
+      pz.zoomAbs(0, 0, 1); pz.moveTo(0, 0);
+      pz.zoomAbs(0, 0, m.intScale);
+      const tx = (m.vpW - m.naturalW * m.intScale) / 2;
+      const ty = (m.vpH - m.naturalH * m.intScale) / 2;
+      pz.moveTo(tx, ty);
+      updateIndicator(m.intScale);
+    };
+
+    pz.on('zoom', () => {
+      const t = pz.getTransform();
+      updateIndicator(t.scale);
+      // Note: --print-zoom stays pinned to the fit-to-print scale, not the user's
+      // current interactive zoom. PDF export is a deterministic snapshot, not a screenshot.
+    });
+
+    const fitBtn  = document.querySelector('.diagram-fit-btn');
+    const zinBtn  = document.querySelector('.diagram-zoom-in-btn');
+    const zoutBtn = document.querySelector('.diagram-zoom-out-btn');
+    if (fitBtn)  fitBtn.onclick = fit;
+    if (zinBtn)  zinBtn.onclick  = () => { const r = viewport.getBoundingClientRect(); pz.smoothZoom(r.width / 2, r.height / 2, 1.25); };
+    if (zoutBtn) zoutBtn.onclick = () => { const r = viewport.getBoundingClientRect(); pz.smoothZoom(r.width / 2, r.height / 2, 0.8); };
+
+    document.addEventListener('keydown', (e) => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      const r = viewport.getBoundingClientRect();
+      const cx = r.width / 2, cy = r.height / 2;
+      if (e.key === '+' || e.key === '=') { e.preventDefault(); pz.smoothZoom(cx, cy, 1.2); }
+      else if (e.key === '-' || e.key === '_') { e.preventDefault(); pz.smoothZoom(cx, cy, 0.85); }
+      else if (e.key === '0') { e.preventDefault(); fit(); }
+      else if (e.key === 'ArrowLeft')  { e.preventDefault(); pz.moveBy(80, 0, true); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); pz.moveBy(-80, 0, true); }
+      else if (e.key === 'ArrowUp')    { e.preventDefault(); pz.moveBy(0, 80, true); }
+      else if (e.key === 'ArrowDown')  { e.preventDefault(); pz.moveBy(0, -80, true); }
+    });
+
+    // Fit after fonts have loaded + arrows have drawn (small delay covers both).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => setTimeout(fit, 150));
+    } else {
+      setTimeout(fit, 250);
+    }
+
+    // Refresh the print-zoom CSS var whenever the natural layout changes (window resize).
+    window.addEventListener('resize', () => {
+      const m = computeScales(grid, viewport);
+      setExportZoom(grid, m.printScale);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 
