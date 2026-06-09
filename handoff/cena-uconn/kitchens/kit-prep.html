@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kitchens — Today's prep (UConn MVP) · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Kitchens app — prep stage (kit-01-prep wireframe instance)
+    UConn MVP · Greens 'n' Things (Hartford) — dummy content
+
+    Source wireframe: apps/kitchens/design/wireframes/kit-01-prep.md
+    PHI: no first-name patient identity at this stage (cap-17 G12 + brief PHI minimization)
+    Images: none on meal cards (cap-17 G12)
+    Demo content uses placeholder meal names; menu structure pending Greens 'n' Things finalization.
+  -->
+
+  <main class="min-h-screen bg-sand-50">
+
+    <header class="bg-white border-b border-sand-200">
+      <div class="flex items-center gap-6 px-6 py-4 max-w-screen-xl mx-auto">
+        <span class="text-base font-medium text-teal-700" style="font-family:'Lora',serif;">Cena Kitchens</span>
+        <span class="text-sm text-sand-600">Orders due Wednesday delivery</span>
+        <nav class="ml-6 flex items-center gap-1 bg-sand-100 rounded-md p-1">
+          <a href="./kit-prep.html" class="px-3 py-1 text-sm font-medium bg-white rounded shadow-sm text-sand-900">Prep</a>
+          <a href="./kit-pack.html" class="px-3 py-1 text-sm font-medium text-sand-600 hover:text-sand-900">Packing</a>
+        </nav>
+        <span class="ml-auto text-sm text-sand-600">Greens 'n' Things — Hartford</span>
+      </div>
+    </header>
+
+    <section class="max-w-screen-xl mx-auto px-6 py-6 space-y-6">
+
+      <div class="space-y-2">
+        <h1 class="text-2xl font-medium" style="font-family:'Lora',serif;">Today's prep — 26 items total</h1>
+        <p class="text-sm text-sand-600">Aggregate quantities across all orders for this delivery window. Patient identity appears at the packing stage, not here.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Items to prep</p>
+          <p class="text-2xl font-semibold text-sand-900">3</p>
+        </div>
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Items in prep</p>
+          <p class="text-2xl font-semibold text-amber-600">2</p>
+        </div>
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Items done</p>
+          <p class="text-2xl font-semibold text-teal-700">1</p>
+        </div>
+      </div>
+
+      <ol class="bg-white border border-sand-200 rounded-md divide-y divide-sand-100">
+
+        <li class="flex items-center gap-4 px-5 py-4">
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-sand-900">Pollo guisado</p>
+            <p class="text-sm text-sand-600">8 standard</p>
+          </div>
+          <div class="text-2xl font-semibold text-sand-900 tabular-nums">× 8</div>
+          <button type="button" class="ml-4 px-4 py-2 text-sm font-medium bg-teal-700 text-white rounded-md hover:bg-teal-800 inline-flex items-center gap-2">
+            <i class="fa-solid fa-check"></i>
+            Done
+          </button>
+        </li>
+
+        <li class="flex items-center gap-4 px-5 py-4">
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-sand-900">Mole verde</p>
+            <p class="text-sm text-sand-600">5 standard · 2 no onions</p>
+          </div>
+          <div class="text-2xl font-semibold text-sand-900 tabular-nums">× 7</div>
+          <button type="button" class="ml-4 px-4 py-2 text-sm font-medium bg-amber-500 text-white rounded-md hover:bg-amber-600 inline-flex items-center gap-2">
+            <i class="fa-solid fa-fire"></i>
+            Prepping
+          </button>
+        </li>
+
+        <li class="flex items-center gap-4 px-5 py-4">
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-sand-900">Ropa vieja</p>
+            <p class="text-sm text-sand-600">4 standard</p>
+          </div>
+          <div class="text-2xl font-semibold text-sand-900 tabular-nums">× 4</div>
+          <button type="button" class="ml-4 px-4 py-2 text-sm font-medium bg-amber-500 text-white rounded-md hover:bg-amber-600 inline-flex items-center gap-2">
+            <i class="fa-solid fa-fire"></i>
+            Prepping
+          </button>
+        </li>
+
+        <li class="flex items-center gap-4 px-5 py-4">
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-sand-900">Baked tilapia</p>
+            <p class="text-sm text-sand-600">3 standard</p>
+          </div>
+          <div class="text-2xl font-semibold text-sand-900 tabular-nums">× 3</div>
+          <button type="button" class="ml-4 px-4 py-2 text-sm font-medium border border-sand-300 text-sand-700 rounded-md hover:bg-sand-50">
+            Mark prepping
+          </button>
+        </li>
+
+        <li class="flex items-center gap-4 px-5 py-4">
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-sand-900">Tofu noodle bowl</p>
+            <p class="text-sm text-sand-600">2 standard · 1 extra ginger</p>
+          </div>
+          <div class="text-2xl font-semibold text-sand-900 tabular-nums">× 3</div>
+          <button type="button" class="ml-4 px-4 py-2 text-sm font-medium border border-sand-300 text-sand-700 rounded-md hover:bg-sand-50">
+            Mark prepping
+          </button>
+        </li>
+
+        <li class="flex items-center gap-4 px-5 py-4">
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-sand-900">Black bean soup</p>
+            <p class="text-sm text-sand-600">1 standard</p>
+          </div>
+          <div class="text-2xl font-semibold text-sand-900 tabular-nums">× 1</div>
+          <button type="button" class="ml-4 px-4 py-2 text-sm font-medium border border-sand-300 text-sand-700 rounded-md hover:bg-sand-50">
+            Mark prepping
+          </button>
+        </li>
+
+      </ol>
+
+      <div class="flex justify-between items-center pt-2">
+        <p class="text-sm text-sand-600">As items finish prepping, the packing stage is ready for them.</p>
+        <a href="./kit-pack.html" class="px-5 py-2 text-sm font-medium bg-teal-700 text-white rounded-md hover:bg-teal-800 inline-flex items-center gap-2">
+          Move to packing
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kitchens — Packing &amp; handoff (UConn MVP) · Cena × UConn handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Kitchens app — packing/handoff stage (kit-02-pack wireframe instance)
+    UConn MVP · Greens 'n' Things (Hartford) — dummy content
+
+    Source wireframe: apps/kitchens/design/wireframes/kit-02-pack.md
+    PHI: last name only on packing slips (cap-17 G12 + brief PHI minimization)
+    Images: none on cards (cap-17 G12)
+  -->
+
+  <main class="min-h-screen bg-sand-50">
+
+    <header class="bg-white border-b border-sand-200">
+      <div class="flex items-center gap-6 px-6 py-4 max-w-screen-xl mx-auto">
+        <span class="text-base font-medium text-teal-700" style="font-family:'Lora',serif;">Cena Kitchens</span>
+        <span class="text-sm text-sand-600">Orders due Wednesday delivery</span>
+        <nav class="ml-6 flex items-center gap-1 bg-sand-100 rounded-md p-1">
+          <a href="./kit-prep.html" class="px-3 py-1 text-sm font-medium text-sand-600 hover:text-sand-900">Prep</a>
+          <a href="./kit-pack.html" class="px-3 py-1 text-sm font-medium bg-white rounded shadow-sm text-sand-900">Packing</a>
+        </nav>
+        <span class="ml-auto text-sm text-sand-600">Greens 'n' Things — Hartford</span>
+      </div>
+    </header>
+
+    <section class="max-w-screen-xl mx-auto px-6 py-6 space-y-6">
+
+      <div class="space-y-2">
+        <h1 class="text-2xl font-medium" style="font-family:'Lora',serif;">Packing — 6 boxes</h1>
+        <p class="text-sm text-sand-600">Assemble each box from prepped items. Confirm pickup when all boxes are ready for the delivery driver.</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">To pack</p>
+          <p class="text-2xl font-semibold text-amber-600">4</p>
+        </div>
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Packed</p>
+          <p class="text-2xl font-semibold text-teal-700">2</p>
+        </div>
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Out for delivery</p>
+          <p class="text-2xl font-semibold text-sand-700">0</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <article class="bg-white border border-sand-200 rounded-md p-5">
+          <header class="flex items-center justify-between mb-3 pb-3 border-b border-sand-100">
+            <div>
+              <h2 class="text-base font-semibold text-sand-900">Rivera</h2>
+              <p class="text-xs text-sand-600">Delivery by 5pm Wed</p>
+            </div>
+            <span class="px-2 py-1 text-xs font-medium bg-teal-100 text-teal-800 rounded">Packed</span>
+          </header>
+          <ul class="space-y-2 mb-3">
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Pollo guisado</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 2</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Mole verde</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Black bean soup</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+          </ul>
+          <p class="text-xs text-sand-500 truncate">123 Main St · Hartford, CT 06103</p>
+        </article>
+
+        <article class="bg-white border border-sand-200 rounded-md p-5">
+          <header class="flex items-center justify-between mb-3 pb-3 border-b border-sand-100">
+            <div>
+              <h2 class="text-base font-semibold text-sand-900">Diaz</h2>
+              <p class="text-xs text-sand-600">Delivery by 5pm Wed</p>
+            </div>
+            <span class="px-2 py-1 text-xs font-medium bg-teal-100 text-teal-800 rounded">Packed</span>
+          </header>
+          <ul class="space-y-2 mb-3">
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Mole verde <span class="text-sand-500 text-xs">(no onions)</span></span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 2</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Tofu noodle bowl</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+          </ul>
+          <p class="text-xs text-sand-500 truncate">42 Oak Ave · West Hartford, CT 06107</p>
+        </article>
+
+        <article class="bg-white border border-sand-200 rounded-md p-5">
+          <header class="flex items-center justify-between mb-3 pb-3 border-b border-sand-100">
+            <div>
+              <h2 class="text-base font-semibold text-sand-900">Nguyen</h2>
+              <p class="text-xs text-sand-600">Delivery by 5pm Wed</p>
+            </div>
+            <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded">Ready to pack</span>
+          </header>
+          <ul class="space-y-2 mb-3">
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Pollo guisado</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Ropa vieja</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 2</span>
+            </li>
+          </ul>
+          <p class="text-xs text-sand-500 truncate">887 Elm St · Hartford, CT 06105</p>
+          <button type="button" class="mt-3 w-full px-4 py-2 text-sm font-medium bg-teal-700 text-white rounded-md hover:bg-teal-800">
+            Mark packed
+          </button>
+        </article>
+
+        <article class="bg-white border border-sand-200 rounded-md p-5">
+          <header class="flex items-center justify-between mb-3 pb-3 border-b border-sand-100">
+            <div>
+              <h2 class="text-base font-semibold text-sand-900">Patel</h2>
+              <p class="text-xs text-sand-600">Delivery by 5pm Wed</p>
+            </div>
+            <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded">Ready to pack</span>
+          </header>
+          <ul class="space-y-2 mb-3">
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Pollo guisado</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 2</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Tofu noodle bowl <span class="text-sand-500 text-xs">(extra ginger)</span></span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Baked tilapia</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+          </ul>
+          <p class="text-xs text-sand-500 truncate">501 Spring St · Hartford, CT 06106</p>
+          <button type="button" class="mt-3 w-full px-4 py-2 text-sm font-medium bg-teal-700 text-white rounded-md hover:bg-teal-800">
+            Mark packed
+          </button>
+        </article>
+
+        <article class="bg-white border border-sand-200 rounded-md p-5">
+          <header class="flex items-center justify-between mb-3 pb-3 border-b border-sand-100">
+            <div>
+              <h2 class="text-base font-semibold text-sand-900">Okonkwo</h2>
+              <p class="text-xs text-sand-600">Delivery by 5pm Wed</p>
+            </div>
+            <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded">Ready to pack</span>
+          </header>
+          <ul class="space-y-2 mb-3">
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Mole verde</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Baked tilapia</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 2</span>
+            </li>
+          </ul>
+          <p class="text-xs text-sand-500 truncate">19 Wethersfield Ave · Hartford, CT 06114</p>
+          <button type="button" class="mt-3 w-full px-4 py-2 text-sm font-medium bg-teal-700 text-white rounded-md hover:bg-teal-800">
+            Mark packed
+          </button>
+        </article>
+
+        <article class="bg-white border border-sand-200 rounded-md p-5">
+          <header class="flex items-center justify-between mb-3 pb-3 border-b border-sand-100">
+            <div>
+              <h2 class="text-base font-semibold text-sand-900">Brennan</h2>
+              <p class="text-xs text-sand-600">Delivery by 5pm Wed</p>
+            </div>
+            <span class="px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded">Ready to pack</span>
+          </header>
+          <ul class="space-y-2 mb-3">
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Ropa vieja</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 2</span>
+            </li>
+            <li class="flex items-baseline justify-between">
+              <span class="text-sm text-sand-900">Black bean soup</span>
+              <span class="text-sm font-medium text-sand-900 tabular-nums">× 1</span>
+            </li>
+          </ul>
+          <p class="text-xs text-sand-500 truncate">66 Asylum St · Hartford, CT 06103</p>
+          <button type="button" class="mt-3 w-full px-4 py-2 text-sm font-medium bg-teal-700 text-white rounded-md hover:bg-teal-800">
+            Mark packed
+          </button>
+        </article>
+
+      </div>
+
+      <div class="flex justify-between items-center pt-2">
+        <p class="text-sm text-sand-600">When every box is packed, confirm the pickup so the driver knows it's all ready.</p>
+        <button type="button" disabled class="px-5 py-2 text-sm font-medium bg-sand-200 text-sand-500 rounded-md cursor-not-allowed inline-flex items-center gap-2">
+          <i class="fa-solid fa-truck"></i>
+          All boxes ready — confirm pickup
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+</body>
+</html>

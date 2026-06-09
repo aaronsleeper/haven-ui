@@ -138,12 +138,23 @@
     <aside class="flow-view-sidebar">
       <div class="flow-view-section-label">UConn Pilot</div>
 
+      <div class="flow-view-section-label">Patient</div>
       <button type="button" class="flow-view-flow-link" data-flow="meal-returning">
         Meal ordering — Returning patient
         <div class="flow-view-flow-meta">5 steps · patient-side · cap-17</div>
       </button>
 
-      <div class="flow-view-empty">Other flows pending — kitchens app + cena staff visibility are slot-1 fresh.</div>
+      <div class="flow-view-section-label">Kitchen</div>
+      <button type="button" class="flow-view-flow-link" data-flow="kitchen-prep">
+        Kitchen — Prep stage
+        <div class="flow-view-flow-meta">4 steps · aggregate totals · KIT-001/002</div>
+      </button>
+      <button type="button" class="flow-view-flow-link" data-flow="kitchen-pack">
+        Kitchen — Packing stage
+        <div class="flow-view-flow-meta">4 steps · per-patient boxes · KIT-003</div>
+      </button>
+
+      <div class="flow-view-empty">Cena-staff visibility flow pending — slot-1 brief authored 2026-06-09, slots 7–22 ahead.</div>
 
       <div class="flow-view-section-label">Open product-rule gates</div>
       <div class="flow-view-status">
@@ -176,6 +187,86 @@
     // V0 spike — tour declarations inline for simplicity.
     // Production: declarations live in pipeline-derived per-flow files.
     const FLOWS = {
+      'kitchen-prep': {
+        url: './kitchens/kit-prep.html',
+        steps: [
+          {
+            element: null,
+            popover: {
+              title: 'Kitchen — Prep stage',
+              description: 'A staff member walks up at shift start. They see aggregate prep totals — what to make across ALL orders. No per-patient identity at this stage (PHI minimization: patient names + dietary selections together could derive PHI).',
+            },
+          },
+          {
+            elementSelector: 'h1',
+            popover: {
+              title: 'Today\'s prep — aggregate',
+              description: '26 items total across all orders due Wednesday delivery. The kitchen produces in bulk; the packing stage breaks bulk into per-patient boxes.',
+              side: 'bottom',
+              align: 'start',
+            },
+          },
+          {
+            elementSelector: 'ol',
+            popover: {
+              title: 'Aggregate item list',
+              description: 'Each row: item name, total quantity, modifier notes (e.g., "2 no onions"). The staff member toggles status as they prep: Not started → Prepping → Done. Whole-item granularity, not per-portion — finer detail is busy work.',
+              side: 'top',
+              align: 'start',
+            },
+          },
+          {
+            elementSelector: 'a[href="./kit-pack.html"].px-5',
+            popover: {
+              title: 'Move to packing',
+              description: 'Enabled once ≥1 item is Done. Staff can start packing while other items continue prepping — the rigid "all done first" pattern was rejected at IA stage.',
+              side: 'top',
+              align: 'end',
+            },
+          },
+        ],
+      },
+
+      'kitchen-pack': {
+        url: './kitchens/kit-pack.html',
+        steps: [
+          {
+            element: null,
+            popover: {
+              title: 'Kitchen — Packing stage',
+              description: 'Prep produced bulk meals; now the staff member breaks bulk into per-patient boxes for delivery handoff. Each box gets a packing slip. PHI threshold lifts here because per-box identity is operationally necessary — same shape as a restaurant ticket.',
+            },
+          },
+          {
+            elementSelector: 'h1',
+            popover: {
+              title: '6 boxes to pack',
+              description: 'One card per order, sorted by delivery window. Status badges show progress: Ready to pack → Packed → Out for delivery.',
+              side: 'bottom',
+              align: 'start',
+            },
+          },
+          {
+            elementSelector: 'article:nth-of-type(3)',
+            popover: {
+              title: 'Per-patient packing slip',
+              description: 'Last name only (no first name — PHI minimization). Items in the box, delivery address. No food images. Staff taps "Mark packed" when the box is assembled.',
+              side: 'right',
+              align: 'start',
+            },
+          },
+          {
+            elementSelector: 'button[disabled]',
+            popover: {
+              title: 'Confirm pickup',
+              description: 'Enabled when ALL boxes are Packed. Confirms handoff to the delivery party — flips all cards to "Out for delivery" and closes the fulfillment cycle.',
+              side: 'top',
+              align: 'end',
+            },
+          },
+        ],
+      },
+
       'meal-returning': {
         url: './meals/order-meals.returning-patient.html',
         steps: [
