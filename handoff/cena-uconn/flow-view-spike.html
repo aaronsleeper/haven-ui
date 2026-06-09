@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flow View — V0 Spike · Cena × UConn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" />
+  <style>
+    /* V0 spike chrome — deliberately rough; visual polish is a follow-up HVD slot.
+       The point is to enforce visible distinction between wrapper-as-meta and page-as-product. */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; font-family: 'Source Sans 3', system-ui, sans-serif; }
+    body {
+      background: #0f172a; /* slate-900 — deliberately dark, signals "meta surface" */
+      color: #e2e8f0;
+      overflow: hidden;
+    }
+    .flow-view-shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: 56px 1fr;
+      height: 100vh;
+    }
+    .flow-view-header {
+      grid-column: 1 / -1;
+      background: #020617; /* slate-950 */
+      border-bottom: 1px solid #1e293b;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .flow-view-header-brand {
+      font-family: 'Lora', serif;
+      font-weight: 500;
+      font-size: 18px;
+      color: #f1f5f9;
+    }
+    .flow-view-header-mode {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 4px 10px;
+      border: 1px solid #334155;
+      border-radius: 4px;
+    }
+    .flow-view-header-note {
+      margin-left: auto;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .flow-view-sidebar {
+      background: #1e293b;
+      border-right: 1px solid #334155;
+      padding: 20px 16px;
+      overflow-y: auto;
+    }
+    .flow-view-section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #94a3b8;
+      margin: 16px 0 8px;
+    }
+    .flow-view-flow-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      background: transparent;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 6px;
+      transition: background 120ms;
+    }
+    .flow-view-flow-link:hover { background: #334155; }
+    .flow-view-flow-link.is-active { background: #1e40af; border-color: #2563eb; }
+    .flow-view-flow-meta {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .flow-view-empty {
+      font-size: 12px;
+      color: #64748b;
+      font-style: italic;
+      padding: 8px 12px;
+    }
+    .flow-view-status {
+      margin-top: 24px;
+      padding: 12px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .flow-view-status strong { color: #cbd5e1; }
+    .flow-view-content {
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+    .flow-view-content iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .flow-view-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #64748b;
+      font-size: 14px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="flow-view-shell">
+
+    <header class="flow-view-header">
+      <span class="flow-view-header-brand">Cena Flow View</span>
+      <span class="flow-view-header-mode">V0 Spike</span>
+      <span class="flow-view-header-note">Wrapper chrome is meta-layer; framed content is the product</span>
+    </header>
+
+    <aside class="flow-view-sidebar">
+      <div class="flow-view-section-label">UConn Pilot</div>
+
+      <button type="button" class="flow-view-flow-link" data-flow="meal-returning">
+        Meal ordering — Returning patient
+        <div class="flow-view-flow-meta">5 steps · patient-side · cap-17</div>
+      </button>
+
+      <div class="flow-view-empty">Other flows pending — kitchens app + cena staff visibility are slot-1 fresh.</div>
+
+      <div class="flow-view-section-label">Open product-rule gates</div>
+      <div class="flow-view-status">
+        <strong>G2</strong> — budget model (drawdown + 1-cart UX proposed; needs confirm)<br>
+        <strong>G6</strong> — kitchen change-order cutoff (pending Greens 'n' Things)<br>
+        <strong>G8</strong> — pricing rounding (Andrey nudge)<br>
+        <strong>G9</strong> — combo pricing
+      </div>
+
+      <div class="flow-view-section-label">Known artifact-vs-constraint gaps</div>
+      <div class="flow-view-status">
+        <strong>Food images on meal cards</strong> — existing page has 14 loremflickr placeholders. Andrey constraint: no food images for MVP (kitchens won't deliver them; generation not justified). Remove before showing.
+      </div>
+
+      <div class="flow-view-status">
+        <strong>Status:</strong> Click a flow above to load it. The tour script will inject Driver.js into the framed page and walk the steps.
+      </div>
+    </aside>
+
+    <main class="flow-view-content">
+      <div class="flow-view-placeholder" id="placeholder">
+        Select a flow from the left to begin.
+      </div>
+      <iframe id="flow-frame" title="Flow content" style="display:none;" src="about:blank"></iframe>
+    </main>
+
+  </div>
+
+  <script>
+    // V0 spike — tour declarations inline for simplicity.
+    // Production: declarations live in pipeline-derived per-flow files.
+    const FLOWS = {
+      'meal-returning': {
+        url: './meals/order-meals.returning-patient.html',
+        steps: [
+          {
+            element: null, // welcome popover, no element anchor
+            popover: {
+              title: 'Meal flow — returning patient',
+              description: 'Maria is a returning UConn patient. She\'s ordered before, so the agent prepares a starting cart from her history. This tour walks the 5 states of the flow. Use the arrows or Esc to navigate.',
+            },
+          },
+          {
+            // Step 1 Entry — agent greeting
+            elementSelector: 'section:nth-of-type(1)',
+            popover: {
+              title: 'Step 1 — Entry',
+              description: 'The agent greets Maria warmly and surfaces that meals have been prepared based on her history. She can review or hand off to a person.',
+              side: 'right',
+              align: 'start',
+            },
+          },
+          {
+            // Step 2 State-read
+            elementSelector: 'section:nth-of-type(2)',
+            popover: {
+              title: 'Step 2 — State-read',
+              description: 'The prepared cart appears in the working surface. Maria sees what the agent picked + the budget context (cap-40 disclaimer).',
+              side: 'right',
+              align: 'start',
+            },
+          },
+          {
+            // Step 4 Cart
+            elementSelector: 'section:nth-of-type(3)',
+            popover: {
+              title: 'Step 4 — Cart',
+              description: 'Maria can edit: change quantities, swap items, add/remove. Hard block if she goes over $200 (cap-40 ceiling, not allowance — no rollover).',
+              side: 'right',
+              align: 'start',
+            },
+          },
+          {
+            // Step 6 Submit-confirm
+            elementSelector: 'section:nth-of-type(4)',
+            popover: {
+              title: 'Step 6 — Submit + confirm',
+              description: 'Order submitted. Change-order window stays open until kitchen cutoff (G6 — exact time TBD with Greens \'n\' Things).',
+              side: 'right',
+              align: 'start',
+            },
+          },
+          {
+            // Step 7 At-a-glance
+            elementSelector: 'section:nth-of-type(5)',
+            popover: {
+              title: 'Step 7 — At-a-glance',
+              description: 'Maria sees her week\'s meals in the idle pane. Delivery status (low priority per G11) appears when meaningful.',
+              side: 'right',
+              align: 'start',
+            },
+          },
+        ],
+      },
+    };
+
+    const DRIVER_JS_URL = 'https://cdn.jsdelivr.net/npm/driver.js@1.4.0/dist/driver.js.iife.js';
+    const DRIVER_CSS_URL = 'https://cdn.jsdelivr.net/npm/driver.js@1.4.0/dist/driver.css';
+
+    const sidebarLinks = document.querySelectorAll('.flow-view-flow-link');
+    const iframe = document.getElementById('flow-frame');
+    const placeholder = document.getElementById('placeholder');
+
+    console.log('[flow-view] script loaded — flow links found:', sidebarLinks.length, 'iframe:', !!iframe, 'placeholder:', !!placeholder);
+
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const flowId = link.dataset.flow;
+        const flow = FLOWS[flowId];
+        console.log('[flow-view] flow link clicked:', flowId, 'flow def found:', !!flow);
+        if (!flow) return;
+
+        // Visual state
+        sidebarLinks.forEach(l => l.classList.remove('is-active'));
+        link.classList.add('is-active');
+
+        // Show iframe
+        placeholder.style.display = 'none';
+        iframe.style.display = 'block';
+
+        // Load the flow page, then inject Driver.js + run the tour
+        iframe.onload = () => {
+          console.log('[flow-view] iframe loaded:', flow.url, '— injecting Driver.js');
+          injectDriverAndRunTour(iframe, flow.steps);
+        };
+        iframe.onerror = (err) => {
+          console.error('[flow-view] iframe load error:', err);
+        };
+        iframe.src = flow.url;
+      });
+    });
+
+    function injectDriverAndRunTour(iframe, steps) {
+      const doc = iframe.contentDocument;
+      const win = iframe.contentWindow;
+      if (!doc || !win) {
+        console.error('[flow-view] cross-frame access blocked — check same-origin');
+        return;
+      }
+
+      // Inject Driver.js CSS
+      if (!doc.querySelector('link[data-driver-css]')) {
+        const link = doc.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = DRIVER_CSS_URL;
+        link.setAttribute('data-driver-css', '');
+        doc.head.appendChild(link);
+      }
+
+      // Inject Driver.js script (IIFE — exposes `driver` global on iframe window)
+      if (win.driver) {
+        runTour(win, doc, steps);
+        return;
+      }
+
+      const script = doc.createElement('script');
+      script.src = DRIVER_JS_URL;
+      script.onload = () => runTour(win, doc, steps);
+      script.onerror = () => console.error('[flow-view] Driver.js failed to load');
+      doc.body.appendChild(script);
+    }
+
+    function runTour(win, doc, steps) {
+      // Resolve selectors → elements in the iframe document
+      const resolvedSteps = steps.map(step => {
+        if (step.elementSelector) {
+          const el = doc.querySelector(step.elementSelector);
+          if (!el) {
+            console.warn('[flow-view] selector not found:', step.elementSelector);
+            return { popover: step.popover };
+          }
+          return { element: el, popover: step.popover };
+        }
+        return { popover: step.popover };
+      });
+
+      // driver.js@1.x IIFE bundle structure:
+      //   this.driver = {};                                    // namespace
+      //   this.driver.js = function(F){...; return F;}({});    // IIFE returns F object
+      //   // inside: F.driver = <actualDriverFunction>
+      // So the function lives at: window.driver.js.driver
+      const driverFn = win.driver?.js?.driver;
+      if (typeof driverFn !== 'function') {
+        console.error('[flow-view] driver.js function not found', {
+          'win.driver': win.driver,
+          'win.driver?.js': win.driver?.js,
+          'win.driver?.js?.driver': win.driver?.js?.driver,
+        });
+        return;
+      }
+
+      const driverObj = driverFn({
+        showProgress: true,
+        steps: resolvedSteps,
+      });
+
+      driverObj.drive();
+    }
+  </script>
+</body>
+</html>
