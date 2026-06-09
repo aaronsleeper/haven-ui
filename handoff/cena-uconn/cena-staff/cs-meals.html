@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cena staff — Meal-flow cohort (UConn) · handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/haven.css" />
+</head>
+<body>
+  <!--
+    Cena-staff meal-flow visibility surface — cohort view (cs-01-cohort wireframe instance)
+    UConn MVP · dummy content
+
+    Source wireframe: apps/cena-staff/design/wireframes/cs-01-cohort.md
+    PHI: full patient names + dietary context — Cena staff are authorized custodians (INVERSE of kitchens app)
+    Images: no food images (cap-17 G12)
+  -->
+
+  <main class="min-h-screen bg-sand-50">
+
+    <!-- Mock providers/platform shell top-nav for demo context -->
+    <header class="bg-white border-b border-sand-200">
+      <div class="flex items-center gap-8 px-6 py-3 max-w-screen-2xl mx-auto">
+        <span class="text-base font-medium text-teal-700" style="font-family:'Lora',serif;">Cena Providers</span>
+        <nav class="flex items-center gap-1 text-sm">
+          <a href="#" class="px-3 py-2 text-sand-600 hover:text-sand-900">Roster</a>
+          <a href="#" class="px-3 py-2 text-sand-600 hover:text-sand-900">Care plans</a>
+          <a href="#" class="px-3 py-2 text-sand-600 hover:text-sand-900">Assessments</a>
+          <a href="./cs-meals.html" class="px-3 py-2 text-sand-900 font-medium border-b-2 border-teal-700 -mb-px">Meals</a>
+          <a href="#" class="px-3 py-2 text-sand-600 hover:text-sand-900">Messages</a>
+        </nav>
+        <span class="ml-auto text-sm text-sand-600">Dr. Sarah Soto · Clinical Coordinator</span>
+      </div>
+    </header>
+
+    <section class="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
+
+      <!-- Page header -->
+      <div class="flex items-end justify-between">
+        <div class="space-y-1">
+          <h1 class="text-2xl font-medium" style="font-family:'Lora',serif;">Meal flow — UConn cohort</h1>
+          <p class="text-sm text-sand-600">This week's orders due Wednesday delivery · 24 patients</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <p class="text-xs text-sand-500">Last refreshed 2 minutes ago</p>
+          <button type="button" class="px-3 py-2 text-sm text-sand-700 border border-sand-300 rounded-md hover:bg-sand-50 inline-flex items-center gap-2">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab control -->
+      <div class="flex items-center gap-1 border-b border-sand-200">
+        <a href="./cs-meals.html" class="px-4 py-2 text-sm font-medium text-sand-900 border-b-2 border-teal-700 -mb-px">This week</a>
+        <a href="./cs-meals.html?tab=exceptions" class="px-4 py-2 text-sm font-medium text-sand-600 hover:text-sand-900 inline-flex items-center gap-2">
+          Exceptions
+          <span class="px-2 py-0.5 text-xs bg-amber-100 text-amber-800 rounded-full">3</span>
+        </a>
+      </div>
+
+      <!-- Exception summary strip -->
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-white border-l-4 border-amber-500 border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Needs attention</p>
+          <p class="text-2xl font-semibold text-amber-600">3</p>
+        </div>
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">In flight</p>
+          <p class="text-2xl font-semibold text-sand-900">9</p>
+        </div>
+        <div class="bg-white border border-sand-200 rounded-md p-4">
+          <p class="text-xs uppercase tracking-wider text-sand-600 mb-1">Completed</p>
+          <p class="text-2xl font-semibold text-teal-700">12</p>
+        </div>
+      </div>
+
+      <!-- Needs attention group -->
+      <section class="space-y-2">
+        <h2 class="text-base font-semibold text-amber-700 mt-4">Needs attention — 3 patients</h2>
+        <div class="bg-white border border-sand-200 rounded-md divide-y divide-sand-100">
+
+          <a href="#" class="flex items-center gap-4 px-5 py-3 hover:bg-sand-50 transition-colors" style="border-left: 3px solid #f59e0b;">
+            <span class="w-9 h-9 rounded-full bg-amber-100 text-amber-800 inline-flex items-center justify-center text-sm font-semibold">MR</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-sand-900">Maria Rivera</p>
+              <p class="text-xs text-sand-600">No order placed · ordering window opened 3 days ago</p>
+            </div>
+            <div class="text-xs text-sand-600">
+              Owner: <span class="font-medium text-sand-900">Clinical coord.</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+          <a href="#" class="flex items-center gap-4 px-5 py-3 hover:bg-sand-50 transition-colors" style="border-left: 3px solid #f59e0b;">
+            <span class="w-9 h-9 rounded-full bg-amber-100 text-amber-800 inline-flex items-center justify-center text-sm font-semibold">JD</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-sand-900">James Diaz</p>
+              <p class="text-xs text-sand-600">Kitchen flagged dietary mismatch · Mole verde contains undeclared sesame</p>
+            </div>
+            <div class="text-xs text-sand-600">
+              Owner: <span class="font-medium text-sand-900">RD</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+          <a href="#" class="flex items-center gap-4 px-5 py-3 hover:bg-sand-50 transition-colors" style="border-left: 3px solid #f59e0b;">
+            <span class="w-9 h-9 rounded-full bg-amber-100 text-amber-800 inline-flex items-center justify-center text-sm font-semibold">LN</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-sand-900">Linh Nguyen</p>
+              <p class="text-xs text-sand-600">Late edit attempted · 4 hours past kitchen cutoff</p>
+            </div>
+            <div class="text-xs text-sand-600">
+              Owner: <span class="font-medium text-sand-900">Clinical coord.</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Active group -->
+      <section class="space-y-2">
+        <h2 class="text-base font-semibold text-sand-700 mt-4">Active — 9 patients</h2>
+        <div class="bg-white border border-sand-200 rounded-md divide-y divide-sand-100">
+
+          <div class="flex items-center gap-4 px-5 py-3">
+            <span class="w-9 h-9 rounded-full bg-teal-100 text-teal-800 inline-flex items-center justify-center text-sm font-semibold">RP</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-sand-900">Rohan Patel</p>
+              <p class="text-xs text-sand-600">Ordered · 4 meals · $42</p>
+            </div>
+            <div class="text-xs text-sand-600 inline-flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded">Prepping</span>
+              <span>Delivery by 5pm Wed</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </div>
+
+          <div class="flex items-center gap-4 px-5 py-3">
+            <span class="w-9 h-9 rounded-full bg-teal-100 text-teal-800 inline-flex items-center justify-center text-sm font-semibold">KO</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-sand-900">Kemi Okonkwo</p>
+              <p class="text-xs text-sand-600">Ordered · 3 meals · $30</p>
+            </div>
+            <div class="text-xs text-sand-600 inline-flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded">Prepping</span>
+              <span>Delivery by 5pm Wed</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </div>
+
+          <div class="flex items-center gap-4 px-5 py-3">
+            <span class="w-9 h-9 rounded-full bg-teal-100 text-teal-800 inline-flex items-center justify-center text-sm font-semibold">CB</span>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-sand-900">Caitlin Brennan</p>
+              <p class="text-xs text-sand-600">Ordered · 3 meals · $30</p>
+            </div>
+            <div class="text-xs text-sand-600 inline-flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-teal-100 text-teal-800 rounded">Packed</span>
+              <span>Delivery by 5pm Wed</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-sand-300"></i>
+          </div>
+
+          <div class="px-5 py-2 text-xs text-sand-500 italic">+ 6 more active</div>
+
+        </div>
+      </section>
+
+      <!-- Completed group (collapsed by default per wireframe; expanded here for demo) -->
+      <section class="space-y-2">
+        <h2 class="text-base font-medium text-sand-500 mt-4 inline-flex items-center gap-2">
+          <i class="fa-solid fa-chevron-down text-xs"></i>
+          Delivered this week — 12 patients
+        </h2>
+        <div class="bg-sand-50 border border-sand-200 rounded-md divide-y divide-sand-100">
+          <div class="flex items-center gap-4 px-5 py-2.5 opacity-70">
+            <span class="w-7 h-7 rounded-full bg-sand-200 text-sand-600 inline-flex items-center justify-center text-xs font-semibold">AK</span>
+            <p class="text-sm text-sand-700 flex-1 min-w-0">Andrea Kowalski · delivered Mon 4:42pm</p>
+            <i class="fa-solid fa-chevron-right text-sand-300 text-xs"></i>
+          </div>
+          <div class="flex items-center gap-4 px-5 py-2.5 opacity-70">
+            <span class="w-7 h-7 rounded-full bg-sand-200 text-sand-600 inline-flex items-center justify-center text-xs font-semibold">BL</span>
+            <p class="text-sm text-sand-700 flex-1 min-w-0">Brian Lewis · delivered Mon 4:55pm</p>
+            <i class="fa-solid fa-chevron-right text-sand-300 text-xs"></i>
+          </div>
+          <div class="flex items-center gap-4 px-5 py-2.5 opacity-70">
+            <span class="w-7 h-7 rounded-full bg-sand-200 text-sand-600 inline-flex items-center justify-center text-xs font-semibold">SO</span>
+            <p class="text-sm text-sand-700 flex-1 min-w-0">Sofia Ortiz · delivered Mon 5:08pm</p>
+            <i class="fa-solid fa-chevron-right text-sand-300 text-xs"></i>
+          </div>
+          <div class="px-5 py-2 text-xs text-sand-500 italic">+ 9 more delivered</div>
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+</body>
+</html>

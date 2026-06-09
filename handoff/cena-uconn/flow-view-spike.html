@@ -154,7 +154,11 @@
         <div class="flow-view-flow-meta">4 steps · per-patient boxes · KIT-003</div>
       </button>
 
-      <div class="flow-view-empty">Cena-staff visibility flow pending — slot-1 brief authored 2026-06-09, slots 7–22 ahead.</div>
+      <div class="flow-view-section-label">Cena staff</div>
+      <button type="button" class="flow-view-flow-link" data-flow="cena-staff-cohort">
+        Cena staff — Cohort visibility
+        <div class="flow-view-flow-meta">4 steps · meal-flow health for UConn cohort · CS-001</div>
+      </button>
 
       <div class="flow-view-section-label">Open product-rule gates</div>
       <div class="flow-view-status">
@@ -187,6 +191,46 @@
     // V0 spike — tour declarations inline for simplicity.
     // Production: declarations live in pipeline-derived per-flow files.
     const FLOWS = {
+      'cena-staff-cohort': {
+        url: './cena-staff/cs-meals.html',
+        steps: [
+          {
+            element: null,
+            popover: {
+              title: 'Cena staff — meal-flow visibility',
+              description: 'Cena clinical-coordinator / RD / ops staff opens the Meals tab in providers/platform to scan UConn cohort meal-flow health. Goal: 30-second scan answers "is the meal flow healthy this week?" — exceptions surface; routine state recedes.',
+            },
+          },
+          {
+            elementSelector: 'div.grid.grid-cols-3.gap-4',
+            popover: {
+              title: 'Exception summary',
+              description: 'Three counts at a glance: needs attention (amber-accented — pulls eye), in flight (routine), completed (dimmed teal — recedes). Signal vs noise discipline lives in this hierarchy.',
+              side: 'bottom',
+              align: 'start',
+            },
+          },
+          {
+            elementSelector: 'section:nth-of-type(1) > div.bg-white',
+            popover: {
+              title: 'Needs attention group',
+              description: 'Exceptions surface first in DOM + above-the-fold. Each row: patient full name (PHI-authorized — inverse of kitchen app), exception type, time-since, owner. Click row → drill-in.',
+              side: 'right',
+              align: 'start',
+            },
+          },
+          {
+            elementSelector: 'section:nth-of-type(3)',
+            popover: {
+              title: 'Completed group — dimmed by design',
+              description: 'Delivered patients recede visually (sand-50 bg, lower opacity) so routine completions don\'t pull attention from exceptions. Collapsible header for cohorts > 10 completions.',
+              side: 'top',
+              align: 'start',
+            },
+          },
+        ],
+      },
+
       'kitchen-prep': {
         url: './kitchens/kit-prep.html',
         steps: [
