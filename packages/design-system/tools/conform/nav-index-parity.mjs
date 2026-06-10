@@ -45,8 +45,6 @@ const EXCLUDED_PAGES = [
   { path: 'diagram-text-iter.html', reason: 'diagram text iteration page' },
   // Site chrome — not patterns themselves.
   { path: 'index.html', reason: 'PL site landing page; reached via brand link' },
-  // Cena Public Site working pages — only the listed composition lives in the nav.
-  { path: 'cena-public/about.html', reason: 'public-site about page; not a PL primitive' },
 ];
 
 const EXCLUDED_SET = new Set(EXCLUDED_PAGES.map((e) => e.path));

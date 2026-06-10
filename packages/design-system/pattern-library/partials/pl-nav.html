@@ -30,384 +30,432 @@
     </button>
   </div>
 
+  <!-- Filter — case-insensitive substring match across link text. When non-empty
+       forces all sections open so matches surface regardless of collapse state.
+       Filter value persists in sessionStorage; cleared at session end. -->
+  <div class="px-6 mb-4">
+    <label for="pl-nav-filter" class="sr-only">Filter components</label>
+    <input id="pl-nav-filter" type="search" class="pl-nav-filter"
+      placeholder="Filter components" autocomplete="off"
+      aria-controls="pl-nav-list" />
+    <p id="pl-nav-filter-empty" class="pl-nav-filter-empty" hidden role="status" aria-live="polite">
+      No matches.
+    </p>
+  </div>
+
   <!--
-    Navigation. Sections mirror COMPONENT-INDEX.md taxonomy 1:1 (single source
-    of truth — the agent reads INDEX, the human reads this; same shape on both
-    sides). Section labels are <h2> siblings of per-section <ul>s for AT
-    section-jump (WCAG 1.3.1 + 2.4.6). aria-current="page" on the active link
-    is set by pl-nav.js (WCAG 2.4.8). Sidebar scroll is restored by pl-nav.js
-    (sessionStorage). Pages omitted from nav by design:
-      - Research/iteration scratch (auto-render-*, handauthored-*, diagram-*-iter)
-      - Deck Library (lives at /pattern-library/deck/, its own design system)
-      - Meal Assignment Grid (kitchen-coupled partial, not for cross-app reuse)
-      - Queue & Thread sections (component fragments exist but no browseable
-        pages yet — they'll surface here when pages are authored)
-    Parity is enforced by `pnpm conform:nav-index-parity` (see
-    tools/conform/nav-index-parity.mjs).
+    Navigation. Sections mirror COMPONENT-INDEX.md taxonomy 1:1. Each section
+    is a <details>/<summary> pair so users can collapse what they don't need;
+    open state persists per-section in localStorage (`havenPlNavSections`).
+    pl-nav.js force-opens the section containing the current page on load so
+    the active link is never hidden behind a collapsed header. <h2> inside
+    <summary> preserves the heading outline for AT (native section-jump still
+    works) — the summary just adds disclosure semantics on top.
+    aria-current="page" on the active link is set by pl-nav.js (WCAG 2.4.8).
+    Sidebar scroll restoration via sessionStorage in pl-nav.js.
+    Pages omitted from nav by design (see EXCLUDED_PAGES in
+    tools/conform/nav-index-parity.mjs for the full carve-out list + reasons).
   -->
-  <nav class="app-sidebar-nav" aria-label="Pattern library navigation">
+  <nav class="app-sidebar-nav" aria-label="Pattern library navigation" id="pl-nav-list">
 
-    <h2 class="sidebar-nav-section">Foundations</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/foundations.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-palette"></i> Colors
-      </a></li>
-      <li><a href="../pages/foundations.html#typography" class="sidebar-nav-item">
-        <i class="fa-solid fa-font"></i> Typography
-      </a></li>
-      <li><a href="../pages/foundations.html#spacing" class="sidebar-nav-item">
-        <i class="fa-solid fa-ruler-combined"></i> Spacing
-      </a></li>
-      <li><a href="../pages/foundations-motion.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> Motion
-      </a></li>
-      <li><a href="../pages/foundations-icons.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-icons"></i> Icons
-      </a></li>
-      <li><a href="../pages/foundations-palette-swatch.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-swatchbook"></i> Palette Swatch
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="foundations" open>
+      <summary><h2 class="sidebar-nav-section">Foundations</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/foundations.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-palette"></i> Colors
+        </a></li>
+        <li><a href="../pages/foundations.html#typography" class="sidebar-nav-item">
+          <i class="fa-solid fa-font"></i> Typography
+        </a></li>
+        <li><a href="../pages/foundations.html#spacing" class="sidebar-nav-item">
+          <i class="fa-solid fa-ruler-combined"></i> Spacing
+        </a></li>
+        <li><a href="../pages/foundations-motion.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Motion
+        </a></li>
+        <li><a href="../pages/foundations-icons.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-icons"></i> Icons
+        </a></li>
+        <li><a href="../pages/foundations-palette-swatch.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-swatchbook"></i> Palette Swatch
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Layout</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/layout.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-table-columns"></i> Layout (overview)
-      </a></li>
-      <li><a href="../pages/layout-agentic-shell.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-window-restore"></i> Agentic Shell
-      </a></li>
-      <li><a href="../pages/layout-agentic-shell-patient-cart.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-cart-shopping"></i> Agentic Shell: Patient Cart
-      </a></li>
-      <li><a href="../pages/layout-agentic-shell-patient-cart-overbudget.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-triangle-exclamation"></i> Agentic Shell: Cart Over-budget
-      </a></li>
-      <li><a href="../pages/layout-divider.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-grip-lines"></i> Divider
-      </a></li>
-      <li><a href="../pages/layout-comparison-panel.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-columns"></i> Comparison Panel
-      </a></li>
-      <li><a href="../pages/layout-issues-sidebar.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-exclamation"></i> Issues Sidebar
-      </a></li>
-      <li><a href="../pages/layout-field-row.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-pen-to-square"></i> Field Row
-      </a></li>
-      <li><a href="../pages/header-pair.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-heading"></i> Header Pair
-      </a></li>
-      <li><a href="../pages/cart-panel.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-cart-shopping"></i> Cart Panel
-      </a></li>
-      <li><a href="../pages/meal-option-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-plate-utensils"></i> Meal Option Card
-      </a></li>
-      <li><a href="../pages/menu-grid.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-grid-2"></i> Menu Grid
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="layout" open>
+      <summary><h2 class="sidebar-nav-section">Layout</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/layout.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-table-columns"></i> Layout (overview)
+        </a></li>
+        <li><a href="../pages/layout-agentic-shell.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-window-restore"></i> Agentic Shell
+        </a></li>
+        <li><a href="../pages/layout-agentic-shell-patient-cart.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-cart-shopping"></i> Agentic Shell: Patient Cart
+        </a></li>
+        <li><a href="../pages/layout-agentic-shell-patient-cart-overbudget.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-triangle-exclamation"></i> Agentic Shell: Cart Over-budget
+        </a></li>
+        <li><a href="../pages/layout-divider.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-grip-lines"></i> Divider
+        </a></li>
+        <li><a href="../pages/layout-comparison-panel.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-columns"></i> Comparison Panel
+        </a></li>
+        <li><a href="../pages/layout-issues-sidebar.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-exclamation"></i> Issues Sidebar
+        </a></li>
+        <li><a href="../pages/layout-field-row.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-pen-to-square"></i> Field Row
+        </a></li>
+        <li><a href="../pages/header-pair.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-heading"></i> Header Pair
+        </a></li>
+        <li><a href="../pages/cart-panel.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-cart-shopping"></i> Cart Panel
+        </a></li>
+        <li><a href="../pages/meal-option-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-plate-utensils"></i> Meal Option Card
+        </a></li>
+        <li><a href="../pages/menu-grid.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-grid-2"></i> Menu Grid
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Document District</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/doc-care-coordinator-sop.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-user-nurse"></i> Care Coordinator SOP
-      </a></li>
-      <li><a href="../pages/doc-rd-sop.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-leaf"></i> Registered Dietitian SOP
-      </a></li>
-      <li><a href="../pages/doc-admin-sop.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-briefcase"></i> Admin SOP
-      </a></li>
-      <li><a href="../pages/doc-enrollment-onboarding-sop.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-user-plus"></i> Enrollment / Onboarding SOP
-      </a></li>
-      <li><a href="../pages/doc-diagram-viewport-controls.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-magnifying-glass-plus"></i> Diagram Viewport Controls
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="document-district" open>
+      <summary><h2 class="sidebar-nav-section">Document District</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/doc-care-coordinator-sop.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-user-nurse"></i> Care Coordinator SOP
+        </a></li>
+        <li><a href="../pages/doc-rd-sop.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-leaf"></i> Registered Dietitian SOP
+        </a></li>
+        <li><a href="../pages/doc-admin-sop.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-briefcase"></i> Admin SOP
+        </a></li>
+        <li><a href="../pages/doc-enrollment-onboarding-sop.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-user-plus"></i> Enrollment / Onboarding SOP
+        </a></li>
+        <li><a href="../pages/doc-diagram-viewport-controls.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-magnifying-glass-plus"></i> Diagram Viewport Controls
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Buttons</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/buttons.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-hand-pointer"></i> Buttons (overview)
-      </a></li>
-      <li><a href="../pages/btn-group.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-layer-group"></i> Button Group
-      </a></li>
-      <li><a href="../pages/btn-loading.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-spinner"></i> Loading State
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="buttons" open>
+      <summary><h2 class="sidebar-nav-section">Buttons</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/buttons.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-hand-pointer"></i> Buttons (overview)
+        </a></li>
+        <li><a href="../pages/btn-group.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-layer-group"></i> Button Group
+        </a></li>
+        <li><a href="../pages/btn-loading.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-spinner"></i> Loading State
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Badges &amp; Status</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/badges.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-tag"></i> Badges &amp; Status
-      </a></li>
-      <li><a href="../pages/badges-indicator.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle"></i> Indicator / Dot
-      </a></li>
-      <li><a href="../pages/avatar.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-user"></i> Avatar
-      </a></li>
-      <li><a href="../pages/spinner.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-notch"></i> Spinner
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="badges-status" open>
+      <summary><h2 class="sidebar-nav-section">Badges &amp; Status</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/badges.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-tag"></i> Badges &amp; Status
+        </a></li>
+        <li><a href="../pages/badges-indicator.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle"></i> Indicator / Dot
+        </a></li>
+        <li><a href="../pages/avatar.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-user"></i> Avatar
+        </a></li>
+        <li><a href="../pages/spinner.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-notch"></i> Spinner
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Alerts</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/alerts.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-triangle-exclamation"></i> Alerts
-      </a></li>
-      <li><a href="../pages/toast.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-bell"></i> Toast
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="alerts" open>
+      <summary><h2 class="sidebar-nav-section">Alerts</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/alerts.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-triangle-exclamation"></i> Alerts
+        </a></li>
+        <li><a href="../pages/toast.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-bell"></i> Toast
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Forms</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/forms.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-pen-to-square"></i> Forms (overview)
-      </a></li>
-      <li><a href="../pages/forms-toggle.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-toggle-on"></i> Toggle / Switch
-      </a></li>
-      <li><a href="../pages/forms-validation.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-exclamation"></i> Form Validation
-      </a></li>
-      <li><a href="../pages/forms-file-upload.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-cloud-arrow-up"></i> File Upload
-      </a></li>
-      <li><a href="../pages/forms-datepicker.html" class="sidebar-nav-item">
-        <i class="fa-regular fa-calendar"></i> Date Picker
-      </a></li>
-      <li><a href="../pages/forms-timepicker.html" class="sidebar-nav-item">
-        <i class="fa-regular fa-clock"></i> Time Picker
-      </a></li>
-      <li><a href="../pages/forms-tags-input.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-tags"></i> Tags Input
-      </a></li>
-      <li><a href="../pages/forms-color-picker.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-swatchbook"></i> Color Picker
-      </a></li>
-      <li><a href="../pages/forms-hue-family-picker.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-droplet"></i> Hue Family Picker
-      </a></li>
-      <li><a href="../pages/forms-combobox.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-magnifying-glass"></i> Combobox
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="forms" open>
+      <summary><h2 class="sidebar-nav-section">Forms</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/forms.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-pen-to-square"></i> Forms (overview)
+        </a></li>
+        <li><a href="../pages/forms-toggle.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-toggle-on"></i> Toggle / Switch
+        </a></li>
+        <li><a href="../pages/forms-validation.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-exclamation"></i> Form Validation
+        </a></li>
+        <li><a href="../pages/forms-file-upload.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-cloud-arrow-up"></i> File Upload
+        </a></li>
+        <li><a href="../pages/forms-datepicker.html" class="sidebar-nav-item">
+          <i class="fa-regular fa-calendar"></i> Date Picker
+        </a></li>
+        <li><a href="../pages/forms-timepicker.html" class="sidebar-nav-item">
+          <i class="fa-regular fa-clock"></i> Time Picker
+        </a></li>
+        <li><a href="../pages/forms-tags-input.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-tags"></i> Tags Input
+        </a></li>
+        <li><a href="../pages/forms-color-picker.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-swatchbook"></i> Color Picker
+        </a></li>
+        <li><a href="../pages/forms-hue-family-picker.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-droplet"></i> Hue Family Picker
+        </a></li>
+        <li><a href="../pages/forms-combobox.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-magnifying-glass"></i> Combobox
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Data Display</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/data-display.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-table"></i> Data Display (overview)
-      </a></li>
-      <li><a href="../pages/data-medication.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-pills"></i> Medication Row
-      </a></li>
-      <li><a href="../pages/data-alert-summary.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-triangle-exclamation"></i> Alert Summary Row
-      </a></li>
-      <li><a href="../pages/data-progress.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-bars-progress"></i> Progress Bar
-      </a></li>
-      <li><a href="../pages/data-list-group.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-list"></i> List Group
-      </a></li>
-      <li><a href="../pages/accordion.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-bars-staggered"></i> Accordion
-      </a></li>
-      <li><a href="../pages/collapse.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-eye-slash"></i> Collapse
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="data-display" open>
+      <summary><h2 class="sidebar-nav-section">Data Display</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/data-display.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-table"></i> Data Display (overview)
+        </a></li>
+        <li><a href="../pages/data-medication.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-pills"></i> Medication Row
+        </a></li>
+        <li><a href="../pages/data-alert-summary.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-triangle-exclamation"></i> Alert Summary Row
+        </a></li>
+        <li><a href="../pages/data-progress.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-bars-progress"></i> Progress Bar
+        </a></li>
+        <li><a href="../pages/data-list-group.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-list"></i> List Group
+        </a></li>
+        <li><a href="../pages/accordion.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-bars-staggered"></i> Accordion
+        </a></li>
+        <li><a href="../pages/collapse.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-eye-slash"></i> Collapse
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Navigation</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/navigation.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-compass"></i> Navigation (overview)
-      </a></li>
-      <li><a href="../pages/nav-topbar.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-window-maximize"></i> Navbar / Top Bar
-      </a></li>
-      <li><a href="../pages/stepper.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-stairs"></i> Stepper
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="navigation" open>
+      <summary><h2 class="sidebar-nav-section">Navigation</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/navigation.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-compass"></i> Navigation (overview)
+        </a></li>
+        <li><a href="../pages/nav-topbar.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-window-maximize"></i> Navbar / Top Bar
+        </a></li>
+        <li><a href="../pages/stepper.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-stairs"></i> Stepper
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Overlays</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/overlays.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-window-restore"></i> Overlays (overview)
-      </a></li>
-      <li><a href="../pages/overlays-context-menu.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-bars"></i> Context Menu
-      </a></li>
-      <li><a href="../pages/overlays-confirm.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-triangle-exclamation"></i> Confirm Dialog
-      </a></li>
-      <li><a href="../pages/overlays-bottom-sheet.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-arrow-up-from-bracket"></i> Bottom Sheet
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="overlays" open>
+      <summary><h2 class="sidebar-nav-section">Overlays</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/overlays.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-window-restore"></i> Overlays (overview)
+        </a></li>
+        <li><a href="../pages/overlays-context-menu.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-bars"></i> Context Menu
+        </a></li>
+        <li><a href="../pages/overlays-confirm.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-triangle-exclamation"></i> Confirm Dialog
+        </a></li>
+        <li><a href="../pages/overlays-bottom-sheet.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i> Bottom Sheet
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Toolbars</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/toolbar.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-magnifying-glass"></i> Toolbar &amp; Search
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="toolbars" open>
+      <summary><h2 class="sidebar-nav-section">Toolbars</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/toolbar.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-magnifying-glass"></i> Toolbar &amp; Search
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Clinical / Healthcare</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/healthcare.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-stethoscope"></i> Healthcare (overview)
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="clinical-healthcare" open>
+      <summary><h2 class="sidebar-nav-section">Clinical / Healthcare</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/healthcare.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-stethoscope"></i> Healthcare (overview)
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Complex / Composite</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/complex.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-puzzle-piece"></i> Complex (overview)
-      </a></li>
-      <li><a href="../pages/complex-notifications.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-bell"></i> Notification Center
-      </a></li>
-      <li><a href="../pages/complex-command-palette.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-terminal"></i> Command Palette
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="complex-composite" open>
+      <summary><h2 class="sidebar-nav-section">Complex / Composite</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/complex.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-puzzle-piece"></i> Complex (overview)
+        </a></li>
+        <li><a href="../pages/complex-notifications.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-bell"></i> Notification Center
+        </a></li>
+        <li><a href="../pages/complex-command-palette.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-terminal"></i> Command Palette
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Chart Utilities</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/charts-utilities.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-chart-line"></i> Charts &amp; Utilities
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="chart-utilities" open>
+      <summary><h2 class="sidebar-nav-section">Chart Utilities</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/charts-utilities.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-chart-line"></i> Charts &amp; Utilities
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Diagrams</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/diagrams.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-diagram-project"></i> Diagram Primitives
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="diagrams" open>
+      <summary><h2 class="sidebar-nav-section">Diagrams</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/diagrams.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-diagram-project"></i> Diagram Primitives
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Patient App</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/patient-assessment.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-clipboard-question"></i> Patient Assessment
-      </a></li>
-      <li><a href="../pages/assessment-preflight-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-clipboard-list"></i> Assessment Preflight Card
-      </a></li>
-      <li><a href="../pages/assessment-confirmation.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-clipboard-check"></i> Assessment Confirmation
-      </a></li>
-      <li><a href="../pages/budget-meter.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-gauge"></i> Budget Meter
-      </a></li>
-      <li><a href="../pages/quantity-stepper.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-plus"></i> Quantity Stepper
-      </a></li>
-      <li><a href="../pages/appointment-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-calendar-day"></i> Appointment Card
-      </a></li>
-      <li><a href="../pages/appointments-list.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-list-ul"></i> Appointments List
-      </a></li>
-      <li><a href="../pages/pending-request-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-hourglass-half"></i> Pending Request Card
-      </a></li>
-      <li><a href="../pages/delivery-status-timeline.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-truck-fast"></i> Delivery Status Timeline
-      </a></li>
-      <li><a href="../pages/meal-warning-tooltip.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-triangle-exclamation"></i> Meal Warning Tooltip
-      </a></li>
-      <li><a href="../pages/focus-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-bullseye"></i> Focus Card
-      </a></li>
-      <li><a href="../pages/onboarding-orientation-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-compass"></i> Onboarding Orientation Card
-      </a></li>
-      <li><a href="../pages/consent-doc-viewer.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-file-lines"></i> Consent Doc Viewer
-      </a></li>
-      <li><a href="../pages/week-rhythm-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-calendar-week"></i> Week Rhythm Card
-      </a></li>
-      <li><a href="../pages/patient-recall-list.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-list-ol"></i> Patient Recall List
-      </a></li>
-      <li><a href="../pages/patient-recall-mobile.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-mobile-screen"></i> Patient Recall (Mobile)
-      </a></li>
-      <li><a href="../pages/outreach-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-user-nurse"></i> Outreach Card
-      </a></li>
-      <li><a href="../pages/handoff-menu.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-share-from-square"></i> Handoff Menu
-      </a></li>
-      <li><a href="../pages/crisis-resources-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-heart-pulse"></i> Crisis Resources Card
-      </a></li>
-      <li><a href="../pages/trend-snippet-list.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-chart-line"></i> Trend Snippet List
-      </a></li>
-      <li><a href="../pages/log-confirmation-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-receipt"></i> Log Confirmation Card
-      </a></li>
-      <li><a href="../pages/patient-week-panel.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-table-columns"></i> Patient Week Panel
-      </a></li>
-      <li><a href="../pages/patient-chat-message.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-sparkle"></i> Patient Chat Message
-      </a></li>
-      <li><a href="../pages/chat-button-row.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-square-arrow-right"></i> Chat Button Row
-      </a></li>
-      <li><a href="../pages/chat-chip-row.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-dot"></i> Chat Chip Row
-      </a></li>
-      <li><a href="../pages/chat-tag-group.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-tags"></i> Chat Tag Group
-      </a></li>
-      <li><a href="../pages/option-row.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-list-radio"></i> Option Row
-      </a></li>
-      <li><a href="../pages/thread-question-card.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-comment-question"></i> Thread Question Card
-      </a></li>
-      <li><a href="../pages/chat-handoff-trigger.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-headset"></i> Chat Handoff Trigger
-      </a></li>
-      <li><a href="../pages/chat-numeric-input.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-input-numeric"></i> Chat Numeric Input
-      </a></li>
-      <li><a href="../pages/chat-paired-numeric.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-slash"></i> Chat Paired Numeric
-      </a></li>
-      <li><a href="../pages/chat-time-preference-picker.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-clock"></i> Chat Time Preference Picker
-      </a></li>
-      <li><a href="../pages/chat-sheet-link.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i> Chat Sheet Link
-      </a></li>
-      <li><a href="../pages/chat-status-row.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-circle-info"></i> Chat Status Row
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="patient-app" open>
+      <summary><h2 class="sidebar-nav-section">Patient App</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/patient-assessment.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-clipboard-question"></i> Patient Assessment
+        </a></li>
+        <li><a href="../pages/assessment-preflight-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-clipboard-list"></i> Assessment Preflight Card
+        </a></li>
+        <li><a href="../pages/assessment-confirmation.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-clipboard-check"></i> Assessment Confirmation
+        </a></li>
+        <li><a href="../pages/budget-meter.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-gauge"></i> Budget Meter
+        </a></li>
+        <li><a href="../pages/quantity-stepper.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-plus"></i> Quantity Stepper
+        </a></li>
+        <li><a href="../pages/appointment-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-calendar-day"></i> Appointment Card
+        </a></li>
+        <li><a href="../pages/appointments-list.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-list-ul"></i> Appointments List
+        </a></li>
+        <li><a href="../pages/pending-request-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-hourglass-half"></i> Pending Request Card
+        </a></li>
+        <li><a href="../pages/delivery-status-timeline.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-truck-fast"></i> Delivery Status Timeline
+        </a></li>
+        <li><a href="../pages/meal-warning-tooltip.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-triangle-exclamation"></i> Meal Warning Tooltip
+        </a></li>
+        <li><a href="../pages/focus-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-bullseye"></i> Focus Card
+        </a></li>
+        <li><a href="../pages/onboarding-orientation-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-compass"></i> Onboarding Orientation Card
+        </a></li>
+        <li><a href="../pages/consent-doc-viewer.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-file-lines"></i> Consent Doc Viewer
+        </a></li>
+        <li><a href="../pages/week-rhythm-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-calendar-week"></i> Week Rhythm Card
+        </a></li>
+        <li><a href="../pages/patient-recall-list.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-list-ol"></i> Patient Recall List
+        </a></li>
+        <li><a href="../pages/patient-recall-mobile.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-mobile-screen"></i> Patient Recall (Mobile)
+        </a></li>
+        <li><a href="../pages/outreach-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-user-nurse"></i> Outreach Card
+        </a></li>
+        <li><a href="../pages/handoff-menu.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-share-from-square"></i> Handoff Menu
+        </a></li>
+        <li><a href="../pages/crisis-resources-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-heart-pulse"></i> Crisis Resources Card
+        </a></li>
+        <li><a href="../pages/trend-snippet-list.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-chart-line"></i> Trend Snippet List
+        </a></li>
+        <li><a href="../pages/log-confirmation-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-receipt"></i> Log Confirmation Card
+        </a></li>
+        <li><a href="../pages/patient-week-panel.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-table-columns"></i> Patient Week Panel
+        </a></li>
+        <li><a href="../pages/patient-chat-message.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-sparkle"></i> Patient Chat Message
+        </a></li>
+        <li><a href="../pages/chat-button-row.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-square-arrow-right"></i> Chat Button Row
+        </a></li>
+        <li><a href="../pages/chat-chip-row.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-dot"></i> Chat Chip Row
+        </a></li>
+        <li><a href="../pages/chat-tag-group.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-tags"></i> Chat Tag Group
+        </a></li>
+        <li><a href="../pages/option-row.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-list-radio"></i> Option Row
+        </a></li>
+        <li><a href="../pages/thread-question-card.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-comment-question"></i> Thread Question Card
+        </a></li>
+        <li><a href="../pages/chat-handoff-trigger.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-headset"></i> Chat Handoff Trigger
+        </a></li>
+        <li><a href="../pages/chat-numeric-input.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-input-numeric"></i> Chat Numeric Input
+        </a></li>
+        <li><a href="../pages/chat-paired-numeric.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-slash"></i> Chat Paired Numeric
+        </a></li>
+        <li><a href="../pages/chat-time-preference-picker.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-clock"></i> Chat Time Preference Picker
+        </a></li>
+        <li><a href="../pages/chat-sheet-link.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Chat Sheet Link
+        </a></li>
+        <li><a href="../pages/chat-status-row.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-info"></i> Chat Status Row
+        </a></li>
+      </ul>
+    </details>
 
-    <h2 class="sidebar-nav-section">Cena Public Site</h2>
-    <ul class="sidebar-nav-list">
-      <li><a href="../pages/cena-public/patient-journey-timeline.html" class="sidebar-nav-item">
-        <i class="fa-solid fa-route"></i> Patient Journey Timeline
-      </a></li>
-    </ul>
+    <details data-pl-nav-section="cena-public-site" open>
+      <summary><h2 class="sidebar-nav-section">Cena Public Site</h2></summary>
+      <ul class="sidebar-nav-list">
+        <li><a href="../pages/cena-public/patient-journey-timeline.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-route"></i> Patient Journey Timeline
+        </a></li>
+        <li><a href="../pages/cena-public/about.html" class="sidebar-nav-item">
+          <i class="fa-solid fa-circle-info"></i> About
+        </a></li>
+      </ul>
+    </details>
 
   </nav>
 

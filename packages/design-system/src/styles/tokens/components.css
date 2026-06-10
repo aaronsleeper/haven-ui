@@ -2972,6 +2972,54 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply mt-0;
 }
 
+/* PL-doc-site nav: each section wrapped in <details>/<summary> for collapse.
+   Move the section's top margin onto the <details> wrapper; reset the
+   .sidebar-nav-section's baked-in mt-8 inside <summary>. */
+.app-sidebar-nav > details {
+    @apply mt-8;
+}
+.app-sidebar-nav > details:first-of-type {
+    @apply mt-0;
+}
+.app-sidebar-nav summary {
+    @apply flex items-center cursor-pointer select-none rounded-md;
+    list-style: none;
+}
+.app-sidebar-nav summary::-webkit-details-marker {
+    display: none;
+}
+.app-sidebar-nav summary > .sidebar-nav-section {
+    @apply mt-0 mb-0 grow;
+}
+.app-sidebar-nav summary::after {
+    content: "▾";
+    @apply text-xs text-sand-500 mr-2 ml-1 transition-transform;
+    transform: rotate(-90deg);
+}
+.app-sidebar-nav details[open] > summary::after {
+    transform: rotate(0deg);
+}
+.app-sidebar-nav summary:hover {
+    @apply bg-sand-100 dark:bg-sand-800;
+}
+.app-sidebar-nav summary:focus-visible {
+    @apply outline-none ring-2 ring-inset ring-primary-500 dark:ring-primary-400;
+}
+.app-sidebar-nav details > .sidebar-nav-list {
+    @apply mb-2;
+}
+
+/* PL-doc-site filter input. */
+.pl-nav-filter {
+    @apply w-full px-3 py-1.5 text-sm rounded-md border border-sand-300 bg-white;
+    @apply placeholder:text-sand-500 text-sand-900;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-sand-100 dark:placeholder:text-sand-400;
+}
+.pl-nav-filter-empty {
+    @apply mt-2 text-xs text-sand-600 dark:text-sand-400 italic;
+}
+
 /* Accordion toggles are inline text buttons, not action buttons.
    Strip heavy hover/focus styling inherited from global button rules or Preline. */
 .hs-accordion-toggle {
