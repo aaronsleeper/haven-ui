@@ -68,9 +68,11 @@
               <p class="patient-chat-message-body">¡Hola Maria! I've put together a starting list of meals for next week — want to take a look?</p>
             </div>
 
-            <!-- single-button-row: copy.review-selections. Ephemeral — removes on tap. -->
+            <!-- single-button-row: copy.review-selections. Ephemeral — removes on tap.
+                 Demo navigation: anchor carries href to next state per wireframe behavior
+                 (canonical: tap → transition to step-2-state-read). -->
             <div class="chat-button-row">
-              <button type="button" class="btn-secondary">Review my selections</button>
+              <a href="./order-meals.step-2-state-read.html" class="btn-secondary" role="button">Review my selections</a>
             </div>
 
           </div>
@@ -153,9 +155,6 @@
             </div>
 
             <div class="meal-option-card is-recommended">
-              <div class="meal-option-card-image">
-                <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=2" alt="Pollo guisado with rice and black beans" />
-              </div>
               <div class="meal-option-card-content">
                 <p class="meal-option-card-name-row">
                   <span class="meal-option-card-name">Pollo guisado</span>
@@ -185,9 +184,6 @@
             </div>
 
             <div class="meal-option-card is-recommended">
-              <div class="meal-option-card-image">
-                <img src="https://loremflickr.com/160/160/healthy,asian,food?lock=1" alt="Tofu noodle bowl with broccoli and sesame" />
-              </div>
               <div class="meal-option-card-content">
                 <p class="meal-option-card-name-row">
                   <span class="meal-option-card-name">Tofu noodle bowl</span>
@@ -218,9 +214,6 @@
             </div>
 
             <div class="meal-option-card">
-              <div class="meal-option-card-image">
-                <img src="https://loremflickr.com/160/160/healthy,soup,food?lock=5" alt="Black bean soup with avocado" />
-              </div>
               <div class="meal-option-card-content">
                 <p class="meal-option-card-name-row">
                   <span class="meal-option-card-name">Black bean soup</span>
@@ -247,9 +240,6 @@
             </div>
 
             <div class="meal-option-card">
-              <div class="meal-option-card-image">
-                <img src="https://loremflickr.com/160/160/healthy,mexican,food?lock=4" alt="Mole verde with rice" />
-              </div>
               <div class="meal-option-card-content">
                 <p class="meal-option-card-name-row">
                   <span class="meal-option-card-name">Mole verde</span>

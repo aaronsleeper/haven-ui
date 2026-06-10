@@ -136,29 +136,28 @@
     </header>
 
     <aside class="flow-view-sidebar">
-      <div class="flow-view-section-label">UConn Pilot</div>
+      <div class="flow-view-section-label">UConn Pilot — Patient app</div>
 
-      <div class="flow-view-section-label">Patient</div>
       <button type="button" class="flow-view-flow-link" data-flow="meal-returning">
         Meal ordering — Returning patient
-        <div class="flow-view-flow-meta">5 steps · patient-side · cap-17</div>
+        <div class="flow-view-flow-meta">5 linked pages · click through · cap-17</div>
       </button>
 
-      <div class="flow-view-section-label">Kitchen</div>
-      <button type="button" class="flow-view-flow-link" data-flow="kitchen-prep">
-        Kitchen — Prep stage
-        <div class="flow-view-flow-meta">4 steps · aggregate totals · KIT-001/002</div>
-      </button>
-      <button type="button" class="flow-view-flow-link" data-flow="kitchen-pack">
-        Kitchen — Packing stage
-        <div class="flow-view-flow-meta">4 steps · per-patient boxes · KIT-003</div>
-      </button>
+      <div class="flow-view-section-label">How to walk the flow</div>
+      <div class="flow-view-status">
+        Click the flow above to load Step 1 in the frame. The patient app's own CTAs carry you forward:
+        <br><br>
+        <strong>Step 1</strong> — tap <em>Review my selections</em> → Step 2<br>
+        <strong>Step 2</strong> — tap <em>Send order to kitchen</em> → Step 4<br>
+        <strong>Step 4</strong> — tap <em>Send order to kitchen</em> → Step 6<br>
+        <strong>Step 6</strong> — tap <em>See this week's view</em> → Step 7<br>
+        <strong>Step 7</strong> — terminal · order is in
+      </div>
 
-      <div class="flow-view-section-label">Cena staff</div>
-      <button type="button" class="flow-view-flow-link" data-flow="cena-staff-cohort">
-        Cena staff — Cohort visibility
-        <div class="flow-view-flow-meta">4 steps · meal-flow health for UConn cohort · CS-001</div>
-      </button>
+      <div class="flow-view-section-label">Out of scope today</div>
+      <div class="flow-view-status">
+        Kitchens app + cena-staff app: paused per 2026-06-09 reset. Patient mini-app is the demo for tomorrow's call; the three-persona view re-enters once the patient flow lands.
+      </div>
 
       <div class="flow-view-section-label">Open product-rule gates</div>
       <div class="flow-view-status">
@@ -168,13 +167,11 @@
         <strong>G9</strong> — combo pricing
       </div>
 
-      <div class="flow-view-section-label">Known artifact-vs-constraint gaps</div>
+      <div class="flow-view-section-label">Honest reads</div>
       <div class="flow-view-status">
-        <strong>Food images on meal cards</strong> — existing page has 14 loremflickr placeholders. Andrey constraint: no food images for MVP (kitchens won't deliver them; generation not justified). Remove before showing.
-      </div>
-
-      <div class="flow-view-status">
-        <strong>Status:</strong> Click a flow above to load it. The tour script will inject Driver.js into the framed page and walk the steps.
+        <strong>Step 2 → Step 4</strong> — demo synthetically uses the cart-submit button to advance. In production this triggers via implicit cart edits per the wireframe behavior block.<br><br>
+        <strong>Step 6 → Step 7</strong> — synthetic "See this week's view" affordance. Wireframe says state advances on "patient action — tap, navigation, new message"; the chat button is one such action.<br><br>
+        <strong>No food images</strong> — cap-17 G12 enforced in render. Meal cards show name + description + price only.
       </div>
     </aside>
 
@@ -190,7 +187,11 @@
   <script>
     // V0 spike — tour declarations inline for simplicity.
     // Production: declarations live in pipeline-derived per-flow files.
+    //
+    // 2026-06-09 reset — kitchens + cena-staff flows paused; patient meal-ordering only.
+    // Out-of-scope flow defs kept in source (commented out) for fast re-entry when ready.
     const FLOWS = {
+      /* PAUSED 2026-06-09 — see sidebar "Out of scope today"
       'cena-staff-cohort': {
         url: './cena-staff/cs-meals.html',
         steps: [
@@ -311,64 +312,19 @@
         ],
       },
 
+      */
+
       'meal-returning': {
-        url: './meals/order-meals.returning-patient.html',
+        url: './meals/order-meals.step-1-entry.html',
+        // The new navigable mini-app uses real inter-page navigation via the patient app's own CTAs.
+        // A single welcome popover frames the walkthrough; the reviewer drives forward by clicking
+        // the canonical buttons in the framed pages (Review my selections → Send order to kitchen → ...).
         steps: [
           {
             element: null, // welcome popover, no element anchor
             popover: {
               title: 'Meal flow — returning patient',
-              description: 'Maria is a returning UConn patient. She\'s ordered before, so the agent prepares a starting cart from her history. This tour walks the 5 states of the flow. Use the arrows or Esc to navigate.',
-            },
-          },
-          {
-            // Step 1 Entry — agent greeting
-            elementSelector: 'section:nth-of-type(1)',
-            popover: {
-              title: 'Step 1 — Entry',
-              description: 'The agent greets Maria warmly and surfaces that meals have been prepared based on her history. She can review or hand off to a person.',
-              side: 'right',
-              align: 'start',
-            },
-          },
-          {
-            // Step 2 State-read
-            elementSelector: 'section:nth-of-type(2)',
-            popover: {
-              title: 'Step 2 — State-read',
-              description: 'The prepared cart appears in the working surface. Maria sees what the agent picked + the budget context (cap-40 disclaimer).',
-              side: 'right',
-              align: 'start',
-            },
-          },
-          {
-            // Step 4 Cart
-            elementSelector: 'section:nth-of-type(3)',
-            popover: {
-              title: 'Step 4 — Cart',
-              description: 'Maria can edit: change quantities, swap items, add/remove. Hard block if she goes over $200 (cap-40 ceiling, not allowance — no rollover).',
-              side: 'right',
-              align: 'start',
-            },
-          },
-          {
-            // Step 6 Submit-confirm
-            elementSelector: 'section:nth-of-type(4)',
-            popover: {
-              title: 'Step 6 — Submit + confirm',
-              description: 'Order submitted. Change-order window stays open until kitchen cutoff (G6 — exact time TBD with Greens \'n\' Things).',
-              side: 'right',
-              align: 'start',
-            },
-          },
-          {
-            // Step 7 At-a-glance
-            elementSelector: 'section:nth-of-type(5)',
-            popover: {
-              title: 'Step 7 — At-a-glance',
-              description: 'Maria sees her week\'s meals in the idle pane. Delivery status (low priority per G11) appears when meaningful.',
-              side: 'right',
-              align: 'start',
+              description: 'Maria is a returning UConn patient. She has ordered before, so the agent prepares a starting cart from her history. Tap <strong>Review my selections</strong> below to walk Step 1 → 2 → 4 → 6 → 7 of the flow. Esc to dismiss this welcome.',
             },
           },
         ],
@@ -399,9 +355,12 @@
         placeholder.style.display = 'none';
         iframe.style.display = 'block';
 
-        // Load the flow page, then inject Driver.js + run the tour
+        // Load the flow page, then inject Driver.js + run the tour.
+        // One-shot: the navigable mini-app navigates within the iframe (canonical CTAs carry hrefs);
+        // we only show the welcome popover on the FIRST load of the flow, not on each in-flow navigation.
         iframe.onload = () => {
-          console.log('[flow-view] iframe loaded:', flow.url, '— injecting Driver.js');
+          console.log('[flow-view] iframe loaded:', flow.url, '— injecting Driver.js (one-shot)');
+          iframe.onload = null; // re-fire-suppressed for in-flow page navigations
           injectDriverAndRunTour(iframe, flow.steps);
         };
         iframe.onerror = (err) => {
