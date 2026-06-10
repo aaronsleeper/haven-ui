@@ -2962,6 +2962,16 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply mt-0;
 }
 
+/* Same rule for the PL-doc-site nav, which uses h2.sidebar-nav-section as a
+   sibling of each section's <ul> (heading semantics + native AT section-jump).
+   The primitive's flat-list <li><span> shape above is preserved for consumer
+   apps that ship the .sidebar-nav-section class via the React port.
+   Heading defaults (margin, font-weight) are absorbed by the existing
+   .sidebar-nav-section ruleset above. */
+.app-sidebar-nav > .sidebar-nav-section:first-of-type {
+    @apply mt-0;
+}
+
 /* Accordion toggles are inline text buttons, not action buttons.
    Strip heavy hover/focus styling inherited from global button rules or Preline. */
 .hs-accordion-toggle {
