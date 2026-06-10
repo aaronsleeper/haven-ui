@@ -104,6 +104,21 @@
       line-height: 1.5;
     }
     .flow-view-status strong { color: #cbd5e1; }
+    .flow-view-status--tier-a {
+      background: #422006; /* amber-950 — warm warning register, distinct from neutral status boxes */
+      border-color: #b45309; /* amber-700 */
+      color: #fde68a; /* amber-200 */
+      margin-top: 12px;
+    }
+    .flow-view-status--tier-a strong { color: #fef3c7; } /* amber-100 */
+    .flow-view-status--tier-a code {
+      background: rgba(0,0,0,0.3);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: 'Source Code Pro', ui-monospace, monospace;
+      font-size: 11px;
+      color: #fef3c7;
+    }
     .flow-view-content {
       background: #fff;
       overflow: hidden;
@@ -138,9 +153,15 @@
     <aside class="flow-view-sidebar">
       <div class="flow-view-section-label">UConn Pilot — Patient app</div>
 
+      <div class="flow-view-status flow-view-status--tier-a">
+        <strong>Temporal scope: Tier A future-design</strong> (agent-first IA, post-MVP).<br><br>
+        This mini-app demonstrates the post-MVP agent-first surface — Ava, three-pane shell, side-pane cart.<br><br>
+        <strong>Current UConn MVP is different.</strong> It's the non-agentic 5-tab Spark patient app at <code>Lab/cena-health-spark/patients/</code> — no Ava, no conversational interface, no side-pane cart. The agent-first IA captured here is <em>explicitly deferred until post-MVP</em> per flow-meal-ordering.md and patient-app.md.
+      </div>
+
       <button type="button" class="flow-view-flow-link" data-flow="meal-returning">
         Meal ordering — Returning patient
-        <div class="flow-view-flow-meta">5 linked pages · click through · cap-17</div>
+        <div class="flow-view-flow-meta">5 linked pages · click through · cap-17 · Tier A future-design</div>
       </button>
 
       <div class="flow-view-section-label">How to walk the flow</div>

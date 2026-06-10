@@ -11,9 +11,19 @@
   <!-- The agentic shell sizes to the viewport (.agentic-shell is height: calc(100vh - 2rem)).
        This body/html sizing is shell-mandated, not component styling — the design-system's
        own pattern-library/components/layout-agentic-shell.html carries the identical block. -->
-  <style>html, body { height: 100%; margin: 0; overflow: hidden; }</style>
+  <style>html, body { height: 100%; margin: 0; overflow: hidden; }
+       .tier-a-banner {
+         position: fixed; top: 10px; right: 14px; z-index: 9999;
+         font-family: 'Source Sans 3', system-ui, sans-serif;
+         font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+         color: #fef3c7; background: rgba(66, 32, 6, 0.92);
+         border: 1px solid #b45309; border-radius: 4px;
+         padding: 5px 10px; pointer-events: none;
+         box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+       }</style>
 </head>
 <body>
+  <div class="tier-a-banner" aria-label="Temporal scope tag">Post-MVP design • Tier A future-design</div>
   <!--
     Order meals — Step 1: "Entry" (first-time patient variant) · Cena × UConn handoff · slice 2 (meals)
     Wireframes: meal-ordering.step-1-entry.mdoc (returning structure) +
