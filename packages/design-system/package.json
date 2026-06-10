@@ -18,6 +18,7 @@
     "dev": "vite --port 5173",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
+    "conform:nav-index-parity": "node tools/conform/nav-index-parity.mjs",
     "clean": "rm -rf dist .turbo"
   },
   "dependencies": {
