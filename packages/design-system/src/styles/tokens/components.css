@@ -3014,7 +3014,7 @@ input[type='number'].nutrition-input::-webkit-inner-spin-button {
     @apply w-full px-3 py-1.5 text-sm rounded-md border border-sand-300 bg-white;
     @apply placeholder:text-sand-500 text-sand-900;
     @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
-    @apply dark:bg-neutral-700 dark:border-neutral-600 dark:text-sand-100 dark:placeholder:text-sand-400;
+    @apply dark:bg-sand-800 dark:border-sand-700 dark:text-sand-100 dark:placeholder:text-sand-400;
 }
 .pl-nav-filter-empty {
     @apply mt-2 text-xs text-sand-600 dark:text-sand-400 italic;
